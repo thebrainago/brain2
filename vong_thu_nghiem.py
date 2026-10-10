@@ -389,6 +389,71 @@ def cong_luoi(that_tu: dict, that_kiem: dict, placebo: list[dict],
             "dat": not ly_do, "ly_do": ly_do}
 
 
+def buoc_tham_so(spec: dict) -> list[list[str]]:
+    """Nhom khoa tham so (ten nhu `NP.tham_so_cua`) PHAI di CUNG nhau vi la MOT
+    input cua EA (them 11/10/2026). Bo toi uu chi doi ca nhom mot luc - CHI SIET
+    (it bac tu do hon), khong bao gio noi.
+
+    (a) `n` cua cac nut chi bao GIONG HET nhau trong mot co che (vd `rsi21` o bar
+        da dong va `rsi21` song trong `muc_song` - cung mot handle `iRSI`; ema10
+        o hai do tre). Tach roi thi giao cat `rsi[1]>=30 && rsi[0]<30` thanh
+        `rsi42>=24 va rsi26_song<33` - mot chien luoc KHAC, them bac tu do.
+    (b) nguong cua `muc_song{cua: C, nguong: v}` va hang `v` cua dieu kien khac co
+        ve trai la C (bo boc `tre`): cung muc `100-RSI_Level` cua EA.
+    Hai input tinh co bang nhau cung bi buoc - chap nhan (chi siet)."""
+    nut: dict = {}
+
+    def _di(n, duong):
+        if isinstance(n, dict):
+            for k, v in n.items():
+                if k in NP.KHOA_CHINH_DUOC and isinstance(v, (int, float)) and \
+                        not isinstance(v, bool):
+                    nut[f"{duong}_{k}" if duong else k] = (n, k)
+                else:
+                    _di(v, f"{duong}_{k}" if duong else str(k))
+        elif isinstance(n, list):
+            for i, v in enumerate(n):
+                _di(v, f"{duong}{i}")
+    _di(spec, "")
+    nhom: dict = {}
+    for duong, (d, k) in nut.items():
+        if k == "n" and d.get("chi_bao") not in (None, "tre"):
+            nhom.setdefault(("cb", json.dumps(d, sort_keys=True)), []).append(duong)
+
+    def _goc(t):
+        while isinstance(t, dict) and t.get("chi_bao") == "tre":
+            t = t.get("cua")
+        return t
+    vao = spec.get("vao") or []
+    for k, dk in enumerate(vao):
+        ph = (dk or {}).get("phai") or {}
+        ng = ph.get("nguong") if ph.get("chi_bao") == "muc_song" else None
+        if not isinstance(ng, dict) or "hang" not in ng:
+            continue
+        C = json.dumps(ph.get("cua"), sort_keys=True)
+        for j, d2 in enumerate(vao):
+            if j != k and json.dumps(_goc((d2 or {}).get("trai")), sort_keys=True) == C \
+                    and (d2 or {}).get("phai") == {"hang": ng["hang"]}:
+                g = nhom.setdefault(("hang", k), [f"vao{k}_phai_nguong_hang"])
+                g.append(f"vao{j}_phai_hang")
+    return [sorted(set(g)) for g in nhom.values()
+            if len(set(g)) > 1 and all(x in nut for x in g)]
+
+
+def _gop_buoc(ts: dict, ax: dict, specs: list[dict]) -> tuple[dict, dict]:
+    """Gop cac khoa `ts` cua cung mot nhom `buoc_tham_so` (moi chan) thanh mot."""
+    for c, sp in enumerate(specs):
+        for g in buoc_tham_so(sp):
+            khoa = [k for k in ts if any((c, m) in ax[k] for m in g)]
+            if len(khoa) < 2 or len({ts[k] for k in khoa}) != 1:
+                continue
+            dau = khoa[0]
+            for k in khoa[1:]:
+                ax[dau] = ax[dau] + [x for x in ax[k] if x not in ax[dau]]
+                del ts[k], ax[k]
+    return ts, ax
+
+
 def tham_so_nhom(specs: list[dict]) -> tuple[dict, dict]:
     """Tham so CHUNG cua nhom: khoa co mat o moi chan voi CUNG gia tri la mot
     input cua EA (gio, chu ky MA, TPFactor...) -> mot tham so; con lai tach
@@ -405,7 +470,7 @@ def tham_so_nhom(specs: list[dict]) -> tuple[dict, dict]:
             if k not in ts:
                 ts[f"c{c}.{k}"] = v
                 ax[f"c{c}.{k}"] = [(c, k)]
-    return ts, ax
+    return _gop_buoc(ts, ax, specs)
 
 
 def ap_tham_so_nhom(specs: list[dict], ax: dict, ts: dict) -> list[dict]:
@@ -440,11 +505,15 @@ def _diem(r: dict, lenh_min: int) -> float:
 
 def toi_uu(spec: dict, df: pd.DataFrame, khung: str, lenh_min: int,
            luot: int = 2, cp: CP.MoHinhChiPhi | None = None) -> tuple[dict, dict, int]:
-    """Dò từng toạ độ. Trả (tham số tốt nhất, kết quả trên phần tối ưu, số lần chạy)."""
+    """Dò từng toạ độ. Trả (tham số tốt nhất, kết quả trên phần tối ưu, số lần chạy).
+    Khoá cùng một input EA (`buoc_tham_so`) dò chung; kết quả trả về đủ mọi khoá."""
     cp = cp if cp is not None else mo_hinh_chi_phi(df)
-    return _do_toa_do(NP.tham_so_cua(spec),
-                      lambda ts: danh_gia(NP.ap_tham_so(spec, ts), df, khung, cp=cp),
-                      lenh_min, luot)
+    ts0 = NP.tham_so_cua(spec)
+    ts, ax = _gop_buoc(dict(ts0), {k: [(0, k)] for k in ts0}, [spec])
+    tot, kq, so = _do_toa_do(
+        ts, lambda t: danh_gia(ap_tham_so_nhom([spec], ax, t)[0], df, khung, cp=cp),
+        lenh_min, luot)
+    return {m: tot[k] for k, ds in ax.items() for _, m in ds}, kq, so
 
 
 def toi_uu_nhom(specs: list[dict], df: pd.DataFrame, khung: str, lenh_min: int,

@@ -148,6 +148,129 @@ def toan_hang(df: pd.DataFrame, t: dict) -> pd.Series:
 _NHO_TOAN_HANG: dict[int, dict] = {}
 
 
+# ------------------------------------------------- MUC GIA CUA CHI BAO SONG
+# Them 11/10/2026. EA kiem MOI tick doc chi bao o bar 0 (`rsi[0]`, `ma[0]`) - gia
+# tri do tinh voi close = GIA TICK hien tai, nen doi trong bar. Vi RSI/SMA/EMA/
+# SMMA/WMA tren close la ham TANG DON DIEU theo gia tick p, moi dieu kien
+# `chi_bao_song(p) ? X` (X biet tai close bar i) tuong duong `p ? P*` voi P* la
+# MUC GIA tai do chi bao bar i+1 bang X - tinh duoc o close bar i tu du lieu <= i.
+# Giao cat hai MA song `F(p) > S(p)` la tuyen tinh theo p -> mot muc P* va mot
+# huong (dau cua wF - wS). Tuc giao cat GIUA bar quy ve LENH DUNG tai P* (khoi
+# `trong_bar`) - KHONG phai doi tre 1 bar (chien luoc khac).
+#
+#   {"chi_bao": "muc_song", "cua": CB, "nguong": X}  -> P*: CB_song(P*) = X[i]
+#   {"chi_bao": "muc_song", "cua": CB, "cat": CB2}   -> P*: CB_song(P*) = CB2_song(P*)
+# CB, CB2 trong `_CB_SONG` tren `cot` close (khong `cua`), CB2 con co the la gia.
+# Gia tri tai bar i = muc cho bar i+1. NaN khi khong co nghiem (vd. X ngoai
+# (0,100) voi RSI, hai MA cung trong so).
+_CB_SONG = ("rsi", "sma", "ema", "smma", "wma")
+
+
+def _la_cb_song(t) -> bool:
+    if not isinstance(t, dict) or "cua" in t:
+        return False
+    cb = str(t.get("chi_bao", "")).lower()
+    if cb == "gia":
+        return str(t.get("cot", "close")).lower() == "close"
+    return cb in _CB_SONG and str(t.get("cot", "close")).lower() == "close"
+
+
+def trong_so_song(t: dict) -> float | None:
+    """He so w cua gia tick p trong gia tri SONG (bar i+1) cua MA tuyen tinh:
+    gia tri = w*p + phan_con_lai[i]. `gia` -> 1. RSI (phi tuyen) / khac -> None."""
+    if not _la_cb_song(t):
+        return None
+    cb = str(t.get("chi_bao", "")).lower()
+    if cb == "gia":
+        return 1.0
+    n = max(int(t.get("n", 14) or 14), 1)
+    if cb == "sma" or cb == "smma":
+        return 1.0 / n
+    if cb in ("ema", "wma"):
+        return 2.0 / (n + 1.0)
+    return None
+
+
+def _phan_song(df: pd.DataFrame, t: dict) -> tuple[float, pd.Series]:
+    """(w, r): gia tri song cua MA `t` o bar i+1 voi gia tick p = w*p + r[i]."""
+    c = _cot(df, "close")
+    cb = str(t.get("chi_bao", "")).lower()
+    w = trong_so_song(t)
+    if w is None:
+        raise KeyError(f"muc_song: '{cb}' khong phai MA tuyen tinh tren close")
+    if cb == "gia":
+        return 1.0, pd.Series(0.0, index=df.index)
+    n = max(int(t.get("n", 14) or 14), 1)
+    if n == 1:
+        return 1.0, pd.Series(0.0, index=df.index)
+    if cb == "sma":
+        return w, c.rolling(n - 1).sum() / n
+    if cb == "ema":
+        return w, (1.0 - w) * MAU_MOD.ema(c, n)
+    if cb == "smma":
+        return w, (1.0 - w) * c.ewm(alpha=1.0 / n, adjust=False).mean()
+    # wma: trong so 1..n, moi nhat = n; phan qua khu dung trong so 1..n-1
+    D = n * (n + 1) / 2.0
+    ww = np.arange(1, n, dtype=float)
+    return w, c.rolling(n - 1).apply(lambda x: float(np.dot(x, ww)), raw=True) / D
+
+
+def _muc_rsi(df: pd.DataFrame, n: int, L: pd.Series) -> pd.Series:
+    """P* sao cho RSI(n) cua bar i+1 voi close = P* bang L[i] (cung cong thuc
+    `mau.rsi`: trung binh lai/lo kieu Wilder ewm alpha=1/n)."""
+    c = _cot(df, "close")
+    a = 1.0 / max(n, 1)
+    d = c.diff()
+    lai = d.clip(lower=0).ewm(alpha=a, adjust=False).mean()
+    lo = (-d.clip(upper=0)).ewm(alpha=a, adjust=False).mean()
+    A0 = (1 - a) * lai
+    B0 = (1 - a) * lo
+    L = L.astype(float)
+    hop = (L > 0) & (L < 100) & ((A0 + B0) > 0)
+    R0 = 100.0 * A0 / (A0 + B0).replace(0, np.nan)
+    len_ = c + (B0 * L / (100.0 - L) - A0) / a          # can gia TANG (L >= R0)
+    xuong = c - (A0 * (100.0 - L) / L.replace(0, np.nan) - B0) / a
+    ra = pd.Series(np.where(L >= R0, len_, xuong), index=df.index)
+    return ra.where(hop & R0.notna())
+
+
+def _muc_song(df: pd.DataFrame, t: dict) -> pd.Series:
+    cua = t.get("cua")
+    if not _la_cb_song(cua) or str(cua.get("chi_bao")).lower() == "gia":
+        raise KeyError("muc_song: 'cua' phai la rsi/sma/ema/smma/wma tren close")
+    co_ng, co_cat = isinstance(t.get("nguong"), dict), isinstance(t.get("cat"), dict)
+    if co_ng == co_cat:
+        raise KeyError("muc_song: can DUNG MOT trong 'nguong' / 'cat'")
+    cb = str(cua.get("chi_bao")).lower()
+    if cb == "rsi":
+        if not co_ng:
+            raise KeyError("muc_song: rsi chi nhan 'nguong'")
+        return _muc_rsi(df, int(cua.get("n", 14) or 14), toan_hang(df, t["nguong"]))
+    wF, rF = _phan_song(df, cua)
+    if co_ng:
+        return (toan_hang(df, t["nguong"]).astype(float) - rF) / wF
+    if not _la_cb_song(t["cat"]) or str(t["cat"].get("chi_bao")).lower() == "rsi":
+        raise KeyError("muc_song: 'cat' phai la gia/sma/ema/smma/wma tren close")
+    wS, rS = _phan_song(df, t["cat"])
+    if abs(wF - wS) < 1e-15:
+        return pd.Series(np.nan, index=df.index)
+    return (rS - rF) / (wF - wS)
+
+
+def huong_song(t: dict) -> int:
+    """Dau cua d/dp [ve trai - ve phai] cua dieu kien song da quy ve `muc_song`:
+    +1 = `cua > ...` tuong duong `gia > P*`; -1 = dao chieu; 0 = khong xac dinh."""
+    if str(t.get("chi_bao", "")).lower() != "muc_song":
+        return 0
+    cua = t.get("cua") or {}
+    if isinstance(t.get("nguong"), dict):
+        return 1 if _la_cb_song(cua) else 0
+    wF, wS = trong_so_song(cua), trong_so_song(t.get("cat") or {})
+    if wF is None or wS is None or abs(wF - wS) < 1e-15:
+        return 0
+    return 1 if wF > wS else -1
+
+
 #: Cac mau nen `mau_nen` noi duoc. Gia tri tra ve CO DAU theo chieu:
 #: duong = mau TANG, am = mau GIAM, 0 = khong co mau. Nho vay mot dieu kien
 #: `mau_nen(nhan_chim) > 0` la "nhan chim TANG" ma khong can them toan hang.
@@ -546,6 +669,8 @@ def _toan_hang_tinh(df: pd.DataFrame, t: dict) -> pd.Series:
 
     if cb == "gia":
         return _cot(df, str(t.get("cot", "close")).lower())
+    if cb == "muc_song":
+        return _muc_song(df, t)
     if cb == "rsi":
         # Nhan `cua`/`cot` tu 01/09: `rsi(ema(close,5), 14)` va `rsi(hl2, 14)`
         # la dang co that trong ma nguoi ta viet, va truoc do chung bi vut.
@@ -673,7 +798,17 @@ def _toan_hang_tinh(df: pd.DataFrame, t: dict) -> pd.Series:
     if cb == "stochastic":                # 20 lan
         thap = _cot(df, "low").rolling(n).min()
         cao = _cot(df, "high").rolling(n).max()
-        return 100.0 * (_cot(df, "close") - thap) / (cao - thap).replace(0, np.nan)
+        lm = int(t.get("lam_muot", 1) or 1)
+        if lm <= 1:
+            k_ = 100.0 * (_cot(df, "close") - thap) / (cao - thap).replace(0, np.nan)
+        else:
+            # iStochastic MT5 (them 11/10/2026): %K = 100*SUM(C-LL, s)/SUM(HH-LL, s)
+            k_ = 100.0 * (_cot(df, "close") - thap).rolling(lm).sum() / \
+                (cao - thap).rolling(lm).sum().replace(0, np.nan)
+        if str(t.get("lay", "")).lower() == "tin_hieu":
+            # duong tin hieu = SMA(%K, d) (iStochastic MODE_SMA)
+            return k_.rolling(max(int(t.get("d", 3) or 3), 1)).mean()
+        return k_
     if cb == "obv":                       # 29 lan
         kl = (_cot(df, "tick_volume") if "tick_volume" in df.columns
               else pd.Series(1.0, index=df.index))
@@ -712,7 +847,9 @@ def _toan_hang_tinh(df: pd.DataFrame, t: dict) -> pd.Series:
         lay = str(t.get("lay", "macd")).lower()
         if lay == "macd":
             return duong
-        tin = MAU_MOD.ema(duong, n_tin)
+        # iMACD MT5: duong tin hieu la SMA cua MACD (khong phai EMA) - `kieu_tin_hieu`
+        tin = (MAU_MOD.sma(duong, n_tin) if str(t.get("kieu_tin_hieu", "")).lower() == "sma"
+               else MAU_MOD.ema(duong, n_tin))
         return tin if lay == "tin_hieu" else duong - tin
 
     if cb == "donchian":
@@ -1223,6 +1360,8 @@ CHI_BAO_CO = {
     "fibo", "duong_xu_huong", "goc",
     # moc neo theo chu ky (magnetic) - them 12/09 sau quy luat L5
     "moc_ky",
+    # muc gia cua chi bao bar 0 doi theo tick (11/10/2026) - xem `_muc_song`
+    "muc_song",
     # co nho trang thai
     "trang_thai_lat", "dem_lien_tiep",
     # bien doi mot toan hang con (qua truong `cua`)
@@ -1798,6 +1937,22 @@ def _kiem_toan_hang(t, sau: int = 0) -> list[str]:
             loi += _kiem_toan_hang(d["trai"], sau + 1)
             loi += _kiem_toan_hang(d["phai"], sau + 1)
         return loi
+    if cb0 == "muc_song":
+        cua = t.get("cua")
+        if not _la_cb_song(cua) or str(cua.get("chi_bao")).lower() == "gia":
+            return ["'muc_song.cua' phai la rsi/sma/ema/smma/wma tren close"]
+        co_ng, co_cat = isinstance(t.get("nguong"), dict), isinstance(t.get("cat"), dict)
+        if co_ng == co_cat:
+            return ["'muc_song' can dung mot trong 'nguong' / 'cat'"]
+        loi = _kiem_toan_hang(cua, sau + 1)
+        if co_ng:
+            return loi + _kiem_toan_hang(t["nguong"], sau + 1)
+        if str(cua.get("chi_bao")).lower() == "rsi" or not _la_cb_song(t["cat"]) or \
+                str(t["cat"].get("chi_bao")).lower() == "rsi":
+            return loi + ["'muc_song.cat' chi cho MA tuyen tinh / gia"]
+        if huong_song(t) == 0:
+            return loi + ["'muc_song.cat': hai ve cung trong so - khong co muc giao cat"]
+        return loi + _kiem_toan_hang(t["cat"], sau + 1)
     if cb0 == "dem_lien_tiep":
         d = t.get("khi")
         if not isinstance(d, dict) or "trai" not in d or "phai" not in d:

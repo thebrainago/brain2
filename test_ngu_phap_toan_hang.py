@@ -95,6 +95,8 @@ _DOI_SO = {
     # duoc 5-95%. Do la chuyen DOI SO, khong phai loi ngu phap: doi sang moc
     # NGAY thi co 62 muc va phep cat chay binh thuong.
     "moc_ky": {"ky": "ngay", "lay": "dong_truoc"},
+    # muc gia cua chi bao bar 0 song (11/10/2026): can `cua` + `nguong`/`cat`
+    "muc_song": {"cua": {"chi_bao": "rsi", "n": 14}, "nguong": {"hang": 30}},
 }
 #: Toan tu BIEN DOI: chi co nghia khi nhan mot toan hang con qua `cua`.
 _CAN_CUA = {"tb", "do_lech", "phuong_sai", "zscore", "phan_vi", "doi", "doi_pct",

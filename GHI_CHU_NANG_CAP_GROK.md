@@ -1,4 +1,78 @@
-# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (khuya, giờ VN)
+# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (tối, giờ VN)
+
+## Vòng "THOÁT SỚM + CHỈ BÁO SỐNG TRONG BAR + MACD/STOCH + BUỘC THAM SỐ" (sau 56ee431e) — tối 10/10/2026
+Không nới ngưỡng giữ (t ≥ 2,0 tối ưu / 1,5 kiểm, ≥47/≥20 lệnh, cổng tài khoản/placebo/cháy).
+Không coi định danh lạ là close. iADX (không Wilder) vẫn bỏ qua có lý do.
+
+### Số đo
+| | trước (56ee431e) | **bây giờ** |
+|---|---|---|
+| `mau_thu` (10 EA, 22 điểm vào) | 13/22 = 59,1% | **13/22 = 59,1%** (dịch giống hệt; chỉ thêm `bo_qua_quan_tri`) |
+| `mau_thu/mo_rong` (15 EA, 34) | 5/34 = 14,7% | **9/34 = 26,5%** (+011_RSI_V2 mua/bán, +012_MA_V1 mua/bán) |
+| gộp (25 EA, 56) | 18/56 = 32,1% | **22/56 = 39,3%** |
+
+### 1. Thoát sớm (`nhan/doc_ma.py`)
+- `if(X) return;` / `{return;}` / `{Print(..); Comment(..); ...; return;}` đều nhận (bảng lệnh vô hại
+  `Print/PrintFormat/Comment/Alert/ResetLastError/SendNotification/Sleep/PlaySound`); lệnh KHÁC trước
+  return → vẫn nhận nhưng ghi `gia_dinh` "thoat som co lenh khac truoc return (chua mo phong)".
+- Luật phạm vi: if phải nằm trong khối BAO điểm vào (độ sâu ngoặc từ if tới lệnh vào không âm);
+  `else if(X) return;` bị loại (trước đây bắt nhầm). Sửa lệch vị trí trong `_cac_if_bao`.
+- `return` trong khối lồng đã đóng trước lệnh vào = lọc có điều kiện → từ chối có lý do, TRỪ khi
+  điều kiện đường đi là kiểm lỗi dữ liệu/API hoặc toàn quản trị.
+- Kiểm lỗi dữ liệu = quản trị: biến chỉ gán bằng tổng `Copy*` so `!= N`/`< N`/`<= 0`/`== -1`;
+  hàm `bool` phụ chỉ trả false trong `if(!API(..))` (vd `NormalizePrice`); `!SymbolInfo*/Copy*/...`.
+- **Tỷ lệ KHÔNG đổi, vì sao**: trong 25 EA, thoát sớm có Print trước return chỉ nằm ở các guard dữ
+  liệu (Bollinger 013) hoặc ở file đã không dịch được vì lý do khác (Viprasol: lộ thêm
+  `FiltersAllowEntry/InSession/HasOpenPosition/g_tradesToday`, đều là lọc trạng thái). mau_thu chỉ
+  thêm ghi chú `curTime == prevTime`. Sửa này để ĐÚNG NGHĨA (trước đây bỏ sót lọc ⇒ có thể dịch quá
+  rộng), không để tăng số.
+
+### 2. Chỉ báo sống trong bar (`muc_song`, `nhan/ngu_phap.py`)
+- EA kiểm MỌI tick với `X[1]>=30 && X[0]<30`: X[0] đổi theo giá tick p. RSI, SMA/EMA/SMMA/WMA trên
+  close đơn điệu theo p ⇒ điều kiện = mức giá P* tính được tại đóng bar i, dùng cho bar i+1 qua
+  `trong_bar` (lệnh dừng trong bar, như `_GIA0`). Không nhìn trước: P* chỉ dùng dữ liệu ≤ i.
+- RSI nghịch đảo chính xác bằng cùng ewm alpha=1/n như `mau.rsi` (sai số 1e-13). MA tuyến tính
+  value = w·p + r[i] (sma 1/n, ema 2/(n+1), smma 1/n, wma 2/(n+1)); giao hai MA sống:
+  P* = (rS−rF)/(wF−wS), hướng theo dấu (wF−wS); trọng số bằng nhau → từ chối.
+- CHỈ áp khi EA kiểm mỗi tick; EA cổng tick đầu (IsNewBar) giữ quy ước cũ → bar0/bar1 vẫn báo
+  "mâu thuẫn" (05_RSI_MA, 014_RSI_MA_V2: RSI PRICE_OPEN + MA khung khác).
+- Test: `test_chi_bao_song.py` (13, gồm test CẮT CỤT dữ liệu sau i không đổi P*[i], và kiểm vét
+  cạn khớp lệnh trong bar bằng thăm dò giá thấp).
+
+### 3. iMACD / iStochastic
+- iMACD: đường tín hiệu MT5 là SMA → `kieu_tin_hieu: "sma"`. iStochastic: %K có slowing =
+  100·SUM(C−LL,s)/SUM(HH−LL,s), tín hiệu SMA(%K,D); chỉ nhận MODE_SMA + STO_LOWHIGH, khác → từ chối.
+  Buffer 0/1 = chính/tín hiệu. Họ: macd→xu_huong, stochastic→quay_ve_trung_binh. `test_macd_stoch_mql5.py` (7).
+- Chưa mở thêm điểm vào nào trong bộ hiện có (016 dùng cờ static MACross; 019 iADX).
+
+### 4. Buộc tham số trong `vong_thu_nghiem.py` (chỉ SIẾT)
+- Phát hiện: tối ưu tách rời các khoá cùng MỘT input EA (rsi chu kỳ 42 ở vế này, 26 ở vế sống;
+  ngưỡng 24 vs 33) = chiến lược khác + thêm bậc tự do. `buoc_tham_so(spec)` buộc: (a) `n` của các
+  nút chỉ báo giống hệt (không buộc `n` của `tre`); (b) ngưỡng `muc_song` với hằng tương ứng của
+  điều kiện cùng chỉ báo. `toi_uu` tối ưu khoá đại diện, trả dict đủ khoá. `test_buoc_tham_so.py` (4).
+- Hệ quả rõ: 015 bán trên Dukascopy trước buộc t +3,7/+0,8 → sau buộc t −0,2/−2,7 (cái +3,7 là do
+  tách khoá, quá khớp).
+
+### 5. Vòng lặp CÓ phí (EURUSD, spread 1,63 bps/chiều, trượt 0,41, qua đêm)
+- mo_rong, EURUSD H1 server (17.127 bar): 10 cơ chế, **giữ 0**; tất cả âm ở phần kiểm (tốt nhất
+  012 bán t −0,3/+0,4). 011 gốc tick đầu 0 lệnh (khớp: tín hiệu chỉ có TRONG bar).
+- mo_rong, Dukascopy 2003–2021 (116.175 bar): **giữ 0**; mọi t phần kiểm âm.
+- mau_thu (sau buộc): EURUSD H1 giữ 0; Dukascopy giữ 0 (số giống hệt lần trước).
+- SL/TP của mo_rong chưa dịch (`_Point`, ATR×hệ số) → chỉ giữ cố định `giu`; kết quả là của ĐIỂM VÀO.
+
+### 6. Test
+- Mới: 13 + 13 + 7 + 4 = 37 test, đều xanh; 133 test liên quan vong/cổng xanh.
+- Toàn bộ `test_*.py`: 84 đỏ / 2037 xanh / 17 lỗi thu thập (thiếu scipy, dữ liệu ngoài, OCR...).
+  Chạy lại 84 đỏ trên HEAD cũ: 80 đỏ y hệt; 4 còn lại (`test_chay_that`) xanh khi chạy riêng ở bản
+  mới (phụ thuộc thứ tự) ⇒ **0 đỏ mới**.
+
+### Còn chặn
+- Hàm phụ/trạng thái lớp/cờ static (EMA Crossover cây quyết định, Box Breakout, Viprasol, 016 MACross).
+- SL/TP mo_rong (`_Point`, ATR), Breakout4 `_Point`.
+- iADX MT5 (không Wilder) + DI± (019).
+- Chỉ báo sống trong EA cổng bar mới (05/014: RSI PRICE_OPEN, MA khung khác).
+- 3 điểm vào trong nhánh `else`; 2 mâu thuẫn; `rsi[0] > 30` đơn lẻ; cờ sl/tp Basic_Bollinger.
+
 
 ## Vòng "BỘ EA MỞ RỘNG — ĐO TỶ LỆ BÓC TÁCH NGOÀI 10 FILE MẪU" (sau 129f6a62) — khuya 10/10/2026
 Không đoán `_Point` của Breakout4. Không đụng ngưỡng giữ của vòng lặp (t ≥ 2,0/1,5, số lệnh,
