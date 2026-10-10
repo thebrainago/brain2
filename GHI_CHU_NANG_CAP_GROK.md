@@ -1,5 +1,21 @@
 # Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-11 (rạng sáng, giờ VN)
 
+## Vòng "G07 — G-b: CHỌN TÀI SẢN (lưới có lãi trên tài sản hồi quy, không trên chỉ số?)" (sau d43e1f56) — 11/10/2026
+**KẾ HOẠCH ĐÓNG BĂNG TRƯỚC KHI CÓ SỐ:** `hieu_chuan/G07_KE_HOACH.json` sha `eddb7e748b7924e9`. Không đổi cổng. Mọi số sẽ là MÔ PHỎNG.
+- Gợi ý the-brain (PMG 14/09: AUDCAD/EURGBP 8/8, vàng 7/8, US100 0/8) chỉ là GỢI Ý — đo lại trên brain2.
+- Cùng MỘT bộ luật lưới G06 (2023752: bước 21,2 pip ×1,2, lot cộng 0,25, TP 7,6, tỉa lệnh, 5 tầng, hai chiều), `luoi_duong`
+  thứ tự `gan_open` trên M1 HistData (EST → giờ Helsinki), từng năm 2018–2025, vốn 10.000 USD mới mỗi năm.
+- Tài sản: hồi quy = AUDCAD, EURGBP, XAUUSD; chỉ số = NSXUSD (NASDAQ 100), SPXUSD (S&P 500) — đều HistData miễn phí.
+- Chuyển tham số (không tối ưu): giá nhân k_y = R_AUDCAD(y−1)/R_tài sản(y−1), R = trung vị biên độ ngày NĂM TRƯỚC (không nhìn
+  trước); spread nhân cùng k. AUDCAD k = 1 (kiểm chéo với G06 từng năm).
+- Phí: spread thấp/cao (AUDCAD 1,5/2,8 pip; EURGBP 1/2 pip; vàng 0,2/0,4 USD; NAS 1/2 điểm; SPX 0,4/0,8 điểm) + swap tháng
+  (AUDCAD như G06; EURGBP r_EUR−r_GBP FRED + markup FXCE 22/08/2026; vàng ∓r_USD + markup FXCE; chỉ số GIẢ ĐỊNH ∓(r_USD±2,5 %),
+  bỏ cổ tức). Biến thể chỉ báo: spread thấp không swap.
+- Nhiễu: 20 chuỗi đảo dấu từng nến M1 / tài sản / năm (spread cao + swap); p hơn/kém nhiễu trên tổng các năm.
+- Luật: LAI = tổng lãi biến thể xấu nhất > 0, mọi năm maxDD < 80 %, không stop-out. G-b ỦNG HỘ nếu mọi tài sản hồi quy LAI và hơn
+  nhiễu (p ≤ 0,05) và không chỉ số nào LAI; BÁC BỎ nếu không tài sản hồi quy nào LAI hoặc không cái nào hơn nhiễu; còn lại MỘT PHẦN.
+  Năm thiếu > 10 % nến so với trung vị bị loại; tài sản < 5 năm hợp lệ → CHƯA ĐO ĐƯỢC.
+
 ## Vòng "G06 — GIẢ THUYẾT CÓ CHỦ ĐÍCH: LÀM LẠI TÍN HIỆU AUDCAD 2023752" (sau 9c508edf) — rạng sáng 11/10/2026
 Chi tiết: `hieu_chuan/G06_KET_QUA.md`. **Không đổi cổng.** Mọi số là MÔ PHỎNG.
 - **Chọn:** trong 3 giả thuyết của 06 (G-a entry không quan trọng; G-b chọn tài sản hồi quy; G-c làm lại hệ đang lãi) chọn G-c

@@ -1,0 +1,98 @@
+{
+ "ke_hoach": {
+  "bien_the": [
+   "spread thap + swap",
+   "spread cao + swap",
+   "spread thap khong swap (chi bao)"
+  ],
+  "chuyen_tham_so": "k_y = R_AUDCAD(y-1)/R_ts(y-1), R = trung vi (cao-thap ngay Helsinki, ngay >= 600 nen M1); AUDCAD k=1",
+  "do_phu": "nam bi loai neu so nen M1 < 0,90 x trung vi so nen/nam cua tai san; tai san < 5 nam hop le -> CHUA_DO_DUOC",
+  "gia_thuyet": "06 G-b / so tay the-brain gt_f0724d5962ceeda2 (id 3): luat luoi co lai sau phi + DD<80 % tren tai san hoi quy (cap cheo FX, vang), KHONG co lai tren chi so (xu huong). Goi y the-brain (PMG 14/09: AUDCAD/EURGBP 8/8, vang 7/8, US100 0/8) chi la goi y.",
+  "luat_G_b": {
+   "BAC_BO": "khong tai san hoi_quy nao LAI, HOAC khong tai san hoi_quy nao HON_NHIEU",
+   "MOT_PHAN": "con lai (ghi ro tai san nao dat gi)",
+   "UNG_HO": "moi tai san hoi_quy LAI va HON_NHIEU; moi chi_so KHONG LAI"
+  },
+  "luat_tai_san": {
+   "LAI": "tong lai (bien the xau nhat co swap, cong cac nam) > 0 VA moi nam maxDD < 80 % VA khong nam nao stop-out",
+   "bao_them": "ti le nam lai, trung vi %/nam, maxDD lon nhat, so nam stop-out, cung so lieu cho nhieu",
+   "p_hon": "(1 + #nhieu_tong >= that_tong)/(N+1) <= 0,05 -> HON_NHIEU",
+   "p_kem": "(1 + #nhieu_tong <= that_tong)/(N+1) <= 0,05 -> KEM_NHIEU"
+  },
+  "nam": [
+   2018,
+   2025
+  ],
+  "nhieu": {
+   "bien_the": "spread cao + swap",
+   "kieu": "dao dau tung nen M1 (G06 dao_dau)",
+   "seed_tu": 7000,
+   "so": 20
+  },
+  "tai_san": {
+   "AUDCAD": {
+    "nhom": "hoi_quy",
+    "quy_doi": "USDCAD",
+    "spread_gia": [
+     0.00015,
+     0.00028
+    ],
+    "swap": "G06 (r_AUD-r_CAD, markup XM 13/09/2026)"
+   },
+   "EURGBP": {
+    "nhom": "hoi_quy",
+    "quy_doi": "1/GBPUSD",
+    "spread_gia": [
+     0.0001,
+     0.0002
+    ],
+    "swap": "(r_EUR-r_GBP) thang, markup FXCE 22/08/2026"
+   },
+   "NSXUSD": {
+    "nhom": "chi_so",
+    "quy_doi": "1",
+    "spread_gia": [
+     1.0,
+     2.0
+    ],
+    "swap": "GIA DINH mua -(r_USD+2,5 %), ban +(r_USD-2,5 %) (bo co tuc)"
+   },
+   "SPXUSD": {
+    "nhom": "chi_so",
+    "quy_doi": "1",
+    "spread_gia": [
+     0.4,
+     0.8
+    ],
+    "swap": "GIA DINH mua -(r_USD+2,5 %), ban +(r_USD-2,5 %) (bo co tuc)"
+   },
+   "XAUUSD": {
+    "nhom": "hoi_quy",
+    "quy_doi": "1",
+    "spread_gia": [
+     0.2,
+     0.4
+    ],
+    "swap": "mua -r_USD, ban +r_USD, markup FXCE 22/08/2026 (bo lease)"
+   }
+  },
+  "tham_so": {
+   "bien_cap": 4.0,
+   "buoc": 21.2,
+   "cap_moi_bar": 999,
+   "che_do": "hai_chieu",
+   "don_bay": 100.0,
+   "he_so_buoc": 1.2,
+   "he_so_lot": 0.25,
+   "kieu_lot": "cong",
+   "lot": 0.01,
+   "muc_stopout": 0.5,
+   "tia_lenh": true,
+   "tp": 7.6,
+   "tran_tang": 5
+  },
+  "thu_tu": "gan_open (M1: G06 do 4 thu tu lech <= 0,1 %/nam)",
+  "von_usd": 10000.0
+ },
+ "sha256_16": "eddb7e748b7924e9"
+}
