@@ -40,3 +40,16 @@ Các module liên quan cần nối:
 - `cong_ra_tien.py` đã được dùng bởi `bang_he.py` (có thể kiểm tra với dữ liệu reports/)
 
 Tiếp theo: viết hàm chuẩn hóa biểu thức MQL5 đơn giản và tích hợp vào `doc_chien_luoc`.
+
+## 7. Kết quả đo được (2026-10-10)
+Sau các cải tiến có kiểm soát trong `doc_ma.py`:
+- Trước: 0 / 22 điểm vào lệnh → 0 cơ chế
+- Sau: 3 / 22 → **13.6%**
+- 3 file mẫu đã ra được cơ chế: Breakout1, CurrencyStrength1, Pivots1
+
+Các pattern còn lại cần xử lý tiếp:
+- Biểu thức có `&&` / `||` phức tạp hơn
+- Biến đối tượng (`Tradesinfo.xxx`)
+- Hàm gọi (`PivotsIsPivotRange(...)`)
+
+Đây là bước đầu có số liệu, không phải kết luận cuối.
