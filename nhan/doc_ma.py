@@ -768,7 +768,9 @@ _LA_KIEM_LOI = re.compile(
     r"|IsStopped|!\s*\w+\.(Buy|Sell)")
 
 #: Gan mot bien BOOL: `ten = <bieu thuc co so sanh hoac ket noi>`.
-_GAN_BOOL = re.compile(rf"^[ \t]*({_TEN})[ \t]*=[ \t]*([^\n]+)$", re.M)
+_GAN_BOOL = re.compile(
+    rf"^[ \t]*(?:bool|int|double|long|datetime)?[ \t]*({_TEN})[ \t]*=[ \t]*([^;\n]+)",
+    re.M)
 
 
 def _bang_bool(vb: str) -> list[tuple[int, str, str]]:
