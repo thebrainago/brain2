@@ -1,4 +1,52 @@
-# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (tối, giờ VN)
+# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (khuya, giờ VN)
+
+## Vòng "SEEKER → doc_ma: CẦU KHO MÃ" (sau 055ec9be) — khuya 10/10/2026
+Không đổi `doc_ma`, không nới cổng giữ. Chỉ nối đầu vào.
+
+### SEEKER đã làm gì (đọc từ repo, số trên máy Windows của chủ dự án — `nao.db` ở đây trống)
+- `tru/seeker.py` (2.647 dòng, chạy trong `dieu_phoi` chu kỳ 900 s, ngân sách 420 s): quét ~20 nguồn
+  (arxiv, OpenAlex, Crossref, Semantic Scholar, GitHub, MQL5 Code Base có phân trang + con trỏ,
+  TradingView Pine qua suggest-json, StackExchange, HN, QuantConnect, FX Blue, eToro, RSS, trình duyệt CDP,
+  Telegram), khử trùng theo vân tay, đọc toàn văn, ghi `DocumentArtifact`/`CodeArtifact` (hop_dong V2).
+  Ranh giới V2: SEEKER không gọi LLM, không sinh cơ chế.
+- `reports/SEEKER.md` (lần cuối commit 14/09/2026 20:49): mục lục **11.856** tài liệu (A 844, B 7.195,
+  C 3.449), **7.975** bản đọc / 82,0 triệu ký tự, trong đó **1.308 bản `ma_nguon`** (27,6 tr ký tự);
+  **8.095** DocumentArtifact; 1.682 chờ đọc; 231 không đọc được + 406 hỏng; **705** candidate chờ Quantlab
+  (do tầng phân tích tạo). Commit cuối vào `tru/seeker.py`: 15/09/2026.
+- Hạ nguồn của kho mã TRƯỚC vòng này chỉ có 2 đường: `bien_dich_ung_vien` (khớp TỪ KHOÁ vào mẫu có sẵn)
+  và `boc_ma_llm` (LLM; `phan_loai_ma` đo 05/09: 389 artifact mã → 82 chiến lược, LLM ra cơ chế ~32%).
+  **Bộ đọc cấu trúc `doc_ma` (59,1% / 38,2% trên mẫu) chưa từng chạy trên kho SEEKER**, và
+  `vong_thu_nghiem.py` chỉ đọc `mau_thu/` → vòng "quét → bóc → kiểm → giữ" đứt ngay khâu đầu.
+
+### Thay đổi: `nhan/cau_kho_ma.py` (+ `b cau-kho`, `test_cau_kho_ma.py` 10 test)
+1. GOM: `--tu-so` (artifact `code` + `noi_dung` kiểu `ma_nguon*` có dấu hiệu MQL; chỉ ĐỌC nao.db),
+   `--thu-muc DIR`, hoặc `--tai-mql5 DIR` = quét MQL5 Code Base bằng CHÍNH bộ tải của SEEKER
+   (`ma_nguon.liet_ke_mql5/tai_ma_nguon`, file đơn, không zip), bỏ bài đã có, provenance `NGUON_TAI.json`
+   → chạy được trên Linux/cloud không cần nao.db.
+2. KHỬ TRÙNG theo vân tay NỘI DUNG (bỏ chú thích + khoảng trắng); file trùng `mau_thu/` không đếm lại.
+3. PHÂN LÀN (`phan_loai_ma`) + bỏ MQL4 có ghi lý do + `doc_ma.doc_chien_luoc` trên mọi EA đặt lệnh;
+   số đo CÙNG định nghĩa `do_moc` (test khớp đúng số gộp 26/56 của `do_moc_rong --gop`).
+4. XUẤT EA ra ≥1 cơ chế sang `--xuat DIR` + `NGUON.json` → `python vong_thu_nghiem.py --mau DIR`.
+   Lỗi bộ đọc (exception) được đếm riêng `loi_bo_doc`, không nuốt.
+
+### Số đo THẬT trên đầu vào SEEKER (MQL5 Code Base, 160 EA mới nhất mục experts, tải 10/10/2026)
+`reports/CAU_KHO_MA.md`. 160 file → 2 trùng nội dung → 158 duy nhất, 0 MQL4; làn: chiến lược 63,
+quản trị 59, tiện ích 34, chỉ báo 2; 117 EA đặt lệnh, 95 có điểm vào, **240 điểm vào → dịch được 1
+= 0,4%** (EMA_Cross_EA5, giao cắt EMA9/21 đúng chiều — đã kiểm tay mảng không-series). 120 EA đầu: 1/156 = 0,6%.
+Lý do hàng đầu: 63× "không tìm được guard của lệnh vào" (lệnh nằm trong hàm phụ/biến trạng thái),
+16× "lệnh vào trong nhánh else", 5× `type == ORDER_TYPE_BUY` (chiều qua biến), 5× mã chết.
+Vòng có phí (EURUSD Dukascopy H1 2003–2021) trên 1 EA xuất ra: **giữ 0** (t tối ưu −1,3 / kiểm −1,7).
+Kết luận trung thực: 59,1%/46,4% trên mẫu **không tổng quát hoá** sang EA hiện đại của Code Base
+(0,4%). Đây giờ là thước đo tổng quát hoá chính cho `doc_ma` (không dùng làm đáp án để chỉnh cho vừa).
+
+### Còn chặn
+- Chưa chạy `b cau-kho` (= `--tu-so`) trên nao.db thật (1.308 bản mã) — cần chạy trên máy Windows.
+- `doc_ma`: guard qua hàm phụ (`OpenBuy()` gọi từ `OnTick` theo biến tín hiệu), chiều lệnh qua biến
+  (`trade.PositionOpen(_Symbol, type, ...)`), nhánh `else` — là ba lỗ lớn nhất trên đầu vào thật.
+- Chưa nối vào `dieu_phoi` (chạy tay / `b cau-kho`); bài tải hỏng không tự thử lại (ghi `ok:false`).
+- `test_kien_truc::test_moi_thu_muc_that_deu_da_duoc_khai` đỏ do thư mục ngoài repo trong /workspace
+  (venv, du_lieu_fx…) — môi trường box, có từ trước.
+
 
 ## Vòng "CHỐT TĨNH (016) + MẪU FOREX STRATEGY STUDIO (EMA Crossover)" (sau 074c67e7) — tối 10/10/2026
 Không nới ngưỡng giữ (t ≥ 2,0 tối ưu / 1,5 kiểm, ≥47/≥20 lệnh). Chỉ dịch khi CHỨNG MINH được máy

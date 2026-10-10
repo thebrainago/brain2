@@ -160,6 +160,13 @@ def c_phan_loai(a):
                  *(a or ["--suat"])], cwd=LAB)
 
 
+def c_cau_kho(a):
+    """b cau-kho - kho ma SEEKER -> doc_ma -> data/seeker_mq5 (cho vong_thu_nghiem --mau)."""
+    return chay([PY, LAB / "nhan" / "cau_kho_ma.py",
+                 *(a or ["--tu-so", "--xuat", str(LAB / "data" / "seeker_mq5"),
+                         "--bao-cao", str(LAB / "reports" / "CAU_KHO_MA.md")])], cwd=LAB)
+
+
 def c_test_me(a):
     """b test-me - chay ca bo test bang NHIEU tien trinh pytest NGAN.
 
@@ -1018,7 +1025,7 @@ LENH = {
     "chay": c_chay, "dung": c_dung, "canary": c_canary,
     "quet": c_quet, "mde": c_mde, "mde-nap": c_mde_nap,
     # --- 05/09/2026: khau boc tach + bo loc truoc pheu ---
-    "phan-loai": c_phan_loai, "chi-bao": c_chi_bao, "loc": c_loc,
+    "phan-loai": c_phan_loai, "cau-kho": c_cau_kho, "chi-bao": c_chi_bao, "loc": c_loc,
     # --- 15/09/2026: hai cong tung CO ma khong nam tren duong chay ---
     "thang-gia": c_thang_gia, "ten-ma": c_ten_ma, "demo": c_demo,
     "tai-san": c_tai_san, "dem-nen": c_dem_nen, "passview": c_passview,
