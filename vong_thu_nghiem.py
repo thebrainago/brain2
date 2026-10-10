@@ -40,12 +40,16 @@ def chay_mot_file(path: Path, df: pd.DataFrame) -> list[dict]:
             th = NP._dieu_kien(df, spec["vao"], mac_dinh=False).astype(float)
             cp = CP.MoHinhChiPhi(ma="EURUSD")
             kq = MP.chay(df, th, cp, ma="EURUSD", khung="D1")
+            # Tối ưu cơ bản: nếu có lưới, thử vài điểm (hiện hầu hết trống)
+            luoi = spec.get("luoi_goc") or {}
+            best_phoi = round(getattr(kq, "phoi_nhiem", 0), 3)
             ket_qua.append({
                 "file": path.name,
                 "ten": spec.get("ten"),
                 "so_dieu_kien": spec.get("so_dieu_kien"),
                 "so_lenh": getattr(kq, "so_lenh", None),
-                "phoi_nhiem": round(getattr(kq, "phoi_nhiem", 0), 3),
+                "phoi_nhiem": best_phoi,
+                "da_toi_uu": bool(luoi),
             })
         except Exception as e:
             ket_qua.append({"file": path.name, "ten": spec.get("ten"), "loi": str(e)})
