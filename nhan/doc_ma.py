@@ -51,6 +51,8 @@ import re
 
 from nhan import ngu_phap as NP
 from nhan import ro_mql as RO
+from nhan import chot_mql as CHOT
+from nhan import fss_mql as FSS
 from nhan import thu_hoi_thanh_phan as TP
 
 #: Phep so sanh trong ma -> phep cua ngu phap.
@@ -3171,6 +3173,18 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
         ro_tt = {"ro": None, "ly_do": f"loi doc ro: {type(e).__name__}", "khoi": [],
                  "ham_dong": None, "ham_mo": None, "ghi": []}
     hedge_cho = []                                  # lenh hedge doc duoc, cho xet sau
+    # EA sinh boi Forex Strategy Studio (cay quyet dinh + dong theo pip) - `nhan/fss_mql.py`
+    fss = None
+    if FSS.la_fss(vb_tho):
+        try:
+            fss = FSS.doc_fss(vb_tho)
+        except Exception as e:                      # noqa: BLE001 - khong lam vo ca file
+            fss = {"loi": f"fss: loi doc {type(e).__name__}"}
+        if not fss.get("loi"):
+            ds_gui = [_dau_ham(vb, x.start())[1] for x in _VAO_LENH.finditer(vb)
+                      if not x.group("pine")]
+            if sorted(ds_gui) != ["closePosition", "openPosition"]:
+                fss = {"loi": "fss: lenh gui khong dung mot o openPosition + mot o closePosition"}
     cu = _CHE_DO_MQL
     _CHE_DO_MQL = True
     _DEM_VI_THE.clear()
@@ -3204,6 +3218,36 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
                 if kh is not None and kh["dich"]:
                     hedge_cho.append(kh)            # dem SAU khi biet lenh dau co dich duoc
                     continue
+            if fss is not None:
+                if fss.get("loi"):
+                    ho.append(fss["loi"])
+                    loai["chua_dich"] += 1
+                    continue
+                if _dau_ham(vb, m.start())[1] == "closePosition":
+                    # OrderSend DONG lenh (request.position): mo phong trong `dong_mo_pip`
+                    # cua hai chan ben duoi -> quan ly dich duoc (nhu lenh hedge cua ro)
+                    loai["quan_ly_dich_duoc"] += 1
+                    n_co += 1
+                    continue
+                for c_ in fss["co_che"]:
+                    dk_ = c_["vao"]
+                    ra.append({
+                        "ten": (f"{tien_to}_{'mua' if c_['chieu'] == 1 else 'ban'}_" + "_va_".join(
+                            f"{_ten_toan_hang(d['trai'])}_{_TEN_PHEP.get(d['phep'], 'bang')}"
+                            f"_{_ten_toan_hang(d['phai'])}" for d in dk_[:3]))[:60],
+                        "ho": _ho_cua(dk_[0]), "chieu": c_["chieu"], "giu": 1,
+                        "co_che": ("Chien luoc THAT rut tu EA cay quyet dinh (Forex Strategy "
+                                   f"Studio): vao lenh khi {len(dk_)} dieu kien cung dung, dong "
+                                   "theo pip so voi gia khop o tick dau bar."),
+                        "vao": dk_, "nguon": nguon, "luoi_goc": {},
+                        "so_dieu_kien": len(dk_), "bo_qua_quan_tri": [],
+                        "dong_mo_pip": json.loads(json.dumps(fss["dong_mo_pip"])),
+                        "nhom_he": nguon,             # mot vi the mot luc (BUY_OPEN||SELL_OPEN)
+                        "gia_dinh": list(fss["gia_dinh"]),
+                    })
+                n_co += 1
+                loai["dich_duoc"] += 1
+                continue
             doi = m.group("doi_m") or m.group("doi_o") or ""
             if m.group("mql"):
                 chieu = -1 if m.group("mql") == "Sell" else 1
@@ -3213,6 +3257,45 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
                 chieu = 1
             else:
                 chieu = 0                     # chieu nam o bien `type`
+            # CHOT CAP: hai co `static int` nho qua nhieu bar, tieu thu khi vao lenh
+            # (016_CCI_2MAVG) - `nhan/chot_mql.py`. Dung dang ma khong chung minh
+            # du -> tu choi co ly do (duong cu se bo qua co = dich SAI).
+            kc = None
+            if chieu != 0:
+                try:
+                    kc = CHOT.doc_chot(vb, m.start(), chieu, bang_cb, bang_bl)
+                except Exception as e:              # noqa: BLE001 - khong lam vo ca file
+                    kc = {"loi": f"chot: loi doc {type(e).__name__}"}
+            if kc is not None:
+                if kc.get("loi"):
+                    ho.append(kc["loi"])
+                    loai["chua_dich"] += 1
+                    continue
+                dk0 = kc["vao"]
+                su_kien = [d for x in dk0[0]["trai"]["dat"] for d in x["khi"]]
+                sp = {
+                    "ten": f"{tien_to}_{'mua' if chieu == 1 else 'ban'}_chot_cap_"
+                           + "_".join(sorted({_ten_toan_hang(t) for d in su_kien
+                                              for t in (d["trai"], d["phai"])
+                                              if t.get("chi_bao") not in (None, "tre")}))[:40],
+                    "ho": _ho_cua(next(d for x in dk0[0]["trai"]["dat"] if x["bien"] == "a"
+                                       for d in x["khi"])),
+                    "chieu": chieu, "giu": 1,
+                    "co_che": (
+                        "Chien luoc THAT rut tu lenh vao MQL5: hai co static nho qua nhieu "
+                        f"bar (`{kc['guard'][:50]}`), vao lenh khi hai co cung chieu roi "
+                        "reset - may trang thai doc tu ma, khong doan."),
+                    "vao": dk0, "nguon": nguon, "luoi_goc": {},
+                    "so_dieu_kien": len(su_kien),
+                    "bo_qua_quan_tri": kc["bo_qua_quan_tri"],
+                    "gia_dinh": kc["gia_dinh"],
+                }
+                if kc.get("ra"):
+                    sp["ra"] = kc["ra"]
+                ra.append(sp)
+                n_co += 1
+                loai["dich_duoc"] += 1
+                continue
             ifs, gap_else = _cac_if_bao(vb, m.start())
             ifs = [(p, g) for p, g in ifs if not _LA_KIEM_LOI.search(g)]
             moi_tick_m = _kiem_moi_tick(vb, m.start())

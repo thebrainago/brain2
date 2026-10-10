@@ -48,7 +48,11 @@ def do(files=None) -> dict:
         for sp in d.get("co_che", []):
             # LOI RA (them 11/10/2026): co che dong theo logic cua EA (SL/TP, ro lenh,
             # dong theo muc) hay chi giu co dinh `giu` bar (KHONG phai EA)
-            k_ra = "ro" if sp.get("ro") else "sltp" if sp.get("sltp") else "giu_co_dinh"
+            # `dk_ra` (them 11/10/2026): dong theo DIEU KIEN cua EA (`ra`, vd 016
+            # CloseTrades(TYPE) khi MA cat nguoc) - cung la loi ra cua EA
+            k_ra = "ro" if sp.get("ro") else "sltp" if sp.get("sltp") else \
+                "dk_ra" if sp.get("ra") else "dong_pip" if sp.get("dong_mo_pip") else \
+                "giu_co_dinh"
             thoat[k_ra] = thoat.get(k_ra, 0) + 1
             if sp.get("dong_mo_bar"):
                 thoat["dong_theo_muc"] = thoat.get("dong_theo_muc", 0) + 1

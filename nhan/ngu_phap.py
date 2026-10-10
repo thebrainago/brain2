@@ -129,6 +129,10 @@ def toan_hang(df: pd.DataFrame, t: dict) -> pd.Series:
         raise TypeError(f"toan hang phai la dict, nhan duoc {type(t).__name__}")
     if "hang" in t:
         return pd.Series(float(t["hang"]), index=df.index)
+    if "hang_co_dinh" in t:
+        # hang so CUNG trong ma EA (khong phai input) - KHONG phoi cho toi uu
+        # (khoa khong nam trong KHOA_CHINH_DUOC), them 11/10/2026
+        return pd.Series(float(t["hang_co_dinh"]), index=df.index)
 
     try:
         khoa = json.dumps(t, sort_keys=True, default=str)
@@ -662,6 +666,8 @@ def _toan_hang_tinh(df: pd.DataFrame, t: dict) -> pd.Series:
     """Phan TINH THAT cua `toan_hang`. Xem giai thich o do."""
     if "hang" in t:
         return pd.Series(float(t["hang"]), index=df.index)
+    if "hang_co_dinh" in t:
+        return pd.Series(float(t["hang_co_dinh"]), index=df.index)
 
     t = _doi_bi_danh(t)
     cb = str(t.get("chi_bao", "")).lower()
@@ -1050,6 +1056,32 @@ def _toan_hang_tinh(df: pd.DataFrame, t: dict) -> pd.Series:
             ra[i] = d
         return pd.Series(ra, index=df.index)
 
+    if cb == "chot_cap":
+        # HAI CHOT (latch) +1/-1 TIEU THU KHI VAO LENH (them 11/10/2026, EA
+        # 016_CCI_2MAVG: `static int MACross, CCICross`). Moi bar (tick dau bar moi):
+        # chay cac phep gan `dat` THEO DUNG THU TU MA EA (`if(khi) bien = gt;`), roi
+        # neu a != 0 va a == b -> TIN HIEU = a o bar nay va a = b = 0 (EA reset sau
+        # khi mo lenh thanh cong). Ra +1 / -1 / 0. Chi doc bar hien tai va trang thai
+        # cua buoc truoc: khong nhin truoc. Xem `nhan/chot_mql.py`.
+        dat = t.get("dat")
+        kiem = t.get("kiem") or ["a", "b"]
+        if not isinstance(dat, list) or not dat or len(kiem) != 2:
+            raise KeyError("'chot_cap' can 'dat' (danh sach) va 'kiem' hai bien")
+        mang = [(str(x["bien"]), float(x["gt"]),
+                 _dieu_kien(df, list(x["khi"]), mac_dinh=False).to_numpy(dtype=bool))
+                for x in dat]
+        cur = {str(kiem[0]): 0.0, str(kiem[1]): 0.0}
+        ka, kb = str(kiem[0]), str(kiem[1])
+        ra = np.zeros(len(df), dtype=float)
+        for i in range(len(df)):
+            for b_, g_, m_ in mang:
+                if m_[i]:
+                    cur[b_] = g_
+            if cur[ka] != 0.0 and cur[ka] == cur[kb]:
+                ra[i] = cur[ka]
+                cur[ka] = cur[kb] = 0.0
+        return pd.Series(ra, index=df.index)
+
     # DAT TRUOC chot `cua is None` ben duoi: gann_sq9 nhan `cot` HOAC `cua`,
     # nhung truoc 11/09 no nam SAU chot do nen ban khong co `cua` khong bao gio
     # toi noi - `{'chi_bao':'gann_sq9'}` nem KeyError 'khong biet'. Mot toan hang
@@ -1363,7 +1395,7 @@ CHI_BAO_CO = {
     # muc gia cua chi bao bar 0 doi theo tick (11/10/2026) - xem `_muc_song`
     "muc_song",
     # co nho trang thai
-    "trang_thai_lat", "dem_lien_tiep",
+    "trang_thai_lat", "dem_lien_tiep", "chot_cap",
     # bien doi mot toan hang con (qua truong `cua`)
     "tb", "do_lech", "phuong_sai", "zscore", "phan_vi", "doi", "doi_pct",
     "tre", "cao_nhat", "thap_nhat", "tuyet_doi", "tong",
@@ -1626,6 +1658,8 @@ def kiem_khai_bao(spec: dict) -> list[str]:
         loi += _kiem_sltp(spec)
     if spec.get("dong_mo_bar") is not None:
         loi += _kiem_dong_mo_bar(spec)
+    if spec.get("dong_mo_pip") is not None:
+        loi += _kiem_dong_mo_pip(spec)
     if spec.get("mot_lenh_ngay") is not None:
         loi += _kiem_mot_lenh_ngay(spec)
     if spec.get("ro") is not None:
@@ -1729,6 +1763,30 @@ def _kiem_dong_mo_bar(spec: dict) -> list[str]:
         loi += [f"dong_mo_bar.muc: {e}" for e in _kiem_toan_hang(d["muc"])]
     if spec.get("ro") is not None or spec.get("trong_bar") is not None:
         loi.append("dong_mo_bar chi cho lenh vao tick dau, khong ro")
+    return loi
+
+
+def _kiem_dong_mo_pip(spec: dict) -> list[str]:
+    """`dong_mo_pip` = {tp_pip, sl_pip, pip_theo_ten, pip_mac_dinh}: dong o TICK DAU bar
+    khi BID cach GIA KHOP du tp/sl pip (EA Forex Strategy Studio) - `mo_phong.chay_he`."""
+    d = spec.get("dong_mo_pip")
+    if not isinstance(d, dict):
+        return ["'dong_mo_pip' phai la dict"]
+    loi = []
+    if d.get("tp_pip") is None and d.get("sl_pip") is None:
+        loi.append("dong_mo_pip: khong co tp_pip lan sl_pip")
+    for f in ("tp_pip", "sl_pip"):
+        if d.get(f) is not None and not _so_duong(d[f]):
+            loi.append(f"dong_mo_pip.{f} phai la so > 0 hoac null")
+    if not _so_duong(d.get("pip_mac_dinh")):
+        loi.append("dong_mo_pip.pip_mac_dinh phai la so > 0")
+    for x in d.get("pip_theo_ten") or []:
+        if not (isinstance(x, (list, tuple)) and len(x) == 2 and isinstance(x[0], str)
+                and _so_duong(x[1])):
+            loi.append("dong_mo_pip.pip_theo_ten: moi phan tu la [chuoi, so > 0]")
+    for f in ("sltp", "ro", "trong_bar", "dong_mo_bar", "ra"):
+        if spec.get(f):
+            loi.append(f"dong_mo_pip khong dung chung voi `{f}`")
     return loi
 
 
@@ -1962,6 +2020,10 @@ def _kiem_toan_hang(t, sau: int = 0) -> list[str]:
         return ["toan hang phai la dict"]
     if "hang" in t:
         return [] if isinstance(t["hang"], (int, float)) else ["'hang' phai la so"]
+    if "hang_co_dinh" in t:
+        x = t["hang_co_dinh"]
+        return [] if isinstance(x, (int, float)) and not isinstance(x, bool) \
+            else ["'hang_co_dinh' phai la so"]
     if "toan_hang" in t:
         ds = t["toan_hang"]
         if not isinstance(ds, list) or not ds:
@@ -2012,6 +2074,35 @@ def _kiem_toan_hang(t, sau: int = 0) -> list[str]:
         if huong_song(t) == 0:
             return loi + ["'muc_song.cat': hai ve cung trong so - khong co muc giao cat"]
         return loi + _kiem_toan_hang(t["cat"], sau + 1)
+    if cb0 == "chot_cap":
+        dat, kiem = t.get("dat"), t.get("kiem") or ["a", "b"]
+        if not isinstance(dat, list) or not dat:
+            return ["'chot_cap' can 'dat' la danh sach khong rong"]
+        if not isinstance(kiem, list) or len(kiem) != 2 or kiem[0] == kiem[1]:
+            return ["'chot_cap.kiem' phai la hai ten bien khac nhau"]
+        loi = []
+        for x in dat:
+            if not isinstance(x, dict) or x.get("bien") not in kiem:
+                loi.append("'chot_cap.dat': moi phan tu can 'bien' thuoc 'kiem'")
+                continue
+            if x.get("gt") not in (1, -1):
+                loi.append("'chot_cap.dat.gt' phai la 1 hoac -1")
+            khi = x.get("khi")
+            if not isinstance(khi, list) or not khi:
+                loi.append("'chot_cap.dat.khi' phai la danh sach dieu kien khong rong")
+                continue
+            for d in khi:
+                if not isinstance(d, dict) or "trai" not in d or "phai" not in d:
+                    loi.append("'chot_cap.dat.khi': dieu kien can trai/phai")
+                    continue
+                if d.get("phep", ">") not in PHEP:
+                    loi.append("'chot_cap.dat.khi': phep khong hop le")
+                loi += _kiem_toan_hang(d["trai"], sau + 1)
+                loi += _kiem_toan_hang(d["phai"], sau + 1)
+        for b_ in kiem:
+            if not any(isinstance(x, dict) and x.get("bien") == b_ for x in dat):
+                loi.append(f"'chot_cap': bien '{b_}' khong bao gio duoc dat")
+        return loi
     if cb0 == "dem_lien_tiep":
         d = t.get("khi")
         if not isinstance(d, dict) or "trai" not in d or "phai" not in d:
@@ -2227,7 +2318,9 @@ def sinh_chan(spec: dict, df: pd.DataFrame) -> dict:
             # SL/TP dat truc tiep (MT5, 11/10/2026): diem x _Point, goc ASK/BID, ASK cham
             # voi lenh ban; dong o tick dau bar theo muc (`dong_mo_bar`)
             "mt5": bool(k.get("mt5")), "sl_diem": k.get("sl_diem"), "tp_diem": k.get("tp_diem"),
-            "ref_sl": k.get("ref_sl"), "ref_tp": k.get("ref_tp"), "dong_mo": dong_mo}
+            "ref_sl": k.get("ref_sl"), "ref_tp": k.get("ref_tp"), "dong_mo": dong_mo,
+            # dong o tick dau theo PIP so voi gia khop (EA Forex Strategy Studio)
+            "dong_pip": spec.get("dong_mo_pip")}
 
 
 # --------------------------------------------------------------- KHO CO CHE
@@ -2738,6 +2831,10 @@ def tham_so_cua(spec: dict) -> dict:
         return ra
     if isinstance(spec.get("ro"), dict):
         # Dong theo RO (tong loi lo): `giu` khong co nghia -> khong phoi ra.
+        return ra
+    if isinstance(spec.get("dong_mo_pip"), dict):
+        # Dong theo pip (cau hinh `static` cua EA, khong phai input): khong toi uu
+        # tp/sl, `giu` khong co nghia (11/10/2026)
         return ra
     giu = spec.get("giu")
     if isinstance(giu, int) and not isinstance(giu, bool) and giu >= 1:

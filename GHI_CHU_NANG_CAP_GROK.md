@@ -1,6 +1,79 @@
-# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (khuya, giờ VN)
+# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (tối, giờ VN)
 
-## Vòng "SL/TP ĐẶT TRỰC TIẾP Ở LỆNH VÀO (bộ mo_rong) + `--diem`" (sau 95a59074) — khuya 10/10/2026
+## Vòng "CHỐT TĨNH (016) + MẪU FOREX STRATEGY STUDIO (EMA Crossover)" (sau 074c67e7) — tối 10/10/2026
+Không nới ngưỡng giữ (t ≥ 2,0 tối ưu / 1,5 kiểm, ≥47/≥20 lệnh). Chỉ dịch khi CHỨNG MINH được máy
+trạng thái/lối ra; mọi trường hợp khác trả lý do vào `chua_dich` (không đoán).
+
+### Số đo
+| | trước (074c67e7) | **bây giờ** |
+|---|---|---|
+| `mau_thu` (10 EA, 22) | 13/22 = 59,1% | **13/22 = 59,1%** (đầu ra đọc giống hệt) |
+| `mau_thu/mo_rong` (15 EA, 34) | 9/34 = 26,5% | **13/34 = 38,2%** (tín hiệu thành nến 12/33 = 36,4%) |
+| gộp (25 EA, 56) | 22/56 = 39,3% | **26/56 = 46,4%** (tín hiệu thành nến 20/43 = 46,5%) |
+| lối ra theo EA (mo_rong) | 10/10 | **14/14** (sltp 10, điều kiện ra 2, pip tick đầu 2) |
+| lối ra theo EA (gộp) | 24/24 | **28/28** |
+
+Minh bạch: EMA Crossover có 2 "điểm vào" trong mẫu số, nhưng điểm thứ 2 là `OrderSend` ĐÓNG lệnh trong
+`closePosition` (đếm sai từ trước, giữ nguyên mẫu số) → tính `quan_ly_dich_duoc`. Tín hiệu vào mới
+thật sự của vòng này: 016 mua+bán (2) + EMA Crossover mua+bán (1 điểm vào chung).
+
+### 1. `chot_cap` + `nhan/chot_mql.py` (016_CCI_2MAVG)
+- Mẫu: hai `static int A=0,B=0` gán ±1 trong các if sự kiện (trước điểm kiểm), cổng bar mới đã xác
+  minh (static datetime + iTime), `if(A!=0 && A==B){ if(F(A)>0){A=0;B=0;} }` với F chỉ rẽ `p<0`/`p>0`.
+  Bất kỳ lệch nào (for/while/else/return, gán ngoài if sự kiện, nhiều điểm gọi, biến không static...)
+  → `{"loi": "chot: ..."}` → chua_dich.
+- DSL: toán hạng `{"chi_bao":"chot_cap","dat":[{"bien","gt","khi"}...],"kiem":["a","b"]}` áp phép gán
+  theo thứ tự nguồn mỗi bar, ra ±1 khi khớp rồi reset. `{"hang_co_dinh": v}` = hằng KHÔNG tối ưu
+  (hằng số cứng của EA, tránh `_ung_vien` coi 0..23 là giờ).
+- `CloseTrades(POSITION_TYPE_X)` trong if sự kiện (hàm đóng lọc đúng loại) → `ra` của chiều đó.
+- Giả định ghi `gia_dinh`: vế so sánh tự đồng nhất của EA (`fastMA2 = MAVG2_Buffer[2]` → `<=` luôn
+  đúng) bị bỏ như EA thực thi.
+- Đối chiếu: cổng OnTick viết tay trên EURUSD H1 thật: vào 698/730, đóng 8728/8397, 0 lệch; thử cắt
+  cụt (không nhìn trước).
+
+### 2. `nhan/fss_mql.py` (EMA Crossover, mẫu Forex Strategy Studio) + chế độ `dong_mo_pip`
+- Nhận mẫu bằng so khớp NGUYÊN VĂN (bỏ khoảng trắng/chú thích) các hàm khung (booleanToAction,
+  actionAverage, ActionFromValue, calcMovingAvg đọc `shift+1` = bar đã đóng, decideIfClosePosition
+  PIPS, openPosition không sl/tp, closePosition). Cấu hình tĩnh gán đúng 1 lần; phiếu mua/bán phải loại
+  trừ nhau chứng minh được. Lệch → không nhận.
+- Lối ra: `dong_mo_pip={"tp_pip":20,"sl_pip":100,"pip_theo_ten":[["JPY",0.01],["BITCOIN",0.1]],
+  "pip_mac_dinh":0.0001}`; `mo_phong.chay_he` kiểm ở tick đầu bar (giá mở) so với giá khớp (mua
+  khớp ASK), không vào lại cùng tick vừa đóng. `dong_mo_pip` không ghép với sltp/rổ/trong_bar/
+  dong_mo_bar/ra. Giả định: Strategy Tester tính iMA đồng bộ.
+- Đối chiếu cổng tham chiếu: 266/266 lệnh khớp (EURUSD pip 0,0001; USDJPY pip 0,01).
+
+### 3. vòng CÓ phí — giữ 0
+- mo_rong EURUSD H1 (17.127 bar): EMA Crossover t kiểm +1,2/−0,9; 016 bán −0,2/+0,7; 016 mua +0,1/−0,6.
+- mo_rong Dukascopy 2003–2021 (116.175 bar): EMA Crossover −2,2/−2,1; 016 bán +0,4/−1,0; mua −0,4/−1,7.
+  Cơ chế cũ không đổi số (013 mua −8,3/−7,4; 015 bán +1,9/+0,5).
+- mau_thu H1: 7 đọc, 1 trùng, 6 chạy, giữ 0.
+
+### 4. Test
+`test_chot_cap.py` (12), `test_fss_mql.py` (7): đọc đúng, khớp từng bar/lệnh với cổng tham chiếu,
+không nhìn trước, các ca TỪ CHỐI (shift+1→shift, tpValue gán lại, phiếu không loại trừ, closeType khác,
+biến không static, else, gán ngoài if...). `test_ngu_phap_toan_hang` thêm mẫu đối số `chot_cap`.
+Không có lỗi mới so với 074c67e7 (lỗi `test_van_con_phan_biet_duoc_hai_loai_thieu` có sẵn từ trước).
+Đã thử bỏ phơi `giu` khi spec có `ra` (vô tác dụng trong `sinh_tu_spec`) nhưng test khoá hành vi cũ
+→ hoàn lại; tối ưu `giu` vô hại vì bước toạ độ chỉ nhận cải thiện thực sự.
+
+### 5. Bỏ qua có lý do (chưa dịch)
+- **019 (iADX/DI±)**: mọi điều kiện đọc buffer [0] ở tick đầu bar mới (H=L=C=open) → cần đánh giá chỉ
+  báo tại tick mở, ADX không đơn điệu; iADX MT5 = EMA 2/(n+1) của tỉ lệ DM/TR (không phải Wilder).
+  Đề xuất: toán tử "tick đầu" — nhưng sẽ rò rỉ trong đường `sinh_tu_spec`/`MP.chay` chung, cần thiết kế riêng.
+- **Box Breakout**: hộp giá dựng từ TimeCurrent/iBarShift; H1 barCount=1 → hộp là bar 03:00 còn sống
+  03:30–04:00; `ask > high` kích bởi spread → phụ thuộc khung, cần tick.
+- **Viprasol**: iADX MT5 + RSI + phiên + lọc spread theo `_Point` + hoà vốn/trailing theo điểm + khối
+  lượng theo rủi ro + giới hạn lệnh/ngày.
+- **018**: lệnh dừng theo ASK, reset chéo, đóng bar mới nếu lãi>0 hoặc tuổi ≥ OldBarIndex, không giới hạn vị thế.
+- **05 / 014**: RSI(PRICE_OPEN)[0] sống + MA khung khác trong EA chỉ chạy bar mới — không giả.
+- **Basic_Bollinger_Bands**: thiếu include Trail.mqh/NewC.mqh, input mặc định 0 (khối lượng 0), vào ở nhánh else cấu hình.
+- **01_RSI_V1**: handle bị che (shadowed). **Breakout4**: vẫn không đoán `_Point`/PivotsDay.
+
+### Còn chặn
+Toán tử tick đầu (019/05/014), iADX kiểu MT5, khung thời gian/tick (Box Breakout), quản trị theo
+điểm/rủi ro (Viprasol), lệnh dừng + nhiều vị thế (018), mẫu số đếm OrderSend đóng lệnh là điểm vào.
+
+## (trước) Vòng "SL/TP ĐẶT TRỰC TIẾP Ở LỆNH VÀO (bộ mo_rong) + `--diem`" (sau 95a59074) — khuya 10/10/2026
 Không nới ngưỡng giữ (t ≥ 2,0 tối ưu / 1,5 kiểm, ≥47/≥20 lệnh, cổng tài khoản/placebo/cháy).
 Breakout4 vẫn bỏ qua (không đoán `_Point`/PivotsDay).
 

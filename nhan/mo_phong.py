@@ -982,6 +982,33 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
             return True
         return False
 
+    def _pip(d: dict) -> float:
+        ten = (ma or "").upper()
+        for chu, gt in d.get("pip_theo_ten") or []:
+            if str(chu).upper() in ten:
+                return float(gt)
+        return float(d["pip_mac_dinh"])
+
+    def _dong_pip(j: int) -> bool:
+        """`dong_mo_pip` (EA Forex Strategy Studio, 11/10/2026): o TICK DAU bar j,
+        diff = chieu*(BID - gia_khop); diff > 0 -> dong khi diff/pip >= tp_pip, nguoc
+        lai dong khi -diff/pip >= sl_pip. pip theo TEN MA (`ma`) nhu EA."""
+        if pos is None or pos.get("ro") is not None:
+            return False
+        d = chan[pos["k"]].get("dong_pip")
+        if not d:
+            return False
+        pip = _pip(d)
+        diff = pos["chieu"] * (o[j] - pos.get("khop", pos["ref"]))
+        if diff > 0:
+            hit = d.get("tp_pip") is not None and diff / pip >= float(d["tp_pip"])
+        else:
+            hit = d.get("sl_pip") is not None and (-diff / pip) >= float(d["sl_pip"])
+        if hit:
+            _ra(j, o[j], "dong_pip")
+            return True
+        return False
+
     def _vao(k: int, i: int, j: int, gia: float, ngay) -> bool:
         nonlocal pos
         c_ = chan[k]
@@ -1038,8 +1065,11 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
             return False                      # SL sai phia: MT5 tu choi lenh
         if sl is not None and c_.get("tp") and c_.get("sl_kc") is None:
             tp = gia + ch * abs(gia - sl) * float(c_["tp"])
-        het = None if (sl is not None or tp is not None) else j + max(1, int(c_["giu"]))
-        pos = {"k": k, "chieu": ch, "sl": sl, "tp": tp, "het": het, "ref": gia, "w": w}
+        het = None if (sl is not None or tp is not None or c_.get("dong_pip") is not None) \
+            else j + max(1, int(c_["giu"]))
+        pos = {"k": k, "chieu": ch, "sl": sl, "tp": tp, "het": het, "ref": gia, "w": w,
+               # gia KHOP (mua o ASK = BID + spread bar vao, ban o BID) - `dong_pip`
+               "khop": gia + (sp[j] * gia if ch > 0 else 0.0)}
         if nhat_ky is not None:
             nhat_ky.append({"chan": k, "chieu": ch, "bar_vao": j, "gia_vao": gia,
                             "sl": sl, "tp": tp, "trong_so": w})
@@ -1100,6 +1130,9 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
                     _ra(j, o[j], "gap_sl")        # gap qua SL
                 elif tp is not None and (o[j] - tp) * ch >= 0:
                     _ra(j, o[j], "gap_tp")        # gap qua TP
+                elif _dong_pip(j):
+                    # EA FSS: tick dong lenh `return` ngay -> khong vao lai cung tick
+                    da_dong_mo = True
                 elif _dong_mo(i, j):
                     # EA: cntBuy>0 o tick nay -> khong vao lai cung tick (vao truoc dong)
                     da_dong_mo = True

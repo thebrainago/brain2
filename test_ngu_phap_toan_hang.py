@@ -97,6 +97,16 @@ _DOI_SO = {
     "moc_ky": {"ky": "ngay", "lay": "dong_truoc"},
     # muc gia cua chi bao bar 0 song (11/10/2026): can `cua` + `nguong`/`cat`
     "muc_song": {"cua": {"chi_bao": "rsi", "n": 14}, "nguong": {"hang": 30}},
+    # hai chot +-1 tieu thu khi khop (11/10/2026, EA 016): can `dat` + `kiem`
+    "chot_cap": {"kiem": ["a", "b"], "dat": [
+        {"bien": "b", "gt": 1, "khi": [{"trai": {"chi_bao": "gia", "cot": "close"}, "phep": ">",
+                                         "phai": {"chi_bao": "sma", "n": 10}}]},
+        {"bien": "b", "gt": -1, "khi": [{"trai": {"chi_bao": "gia", "cot": "close"}, "phep": "<",
+                                          "phai": {"chi_bao": "sma", "n": 10}}]},
+        {"bien": "a", "gt": 1, "khi": [{"trai": {"chi_bao": "ema", "n": 5}, "phep": ">",
+                                         "phai": {"chi_bao": "ema", "n": 20}}]},
+        {"bien": "a", "gt": -1, "khi": [{"trai": {"chi_bao": "ema", "n": 5}, "phep": "<",
+                                          "phai": {"chi_bao": "ema", "n": 20}}]}]},
 }
 #: Toan tu BIEN DOI: chi co nghia khi nhan mot toan hang con qua `cua`.
 _CAN_CUA = {"tb", "do_lech", "phuong_sai", "zscore", "phan_vi", "doi", "doi_pct",
