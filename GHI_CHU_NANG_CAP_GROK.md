@@ -15,6 +15,14 @@
 - Luật: LAI = tổng lãi biến thể xấu nhất > 0, mọi năm maxDD < 80 %, không stop-out. G-b ỦNG HỘ nếu mọi tài sản hồi quy LAI và hơn
   nhiễu (p ≤ 0,05) và không chỉ số nào LAI; BÁC BỎ nếu không tài sản hồi quy nào LAI hoặc không cái nào hơn nhiễu; còn lại MỘT PHẦN.
   Năm thiếu > 10 % nến so với trung vị bị loại; tài sản < 5 năm hợp lệ → CHƯA ĐO ĐƯỢC.
+- **KẾT QUẢ (sau khi chạy, 805 lần, 29 phút; chi tiết `hieu_chuan/G07_KET_QUA.md`, `g07_ket_qua.json`): G-b BÁC BỎ (mô phỏng).**
+  7 năm hợp lệ (2023 loại: HistData thiếu ~13 % nến). Năm lãi (xấu nhất có swap): AUDCAD 0/7 (trung vị −2,13 %/năm), EURGBP 1/7
+  (−5,33), vàng 0/7 (−3,89), NAS100 0/7 (−5,11), S&P 0/7 (−11,97). maxDD ≤ 24 %, 0 stop-out. Luật chủ: 0/5 tài sản đạt.
+  Hướng đúng nhưng yếu: cặp chéo hơn nhiễu (p 0,14 / 0,095), chỉ số kém nhiễu (S&P p 0,048); phần lợi < phí (AUDCAD không swap
+  +0,21 %/năm). Vàng KHÔNG giống cặp chéo (kém nhiễu, 2025 −18,6 %). AUDCAD 2018 = G06 từng số (kiểm chéo).
+- **Đọc cho việc tiếp:** swap + spread là thứ ăn hết phần hồi quy; muốn lưới cặp chéo ra tiền cần (a) chi phí thấp hơn đo được
+  (sàn swap thấp / ECN — CHƯA ĐO ĐƯỢC, cần số sàn thật) hoặc (b) bộ luật quản lí khác (G-a / bóc thêm từ lịch sử lệnh 31 người thắng,
+  cần chủ đăng nhập MQL5). Không nới cổng.
 
 ## Vòng "G06 — GIẢ THUYẾT CÓ CHỦ ĐÍCH: LÀM LẠI TÍN HIỆU AUDCAD 2023752" (sau 9c508edf) — rạng sáng 11/10/2026
 Chi tiết: `hieu_chuan/G06_KET_QUA.md`. **Không đổi cổng.** Mọi số là MÔ PHỎNG.
