@@ -1,5 +1,28 @@
 # Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (khuya, giờ VN)
 
+## Vòng "P1 — MÔ PHỎNG LƯỚI SO VỚI 15 Ô MT5 TESTER" (gói bàn giao the-brain, sau c94ed9e8) — khuya 10/10/2026
+Chi tiết + bảng 15 ô: `hieu_chuan/P1_KET_QUA.md`. Không nới cổng giữ. Mọi số là MÔ PHỎNG so với TESTER, không phải tiền thật.
+
+- **Vì sao (hướng tiền):** trước khi tin bất kỳ số lãi lưới nào của brain2 (đưa lên demo), phải biết mô phỏng lệch
+  MT5 bao nhiêu. Đáp án có sẵn: 15 ô H1 sạch (AUDCAD 8 + NZDCAD 7, 2019-03..08) từ gói the-brain → `hieu_chuan/p1_15o_tester.csv`.
+- **Giá:** HistData M1 BID công khai (EST cố định → giờ Helsinki), gộp H1; USDCAD để đổi CAD→USD từng nến. Dukascopy hôm
+  nay hết thời gian TLS từ máy này → bỏ (ghi lại). Spread chưa đo được → chạy 1,5 và 2,5 pip.
+- **Kết quả `nhan/luoi.chay` (v3, nguyên trạng):** lạc quan 11/15 ô; có tia **+1,1…+32,8** điểm %/năm (ô 6: tester −10,8 %/năm,
+  v3 +12…+22 — lỗ thành lãi), không tia −5,1…+5,9 (trung vị +2,0); maxDD thấp hơn tester 13/15 ô; hạng Spearman 0,70.
+  Hai nguyên nhân đo được: tia chốt ở CỰC TRỊ nến; lot hệ số < 1 không làm tròn 0,01 như MT5.
+- **Mới: `nhan/luoi_duong.py`** (`test_luoi_duong.py` 7 test): luật EA lưới đầy đủ, khớp tại ngưỡng, spread một lần/lệnh,
+  lot làm tròn, 4 thứ tự giá trong nến + chạy được trên M1. Chênh có tia −2,6…+4,3, không tia −9,5…+6,1 (trung vị ≈ +0,2),
+  Spearman 0,96, maxDD/số lệnh gần tester. Thứ tự nến đổi ≤ 1,8 điểm; spread đổi tới 6,7 điểm (ô 7) → sai số chính là SPREAD.
+- **Gắn cảnh báo:** `luoi.CANH_BAO_P1` + `chi_so()["canh_bao_mo_phong"]`; `vong_thu_nghiem` in dòng
+  "mô phỏng lệch so với MT5: CHƯA ĐO ĐƯỢC cho rổ EA này" cạnh mọi hệ có rổ (Breakout5/hedge dùng `mo_phong.chay_he`, luật
+  thoát khác 15 ô → chưa có đáp án MT5).
+- **Nhãn 25/09 (chủ dự án chốt 10/10: lãi sau phí + maxDD < 80 %, đòn bẩy ổn nếu không cháy):** `vong_thu_nghiem.nhan_25_09`
+  in "đạt tiêu chí 25/09?" cạnh mọi cơ chế; maxDD đòn bẩy 1 (lệnh đơn) hoặc tài khoản khai báo (rổ). CHỈ LÀ NHÃN —
+  cổng t/placebo/cháy giữ nguyên vòng này (chưa có số đo P4 về tỉ lệ nhiễu lọt qua cổng 25/09). EURUSD Dukascopy 2003–2021,
+  có phí: **0/6** cơ chế đạt 25/09 (Breakout5: maxDD 96 % + stop-out; còn lại lỗ sau phí) — cùng kết quả với cổng cũ.
+- **Việc tiếp:** P4 (tỉ lệ chuỗi chỉ-nhiễu qua cổng 25/09 → quyết đổi cổng bằng số đo), P3 (swap theo từng lệnh), chuyển
+  các script lưới cũ (`_luoi_audcad*`) sang `luoi_duong`.
+
 ## Vòng "CAUKHO TRONG dieu_phoi + NÂNG LỆNH VÀO LÊN CHỖ GỌI HÀM PHỤ" (sau 9aa53d77) — khuya 10/10/2026
 Không nới cổng giữ, không đụng `_Point` của Breakout4. Bộ 160 EA Code Base dùng làm PHÉP ĐO, không phải đáp án.
 

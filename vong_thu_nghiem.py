@@ -7,6 +7,10 @@
     python vong_thu_nghiem.py --csv gia.csv         # dữ liệu thật (time,open,high,low,close)
     python vong_thu_nghiem.py --json ket_qua.json   # ghi kết quả
 
+NHÃN (10/10/2026 khuya, không đổi GIỮ/BỎ): mỗi cơ chế in "đạt tiêu chí 25/09?" (tiêu chí của
+chủ dự án: lãi sau phí phần kiểm > 0, maxDD < 80 %, không cháy) cạnh cổng hiện tại; hệ có rổ in
+thêm dòng "mô phỏng lệch so với MT5" (P1, `hieu_chuan/P1_KET_QUA.md`).
+
 Cách làm (cập nhật 10/10/2026):
   1. Chia chuỗi theo THỜI GIAN: 70% đầu để TỐI ƯU, 30% sau để KIỂM. Không bao
      giờ chọn tham số trên phần kiểm.
@@ -191,13 +195,62 @@ def danh_gia(spec: dict, df: pd.DataFrame, khung: str, tick_dau: bool = False,
     sd = loi.std()
     sharpe = float(loi.mean() / sd * math.sqrt(BAR_NAM.get(khung, 260))) if sd > 0 else 0.0
     return {"so_lenh": int(kq.so_lenh), "phoi_nhiem": round(float(kq.phoi_nhiem), 4),
-            "loi_log": round(float(loi.sum()), 5), "sharpe": round(sharpe, 3)}
+            "loi_log": round(float(loi.sum()), 5), "sharpe": round(sharpe, 3),
+            "maxdd_pct": round(_maxdd_pct(loi), 2)}
 
 
 def _sharpe(loi: np.ndarray, khung: str) -> float:
     loi = np.nan_to_num(np.asarray(loi, dtype=float))
     sd = loi.std()
     return float(loi.mean() / sd * math.sqrt(BAR_NAM.get(khung, 260))) if sd > 0 else 0.0
+
+
+def _maxdd_pct(loi) -> float:
+    """Sut giam lon nhat (%) cua duong von exp(cumsum(loi)) - o muc phoi nhiem MO PHONG
+    (lenh don: von danh nghia 1 lenh = don bay 1). Dung cho NHAN 25/09, khong cho cong giu."""
+    loi = np.nan_to_num(np.asarray(loi, dtype=float))
+    if not len(loi):
+        return 0.0
+    eq = np.exp(np.concatenate([[0.0], np.cumsum(loi)]))
+    return float(np.max(1.0 - eq / np.maximum.accumulate(eq)) * 100.0)
+
+
+#: Tieu chi duyet cua chu du an (25/09/2026, nhac lai 10/10/2026): CO LAI SAU PHI + maxDD < 80 %
+#: (don bay <= 10, tai khoan khong chay); luoi/martingale/DCA hop le. Brain2 GIU cong cu (t,
+#: placebo, chay/nam) - day CHI LA NHAN in canh ket qua, KHONG doi GIU/BO.
+DD_25_09 = 80.0
+#: P1 (10/10/2026, hieu_chuan/P1_KET_QUA.md): 15 o MT5 tester sach chi do luoi TP-trung-binh
+#: (`nhan/luoi.py` ThamSo). Ro cua EA (Breakout5 chot dinh / ro hedge) co luat thoat KHAC ->
+#: chua co dap an MT5. Dong co duong-gia cung kieu (`_duong_bar`) lech -2,6..+4,3 diem %/nam
+#: (co tia) / -9,5..+6,1 (khong tia) tren 15 o; ban cuc-tri `luoi.chay` lech +1,1..+32,8 (co tia).
+CANH_BAO_MT5_RO = ("mô phỏng lệch so với MT5: CHƯA ĐO ĐƯỢC cho rổ EA này (P1 chỉ có đáp án "
+                   "lưới TP-trung-bình; động cơ đường-giá cùng kiểu lệch -9,5…+6,1 điểm %/năm "
+                   "trên 15 ô MT5) - số lãi rổ là MÔ PHỎNG, không phải tiền thật")
+
+
+def nhan_25_09(kiem: dict) -> dict:
+    """NHAN 'dat tieu chi 25/09?' tren phan KIEM: lai sau phi > 0, maxDD < 80 %, khong chay
+    (tai khoan khai bao neu co). Chi la nhan; khong doi `giu_lai`."""
+    tk = kiem.get("tai_khoan") or {}
+    lai = float(kiem.get("loi_log", 0.0))
+    if tk:
+        von = float(tk.get("von_dau") or 0.0)
+        dd = (1.0 - float(tk["von_rong_min"]) / von) * 100.0 if von > 0 else float("nan")
+        nguon_dd = "tài khoản, từ vốn đầu"
+        chay = bool(tk.get("chay")) or int(tk.get("so_stop_out", 0)) > 0
+        lai = float(tk.get("von_cuoi", 0.0)) - von
+    else:
+        dd = float(kiem.get("maxdd_pct", float("nan")))
+        nguon_dd = "đòn bẩy 1"
+        chay = False
+    ly = []
+    if not lai > 0:
+        ly.append("không lãi sau phí")
+    if not dd < DD_25_09:
+        ly.append(f"maxDD {dd:.0f}% ≥ {DD_25_09:.0f}%")
+    if chay:
+        ly.append("stop-out/cháy")
+    return {"dat": not ly, "maxdd_pct": round(dd, 2), "nguon_dd": nguon_dd, "ly_do": ly}
 
 
 def la_luoi(specs: list[dict]) -> bool:
@@ -229,7 +282,7 @@ def danh_gia_nhom(specs: list[dict], df: pd.DataFrame, khung: str,
              "sharpe": round(_sharpe(c["loi"], khung), 3)} for c in kq.chi_tiet["chan"]]
     ra = {"so_lenh": int(kq.so_lenh), "phoi_nhiem": round(float(kq.phoi_nhiem), 4),
           "loi_log": round(float(loi.sum()), 5), "sharpe": round(_sharpe(loi, khung), 3),
-          "chan": chan}
+          "maxdd_pct": round(_maxdd_pct(loi), 2), "chan": chan}
     if kq.chi_tiet.get("ro_bat_thuong"):
         ra["ro_bat_thuong"] = int(kq.chi_tiet["ro_bat_thuong"])
     if kq.chi_tiet.get("luoi"):
@@ -672,6 +725,7 @@ def chay_mot_file(path: Path, df: pd.DataFrame, khung: str = "H1",
             kiem = danh_gia(spec_tot, df_kiem, khung, cp=cp)
             tu = dong.get("tot_tu", goc_tu)
             dong["tot_kiem"] = kiem
+            dong["tieu_chi_25_09"] = nhan_25_09(kiem)
             nam_tu = len(df_tu) / BAR_NAM.get(khung, 260)
             nam_kiem = len(df_kiem) / BAR_NAM.get(khung, 260)
             dong["t_tu"] = round(tu["sharpe"] * math.sqrt(nam_tu), 2)
@@ -761,6 +815,9 @@ def _chay_nhom(path: Path, g: str, specs: list[dict], df_tu, df_kiem, khung: str
         kiem = danh_gia_nhom(tot_specs, df_kiem, khung, cp=cp, tai_khoan=tk)
         tu = dong.get("tot_tu", goc_tu)
         dong["tot_kiem"] = kiem
+        dong["tieu_chi_25_09"] = nhan_25_09(kiem)
+        if ro:
+            dong["canh_bao_mt5"] = CANH_BAO_MT5_RO
         nam_tu = len(df_tu) / BAR_NAM.get(khung, 260)
         nam_kiem = len(df_kiem) / BAR_NAM.get(khung, 260)
         dong["t_tu"] = round(tu["sharpe"] * math.sqrt(nam_tu), 2)
@@ -895,6 +952,14 @@ def main(argv=None) -> int:
               + ("" if not x.get("trong_bar") else
                  f"  [lệnh dừng trong bar; tick đầu gốc sh="
                  f"{x['goc_kiem_tick_dau']['sharpe']:+.2f}/{x['goc_kiem_tick_dau']['so_lenh']}l]"))
+        if x.get("tieu_chi_25_09"):
+            n25 = x["tieu_chi_25_09"]
+            print(f"        nhãn: đạt tiêu chí 25/09? {'CÓ' if n25['dat'] else 'KHÔNG'} (cần: lãi kiểm sau phí, "
+                  f"maxDD < {DD_25_09:.0f}%, không cháy; đo: maxDD {n25['maxdd_pct']:.1f}% [{n25['nguon_dd']}])"
+                  + ("" if n25["dat"] else f" [{'; '.join(n25['ly_do'])}]")
+                  + " - chỉ là NHÃN, không đổi GIỮ/BỎ")
+        if x.get("canh_bao_mt5"):
+            print(f"        {x['canh_bao_mt5']}")
         if x.get("cong_luoi"):
             cl = x["cong_luoi"]
             tkk = x["tot_kiem"].get("tai_khoan") or {}

@@ -46,6 +46,15 @@ khong phu thuoc quy doi - tranh han cai bay "doi dong tien tai khoan".
 """
 from __future__ import annotations
 
+# CANH BAO P1 (10/10/2026, hieu_chuan/P1_KET_QUA.md): so voi 15 o MT5 tester sach (H1 AUDCAD/
+# NZDCAD 2019-03..08, cung von / don bay, tat swap), `chay` o day LAC QUAN: lech +1,1..+32,8
+# diem %/nam o luoi CO TIA LENH (tia chot o CUC TRI nen) va -5,1..+5,9 (trung vi +2,0) o luoi
+# khong tia (chu yeu vi lot khong lam tron toi 0,01 nhu MT5). Lac quan o 11/15 o. Ban theo duong
+# gia `nhan/luoi_duong.chay_duong` lech -2,6..+4,3 / -9,5..+6,1, hang Spearman 0,96 (v3: 0,70).
+# Moi so lai luoi tu `chay` phai kem dong CANH_BAO_P1; dung `luoi_duong` cho so moi.
+CANH_BAO_P1 = ("mô phỏng lệch so với MT5 (P1, 15 ô): luoi.chay lạc quan +1,1…+32,8 điểm %/năm "
+               "nếu có tia lệnh, -5,1…+5,9 nếu không - MÔ PHỎNG, không phải tiền thật")
+
 from dataclasses import dataclass, field
 
 import numpy as np
@@ -271,7 +280,8 @@ def _mot_ro(hi, lo, cl, spread_gia, dem, chieu: int, ts: ThamSo):
     return lai_arr, treo_arr, {
         "lai_gop": lai, "phi_spread": phi_sp, "phi_swap": phi_sw,
         "so_ro": so_ro, "so_lenh": so_lenh, "tang_max": tang_max,
-        "so_cap": so_cap, "con_mo": len(vao)}
+        "so_cap": so_cap, "con_mo": len(vao),
+        "vao_cuoi": list(vao)}
 
 
 def chay(df, ts: ThamSo, von: float) -> KetQuaLuoi:
@@ -337,6 +347,7 @@ def chi_so(kq: KetQuaLuoi, von: float) -> dict:
     dd = float(np.min(np.where(dinh > 0, e / np.maximum(dinh, 1e-9) - 1.0, -1.0)))
     lai_nam = kq.lai_rong / kq.so_nam
     return {
+        "canh_bao_mo_phong": CANH_BAO_P1,
         "loi_suat_nam_pct": lai_nam / von * 100.0,
         "maxdd_pct": dd * 100.0,
         "lo_treo_dinh_pct_von": kq.lo_treo_dinh / von * 100.0,
