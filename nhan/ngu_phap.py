@@ -967,6 +967,29 @@ def _toan_hang_tinh(df: pd.DataFrame, t: dict) -> pd.Series:
                            "dong_truoc, cao_truoc, thap_truoc)" % lay)
         return ns.map(bang[lay].shift(1))     # DICH MOT KY, khong mot bar
 
+    # --- BIEN CUA MOT KHUNG GIO TRONG NGAY (them 10/10/2026) ---
+    # Kieu "pha vo bien phien" rat pho bien trong EA MQL5: lay dinh/day cua cac
+    # bar co GIO MO CUA trong [gio_tu, gio_den] cua CHINH NGAY DO (vd phien A
+    # 00:00-07:59), roi so gia hien tai voi bien do. Ma goc viet
+    # `CopyHigh(_Symbol,_Period,starttime,endtime,highs)` + `ArrayMaximum`.
+    #
+    # AN TOAN: chi tra gia tri cho bar co gio > gio_den (bien da DONG HAN).
+    # Bar nam trong hoac truoc khung -> NaN, nen khong co cach nao doc truoc
+    # duoc dinh/day cua phan khung chua dien ra.
+    if cb in ("cao_trong_gio", "thap_trong_gio"):
+        MAU_MOD._phai_co_gio(df, f"DSL chi_bao='{cb}'")
+        gt, gd = int(t.get("gio_tu", 0)), int(t.get("gio_den", 0))
+        if not (0 <= gt <= gd <= 23):
+            raise KeyError(f"'{cb}': can 0 <= gio_tu <= gio_den <= 23")
+        idx = pd.DatetimeIndex(df.index)
+        gio = pd.Series(idx.hour, index=df.index)
+        ngay = pd.Series(idx.normalize(), index=df.index)
+        cot = "high" if cb == "cao_trong_gio" else "low"
+        trong = (gio >= gt) & (gio <= gd)
+        x = _cot(df, cot).where(trong)
+        gop = x.groupby(ngay).transform("max" if cot == "high" else "min")
+        return gop.where(gio > gd)
+
     if cb == "gann_sq9":
         goc = float(t.get("goc", 45.0) or 45.0)
         k = float(t.get("k", 1.0) or 1.0)

@@ -31,7 +31,7 @@ MAU = LAB / "mau_thu"
 
 
 def do() -> dict:
-    tong = co_che = vao_lenh = 0
+    tong = co_che = vao_lenh = vao_co = 0
     ly_do: dict[str, int] = {}
     dong: list[tuple] = []
     for p in sorted(MAU.glob("*.mq5")):
@@ -41,11 +41,13 @@ def do() -> dict:
         d = DM.doc_chien_luoc(vb, nguon=p.name)
         co_che += len(d.get("co_che", []))
         vao_lenh += d.get("so_vao_lenh", 0)
+        vao_co += d.get("so_vao_lenh_co_co_che", 0)
         for x in d.get("chua_dien_dat_duoc", []):
             k = str(x)[:70]
             ly_do[k] = ly_do.get(k, 0) + 1
-        dong.append((p.name, len(ds), d.get("so_vao_lenh", 0)))
+        dong.append((p.name, len(d.get("co_che", [])), d.get("so_vao_lenh", 0)))
     return {"file": tong, "co_che": co_che, "vao_lenh": vao_lenh,
+            "vao_co": vao_co,
             "ly_do": ly_do, "dong": dong}
 
 
@@ -57,7 +59,11 @@ def main() -> int:
     print("  tim THAY diem vao lenh : %d" % r["vao_lenh"])
     print("  RA duoc co che         : %d   (moc 18/09: 0)" % r["co_che"])
     ty = (100.0 * r["co_che"] / r["vao_lenh"]) if r["vao_lenh"] else 0.0
-    print("  ty le dien dat duoc    : %.1f%%" % ty)
+    print("  ty le dien dat duoc    : %.1f%%   (co che / diem vao)" % ty)
+    # Mot lenh vao `if(up||down)` tach dung thanh 2 co che (mua + ban), nen ty
+    # le tren co the vuot so diem vao THAT SU dich duoc. Day la so do chat hon:
+    ty2 = (100.0 * r["vao_co"] / r["vao_lenh"]) if r["vao_lenh"] else 0.0
+    print("  diem vao dich duoc     : %d/%d = %.1f%%" % (r["vao_co"], r["vao_lenh"], ty2))
     print("\n  ly do 'chua dien dat duoc':")
     for k, n in sorted(r["ly_do"].items(), key=lambda x: -x[1])[:8]:
         print("   %2dx  %s" % (n, k))
