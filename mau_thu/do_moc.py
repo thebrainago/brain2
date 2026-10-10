@@ -32,6 +32,7 @@ MAU = LAB / "mau_thu"
 
 def do() -> dict:
     tong = co_che = vao_lenh = vao_co = 0
+    loai = {"dich_duoc": 0, "ma_chet": 0, "quan_ly_vi_the": 0, "chua_dich": 0}
     ly_do: dict[str, int] = {}
     dong: list[tuple] = []
     for p in sorted(MAU.glob("*.mq5")):
@@ -42,12 +43,14 @@ def do() -> dict:
         co_che += len(d.get("co_che", []))
         vao_lenh += d.get("so_vao_lenh", 0)
         vao_co += d.get("so_vao_lenh_co_co_che", 0)
+        for k, v in (d.get("phan_loai_vao_lenh") or {}).items():
+            loai[k] = loai.get(k, 0) + v
         for x in d.get("chua_dien_dat_duoc", []):
             k = str(x)[:70]
             ly_do[k] = ly_do.get(k, 0) + 1
         dong.append((p.name, len(d.get("co_che", [])), d.get("so_vao_lenh", 0)))
     return {"file": tong, "co_che": co_che, "vao_lenh": vao_lenh,
-            "vao_co": vao_co,
+            "vao_co": vao_co, "loai": loai,
             "ly_do": ly_do, "dong": dong}
 
 
@@ -63,7 +66,21 @@ def main() -> int:
     # Mot lenh vao `if(up||down)` tach dung thanh 2 co che (mua + ban), nen ty
     # le tren co the vuot so diem vao THAT SU dich duoc. Day la so do chat hon:
     ty2 = (100.0 * r["vao_co"] / r["vao_lenh"]) if r["vao_lenh"] else 0.0
-    print("  diem vao dich duoc     : %d/%d = %.1f%%" % (r["vao_co"], r["vao_lenh"], ty2))
+    print("  diem vao dich duoc     : %d/%d = %.1f%%   <- SO CHINH (moc 908075c0: 6/22 = 27.3%%)"
+          % (r["vao_co"], r["vao_lenh"], ty2))
+    # PHAN LOAI (them 10/10/2026). Mau so tren tron ca "tao": lenh hedge/luoi/
+    # nhoi lenh theo GIA VAO LENH / so lenh / loi lo (khong phai tin hieu thanh
+    # nen - ngu phap DSL khong mo ta duoc va KHONG NEN mo ta) va ma chet (sau
+    # `return;` vo dieu kien). Ty le tren TIN HIEU THANH NEN bo hai nhom do ra
+    # khoi mau so. So chinh van la dong tren; dong duoi chi de biet con bao
+    # nhieu tin hieu that chua dich duoc.
+    L = r["loai"]
+    print("  phan loai diem vao     : dich_duoc=%d  quan_ly_vi_the=%d  ma_chet=%d  chua_dich=%d"
+          % (L["dich_duoc"], L["quan_ly_vi_the"], L["ma_chet"], L["chua_dich"]))
+    ms = L["dich_duoc"] + L["chua_dich"]
+    ty3 = (100.0 * L["dich_duoc"] / ms) if ms else 0.0
+    print("  tin hieu thanh nen     : %d/%d = %.1f%%   (bo hedge/luoi + ma chet khoi mau so)"
+          % (L["dich_duoc"], ms, ty3))
     print("\n  ly do 'chua dien dat duoc':")
     for k, n in sorted(r["ly_do"].items(), key=lambda x: -x[1])[:8]:
         print("   %2dx  %s" % (n, k))

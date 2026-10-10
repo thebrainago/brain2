@@ -100,3 +100,123 @@ class VongThuNghiem(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+# ---------------------------------------------------------------- them 10/10 chieu
+B5 = "EA Snippets_Breakout_Breakout5.mq5"
+B522 = "EA Snippets_Breakout_Breakout5-2-2.mq5"
+PIVOT_H1 = {"chi_bao": "tuyen_tinh", "toan_hang": [
+    {"chi_bao": "tre", "cua": {"chi_bao": "gia", "cot": c}, "n": 1}
+    for c in ("high", "low", "close")], "he_so": [1 / 3.0] * 3}
+
+
+def _gan_bang(a, b):
+    """So sanh spec, he so so thuc so gan dung."""
+    if isinstance(a, dict) and isinstance(b, dict):
+        return a.keys() == b.keys() and all(_gan_bang(a[k], b[k]) for k in a)
+    if isinstance(a, list) and isinstance(b, list):
+        return len(a) == len(b) and all(_gan_bang(x, y) for x, y in zip(a, b))
+    if isinstance(a, float) or isinstance(b, float):
+        return abs(float(a) - float(b)) < 1e-12
+    return a == b
+
+
+class PivotGio(unittest.TestCase):
+    """`PivotsIsAbovePivot(close, pd.PivotsHour, "P")` dich theo ma MultiPivots.mqh."""
+
+    def test_breakout5_mua_duoi_pivot_ban_tren_pivot(self):
+        d = _doc(B5)
+        cc = {c["chieu"]: c for c in d["co_che"]}
+        self.assertEqual(sorted(cc), [-1, 1])
+        # `upbreakout = !abovepivot` -> MUA khi close < P; `downbreakout = !upbreakout`
+        self.assertEqual(len(cc[1]["vao"]), 1)
+        self.assertEqual(cc[1]["vao"][0]["phep"], "<")
+        self.assertTrue(_gan_bang(cc[1]["vao"][0]["phai"], PIVOT_H1), cc[1]["vao"])
+        self.assertEqual(cc[-1]["vao"][0]["phep"], ">=")
+        for c in cc.values():
+            self.assertEqual(c["ho"], "quay_ve_trung_binh")
+            self.assertTrue(c.get("gia_dinh"))
+            self.assertEqual(NP.kiem_khai_bao(c), [])
+            ok, ly = NP.kiem_khong_nhin_truoc(c, _h1())
+            self.assertTrue(ok, ly)
+
+    def test_khong_goi_Calculate_thi_khong_dich(self):
+        """Struct khong duoc tinh -> P = 0 -> dich ra pivot la noi doi."""
+        vb = (MAU / B5).read_text(errors="ignore").replace(
+            "pivotsdata.Calculate(New_Time[0]);", "")
+        self.assertEqual(DM.doc_chien_luoc(vb, nguon="x")["co_che"], [])
+
+    def test_loai_pivot_khac_P_thi_khong_dich(self):
+        vb = (MAU / B5).read_text(errors="ignore").replace(
+            "PivotTypeHour=PIVOT_TRADITIONAL", "PivotTypeHour=PIVOT_WOODIES")
+        self.assertEqual(DM.doc_chien_luoc(vb, nguon="x")["co_che"], [])
+
+
+class GapCauHinh(unittest.TestCase):
+    """`if(ReverseEntry)` / `if(startmanual!=0){...}` khong chay o cau hinh goc."""
+
+    def test_breakout5_2_2_dich_lenh_dau_dung_chieu(self):
+        d = _doc(B522)
+        cc = {c["chieu"]: c for c in d["co_che"]}
+        self.assertEqual(sorted(cc), [-1, 1])
+        self.assertEqual(cc[1]["vao"][0]["phep"], "<")       # khong bi `upbreakout=true`
+        self.assertEqual(d["so_vao_lenh_co_co_che"], 1)
+
+    def test_doi_input_thi_doi_chieu(self):
+        """ReverseEntry=true -> MUA khi close >= P. Chung to gap THEO GIA TRI, khong bo bua."""
+        vb = (MAU / B522).read_text(errors="ignore").replace(
+            "input bool           ReverseEntry = false;",
+            "input bool           ReverseEntry = true;")
+        cc = {c["chieu"]: c for c in DM.doc_chien_luoc(vb, nguon="x")["co_che"]}
+        self.assertEqual(cc[1]["vao"][0]["phep"], ">=")
+        self.assertEqual(cc[-1]["vao"][0]["phep"], "<")
+
+    def test_tham_so_goi_tay_ngoai_OnChartEvent_thi_khong_gap(self):
+        vb = (MAU / B522).read_text(errors="ignore").replace(
+            "      checkForOpen();\n", "      checkForOpen(1);\n")
+        d = DM.doc_chien_luoc(vb, nguon="x")
+        self.assertEqual(d["so_vao_lenh_co_co_che"], 0)
+
+
+class HoVaTrung(unittest.TestCase):
+    def test_template_ho_xu_huong_va_bo_dieu_kien_thua(self):
+        d = _doc("mql5-pro_assets_EA_Template.mq5")
+        for c in d["co_che"]:
+            self.assertEqual(c["ho"], "xu_huong")
+            self.assertEqual(len(c["vao"]), 1, c["vao"])
+            self.assertEqual(NP.kiem_khai_bao(c), [])
+
+    def test_ho_gia_thuan_chi_khi_moc_cu_hon(self):
+        g = {"chi_bao": "gia", "cot": "close"}
+        t1 = {"chi_bao": "tre", "cua": g, "n": 1}
+        self.assertEqual(DM._ho_gia_thuan([{"trai": g, "phep": ">", "phai": t1}], 1),
+                         "xu_huong")
+        self.assertEqual(DM._ho_gia_thuan([{"trai": g, "phep": "<", "phai": t1}], 1),
+                         "quay_ve_trung_binh")
+        self.assertEqual(DM._ho_gia_thuan([{"trai": g, "phep": "<", "phai": t1}], -1),
+                         "xu_huong")
+        # moc KHONG cu hon gia ben trai -> khong gan
+        self.assertIsNone(DM._ho_gia_thuan([{"trai": t1, "phep": ">", "phai": g}], 1))
+        # hai dieu kien nguoc huong -> khong gan
+        self.assertIsNone(DM._ho_gia_thuan(
+            [{"trai": g, "phep": ">", "phai": t1}, {"trai": g, "phep": "<", "phai":
+             {"chi_bao": "tre", "cua": g, "n": 3}}], 1))
+
+
+class PhanLoaiVaMaChet(unittest.TestCase):
+    def test_pivots1_lenh_vao_sau_return_la_ma_chet(self):
+        d = _doc("EA Snippets_Pivots_Pivots1.mq5")
+        self.assertEqual(d["phan_loai_vao_lenh"]["ma_chet"], 1)
+        self.assertEqual(d["co_che"], [])
+
+    def test_hedge_xep_quan_ly_vi_the(self):
+        d = _doc("EA Snippets_Breakout_Breakout2.mq5")
+        self.assertEqual(d["phan_loai_vao_lenh"],
+                         {"dich_duoc": 1, "ma_chet": 0, "quan_ly_vi_the": 2, "chua_dich": 0})
+
+    def test_tong_phan_loai_bang_so_vao_lenh(self):
+        for p in sorted(MAU.glob("*.mq5")):
+            d = _doc(p.name)
+            self.assertEqual(sum(d["phan_loai_vao_lenh"].values()), d["so_vao_lenh"], p.name)
+            self.assertEqual(d["phan_loai_vao_lenh"]["dich_duoc"],
+                             d["so_vao_lenh_co_co_che"], p.name)
