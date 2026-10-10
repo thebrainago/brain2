@@ -587,8 +587,12 @@ def _toan_hang_tinh(df: pd.DataFrame, t: dict) -> pd.Series:
         # Nem loi thay vi tra chuoi 0: mot co che theo GIO chay tren khung
         # khong co gio la LOI CAU HINH, khong phai mot co che khong vao lenh.
         MAU_MOD._phai_co_gio(df, f"DSL chi_bao='gio'")
+        if t.get("luc") == "dong":
+            return pd.Series(_luc_dong(df).hour, index=df.index, dtype=float)
         return pd.Series(df.index.hour, index=df.index, dtype=float)
     if cb == "ngay_trong_tuan":
+        if t.get("luc") == "dong":
+            return pd.Series(_luc_dong(df).dayofweek, index=df.index, dtype=float)
         return pd.Series(df.index.dayofweek, index=df.index, dtype=float)
     if cb == "ngay_trong_thang":
         return pd.Series(df.index.day, index=df.index, dtype=float)
@@ -987,6 +991,17 @@ def _toan_hang_tinh(df: pd.DataFrame, t: dict) -> pd.Series:
         cot = "high" if cb == "cao_trong_gio" else "low"
         trong = (gio >= gt) & (gio <= gd)
         x = _cot(df, cot).where(trong)
+        if t.get("luc") == "dong":
+            # Quy uoc MQL5 "tick dau bar moi" (them 10/10/2026 toi): EA quyet
+            # dinh luc MO bar i+1 = luc DONG bar i, voi `dt` = gio/ngay cua
+            # thoi diem do. Khung [gio_tu, gio_den] lay theo NGAY cua luc dong,
+            # va co gia tri khi gio luc dong > gio_den - tuc moi bar trong khung
+            # (ke ca bar gio_den, vua dong) DA DONG. Khong nhin truoc.
+            dong = _luc_dong(df)
+            bang = x.groupby(ngay).agg("max" if cot == "high" else "min")
+            ngay_d = pd.Series(dong.normalize(), index=df.index)
+            gio_d = pd.Series(dong.hour, index=df.index)
+            return ngay_d.map(bang).where(gio_d > gd).astype(float)
         gop = x.groupby(ngay).transform("max" if cot == "high" else "min")
         return gop.where(gio > gd)
 
@@ -1220,6 +1235,30 @@ CHI_BAO_NHAN_COT = {
     # `fibo` thi KHONG: no neo vao dinh/day, tuc luon can ca high lan low.
     "duong_xu_huong", "goc",
 }
+
+
+def _luc_dong(df: pd.DataFrame) -> pd.DatetimeIndex:
+    """Thoi diem DONG cua moi bar = luc mo + do dai bar (trung vi khoang cach).
+
+    Dung cho toan hang lich co `"luc": "dong"` - quy uoc cua lop doc MQL5
+    (them 10/10/2026 toi): EA chay o tick DAU cua bar moi, nen gio/ngay EA doc
+    (`TimeCurrent`/`iTime(...,0)`) la luc MO bar i+1 = luc DONG bar i, con mo
+    phong quyet dinh tai dong bar i. Bar dong vao Thu Bay/Chu Nhat (bar cuoi
+    tuan FX) thi bar ke tiep that su mo vao Thu Hai -> day ve 00:00 Thu Hai.
+    Chi dung chi so thoi gian cua CHINH bar i: khong nhin truoc.
+    """
+    idx = pd.DatetimeIndex(df.index)
+    if len(idx) > 1:
+        buoc = pd.Series(idx).diff().dropna().median()
+    else:
+        buoc = pd.Timedelta(hours=1)
+    dong = idx + buoc
+    cuoi_tuan = dong.dayofweek >= 5
+    if cuoi_tuan.any():
+        thu_hai = (dong.normalize()
+                   + pd.to_timedelta(7 - dong.dayofweek, unit="D"))
+        dong = dong.where(~cuoi_tuan, thu_hai)
+    return dong
 
 
 def _so_sanh(a: pd.Series, phep: str, b: pd.Series) -> pd.Series:

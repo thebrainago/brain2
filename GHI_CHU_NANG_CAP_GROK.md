@@ -1,5 +1,61 @@
 # Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (tối, giờ VN)
 
+## Vòng 10/10 khuya — SỬA LỆCH MỘT BAR trong quy ước chỉ số MQL5
+### Quy ước mới (ghi ở `nhan/doc_ma.py`, khối chú thích trên `_ten_bar_mql`)
+Mô phỏng quyết định ở ĐÓNG bar i, vào lệnh ở OPEN bar i+1. EA MQL5 chạy ở TICK ĐẦU
+của bar mới (`IsNewBar`, `curTime!=prevTime`, `dt.min==0`) = đúng lúc mở bar i+1.
+| MQL5 | DSL (mới) | bản cũ |
+|---|---|---|
+| `iClose(...,k)`, `arr[k]` với k ≥ 1 (bar đã đóng) | `tre k−1` (`iClose(..,1)` = `close`) | `tre k` (trễ thừa 1 bar) |
+| bar 0 `current[0].open/high/low/close` (mới có 1 tick) | `close` (giá tick đầu ≈ close bar i) | `high`/`low`/`close` của bar i |
+| chỉ báo ở bar 0 (`MaValues` phần tử mới nhất) | `tre 0` | `tre 0` (nhưng các phần tử cũ hơn lệch 1) |
+| `CopyHigh(..,a,b,..)` số | `cao_nhat(high,b) tre a−1` (a=0 → b−1 bar, tre 0) | `tre a` |
+| `dt.hour`, `dt.day_of_week` | `gio`/`ngay_trong_tuan` với `"luc": "dong"` = giờ ĐÓNG bar i (= giờ mở bar i+1; đóng vào T7/CN → 00:00 Thứ Hai) | giờ MỞ bar i |
+| khung phiên `CopyHigh(starttime,endtime)` | `cao_trong_gio` `"luc": "dong"`: có giá trị khi giờ đóng bar i > `gio_den` (bar `gio_den` vừa đóng là đủ) | cần giờ mở bar i > `gio_den` (trễ 1 bar) |
+| pivot giờ (MultiPivots `PivotsHour`) | `(high+low+close)/3` của bar i | của bar i−1 |
+Không nhìn trước: mọi thứ chỉ dùng bar ≤ i (test `kiem_khong_nhin_truoc` cho MỌI cơ chế mẫu).
+Pine KHÔNG đổi (script Pine chạy ở đóng bar, `x[1]` = 1 bar trước là đúng).
+`ngu_phap.py`: thêm `_luc_dong(df)` + tuỳ chọn `"luc": "dong"` cho `gio`,
+`ngay_trong_tuan`, `cao_trong_gio`/`thap_trong_gio` (mặc định giữ nghĩa cũ).
+Sửa kèm: biến bí danh cột giá trần (`double c1 = iClose(..,1)` → `c1 = close`) trước
+đây rơi vì `_tuyen_tinh` từ chối định danh trần; `_ho_gia_thuan` chấp nhận mốc CÙNG
+bar nếu là tổ hợp nhiều cột (giá tick đầu so với pivot của bar vừa đóng).
+
+### Số đo
+| | ff1f94a8 | bây giờ |
+|---|---|---|
+| Điểm vào dịch được (`do_moc.py`) | 8/22 = 36.4% | **8/22 = 36.4%** (cùng cơ chế, căn bar đúng) |
+| Cơ chế / qua `kiem_khai_bao` | 14 / 14 | 14 / 14 |
+| `test_doc_ma*.py` + `test_toan_hang_tuyen_tinh.py` | 83 xanh | **90 xanh** (7 test mới: ánh xạ k→k−1, khớp EA từng bar, CopyHigh số, giờ lúc đóng + cuối tuần, khung phiên, không nhìn trước toàn bộ mẫu) |
+| 38 file test chạm `doc_ma`/`ngu_phap`/`vong_thu_nghiem` | 20 đỏ | 20 đỏ, **0 đỏ mới** (cùng tập lỗi môi trường; `test_sua_bang_llm` đỏ khi chạy chung là phụ thuộc thứ tự, chạy riêng xanh ở cả hai bản) |
+
+### Vòng lặp EURUSD H1 thật (`/workspace/eurusd_h1_server.csv`, 17.127 bar)
+14 bóc được, 6 trùng, 8 chạy được → **giữ lại: 0** (ngưỡng t ≥ 2.0 tối ưu / 1.5 kiểm).
+| cơ chế | kiểm gốc | kiểm sau tối ưu | t (tối ưu/kiểm) |
+|---|---|---|---|
+| Breakout1 mua | +1.06 / 103 | +2.54 / 94 | **+1.5 / +2.3** (gần nhất, rớt vì t tối ưu < 2.0) |
+| Breakout1 bán | −0.69 / 140 | −0.34 / 159 | +0.4 / −0.3 |
+| Breakout2-2 mua | −1.18 / 97 | −1.18 / 97 | +0.6 / −1.1 |
+| Breakout2-2 bán | −0.54 / 121 | −0.17 / 122 | +1.0 / −0.2 |
+| Breakout5-2-2 mua | −0.07 / 1310 | −0.78 / 5 | +0.5 / −0.7 |
+| Breakout5-2-2 bán | +1.06 / 1310 | +1.59 / 375 | +0.0 / +1.4 |
+| Template mua (c1>c2) | −1.29 / 1287 | −1.30 / 115 | +0.6 / −1.2 |
+| Template bán | −0.23 / 1314 | +1.15 / 158 | −0.3 / +1.1 |
+Placebo (dữ liệu ngẫu nhiên, seed 1-5, 8 cơ chế/seed): giữ 1/40 (~2.5%), đúng mức kỳ vọng.
+
+### Vấn đề mở (ưu tiên vòng sau)
+1. **EA kiểm lại mỗi tick** (Breakout1: `prevTime` chỉ cập nhật SAU khi vào lệnh, nhánh
+   không phá vỡ `return` trước đó; Breakout2/2-2/3 bỏ hẳn cổng bar mới) → thực chất là
+   lệnh dừng TRONG bar. Dịch theo tick đầu bar là xấp xỉ; cần tự phát hiện + gắn
+   `gia_dinh`, hoặc thêm toán hạng "phá vỡ trong bar" vào DSL (vào tại mức giá).
+2. Tối ưu chọn tham số cho 5 lệnh trên phần kiểm (Breakout5-2-2 mua, `giu=8`):
+   `lenh_min` chỉ áp lên phần tối ưu — cân nhắc áp cả phần kiểm khi báo cáo.
+3. `PivotsDay` (R1/S1/P ngày) qua `moc_ky`; `±5*_Point` cần giả định symbol.
+4. Bắt `SellLimit`/`BuyLimit` làm điểm vào (lệnh chờ tại mức giá).
+5. Chạy `doc_chien_luoc` trên kho .mq5 lớn để đo tỷ lệ thật ngoài 10 file mẫu.
+
+---
+
 ## Vòng 10/10 tối — SỐ ĐO THẬT (`python mau_thu/do_moc.py`)
 | | 908075c0 (chiều) | bây giờ |
 |---|---|---|
@@ -72,7 +128,7 @@ Không cơ chế nào qua ngưỡng t ≥ 2.0 / 1.5. Đó là kết quả trung 
 này là bộ khung hedge/lưới, phần tín hiệu vào lệnh đơn thuần không có edge sau phí.
 
 ### Vấn đề mở (ưu tiên vòng sau)
-1. **Lệch một bar trong quy ước chỉ số MQL5.** EA chạy ở tick ĐẦU của bar mới (cổng
+1. ~~**Lệch một bar trong quy ước chỉ số MQL5.**~~ (ĐÃ SỬA ở vòng 10/10 khuya, xem trên) EA chạy ở tick ĐẦU của bar mới (cổng
    `curTime!=prevTime`, `dt.min==0`), nên `current[0].close` ≈ close bar vừa đóng,
    còn chỉ số MQL5 k≥1 ứng với trễ k−1 trong DSL (quyết định lúc đóng bar). Quy ước
    hiện tại ánh xạ thẳng k → trễ k (cũng áp cho pivot giờ để nhất quán). Không nhìn

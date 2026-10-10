@@ -571,6 +571,10 @@ def _toan_hang_goc(tu: str, vi_tri: int, bang: list,
                     t = _toan_hang(nhanh, dn[0], bang, bang_bt, sau + 1)
                     if t is not None:
                         return t
+                if dn[1].strip().lower() in _GIA:
+                    # bi danh cot gia tran: `double c1 = iClose(_Symbol,_Period,1);`
+                    # -> `c1 = close` sau quy uoc chi so bar MQL5 (bar 1 = bar i)
+                    return {"chi_bao": "gia", "cot": _GIA[dn[1].strip().lower()]}
                 t = _tuyen_tinh(dn[1], dn[0], bang, bang_bt, sau + 1)
                 if t is not None:
                     return t
@@ -1154,15 +1158,43 @@ def _gap_hang_cau_hinh(vb: str) -> str:
     return vb
 
 
+#: QUY UOC CHI SO BAR MQL5 -> DSL (them 10/10/2026 toi, sua lech mot bar).
+#:
+#: Mo phong (`mo_phong.chay`) quyet dinh tai DONG bar i va vao lenh tai OPEN
+#: bar i+1. EA MQL5 thi chay o TICK DAU cua bar moi (cong `IsNewBar`,
+#: `curTime!=prevTime`, `dt.min==0`), tuc dung luc mo bar i+1. Luc do, theo
+#: chi so MQL5:
+#:   - bar k >= 1 (da dong) = bar i-(k-1) cua mo phong -> DSL `tre k-1`
+#:     (`iClose(...,1)` = close bar vua dong = `close`; `iClose(...,2)` =
+#:     `close tre 1`). Ban cu anh xa k -> tre k: tre THUA mot bar.
+#:   - bar k = 0 (dang hinh thanh, moi co MOT tick): open = high = low =
+#:     close = gia tick dau ~ close bar i (FX: gap giua hai bar H1 ~ 0). Nen
+#:     `current[0].high/.low/.close/.open` -> `close` (tre 0). Chi bao doc o
+#:     bar 0 (`MaValues` phan tu moi nhat) tinh voi gia tick dau ~ close bar i
+#:     -> `tre 0`.
+#:   - gio/thu cua EA (`TimeToStruct(curTime)`) la luc MO bar i+1 = luc DONG
+#:     bar i -> toan hang lich mang `"luc": "dong"` (xem `ngu_phap._luc_dong`).
+#: Khong nhin truoc: moi thu chi dung bar <= i. GIOI HAN: EA nao kiem lai o
+#: MOI tick (khong co cong bar moi) thi thuc chat la lenh dung trong bar; dich
+#: theo tick dau bar la XAP XI cua EA do.
+_COT_GIA = {"close", "open", "high", "low"}
+
+
+def _ten_bar_mql(goc: str, k: int) -> str:
+    """Ten DSL cho `goc` o chi so bar MQL5 `k` (quy uoc o tren)."""
+    if k <= 0:
+        return "close" if goc in _COT_GIA else goc
+    return goc + (f"[{k - 1}]" if k > 1 else "")
+
+
 def _chuan_hoa_mql5(vb: str) -> str:
     """Viet lai CU PHAP MQL5 ve dang bo doc da hieu. Khong doi nghia."""
     vb = vb.replace("&&", " and ").replace("||", " or ")
     vb = _gap_hang_cau_hinh(vb)
-    # iClose(_Symbol,_Period,k) -> close[k]  (khung hien tai)
+    # iClose(_Symbol,_Period,k) -> close[k-1]  (khung hien tai, quy uoc o tren)
     vb = re.sub(r"\bi(Close|Open|High|Low)[ \t]*\([ \t]*[^,()]+,[ \t]*"
                 r"(?:_Period|0|PERIOD_CURRENT|Period\(\))[ \t]*,[ \t]*(\d+)[ \t]*\)",
-                lambda m: m.group(1).lower() + (f"[{m.group(2)}]"
-                                                if m.group(2) != "0" else ""), vb)
+                lambda m: _ten_bar_mql(m.group(1).lower(), int(m.group(2))), vb)
     # `_Point*x` voi x = 0 theo mac dinh cua tac gia -> 0
     hs = _hang_mql(vb)
 
@@ -1198,7 +1230,7 @@ def _chuan_hoa_mql5(vb: str) -> str:
         return s + k if (arr in series or c == 1) else s + c - 1 - k
 
     def _ten(goc, sh):
-        return goc + (f"[{sh}]" if sh else "")
+        return _ten_bar_mql(goc, sh)          # sh = chi so bar MQL5 (0 = dang chay)
 
     def _rates(m):
         arr, k, cot = m.group(1), int(m.group(2)), m.group(3).lower()
@@ -1234,7 +1266,7 @@ _PIVOT_P_CHUAN = {"PIVOT_TRADITIONAL", "PIVOT_CLASSIC", "PIVOT_FIBONACCI"}
 
 
 def _pivot_gio(vb: str) -> str:
-    """`PivotsIsAbovePivot(x, pd.PivotsHour, "P")` -> `(x >= (high[1]+low[1]+close[1])/3)`.
+    """`PivotsIsAbovePivot(x, pd.PivotsHour, "P")` -> `(x >= (high+low+close)/3)`.
 
     Dich theo MA THAT cua `MultiPivots.mqh` (doc 10/10/2026):
       - `PivotsIsAbovePivot(price, pivots, level)` = `price >= level`.
@@ -1244,7 +1276,8 @@ def _pivot_gio(vb: str) -> str:
     Chi dich khi file THAT SU bat pivot gio loai do (`Settings.PivotTypeHour=`)
     va co goi `.Calculate(` - khong thi struct de nguyen 0 va dich la noi doi.
     GIA DINH duy nhat: chay tren du lieu H1 (vong thu nghiem dung H1), luc do
-    `close[1]` cua khung hien tai dung la thanh H1 truoc. Ghi o `gia_dinh`.
+    thanh H1 da dong ngay truoc (MQL5 bar 1) chinh la bar i cua mo phong
+    (quy uoc `_ten_bar_mql`) -> H/L/C tre 0. Ghi o `gia_dinh`.
     PivotsDay / R1 / S1 / PivotsIsPivotRange (+-5*_Point, phu thuoc symbol)
     KHONG dich o day.
     """
@@ -1258,7 +1291,7 @@ def _pivot_gio(vb: str) -> str:
         vb = re.sub(
             rf"\bPivotsIsAbovePivot[ \t]*\([ \t]*([\w.\[\]]+)[ \t]*,[ \t]*{pd_}"
             rf"\.PivotsHour[ \t]*,[ \t]*\"P\"[ \t]*\)",
-            lambda x: f"({x.group(1)} >= ((high[1]+low[1]+close[1])/3))", vb)
+            lambda x: f"({x.group(1)} >= ((high+low+close)/3))", vb)
     return vb
 
 
@@ -1311,10 +1344,18 @@ def _bang_mql(vb: str) -> list[tuple[int, str, dict]]:
         if (cot == "high") != (mm == "Maximum"):
             continue
         if a.isdigit() and b.isdigit():
+            # Bar MQL5 a..a+b-1 -> DSL tre a-1..a+b-2 (quy uoc o `_ten_bar_mql`).
+            # a = 0: bar dang chay chi co gia tick dau ~ close bar i <= high bar
+            # i (co trong cua so khi b >= 2) -> bo no, con b-1 bar.
+            n, tre = int(b), int(a) - 1
+            if tre < 0:
+                n, tre = n - 1, 0
+            if n < 1:
+                continue
             t = {"chi_bao": "cao_nhat" if cot == "high" else "thap_nhat",
-                 "n": int(b), "cua": {"chi_bao": "gia", "cot": cot}}
-            if int(a):
-                t = {"chi_bao": "tre", "cua": t, "n": int(a)}
+                 "n": n, "cua": {"chi_bao": "gia", "cot": cot}}
+            if tre:
+                t = {"chi_bao": "tre", "cua": t, "n": tre}
         else:
             s0 = _giay_trong_ngay(a, vt, vb)
             s1 = _giay_trong_ngay(b, vt, vb)
@@ -1324,10 +1365,11 @@ def _bang_mql(vb: str) -> list[tuple[int, str, dict]]:
             if gd < gt:
                 continue
             t = {"chi_bao": "cao_trong_gio" if cot == "high" else "thap_trong_gio",
-                 "gio_tu": int(gt), "gio_den": int(gd)}
+                 "gio_tu": int(gt), "gio_den": int(gd), "luc": "dong"}
         ra.append((m.start(), ten, dict(t, _thang=1)))
-    ra.append((0, "_gio_", {"chi_bao": "gio", "_thang": 1}))
-    ra.append((0, "_thu_", {"chi_bao": "ngay_trong_tuan", "_thang": 1}))
+    # gio/thu EA doc o tick dau bar i+1 = luc DONG bar i (quy uoc chi so bar)
+    ra.append((0, "_gio_", {"chi_bao": "gio", "luc": "dong", "_thang": 1}))
+    ra.append((0, "_thu_", {"chi_bao": "ngay_trong_tuan", "luc": "dong", "_thang": 1}))
     return ra
 
 
@@ -1607,7 +1649,14 @@ def _ho_gia_thuan(dk: list[dict], chieu: int) -> str | None:
     for d in dk:
         a = _tre_gia(d.get("trai"))
         b = _tre_nho_nhat_cua_moc(d.get("phai"))
-        if a is None or b is None or b <= a or d.get("phep") not in _PHEP:
+        if a is None or b is None or d.get("phep") not in _PHEP:
+            return None
+        # Moc phai CU HON gia ben trai; hoac CUNG bar nhung la to hop cua
+        # NHIEU cot (pivot (H+L+C)/3 cua bar vua dong so voi gia tick dau bar
+        # moi, sau khi sua lech mot bar 10/10 toi) - van la "gia so voi moc".
+        cung_bar_to_hop = (b == a and (d.get("phai") or {}).get("chi_bao") == "tuyen_tinh"
+                           and len((d.get("phai") or {}).get("toan_hang") or []) >= 2)
+        if b < a or (b == a and not cung_bar_to_hop):
             return None
         tren = d["phep"] in (">", ">=")
         huong.add("xu_huong" if tren == (chieu == 1) else "quay_ve_trung_binh")
@@ -1637,8 +1686,7 @@ def _bo_trung_dieu_kien(dk: list[dict]) -> list[dict]:
 
 
 _MOC_PIVOT_GIO = {"chi_bao": "tuyen_tinh", "toan_hang": [
-    {"chi_bao": "tre", "cua": {"chi_bao": "gia", "cot": c}, "n": 1}
-    for c in ("high", "low", "close")]}
+    {"chi_bao": "gia", "cot": c} for c in ("high", "low", "close")]}
 
 
 def _co_pivot_gio(t) -> bool:
@@ -1823,7 +1871,7 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
                 gia_dinh = []
                 if _co_pivot_gio(dk):
                     gia_dinh.append("pivot gio (MultiPivots.mqh) = (H+L+C)/3 cua thanh "
-                                    "H1 truoc: dung khi chay tren du lieu H1")
+                                    "H1 vua dong (bar i): dung khi chay tren du lieu H1")
                 co = True
                 ten = f"{tien_to}_{'mua' if c == 1 else 'ban'}_" + "_va_".join(
                     f"{_ten_toan_hang(d['trai'])}_{_TEN_PHEP.get(d['phep'], 'bang')}"

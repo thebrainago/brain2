@@ -38,13 +38,18 @@ class PhaVoPhien(unittest.TestCase):
         mua = [c for c in _doc("EA Snippets_Breakout_Breakout1.mq5")["co_che"]
                if c["chieu"] == 1][0]
         vao = mua["vao"]
+        # Quy uoc chi so bar MQL5 (10/10 toi): EA chay o tick dau bar i+1 ->
+        # gio/khung phien tinh theo luc DONG bar i (`"luc": "dong"`).
         self.assertEqual(vao[0]["phai"], {"chi_bao": "cao_trong_gio",
-                                          "gio_tu": 5, "gio_den": 8})
-        self.assertIn({"trai": {"chi_bao": "gio"}, "phep": ">=",
+                                          "gio_tu": 5, "gio_den": 8, "luc": "dong"})
+        # current[0].high o tick dau bar moi = gia tick dau ~ close bar i
+        self.assertEqual(vao[0]["trai"], {"chi_bao": "gia", "cot": "close"})
+        self.assertIn({"trai": {"chi_bao": "gio", "luc": "dong"}, "phep": ">=",
                        "phai": {"hang": 9.0}}, vao)
         # MaValues[0] sau CopyBuffer(...,0,10,...) KHONG dao chieu = bar cu nhat
+        # = bar MQL5 9 = DSL tre 8
         self.assertIn({"trai": {"chi_bao": "gia", "cot": "close"}, "phep": ">=",
-                       "phai": {"chi_bao": "tre", "n": 9,
+                       "phai": {"chi_bao": "tre", "n": 8,
                                 "cua": {"chi_bao": "sma", "n": 50}}}, vao)
 
     def test_khong_rut_lenh_hedge(self):
@@ -69,10 +74,11 @@ class HamTinHieu(unittest.TestCase):
     def test_getsignal_tra_1_va_tru_1(self):
         d = _doc("mql5-pro_assets_EA_Template.mq5")
         mua = [c for c in d["co_che"] if c["chieu"] == 1][0]
+        # iClose(...,1) = bar vua dong = `close`; iClose(...,2) = `close tre 1`
         self.assertEqual(mua["vao"], [{
-            "trai": {"chi_bao": "tre", "cua": {"chi_bao": "gia", "cot": "close"}, "n": 1},
+            "trai": {"chi_bao": "gia", "cot": "close"},
             "phep": ">",
-            "phai": {"chi_bao": "tre", "cua": {"chi_bao": "gia", "cot": "close"}, "n": 2}}])
+            "phai": {"chi_bao": "tre", "cua": {"chi_bao": "gia", "cot": "close"}, "n": 1}}])
 
 
 class CaoTrongGio(unittest.TestCase):
@@ -105,9 +111,10 @@ if __name__ == "__main__":
 # ---------------------------------------------------------------- them 10/10 chieu
 B5 = "EA Snippets_Breakout_Breakout5.mq5"
 B522 = "EA Snippets_Breakout_Breakout5-2-2.mq5"
+# Pivot gio = (H+L+C)/3 cua thanh H1 vua dong = bar i cua mo phong (tre 0)
 PIVOT_H1 = {"chi_bao": "tuyen_tinh", "toan_hang": [
-    {"chi_bao": "tre", "cua": {"chi_bao": "gia", "cot": c}, "n": 1}
-    for c in ("high", "low", "close")], "he_so": [1 / 3.0] * 3}
+    {"chi_bao": "gia", "cot": c} for c in ("high", "low", "close")],
+    "he_so": [1 / 3.0] * 3}
 
 
 def _gan_bang(a, b):
@@ -220,3 +227,104 @@ class PhanLoaiVaMaChet(unittest.TestCase):
             self.assertEqual(sum(d["phan_loai_vao_lenh"].values()), d["so_vao_lenh"], p.name)
             self.assertEqual(d["phan_loai_vao_lenh"]["dich_duoc"],
                              d["so_vao_lenh_co_co_che"], p.name)
+
+
+# ------------------------------------------------- them 10/10 toi: lech mot bar
+_KHUNG_EA = """
+input int x = 1;
+void OnTick() {
+   if(!IsNewBar()) return;
+   double c1 = iClose(_Symbol, _Period, %s);
+   double c2 = iClose(_Symbol, _Period, %s);
+   if(c1 > c2) trade.Buy(0.1);
+}
+"""
+
+
+class ChiSoBarMQL5(unittest.TestCase):
+    """EA chay o TICK DAU bar i+1; mo phong quyet dinh o DONG bar i.
+
+    MQL5 bar k >= 1 -> DSL tre k-1; bar 0 (moi mot tick) -> `close` bar i.
+    """
+
+    def test_ten_bar(self):
+        self.assertEqual(DM._ten_bar_mql("close", 1), "close")
+        self.assertEqual(DM._ten_bar_mql("high", 1), "high")
+        self.assertEqual(DM._ten_bar_mql("close", 3), "close[2]")
+        for c in ("open", "high", "low", "close"):
+            self.assertEqual(DM._ten_bar_mql(c, 0), "close")
+        # chi bao o bar 0 -> tre 0 (tinh voi gia tick dau ~ close bar i)
+        self.assertEqual(DM._ten_bar_mql("iMA(NULL,0,50,0,MODE_SMA,PRICE_CLOSE)", 0),
+                         "iMA(NULL,0,50,0,MODE_SMA,PRICE_CLOSE)")
+
+    def _vao(self, a, b):
+        cc = DM.doc_chien_luoc(_KHUNG_EA % (a, b), nguon="x")["co_che"]
+        self.assertEqual(len(cc), 1)
+        return cc[0]["vao"][0]
+
+    def test_iclose_1_2_va_2_3(self):
+        g = {"chi_bao": "gia", "cot": "close"}
+        d = self._vao(1, 2)
+        self.assertEqual(d["trai"], g)
+        self.assertEqual(d["phai"], {"chi_bao": "tre", "cua": g, "n": 1})
+        d = self._vao(2, 3)
+        self.assertEqual(d["trai"], {"chi_bao": "tre", "cua": g, "n": 1})
+        self.assertEqual(d["phai"], {"chi_bao": "tre", "cua": g, "n": 2})
+
+    def test_tin_hieu_khop_ea_tung_bar(self):
+        """Mo phong lai EA bang tay: tai mo bar j, EA so close[j-1] > close[j-2].
+        Tin hieu DSL tai bar i (= j-1) phai TRUNG KHOP tung bar."""
+        cc = DM.doc_chien_luoc(_KHUNG_EA % (1, 2), nguon="x")["co_che"][0]
+        df = _h1(400)
+        s = np.asarray(NP.sinh_tu_spec(cc, df), dtype=float)
+        c = df["close"].to_numpy()
+        ea = np.zeros(len(df))
+        for j in range(2, len(df)):          # EA o tick dau bar j
+            if c[j - 1] > c[j - 2]:
+                ea[j - 1] = 1.0              # quyet dinh thuoc ve bar i = j-1
+        self.assertTrue(np.array_equal(np.nan_to_num(s[2:]) != 0, ea[2:] != 0))
+
+    def test_copyhigh_so_lui_mot_bar(self):
+        t = [x for x in DM._bang_mql(
+            "double h[];\nCopyHigh(_Symbol,_Period,1,3,h);\n"
+            "double r=h[ArrayMaximum(h)];") if x[1] == "r"][0][2]
+        self.assertEqual({k: v for k, v in t.items() if not k.startswith("_")},
+                         {"chi_bao": "cao_nhat", "n": 3,
+                          "cua": {"chi_bao": "gia", "cot": "high"}})
+        t = [x for x in DM._bang_mql(
+            "double h[];\nCopyHigh(_Symbol,_Period,2,3,h);\n"
+            "double r=h[ArrayMaximum(h)];") if x[1] == "r"][0][2]
+        self.assertEqual(t["chi_bao"], "tre")
+        self.assertEqual(t["n"], 1)
+
+
+class LucDong(unittest.TestCase):
+    def test_gio_luc_dong_va_cuoi_tuan(self):
+        idx = pd.date_range("2024-01-05 21:00", periods=3, freq="h")   # thu Sau
+        df = pd.DataFrame({"open": 1.0, "high": 1.0, "low": 1.0, "close": 1.0},
+                          index=idx)
+        g = NP.toan_hang(df, {"chi_bao": "gio", "luc": "dong"})
+        self.assertEqual(list(g), [22.0, 23.0, 0.0])
+        # bar 23:00 thu Sau dong -> bar ke tiep mo 00:00 THU HAI
+        t = NP.toan_hang(df, {"chi_bao": "ngay_trong_tuan", "luc": "dong"})
+        self.assertEqual(list(t), [4.0, 4.0, 0.0])
+        # mac dinh (khong `luc`) giu nguyen nghia cu
+        self.assertEqual(list(NP.toan_hang(df, {"chi_bao": "gio"})), [21.0, 22.0, 23.0])
+
+    def test_cao_trong_gio_luc_dong_co_gia_tri_ngay_bar_cuoi_khung(self):
+        """EA o tick dau bar 08:00 doc khung 00:00-07:59 da du -> DSL bar 07:00."""
+        df = _h1(48)
+        s = NP.toan_hang(df, {"chi_bao": "cao_trong_gio", "gio_tu": 0, "gio_den": 7,
+                              "luc": "dong"})
+        ngay0 = df.index.normalize() == df.index[0].normalize()
+        self.assertTrue(s[ngay0 & (df.index.hour < 7)].isna().all())
+        self.assertAlmostEqual(s[ngay0 & (df.index.hour == 7)].iloc[0],
+                               df["high"][ngay0 & (df.index.hour <= 7)].max())
+
+    def test_moi_co_che_mau_khong_nhin_truoc(self):
+        df = _h1(24 * 30)
+        for p in sorted(MAU.glob("*.mq5")):
+            for c in _doc(p.name)["co_che"]:
+                self.assertEqual(NP.kiem_khai_bao(c), [], p.name)
+                ok, ly = NP.kiem_khong_nhin_truoc(c, df)
+                self.assertTrue(ok, f"{p.name}: {ly}")
