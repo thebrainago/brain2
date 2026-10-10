@@ -16,7 +16,10 @@ File nay la ban doi chung theo dung luat EA `ea_LuoiDayDu.mq5` (the-brain, chi d
 Thu tu gia trong nen (`thu_tu`): "gan_open" (= `mo_phong._duong_bar`), "thap_truoc",
 "cao_truoc", "mau_nen" (xanh O-L-H-C, do O-H-L-C). Nen H1 an het dao dong nho ben trong
 -> moi thu tu deu chi la GIA DINH; bao KHOANG giua cac thu tu, khong chon ban dep.
-Chua co: swap (tester P1 cung ghi swap = 0), stop-out tung lenh (chi gan co `cham_stopout`),
+Swap (G06, 11/10/2026): TUY CHON `swap_nam` (mac dinh None = khong swap, giong het P1): ti le THU
+nhap/nam theo notional cho (mua, ban), so hoac mang (n, 2) theo nen; tinh cho lot CON MO qua moi
+rollover nua dem gio server (`chi_phi.dem_qua_dem`: thu Tu x3, T7/CN 0), cong vao tai khoan (va equity)
+ngay luc rollover. Chua co: stop-out tung lenh (chi gan co `cham_stopout`),
 cho_lui / chot_tien / dung_lo_tong (15 o P1 deu tat) -> gap tham so do thi bao loi.
 Don vi: tien BAO GIA (CAD voi xxxCAD); `quy_doi` (mang, so don vi bao gia / 1 don vi tai
 khoan, vd USDCAD tung nen) de doi lai/lo sang tien tai khoan TAI LUC phat sinh.
@@ -168,7 +171,8 @@ class _Ro:
 
 
 def chay_duong(df, ts: ThamSo, von_tk: float, thu_tu: str = "gan_open",
-               spread_pip: float = 2.0, quy_doi=None, lam_tron_lot: bool = True) -> dict:
+               spread_pip: float = 2.0, quy_doi=None, lam_tron_lot: bool = True,
+               swap_nam=None) -> dict:
     """Mo phong ThamSo tren nen OHLC theo `thu_tu`. `von_tk` bang tien TAI KHOAN; `quy_doi`
     (mang cung do dai df hoac so) = don vi bao gia tren 1 don vi tai khoan (USDCAD).
     Tra lai/nam %, maxDD % (dinh-xuong cua equity tai cac diem duong), so lenh dong."""
@@ -189,7 +193,23 @@ def chay_duong(df, ts: ThamSo, von_tk: float, thu_tu: str = "gan_open",
     dd = 0.0
     cham_so = False
     gia_truoc = None
+    swap_tk = 0.0
+    lot_dem = [0.0, 0.0]                            # lot x dem (co trong so) mua / ban - do phoi bay
+    if swap_nam is not None:
+        from nhan.chi_phi import dem_qua_dem
+        dem = dem_qua_dem(df.index)
+        sw = np.broadcast_to(np.asarray(swap_nam, float), (n, 2))
     for i in range(n):
+        if swap_nam is not None and i > 0 and dem[i - 1] > 0:
+            for r in ros:
+                tl = sum(x for _g, x in r.vao)
+                if tl <= 0:
+                    continue
+                k = 0 if r.c == 1 else 1
+                lot_dem[k] += tl * dem[i - 1]
+                x = sw[i - 1, k] * tl * HOP_DONG * c[i - 1] * dem[i - 1] / 365.0 / dv[i - 1]
+                lai_tk[0] += x
+                swap_tk += x
         pts = duong(o[i], h[i], l[i], c[i], thu_tu)
         for r in ros:
             r.tia_nen = 0
@@ -220,4 +240,5 @@ def chay_duong(df, ts: ThamSo, von_tk: float, thu_tu: str = "gan_open",
         "so_lenh": sum(r.so_dong for r in ros),
         "so_cap": sum(r.so_cap for r in ros), "so_ro": sum(r.so_ro for r in ros),
         "tang_max": max(r.tang_max for r in ros), "cham_stopout": cham_so,
+        "swap_tk": swap_tk, "lot_dem_mua": lot_dem[0], "lot_dem_ban": lot_dem[1],
     }

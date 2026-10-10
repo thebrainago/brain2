@@ -1,0 +1,60 @@
+{
+ "ke_hoach": {
+  "gia_dinh_khong_tu_tin_hieu": [
+   "bien_cap 4 pip (mac dinh the-brain)",
+   "cap_moi_bar 999",
+   "lot goc 0,01 + lam tron 0,01",
+   "don_bay 100, stop-out 50 %"
+  ],
+  "gia_thuyet": "so tay the-brain gt_204263a93f1f43a4 (id 4) / 06 G-c: cai dat 2023752 co lai TRUOC khi tin hieu song",
+  "kham_pha": [
+   "2018-01-02",
+   "2023-07-02"
+  ],
+  "khung": "M1 HistData",
+  "luat": {
+   "AM": "lai rong <= 0 o bien the xau nhat hoac maxDD >= 80 % hoac stop-out",
+   "CHUA_DO_DUOC": "thieu > 5 % phut giao dich trong mot nam cua kham_pha, hoac dau lai doi giua cac bien the (co bien the > 0 va co bien the <= 0) -> bao khoang",
+   "DAT_mo_phong": "kham_pha: lai rong > 0 o MOI bien the (4 thu tu x 2 spread) VA maxDD < 80 % VA khong stop-out VA lai bien the quyet dinh > nhieu voi p <= 0,05",
+   "LAI_NHUNG_KHONG_HON_NHIEU": "dieu kien luat chu (lai + DD) dat nhung p > 0,05"
+  },
+  "nhieu": {
+   "bien_the": "spread 2.8, gan_open, swap lich su",
+   "kieu": "dao dau tung nen M1 (giu bien do, pha tu tuong quan)",
+   "seed_tu": 6000,
+   "so": 40
+  },
+  "spread_pip": [
+   1.5,
+   2.8
+  ],
+  "swap": "(r_AUD - r_CAD)(thang) - markup XM 13/09/2026, theo tung lot mo qua rollover",
+  "tham_so": {
+   "bien_cap": 4.0,
+   "buoc": 21.2,
+   "cap_moi_bar": 999,
+   "che_do": "hai_chieu",
+   "don_bay": 100.0,
+   "he_so_buoc": 1.2,
+   "he_so_lot": 0.25,
+   "kieu_lot": "cong",
+   "lot": 0.01,
+   "muc_stopout": 0.5,
+   "tia_lenh": true,
+   "tp": 7.6,
+   "tran_tang": 5
+  },
+  "thu_tu": [
+   "gan_open",
+   "thap_truoc",
+   "cao_truoc",
+   "mau_nen"
+  ],
+  "von_usd": 10000.0,
+  "xac_nhan_khong_doc_lap": [
+   "2023-07-03",
+   "2025-02-17"
+  ]
+ },
+ "sha256_16": "c8c69e0f8483859b"
+}
