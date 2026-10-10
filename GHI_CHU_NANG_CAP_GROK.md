@@ -1,6 +1,83 @@
-# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (tối, giờ VN)
+# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (khuya, giờ VN)
 
-## Vòng 10/10 khuya — SỬA LỆCH MỘT BAR trong quy ước chỉ số MQL5
+## Vòng 10/10 khuya (2) — LỆNH DỪNG TRONG BAR + ĐỦ LỆNH HAI PHẦN + **PHÍ THẬT**
+### 0. Lỗi lớn tìm ra: vòng lặp chạy KHÔNG PHÍ từ trước tới giờ
+`vong_thu_nghiem.danh_gia` gọi `CP.MoHinhChiPhi(ma="EURUSD")` — constructor trần, spread =
+trượt = phí qua đêm = 0. Mọi bảng số vòng lặp bên dưới (kể cả "Breakout1 mua t=+1.5/+2.3")
+là **không phí** dù ghi chú nói "sau phí". Đã sửa: `mo_hinh_chi_phi()` = `chi_phi.tu_du_lieu`
+(EURUSD: spread 1,63 bps/chiều đo từ bar H1 XM, trượt 0,41 bps, qua đêm mua +2,48 %/năm,
+bán −0,45 %/năm, `do_tin=SAN`). `--khong-phi` chỉ để so với số cũ.
+
+### 1. EA kiểm lại MỖI tick → lệnh dừng trong bar (`nhan/doc_ma.py`)
+- Giá sống bar 0 (`current[0].high/low/close`, `iClose(..,0)`) giờ đi qua token nội bộ
+  `_gia0_` → toán hạng `close` có dấu `_bar0` (bóc ra trước khi trả co_che; nghĩa DSL cũ
+  KHÔNG đổi — so JSON 14 cơ chế trước/sau: giống hệt, chỉ thêm khoá mới).
+- `_kiem_moi_tick`: đi chuỗi gọi từ hàm chứa lệnh vào ngược lên `OnTick`, tìm cổng bar mới
+  CÓ HIỆU LỰC: `if(!IsNewBar()) return;`, `if(dt.min!=0) return;` (phút đầu), `if(curTime==
+  prevTime) return;` CHỈ KHI `prevTime=curTime;` đứng trước mọi `return` sau cổng; lời gọi
+  nằm trong `if(IsNewBar…)`.
+- Phân loại điều kiện: KÍCH HOẠT (`giá_sống ? mức`, mức cố định trong bar) / CHO PHÉP (không
+  dùng giá sống) / phức tạp. Kết quả:
+| file | phát hiện | xử lý |
+|---|---|---|
+| Breakout1 (mua/bán) | mỗi tick (prevTime gán sau lệnh) | `trong_bar` `>`/`<`, kích = biên phiên 5-8h + lọc MA; giờ 9-17 là cho phép |
+| Breakout2, 2-2, 3 | mỗi tick (bỏ cổng) | **cặp bù nhau** (giá > giữa / giá < giữa cùng mức): tick đầu luôn kích một chiều → dịch tick đầu là ĐÚNG, không đổi |
+| Breakout5, 5-2-2 | cổng `dt.min!=0` | không đổi |
+| Template | `if(!IsNewBar()) return;` ở OnTick | không đổi |
+- DSL (`ngu_phap.py`): khoá tuỳ chọn `"trong_bar": {"huong": ">"|"<", "kich": [chỉ số vao]}`,
+  `sinh_trong_bar(spec, df)` → (cho_phep, muc, huong) biết tại close bar i; `kiem_khai_bao`
+  kiểm khoá này. `vao` giữ bản xấp xỉ tick đầu (vân tay/tham số không đổi; tối ưu `vao[k].phai`
+  đổi luôn mức khớp).
+- Khớp lệnh (`mo_phong.chay_dung_trong_bar`): bar j=i+1, `>`: open>mức → khớp open (gap),
+  high>mức → khớp ở mức; giữ tới open bar j+giu; phí spread+trượt mỗi lần vào/ra. Không nhìn
+  trước: chỉ dùng O/H/L của chính bar j (lệnh chờ nằm sẵn) + cho_phep/muc bar ≤ i (test cắt).
+- Placebo đúng cho lệnh trong bar: `du_lieu_gia_lap_duong` (bar dựng từ 240 bước con — râu
+  nến là cực trị THẬT; giả lập cũ vẽ râu bằng nhiễu độc lập nên sai cho lệnh dừng).
+  20 seed × 8 cơ chế, không phí: giữ 3/160 (1,9%), Sharpe gốc kiểm trung bình của cơ chế
+  `trong_bar` +0,07 (≈0, đúng định lý dừng tuỳ chọn). Có phí: giữ 0/160.
+
+### 2. Đủ lệnh ở CẢ HAI phần (`vong_thu_nghiem.py`)
+- Phần kiểm ≥ `--lenh-toi-thieu` (20); phần tối ưu ≥ `lenh_min_phan_tu` = ⌈20·70/30⌉ = **47**
+  (cùng mật độ lệnh — bộ tối ưu không được nhìn phần kiểm nên đòi mật độ thay vì đòi số lệnh
+  kiểm). Bộ tối ưu chỉ chấp nhận tham số đạt 47; thiếu ở phần nào → `it_lenh`, không giữ.
+- Breakout5-2-2 mua: trước chọn `giu=8` (20 lệnh tối ưu, phơi nhiễm 99,6% ≈ mua-giữ, 5 lệnh
+  kiểm); giờ chọn tham số có 49 lệnh kiểm.
+
+### Số đo
+| | 890ba3e4 | bây giờ |
+|---|---|---|
+| Điểm vào dịch được (`do_moc.py`) | 8/22 = 36,4% | **8/22 = 36,4%** (không đổi; thêm mô hình trong bar cho 2 cơ chế) |
+| `test_doc_ma*` + `test_toan_hang_tuyen_tinh` | 90 xanh | 90 xanh |
+| `test_trong_bar.py` (mới) | — | **14 xanh** (phát hiện, cổng prevTime/IsNewBar, khớp giá, cắt không nhìn trước, placebo, đủ lệnh, phí ≠ 0) |
+| 52 file test chạm `doc_ma`/`ngu_phap`/`vong`/`mo_phong` (worktree sạch, + test_trong_bar) | 906 xanh / 46 đỏ / 5 lỗi thu thập | **920 xanh / 46 đỏ / 5 lỗi — cùng đúng tập đỏ, 0 đỏ mới** (tập đỏ có sẵn ở 890ba3e4, không liên quan thay đổi này) |
+
+### Vòng lặp EURUSD H1 (`/workspace/eurusd_h1_server.csv`, 17.127 bar)
+| cơ chế | không phí, tick đầu (cũ) | không phí, trong bar | **CÓ PHÍ** (thật), trong bar | t có phí (tối ưu/kiểm) |
+|---|---|---|---|---|
+| Breakout1 mua | kiểm gốc +1,06/103 l | +1,57/214 → tối ưu +2,54/189, t +2,6/+2,3 (GIỮ) | gốc −2,82/214 → tối ưu −1,01/124 | −1,0/−0,9 |
+| Breakout1 bán | −0,69/140 | +2,39/229 → +2,40/160, t +3,5/+2,2 (GIỮ) | −2,25/229 → −0,50/113 | −0,1/−0,5 |
+| Breakout2-2 mua/bán | | | −9,0 / −7,9 gốc → −2,7 / −1,7 | âm |
+| Breakout5-2-2 mua/bán | | | −15,4 / −14,4 gốc → −1,65/49 l / +0,39/93 l | −0,6/−1,5 · −1,1/+0,3 |
+| Template mua/bán | | | −17,0 / −16,1 gốc → −1,6/50 l / +0,43/39 l | âm |
+**Giữ lại (luật trung thực, có phí): 0.** Không phí thì mô hình trong bar giữ 2 (Breakout1 cả
+hai chiều) — nhưng biên lợi nhuận đó nhỏ hơn spread+trượt (~4 bps khứ hồi), nên không phải
+edge giao dịch được. Kết quả ghi `/workspace/vong_eurusd_tb.json` (có phí) và
+`/workspace/vong_eurusd_tb--khong-phi.json`.
+
+### Vấn đề mở
+1. Chỉ báo đọc ở bar 0 (`MaValues[last]`) cũng đổi theo tick — hiện coi là cố định (tre 0);
+   Breakout1 dùng phần tử cũ nhất nên không ảnh hưởng.
+2. "1 lệnh/ngày" (`lastupday/lastdownday`) vẫn bỏ qua (quản trị) — trong bar, chiều kia
+   khớp trước sẽ chặn chiều này cả ngày; chưa mô hình hoá.
+3. SL/TP của EA (Breakout1: SL = biên đối diện, TP = R·TPFactor) chưa dịch — vẫn `giu` N bar.
+4. Spread EURUSD lấy từ XM micro (1,63 bps/chiều) — tài khoản ECN rẻ hơn ~3 lần; nên thêm
+   lựa chọn sàn khi chạy vòng lặp.
+5. (cũ) `PivotsDay`, `SellLimit/BuyLimit`, kho .mq5 lớn.
+
+---
+
+## (trước) Vòng 10/10 khuya — SỬA LỆCH MỘT BAR trong quy ước chỉ số MQL5
+
 ### Quy ước mới (ghi ở `nhan/doc_ma.py`, khối chú thích trên `_ten_bar_mql`)
 Mô phỏng quyết định ở ĐÓNG bar i, vào lệnh ở OPEN bar i+1. EA MQL5 chạy ở TICK ĐẦU
 của bar mới (`IsNewBar`, `curTime!=prevTime`, `dt.min==0`) = đúng lúc mở bar i+1.

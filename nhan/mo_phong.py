@@ -317,6 +317,97 @@ def chay_tpsl(df: pd.DataFrame, tin_hieu_vao, tp_frac: float, sl_frac: float,
         phoi_nhiem=float(np.mean(np.abs(v))), canh_bao=list(cp.canh_bao))
 
 
+# ------------------------------------------------------- LENH DUNG TRONG BAR
+def chay_dung_trong_bar(df: pd.DataFrame, cho_phep, muc, huong: str, chieu: int,
+                        giu: int, cp: CP.MoHinhChiPhi, ma: str = "",
+                        khung: str = "") -> KetQua:
+    """Lenh CHO tai muc gia, khop TRONG bar (them 10/10/2026).
+
+    Mo hinh cho EA kiem lai o MOI tick (khong co cong bar moi): dieu kien dang
+    `gia_hien_tai > muc` kich hoat ngay khi gia cham muc, giua bar - khong phai
+    o tick dau bar.
+
+    `cho_phep[i]`, `muc[i]` BIET TAI CLOSE bar i (giong `tin_hieu` cua `chay`).
+    Trong bar j = i+1:
+      - huong ">" : gia di LEN qua muc. open[j] > muc -> khop o open[j] (gap
+        qua muc); high[j] > muc -> khop o muc. Khong thi khong co lenh.
+      - huong "<" : doi xung voi low.
+    Khop o gia P, giu den OPEN bar j+giu (giu=1: chi phan con lai cua bar j).
+    Tin hieu moi khi dang giu thi KEO DAI moc ra (giong `rolling(giu).max()`
+    cua `ngu_phap.sinh_tu_spec`).
+
+    KHONG nhin truoc: quyet dinh khop trong bar j chi dung open/high/low cua
+    CHINH bar j (lenh cho nam san tren san tu dau bar - dung nhu ngoai doi) va
+    `cho_phep`/`muc` tu bar <= j-1. Lai/lo bar j = log(open[j+1]/P).
+    """
+    n = len(df)
+    ok = np.nan_to_num(np.asarray(cho_phep, dtype=float).reshape(-1), nan=0.0) != 0
+    m = np.asarray(muc, dtype=float).reshape(-1)
+    if len(ok) != n or len(m) != n:
+        raise ValueError("cho_phep/muc phai dai bang du lieu")
+    if huong not in (">", "<"):
+        raise ValueError(f"huong phai la '>' hoac '<', nhan {huong!r}")
+    chieu = 1.0 if chieu >= 0 else -1.0
+    giu = max(1, int(giu))
+    o = df["open"].to_numpy(dtype=float)
+    hi = df["high"].to_numpy(dtype=float)
+    lo = df["low"].to_numpy(dtype=float)
+    idx = df.index
+
+    v = np.zeros(n)
+    kl = np.zeros(n)
+    loi_tho = np.zeros(n)
+    so_lenh = 0
+    het = -1                      # vi the DONG o OPEN bar `het` (-1 = dang rong)
+    for j in range(1, n):
+        gia_vao = None
+        if ok[j - 1] and np.isfinite(m[j - 1]):
+            L = m[j - 1]
+            if huong == ">":
+                if o[j] > L:
+                    gia_vao = o[j]
+                elif hi[j] > L:
+                    gia_vao = L
+            else:
+                if o[j] < L:
+                    gia_vao = o[j]
+                elif lo[j] < L:
+                    gia_vao = L
+        if het == j:
+            if gia_vao is not None and gia_vao == o[j]:
+                het = j + giu             # vao lai NGAY open luc dang dong = giu tiep
+            else:
+                kl[j] += 1.0              # dong o OPEN bar j
+                het = -1
+        if het > j:                       # dang giu suot bar j
+            if gia_vao is not None:
+                het = max(het, j + giu)   # tin hieu moi: keo dai, khong mo lenh moi
+            v[j] = chieu
+            if j + 1 < n:
+                loi_tho[j] = chieu * np.log(o[j + 1] / o[j])
+            continue
+        if gia_vao is None:
+            continue
+        so_lenh += 1
+        kl[j] += 1.0
+        het = j + giu
+        v[j] = chieu
+        if j + 1 < n:
+            loi_tho[j] = chieu * np.log(o[j + 1] / gia_vao)
+    loi_tho = np.nan_to_num(loi_tho, nan=0.0, posinf=0.0, neginf=0.0)
+    phi_sp = kl * cp.spread_mang(idx)
+    phi_tr = kl * cp.truot_gia_frac
+    phi_gi = cp.phi_giu_mang(idx, v, None)
+    loi = loi_tho - phi_sp - phi_tr - phi_gi
+    return KetQua(
+        ma=ma, khung=khung, index=idx, vi_the=v, loi=loi, loi_tho=loi_tho,
+        r=_loi_suat_tien(df),
+        chi_phi_spread=float(np.nansum(phi_sp)), chi_phi_truot=float(np.nansum(phi_tr)),
+        chi_phi_giu=float(np.nansum(phi_gi)), so_lan_doi=int(np.sum(kl > 0)),
+        so_lenh=so_lenh, phoi_nhiem=float(np.mean(np.abs(v))),
+        canh_bao=list(cp.canh_bao))
+
+
 # ------------------------------------------------------------------ TIEN ICH
 def dich_khong_nhin_truoc(s: pd.Series | np.ndarray) -> np.ndarray:
     """Tien ich cho template: chuyen chuoi chi bao thanh tin hieu hop le.

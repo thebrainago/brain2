@@ -1473,6 +1473,38 @@ def kiem_khai_bao(spec: dict) -> list[str]:
             for ben in ("trai", "phai"):
                 loi += [f"{nhom}[{i}].{ben}: {e}" for e in _kiem_toan_hang(d[ben])]
             loi += [f"{nhom}[{i}]: {e}" for e in _kiem_hien_nhien(d)]
+    if spec.get("trong_bar") is not None:
+        loi += _kiem_trong_bar(spec)
+    return loi
+
+
+def _kiem_trong_bar(spec: dict) -> list[str]:
+    """Kiem khoi `trong_bar` (lenh cho khop trong bar) - xem `sinh_trong_bar`."""
+    tb = spec.get("trong_bar")
+    if not isinstance(tb, dict):
+        return ["'trong_bar' phai la dict"]
+    loi = []
+    if tb.get("huong") not in (">", "<"):
+        loi.append("trong_bar.huong phai la '>' hoac '<'")
+    vao = spec.get("vao") or []
+    kich = tb.get("kich")
+    if not isinstance(kich, list) or not kich:
+        return loi + ["trong_bar.kich phai la danh sach chi so `vao` khac rong"]
+    for k in kich:
+        if not isinstance(k, int) or not 0 <= k < len(vao):
+            loi.append(f"trong_bar.kich: chi so {k!r} ngoai `vao`")
+            continue
+        d = vao[k]
+        if not isinstance(d, dict) or (d.get("trai") or {}).get("chi_bao") != "gia":
+            loi.append(f"trong_bar.kich[{k}]: ve trai phai la gia")
+            continue
+        ph = d.get("phep")
+        ok = ph in (">", ">=") if tb.get("huong") == ">" else ph in ("<", "<=")
+        if not ok:
+            loi.append(f"trong_bar.kich[{k}]: phep '{ph}' khong cung huong "
+                       f"'{tb.get('huong')}'")
+    if spec.get("ra"):
+        loi.append("trong_bar chua ho tro dieu kien `ra` (chi `giu`)")
     return loi
 
 
@@ -1741,6 +1773,39 @@ def sinh_tu_spec(spec: dict, df: pd.DataFrame) -> np.ndarray:
             trang_thai[i] = dang
         v = pd.Series(trang_thai, index=df.index)
     return MAU_MOD._ra(v.to_numpy() * chieu, len(df))
+
+
+def sinh_trong_bar(spec: dict, df: pd.DataFrame) -> tuple[np.ndarray, np.ndarray, str]:
+    """Khai bao co `trong_bar` -> (cho_phep[i], muc[i], huong) BIET TAI CLOSE bar i.
+
+    VI SAO (them 10/10/2026). Nhieu EA kiem dieu kien o MOI tick (khong co
+    cong bar moi, hoac cong `prevTime` chi cap nhat SAU khi vao lenh). Khi do
+    `gia_hien_tai > muc` khong phai mot tin hieu dong bar ma la mot LENH DUNG
+    nam cho tren san: no khop GIUA bar, ngay khi gia cham muc. Dich no thanh
+    "close bar i > muc -> vao o open bar i+1" (tick dau) bo mat moi lan pha
+    vo xay ra trong bar va vao tre/gia khac.
+
+    Hinh dang: `"trong_bar": {"huong": ">", "kich": [0, 3]}` - cac dieu kien
+    `vao[k]` voi k trong `kich` la dieu kien KICH HOAT dang `gia ? muc_k`
+    (ve trai la gia SONG cua bar dang chay); cac dieu kien con lai la dieu
+    kien CHO PHEP, co dinh suot bar (gio, chi bao bar da dong...).
+      - huong ">" : muc = max(muc_k) - gia phai vuot TAT CA cac muc.
+      - huong "<" : muc = min(muc_k).
+    `vao` van giu nguyen (ban xap xi tick dau) de van tay/tham so/kiem cu
+    phap khong doi; tham so toi uu cua `vao[k].phai` doi luon muc khop.
+    Khop lenh: `mo_phong.chay_dung_trong_bar`.
+    """
+    tb = spec.get("trong_bar") or {}
+    huong = tb.get("huong")
+    kich = set(tb.get("kich") or [])
+    vao = spec.get("vao") or []
+    if huong not in (">", "<") or not kich:
+        raise ValueError("spec khong co khoi trong_bar hop le")
+    cho = _dieu_kien(df, [d for k, d in enumerate(vao) if k not in kich], mac_dinh=True)
+    ms = [toan_hang(df, vao[k]["phai"]).astype(float) for k in sorted(kich)]
+    M = pd.concat(ms, axis=1)
+    muc = (M.max(axis=1, skipna=False) if huong == ">" else M.min(axis=1, skipna=False))
+    return cho.to_numpy(dtype=bool), muc.to_numpy(dtype=float), huong
 
 
 # --------------------------------------------------------------- KHO CO CHE
