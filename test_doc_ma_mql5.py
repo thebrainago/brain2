@@ -179,7 +179,10 @@ class GapCauHinh(unittest.TestCase):
         cc = {c["chieu"]: c for c in d["co_che"]}
         self.assertEqual(sorted(cc), [-1, 1])
         self.assertEqual(cc[1]["vao"][0]["phep"], "<")       # khong bi `upbreakout=true`
-        self.assertEqual(d["so_vao_lenh_co_co_che"], 1)
+        # lenh dau + lenh them cua luoi martingale (10/10 toi: `ro.luoi`); nhanh hedge vung
+        # (else, hedgeatlevel=0) la ma chet o input mac dinh
+        self.assertEqual(d["so_vao_lenh_co_co_che"], 2)
+        self.assertEqual(d["phan_loai_vao_lenh"]["quan_ly_dich_duoc"], 1)
 
     def test_doi_input_thi_doi_chieu(self):
         """ReverseEntry=true -> MUA khi close >= P. Chung to gap THEO GIA TRI, khong bo bua."""

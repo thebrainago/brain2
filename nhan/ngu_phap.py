@@ -1570,6 +1570,18 @@ def _kiem_ro(spec: dict) -> list[str]:
                 loi.append("ro.hedge.nguong phai am")
         else:
             loi.append("ro.hedge.kich phai la 'diem' hoac 'loi'")
+    lu = k.get("luoi")
+    if lu is not None:
+        ok = isinstance(lu, dict) and isinstance(lu.get("lot"), list) and lu["lot"] and \
+            all(_so_duong(x) for x in lu["lot"]) and \
+            all(isinstance(lu.get(f), dict) and all(
+                isinstance(lu[f].get(c), list) and len(lu[f][c]) == 2 and
+                lu[f][c][0] in ("BID", "ASK") and isinstance(lu[f][c][1], (int, float))
+                for c in ("mua", "ban")) for f in ("muc_dau", "buoc")) and \
+            isinstance(lu.get("phep"), dict) and lu["phep"].get("mua") in ("<=", ">=") and \
+            lu["phep"].get("ban") in ("<=", ">=")
+        if not ok:
+            loi.append("ro.luoi can lot[] > 0, muc_dau/buoc {mua,ban}: [BID|ASK, diem], phep")
     if spec.get("sltp") is not None:
         loi.append("ro va sltp khong dung chung")
     if spec.get("ra"):
@@ -1971,7 +1983,20 @@ def sinh_chan(spec: dict, df: pd.DataFrame) -> dict:
     sl_kc = toan_hang(df, k["sl_kc"]).to_numpy(dtype=float) if k.get("sl_kc") else None
     tp_kc = toan_hang(df, k["tp_kc"]).to_numpy(dtype=float) if k.get("tp_kc") else None
     mln = spec.get("mot_lenh_ngay") or {}
+    # Cap mua/ban BU NHAU quanh mot muc (`vao_lai_giua_bar`, `doc_ma._vao_lai_giua_bar`, vd Breakout5:
+    # mua khi gia < pivot gio, ban khi gia >= pivot): o tick dau `cho` la du; nhung khi
+    # ro lenh dong GIUA bar, EA vao lai ngay tick sau theo gia LUC DO so voi muc.
+    # `muc_lai[i]` = muc biet tai close bar i (ve phai cua dieu kien duy nhat).
+    muc_lai = phep_lai = None
+    vao_ = spec.get("vao") or []
+    if spec.get("vao_lai_giua_bar") and spec.get("ro") and \
+            not spec.get("trong_bar") and len(vao_) == 1 and \
+            vao_[0].get("trai") == {"chi_bao": "gia", "cot": "close"} and \
+            vao_[0].get("phep") in (">", "<", ">=", "<="):
+        muc_lai = toan_hang(df, vao_[0]["phai"]).to_numpy(dtype=float)
+        phep_lai = vao_[0]["phep"]
     return {"chieu": chieu, "cho": np.asarray(cho, dtype=bool), "muc": muc,
+            "muc_lai": muc_lai, "phep_lai": phep_lai,
             "huong": huong, "co": co, "loc": loc, "sl": sl, "tp": tp, "keo": keo,
             "giu": int(spec.get("giu", 1) or 1),
             "chan_boi": list(mln.get("chan_boi") or []), "dat": list(mln.get("dat") or []),

@@ -85,12 +85,13 @@ def cau_lenh(s: str, goc: int = 0) -> list[dict]:
                 raise ValueError("ngoac if khong dong")
             dk = s[p + 1:q]
             than, j = _mot_than(s, q + 1)
+            het_than = j                      # cuoi nhanh then (truoc `else`)
             khac = None
             m2 = re.match(r"\s*else\b", s[j:])
             if m2:
                 khac, j = _mot_than(s, j + m2.end())
             ra.append({"loai": "if", "dk": dk, "than": than, "khac": khac,
-                       "a": goc + i, "b": goc + j})
+                       "a": goc + i, "b": goc + j, "het_than": goc + het_than})
             i = j
             continue
         if s[i] == "{":
@@ -164,7 +165,11 @@ def _ham_dong_mo(vb: str) -> tuple[str, str] | None:
     g = _gon(vb[tk[0]:tk[1]])
     m = re.search(r"if\(PositionSelect\(_Symbol\)\)\{?(\w+)\(\);\}?else\{?(\w+)\(\);\}?", g)
     if not m:
-        return None
+        # `if(IsTRadeOpen()) dong(); else mo();` voi ham co-vi-the loc theo magic
+        m = re.search(r"if\((\w+)\(\)\)\{?(\w+)\(\);\}?else\{?(\w+)\(\);\}?", g)
+        if not m or not _co_ham_dem(vb, m.group(1), "co"):
+            return None
+        return m.group(2), m.group(3)
     return m.group(1), m.group(2)
 
 
@@ -172,8 +177,9 @@ def _ham_tong_loi(vb: str, ten: str) -> bool:
     t = than_ham(vb, ten)
     if not t:
         return False
-    g = _gon(vb[t[0]:t[1]])
+    g = _bo_loc_magic(_gon(vb[t[0]:t[1]]))
     return ("PositionsTotal()" in g and "+=PositionGetDouble(POSITION_PROFIT)" in g
+            and "-=" not in g
             and "MAGIC" not in g and "PositionClose" not in g and "PositionOpen" not in g)
 
 
@@ -181,7 +187,7 @@ def _ham_dong_het(vb: str, ten: str) -> bool:
     t = than_ham(vb, ten)
     if not t:
         return False
-    g = _gon(vb[t[0]:t[1]])
+    g = _bo_loc_magic(_gon(vb[t[0]:t[1]]))
     return ("PositionsTotal()" in g and re.search(r"PositionClose\(PositionGetSymbol\(\w+\)\)", g)
             is not None and "MAGIC" not in g and "PositionOpen" not in g)
 
@@ -221,9 +227,39 @@ def doc_ro(vb: str, hang: dict, khai: dict | None = None) -> dict:
     dinh = {}
     cat_lo = None
     khoi_hedge: list[tuple[dict, int, str | None]] = []   # (cau, n, nguong loi | None)
+    hang = dict(hang)
+    than_d = _gon(vb[td[0]:td[1]])
+    cong = None                       # (curTime, prevTime) khi da qua cong bar
+    khoi_luoi: list[dict] = []
+    magic = False
     for c in ds:
         g = _gon(c["than"]).rstrip(";")
+        if cong is not None:
+            # SAU cong bar: chi chap nhan khoi luoi + `prevTime=curTime` cuoi cung
+            if c["loai"] == "don" and g == f"{cong[1]}={cong[0]}" and c is ds[-1]:
+                continue
+            if c["loai"] == "don" and any(re.fullmatch(p, g) for p in _BO_QUA):
+                continue
+            if c["loai"] == "if" and "PositionOpen(" in c["than"] and not khoi_luoi:
+                khoi_luoi.append(c)
+                continue
+            ra["ly_do"] = f"cau lenh sau cong bar chua hieu trong {ten_dong}: `{g[:60]}`"
+            return ra
+        if c["loai"] == "if" and _gon(c["than"]).rstrip(";") == "return" and c["khac"] is None:
+            # cong bar: if(curTime==prevTime) return;  (prevTime static, gan cuoi ham)
+            mg = re.fullmatch(r"(\w+)==(\w+)", _gon(c["dk"]))
+            if mg and re.search(rf"(?:^|;)datetime{mg.group(1)}=getCurrentTime\(\);", than_d) and \
+                    re.search(rf"(?:^|;)staticdatetime{mg.group(2)};", than_d) and \
+                    len(re.findall(rf"(?<![\w.]){mg.group(2)}=(?!=)", than_d)) == 1 and \
+                    _gon(ds[-1]["than"]).rstrip(";") == f"{mg.group(2)}={mg.group(1)}":
+                cong = (mg.group(1), mg.group(2))
+                continue
         if c["loai"] == "don":
+            m = re.fullmatch(r"(?:int)?(\w+)=(\w+)\(\)", g)
+            if m and _co_ham_dem(vb, m.group(2), "dem"):
+                bien_so = m.group(1)              # PosTotal() loc magic
+                magic = True
+                continue
             m = re.fullmatch(r"(?:double)?(\w+)=(\w+)\(\)", g)
             if m and m.group(2) != "PositionsTotal" and _ham_tong_loi(vb, m.group(2)):
                 bien_loi = m.group(1)
@@ -239,6 +275,16 @@ def doc_ro(vb: str, hang: dict, khai: dict | None = None) -> dict:
                 continue
             if any(re.fullmatch(p, g) for p in _BO_QUA):
                 continue
+            # hang cuc bo chi tu input: `double expectation=takeprofit*GetStartVolume();`
+            m = re.fullmatch(r"(?:double|int)(\w+)=(.+)", c["than"].strip().rstrip(";").strip()
+                             .replace(" ", "").replace("\t", ""))
+            if m and len(re.findall(rf"(?<![\w.]){m.group(1)}\s*(?:=(?!=)|\+=|-=|\+\+|--)",
+                                    vb[td[0]:td[1]])) == 1:
+                v = gia_tri_thuan(c["than"].split("=", 1)[1].strip().rstrip(";"), vb, khai)
+                if v is not None:
+                    hang[m.group(1)] = v
+                    ra["ghi"].append(f"{m.group(1)} = {v:g} (tinh tu input)")
+                    continue
             ra["ly_do"] = f"cau lenh chua hieu trong {ten_dong}: `{g[:60]}`"
             return ra
         if c["loai"] != "if":
@@ -262,12 +308,14 @@ def doc_ro(vb: str, hang: dict, khai: dict | None = None) -> dict:
             ra["ly_do"] = f"if/else chua hieu: `{dk[:50]}`"
             return ra
         # chot dinh: if(K>=A and P<(K*B)) CloseAll();
-        m = re.fullmatch(rf"\(?(\w+)>=({_SO}|\w+)\)?and\(?(\w+)<\(?\1\*({_SO}|\w+)\)?\)?", dk)
+        m = re.fullmatch(rf"\(?(\w+)>=({_SO}|\w+)\)?and\(?(\w+)(<=?)\(?\1\*({_SO}|\w+)\)?\)?", dk)
         if m and bien_dinh == m.group(1) and m.group(3) == bien_loi:
             hm_ = re.fullmatch(r"(\w+)\(\)", than)
-            a, b = _gia_tri(m.group(2), hang), _gia_tri(m.group(4), hang)
+            a, b = _gia_tri(m.group(2), hang), _gia_tri(m.group(5), hang)
             if hm_ and _ham_dong_het(vb, hm_.group(1)) and a is not None and b is not None:
                 dinh.update(moc=a, ti_le=b)
+                if m.group(4) == "<=":
+                    dinh["phep"] = "<="
                 continue
         # cat lo: if(P<=C) CloseAll();
         m = re.fullmatch(rf"(\w+)<=({_SO}|\w+)", dk)
@@ -302,11 +350,13 @@ def doc_ro(vb: str, hang: dict, khai: dict | None = None) -> dict:
         ra["ly_do"] = "ham mo co != 1 lenh PositionOpen"
         return ra
     po = gm.find("PositionOpen(")
-    vol = re.findall(rf"(?:^|[;{{}}])volume=({_SO});", gm[:po])
-    if not vol:
+    vol = re.findall(r"(?:^|[;{}])volume=([^;=][^;]*);", gm[:po])
+    lot0 = gia_tri_thuan(vol[-1], vb, khai) if vol else None
+    if lot0 is None and vol and re.fullmatch(_SO, vol[-1]):
+        lot0 = float(vol[-1])
+    if lot0 is None or lot0 <= 0:
         ra["ly_do"] = "khoi luong lenh dau khong phai hang so"
         return ra
-    lot0 = float(vol[-1])
     reset_vao = bool(bien_dinh and re.search(rf"(?<![\w.]){bien_dinh}=0;", gm[po:]))
     if dinh:
         dinh["reset_vao"] = reset_vao
@@ -341,12 +391,64 @@ def doc_ro(vb: str, hang: dict, khai: dict | None = None) -> dict:
         h["khi_so_lenh"] = n
         kh["dich"] = True
         hedge.append(h)
+    # --- luoi martingale (sau cong bar) ---
+    luoi = None
+    if khoi_luoi:
+        c = khoi_luoi[0]
+        try:
+            luoi, ly, else_chet = doc_luoi(c, vb, vb[tm[0]:tm[1]], khai, bien_so, bien_dinh)
+        except (_Kh, ValueError, RecursionError) as e:
+            luoi, ly, else_chet = None, f"loi doc luoi: {e}", False
+        if luoi is None:
+            ra["ly_do"] = f"khoi luoi: {ly}"
+            return ra
+        if abs(luoi["lot_dau"] - lot0) > 1e-12:
+            ra["ly_do"] = "khoi luoi: lot dau khong khop"
+            return ra
+        if bien_dinh and luoi["reset_dinh"] is False:
+            ra["ly_do"] = "khoi luoi: dinh khong ve 0 khi them lenh (chua ho tro)"
+            return ra
+        ra["khoi"].append({"a": c["a"], "b": c["het_than"], "khi_so_lenh": 0, "dich": True,
+                           "toi_duoc": True, "luoi": True})
+        if c["khac"] is not None:
+            ra["khoi"].append({"a": c["het_than"], "b": c["b"], "khi_so_lenh": 0, "dich": False,
+                               "toi_duoc": not else_chet, "luoi": True,
+                               "ly_do": "nhanh else cua khoi luoi khong toi duoc voi input "
+                                        "mac dinh (dieu kien khoi luoi luon dung)"})
+            if not else_chet:
+                ra["ly_do"] = "khoi luoi: nhanh else co the chay (chua dich)"
+                return ra
+            ra["ghi"].append("nhanh `else` cua khoi luoi (vd hedge vung `zonesequence`) KHONG "
+                             "toi duoc voi input mac dinh -> ma chet")
+        del luoi["lot_dau"]
+        if hedge:
+            ra["ly_do"] = "luoi + hedge trong cung ham dong: chua ho tro"
+            return ra
+    if cong is not None and luoi is None:
+        ra["ly_do"] = "co cong bar trong ham dong nhung khong co khoi luoi"
+        return ra
+    # cong mo lenh mot lan / bar: `if(curTime==prevTime[&&startmanual==0]) return;` o
+    # dau ham mo + `prevTime=curTime;` cuoi ham (chi khi mo lenh thanh cong)
+    cong_mo = False
+    mg = re.match(r"datetime(\w+)=getCurrentTime\(\);staticdatetime(\w+);if\(\1==\2"
+                  r"(?:and(\w+)==0)?\)\{?return;\}?", gm)
+    if mg and gm.endswith(f"{mg.group(2)}={mg.group(1)};") and \
+            len(re.findall(rf"(?<![\w.]){mg.group(2)}=(?!=)", gm)) == 1:
+        if mg.group(3) is None or re.search(
+                rf"\b{ten_mo}\s*\([^)]*\b{mg.group(3)}\s*=\s*0\s*\)", vb):
+            cong_mo = True
     ro = {"lot_dau": lot0, "hop_dong": 100000.0,
           "dinh": dinh or None, "cat_lo": cat_lo, "hedge": hedge}
+    if luoi is not None:
+        ro["luoi"] = luoi
+        ro["cong_mo_bar"] = cong_mo
+    if magic:
+        ra["ghi"].append("loc magic number: gia dinh tai khoan chi co EA nay")
     ra["ro"] = ro
     mo_ta = [f"dong theo TONG loi lo ca ro (tien, `{bien_loi}`), lenh dau {lot0:g} lot"]
     if dinh:
-        mo_ta.append(f"chot dinh: dinh>={dinh['moc']:g} va loi<dinh*{dinh['ti_le']:g} -> dong het"
+        mo_ta.append(f"chot dinh: dinh>={dinh['moc']:g} va loi{dinh.get('phep', '<')}"
+                     f"dinh*{dinh['ti_le']:g} -> dong het"
                      + (" (dinh ve 0 khi loi<=0)" if dinh["reset_am"] else "")
                      + (" (dinh ve 0 khi vao lenh)" if reset_vao else ""))
     if cat_lo is not None:
@@ -356,6 +458,16 @@ def doc_ro(vb: str, hang: dict, khai: dict | None = None) -> dict:
                      + (f"gia cham gia_vao -+ {h['khoang_diem']:g} point" if h["kich"] == "diem"
                         else f"loi<={h['nguong']:g}")
                      + (" (dinh ve 0)" if h["reset_dinh"] else ""))
+    if luoi is not None:
+        L = luoi["lot"]
+        mo_ta.append(
+            f"luoi martingale CUNG chieu: moi bar (lan goi dau) neu gia <= S (mua) / >= S (ban) "
+            f"-> them lenh, S moi = {luoi['buoc']['mua'][0]}{luoi['buoc']['mua'][1]:+g} point (mua)"
+            f" / {luoi['buoc']['ban'][0]}{luoi['buoc']['ban'][1]:+g} point (ban); lot "
+            + ", ".join(f"{x:g}" for x in L[:6]) + f", ... (khong gioi han so lenh)"
+            + (" (dinh ve 0)" if luoi["reset_dinh"] else ""))
+        if cong_mo:
+            mo_ta.append("mo lenh dau toi da mot lan moi bar (cong prevTime cua ham mo)")
     ra["ghi"] = mo_ta + ra["ghi"]
     return ra
 
@@ -587,3 +699,633 @@ def doc_sltp_kc(vb: str, ten_f: str, hang: dict) -> tuple[dict | None, list[str]
     if sm is not None:
         ghi.append(f"bo lenh khi spread > {sm:g} point (spread do theo gio cua mo hinh chi phi)")
     return khoi, ghi, sm
+
+
+# ---------------------------------------------------------------------------
+# LUOI MARTINGALE (Breakout5 / Breakout5-2-2) - them 10/10/2026 toi
+#
+# Ham dong cua hai EA nay (sau phan chot dinh) co CONG BAR:
+#     if(curTime==prevTime) return;      // prevTime static, gan = curTime cuoi ham
+#     if(postotal>0 | hedgeatlevel==0 || ...) {
+#        up = Tradesinfo.initup && gia <= Tradesinfo.S;  down = !initup && gia >= S;
+#        if(up||down) { peakwin=0; type/price theo up/down; S = BID -+ R*_Point;
+#                       volume = round2(lastvolume*volumefactor); lastvolume=volume;
+#                       trade.PositionOpen(_Symbol,type,volume,price,NULL,NULL); } }
+# -> them lenh CUNG chieu lenh dau, KHONG gioi han so lenh, moi bar toi da mot lan
+# (lan goi ham dong DAU TIEN cua bar). Khoi luong: chuoi nhan tung buoc, lam tron.
+#
+# Khong viet regex cho tung dong: khoi lenh duoc CHAY THU bang mot trinh thong dich
+# MQL nho (`_ThongDich`) tren hai truong hop (lenh dau mua / ban). Moi thu nam ngoai
+# tap con hieu duoc (ham la, bien khong ro, dieu kien phu thuoc so lenh ngoai `>0`)
+# -> `_Kh` -> KHONG dich (tra None + ly do). Khoi luong lay bang cach chay that
+# chuoi gan `lastvolume` -> danh sach lot cu the (khong doan cong thuc).
+# ---------------------------------------------------------------------------
+class _Kh(Exception):
+    """Khong hieu / khong chac -> khong dich."""
+
+
+class _KhBien(_Kh):
+    """Bien khong ro gia tri (khong phai cau truc la)."""
+
+
+class _Unk:
+    def __repr__(self) -> str:
+        return "UNK"
+
+
+UNK = _Unk()
+
+
+class Gia:
+    """Gia tuyen tinh: goc (BID | ASK | None) + diem * _Point."""
+    __slots__ = ("goc", "diem")
+
+    def __init__(self, goc, diem: float):
+        self.goc, self.diem = goc, float(diem)
+
+    def __add__(self, o):
+        if isinstance(o, Gia) and (self.goc is None or o.goc is None):
+            return Gia(self.goc or o.goc, self.diem + o.diem)
+        raise _Kh("cong hai gia co goc")
+
+    def __sub__(self, o):
+        if isinstance(o, Gia) and o.goc is None:
+            return Gia(self.goc, self.diem - o.diem)
+        raise _Kh("tru gia")
+
+    def nhan(self, k: float):
+        if self.goc is not None:
+            raise _Kh("nhan gia co goc")
+        return Gia(None, self.diem * k)
+
+    def __eq__(self, o):
+        return isinstance(o, Gia) and o.goc == self.goc and abs(o.diem - self.diem) < 1e-9
+
+    def __hash__(self):
+        return hash((self.goc, round(self.diem, 9)))
+
+    def __repr__(self) -> str:
+        return f"Gia({self.goc},{self.diem:g})"
+
+
+class SoLenh:
+    """`postotal` trong ham dong: luon >= 1 (ham dong chi chay khi co vi the)."""
+
+
+_TOK = re.compile(r"\s*(?:(\d+\.\d*|\.\d+|\d+)|([A-Za-z_]\w*(?:\.\w+)*)|"
+                  r"(==|!=|<=|>=|&&|\|\||\+\+|--|[-+*/<>!(),\[\]]))")
+_KIEU = r"(?:double|int|long|ulong|bool|datetime|ENUM_ORDER_TYPE|CTrade|MqlRates|MqlDateTime|string)"
+_ENUM = {"ORDER_TYPE_BUY", "ORDER_TYPE_SELL", "SYMBOL_BID", "SYMBOL_ASK", "_Symbol", "_Period"}
+
+
+def _token(s: str) -> list[str]:
+    ra, i = [], 0
+    s = s.strip()
+    while i < len(s):
+        m = _TOK.match(s, i)
+        if not m or m.end() == i:
+            raise _Kh(f"ky tu la `{s[i:i + 10]}`")
+        ra.append(m.group(1) or m.group(2) or m.group(3))
+        i = m.end()
+        while i < len(s) and s[i].isspace():
+            i += 1
+    return ra
+
+
+def _lam_tron(x: float, d: int = 0) -> float:
+    """MathRound / NormalizeDouble: lam tron NUA XA 0 (khong phai banker)."""
+    k = 10.0 ** d
+    v = abs(x) * k
+    r = float(int(v + 0.5 + 1e-9)) / k
+    return r if x >= 0 else -r
+
+
+class _ThongDich:
+    """Thong dich mot tap con MQL5 (khoi lenh, khong vong lap)."""
+
+    def __init__(self, vb: str, nhap: dict, sau: int = 0):
+        self.vb, self.nhap, self.sau = vb, nhap, sau
+        self.env: dict = {}
+        self.lenh_mo: list[dict] = []
+        self.loi_ham = 0
+
+    # ---------------- bieu thuc
+    def bt(self, s: str):
+        self._t = _token(s)
+        self._i = 0
+        nut = self._or()
+        if self._i != len(self._t):
+            raise _Kh(f"thua token `{self._t[self._i]}`")
+        return nut
+
+    def _nhin(self):
+        return self._t[self._i] if self._i < len(self._t) else None
+
+    def _an(self, x=None):
+        t = self._nhin()
+        if x is not None and t != x:
+            raise _Kh(f"can `{x}`, gap `{t}`")
+        self._i += 1
+        return t
+
+    def _or(self):
+        a = self._and()
+        while self._nhin() in ("or", "||"):
+            self._an()
+            b = self._and()
+            a = ("or", a, b)
+        return a
+
+    def _and(self):
+        a = self._ss()
+        while self._nhin() in ("and", "&&"):
+            self._an()
+            b = self._ss()
+            a = ("and", a, b)
+        return a
+
+    def _ss(self):
+        a = self._cong()
+        while self._nhin() in ("==", "!=", "<", ">", "<=", ">="):
+            op = self._an()
+            a = ("ss", op, a, self._cong())
+        return a
+
+    def _cong(self):
+        a = self._nhan()
+        while self._nhin() in ("+", "-"):
+            op = self._an()
+            a = ("bin", op, a, self._nhan())
+        return a
+
+    def _nhan(self):
+        a = self._mot()
+        while self._nhin() in ("*", "/"):
+            op = self._an()
+            a = ("bin", op, a, self._mot())
+        return a
+
+    def _mot(self):
+        t = self._nhin()
+        if t in ("!", "not"):
+            self._an()
+            return ("not", self._mot())
+        if t == "-":
+            self._an()
+            return ("bin", "-", ("so", 0.0), self._mot())
+        if t == "(":
+            # ep kieu `(long)x`
+            if self._i + 2 < len(self._t) and re.fullmatch(_KIEU, self._t[self._i + 1] or "") \
+                    and self._t[self._i + 2] == ")":
+                self._i += 3
+                return ("ep", self._mot())
+            self._an("(")
+            a = self._or()
+            self._an(")")
+            return a
+        return self._goc()
+
+    def _goc(self):
+        t = self._an()
+        if t is None:
+            raise _Kh("het bieu thuc")
+        if re.fullmatch(r"\d+\.\d*|\.\d+|\d+", t):
+            return ("so", float(t))
+        if not re.fullmatch(r"[A-Za-z_]\w*(?:\.\w+)*", t):
+            raise _Kh(f"token la `{t}`")
+        if self._nhin() == "(":
+            self._an("(")
+            ds = []
+            if self._nhin() != ")":
+                ds.append(self._or())
+                while self._nhin() == ",":
+                    self._an(",")
+                    ds.append(self._or())
+            self._an(")")
+            return ("goi", t, ds)
+        if self._nhin() == "[":
+            raise _Kh("mang")
+        return ("ten", t)
+
+    def gt(self, nut):
+        k = nut[0]
+        if k == "so":
+            return nut[1]
+        if k == "ten":
+            return self._ten(nut[1])
+        if k == "ep":
+            v = self.gt(nut[1])
+            return v if isinstance(v, (int, float)) and not isinstance(v, bool) else UNK
+        if k == "not":
+            v = self._bool(self.gt(nut[1]))
+            return not v
+        if k == "and":
+            return self._bool(self.gt(nut[1])) and self._bool(self.gt(nut[2]))
+        if k == "or":
+            return self._bool(self.gt(nut[1])) or self._bool(self.gt(nut[2]))
+        if k == "ss":
+            return self._ss_gt(nut[1], self.gt(nut[2]), self.gt(nut[3]))
+        if k == "bin":
+            return self._bin(nut[1], self.gt(nut[2]), self.gt(nut[3]))
+        if k == "goi":
+            return self._goi(nut[1], nut[2])
+        raise _Kh(f"nut la {k}")
+
+    def _bool(self, v) -> bool:
+        if isinstance(v, bool):
+            return v
+        if isinstance(v, (int, float)):
+            return v != 0
+        raise _Kh(f"dieu kien khong ro ({v!r})")
+
+    def _ten(self, t: str):
+        if t in self.env:
+            v = self.env[t]
+            if v is UNK:
+                raise _KhBien(f"bien `{t}` khong ro")
+            return v
+        if t in ("true", "false"):
+            return t == "true"
+        if t == "NULL":
+            return None
+        if t == "_Point":
+            return Gia(None, 1.0)
+        if t in _ENUM:
+            return t
+        if t in self.nhap:
+            return float(self.nhap[t])
+        raise _KhBien(f"bien `{t}` khong ro")
+
+    def _ss_gt(self, op, a, b):
+        if isinstance(a, SoLenh) or isinstance(b, SoLenh):
+            if isinstance(b, SoLenh):
+                a, b = b, a
+                op = {"<": ">", ">": "<", "<=": ">=", ">=": "<="}.get(op, op)
+            if isinstance(b, (int, float)) and not isinstance(b, bool):
+                if (op == ">" and b < 1) or (op == ">=" and b <= 1):
+                    return True
+                if (op == "<" and b <= 1) or (op == "<=" and b < 1) or (op == "==" and b < 1):
+                    return False
+            raise _Kh("dieu kien phu thuoc so lenh")
+        if isinstance(a, str) or isinstance(b, str):
+            if op == "==":
+                return a == b
+            if op == "!=":
+                return a != b
+            raise _Kh("so sanh chuoi")
+        if not all(isinstance(x, (int, float)) and not isinstance(x, bool) for x in (a, b)):
+            raise _Kh(f"so sanh khong ro ({a!r} {op} {b!r})")
+        return {"==": a == b, "!=": a != b, "<": a < b, ">": a > b,
+                "<=": a <= b, ">=": a >= b}[op]
+
+    def _bin(self, op, a, b):
+        so = lambda x: isinstance(x, (int, float)) and not isinstance(x, bool)  # noqa: E731
+        if so(a) and so(b):
+            if op == "/" and b == 0:
+                raise _Kh("chia 0")
+            return {"+": a + b, "-": a - b, "*": a * b, "/": a / b if b else 0}[op]
+        if isinstance(a, Gia) or isinstance(b, Gia):
+            if op == "+" and isinstance(a, Gia) and isinstance(b, Gia):
+                return a + b
+            if op == "-" and isinstance(a, Gia) and isinstance(b, Gia):
+                return a - b
+            if op == "*" and isinstance(a, Gia) and so(b):
+                return a.nhan(b)
+            if op == "*" and isinstance(b, Gia) and so(a):
+                return b.nhan(a)
+        raise _Kh(f"phep {op} khong ro")
+
+    def _goi(self, ten: str, ds: list):
+        if ten == "SymbolInfoDouble" and len(ds) == 2:
+            a, b = self.gt(ds[0]), self.gt(ds[1])
+            if a == "_Symbol" and b in ("SYMBOL_BID", "SYMBOL_ASK"):
+                return Gia(b[7:], 0.0)
+            raise _Kh("SymbolInfoDouble la")
+        if ten in ("NormalizeDouble", "MathRound"):
+            x = self.gt(ds[0])
+            d = int(self.gt(ds[1])) if ten == "NormalizeDouble" and len(ds) == 2 else 0
+            if isinstance(x, Gia):
+                return x                   # chuan hoa gia: khong doi muc
+            if isinstance(x, (int, float)) and not isinstance(x, bool):
+                return _lam_tron(float(x), d)
+            raise _Kh("lam tron gia tri khong ro")
+        if ten in ("MathMax", "MathMin") and len(ds) == 2:
+            a, b = self.gt(ds[0]), self.gt(ds[1])
+            if all(isinstance(x, (int, float)) for x in (a, b)):
+                return max(a, b) if ten == "MathMax" else min(a, b)
+            raise _Kh("MathMax/Min khong ro")
+        if not ds and self.sau < 3:
+            t = than_ham(self.vb, ten)
+            if t is not None:
+                return _ThongDich(self.vb, self.nhap, self.sau + 1).ham_thuan(
+                    self.vb[t[0]:t[1]])
+        raise _Kh(f"ham `{ten}` khong ro")
+
+    # ---------------- cau lenh
+    def ham_thuan(self, than: str):
+        """Ham khong doi so, chi tinh tu input -> gia tri `return`."""
+        try:
+            self.chay(than)
+        except _TraVe as r:
+            return r.v
+        raise _Kh("ham khong return")
+
+    def chay(self, than: str, long_leo: bool = False) -> None:
+        for c in cau_lenh(than):
+            if c["loai"] == "khoi":
+                self.chay(c["than"], long_leo)
+                continue
+            if c["loai"] == "if":
+                dk = c["dk"]
+                if "PositionOpen(" in dk:
+                    m = re.fullmatch(r"\s*!\s*(\w+\.PositionOpen\(.*\))\s*", dk, re.S)
+                    if not m:
+                        raise _Kh("PositionOpen trong dieu kien la")
+                    self._mo(m.group(1))
+                    di = False                  # gia dinh lenh vao thanh cong
+                else:
+                    try:
+                        di = self._bool(self.gt(self.bt(dk)))
+                    except _Kh:
+                        if long_leo:
+                            continue           # bo qua (che do quet bien cuc bo)
+                        raise
+                if di:
+                    self.chay(c["than"], long_leo)
+                elif c["khac"] is not None:
+                    self.chay(c["khac"], long_leo)
+                continue
+            self._don(c["than"].strip().rstrip(";").strip(), long_leo)
+
+    def _don(self, t: str, long_leo: bool) -> None:
+        if not t:
+            return
+        m = re.fullmatch(r"return\s*(.*)", t, re.S)
+        if m:
+            if long_leo:
+                return
+            raise _TraVe(self.gt(self.bt(m.group(1))) if m.group(1).strip() else None)
+        m = re.fullmatch(rf"(?:static\s+)?(?:const\s+)?{_KIEU}\s+(.+)", t, re.S)
+        if m:
+            for p in _tach_doi(m.group(1)):
+                p = p.strip()
+                mm = re.fullmatch(r"(\w+)\s*(?:\[\s*\d*\s*\])?\s*(?:=\s*(.+))?", p, re.S)
+                if not mm:
+                    raise _Kh(f"khai bao la `{p[:30]}`")
+                self._gan(mm.group(1), mm.group(2), long_leo)
+            return
+        m = re.fullmatch(r"([A-Za-z_][\w.]*)\s*(=|\+=|-=)\s*(.+)", t, re.S)
+        if m and not m.group(3).startswith("="):
+            ten, op, ve = m.groups()
+            if op == "=":
+                self._gan(ten, ve, long_leo)
+            else:
+                try:
+                    v = self._bin(op[0], self._ten(ten), self.gt(self.bt(ve)))
+                except _KhBien:
+                    v = UNK                    # van chua ro - chi loi neu ve sau DUNG no
+                except _Kh:
+                    if not long_leo:
+                        raise
+                    v = UNK
+                self.env[ten] = v
+            return
+        m = re.fullmatch(r"(\w+)\.(\w+)\((.*)\)", t, re.S)
+        if m:
+            if m.group(2) == "PositionOpen":
+                self._mo(t)
+                return
+            if m.group(2) == "SetExpertMagicNumber":
+                return
+        if re.fullmatch(r"Print\(.*\)", t, re.S):
+            return
+        if long_leo:
+            return
+        raise _Kh(f"cau lenh la `{t[:40]}`")
+
+    def _gan(self, ten: str, ve: str | None, long_leo: bool) -> None:
+        if ve is None:
+            self.env[ten] = UNK
+            return
+        try:
+            self.env[ten] = self.gt(self.bt(ve))
+        except _KhBien:
+            self.env[ten] = UNK                # chua ro; chi loi neu ve sau DUNG no
+        except _Kh:
+            if not long_leo:
+                raise
+            self.env[ten] = UNK
+
+    def _mo(self, t: str) -> None:
+        m = re.fullmatch(r"\s*\w+\.PositionOpen\((.*)\)\s*", t, re.S)
+        ds = [x.strip() for x in _tach_doi(m.group(1))] if m else []
+        if len(ds) != 6 or ds[0] != "_Symbol" or ds[4] not in ("NULL", "0") or \
+                ds[5] not in ("NULL", "0"):
+            raise _Kh("PositionOpen khong o dang (_Symbol,type,volume,price,NULL,NULL)")
+        self.lenh_mo.append({"type": self.gt(self.bt(ds[1])),
+                             "volume": self.gt(self.bt(ds[2])),
+                             "price": self.gt(self.bt(ds[3]))})
+
+
+class _TraVe(Exception):
+    def __init__(self, v):
+        self.v = v
+
+
+def _nhap_cua(khai: dict | None) -> dict:
+    return {k: v["gia_tri"] for k, v in (khai or {}).items()
+            if isinstance(v, dict) and isinstance(v.get("gia_tri"), (int, float))}
+
+
+def gia_tri_thuan(bt: str, vb: str, khai: dict | None) -> float | None:
+    """Bieu thuc chi phu thuoc input (va ham thuan) -> so; khong chac -> None."""
+    try:
+        v = _ThongDich(vb, _nhap_cua(khai)).gt(_ThongDich(vb, {}).bt(bt))
+    except (_Kh, _TraVe, ValueError, ZeroDivisionError, RecursionError):
+        return None
+    if isinstance(v, bool) or not isinstance(v, (int, float)):
+        return None
+    return float(v)
+
+
+def _co_ham_dem(vb: str, ten: str, kieu: str) -> bool:
+    """Ham dem / co vi the loc theo magic: `kieu` = "dem" (X++) | "co" (X=true)."""
+    t = than_ham(vb, ten)
+    if not t:
+        return False
+    g = _gon(vb[t[0]:t[1]])
+    if kieu == "dem":
+        m = re.fullmatch(r"int(\w+)=0;inti=PositionsTotal\(\)-1;while\(i>=0\)\{PositionGetSymbol"
+                         r"\(i\);long(\w+)=PositionGetInteger\(POSITION_MAGIC\);if\(\2==magicnumber"
+                         r"\)\1\+\+;i--;\}return\1;", g)
+    else:
+        m = re.fullmatch(r"bool(\w+)=false;inti=PositionsTotal\(\)-1;while\(i>=0\)\{PositionGetSymbol"
+                         r"\(i\);long(\w+)=PositionGetInteger\(POSITION_MAGIC\);if\(\2==magicnumber"
+                         r"\)\1=true;i--;\}return\1;", g)
+    return m is not None
+
+
+def _bo_loc_magic(g: str) -> str:
+    """Bo loc `posmagic==magicnumber` (gia dinh tai khoan chi co EA nay)."""
+    m = re.search(r"long(\w+)=PositionGetInteger\(POSITION_MAGIC\);", g)
+    if not m:
+        return g
+    v = m.group(1)
+    g = g.replace(m.group(0), "")
+    g = re.sub(rf"if\({v}==magicnumber\)\{{(.*?)\}}", r"\1", g)
+    g = re.sub(rf"if\({v}==magicnumber\)", "", g)
+    g = g.replace("trade.SetExpertMagicNumber(magicnumber);", "")
+    if v in g or "MAGIC" in g:
+        return "MAGIC?"
+    return g
+
+
+def doc_luoi(c: dict, vb: str, gm: str, khai: dict | None,
+             bien_so: str | None, bien_dinh: str | None) -> tuple[dict | None, str, bool]:
+    """Khoi `if(COND){ up=..; down=..; if(up||down){...} }` cua ham dong (sau cong bar).
+
+    Tra (luoi | None, ly do, else_chet). `gm` = than ham mo (van ban THO, da chuan hoa)."""
+    nhap = _nhap_cua(khai)
+    td = _ThongDich(vb, nhap)
+    if bien_so:
+        td.env[bien_so] = SoLenh()
+    try:
+        luon = td._bool(td.gt(td.bt(c["dk"])))
+    except _Kh as e:
+        return None, f"dieu kien khoi luoi khong chac: {e}", False
+    if not luon:
+        return None, "khoi luoi khong bao gio chay", False
+    ds = cau_lenh(c["than"])
+    ds = [x for x in ds if not (x["loai"] == "don" and re.fullmatch(
+        rf"{_KIEU}\s+\w+(?:\s*,\s*\w+)*", x["than"].strip().rstrip(";").strip()))]
+    if len(ds) != 3 or ds[0]["loai"] != "don" or ds[1]["loai"] != "don" or ds[2]["loai"] != "if":
+        return None, "khoi luoi khong o dang `up=..; down=..; if(up||down){..}`", False
+    g0, g1 = _gon(ds[0]["than"]).rstrip(";"), _gon(ds[1]["than"]).rstrip(";")
+    m1 = re.fullmatch(r"(\w+)=Tradesinfo\.initupand_gia0_<=Tradesinfo\.(\w+)", g0)
+    m2 = re.fullmatch(r"(\w+)=!Tradesinfo\.initupand_gia0_>=Tradesinfo\.(\w+)", g1)
+    if not (m1 and m2) or m1.group(2) != m2.group(2):
+        return None, "dieu kien them lenh khong o dang `initup && gia<=S` / `!initup && gia>=S`", False
+    xu, xd, S = m1.group(1), m2.group(1), m2.group(2)
+    if _gon(ds[2]["dk"]) not in (f"{xu}or{xd}", f"{xd}or{xu}") or ds[2]["khac"] is not None:
+        return None, "khong thay `if(up||down)`", False
+    trong = ds[2]["than"]
+    # --- muc dau (ham mo): chay khoi `if(up||down){...}` cua ham mo cho 2 truong hop
+    tmo = cau_lenh(gm)
+    khoi_mo = [x for x in tmo if x["loai"] == "if" and "PositionOpen(" in x["than"]]
+    if len(khoi_mo) != 1:
+        return None, "ham mo khong co dung mot khoi chua PositionOpen", False
+    km = khoi_mo[0]
+    hh = _tach_hoac(km["dk"])
+    if len(hh) != 2:
+        return None, "lenh dau khong o dang `if(up||down)`", False
+    ket = {}
+    for ca in ((True, False), (False, True)):
+        # quet bien cuc bo truoc khoi (vd `int steprange=StepRange;`)
+        t0 = _ThongDich(vb, nhap)
+        t0.chay(gm[:km["a"]], long_leo=True)
+        t0.env[hh[0]], t0.env[hh[1]] = ca
+        t0.env["Tradesinfo.lastvolume"] = UNK
+        try:
+            _chay_mo(t0, km["than"])
+        except _Kh as e:
+            return None, f"lenh dau: {e}", False
+        if len(t0.lenh_mo) != 1:
+            return None, "lenh dau: khong dung mot PositionOpen", False
+        lm = t0.lenh_mo[0]
+        if lm["type"] not in ("ORDER_TYPE_BUY", "ORDER_TYPE_SELL"):
+            return None, "lenh dau: chieu khong ro", False
+        chieu = 1 if lm["type"] == "ORDER_TYPE_BUY" else -1
+        if chieu in ket:
+            return None, "lenh dau: hai nhanh cung chieu", False
+        if t0.env.get("Tradesinfo.initup") is not (chieu > 0):
+            return None, "lenh dau: initup khong khop chieu", False
+        s0 = t0.env.get(f"Tradesinfo.{S}")
+        lot0 = t0.env.get("Tradesinfo.lastvolume")
+        if not isinstance(s0, Gia) or s0.goc not in ("BID", "ASK"):
+            return None, f"lenh dau: Tradesinfo.{S} khong phai gia BID/ASK -+ k*_Point", False
+        if not isinstance(lot0, (int, float)) or lot0 != lm["volume"]:
+            return None, "lenh dau: lastvolume != volume", False
+        if bien_dinh and t0.env.get(bien_dinh) != 0:
+            return None, "lenh dau: khong dat lai dinh", False
+        # --- lenh them: chay `trong` voi up/down
+        lots, muc, lenh = [], None, None
+        lv = float(lot0)
+        for buoc in range(60):
+            t1 = _ThongDich(vb, nhap)
+            if bien_so:
+                t1.env[bien_so] = SoLenh()
+            t1.env[xu], t1.env[xd] = (chieu > 0), (chieu < 0)
+            t1.env["Tradesinfo.initup"] = (chieu > 0)
+            t1.env["Tradesinfo.lastvolume"] = lv
+            t1.env["Tradesinfo.totalvolume"] = UNK
+            t1.env["Tradesinfo.initprice"] = UNK
+            if bien_dinh:
+                t1.env[bien_dinh] = UNK
+            try:
+                t1.chay(trong)
+            except _Kh as e:
+                return None, f"lenh them: {e}", False
+            except _TraVe:
+                return None, "lenh them: return giua khoi", False
+            if len(t1.lenh_mo) != 1:
+                return None, "lenh them: khong dung mot PositionOpen", False
+            lm1 = t1.lenh_mo[0]
+            v = lm1["volume"]
+            if not isinstance(v, (int, float)) or v <= 0:
+                return None, "lenh them: khoi luong khong ro", False
+            if t1.env.get("Tradesinfo.lastvolume") != v:
+                return None, "lenh them: lastvolume != volume", False
+            m_ = t1.env.get(f"Tradesinfo.{S}")
+            if not isinstance(m_, Gia) or m_.goc not in ("BID", "ASK"):
+                return None, f"lenh them: Tradesinfo.{S} moi khong ro", False
+            dd = (lm1["type"], lm1["price"], m_)
+            if lenh is None:
+                lenh = dd
+            elif dd != lenh:
+                return None, "lenh them: hanh vi doi theo buoc (khong dich)", False
+            if bien_dinh and t1.env.get(bien_dinh) != 0:
+                return None, "lenh them: dinh khong ve 0 (chua ho tro)", False
+            lots.append(round(float(v), 8))
+            lv = float(v)
+            if lv > 1e7:
+                break
+        ty, pr, mm = lenh
+        ch_them = 1 if ty == "ORDER_TYPE_BUY" else -1
+        if not isinstance(pr, Gia) or pr.diem != 0 or pr.goc != ("ASK" if ch_them > 0 else "BID"):
+            return None, "lenh them: gia vao khong phai ASK (mua) / BID (ban)", False
+        ket[chieu] = {"muc_dau": [s0.goc, s0.diem], "buoc": [mm.goc, mm.diem],
+                      "chieu_them": ch_them * chieu, "lot": lots, "lot_dau": float(lot0)}
+    a, b = ket[1], ket[-1]
+    if a["lot"] != b["lot"] or a["chieu_them"] != b["chieu_them"] or a["lot_dau"] != b["lot_dau"]:
+        return None, "luoi mua/ban khong doi xung", False
+    luoi = {"cong_bar": True, "cung_chieu": a["chieu_them"] == 1,
+            "phep": {"mua": "<=", "ban": ">="},
+            "muc_dau": {"mua": a["muc_dau"], "ban": b["muc_dau"]},
+            "buoc": {"mua": a["buoc"], "ban": b["buoc"]},
+            "lot": a["lot"], "reset_dinh": bool(bien_dinh), "lot_dau": a["lot_dau"]}
+    return luoi, "", c["khac"] is not None
+
+
+def _chay_mo(t0: "_ThongDich", than: str) -> None:
+    """Chay khoi lenh dau: bien khong ro (stopLevel, tp...) duoc phep neu khong dung."""
+    for c in cau_lenh(than):
+        if c["loai"] == "if" and "PositionOpen(" not in c["dk"] and "PositionOpen(" not in c["than"]:
+            di = t0._bool(t0.gt(t0.bt(c["dk"])))
+            if di:
+                _chay_mo(t0, c["than"])
+            elif c["khac"] is not None:
+                _chay_mo(t0, c["khac"])
+            continue
+        if c["loai"] == "if":
+            t0.chay(f"if({c['dk']}){{{c['than']}}}" + (
+                f"else{{{c['khac']}}}" if c["khac"] is not None else ""))
+            continue
+        if c["loai"] == "khoi":
+            _chay_mo(t0, c["than"])
+            continue
+        t0._don(c["than"].strip().rstrip(";").strip(), long_leo=True)
+
+
+def _tach_hoac(dk: str) -> list[str]:
+    p = [x.strip() for x in re.split(r"\s+or\s+|\|\|", dk.strip())]
+    return p if len(p) == 2 and all(re.fullmatch(r"\w+", x) for x in p) else []

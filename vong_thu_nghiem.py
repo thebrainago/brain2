@@ -169,6 +169,13 @@ def danh_gia_nhom(specs: list[dict], df: pd.DataFrame, khung: str,
           "chan": chan}
     if kq.chi_tiet.get("ro_bat_thuong"):
         ra["ro_bat_thuong"] = int(kq.chi_tiet["ro_bat_thuong"])
+    if kq.chi_tiet.get("luoi"):
+        # luoi martingale: so lenh / lot lon nhat trong mot ro, lo tha noi lon nhat ($)
+        # - EA KHONG gioi han; ky quy / SYMBOL_VOLUME_MAX cua san KHONG mo phong
+        lu = kq.chi_tiet["luoi"]
+        ra["luoi"] = {"max_lenh": int(lu["max_lenh"]), "max_lot": round(float(lu["max_lot"]), 2),
+                      "lo_tha_noi_max_usd": round(float(lu["lo_tha_noi_max"]), 2),
+                      "vuot_chuoi": int(lu["vuot_chuoi"])}
     return ra
 
 

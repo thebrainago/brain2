@@ -535,6 +535,9 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
     bien: dict = {}
     pos: dict | None = None
     dinh_g = [0.0]                              # `peakwin` (bien TOAN CUC cua EA)
+    cong_dong = [-1]                            # bar ham dong da qua cong `prevTime` (luoi)
+    mo_bar = [-1]                               # bar mo lenh dau gan nhat (cong ham mo)
+    luoi_tk = {"max_lenh": 0, "max_lot": 0.0, "lo_tha_noi_max": 0.0, "vuot_chuoi": 0}
     cuc = [0.0, 0.0]                           # cao / thap cua bar dang chay
     EPS = 1e-7
 
@@ -555,10 +558,12 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
                 return True
         return False
 
-    def _duoc(k: int, i: int, ngay) -> bool:
+    def _duoc(k: int, i: int, ngay, bo_cho: bool = False) -> bool:
         c_ = chan[k]
-        if not bool(c_["cho"][i]):
+        if not bo_cho and not bool(c_["cho"][i]):
             return False
+        if (c_.get("ro") or {}).get("cong_mo_bar") and mo_bar[0] == i + 1:
+            return False                      # ham mo: `if(curTime==prevTime) return;`
         if any(bien.get(b) == ngay for b in c_.get("chan_boi") or []):
             return False
         if c_.get("muc") is not None and not np.isfinite(c_["muc"][i]):
@@ -623,7 +628,10 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
     def _tick_ro(j: int, p: float) -> bool:
         """Mot lan goi ham dong cua EA tai gia p. Tra True neu vua them hedge."""
         ro = pos["ro"]
+        lu_st = pos.get("luoi")
         loi = _loi_ro(p)
+        if lu_st is not None:
+            luoi_tk["lo_tha_noi_max"] = max(luoi_tk["lo_tha_noi_max"], -loi)
         d = ro.get("dinh")
         if d:
             if d.get("reset_am") and loi <= 0:
@@ -657,6 +665,35 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
                     nhat_ky[-1].setdefault("hedge", []).append(
                         {"bar": j, "gia": p, "lot": float(h["lot"])})
                 them = True
+        lu = ro.get("luoi")
+        if lu and lu_st is not None and cong_dong[0] != j:
+            # sau `if(curTime==prevTime) return;`: chi lan goi DAU TIEN cua bar
+            cong_dong[0] = j
+            kich = p <= lu_st["muc"] + 1e-12 if lu_st["phep"] == "<=" else \
+                p >= lu_st["muc"] - 1e-12
+            if dong:
+                if kich:
+                    bat_thuong[0] += 1        # EA dung `postotal` cu -> lenh mo coi
+            elif kich:
+                n_ = lu_st["n"]
+                if n_ >= len(lu["lot"]):
+                    luoi_tk["vuot_chuoi"] += 1
+                else:
+                    lot = float(lu["lot"][n_])
+                    lu_st["n"] = n_ + 1
+                    ch_t = pos["chieu"] * (1 if lu.get("cung_chieu", True) else -1)
+                    _them_chan_ro(j, ch_t, lot, p)
+                    so_hedge[pos["k"]] += 1
+                    goc, d_ = lu["buoc"]["mua" if pos["chieu"] > 0 else "ban"]
+                    lu_st["muc"] = p + (sp[j] * p if goc == "ASK" else 0.0) + float(d_) * diem
+                    if lu.get("reset_dinh"):
+                        dinh_g[0] = 0.0
+                    luoi_tk["max_lenh"] = max(luoi_tk["max_lenh"], len(pos["legs"]))
+                    luoi_tk["max_lot"] = max(luoi_tk["max_lot"], lot)
+                    if nhat_ky is not None and nhat_ky:
+                        nhat_ky[-1].setdefault("them", []).append(
+                            {"bar": j, "gia": p, "lot": lot})
+                    them = True
         return them
 
     def _su_kien_ro(cur: float, b: float) -> float | None:
@@ -706,6 +743,13 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
                     h["_muc"], h["_phep"] = gia + D, ">="
             hs.append(h)
         pos["hedge"] = hs
+        lu = ro.get("luoi")
+        if lu:
+            goc, d_ = lu["muc_dau"]["mua" if ch > 0 else "ban"]
+            pos["luoi"] = {"muc": gia + (sp[j] * gia if goc == "ASK" else 0.0) + float(d_) * diem,
+                           "phep": lu["phep"]["mua" if ch > 0 else "ban"], "n": 0}
+            luoi_tk["max_lenh"] = max(luoi_tk["max_lenh"], 1)
+        mo_bar[0] = j
         if (ro.get("dinh") or {}).get("reset_vao"):
             dinh_g[0] = 0.0
 
@@ -767,11 +811,17 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
     def _vao_tai(i: int, j: int, gia: float, ngay, tick_dau: bool) -> bool:
         """Vao NGAY tai gia hien tai neu co chan da qua muc (hoac vao o tick dau)."""
         for k in range(K):
-            if not _duoc(k, i, ngay):
-                continue
             c_ = chan[k]
+            lai = (not tick_dau and c_.get("muc") is None and c_.get("muc_lai") is not None)
+            if not _duoc(k, i, ngay, bo_cho=lai):
+                continue
             m = c_.get("muc")
-            if m is None:
+            if lai:
+                # cap mua/ban bu nhau quanh MOT muc, EA kiem moi tick: vao lai GIUA bar
+                # (sau khi ro dong) theo gia hien tai so voi muc (vd pivot gio)
+                lv = c_["muc_lai"][i]
+                ok = bool(np.isfinite(lv)) and _so(gia, c_["phep_lai"], lv)
+            elif m is None:
                 ok = tick_dau                 # tin hieu tick dau: chi o open
             elif c_["huong"] == ">":
                 ok = gia > m[i]
@@ -906,6 +956,8 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
     ct = {"chan": [{"chieu": chan[k]["chieu"], "so_lenh": so_lenh[k], "loi": loi_k[k],
                     "so_hedge": so_hedge[k]} for k in range(K)],
           "ro_bat_thuong": bat_thuong[0]}
+    if any((c_.get("ro") or {}).get("luoi") for c_ in chan):
+        ct["luoi"] = dict(luoi_tk)
     return KetQua(
         ma=ma, khung=khung, index=idx, vi_the=v, loi=loi_k.sum(axis=0),
         loi_tho=loi_tho.sum(axis=0), r=_loi_suat_tien(df),

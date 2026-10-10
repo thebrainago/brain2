@@ -2240,8 +2240,10 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
             if ro_tt["ro"] is not None and _dau_ham(vb, m.start())[1] == ro_tt["ham_dong"]:
                 kh = next((k for k in ro_tt["khoi"] if k["a"] <= m.start() < k["b"]), None)
                 if kh is not None and not kh["toi_duoc"]:
-                    # `if(postotal==22)` khi EA chi co toi da 2 lenh: khong bao gio chay
-                    ho.append(f"lenh hedge khong toi duoc (so lenh=={kh['khi_so_lenh']})")
+                    # `if(postotal==22)` khi EA chi co toi da 2 lenh: khong bao gio chay;
+                    # nhanh else cua khoi luoi khi dieu kien khoi luon dung (input mac dinh)
+                    ho.append(kh.get("ly_do") or
+                              f"lenh hedge khong toi duoc (so lenh=={kh['khi_so_lenh']})")
                     loai["ma_chet"] += 1
                     continue
                 if kh is not None and kh["dich"]:
@@ -2414,6 +2416,7 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
                 ra[-1]["_loai_b0"] = loai_b0
                 ra[-1]["_loc"] = loc_idx
             _ap_moi_tick(ra[bat_dau:], _kiem_moi_tick(vb, m.start()))
+            _vao_lai_giua_bar(ra[bat_dau:])
             n_co += co
             if co:
                 loai["dich_duoc"] += 1
@@ -2444,6 +2447,33 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
             # dich_duoc | ma_chet (sau return vo dieu kien) | quan_ly_vi_the
             # (hedge/luoi/nhoi lenh theo gia vao lenh, so lenh, loi lo) | chua_dich.
             "phan_loai_vao_lenh": loai}
+
+
+def _vao_lai_giua_bar(cac: list[dict]) -> None:
+    """Breakout5/5-2-2: ham mo co cong `if(curTime==prevTime) return;` nhung `prevTime`
+    chi gan SAU khi mo lenh -> moi bar mo toi da MOT lan, nhung o BAT KY tick nao khi
+    dang khong co lenh. Khi ro lenh dong giua bar (chot dinh), EA vao lai ngay tick sau
+    neu bar nay chua mo lenh. Cap mua/ban bu nhau quanh mot muc (gia < M mua, gia >= M
+    ban) -> luon co mot chieu; chieu do theo gia LUC DO. Danh dau `vao_lai_giua_bar`
+    (doc o `ngu_phap.sinh_chan` -> `muc_lai`). Chi khi chac: dung 2 chan nguoc chieu,
+    moi chan MOT dieu kien `close <phep> M` cung M, hai phep bu nhau, ro co cong mo bar."""
+    if len(cac) != 2 or {sp.get("chieu") for sp in cac} != {1, -1}:
+        return
+    if not all((sp.get("ro") or {}).get("cong_mo_bar") for sp in cac):
+        return
+    v = [sp.get("vao") or [] for sp in cac]
+    if not all(len(x) == 1 and x[0].get("trai") == {"chi_bao": "gia", "cot": "close"}
+               for x in v):
+        return
+    if json.dumps(v[0][0]["phai"], sort_keys=True) != json.dumps(v[1][0]["phai"], sort_keys=True):
+        return
+    if {v[0][0]["phep"], v[1][0]["phep"]} not in ({"<", ">="}, {"<=", ">"}):
+        return
+    for sp in cac:
+        sp["vao_lai_giua_bar"] = True
+        sp.setdefault("gia_dinh", []).append(
+            "ham mo chi chan mo lan 2 trong CUNG bar (prevTime gan sau khi mo lenh): ro dong "
+            "giua bar -> vao lai ngay theo gia luc do so voi muc (cap mua/ban bu nhau)")
 
 
 def _cac_co(guards: list, nhom: list) -> list[str]:

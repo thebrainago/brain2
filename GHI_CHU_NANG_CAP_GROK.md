@@ -1,6 +1,89 @@
-# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (16:50, giờ VN)
+# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (17:10, giờ VN)
 
-## Vòng "RỔ HEDGE + SL/TP ATR" (sau 21cc69dc) — thoát lệnh Breakout2/2-2/3 và Template đúng như EA
+
+## Vòng "LƯỚI MARTINGALE" (sau 54c8597e) — Breakout5 / Breakout5-2-2 dịch đúng như EA
+### 1. Đọc (`nhan/ro_mql.py`: `doc_luoi` + trình thông dịch MQL nhỏ `_ThongDich`)
+Hàm đóng của hai EA: cập nhật đỉnh `peakwin=MathMax(peakwin,profits)` (không về 0 khi lỗ) →
+`if(peakwin>=E && profits<=peakwin*0.7) CloseAll()` → **cổng bar** `if(curTime==prevTime) return;`
+→ khối lưới: `up = initup && giá <= S`, `down = !initup && giá >= S` → thêm lệnh **CÙNG chiều**,
+`S = BID ∓ 30 point`, `volume = round2(lastvolume × 1.45)`, `peakwin=0`. KHÔNG giới hạn số lệnh.
+- Khối lệnh không đọc bằng regex từng dòng: được **chạy thử** bằng một trình thông dịch tập con
+  MQL5 (khai báo, gán, `if/else`, `SymbolInfoDouble(BID|ASK)`, `_Point`, `MathRound`,
+  `NormalizeDouble`, hàm thuần chỉ phụ thuộc input như `GetStartVolume()`), cho cả hai trường hợp
+  lệnh đầu mua / bán. Biến không rõ trong điều kiện, hàm lạ có thể có tác dụng phụ, điều kiện phụ
+  thuộc số lệnh (ngoài `postotal>0`) → `_Kh` → **không dịch** (không đoán).
+- Chuỗi lot lấy bằng cách chạy THẬT phép gán `lastvolume` 54 bước (không đoán công thức):
+  0.02 → 0.03, 0.04, 0.06, 0.09, 0.13, 0.19, 0.28, 0.41, … (Breakout5 `MathRound(x*100)/100` và
+  5-2-2 `NormalizeDouble(x,2)` + `if(volume<0.02)` cho cùng chuỗi — test kiểm).
+- 5-2-2: `expectation = takeprofitamountperstartvolume × GetStartVolume() = 250×0.02 = 5` (tính từ
+  input); lọc magic (`PosTotal`, `IsTRadeOpen`, `GetProfits`, `CloseAll(all=true)`) → giả định tài
+  khoản chỉ có EA này (ghi `gia_dinh`). Nhánh `else if(zonesequence!=0)` (hedge vùng) **không tới
+  được với input mặc định** `hedgeatlevel=0` → mã chết; đổi `hedgeatlevel=3` → KHÔNG dịch (test).
+  Ở input mặc định 5-2-2 ≡ Breakout5 (khóa `ro` giống hệt → vòng lặp bỏ trùng).
+- Hàm mở: `prevTime` chỉ gán SAU khi mở lệnh → **mở tối đa 1 lần/bar nhưng ở BẤT KỲ tick nào**
+  khi đang không có lệnh (`ro.cong_mo_bar`). Cặp mua `giá < pivot giờ` / bán `giá >= pivot` bù nhau
+  → khi rổ chốt GIỮA bar, EA vào lại ngay theo giá lúc đó (`vao_lai_giua_bar` → `muc_lai` ở
+  `ngu_phap.sinh_chan`; `doc_ma._vao_lai_giua_bar` chỉ gắn khi chắc: 2 chân ngược chiều, một điều
+  kiện `close <phép> M` cùng M, hai phép bù nhau, có cổng mở bar).
+- Đột biến kiểm (test): `volumefactor=2` → lot 0.04/0.08/0.16; `HedgeRange=50` → ±50 point;
+  `takeprofit…=500` → mốc 10$; bỏ cổng bar, chèn hàm lạ, `hedgeatlevel=3`, hoa hồng > 0,
+  khối lượng theo vốn (`AccountInfoDouble`) → đều KHÔNG dịch.
+### 2. Mô phỏng (`mo_phong.chay_he`, khóa `ro.luoi`)
+- Lưới chỉ xét ở **lần gọi hàm đóng ĐẦU TIÊN của mỗi bar** (cổng `prevTime` toàn cục của hàm
+  đóng — cả khi lần gọi đó là tick ngay sau lệnh mở), tại giá lúc đó (≈ open); không thêm giữa bar.
+- Chốt đỉnh giữa bar tìm CHÍNH XÁC trên từng đoạn đơn điệu (như rổ hedge). Thêm lệnh khi vừa
+  `CloseAll` cùng tick (`postotal` cũ) → đếm `ro_bat_thuong`, không mở.
+- Chẩn đoán mới `chi_tiet["luoi"]`: số lệnh / lot lớn nhất một rổ, lỗ thả nổi lớn nhất ($).
+  **KHÔNG mô phỏng** ký quỹ / stop-out / `SYMBOL_VOLUME_MAX` của sàn (phụ thuộc tài khoản & sàn,
+  không có trong mã) — đây là giới hạn lớn nhất của kết quả lưới.
+### Số đo
+| | 54c8597e | bây giờ |
+|---|---|---|
+| Điểm vào dịch được (`do_moc.py`) | 11/22 = 50,0% | **13/22 = 59,1%** (8 tín hiệu + 3 hedge + **2 lệnh thêm của lưới**) |
+| Phân loại | dịch 8+3 · quản lý vị thế 4 · mã chết 5 · chưa dịch 2 | dịch 8+5 · quản lý vị thế **1** (hedge Breakout4) · mã chết **6** (+ nhánh hedge vùng 5-2-2 ở input mặc định) · chưa dịch 2 |
+| Thoát lệnh đúng EA | B1, B2, B2-2, B3, Template | + **Breakout5, 5-2-2 (lưới + chốt đỉnh 5$)** — không còn hệ nào thoát theo `giu` N bar trong mẫu |
+| Test lõi + mới | 152 xanh | **165 xanh** (`test_luoi_martingale.py` 13; 1 kỳ vọng cũ sửa: 5-2-2 có 2 điểm vào dịch được) |
+| 70 file test chạm `doc_ma/ngu_phap/mo_phong/vong/chi_phi/ro_mql` | 1068 xanh / 40 đỏ / 9 lỗi | **1081 xanh / 40 đỏ / 9 lỗi — 0 đỏ mới** (đỏ cũ giống hệt bản gốc trên cùng tập file; 2 đỏ `test_sua_bang_llm` chỉ hiện khi chạy cả bộ — phụ thuộc thứ tự, chạy riêng xanh ở cả hai bản) |
+
+### Vòng lặp EURUSD H1 (`/workspace/eurusd_h1_server.csv`, 17.127 bar) — CÓ PHÍ THẬT
+`7 bóc được, 1 trùng (Breakout5 = 5-2-2), 6 chạy được → **giữ lại: 0**` (`/workspace/vong_eurusd_luoi.json`).
+Ngưỡng KHÔNG đổi: t ≥ 2,0 tối ưu / 1,5 kiểm, ≥47 / ≥20 lệnh, phí thật.
+| hệ | trước (giu N bar, riêng từng chân), kiểm | **bây giờ** (lưới đúng EA), kiểm | t (tối ưu/kiểm) |
+|---|---|---|---|
+| Breakout5-2-2 (= Breakout5) | mua −1,65/49 · bán +0,39/93 | **+1,06 / 465 rổ** (842 lệnh thêm) | **+1,4 / +1,0** → không giữ |
+| các hệ khác | — | không đổi so với 54c8597e | — |
+- Lưới trên EURUSD: phần tối ưu tối đa **17 lệnh/rổ, lot 7,99, lỗ thả nổi 6.086 $** (lệnh đầu 0,02 lot);
+  phần kiểm 13 lệnh, 1,81 lot, 1.431 $. Mọi rổ đóng bằng chốt đỉnh (không có cắt lỗ).
+- **PLACEBO (random walk `--gia-lap-duong`, CÓ phí, seed 1-10): lưới cho Sharpe kiểm DƯƠNG 10/10
+  seed (+0,16 … +2,35, trung bình ≈ +1,1)** — đúng đặc tính martingale (thắng nhỏ đều, đuôi phá sản
+  hiếm, không xảy ra trong mẫu hữu hạn và không mô phỏng ký quỹ). Nên Sharpe +1,06 trên EURUSD
+  **KHÔNG phân biệt được với giả dược → KHÔNG phải bằng chứng edge**. Giữ lại 0/10 seed placebo.
+- **Kết luận vẫn như các vòng trước: edge sau phí được giữ = 0.** Dịch đúng hơn tăng độ trung thực
+  (thoát lệnh, khối lượng, vào lại giữa bar) nhưng không tạo ra cơ chế qua ngưỡng.
+
+### Breakout4 (PivotsDay R1/S1) — BỎ QUA có ghi lý do (không đoán)
+Có mã `MultiPivots.mqh` (/tmp, peterthomet), nhưng dịch chắc chắn cần cả ba thứ chưa có:
+1. **`±5*_Point`** quanh R1/S1 (`PivotsIsPivotRange(close+5pt, close−5pt, …)`): phụ thuộc symbol;
+   DSL `toan_hang` không biết `_Point` → phải thêm tham số tường minh `diem` vào lớp tín hiệu
+   (hiện chỉ mô phỏng biết `diem`). Không tự gán 1e-5.
+2. **Biên ngày của pivot**: `PivotsFindWeekDayStart` tự dò giờ đầu ngày từ khe cuối tuần (>86400 s)
+   trên giờ máy chủ, `PivotsCalculatePivotRange(DAY)` + `PivotsCleanupWeeekendAndDaysGaps` — cần
+   dịch nguyên văn (Chủ nhật / ngày lễ) mới đúng; `PivotsDayList[1]` là ngày nào phải kiểm tay.
+3. **Vào lệnh MỖI tick** (cổng `prevTime` đã bị comment) khi giá rơi VÀO DẢI [L−5pt, L+5pt] →
+   mô phỏng cần kiểu kích hoạt "dải" trong bar (chưa có). Kèm luật 1 lệnh/ngày + rổ hedge (đã đọc được).
+→ Breakout4 vẫn `co_che=0`; hedge của nó vẫn `quan_ly_vi_the` ("lệnh đầu của rổ chưa dịch").
+
+### Vấn đề mở (ưu tiên vòng sau)
+1. **Cổng giữ cho lưới/martingale**: Sharpe/t không phải phép thử hợp lệ (placebo dương 10/10). Cần
+   mô hình ký quỹ/stop-out với vốn & đòn bẩy KHAI BÁO, hoặc so với phân phối placebo cùng cấu trúc,
+   trước khi một hệ lưới được phép "giữ". (Chưa đổi ngưỡng — chỉ ghi lại.)
+2. `SYMBOL_VOLUME_MAX` / ký quỹ: tham số hóa tường minh (`lot_toi_da`, vốn) khi có thông số sàn.
+3. Breakout4: ba mục trên. CurrencyStrength1 (`CSValues[s1]`, iCustom), Pivots1: chưa dịch.
+4. (cũ) ngưỡng tiền theo USD; `MinStopDistance`; đường giá trong bar nên kiểm bằng M1.
+
+---
+
+## (trước) Vòng "RỔ HEDGE + SL/TP ATR" (sau 21cc69dc) — thoát lệnh Breakout2/2-2/3 và Template đúng như EA
 ### 1. Rổ lệnh Breakout2/2-2/3 (`nhan/ro_mql.py` mới, gắn vào `doc_ma`)
 Trước: ba EA này đóng lệnh sau `giu` bar — một hệ KHÁC hẳn. Mã thật: `OnTick` gọi
 `checkForClose()` MỖI tick khi có vị thế, hàm đó làm việc trên TỔNG lời lỗ (tiền) của cả rổ:

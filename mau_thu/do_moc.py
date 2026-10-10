@@ -68,7 +68,7 @@ def main() -> int:
     # le tren co the vuot so diem vao THAT SU dich duoc. Day la so do chat hon:
     ty2 = (100.0 * r["vao_co"] / r["vao_lenh"]) if r["vao_lenh"] else 0.0
     print("  diem vao dich duoc     : %d/%d = %.1f%%   <- SO CHINH (moc 908075c0: 6/22 = 27.3%%;"
-          " 21cc69dc: 8/22 = 36.4%%)"
+          " 21cc69dc: 8/22 = 36.4%%; 54c8597e: 11/22 = 50.0%%)"
           % (r["vao_co"], r["vao_lenh"], ty2))
     # PHAN LOAI (them 10/10/2026). Mau so tren tron ca "tao": lenh hedge/luoi/
     # nhoi lenh theo GIA VAO LENH / so lenh / loi lo (khong phai tin hieu thanh
