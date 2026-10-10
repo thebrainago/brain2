@@ -1,5 +1,38 @@
 # Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (khuya, giờ VN)
 
+## Vòng "P4 — ĐỐI CHỨNG NHIỄU + ĐỒNG DẤU VỚI MT5 + LUẬT LOẠI SỚM" (sau 22c68c55) — rạng sáng 11/10/2026
+Chỉ ĐO + ĐỀ XUẤT. **Không đổi cổng duyệt.** Mọi số là MÔ PHỎNG (giá giả lập chỉ có nhiễu, hoặc so với tester MT5) — không phải tiền.
+Chủ dự án (10/10): quan tâm DẤU (mô phỏng lãi mà MT5 lỗ = nguy hiểm), không quan tâm độ lớn.
+
+- **Mã:** `hieu_chuan/p4_dau.py` (đồng dấu 15 ô P1 + luật loại sớm + đề xuất → `p4_dau.json`), `hieu_chuan/p4_nhieu.py`
+  (A = đường ống `vong_thu_nghiem.chay_mot_file` thật trên 19 cơ chế `mau_thu` + `mo_rong`; B = quét lưới 72 ô kiểu the-brain,
+  ô tốt nhất 60 % đầu → kiểm 40 % sau; R = luật R2 trên ô tốt nhất của B; ghi gộp, ghi nguyên tử → `p4_ket_qua.json`).
+  `test_p4_nhieu.py` 6 test. Nhiễu: bước ngẫu nhiên ~5,5 %/năm (100 chuỗi, seed 1000–1099) + GARCH ~9 %/năm (50 chuỗi);
+  A 9.600 bar H1, phí EURUSD thật, placebo 99 lần; B ~4 năm. A chạy lại 2 lần → kết quả GIỐNG HỆT (tất định).
+- **Đồng dấu với MT5 (15 ô P1):** `luoi.chay` v3 25/30 biến thể cùng dấu, 5/30 ngược dấu — TẤT CẢ là lạc quan (mô phỏng lãi,
+  tester lỗ; ô 1, 6, 11). `luoi_duong` 117/120 cùng dấu, 0 ô ngược dấu hoàn toàn; ô 4 lưng chừng (tester −0,1 %/năm ≈ 0).
+- **Nhiễu lọt cổng (A, theo cơ chế):** cổng brain2 hiện tại 0/1900 (rw), 1/950 (garch; 016_CCI_2MAVG lệnh đơn, t 2,27/1,61).
+  Nhãn 25/09 một mình: 434/1900 = 22,8 % (rw), 248/950 = 26,1 % (garch); **mỗi chuỗi nhiễu đều có ≥ 1 cơ chế “đạt 25/09”
+  (100/100, 50/50)**. Theo loại: lưới (Breakout5) 72/100 và 31/50 đạt 25/09 trên nhiễu; hedge 104/300, 58/150; lệnh đơn
+  258/1500, 159/750. Placebo p ≤ 0,05 một mình: 12/400 = 3 %, 7/200 = 3,5 % (≈ mức 5 % kỳ vọng). Lưới + placebo: 1/100, 0/50.
+- **B (quét lưới kiểu the-brain):** ô tốt nhất qua 25/09 ngoài mẫu: luoi_duong 51/100 (rw), 19/50 (garch); v3 56/100, 31/50.
+  Ô CHỌN BỪA: 44/100, 21/50 (duong) — **tối ưu ô không hơn chọn bừa** → lưới “qua” ngoài mẫu là đặc tính lưới, không phải lợi thế.
+- **Luật loại sớm — số đo trên CẢ HAI nguồn:**
+  | luật | 15 ô MT5 | nhiễu |
+  |---|---|---|
+  | R1 lãi mô phỏng ≥ 10 %/năm | v3 vẫn lọt ô 6 (ngược dấu) | 39/51, 52/56, 17/19, 31/31 ca “đạt” vẫn lọt → gần như không lọc |
+  | R2 luoi_duong lãi > 0 ở biến thể XẤU NHẤT (4 thứ tự × spread 1,5/2,5) | giữ 2, 8, 15 = đúng 3 ô tester lãi; 0 lọt, 0 chặn oan | 51→44/100 (rw), 19→17/50 (garch): chỉ chặn ~12 % |
+  | R3 maxDD mô phỏng ≤ 60 % | không loại ô nào (DD tester ≤ 33 %) | trong mẫu DD > 60 % → ngoài mẫu hỏng: 4/13 vs 36/87 (duong rw) — không nhất quán |
+  | Placebo cùng cấu trúc p ≤ 0,05 (cổng brain2 đã có) | CHƯA ĐO ĐƯỢC (15 ô không có tín hiệu vào) | lưới 72→1/100, 31→0/50; hedge 104→11/300 |
+- **ĐỀ XUẤT (chưa áp):** (Đ1) lưới: dùng luoi_duong, lãi ở biến thể xấu nhất > 0 — chống NGƯỢC DẤU với MT5 (bằng chứng 15 ô);
+  (Đ2) lưới/hedge đạt 25/09 vẫn phải thắng placebo cùng cấu trúc — chống NHIỄU (bằng chứng nhiễu; Đ1 không làm được việc này);
+  (Đ3) lệnh đơn: giữ ngưỡng t (25/09 một mình để lọt 17–21 % nhiễu, ngưỡng t ≤ 0,13 %). MT5 cho lệnh đơn: CHƯA ĐO ĐƯỢC.
+  Không đề xuất R1/R3: số đo không ủng hộ. Kết luận cho chủ dự án: “25/09 một mình” để nhiễu lọt quá nhiều → không nên
+  thay cổng hiện tại bằng 25/09; nên GIỮ 25/09 + thêm Đ1 + Đ2 khi có quyết.
+- **Giới hạn:** chỉ 2 cặp × 6 tháng MT5 (15 ô, đều lưới ThamSo); nhiễu là giá giả lập — không có lợi thế thật để đo độ nhạy
+  (luật chặn nhiễu cũng có thể chặn cái thật: CHƯA ĐO ĐƯỢC). `reports/VONG_DAY_DU.json` bị chạy đo làm bẩn → đã khôi phục.
+- **Việc tiếp:** P3 (swap theo từng lệnh + phí đúng thời kỳ); cài Đ1/Đ2 thành nhãn trong `vong_thu_nghiem` khi chủ dự án đồng ý.
+
 ## Vòng "P1 — MÔ PHỎNG LƯỚI SO VỚI 15 Ô MT5 TESTER" (gói bàn giao the-brain, sau c94ed9e8) — khuya 10/10/2026
 Chi tiết + bảng 15 ô: `hieu_chuan/P1_KET_QUA.md`. Không nới cổng giữ. Mọi số là MÔ PHỎNG so với TESTER, không phải tiền thật.
 
