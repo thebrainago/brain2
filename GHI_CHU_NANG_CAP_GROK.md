@@ -1,18 +1,19 @@
 # Ghi chú nâng cấp (Grok trên brain2) — 2026-10-10
 
 ## Trạng thái hiện tại
-- **Tỷ lệ bóc tách**: 3/22 = **13.6%** (đã khôi phục sau khi commit 394266a6 làm hỏng file thành PLACEHOLDER)
-- Vòng lặp tối thiểu `vong_thu_nghiem.py` chạy được 3 cơ chế trên dữ liệu giả lập.
+- **Tỷ lệ bóc tách**: 10/22 = **45.5%** (tăng từ 13.6% nhờ xử lý &&/||, Tradesinfo, giữ cơ chế khi có phần parse được)
+- Vòng lặp `vong_thu_nghiem.py` chạy được 10 cơ chế trên dữ liệu giả lập.
 
 ## Việc đã làm
-- Patch bắt biến trung gian, tiền xử lý MQL5 cơ bản, fallback identifier.
-- Tạo vòng thí nghiệm quét → bóc tách → mô phỏng Python.
-- Khôi phục file bị hỏng.
+- Tiền xử lý MQL5: && → and, || → or, Tradesinfo.initprice/hedgeprice → close, initup → 1.
+- _tach_va hỗ trợ tách cả and và or.
+- Nới rule: giữ cơ chế nếu có ≥1 điều kiện DSL parse được (ghi nhận phần chưa parse vào chua_dien_dat_duoc).
+- Commit 700d395a, đo lại bằng mau_thu/do_moc.py xác nhận 45.5%.
 
 ## Mục tiêu
 Vòng lặp liên tục: quét đầu vào → bóc tách cơ chế → kiểm định (Python) → tối ưu thông số → giữ lại cái hay.
 
 ## Ưu tiên tiếp
-1. Nâng tỷ lệ bóc tách lên ≥40% (xử lý &&, Tradesinfo, biểu thức phức tạp hơn) — làm cẩn thận, kiểm tra ngay sau mỗi thay đổi.
-2. Thêm tối ưu thông số cơ bản vào vòng lặp.
-3. Commit chỉ khi test pass.
+1. Xử lý biểu thức phức tạp hơn (lowrange + arithmetic, function calls) để tăng thêm tỷ lệ.
+2. Thêm tối ưu thông số cơ bản vào vòng lặp (grid nhỏ quanh giá trị mặc định nếu có input).
+3. Commit chỉ khi test pass, luôn kèm số đo.
