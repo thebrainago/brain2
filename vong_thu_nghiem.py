@@ -52,6 +52,17 @@ Cách làm (cập nhật 10/10/2026):
           đó, λ = max(thật, placebo cùng cấu trúc), P = 1 − e^(−λ). Chỉ SIẾT thêm.
        Stop-out mô phỏng kiểu MT5: đóng lệnh lỗ nhất trước, từng lệnh; trượt giá
        + qua đêm trừ thẳng vào vốn (`mo_phong.chay_he`).
+  9. (10/10/2026 đêm) RỔ HEDGE CŨNG QUA CỔNG: mọi hệ có `ro` (rổ hedge Breakout2/
+     2-2/3 lẫn lưới Breakout5) chạy với tài khoản khai báo và qua CÙNG cổng a-d ở
+     mục 8 (`la_ro`; trước đây chỉ hệ `ro.luoi`). Rổ hedge mở lệnh ở tick đầu
+     theo `cho` (không có chân lệnh dừng trong bar) nên placebo cùng cấu trúc chạy
+     được y như lưới (đồng xu thay chiều lệnh đầu; hedge/chốt đỉnh/cắt lỗ giữ nguyên).
+     Hệ `ro` có chân lệnh dừng trong bar (`muc`/`co`) - hiện KHÔNG có - thì
+     `chan_placebo` vẫn NotImplementedError: bỏ phần placebo (c) có GHI LÝ DO
+     `placebo_bo_qua`, vẫn áp a, b, d (d chỉ từ hệ thật) và ngưỡng t cũ.
+     KHỐI LƯỢNG TỐI ĐA: `--lot-max` (SYMBOL_VOLUME_MAX, mặc định 100 lot/lệnh) và
+     `--lot-tong-max` (SYMBOL_VOLUME_LIMIT, 0 = không giới hạn): sàn TỪ CHỐI lệnh
+     vượt mức (không cắt lot) - `mo_phong.chay_he`.
 
 Trên dữ liệu giả lập (bước ngẫu nhiên, không có lợi thế) gần như KHÔNG cơ chế
 nào nên được giữ - đó là phép thử placebo của chính vòng lặp. Nếu thấy nhiều
@@ -81,7 +92,12 @@ BAR_NAM = {"H1": 24 * 260, "D1": 260}
 # Tai khoan KHAI BAO cho he luoi/martingale (cong giu luoi). Lenh dau EA = 0,02 lot.
 # 10.000 USD, don bay 1:100, stop-out 50% (muc ESMA/nhieu san; XM quoc te 20%,
 # don bay toi 1:1000 - do nhay: --von/--don-bay/--stop-out).
-TAI_KHOAN_MAC_DINH = {"von": 10000.0, "don_bay": 100.0, "stop_out": 0.5}
+# lot_max = SYMBOL_VOLUME_MAX (lot/lenh). 100 = muc pho bien cho EURUSD tai khoan
+# chuan/ECN (nhieu san de 50-500; tai khoan micro/cent thap hon nhieu tinh theo lot
+# chuan) - GIA DINH, khong doc tu san; do nhay: --lot-max. lot_tong_max =
+# SYMBOL_VOLUME_LIMIT (tong cung chieu), None = khong gioi han (mac dinh MT5 = 0).
+TAI_KHOAN_MAC_DINH = {"von": 10000.0, "don_bay": 100.0, "stop_out": 0.5,
+                      "lot_max": 100.0, "lot_tong_max": None}
 
 
 def du_lieu_gia_lap(n: int = 24 * 400, seed: int = 42, khung: str = "H1") -> pd.DataFrame:
@@ -182,6 +198,12 @@ def la_luoi(specs: list[dict]) -> bool:
     return any((sp.get("ro") or {}).get("luoi") for sp in specs)
 
 
+def la_ro(specs: list[dict]) -> bool:
+    """He co RO lenh (`ro`: ro hedge Breakout2/2-2/3 hoac luoi Breakout5) -> tai
+    khoan khai bao + cong ro/luoi (docstring muc 8-9)."""
+    return any(sp.get("ro") for sp in specs)
+
+
 def danh_gia_nhom(specs: list[dict], df: pd.DataFrame, khung: str,
                   cp: CP.MoHinhChiPhi | None = None, tai_khoan: dict | None = None,
                   chan: list[dict] | None = None) -> dict:
@@ -205,7 +227,7 @@ def danh_gia_nhom(specs: list[dict], df: pd.DataFrame, khung: str,
         ra["ro_bat_thuong"] = int(kq.chi_tiet["ro_bat_thuong"])
     if kq.chi_tiet.get("luoi"):
         # luoi martingale: so lenh / lot lon nhat trong mot ro, lo tha noi lon nhat ($)
-        # - EA KHONG gioi han; ky quy / SYMBOL_VOLUME_MAX cua san KHONG mo phong
+        # - EA KHONG gioi han; ky quy + SYMBOL_VOLUME_MAX/LIMIT o `tai_khoan` (tu_choi_*)
         lu = kq.chi_tiet["luoi"]
         ra["luoi"] = {"max_lenh": int(lu["max_lenh"]), "max_lot": round(float(lu["max_lot"]), 2),
                       "lo_tha_noi_max_usd": round(float(lu["lo_tha_noi_max"]), 2),
@@ -225,6 +247,7 @@ def danh_gia_nhom(specs: list[dict], df: pd.DataFrame, khung: str,
                            "phi_truot_usd": round(float(t.get("phi_truot_usd", 0.0)), 2),
                            "phi_qua_dem_usd": round(float(t.get("phi_qua_dem_usd", 0.0)), 2),
                            "tu_choi_ky_quy": int(t["tu_choi_ky_quy"]),
+                           "tu_choi_lot_max": int(t.get("tu_choi_lot_max", 0)),
                            "chay": bool(t["chay"])}
     return ra
 
@@ -312,7 +335,7 @@ def ti_le_chay_nam(ds: list[dict], nam: float) -> dict:
 
 def cong_luoi(that_tu: dict, that_kiem: dict, placebo: list[dict],
               p_nguong: float = 0.05, nam_kiem: float | None = None,
-              p_chay_nam: float = 0.05) -> dict:
+              p_chay_nam: float = 0.05, placebo_bo_qua: str | None = None) -> dict:
     """Cong giu cho he luoi (docstring muc 8). Thuoc do: `loi_log` rong phan kiem.
     p mot phia = (1 + #placebo >= that) / (N + 1).
 
@@ -324,7 +347,11 @@ def cong_luoi(that_tu: dict, that_kiem: dict, placebo: list[dict],
     Loai khi P_nam > `p_chay_nam` (0,05). Ly do dung placebo: mot chieu "co edge"
     thay tren vai nam kiem khong du bang chung de xoa rui ro duoi CUA CAU TRUC;
     he that ma it chay hon placebo thi van bi loai neu chinh cau truc chay > 5%/nam
-    (bao thu, dung huong "chi siet")."""
+    (bao thu, dung huong "chi siet").
+
+    `placebo_bo_qua` (ly do): KHONG dung duoc placebo cung cau truc (he ro co
+    chan lenh dung trong bar -> `chan_placebo` NotImplementedError). Khi do bo
+    dieu kien (c), ghi ly do; (a), (b), (d - chi tu he that) van ap."""
     x = float(that_kiem["loi_log"])
     pl = np.array([float(r["loi_log"]) for r in placebo])
     N = len(pl)
@@ -337,12 +364,14 @@ def cong_luoi(that_tu: dict, that_kiem: dict, placebo: list[dict],
         ly_do.append("stop_out_kiem")
     if x <= 0:
         ly_do.append("lo_rong_kiem")
-    if p > p_nguong:
+    if placebo_bo_qua is None and p > p_nguong:
         ly_do.append(f"khong_thang_placebo p={p:.3f}>{p_nguong}")
     chay = None
     if nam_kiem:
         c_that = ti_le_chay_nam([that_kiem], nam_kiem)
-        c_pl = ti_le_chay_nam(placebo, nam_kiem)
+        c_pl = ti_le_chay_nam(placebo, nam_kiem) if N else {
+            "so_stop_out": 0, "nam_phoi_nhiem": 0.0, "lambda": None, "p_nam": None,
+            "p_tren95": None}
         lam = max(c_that["lambda"] or 0.0, c_pl["lambda"] or 0.0)
         p_nam = 1 - math.exp(-lam)
         chay = {"that": c_that, "placebo": c_pl, "p_nam": round(p_nam, 5),
@@ -355,7 +384,8 @@ def cong_luoi(that_tu: dict, that_kiem: dict, placebo: list[dict],
             "placebo_q95": round(float(np.quantile(pl, 0.95)), 5) if N else None,
             "placebo_duong": round(float(np.mean(pl > 0)), 3) if N else None,
             "placebo_song_sot": round(ss_pl, 3) if N else None,
-            "p": round(p, 4), "p_nguong": p_nguong,
+            "p": round(p, 4) if placebo_bo_qua is None else None, "p_nguong": p_nguong,
+            "placebo_bo_qua": placebo_bo_qua,
             "dat": not ly_do, "ly_do": ly_do}
 
 
@@ -588,10 +618,14 @@ def _chay_nhom(path: Path, g: str, specs: list[dict], df_tu, df_kiem, khung: str
             return dong
         da_thay.add(vt)
     luoi = la_luoi(specs)
-    # tai khoan khai bao chi cho he luoi (he khac: so lieu y het truoc)
-    tk = (tai_khoan or TAI_KHOAN_MAC_DINH) if luoi else None
+    ro = la_ro(specs)
+    # tai khoan khai bao cho MOI he co ro (luoi + ro hedge; muc 9). He khac
+    # (lenh don SL/TP/giu N bar): so lieu y het truoc.
+    tk = (tai_khoan or TAI_KHOAN_MAC_DINH) if ro else None
     if luoi:
         dong["luoi"] = True
+    if ro:
+        dong["loai_ro"] = "luoi" if luoi else "hedge"
         dong["tai_khoan_khai_bao"] = dict(tk)
     try:
         loi_cp = [e for sp in specs for e in NP.kiem_khai_bao(sp)]
@@ -625,12 +659,16 @@ def _chay_nhom(path: Path, g: str, specs: list[dict], df_tu, df_kiem, khung: str
             dong["it_lenh"] = it
         dat_cu = bool(dong["t_tu"] >= t_tu and dong["t_kiem"] >= t_kiem
                       and not it and not loi_cp)
-        if luoi:
-            # Sharpe/t KHONG du cho luoi (placebo duong 10/10): them cong luoi.
-            # Nguong cu van ap (khong noi) - cong luoi chi co the SIET them.
-            pl = placebo_cung_cau_truc(tot_specs, df_kiem, khung, cp, tk, n=n_placebo)
+        if ro:
+            # Sharpe/t KHONG du cho luoi (placebo duong 10/10): them cong luoi; ro
+            # hedge qua CUNG cong (muc 9). Nguong cu van ap (khong noi) - cong chi SIET.
+            bo_qua = None
+            try:
+                pl = placebo_cung_cau_truc(tot_specs, df_kiem, khung, cp, tk, n=n_placebo)
+            except NotImplementedError as e:
+                pl, bo_qua = [], str(e)
             cl = cong_luoi(tu, kiem, pl, p_placebo, nam_kiem=nam_kiem,
-                           p_chay_nam=p_chay_nam)
+                           p_chay_nam=p_chay_nam, placebo_bo_qua=bo_qua)
             cl["dat_nguong_t_cu"] = dat_cu
             dong["cong_luoi"] = cl
             dong["giu_lai"] = bool(dat_cu and cl["dat"])
@@ -667,6 +705,10 @@ def main(argv=None) -> int:
     ap.add_argument("--don-bay", type=float, default=TAI_KHOAN_MAC_DINH["don_bay"])
     ap.add_argument("--stop-out", type=float, default=TAI_KHOAN_MAC_DINH["stop_out"],
                     help="mức ký quỹ stop-out (0.5 = 50%%)")
+    ap.add_argument("--lot-max", type=float, default=TAI_KHOAN_MAC_DINH["lot_max"],
+                    help="SYMBOL_VOLUME_MAX (lot/lệnh) - sàn từ chối lệnh lớn hơn; 0 = không giới hạn")
+    ap.add_argument("--lot-tong-max", type=float, default=0.0,
+                    help="SYMBOL_VOLUME_LIMIT (tổng lot cùng chiều); 0 = không giới hạn")
     ap.add_argument("--n-placebo", type=int, default=99,
                     help="số placebo cùng cấu trúc cho cổng lưới")
     ap.add_argument("--p-placebo", type=float, default=0.05)
@@ -685,7 +727,8 @@ def main(argv=None) -> int:
     else:
         df = du_lieu_gia_lap(a.n, a.seed, a.khung)
     tong, da_thay = [], set()
-    tk = {"von": a.von, "don_bay": a.don_bay, "stop_out": a.stop_out}
+    tk = {"von": a.von, "don_bay": a.don_bay, "stop_out": a.stop_out,
+          "lot_max": a.lot_max or None, "lot_tong_max": a.lot_tong_max or None}
     cp = mo_hinh_chi_phi(df, a.ma, a.khong_phi)
     if not a.khong_phi and a.he_so_spread != 1.0:
         cp = cp.bien_the(spread=cp.spread_frac_chung * a.he_so_spread)
@@ -732,13 +775,20 @@ def main(argv=None) -> int:
             cl = x["cong_luoi"]
             tkk = x["tot_kiem"].get("tai_khoan") or {}
             kb = x["tai_khoan_khai_bao"]
-            print(f"        CỔNG LƯỚI ({'ĐẠT' if cl['dat'] else 'KHÔNG ĐẠT'}): tài khoản "
-                  f"{kb['von']:g} USD 1:{kb['don_bay']:g} stop-out {kb['stop_out']:.0%} → "
+            if cl.get("placebo_bo_qua"):
+                pl_txt = f"placebo BỎ QUA ({cl['placebo_bo_qua']})"
+            else:
+                pl_txt = (f"vs placebo TB {cl['placebo_tb']:+.3f} q95 {cl['placebo_q95']:+.3f} "
+                          f"(dương {cl['placebo_duong']:.0%}, sống {cl['placebo_song_sot']:.0%}) "
+                          f"p={cl['p']:.3f}")
+            print(f"        CỔNG {'LƯỚI' if x.get('loai_ro') == 'luoi' else 'RỔ HEDGE'} "
+                  f"({'ĐẠT' if cl['dat'] else 'KHÔNG ĐẠT'}): tài khoản "
+                  f"{kb['von']:g} USD 1:{kb['don_bay']:g} stop-out {kb['stop_out']:.0%}"
+                  f" lot max {kb.get('lot_max') or '∞'} → "
                   f"stop-out tối ưu/kiểm {(x.get('tot_tu') or x['goc_tu']).get('tai_khoan', {}).get('so_stop_out')}"
-                  f"/{tkk.get('so_stop_out')}, mức KQ min kiểm {tkk.get('muc_ky_quy_min')}; "
-                  f"loi_log kiểm {cl['that']:+.3f} vs placebo TB {cl['placebo_tb']:+.3f} "
-                  f"q95 {cl['placebo_q95']:+.3f} (dương {cl['placebo_duong']:.0%}, sống "
-                  f"{cl['placebo_song_sot']:.0%}) p={cl['p']:.3f}"
+                  f"/{tkk.get('so_stop_out')}, mức KQ min kiểm {tkk.get('muc_ky_quy_min')}, từ chối "
+                  f"KQ/lot {tkk.get('tu_choi_ky_quy')}/{tkk.get('tu_choi_lot_max')}; "
+                  f"loi_log kiểm {cl['that']:+.3f} {pl_txt}"
                   + ("" if not cl.get("chay_nam") else
                      f"; P(stop-out/năm) {cl['chay_nam']['p_nam']:.1%} (placebo "
                      f"{cl['chay_nam']['placebo']['so_stop_out']} lần chạy cháy/"

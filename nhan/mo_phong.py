@@ -512,6 +512,14 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
         them < ky quy moi (thieu ky quy tu do) -> dem `tu_choi_ky_quy`; lenh luoi
         bi tu choi duoc thu lai o bar sau (chuoi lot khong tien).
       - Von <= 0 -> CHAY: khong vao lenh nua.
+      - KHOI LUONG TOI DA (them 10/10/2026 dem): `tai_khoan["lot_max"]` = SYMBOL_VOLUME_MAX
+        (khoi luong toi da MOT lenh; None/0 = khong gioi han) va `tai_khoan["lot_tong_max"]` =
+        SYMBOL_VOLUME_LIMIT (tong lot mo + lenh moi CUNG chieu; None/0 = khong gioi han).
+        MT5 tra TRADE_RETCODE_INVALID_VOLUME / LIMIT_VOLUME va KHONG khop lenh vuot muc; EA
+        (Breakout2/3/5) khong co ma chia nho lenh hay xu ly loi -> lenh bi TU CHOI nguyen ven
+        (khong cat bot lot). Dem `tu_choi_lot_max`. Lenh luoi bi tu choi: chuoi lot KHONG tien,
+        thu lai o bar sau (cung gia dinh voi tu choi ky quy) - neu lot buoc do > lot_max thi
+        luoi bi KET o buoc do (moi bar thu lai deu bi tu choi). Lenh dau bi tu choi -> khong mo ro.
     Ket qua o `chi_tiet["tai_khoan"]`. `tai_khoan=None` -> hanh vi cu y het.
 
     SL/TP THEO KHOANG CACH (`sl_kc`/`tp_kc`, EA Template: SL = gia_vao -+
@@ -574,7 +582,10 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
               "so_stop_out": 0, "tu_choi_ky_quy": 0, "chay": False,
               "muc_ky_quy_min": float("inf"), "von_rong_min": float(tai_khoan["von"]),
               "bar_stop_out": [], "so_lenh_stop_out": 0,
-              "phi_truot_usd": 0.0, "phi_qua_dem_usd": 0.0}
+              "phi_truot_usd": 0.0, "phi_qua_dem_usd": 0.0,
+              "lot_max": float(tai_khoan.get("lot_max") or 0.0) or None,
+              "lot_tong_max": float(tai_khoan.get("lot_tong_max") or 0.0) or None,
+              "tu_choi_lot_max": 0}
         # qua dem (frac / don vi danh nghia) cuoi moi bar, theo chieu - giong `loi_k`
         swap_mua = cp.phi_giu_mang(idx, np.ones(n), None) if n else np.zeros(0)
         swap_ban = cp.phi_giu_mang(idx, -np.ones(n), None) if n else np.zeros(0)
@@ -638,6 +649,21 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
         mua = sum(L["lot"] for L in legs if L["ch"] > 0)
         ban = sum(L["lot"] for L in legs if L["ch"] < 0)
         return C / tk["don_bay"] * max(mua, ban)
+
+    def _qua_lot(ch: int, lot: float) -> bool:
+        """SYMBOL_VOLUME_MAX (mot lenh) / SYMBOL_VOLUME_LIMIT (tong cung chieu).
+        True -> san tu choi lenh (dem `tu_choi_lot_max`)."""
+        if tk is None:
+            return False
+        lm, lt = tk["lot_max"], tk["lot_tong_max"]
+        qua = lm is not None and lot > lm + 1e-9
+        if not qua and lt is not None:
+            legs = pos["legs"] if pos is not None and pos.get("legs") else []
+            cung = sum(L["lot"] for L in legs if L["ch"] == ch)
+            qua = cung + lot > lt + 1e-9
+        if qua:
+            tk["tu_choi_lot_max"] += 1
+        return qua
 
     def _du_ky_quy(ch: int, lot: float, gia: float, C: float) -> bool:
         """Lenh moi co du ky quy tu do khong (sau khi them: von_rong >= ky quy)."""
@@ -785,6 +811,8 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
                     bat_thuong[0] += 1
                 continue
             if _kich_hedge(h, p, loi):
+                if _qua_lot(-pos["chieu"], float(h["lot"])):
+                    continue
                 if not _du_ky_quy(-pos["chieu"], float(h["lot"]), p, ro["hop_dong"]):
                     tk["tu_choi_ky_quy"] += 1
                     continue
@@ -809,6 +837,9 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
                 n_ = lu_st["n"]
                 if n_ >= len(lu["lot"]):
                     luoi_tk["vuot_chuoi"] += 1
+                elif _qua_lot(pos["chieu"] * (1 if lu.get("cung_chieu", True) else -1),
+                              float(lu["lot"][n_])):
+                    pass                          # san tu choi (SYMBOL_VOLUME_*) - thu lai bar sau
                 elif not _du_ky_quy(pos["chieu"] * (1 if lu.get("cung_chieu", True) else -1),
                                     float(lu["lot"][n_]), p, ro["hop_dong"]):
                     tk["tu_choi_ky_quy"] += 1     # thu lai o bar sau
@@ -898,6 +929,8 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
         c_ = chan[k]
         ch = c_["chieu"]
         if c_.get("ro") is not None:
+            if tk is not None and not tk["chay"] and _qua_lot(ch, float(c_["ro"]["lot_dau"])):
+                return False
             if tk is not None and (tk["chay"] or not _du_ky_quy(
                     ch, float(c_["ro"]["lot_dau"]), gia, c_["ro"]["hop_dong"])):
                 if not tk["chay"]:

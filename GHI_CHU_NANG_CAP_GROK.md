@@ -1,7 +1,83 @@
-# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (18:00, giờ VN)
+# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (19:00, giờ VN)
 
 
-## Vòng "ĐUÔI MARTINGALE + STOP-OUT KIỂU MT5" (sau de92b9ef) — tối 10/10/2026
+## Vòng "RỔ HEDGE QUA CỔNG TÀI KHOẢN + SYMBOL_VOLUME_MAX" (sau 951e157a) — tối 10/10/2026
+Ngưỡng cũ KHÔNG nới (t ≥ 2,0/1,5, ≥47/≥20 lệnh, sống sót tài khoản, lời ròng kiểm > 0, placebo
+p ≤ 0,05, P(cháy/năm) ≤ 5%). Chỉ mở rộng phạm vi cổng (siết thêm) + thêm giới hạn khối lượng sàn.
+
+### 1. Rổ hedge Breakout2/2-2/3 qua CÙNG cổng tài khoản (`vong_thu_nghiem`, docstring mục 9)
+- Mới `la_ro(specs)`: MỌI hệ có `ro` (rổ hedge lẫn lưới) chạy với tài khoản khai báo
+  (10.000 USD, 1:100, stop-out 50%, lot max 100) và qua cổng a–d (sống sót / lời ròng kiểm > 0 /
+  thắng placebo cùng cấu trúc / P(cháy/năm)). Trước: chỉ hệ `ro.luoi`. JSON thêm `loai_ro`
+  (`hedge`|`luoi`); in "CỔNG RỔ HEDGE" / "CỔNG LƯỚI".
+- `mo_phong.chay_he` đã áp ký quỹ / stop-out từng lệnh lỗ nhất trước / từ chối thiếu ký quỹ cho
+  MỌI chân có `ro` (kể cả lệnh hedge) — chỉ là vòng lặp trước không truyền `tai_khoan` cho rổ hedge.
+  Chuỗi `loi` không đổi (đã so: Sharpe/t/số lệnh Breakout2/2-2/3 y hệt bản trước trên Dukascopy).
+- **Placebo**: chân Breakout2/2-2/3 vào lệnh ở tick đầu theo `cho` (không có `muc`/`co`, tức không
+  phải lệnh dừng trong bar), có cả hai chiều → `chan_placebo` chạy được nguyên vẹn (đồng xu thay
+  chiều lệnh đầu; hedge theo điểm/tiền, chốt đỉnh, cắt lỗ, tài khoản giữ nguyên). Không cần bỏ qua.
+- Hệ `ro` có chân lệnh dừng trong bar (hiện KHÔNG có hệ nào): `chan_placebo` vẫn
+  `NotImplementedError` → vòng lặp bắt, ghi `cong_luoi.placebo_bo_qua` (lý do), BỎ điều kiện (c),
+  vẫn áp (a) sống sót, (b) lời ròng kiểm > 0, (d) P(cháy/năm) chỉ từ hệ thật, và ngưỡng t cũ.
+  Ghi rõ: đây là chỗ cổng YẾU hơn — khi gặp hệ như vậy cần làm null cho lệnh dừng trong bar
+  (vd. dời mức ngẫu nhiên cùng phân phối khoảng cách) trước khi tin kết quả giữ.
+
+### 2. SYMBOL_VOLUME_MAX / SYMBOL_VOLUME_LIMIT (`mo_phong.chay_he`, chỉ khi có `tai_khoan`)
+- `tai_khoan["lot_max"]` (= SYMBOL_VOLUME_MAX, lot/lệnh) và `tai_khoan["lot_tong_max"]` (=
+  SYMBOL_VOLUME_LIMIT, tổng lot đang mở CÙNG chiều + lệnh mới). None/0 = không giới hạn.
+- Hành vi: sàn MT5 trả INVALID_VOLUME / LIMIT_VOLUME và KHÔNG khớp; EA Breakout2/3/5 không chia
+  lệnh, không xử lý lỗi → lệnh bị **TỪ CHỐI nguyên vẹn** (không cắt lot). Áp cho lệnh đầu rổ, lệnh
+  hedge, lệnh lưới. Lệnh lưới bị từ chối: chuỗi lot không tiến, thử lại bar sau (cùng giả định như
+  từ chối ký quỹ) → nếu lot bước đó > lot_max thì lưới **kẹt** ở bước đó. Đếm `tu_choi_lot_max`.
+- Mặc định vòng lặp: `--lot-max 100` (mức phổ biến cho EURUSD tài khoản chuẩn/ECN; sàn đặt 50–500;
+  tài khoản micro/cent thấp hơn nhiều tính theo lot chuẩn) — **GIẢ ĐỊNH, chưa đọc từ sàn thật**;
+  `--lot-tong-max 0` (không giới hạn, mặc định MT5). Lot lớn nhất Breakout5 thấy được 3,80 → mức 100
+  không ràng buộc trên mọi bộ hiện có.
+- Test mới `test_lot_max_va_cong_ro.py` (9, số tính tay): không giới hạn = y hệt cũ; lot_max 0,035
+  → 0,02 + 0,03 qua, 0,04 bị từ chối 3 bar liền (lưới kẹt, 0 từ chối ký quỹ); lot_max 0,01 → lệnh
+  đầu bị từ chối, 0 lệnh, chuỗi lời 0; lot_tong_max 0,05 → 0,02+0,03 = 0,05 qua, +0,04 bị từ chối;
+  0,0499 → cả 0,03 bị từ chối (4 bar); hedge 0,4 lot Breakout2 tại 1,0970 bị từ chối khi lot_max
+  0,3 (vốn ròng min = 10.000 − 35 USD = lỗ thả nổi 0,1 lot × 35 pip); Breakout2 qua cổng có placebo;
+  NotImplementedError → `placebo_bo_qua`, không nới (a)/(b).
+
+### 3. Số đo — EURUSD Dukascopy 2003-05 → 2021-12 (116.175 bar H1, kiểm ~5,6 năm 2016-2021), CÓ PHÍ
+| hệ | t tối ưu/kiểm | trước (951e157a) | **bây giờ** |
+|---|---|---|---|
+| Breakout2 | +0,8/−2,8 | loại vì t (không qua cổng) | loại: t; **cổng RỔ HEDGE**: 0 stop-out, KQ min 1.959%, vốn 10.000 → 9.036 USD (trượt 3.134 + qua đêm 642 USD); loi_log kiểm −0,635 vs placebo TB −0,522 (q95 −0,272, dương 0%, sống 100%), **p 0,81**; P(cháy/năm) 0% (0/553 năm-mẫu) |
+| Breakout2-2 | +0,2/−2,4 | loại vì t | loại: t; cổng: 0 stop-out, KQ min 2.347%, vốn → 8.741 USD; −0,499 vs TB −0,570, **p 0,37**; cháy 0% |
+| Breakout3 | +0,8/−2,8 | loại vì t | loại: y hệt Breakout2 (cùng số đến từng chữ số — reset đỉnh khác nhau không đổi kết quả trên bộ này) |
+| Breakout5(-2-2) | +1,3/+1,2 | loại (cổng lưới) | loại y hệt: 9 stop-out kiểm, p 0,24, cháy 89,8%/năm; `tu_choi_lot_max` 0 (lot max 3,80 < 100) |
+| Breakout1, Template | — | loại vì t | không đổi (không có rổ) |
+| **giữ lại** | | **0/6** | **0/6** |
+- Rổ hedge an toàn về tài khoản (lot cố định 0,1 + 0,3/0,4, ký quỹ thấp, cắt lỗ −120 USD) nhưng
+  **lỗ ròng sau phí và không thắng đồng xu**: placebo cùng cấu trúc cũng lỗ 100% số lần → cấu trúc
+  chốt-đỉnh/hedge tự nó ăn phí, chiều vào của EA không thêm gì.
+- Độ nhạy `--lot-max 1` (Breakout5, tài khoản kiểu micro tính theo lot chuẩn): KHÔNG cứu được —
+  lưới kẹt ở bước > 1 lot (6.664 lệnh bị từ chối vì lot, 16.373 vì ký quỹ), phần kiểm 11 stop-out,
+  vốn 10.000 → **11 USD**, loi_log −5,53 vs placebo TB −4,18, p 0,77, P(cháy/năm) 38,8%. Giới hạn
+  khối lượng làm martingale mất đường thoát (không gấp lot được để kéo hoà vốn) chứ không giảm đuôi.
+- `mau_thu/do_moc.py`: 13/22 = 59,1% (không đổi lớp đọc).
+- Test (73 file chạm mo_phong/vong/doc_ma/ngu_phap/chi_phi/ro_mql): **1109 xanh / 40 đỏ / 9 lỗi — 0 đỏ mới** (trước 1100/40/9; +9 test mới; tập đỏ so với worktree HEAD: không có đỏ nào mới).
+Kết quả: `/workspace/du_lieu_fx/vong_eurusd_duka_cong_ro.{json,txt}` (~6 phút),
+`/workspace/du_lieu_fx/vong_eurusd_duka_b5_lotmax1.{json,txt}`.
+
+    python vong_thu_nghiem.py --csv /workspace/du_lieu_fx/eurusd_h1_duka_jw_server.csv
+    python vong_thu_nghiem.py --csv /workspace/du_lieu_fx/eurusd_h1_duka_jw_server.csv --loc-file '*Breakout5*' --lot-max 1
+
+### Vấn đề mở (cập nhật)
+1. ~~SYMBOL_VOLUME_MAX~~ đã mô hình (giả định 100 lot; cần đọc SYMBOL_VOLUME_MAX/LIMIT thật của sàn
+   người dùng qua MT5 khi có máy Windows/MT5 — `_von_va_lot.py` đã đọc volume_min/step).
+2. ~~Rổ hedge chưa qua cổng tài khoản~~ xong; placebo chạy được cho cả 3 hệ.
+3. Null cho chân lệnh dừng trong bar vẫn chưa có — hiện không hệ `ro` nào cần; hệ lệnh đơn trong bar
+   (Breakout1) vẫn chỉ qua ngưỡng t (đã có `--gia-lap-duong` làm placebo dữ liệu).
+4. Breakout4 — vẫn bỏ qua (không đoán `_Point`, logic đầu ngày, trigger trong nến).
+5. Dukascopy kéo đủ 2003-2026 + thêm cặp: chạy `tai_dukascopy_h1.py` qua đêm (bị 429 khi gọi dồn).
+6. Các xấp xỉ cũ: swap gắn số dư chung (không từng lệnh) khi chọn lệnh "lỗ nhất"; ký quỹ chỉ đúng
+   xxxUSD; phí hiện tại áp cho 2003-2010.
+
+---
+
+## (trước) Vòng "ĐUÔI MARTINGALE + STOP-OUT KIỂU MT5" (sau de92b9ef) — tối 10/10/2026
 Ngưỡng cũ KHÔNG nới (t ≥ 2,0/1,5, ≥47/≥20 lệnh, sống sót tài khoản, lời ròng kiểm > 0, placebo p ≤ 0,05).
 Chỉ thêm một cổng SIẾT và làm mô phỏng tài khoản sát MT5 hơn.
 
