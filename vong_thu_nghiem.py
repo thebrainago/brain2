@@ -47,6 +47,11 @@ Cách làm (cập nhật 10/10/2026):
           bằng tung đồng xu mỗi bar. Thước đo khai báo: `loi_log` ròng phần kiểm.
           p = (1 + #placebo ≥ thật)/(N + 1), N = `--n-placebo` (99); giữ khi
           p ≤ `--p-placebo` (0,05).
+       d. (10/10/2026 tối) XÁC SUẤT CHÁY THEO NĂM ≤ `--p-chay-nam` (0,05):
+          `ti_le_chay_nam` - stop-out ĐẦU TIÊN mỗi lần chạy, phơi nhiễm đến lúc
+          đó, λ = max(thật, placebo cùng cấu trúc), P = 1 − e^(−λ). Chỉ SIẾT thêm.
+       Stop-out mô phỏng kiểu MT5: đóng lệnh lỗ nhất trước, từng lệnh; trượt giá
+       + qua đêm trừ thẳng vào vốn (`mo_phong.chay_he`).
 
 Trên dữ liệu giả lập (bước ngẫu nhiên, không có lợi thế) gần như KHÔNG cơ chế
 nào nên được giữ - đó là phép thử placebo của chính vòng lặp. Nếu thấy nhiều
@@ -213,6 +218,12 @@ def danh_gia_nhom(specs: list[dict], df: pd.DataFrame, khung: str,
                            "von_rong_min": round(float(t["von_rong_min"]), 2),
                            "muc_ky_quy_min": round(mk, 3) if math.isfinite(mk) else None,
                            "so_stop_out": int(t["so_stop_out"]),
+                           "so_lenh_stop_out": int(t.get("so_lenh_stop_out", 0)),
+                           "bar_stop_out_dau": (int(t["bar_stop_out"][0])
+                                                if t.get("bar_stop_out") else None),
+                           "so_bar": int(len(df)),
+                           "phi_truot_usd": round(float(t.get("phi_truot_usd", 0.0)), 2),
+                           "phi_qua_dem_usd": round(float(t.get("phi_qua_dem_usd", 0.0)), 2),
                            "tu_choi_ky_quy": int(t["tu_choi_ky_quy"]),
                            "chay": bool(t["chay"])}
     return ra
@@ -272,10 +283,48 @@ def placebo_cung_cau_truc(specs: list[dict], df: pd.DataFrame, khung: str,
                           chan=chan_placebo(specs, df, rng)) for _ in range(n)]
 
 
+def ti_le_chay_nam(ds: list[dict], nam: float) -> dict:
+    """Tan suat CHAY (stop-out DAU TIEN) theo nam tren cac lan chay dai `nam` nam.
+
+    Chi dem lan stop-out DAU TIEN moi lan chay (sau do tai khoan da tan, stop-out
+    tung lenh lap lai khong phai "rui ro moi"); thoi gian phoi nhiem cua lan chay
+    co su kien = den bar stop-out dau (`bar_stop_out_dau / so_bar * nam`; thieu ->
+    ca `nam`, bao thu nhe). MLE mu: lambda = so lan chay co su kien / tong phoi
+    nhiem; P(chay trong 1 nam) = 1 - exp(-lambda). `p_tren95` = can tren 95% mot
+    phia (xap xi Poisson (k + 1.645*sqrt(k+1) + 1) / phoi nhiem) - chi bao cao."""
+    k, T = 0, 0.0
+    for r in ds:
+        t = r.get("tai_khoan") or {}
+        if int(t.get("so_stop_out", 0)) > 0 or t.get("chay"):
+            k += 1
+            b, n = t.get("bar_stop_out_dau"), t.get("so_bar")
+            T += float(nam) * (b / n if b is not None and n else 1.0)
+        else:
+            T += float(nam)
+    if T <= 0:
+        return {"so_stop_out": k, "nam_phoi_nhiem": 0.0, "lambda": None, "p_nam": None,
+                "p_tren95": None}
+    lam = k / T
+    lam_tr = (k + 1.645 * math.sqrt(k + 1) + 1) / T
+    return {"so_stop_out": k, "nam_phoi_nhiem": round(T, 3), "lambda": round(lam, 5),
+            "p_nam": round(1 - math.exp(-lam), 5), "p_tren95": round(1 - math.exp(-lam_tr), 5)}
+
+
 def cong_luoi(that_tu: dict, that_kiem: dict, placebo: list[dict],
-              p_nguong: float = 0.05) -> dict:
+              p_nguong: float = 0.05, nam_kiem: float | None = None,
+              p_chay_nam: float = 0.05) -> dict:
     """Cong giu cho he luoi (docstring muc 8). Thuoc do: `loi_log` rong phan kiem.
-    p mot phia = (1 + #placebo >= that) / (N + 1)."""
+    p mot phia = (1 + #placebo >= that) / (N + 1).
+
+    THEM (10/10/2026 toi) - XAC SUAT CHAY THEO NAM (chi SIET them): song sot tren
+    MOT duong gia ~0,8 nam la phep thu yeu cho duoi martingale (placebo EURUSD
+    song 96%). Cau truc ro/luoi giong het placebo; placebo cho N x nam_kiem
+    nam-mau cua CHINH cau truc do (chi khac chieu). P_nam = 1 - exp(-lambda),
+    lambda = max(tan suat stop-out that, tan suat stop-out placebo) / nam.
+    Loai khi P_nam > `p_chay_nam` (0,05). Ly do dung placebo: mot chieu "co edge"
+    thay tren vai nam kiem khong du bang chung de xoa rui ro duoi CUA CAU TRUC;
+    he that ma it chay hon placebo thi van bi loai neu chinh cau truc chay > 5%/nam
+    (bao thu, dung huong "chi siet")."""
     x = float(that_kiem["loi_log"])
     pl = np.array([float(r["loi_log"]) for r in placebo])
     N = len(pl)
@@ -290,7 +339,18 @@ def cong_luoi(that_tu: dict, that_kiem: dict, placebo: list[dict],
         ly_do.append("lo_rong_kiem")
     if p > p_nguong:
         ly_do.append(f"khong_thang_placebo p={p:.3f}>{p_nguong}")
+    chay = None
+    if nam_kiem:
+        c_that = ti_le_chay_nam([that_kiem], nam_kiem)
+        c_pl = ti_le_chay_nam(placebo, nam_kiem)
+        lam = max(c_that["lambda"] or 0.0, c_pl["lambda"] or 0.0)
+        p_nam = 1 - math.exp(-lam)
+        chay = {"that": c_that, "placebo": c_pl, "p_nam": round(p_nam, 5),
+                "nguong": p_chay_nam}
+        if p_nam > p_chay_nam:
+            ly_do.append(f"xac_suat_chay_nam {p_nam:.3f}>{p_chay_nam}")
     return {"thuoc_do": "loi_log_rong_kiem", "that": round(x, 5), "n_placebo": N,
+            "chay_nam": chay,
             "placebo_tb": round(float(pl.mean()), 5) if N else None,
             "placebo_q95": round(float(np.quantile(pl, 0.95)), 5) if N else None,
             "placebo_duong": round(float(np.mean(pl > 0)), 3) if N else None,
@@ -413,7 +473,7 @@ def chay_mot_file(path: Path, df: pd.DataFrame, khung: str = "H1",
                   da_thay: set | None = None,
                   cp: CP.MoHinhChiPhi | None = None,
                   tai_khoan: dict | None = None, n_placebo: int = 99,
-                  p_placebo: float = 0.05) -> list[dict]:
+                  p_placebo: float = 0.05, p_chay_nam: float = 0.05) -> list[dict]:
     vb = path.read_text(encoding="utf-8", errors="ignore")
     r = DM.doc_chien_luoc(vb, nguon=path.name)
     cat = int(len(df) * 0.7)
@@ -437,7 +497,7 @@ def chay_mot_file(path: Path, df: pd.DataFrame, khung: str = "H1",
         ra.append(_chay_nhom(path, g, specs, df_tu, df_kiem, khung, toi_uu_bat,
                              lenh_min, lenh_min_tu, t_tu, t_kiem, da_thay, cp,
                              tai_khoan=tai_khoan, n_placebo=n_placebo,
-                             p_placebo=p_placebo))
+                             p_placebo=p_placebo, p_chay_nam=p_chay_nam))
     for spec in don:
         dong = {"file": path.name, "ten": spec.get("ten"), "chieu": spec.get("chieu"),
                 "ho": spec.get("ho"), "so_dieu_kien": spec.get("so_dieu_kien")}
@@ -512,7 +572,7 @@ def _chay_nhom(path: Path, g: str, specs: list[dict], df_tu, df_kiem, khung: str
                toi_uu_bat: bool, lenh_min: int, lenh_min_tu: int, t_tu: float,
                t_kiem: float, da_thay: set | None, cp,
                tai_khoan: dict | None = None, n_placebo: int = 99,
-               p_placebo: float = 0.05) -> dict:
+               p_placebo: float = 0.05, p_chay_nam: float = 0.05) -> dict:
     dong = {"file": path.name, "nhom": g,
             "ten": "HE " + " + ".join(str(sp.get("ten"))[:28] for sp in specs),
             "chieu": 0, "ho": specs[0].get("ho"),
@@ -569,7 +629,8 @@ def _chay_nhom(path: Path, g: str, specs: list[dict], df_tu, df_kiem, khung: str
             # Sharpe/t KHONG du cho luoi (placebo duong 10/10): them cong luoi.
             # Nguong cu van ap (khong noi) - cong luoi chi co the SIET them.
             pl = placebo_cung_cau_truc(tot_specs, df_kiem, khung, cp, tk, n=n_placebo)
-            cl = cong_luoi(tu, kiem, pl, p_placebo)
+            cl = cong_luoi(tu, kiem, pl, p_placebo, nam_kiem=nam_kiem,
+                           p_chay_nam=p_chay_nam)
             cl["dat_nguong_t_cu"] = dat_cu
             dong["cong_luoi"] = cl
             dong["giu_lai"] = bool(dat_cu and cl["dat"])
@@ -609,6 +670,9 @@ def main(argv=None) -> int:
     ap.add_argument("--n-placebo", type=int, default=99,
                     help="số placebo cùng cấu trúc cho cổng lưới")
     ap.add_argument("--p-placebo", type=float, default=0.05)
+    ap.add_argument("--p-chay-nam", type=float, default=0.05,
+                    help="loại hệ lưới khi P(stop-out trong 1 năm) ước từ placebo/thật > mức này")
+    ap.add_argument("--loc-file", default="*.mq5", help="mẫu tên file EA (vd '*Breakout5*')")
     ap.add_argument("--he-so-spread", type=float, default=1.0,
                     help="nhân spread đo được (XM micro) - ĐỘ NHẠY, vd 0.33 ~ tài khoản "
                          "ECN (chưa cộng hoa hồng). Mặc định 1 = phí thật hiện có")
@@ -625,10 +689,11 @@ def main(argv=None) -> int:
     cp = mo_hinh_chi_phi(df, a.ma, a.khong_phi)
     if not a.khong_phi and a.he_so_spread != 1.0:
         cp = cp.bien_the(spread=cp.spread_frac_chung * a.he_so_spread)
-    for f in sorted(Path(a.mau).glob("*.mq5")):
+    for f in sorted(Path(a.mau).glob(a.loc_file)):
         tong.extend(chay_mot_file(f, df, a.khung, not a.khong_toi_uu, a.lenh_toi_thieu,
                                   a.t_tu, a.t_kiem, da_thay, cp=cp, tai_khoan=tk,
-                                  n_placebo=a.n_placebo, p_placebo=a.p_placebo))
+                                  n_placebo=a.n_placebo, p_placebo=a.p_placebo,
+                                  p_chay_nam=a.p_chay_nam))
 
     loi = [x for x in tong if "loi" in x]
     giu = [x for x in tong if x.get("giu_lai")]
@@ -674,6 +739,10 @@ def main(argv=None) -> int:
                   f"loi_log kiểm {cl['that']:+.3f} vs placebo TB {cl['placebo_tb']:+.3f} "
                   f"q95 {cl['placebo_q95']:+.3f} (dương {cl['placebo_duong']:.0%}, sống "
                   f"{cl['placebo_song_sot']:.0%}) p={cl['p']:.3f}"
+                  + ("" if not cl.get("chay_nam") else
+                     f"; P(stop-out/năm) {cl['chay_nam']['p_nam']:.1%} (placebo "
+                     f"{cl['chay_nam']['placebo']['so_stop_out']} lần chạy cháy/"
+                     f"{cl['chay_nam']['placebo']['nam_phoi_nhiem']:.0f} năm-mẫu)")
                   + ("" if cl["dat"] else f"  [{'; '.join(cl['ly_do'])}]"))
         if x.get("nhom"):
             print("        từng chân (kiểm, sau tối ưu): " + "  ".join(

@@ -491,15 +491,23 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
     TAI KHOAN KHAI BAO (`tai_khoan`, them 10/10/2026 - cong giu luoi/martingale):
     {"von": USD, "don_bay": x, "stop_out": muc ky quy (vd 0.5 = 50%)}. Chi ap cho
     chan co `ro` (ro hedge / luoi) - lenh don (SL/TP, giu N bar) KHONG doi.
-      - Von (balance) cong loi lo TIEN cua ro khi dong (`_loi_ro`: da tru spread;
-        truot gia + qua dem chi nam trong chuoi `loi`, khong trong so du - ghi nhan).
+      - Von (balance) cong loi lo TIEN cua ro khi dong (`_loi_ro`: da tru spread).
+        TRUOT GIA (moi lenh, luc mo VA luc dong: lot*hop_dong*gia*truot_gia_frac) va
+        QUA DEM (cuoi moi bar, theo chieu tung lenh: lot*hop_dong*gia*phi_giu_mang)
+        tru THANG vao von ngay khi phat sinh (them 10/10/2026 toi) -> von rong / stop-out
+        / ky quy tu do tinh co ca hai. Chung KHONG vao `_loi_ro` (EA chi doc
+        POSITION_PROFIT de chot dinh/hedge) - so tien y het phan trong chuoi `loi`.
       - Ky quy = hop_dong * gia / don_bay * max(tong lot mua, tong lot ban)
         (tai khoan hedging, kieu "chan lon hon"; tien ky quy = tien yet gia * gia,
         dung cho xxxUSD tai khoan USD).
-      - STOP-OUT: von_rong (von + loi tha noi) <= stop_out * ky_quy -> san dong CA
-        ro tai gia do (MT5 dong lenh lo nhat truoc, tung lenh; dong ca ro la xap
-        xi). Tren moi doan don dieu von_rong - stop_out*ky_quy tuyen tinh theo gia
-        nen muc stop-out tim CHINH XAC (nhu chot dinh).
+      - STOP-OUT kieu MT5 (10/10/2026 toi): von_rong (von + loi tha noi) <=
+        stop_out * ky_quy -> san dong LENH LO NHAT truoc (loi tien thap nhat tai gia
+        do, hoa -> lenh cu hon), TUNG LENH MOT, tinh lai muc ky quy sau moi lenh; dung
+        khi muc ky quy > stop_out. Lenh con lai tiep tuc (EA van quan ly: chot dinh,
+        hedge theo `postotal` moi, luoi giu chuoi lot). Het lenh -> ro dong
+        (`ly_do="stop_out"`). Tren moi doan don dieu von_rong - stop_out*ky_quy
+        tuyen tinh theo gia nen muc stop-out tim CHINH XAC (nhu chot dinh).
+        `so_stop_out` = so LAN cham nguong; `so_lenh_stop_out` = so lenh bi san dong.
       - Lenh moi (lenh dau / hedge / lenh luoi) bi TU CHOI khi von_rong sau khi
         them < ky quy moi (thieu ky quy tu do) -> dem `tu_choi_ky_quy`; lenh luoi
         bi tu choi duoc thu lai o bar sau (chuoi lot khong tien).
@@ -565,7 +573,11 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
               "stop_out": float(tai_khoan["stop_out"]),
               "so_stop_out": 0, "tu_choi_ky_quy": 0, "chay": False,
               "muc_ky_quy_min": float("inf"), "von_rong_min": float(tai_khoan["von"]),
-              "bar_stop_out": []}
+              "bar_stop_out": [], "so_lenh_stop_out": 0,
+              "phi_truot_usd": 0.0, "phi_qua_dem_usd": 0.0}
+        # qua dem (frac / don vi danh nghia) cuoi moi bar, theo chieu - giong `loi_k`
+        swap_mua = cp.phi_giu_mang(idx, np.ones(n), None) if n else np.zeros(0)
+        swap_ban = cp.phi_giu_mang(idx, -np.ones(n), None) if n else np.zeros(0)
         if ma and not ma.upper().endswith("USD"):
             canh_bao.append(f"tai khoan: ky quy/loi lo gia dinh tien yet gia = USD - {ma}")
 
@@ -649,12 +661,52 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
         eq = tk["von"] + _loi_ro(p)
         tk["von_rong_min"] = min(tk["von_rong_min"], eq)
         tk["muc_ky_quy_min"] = min(tk["muc_ky_quy_min"], eq / m)
-        if eq <= tk["stop_out"] * m + 1e-4:
-            tk["so_stop_out"] += 1
-            tk["bar_stop_out"].append(int(j))
-            _dong_ro(j, p, "stop_out")
-            return True
+        if eq > tk["stop_out"] * m + 1e-4:
+            return False
+        tk["so_stop_out"] += 1
+        tk["bar_stop_out"].append(int(j))
+        # MT5: dong lenh LO NHAT truoc, tung lenh, den khi muc ky quy > stop_out
+        while pos is not None and pos["legs"]:
+            if len(pos["legs"]) == 1:
+                tk["so_lenh_stop_out"] += 1
+                _dong_ro(j, p, "stop_out")
+                return True
+            C = pos["ro"]["hop_dong"]
+            loi_l = [L["lot"] * C * (L["ch"] * (p - L["e"]) - L["s"]) for L in pos["legs"]]
+            x = int(np.argmin(loi_l))           # argmin: hoa -> lenh cu hon (dau danh sach)
+            _dong_chan_le(j, p, x)
+            m = _he_so_kq(pos["legs"]) * p
+            eq = tk["von"] + _loi_ro(p)
+            if m <= 0 or eq > tk["stop_out"] * m + 1e-4:
+                if m > 0:
+                    tk["muc_ky_quy_min"] = min(tk["muc_ky_quy_min"], eq / m)
+                return False
         return False
+
+    def _tru_von(x: float, loai: str) -> None:
+        """Truot / qua dem (USD) tru thang vao von - chi khi co tai khoan."""
+        if tk is None or x == 0.0:
+            return
+        tk["von"] -= x
+        tk[loai] += x
+        if pos is None and tk["von"] <= 0:
+            tk["chay"] = True
+
+    def _dong_chan_le(j: int, gia: float, x: int) -> None:
+        """San dong MOT lenh (stop-out tung lenh); ro van mo."""
+        k = pos["k"]
+        C = pos["ro"]["hop_dong"]
+        L = pos["legs"].pop(x)
+        loi_t = L["lot"] * C * (L["ch"] * (gia - L["e"]) - L["s"])
+        loi_tho[k, j] += L["w"] * L["ch"] * np.log(gia / L["ref"])
+        kl[k, j] += L["w"]
+        tk["von"] += loi_t
+        _tru_von(L["lot"] * C * gia * cp.truot_gia_frac, "phi_truot_usd")
+        tk["so_lenh_stop_out"] += 1
+        if nhat_ky is not None and nhat_ky:
+            nhat_ky[-1].setdefault("stop_out_le", []).append(
+                {"bar": j, "gia": gia, "chieu": L["ch"], "lot": L["lot"],
+                 "loi_tien": round(loi_t, 4)})
 
     def _loi_ro(p: float) -> float:
         C = pos["ro"]["hop_dong"]
@@ -672,6 +724,8 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
         pos["legs"].append({"ch": ch, "lot": lot, "e": gia, "s": sp[j] * gia,
                             "w": w, "ref": gia})
         kl[pos["k"], j] += w
+        if tk is not None:
+            _tru_von(lot * pos["ro"]["hop_dong"] * gia * cp.truot_gia_frac, "phi_truot_usd")
 
     def _dong_ro(j: int, gia: float, ly_do: str) -> None:
         nonlocal pos
@@ -685,6 +739,8 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
                                so_chan=len(pos["legs"]))
         if tk is not None:
             tk["von"] += loi_t
+            _tru_von(sum(L["lot"] for L in pos["legs"]) * pos["ro"]["hop_dong"] * gia
+                     * cp.truot_gia_frac, "phi_truot_usd")
             if tk["von"] <= 0:
                 tk["chay"] = True
         pos = None
@@ -1013,6 +1069,11 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
             co_lenh[j] = 1.0
             k = pos["k"]
             if pos.get("ro") is not None:
+                if tk is not None and j + 1 < n:
+                    C_ = pos["ro"]["hop_dong"]
+                    _tru_von(sum(L["lot"] * C_ * o[j + 1] *
+                                 (swap_mua[j] if L["ch"] > 0 else swap_ban[j])
+                                 for L in pos["legs"]), "phi_qua_dem_usd")
                 for L in pos["legs"]:
                     if j + 1 < n:
                         loi_tho[k, j] += L["w"] * L["ch"] * np.log(o[j + 1] / L["ref"])

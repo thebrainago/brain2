@@ -1,7 +1,103 @@
-# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (17:30, giờ VN)
+# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (18:00, giờ VN)
 
 
-## Vòng "CỔNG GIỮ CHO LƯỚI/MARTINGALE" (sau 57657761) — Sharpe/t không còn đủ để giữ hệ lưới
+## Vòng "ĐUÔI MARTINGALE + STOP-OUT KIỂU MT5" (sau de92b9ef) — tối 10/10/2026
+Ngưỡng cũ KHÔNG nới (t ≥ 2,0/1,5, ≥47/≥20 lệnh, sống sót tài khoản, lời ròng kiểm > 0, placebo p ≤ 0,05).
+Chỉ thêm một cổng SIẾT và làm mô phỏng tài khoản sát MT5 hơn.
+
+### 1. Stop-out kiểu MT5 (`mo_phong.chay_he`, chỉ khi có `tai_khoan`)
+- Trước: chạm stop-out → đóng CẢ rổ một lúc. Bây giờ: đóng lệnh **LỖ NHẤT trước, từng lệnh một**,
+  tính lại mức ký quỹ sau mỗi lệnh, dừng khi mức ký quỹ > stop_out. Lệnh còn lại tiếp tục (EA vẫn
+  quản lý: chốt đỉnh theo lời của các lệnh còn lại, hedge theo `postotal` mới, lưới giữ chuỗi lot).
+  Hết lệnh → rổ đóng `ly_do="stop_out"`. Nhật ký: `stop_out_le` (bar, giá, chiều, lot, lời tiền).
+- `so_stop_out` = số LẦN chạm ngưỡng; mới: `so_lenh_stop_out` = số lệnh bị sàn đóng.
+- **Trượt giá + qua đêm giờ trừ thẳng vào số dư** (mới: `phi_truot_usd`, `phi_qua_dem_usd`): trượt
+  lot×hợp đồng×giá×`truot_gia_frac` lúc mở VÀ lúc đóng mỗi lệnh; qua đêm cuối mỗi bar theo chiều từng
+  lệnh (cùng công thức `phi_giu_mang` như chuỗi `loi`). Không đưa vào `_loi_ro` (EA chỉ đọc
+  POSITION_PROFIT để chốt đỉnh/hedge). EURUSD Yahoo phần kiểm: trượt 788 USD, qua đêm 108 USD.
+- `tai_khoan=None` → y hệt trước (test: tài khoản 1e12 cho chuỗi `loi` giống từng bit, kể cả có phí).
+- Test mới `test_stop_out_mt5.py` (7): đóng 0,04 lot lỗ nhất trước, rổ 2 lệnh còn lại chạy tiếp,
+  von 150 → 106 tính tay; gap sâu → đóng 0,04 rồi 0,03 rồi lệnh cuối (cháy); bảo toàn số dư; trượt/qua
+  đêm vào số dư khớp tính tay; Poisson/stop-out đầu; cổng chỉ siết thêm.
+
+### 2. Cổng mới: XÁC SUẤT CHÁY THEO NĂM (`vong_thu_nghiem.ti_le_chay_nam`, `--p-chay-nam` 0,05)
+- Đếm **stop-out ĐẦU TIÊN** mỗi lần chạy (sau đó tài khoản đã tan; stop-out từng lệnh lặp lại không
+  phải rủi ro mới), phơi nhiễm = đến bar stop-out đầu. λ = số lần cháy / tổng năm phơi nhiễm,
+  P(cháy trong 1 năm) = 1 − e^(−λ). Tính cho hệ THẬT và 99 placebo cùng cấu trúc (phần kiểm);
+  dùng **max(thật, placebo)**. Loại khi P > 5%/năm. Lý do lấy placebo: cấu trúc rổ/lưới giống hệt,
+  99 × năm kiểm cho nhiều năm-mẫu hơn một đường giá; một "chiều có edge" trên vài năm kiểm không đủ
+  bằng chứng xoá rủi ro đuôi của chính cấu trúc. Chỉ siết (đặt 1,0 = tắt, chỉ để đo độ nhạy).
+- Bản đầu đếm MỌI lần stop-out (stop-out từng lệnh lặp lại) → 49,7%/năm trên EURUSD Yahoo, sai nghĩa;
+  đã sửa thành stop-out đầu (4,9%/năm).
+
+### 3. Dữ liệu dài hơn + nhiều cặp (ngoài repo, `/workspace/du_lieu_fx/`)
+| bộ | nguồn | khoảng (giờ server Helsinki) | bar | phần kiểm |
+|---|---|---|---|---|
+| EURUSD Yahoo (cũ) | yfinance `EURUSD=X` 1h | 2023-12-26 → 2026-10-09 | 17.127 | ~0,82 năm |
+| GBP/AUD/NZD-USD Yahoo | yfinance 1h, 730 ngày | 2023-12-25 → 2026-10-10 | ~17.130 | ~0,82 năm |
+| **EURUSD Dukascopy** | github.com/JWalker242/FX-Data (Dukascopy BID H1, GMT, bỏ bar volume 0) → Helsinki | **2003-05-05 → 2021-12-09** | **116.175** | **~5,6 năm (2016-2021)** |
+| EUR/GBP/AUD-USD MT5 | github.com/komo135/forex-historical-data (H1 sàn MT5, giá ×1e5, giờ server) | 2012-11-16 → 2022-03-04 | ~57.580 | ~2,8 năm |
+- Kiểm chéo: giải mã file Dukascopy gốc tháng 1/2015 bằng `tai_dukascopy_h1.py` = JWalker **khớp
+  tuyệt đối** (504/504 bar, sai 0); komo EURUSD vs JWalker→Helsinki: trung vị |Δclose| 0,3 pip ở lệch
+  0 giờ (lệch ±1 giờ: 3,2–5,1 pip) → komo là giờ server UTC+2/+3 như giả định.
+- Tải thẳng `datafeed.dukascopy.com` bị **429 / lỗi TLS** khi gọi dồn. `tai_dukascopy_h1.py` (mới)
+  tải tuần tự, nghỉ giữa lần, lùi lại khi lỗi, đệm từng tháng ra đĩa — chưa tải hết được trong vòng
+  này nên dùng bản sao JWalker (đã kiểm khớp).
+- Phí: mô hình phí HIỆN TẠI của sàn (spread XM đo, trượt 1/4 spread, qua đêm sàn) áp cho cả 2003-2021
+  → lạc quan cho giai đoạn spread rộng hơn (2003-2010).
+
+### 4. Số đo (CÓ PHÍ, tài khoản 10.000 USD 1:100 stop-out 50%)
+| | de92b9ef (trước) | **bây giờ** |
+|---|---|---|
+| EURUSD Yahoo, giữ lại | 0/6 | **0/6** |
+| Breakout5 EURUSD Yahoo kiểm | KQ min 180%; loi_log +1,146 vs placebo TB +1,170 (sống 96%); p 0,93 | KQ min 172,9%; +1,146 vs TB **+1,084** (sống 96%); p **0,93**; P(cháy/năm) placebo **4,9%** (4 cháy / 79,9 năm-mẫu; cận trên 95% 10,3%) — **vừa dưới ngưỡng 5%** → loại vì p |
+| Random walk seed 1-10 (lưới) | giữ 0/10; stop-out ≥1 phần 6/10 | giữ **0/10**; stop-out ≥1 phần **7/10**; cổng cháy/năm **tự nó loại 7/10** |
+| Test (72 file chạm mo_phong/vong/doc_ma/ngu_phap/chi_phi/ro_mql) | 1093 xanh / 40 đỏ / 9 lỗi | **1100 xanh / 40 đỏ / 9 lỗi — 0 đỏ mới** (40 đỏ đúng y danh sách bản gốc; 2 đỏ `test_sua_bang_llm` phụ thuộc thứ tự) |
+| `mau_thu/do_moc.py` | 13/22 = 59,1% | 13/22 = 59,1% (không đổi lớp đọc) |
+
+Breakout5(-2-2) trên các bộ khác (cổng lưới; tất cả các hệ khác cũng giữ 0):
+| bộ | t tối ưu/kiểm | stop-out tối ưu/kiểm | loi_log kiểm vs placebo TB | placebo sống | p | P(cháy/năm) | giữ |
+|---|---|---|---|---|---|---|---|
+| GBPUSD Yahoo | −1,9/+0,7 | 14/0 | +1,29 vs +0,82 | 83% | 0,42 | 21,6% | 0 |
+| AUDUSD Yahoo | −1,5/+0,3 | 27/0 | +1,61 vs −1,54 | 57% | 0,44 | 57,0% | 0 |
+| NZDUSD Yahoo | +0,1/+0,1 | 0/0 | +0,32 vs −2,68 | 72% | 0,20 | 36,4% | 0 |
+| EURUSD MT5 2012-22 | −0,8/+0,6 | 18/1 | +4,18 vs +6,33 | 96% | 0,96 | 42,0% (thật; placebo 1,5%) | 0 |
+| GBPUSD MT5 2012-22 | **+2,5**/−1,5 | 0/**31** | −4,95 vs −2,72 | 2% | 0,91 | 99,6% | 0 |
+| AUDUSD MT5 2012-22 | −1,3/−1,1 | 15/15 | −9,26 vs −5,95 | 8% | 0,54 | 96,4% | 0 |
+| **EURUSD Dukascopy 2003-21** | +1,3/+1,2 | 4/9 | +6,67 vs −0,97 (q95 +13,19) | **6%** | 0,24 | **89,8%** (thật: stop-out đầu sau ~0,44 năm; placebo **61,3%**: 93/99 cháy trong 98 năm-mẫu) | 0 |
+- EURUSD Dukascopy phần kiểm (2016-2021): số dư 10.000 → 35.546 USD nhưng **vốn ròng thấp nhất 435 USD**,
+  9 lần stop-out, rổ tối đa 15 lệnh / 3,80 lot, lỗ thả nổi 8.277 USD, 522 lệnh lưới bị từ chối vì ký quỹ.
+  Số dư cuối dương KHÔNG phải edge: p 0,24 vs placebo, và đường vốn đã chạm gần 0.
+- GBPUSD MT5: phần tối ưu t = +2,5 (QUA ngưỡng t cũ) → phần kiểm 31 stop-out, lỗ. Đúng kiểu
+  "thắng nhỏ đều rồi cháy" mà Sharpe/t không bắt được.
+
+**Kết luận**: cấu trúc lưới Breakout5 có xác suất bị stop-out **~20–100%/năm** trên mọi bộ dài/nhiều cặp;
+cửa sổ Yahoo 0,8 năm cho **4,9%/năm** — đánh giá thấp đuôi hơn 10 lần so với 5,6 năm EURUSD 2016-2021
+(61%/năm, cùng cấu trúc). Không có edge; giữ lại 0 ở mọi bộ. Đây đúng là lý do phải có cổng cháy/năm
+và dữ liệu dài: cửa sổ ngắn suýt cho lưới qua phần "đuôi".
+Kết quả: `/workspace/vong_eurusd_so_mt5.{json,txt}`, `/workspace/du_lieu_fx/vong_*.{json,txt}`,
+`/workspace/scratch/pl2/s{1..10}.{json,txt}`.
+
+Lệnh tái lập:
+
+    python vong_thu_nghiem.py --csv /workspace/du_lieu_fx/eurusd_h1_duka_jw_server.csv      # ~5,5 phút
+    python vong_thu_nghiem.py --csv /workspace/du_lieu_fx/gbpusd_h1_komo_server.csv --ma GBPUSD --loc-file '*Breakout5*'
+
+### Vấn đề mở (cập nhật)
+1. `SYMBOL_VOLUME_MAX` chưa mô phỏng (lot lớn nhất thấy được 3,80 — dưới mức tối đa thường gặp nhưng
+   phụ thuộc sàn).
+2. Thứ tự "lỗ nhất" dùng lời giá − spread; MT5 tính cả swap/hoa hồng của TỪNG lệnh (ở đây qua đêm trừ
+   vào số dư chung, không gắn từng lệnh) — xấp xỉ nhỏ.
+3. Ký quỹ chỉ đúng cho xxxUSD tài khoản USD (cặp khác → `canh_bao`); kiểu hedging "chân lớn hơn".
+4. Phí hiện tại áp cho 2003-2021 (lạc quan cho giai đoạn đầu); giờ server giả định Helsinki.
+5. Placebo cho chân lệnh dừng trong bar chưa có; rổ hedge Breakout2/2-2/3 chưa qua cổng tài khoản.
+6. Tải Dukascopy trực tiếp bị giới hạn tốc độ — chạy `tai_dukascopy_h1.py` qua đêm để có 2003-2026 và
+   thêm cặp (dữ liệu JWalker dừng ở 2021-12, komo ở 2022-03).
+7. Breakout4 — vẫn bỏ qua (3 chướng ngại cũ không đổi, không đoán `_Point`).
+
+---
+
+## (trước) Vòng "CỔNG GIỮ CHO LƯỚI/MARTINGALE" (sau 57657761) — Sharpe/t không còn đủ để giữ hệ lưới
 Vấn đề (vòng trước): lưới Breakout5 trên random walk CÓ phí cho Sharpe kiểm DƯƠNG 10/10 seed →
 Sharpe/t là phép thử SAI cho martingale (thắng nhỏ đều, đuôi phá sản hiếm). Ngưỡng KHÔNG nới;
 thêm một cổng riêng, chỉ có thể SIẾT THÊM.
