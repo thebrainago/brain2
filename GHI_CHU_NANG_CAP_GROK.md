@@ -1,5 +1,21 @@
 # Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-11 (rạng sáng, giờ VN)
 
+## Vòng "G06 — GIẢ THUYẾT CÓ CHỦ ĐÍCH: LÀM LẠI TÍN HIỆU AUDCAD 2023752" (sau 9c508edf) — rạng sáng 11/10/2026
+Chi tiết: `hieu_chuan/G06_KET_QUA.md`. **Không đổi cổng.** Mọi số là MÔ PHỎNG.
+- **Chọn:** trong 3 giả thuyết của 06 (G-a entry không quan trọng; G-b chọn tài sản hồi quy; G-c làm lại hệ đang lãi) chọn G-c
+  trên tín hiệu 2023752 — luật đã được the-brain bóc sẵn (R6), không cần MT5/đăng nhập; G-c cho 31 ID khác cần chủ đăng nhập MQL5.
+  Đối chứng nhiễu đảo dấu M1 = phép thử G-b ("hồi quy AUDCAD có giúp lưới không").
+- **Đóng băng trước:** `G06_KE_HOACH.json` sha `c8c69e0f8483859b`, commit `07d2edcc` trước khi chạy.
+- **Mã:** `luoi_duong.chay_duong(swap_nam=...)` swap theo lot mở qua rollover (mặc định tắt = giống hệt P1; `test_g06_swap_duong.py`
+  3 test + 7 test cũ xanh); `config/lai_suat_aud_cad_thang.csv` (FRED); `hieu_chuan/g06_audcad_2023752.py` → `g06_ket_qua.json`.
+- **Số (AUDCAD M1 HistData):** khám phá 2018-01→2023-07 lỗ ở cả 8 biến thể **−2,9…−3,4 %/năm** (không swap, spread 1,5: −1,07 %/năm),
+  DD ≤ 19 %, 6/6 năm lỗ; 40 chuỗi nhiễu đều lỗ, p = 0,44 (không hơn nhiễu). Xác nhận 2023-07→2025-02 (trong đời tín hiệu) lãi
+  +0,5…+2,3 %/năm. the-brain R6 báo +8,45 %/năm khám phá — **không tái lập được**.
+- **Kết luận đóng băng: CHƯA ĐO ĐƯỢC** (HistData 2023 tháng 2–7 thiếu ~22 % phút); phần sạch 2018–2022 lỗ mọi năm → cài đặt này
+  không phải cơ chế bền; ủng hộ "gặp may / hợp chế độ 2023–2026".
+- **Việc tiếp:** muốn đi tiếp G-c thật cần lịch sử lệnh đầy đủ (chủ đăng nhập MQL5) để bóc luật còn thiếu; G-a để sau (không hướng tiền).
+
+
 ## Vòng "P3 — SWAP THEO TỪNG LỆNH + PHÍ ĐÚNG THỜI KỲ" (sau dc074dab) — rạng sáng 11/10/2026
 Chi tiết + bảng: `hieu_chuan/P3_KET_QUA.md`. **Không đổi cổng duyệt.** Mọi số là MÔ PHỎNG, không phải tiền.
 - **Sửa (mặc định trong `vong_thu_nghiem`, `--phi-cu` = mô hình cũ):** (1) swap chỉ tính cho lệnh còn mở qua rollover nửa đêm
