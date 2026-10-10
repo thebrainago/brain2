@@ -1,0 +1,109 @@
+{
+ "ke_hoach": {
+  "bien_the": {
+   "V0_goc": {
+    "mo_ta": "luoi G06/G07 nguyen ban (doi chung, phai trung G07)"
+   },
+   "V1_buoc_rong": {
+    "mo_ta": "khoang them tang x2 (21,2 -> 42,4 pip, he so 1,2 giu)",
+    "tham_so": {
+     "buoc": 42.4
+    }
+   },
+   "V2_ro_10": {
+    "mo_ta": "so tang toi da 5 -> 10",
+    "tham_so": {
+     "tran_tang": 10
+    }
+   },
+   "V3_duoi_dinh": {
+    "duoi": [
+     7.6,
+     3.8
+    ],
+    "mo_ta": "bo TP 7,6 pip; kich hoat khi gia vuot TB ro + 7,6 pip, dong ca ro khi lui 3,8 pip tu dinh"
+   },
+   "V4_chot_usd": {
+    "chot_usd": 1.0,
+    "mo_ta": "bo TP pip; dong ca ro khi lai noi ro >= 1,0 USD (chuoi da nhan k)"
+   },
+   "V5_dung_5_ngay": {
+    "dung_gio": 120.0,
+    "mo_ta": "luoi goc + dong ca ro tai gia mo nen khi ro song >= 120 gio"
+   }
+  },
+  "chuyen_tham_so": "k_y = R_AUDCAD(y-1)/R_ts(y-1), R = trung vi (cao-thap ngay Helsinki, ngay >= 600 nen M1); AUDCAD k=1",
+  "gia_thuyet": "06 G-a (the-brain so tay gia thuyet 2): quan tri lenh quyet dinh hon entry. Ban brain2: tren cung luoi goc, doi QUAN TRI RO (khoang them tang, so tang toi da, cach dong ro, dung theo gio) co dua AUDCAD/EURGBP thanh lai sau phi + DD<80 % va hon nhieu khong? (Phan 'doi entry' cua G-a de sau - xem GHI_CHU.)",
+  "khong_lam": "khong quet tham so; khong doi bien the sau khi thay so; khong toi uu theo nam",
+  "luat": {
+   "G_a": {
+    "BAC_BO": "con lai",
+    "MOT_PHAN": "khong co UNG_VIEN nhung co (bien the, tai san) LAI HOAC HON_NHIEU HOAC p_hon_goc <= 0,05",
+    "UNG_VIEN": "co (bien the, tai san) LAI va HON_NHIEU va p_hon_goc <= 0,05"
+   },
+   "LAI": "tong 7 nam (xau) > 0 VA moi nam maxDD < 80 % VA khong nam nao stop-out",
+   "da_kiem": "6 bien the x 2 tai san = 12 phep so voi nhieu; 20 chuoi -> p nho nhat 0,048. Mot o p<=0,05 xay ra do may ~46 % -> ket qua dat chi la UNG_VIEN, phai xac nhan tren doan khac truoc khi tin",
+   "nam_dat_luat_chu": "lai_xau (spread cao + swap) > 0 VA maxDD < 80 % VA khong stop-out; dem tren 7 nam x 2 tai san, bao kem ti le nam dat cua NHIEU cung bien the",
+   "p_hon": "(1 + #nhieu_tong >= that_tong)/(N+1); HON_NHIEU neu <= 0,05",
+   "p_hon_goc": "delta = tong(Vi) - tong(V0) tren gia that; so voi delta cung seed tren nhieu; (1+#>=)/(N+1)"
+  },
+  "luoi_goc": {
+   "bien_cap": 4.0,
+   "buoc": 21.2,
+   "cap_moi_bar": 999,
+   "che_do": "hai_chieu",
+   "don_bay": 100.0,
+   "he_so_buoc": 1.2,
+   "he_so_lot": 0.25,
+   "kieu_lot": "cong",
+   "lot": 0.01,
+   "muc_stopout": 0.5,
+   "tia_lenh": true,
+   "tp": 7.6,
+   "tran_tang": 5
+  },
+  "nam": [
+   2018,
+   2019,
+   2020,
+   2021,
+   2022,
+   2024,
+   2025
+  ],
+  "nam_ghi_chu": "giong G07 (2023 loai: HistData thieu nen); tu kiem lai do phu bang luat G07",
+  "nhieu": {
+   "ghi_chu": "CUNG 20 seed cho moi bien the (so sanh cap)",
+   "kieu": "dao dau tung nen M1 (G06 dao_dau)",
+   "seed_tu": 7000,
+   "so": 20
+  },
+  "phi": {
+   "bao_them": "spread thap + swap",
+   "xau": "spread cao + swap thang (dung cho luat va nhieu)"
+  },
+  "tai_san": {
+   "AUDCAD": {
+    "nhom": "hoi_quy",
+    "quy_doi": "USDCAD",
+    "spread_gia": [
+     0.00015,
+     0.00028
+    ],
+    "swap": "G06 (r_AUD-r_CAD, markup XM 13/09/2026)"
+   },
+   "EURGBP": {
+    "nhom": "hoi_quy",
+    "quy_doi": "1/GBPUSD",
+    "spread_gia": [
+     0.0001,
+     0.0002
+    ],
+    "swap": "(r_EUR-r_GBP) thang, markup FXCE 22/08/2026"
+   }
+  },
+  "thu_tu": "gan_open",
+  "von_usd": 10000.0
+ },
+ "sha256_16": "d065186fb65a7bcc"
+}

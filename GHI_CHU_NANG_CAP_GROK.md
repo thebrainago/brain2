@@ -1,5 +1,22 @@
 # Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-11 (rạng sáng, giờ VN)
 
+## Vòng "G08 — G-a: QUẢN TRỊ RỔ có quyết định hơn entry?" (sau e8830e4c) — 11/10/2026
+**KẾ HOẠCH ĐÓNG BĂNG TRƯỚC KHI CÓ SỐ:** `hieu_chuan/G08_KE_HOACH.json` sha `d065186fb65a7bcc`. Không đổi cổng. Mọi số sẽ là MÔ PHỎNG.
+- Chỉ AUDCAD + EURGBP (hai cặp nhỉnh hơn nhiễu ở G07, p 0,14 / 0,095 — chưa đạt). Cùng dữ liệu / chuyển k / swap / năm
+  (2018–2022, 2024, 2025) như G07. Lưới gốc G06/G07 (2023752).
+- 5 biến thể QUẢN TRỊ đăng ký trước + gốc (KHÔNG quét): V0 gốc (đối chứng, phải trùng G07); V1 khoảng thêm tầng ×2 (42,4 pip);
+  V2 tối đa 10 tầng; V3 bỏ TP, đuôi đỉnh (kích hoạt TB+7,6 pip, đóng khi lùi 3,8 pip); V4 bỏ TP, đóng rổ khi lãi nổi ≥ 1,0 USD;
+  V5 gốc + dừng rổ sau 120 giờ. Cài trong `nhan/luoi_duong.chay_duong` (tùy chọn `chot_usd` / `duoi` / `dung_gio`, mặc định
+  tắt = giống hệt trước; `test_g08_quan_tri_ro.py`).
+- Phí: spread cao + swap tháng (luật) và spread thấp + swap (báo thêm). Nhiễu: CÙNG 20 seed đảo dấu cho mọi biến thể (so sánh cặp).
+- Luật: năm đạt luật chủ = lãi (xấu) > 0, maxDD < 80 %, không stop-out (báo kèm tỉ lệ năm nhiễu cũng đạt). LAI = tổng 7 năm > 0
+  + DD + không stop-out. p_hon so với nhiễu; p_hon_gốc = (Vi−V0) thật so với (Vi−V0) trên cùng seed nhiễu.
+  G-a ỨNG VIÊN nếu có (biến thể, tài sản) LAI + p_hon ≤ 0,05 + p_hon_gốc ≤ 0,05; MỘT PHẦN nếu có một trong ba; còn lại BÁC BỎ.
+  12 phép so (6×2) với p nhỏ nhất 0,048 → một ô qua là ~46 % do may: "ứng viên" chỉ là ứng viên, phải xác nhận trên đoạn khác.
+- Phần "đổi entry" của G-a (06 viết: vào ngay / theo xu hướng / hồi quy / ngẫu nhiên) KHÔNG làm ở vòng này — để sau nếu quản trị có gì.
+- Minh bạch: sau khi ghi tệp kế hoạch (trước commit) đã chạy thử 6 biến thể trên AUDCAD 2018 thật để kiểm V0 = G07 (−551,62 USD,
+  trùng từng số). Không đổi kế hoạch sau đó (sha giữ nguyên).
+
 ## Vòng "G07 — G-b: CHỌN TÀI SẢN (lưới có lãi trên tài sản hồi quy, không trên chỉ số?)" (sau d43e1f56) — 11/10/2026
 **KẾ HOẠCH ĐÓNG BĂNG TRƯỚC KHI CÓ SỐ:** `hieu_chuan/G07_KE_HOACH.json` sha `eddb7e748b7924e9`. Không đổi cổng. Mọi số sẽ là MÔ PHỎNG.
 - Gợi ý the-brain (PMG 14/09: AUDCAD/EURGBP 8/8, vàng 7/8, US100 0/8) chỉ là GỢI Ý — đo lại trên brain2.
