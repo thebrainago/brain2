@@ -161,11 +161,15 @@ def danh_gia_nhom(specs: list[dict], df: pd.DataFrame, khung: str,
                     khung=khung)
     loi = np.nan_to_num(np.asarray(kq.loi, dtype=float))
     chan = [{"chieu": c["chieu"], "so_lenh": int(c["so_lenh"]),
+             "so_hedge": int(c.get("so_hedge", 0)),
              "loi_log": round(float(np.sum(c["loi"])), 5),
              "sharpe": round(_sharpe(c["loi"], khung), 3)} for c in kq.chi_tiet["chan"]]
-    return {"so_lenh": int(kq.so_lenh), "phoi_nhiem": round(float(kq.phoi_nhiem), 4),
-            "loi_log": round(float(loi.sum()), 5), "sharpe": round(_sharpe(loi, khung), 3),
-            "chan": chan}
+    ra = {"so_lenh": int(kq.so_lenh), "phoi_nhiem": round(float(kq.phoi_nhiem), 4),
+          "loi_log": round(float(loi.sum()), 5), "sharpe": round(_sharpe(loi, khung), 3),
+          "chan": chan}
+    if kq.chi_tiet.get("ro_bat_thuong"):
+        ra["ro_bat_thuong"] = int(kq.chi_tiet["ro_bat_thuong"])
+    return ra
 
 
 def tham_so_nhom(specs: list[dict]) -> tuple[dict, dict]:
@@ -200,6 +204,8 @@ def _ung_vien(khoa: str, v) -> list:
         return sorted({1, 2, 3, 5, 8, 13, int(v)})
     if khoa.endswith("sltp_tp"):                    # TP = R x he so
         return sorted({0.5, 0.75, 1.0, 1.5, 2.0, 3.0, float(v)})
+    if khoa.endswith(("sltp_sl_he", "sltp_tp_he")):  # SL/TP = he so x ATR
+        return sorted({round(float(v) * f, 4) for f in (0.5, 0.75, 1, 1.25, 1.5, 2)})
     if isinstance(v, (int, np.integer)) or (khoa.endswith("_n") and float(v).is_integer()):
         return sorted({max(1, int(round(v * f))) for f in (0.5, 0.75, 1, 1.25, 1.5, 2)})
     v = float(v)
@@ -287,7 +293,9 @@ def chay_mot_file(path: Path, df: pd.DataFrame, khung: str = "H1",
     nhom: dict[str, list[dict]] = {}
     don = []
     for spec in r.get("co_che", []):
-        g = (spec.get("mot_lenh_ngay") or {}).get("nhom")
+        # `nhom_he`: cac chan dong theo RO / SL-TP khoang cach cua CUNG mot EA
+        # (mot vi the mot luc) ma khong co luat mot lenh/ngay.
+        g = (spec.get("mot_lenh_ngay") or {}).get("nhom") or spec.get("nhom_he")
         if g:
             nhom.setdefault(g, []).append(spec)
         else:
@@ -359,7 +367,8 @@ def _van_tay_nhom(specs: list[dict]) -> str:
         mln = dict(sp.get("mot_lenh_ngay") or {})
         mln.pop("nhom", None)
         phan.append(NP.van_tay_dieu_kien(sp) + f"|{sp.get('chieu')}|" + json.dumps(
-            {"tb": sp.get("trong_bar"), "sltp": sp.get("sltp"), "mln": mln},
+            {"tb": sp.get("trong_bar"), "sltp": sp.get("sltp"), "mln": mln,
+             "ro": sp.get("ro")},
             sort_keys=True))
     return "NHOM:" + "||".join(sorted(phan))
 
@@ -372,7 +381,8 @@ def _chay_nhom(path: Path, g: str, specs: list[dict], df_tu, df_kiem, khung: str
             "chieu": 0, "ho": specs[0].get("ho"),
             "so_dieu_kien": sum(int(sp.get("so_dieu_kien") or 0) for sp in specs),
             "chan": [{"ten": sp.get("ten"), "chieu": sp.get("chieu"),
-                      "trong_bar": sp.get("trong_bar"), "sltp": sp.get("sltp")}
+                      "trong_bar": sp.get("trong_bar"), "sltp": sp.get("sltp"),
+                      "ro": sp.get("ro")}
                      for sp in specs]}
     vt = _van_tay_nhom(specs)
     if da_thay is not None:
@@ -492,6 +502,7 @@ def main(argv=None) -> int:
         if x.get("nhom"):
             print("        từng chân (kiểm, sau tối ưu): " + "  ".join(
                 f"chieu={c['chieu']:+d} sh={c['sharpe']:+.2f}/{c['so_lenh']}l"
+                + (f" ({c['so_hedge']} hedge)" if c.get("so_hedge") else "")
                 for c in tk["chan"])
                 + "  | mô hình cũ riêng (giu, không luật ngày): " + "  ".join(
                 f"sh={c['sharpe']:+.2f}/{c['so_lenh']}l" for c in x["goc_kiem_rieng_cu"]))

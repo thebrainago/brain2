@@ -49,6 +49,7 @@ from __future__ import annotations
 import json
 import re
 
+from nhan import ro_mql as RO
 from nhan import thu_hoi_thanh_phan as TP
 
 #: Phep so sanh trong ma -> phep cua ngu phap.
@@ -2209,13 +2210,22 @@ def _mot_lenh_ngay_mql(vb: str, m, co: str | None, thoat: list[str]) -> dict | N
 def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
     """Ban MQL5 cua `doc_chien_luoc` - xem chu thich dau lop."""
     global _CHE_DO_MQL
+    vb_tho = vb                                     # truoc chuan hoa MQL5 (cho `RO.doc_sltp_kc`)
     vb = _chuan_hoa_mql5(vb)
     bang_cb = sorted(_bang_ky_hieu(vb) + _bang_mql(vb), key=lambda x: x[0])
     bang_bl = _bang_bool(vb)
     khai = rut_input(vb)
     hang = _hang_mql(vb)
     ra, ho, n, n_co = [], [], 0, 0
-    loai = {"dich_duoc": 0, "ma_chet": 0, "quan_ly_vi_the": 0, "chua_dich": 0}
+    loai = {"dich_duoc": 0, "ma_chet": 0, "quan_ly_vi_the": 0, "chua_dich": 0,
+            "quan_ly_dich_duoc": 0}
+    # Logic dong RO LENH (hedge/chot dinh/cat lo theo tien) - `nhan/ro_mql.py`.
+    try:
+        ro_tt = RO.doc_ro(vb, hang, khai)
+    except Exception as e:                          # noqa: BLE001 - khong lam vo ca file
+        ro_tt = {"ro": None, "ly_do": f"loi doc ro: {type(e).__name__}", "khoi": [],
+                 "ham_dong": None, "ham_mo": None, "ghi": []}
+    hedge_cho = []                                  # lenh hedge doc duoc, cho xet sau
     cu = _CHE_DO_MQL
     _CHE_DO_MQL = True
     try:
@@ -2227,6 +2237,16 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
                 ho.append("lenh vao la ma chet (sau return vo dieu kien)")
                 loai["ma_chet"] += 1
                 continue
+            if ro_tt["ro"] is not None and _dau_ham(vb, m.start())[1] == ro_tt["ham_dong"]:
+                kh = next((k for k in ro_tt["khoi"] if k["a"] <= m.start() < k["b"]), None)
+                if kh is not None and not kh["toi_duoc"]:
+                    # `if(postotal==22)` khi EA chi co toi da 2 lenh: khong bao gio chay
+                    ho.append(f"lenh hedge khong toi duoc (so lenh=={kh['khi_so_lenh']})")
+                    loai["ma_chet"] += 1
+                    continue
+                if kh is not None and kh["dich"]:
+                    hedge_cho.append(kh)            # dem SAU khi biet lenh dau co dich duoc
+                    continue
             doi = m.group("doi_m") or m.group("doi_o") or ""
             if m.group("mql"):
                 chieu = -1 if m.group("mql") == "Sell" else 1
@@ -2345,6 +2365,25 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
                 })
                 # SL/TP, keo SL, mot lenh mot ngay (them 10/10/2026 dem)
                 sltp, ghi = _sltp_mql(vb, m, c, co_nhanh, vi, bang_cb, bang_bl, hang)
+                if sltp is None and m.group("mql"):
+                    # `g_trade.Buy(lot,_Symbol,0,sl,tp)` trong ham OpenTrade(type, slDist,
+                    # tpDist): SL/TP theo KHOANG CACH ATR (EA Template) - `nhan/ro_mql.py`
+                    ten_lenh = _dau_ham(vb, m.start())[1]
+                    try:
+                        k2, g2, sm = RO.doc_sltp_kc(vb_tho, ten_lenh, hang) if ten_lenh \
+                            else (None, [], None)
+                    except Exception as e:          # noqa: BLE001
+                        k2, g2, sm = None, [f"SL/TP khoang cach: loi doc {type(e).__name__}"], None
+                    ghi = ghi + g2
+                    if k2 is not None:
+                        sltp = k2
+                        ra[-1]["nhom_he"] = nguon   # mot vi the mot luc (CountMyPositions)
+                        if sm is not None:
+                            ra[-1]["loc_spread_diem"] = sm
+                        # da mo hinh hoa: mot vi the mot luc, atr <= 0 -> khong vao
+                        ra[-1]["bo_qua_quan_tri"] = [
+                            x for x in ra[-1]["bo_qua_quan_tri"]
+                            if not re.search(r"CountMyPositions|\batr[ \t]*<=[ \t]*0", x)]
                 if sltp is not None:
                     ra[-1]["sltp"] = sltp
                 gia_dinh += ghi
@@ -2360,6 +2399,16 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
                         + "/".join(mln["chan_boi"]) + "; lenh nay dat "
                         + "/".join(mln["dat"]) + " (mo phong chung ca nhom mua+ban, "
                         "mot vi the mot luc)")
+                if ro_tt["ro"] is not None and \
+                        _dau_ham(vb, m.start())[1] == ro_tt["ham_mo"]:
+                    # Lenh dau cua EA dong theo RO (khong SL/TP, khong theo gio)
+                    ra[-1]["ro"] = json.loads(json.dumps(ro_tt["ro"]))
+                    ra[-1]["nhom_he"] = nguon
+                    gia_dinh += ["ro lenh: " + x for x in ro_tt["ghi"]]
+                    gia_dinh.append(
+                        "ro lenh: loi lo tinh bang tien te YET GIA (USD voi EURUSD), "
+                        "hop dong 100000/lot, tai khoan HEDGING chi co EA nay, "
+                        "_Point = buoc gia nho nhat (1e-5 voi EURUSD 5 so)")
                 if gia_dinh:
                     ra[-1]["gia_dinh"] = gia_dinh
                 ra[-1]["_loai_b0"] = loai_b0
@@ -2372,6 +2421,18 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
                 loai[loai_hong] += 1
     finally:
         _CHE_DO_MQL = cu
+    # Lenh hedge chi tinh la DICH DUOC khi lenh dau cua ro cung dich duoc (khong
+    # thi khong co gi de mo phong ro) - nguoc lai van la quan_ly_vi_the.
+    co_ro = any(sp.get("ro") for sp in ra)
+    for _ in hedge_cho:
+        if co_ro:
+            loai["quan_ly_dich_duoc"] += 1
+            n_co += 1
+        else:
+            loai["quan_ly_vi_the"] += 1
+            ho.append("lenh hedge: lenh dau cua ro chua dich duoc")
+    if loai["quan_ly_vi_the"] and ro_tt.get("ly_do"):
+        ho.append("ro lenh chua dich: " + ro_tt["ly_do"][:80])
     # token gia song chi dung noi bo: van ban bao cao doc lai la `close`
     ho = [x.replace(_GIA0, "close") for x in ho]
     for sp in ra:

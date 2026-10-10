@@ -32,7 +32,8 @@ MAU = LAB / "mau_thu"
 
 def do() -> dict:
     tong = co_che = vao_lenh = vao_co = 0
-    loai = {"dich_duoc": 0, "ma_chet": 0, "quan_ly_vi_the": 0, "chua_dich": 0}
+    loai = {"dich_duoc": 0, "ma_chet": 0, "quan_ly_vi_the": 0, "chua_dich": 0,
+            "quan_ly_dich_duoc": 0}
     ly_do: dict[str, int] = {}
     dong: list[tuple] = []
     for p in sorted(MAU.glob("*.mq5")):
@@ -66,7 +67,8 @@ def main() -> int:
     # Mot lenh vao `if(up||down)` tach dung thanh 2 co che (mua + ban), nen ty
     # le tren co the vuot so diem vao THAT SU dich duoc. Day la so do chat hon:
     ty2 = (100.0 * r["vao_co"] / r["vao_lenh"]) if r["vao_lenh"] else 0.0
-    print("  diem vao dich duoc     : %d/%d = %.1f%%   <- SO CHINH (moc 908075c0: 6/22 = 27.3%%)"
+    print("  diem vao dich duoc     : %d/%d = %.1f%%   <- SO CHINH (moc 908075c0: 6/22 = 27.3%%;"
+          " 21cc69dc: 8/22 = 36.4%%)"
           % (r["vao_co"], r["vao_lenh"], ty2))
     # PHAN LOAI (them 10/10/2026). Mau so tren tron ca "tao": lenh hedge/luoi/
     # nhoi lenh theo GIA VAO LENH / so lenh / loi lo (khong phai tin hieu thanh
@@ -75,8 +77,13 @@ def main() -> int:
     # khoi mau so. So chinh van la dong tren; dong duoi chi de biet con bao
     # nhieu tin hieu that chua dich duoc.
     L = r["loai"]
-    print("  phan loai diem vao     : dich_duoc=%d  quan_ly_vi_the=%d  ma_chet=%d  chua_dich=%d"
-          % (L["dich_duoc"], L["quan_ly_vi_the"], L["ma_chet"], L["chua_dich"]))
+    # quan_ly_dich_duoc (them vong "ro hedge"): lenh hedge cua ro lenh duoc mo
+    # phong DUNG trong khoi `ro` cua lenh dau (`nhan/ro_mql.py`) - tinh vao so
+    # chinh. ma_chet gom ca khoi hedge KHONG BAO GIO toi duoc (`postotal==22`).
+    print("  phan loai diem vao     : dich_duoc=%d (tin hieu) + quan_ly_dich_duoc=%d (hedge ro)"
+          "  quan_ly_vi_the=%d  ma_chet=%d  chua_dich=%d"
+          % (L["dich_duoc"], L["quan_ly_dich_duoc"], L["quan_ly_vi_the"], L["ma_chet"],
+             L["chua_dich"]))
     ms = L["dich_duoc"] + L["chua_dich"]
     ty3 = (100.0 * L["dich_duoc"] / ms) if ms else 0.0
     print("  tin hieu thanh nen     : %d/%d = %.1f%%   (bo hedge/luoi + ma chet khoi mau so)"

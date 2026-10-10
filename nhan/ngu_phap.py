@@ -555,6 +555,12 @@ def _toan_hang_tinh(df: pd.DataFrame, t: dict) -> pd.Series:
     if cb == "ibs":
         return MAU_MOD.ibs(df)
     if cb == "atr":
+        if str(t.get("kieu", "")).lower() == "sma":
+            # iATR cua MT5: trung binh CONG cua True Range (khong phai Wilder/RMA)
+            h, l, c = _cot(df, "high"), _cot(df, "low"), _cot(df, "close")
+            tr = pd.concat([h - l, (h - c.shift()).abs(), (l - c.shift()).abs()],
+                           axis=1).max(axis=1)
+            return tr.rolling(n, min_periods=n).mean()
         return MAU_MOD.atr(df, n)
     # `ema`/`sma`/`wma`/`smma` nhan CA `cot` (cot gia) LAN `cua` (toan hang bat ky).
     #
@@ -1479,6 +1485,8 @@ def kiem_khai_bao(spec: dict) -> list[str]:
         loi += _kiem_sltp(spec)
     if spec.get("mot_lenh_ngay") is not None:
         loi += _kiem_mot_lenh_ngay(spec)
+    if spec.get("ro") is not None:
+        loi += _kiem_ro(spec)
     return loi
 
 
@@ -1488,6 +1496,24 @@ def _kiem_sltp(spec: dict) -> list[str]:
     if not isinstance(k, dict):
         return ["'sltp' phai la dict"]
     loi = []
+    if isinstance(k.get("sl_kc"), dict):
+        # SL/TP theo KHOANG CACH tu gia vao (EA Template: ATR x he so)
+        loi += [f"sltp.sl_kc: {e}" for e in _kiem_toan_hang(k["sl_kc"])]
+        if k.get("tp_kc") is not None:
+            if not isinstance(k["tp_kc"], dict):
+                loi.append("sltp.tp_kc phai la toan hang hoac null")
+            else:
+                loi += [f"sltp.tp_kc: {e}" for e in _kiem_toan_hang(k["tp_kc"])]
+        for f in ("sl_kc_min_spread", "rui_ro"):
+            x = k.get(f)
+            if x is not None and (isinstance(x, bool) or not isinstance(x, (int, float))
+                                  or x < 0):
+                loi.append(f"sltp.{f} phai la so >= 0 hoac null")
+        if k.get("sl") is not None or k.get("tp") is not None:
+            loi.append("sltp: sl_kc khong dung chung voi sl/tp muc")
+        if spec.get("ra"):
+            loi.append("sltp chua ho tro dieu kien `ra`")
+        return loi
     if not isinstance(k.get("sl"), dict):
         loi.append("sltp.sl phai la toan hang (muc gia)")
     else:
@@ -1503,6 +1529,51 @@ def _kiem_sltp(spec: dict) -> list[str]:
             loi += [f"sltp.keo: {e}" for e in _kiem_toan_hang(k["keo"])]
     if spec.get("ra"):
         loi.append("sltp chua ho tro dieu kien `ra`")
+    return loi
+
+
+def _so_duong(x) -> bool:
+    return isinstance(x, (int, float)) and not isinstance(x, bool) and x > 0
+
+
+def _kiem_ro(spec: dict) -> list[str]:
+    """Kiem khoi `ro` (dong theo TONG loi lo ca ro lenh: chot dinh, cat lo, hedge
+    nguoc chieu) - xem `nhan/ro_mql.py` va `mo_phong.chay_he`."""
+    k = spec.get("ro")
+    if not isinstance(k, dict):
+        return ["'ro' phai la dict"]
+    loi = []
+    if not _so_duong(k.get("lot_dau")):
+        loi.append("ro.lot_dau phai > 0")
+    if not _so_duong(k.get("hop_dong")):
+        loi.append("ro.hop_dong phai > 0")
+    d = k.get("dinh")
+    if d is not None:
+        if not isinstance(d, dict) or not _so_duong(d.get("moc")) or \
+                not (_so_duong(d.get("ti_le")) and d["ti_le"] < 1):
+            loi.append("ro.dinh can moc > 0 va 0 < ti_le < 1")
+    c = k.get("cat_lo")
+    if c is not None and (isinstance(c, bool) or not isinstance(c, (int, float)) or c >= 0):
+        loi.append("ro.cat_lo phai la so am hoac null")
+    if d is None and c is None:
+        loi.append("ro khong co cach dong nao (dinh va cat_lo deu null)")
+    for h in k.get("hedge") or []:
+        if not isinstance(h, dict) or not _so_duong(h.get("lot")) or \
+                not isinstance(h.get("khi_so_lenh"), int) or h["khi_so_lenh"] < 1:
+            loi.append("ro.hedge: can lot > 0, khi_so_lenh >= 1")
+            continue
+        if h.get("kich") == "diem":
+            if not _so_duong(h.get("khoang_diem")):
+                loi.append("ro.hedge.khoang_diem phai > 0")
+        elif h.get("kich") == "loi":
+            if not isinstance(h.get("nguong"), (int, float)) or h["nguong"] >= 0:
+                loi.append("ro.hedge.nguong phai am")
+        else:
+            loi.append("ro.hedge.kich phai la 'diem' hoac 'loi'")
+    if spec.get("sltp") is not None:
+        loi.append("ro va sltp khong dung chung")
+    if spec.get("ra"):
+        loi.append("ro chua ho tro dieu kien `ra`")
     return loi
 
 
@@ -1897,11 +1968,18 @@ def sinh_chan(spec: dict, df: pd.DataFrame) -> dict:
     sl = toan_hang(df, k["sl"]).to_numpy(dtype=float) if k.get("sl") else None
     keo = toan_hang(df, k["keo"]).to_numpy(dtype=float) if k.get("keo") else None
     tp = float(k["tp"]) if k.get("tp") else None
+    sl_kc = toan_hang(df, k["sl_kc"]).to_numpy(dtype=float) if k.get("sl_kc") else None
+    tp_kc = toan_hang(df, k["tp_kc"]).to_numpy(dtype=float) if k.get("tp_kc") else None
     mln = spec.get("mot_lenh_ngay") or {}
     return {"chieu": chieu, "cho": np.asarray(cho, dtype=bool), "muc": muc,
             "huong": huong, "co": co, "loc": loc, "sl": sl, "tp": tp, "keo": keo,
             "giu": int(spec.get("giu", 1) or 1),
-            "chan_boi": list(mln.get("chan_boi") or []), "dat": list(mln.get("dat") or [])}
+            "chan_boi": list(mln.get("chan_boi") or []), "dat": list(mln.get("dat") or []),
+            # dong theo RO lenh (hedge / chot dinh / cat lo bang tien) - `nhan/ro_mql.py`
+            "ro": spec.get("ro"),
+            # SL/TP theo khoang cach (ATR x he so), khoi luong theo rui ro, loc spread
+            "sl_kc": sl_kc, "tp_kc": tp_kc, "sl_kc_min_spread": k.get("sl_kc_min_spread"),
+            "rui_ro": k.get("rui_ro"), "spread_max_diem": spec.get("loc_spread_diem")}
 
 
 # --------------------------------------------------------------- KHO CO CHE
@@ -2391,8 +2469,22 @@ def tham_so_cua(spec: dict) -> dict:
         for f in ("sl", "keo"):
             if isinstance(k.get(f), dict):
                 _di_spec(k[f], f"sltp_{f}", ra)
+        # SL/TP theo khoang cach `he_so x ATR(n)` (EA Template): ba input cua EA
+        # (InpAtrPeriod, InpSlAtrMult, InpTpAtrMult). Duong dan chung `_dat` khong
+        # di qua duoc khoa co dau `_` (`sl_kc`, `toan_hang`) nen phoi ro rang.
+        for f, ten in (("sl_kc", "sltp_sl_he"), ("tp_kc", "sltp_tp_he")):
+            x = k.get(f)
+            if isinstance(x, dict) and x.get("chi_bao") == "tuyen_tinh" and \
+                    len(x.get("he_so") or []) == 1:
+                ra[ten] = float(x["he_so"][0])
+                th = (x.get("toan_hang") or [{}])[0]
+                if th.get("chi_bao") == "atr" and isinstance(th.get("n"), int):
+                    ra["sltp_atr_n"] = int(th["n"])
         if isinstance(k.get("tp"), (int, float)) and not isinstance(k.get("tp"), bool):
             ra["sltp_tp"] = float(k["tp"])
+        return ra
+    if isinstance(spec.get("ro"), dict):
+        # Dong theo RO (tong loi lo): `giu` khong co nghia -> khong phoi ra.
         return ra
     giu = spec.get("giu")
     if isinstance(giu, int) and not isinstance(giu, bool) and giu >= 1:
@@ -2410,6 +2502,19 @@ def ap_tham_so(spec: dict, ts: dict) -> dict:
             moi["giu"] = int(gt)
             continue
         if khoa.startswith("sltp_") and isinstance(moi.get("sltp"), dict):
+            if khoa in ("sltp_sl_he", "sltp_tp_he", "sltp_atr_n"):
+                for f in (("sl_kc",) if khoa == "sltp_sl_he" else ("tp_kc",)
+                          if khoa == "sltp_tp_he" else ("sl_kc", "tp_kc")):
+                    x = moi["sltp"].get(f)
+                    if not isinstance(x, dict):
+                        continue
+                    if khoa == "sltp_atr_n":
+                        for th in x.get("toan_hang") or []:
+                            if th.get("chi_bao") == "atr":
+                                th["n"] = max(1, int(gt))
+                    else:
+                        x["he_so"] = [float(gt)]
+                continue
             if khoa == "sltp_tp":
                 moi["sltp"]["tp"] = float(gt)
             else:

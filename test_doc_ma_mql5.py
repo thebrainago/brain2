@@ -55,7 +55,16 @@ class PhaVoPhien(unittest.TestCase):
     def test_khong_rut_lenh_hedge(self):
         d = _doc("EA Snippets_Breakout_Breakout2.mq5")
         self.assertEqual(d["so_vao_lenh"], 3)
-        self.assertEqual(d["so_vao_lenh_co_co_che"], 1)
+        # Lenh hedge KHONG thanh co che tin hieu thanh nen (van 2 chan mua/ban
+        # cua lenh dau). Tu vong "ro hedge": hedge `postotal==1` duoc mo phong
+        # trong khoi `ro` cua lenh dau -> dem la dich duoc (quan_ly_dich_duoc);
+        # hedge `postotal==22` khong bao gio toi duoc -> ma_chet.
+        self.assertEqual(len(d["co_che"]), 2)
+        self.assertTrue(all("ro" in c for c in d["co_che"]))
+        self.assertEqual(d["phan_loai_vao_lenh"]["dich_duoc"], 1)
+        self.assertEqual(d["phan_loai_vao_lenh"]["quan_ly_dich_duoc"], 1)
+        self.assertEqual(d["phan_loai_vao_lenh"]["ma_chet"], 1)
+        self.assertEqual(d["so_vao_lenh_co_co_che"], 2)
 
     def test_ham_tu_viet_khong_co_ma_thi_bo(self):
         self.assertEqual(_doc("EA Snippets_Pivots_Pivots1.mq5")["co_che"], [])
@@ -220,15 +229,23 @@ class PhanLoaiVaMaChet(unittest.TestCase):
         self.assertEqual(d["co_che"], [])
 
     def test_hedge_xep_quan_ly_vi_the(self):
+        # Vong "ro hedge" (10/10): hedge `postotal==1` mo phong duoc trong khoi
+        # `ro`; `postotal==22` khong toi duoc (toi da 2 lenh) -> ma_chet.
         d = _doc("EA Snippets_Breakout_Breakout2.mq5")
         self.assertEqual(d["phan_loai_vao_lenh"],
-                         {"dich_duoc": 1, "ma_chet": 0, "quan_ly_vi_the": 2, "chua_dich": 0})
+                         {"dich_duoc": 1, "ma_chet": 1, "quan_ly_vi_the": 0, "chua_dich": 0,
+                          "quan_ly_dich_duoc": 1})
+        # Breakout4: lenh dau KHONG dich duoc -> hedge van la quan_ly_vi_the
+        d4 = _doc("EA Snippets_Breakout_Breakout4.mq5")
+        self.assertEqual(d4["phan_loai_vao_lenh"]["quan_ly_dich_duoc"], 0)
+        self.assertGreaterEqual(d4["phan_loai_vao_lenh"]["quan_ly_vi_the"], 1)
 
     def test_tong_phan_loai_bang_so_vao_lenh(self):
         for p in sorted(MAU.glob("*.mq5")):
             d = _doc(p.name)
             self.assertEqual(sum(d["phan_loai_vao_lenh"].values()), d["so_vao_lenh"], p.name)
-            self.assertEqual(d["phan_loai_vao_lenh"]["dich_duoc"],
+            self.assertEqual(d["phan_loai_vao_lenh"]["dich_duoc"]
+                             + d["phan_loai_vao_lenh"]["quan_ly_dich_duoc"],
                              d["so_vao_lenh_co_co_che"], p.name)
 
 

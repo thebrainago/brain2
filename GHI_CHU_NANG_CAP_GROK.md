@@ -1,6 +1,81 @@
-# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (đêm, giờ VN)
+# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (16:50, giờ VN)
 
-## Vòng 10/10 đêm — SL/TP + KÉO SL + MỘT LỆNH/NGÀY + MÔ PHỎNG CẢ HỆ (phí thật)
+## Vòng "RỔ HEDGE + SL/TP ATR" (sau 21cc69dc) — thoát lệnh Breakout2/2-2/3 và Template đúng như EA
+### 1. Rổ lệnh Breakout2/2-2/3 (`nhan/ro_mql.py` mới, gắn vào `doc_ma`)
+Trước: ba EA này đóng lệnh sau `giu` bar — một hệ KHÁC hẳn. Mã thật: `OnTick` gọi
+`checkForClose()` MỖI tick khi có vị thế, hàm đó làm việc trên TỔNG lời lỗ (tiền) của cả rổ:
+`profits=GetProfits()` → cập nhật đỉnh `peakwin` → `if(peakwin>=45 && profits<peakwin*0.9) CloseAll()`
+→ `if(profits<=-120) CloseAll()` → hedge NGƯỢC chiều khi số lệnh == 1.
+- `doc_ro(vb)` đọc đúng các dạng đó, câu lệnh lạ trong phần mã sống → trả `None` + lý do
+  (không đoán). Phần sau `return;` vô điều kiện bỏ qua (mã chết). Kết quả = khoá DSL `ro`:
+| EA | đỉnh | cắt lỗ | hedge |
+|---|---|---|---|
+| Breakout2 | ≥45$, đóng khi <0,9·đỉnh; đỉnh về 0 khi lời ≤0 | −120$ | 0,4 lot khi BID chạm ASK_vào − 300 point (mua) / BID_vào + 300 (bán) |
+| Breakout2-2 | như trên | −120$ | 0,3 lot khi lời ≤ −30$ |
+| Breakout3 | ≥45$; đỉnh = max từ lúc vào/hedge (về 0 khi vào lệnh và khi hedge) | −120$ | 0,4 lot, khoảng = input `HedgeRange`=300 |
+- Khối `if(postotal==22)` (Breakout2/3/4): KHÔNG BAO GIỜ tới được — lệnh đầu chỉ mở khi không có
+  vị thế, mỗi khối hedge thêm đúng 1 lệnh → số lệnh ∈ {1,2}. Xếp `ma_chet` (giả định tài khoản chỉ có EA này).
+- Breakout2 ≡ Breakout3 về hành vi (số đo giống hệt): đỉnh chỉ có tác dụng khi ≥45, mà lời rơi
+  từ ≥45 sẽ bị chốt trước khi về ≤0, nên hai cách reset đỉnh cho cùng kết quả — kiểm chứng tốt.
+- Giả định ghi trong `gia_dinh`: lời lỗ tính bằng tiền yết giá (USD cho EURUSD), hợp đồng
+  100.000/lot, tài khoản HEDGING, `_Point`=1e-5 (ước từ giá, có cảnh báo).
+### 2. Mô phỏng rổ (`mo_phong.chay_he`, chân có `ro`)
+- Lời lỗ EA = Σ lot·100000·(chiều·(giá−giá_vào)) − 1 spread mỗi lệnh (giá là BID như biểu đồ MT5).
+  Trên mỗi đoạn đơn điệu của đường giá trong bar lời lỗ TUYẾN TÍNH theo giá → mức chốt đỉnh /
+  cắt lỗ / hedge tìm được CHÍNH XÁC (không lấy mẫu). Thứ tự trong một tick y hệt mã: cập nhật
+  đỉnh → chốt → cắt lỗ → hedge (với `postotal` đọc trước khi đóng). Gap qua mức → khớp ở open.
+  Ca EA mở hedge “mồ côi” ngay sau CloseAll (chỉ khi gap) → đếm `ro_bat_thuong` (EURUSD: 0).
+- Lợi suất theo vốn danh nghĩa LỆNH ĐẦU (hedge 0,4 lot = trọng số 4); phí spread/trượt theo
+  khối lượng từng lệnh; qua đêm tính RIÊNG lệnh mua và lệnh bán (tài khoản hedging trả cả hai).
+- `so_lenh` = số rổ (đơn vị độc lập để đếm đủ lệnh); số hedge báo riêng.
+### 3. SL/TP ATR của Template (`ro_mql.doc_sltp_kc`) — form chắc chắn nên đã dịch
+`OpenTrade(sig>0?BUY:SELL, atr*InpSlAtrMult, atr*InpTpAtrMult)`; trong `OpenTrade`:
+`slDist=MathMax(slDist,MinStopDistance())`, `sl=price−dir·slDist`, `tp=price+dir·tpDist`,
+`lot=LotsForRisk(slDist)` (1% vốn mỗi SL), `atr` = `CopyBuffer(iATR(...,InpAtrPeriod),0,1,1,v)`.
+- `sltp: {sl_kc: 2×ATR14, tp_kc: 3×ATR14, sl_kc_min_spread: 3, rui_ro: 0.01}`; ATR kiểu MT5 =
+  trung bình CỘNG của TR (`{"chi_bao":"atr","kieu":"sma"}` mới — DSL cũ là Wilder); bar 1 → trễ 0.
+- `MinStopDistance`: STOPS/FREEZE level phụ thuộc sàn → GIẢ ĐỊNH = 0 (→ 3×spread), ghi `gia_dinh`.
+- Trọng số lệnh = rui_ro·giá/khoảng_SL (khối lượng theo rủi ro). `SpreadOK()` (≤30 point) → lọc
+  bằng spread theo giờ của mô hình chi phí. `CountMyPositions()>0` → một vị thế một lúc (chạy
+  NHÓM qua `nhom_he`); hai điều kiện này bỏ khỏi `bo_qua_quan_tri` vì đã mô hình hoá.
+- Tham số EA phơi cho tối ưu: `sltp_atr_n`, `sltp_sl_he`, `sltp_tp_he` (ứng viên ×0,5…×2).
+- Đột biến mã (ATR ở bar 0, SL dạng khác) → KHÔNG dịch (test).
+### Số đo
+| | 21cc69dc | bây giờ |
+|---|---|---|
+| Điểm vào dịch được (`do_moc.py`) | 8/22 = 36,4% | **11/22 = 50,0%** = 8 tín hiệu thanh nến + **3 lệnh hedge mô phỏng đúng trong `ro`** |
+| Phân loại 22 điểm vào | dịch 8 · quản lý vị thế 10 · mã chết 2 · chưa dịch 2 | dịch 8 + hedge dịch 3 · quản lý vị thế 4 (Breakout4 hedge vì lệnh đầu chưa dịch; lưới martingale Breakout5/5-2-2) · mã chết 5 (+3 khối `postotal==22` không tới được) · chưa dịch 2 |
+| Tín hiệu thanh nến | 8/10 | 8/10 (không đổi — không nới gì ở phần tín hiệu) |
+| Thoát lệnh đúng EA | Breakout1 | Breakout1 + **Breakout2, 2-2, 3 (rổ)** + **Template (SL/TP ATR)**; còn `giu` N bar: Breakout5-2-2 (lưới) |
+| Test lõi (`test_doc_ma*`, `test_trong_bar`, `test_sltp_he`, `test_toan_hang_tuyen_tinh`) + mới | 122 xanh | **152 xanh** (`test_ro_hedge.py` 20, `test_sltp_atr.py` 10; 3 test cũ sửa kỳ vọng phân loại) |
+| 69 file test chạm `doc_ma/ngu_phap/mo_phong/vong/chi_phi` | worktree sạch 21cc69dc: 1028 xanh / 50 đỏ / 9 lỗi thu thập | **1068 xanh / 40 đỏ / 9 lỗi — 0 đỏ mới** (10 đỏ chỉ ở worktree sạch: thiếu file dữ liệu cục bộ) |
+| Placebo `--gia-lap-duong` (7 dòng/seed) | — | CÓ phí seed 1-12: **giữ 0/84**; KHÔNG phí seed 1-20: giữ 2/140 (1,4%: Template seed 5, Breakout5-2-2 bán seed 20) |
+
+### Vòng lặp EURUSD H1 (`/workspace/eurusd_h1_server.csv`, 17.127 bar) — CÓ PHÍ (mặc định)
+`9 bóc được, 2 trùng (Breakout5=5-2-2), 7 chạy được → **giữ lại: 0**`. Kết quả `/workspace/vong_eurusd_ro.json`.
+| cơ chế | trước (21cc69dc) kiểm sau tối ưu, t | **bây giờ**: kiểm gốc → sau tối ưu | t (tối ưu/kiểm) | ghi chú |
+|---|---|---|---|---|
+| HỆ Breakout1 | −2,36/187, −1,3/−2,1 | −4,10/204 → −2,36/187 | −1,3/−2,1 | không đổi |
+| HỆ Breakout2-2 (rổ, hedge theo lời −30) | −3,03/217 (giữ N bar), −1,4/−2,8 | −3,07/93 → −1,67/88 (24+37 hedge) | −1,6/−1,5 | giờ 8→9 |
+| HỆ Breakout2 (=Breakout3) (rổ, hedge 300 point) | (trùng 2-2 vì cùng điểm vào) | −3,29/110 → −2,07/112 (38+36 hedge) | −0,2/−1,9 | giờ 8→11 |
+| HỆ Template (SL/TP ATR, rủi ro 1%, 1 vị thế) | mua −1,60/50 · bán +0,43/39 (riêng, giữ N bar) | −4,31/359 → −0,33/53 | −0,7/−0,3 | ATR 10, SL 2,5×, TP 12× |
+| Breakout5-2-2 mua / bán | −1,65/49 · +0,39/93 | không đổi | −0,6/−1,5 · −1,1/+0,3 | thoát vẫn `giu` (lưới martingale chưa dịch) |
+Toàn kỳ (không chia), có phí: Breakout2 427 rổ = 285 chốt đỉnh + 141 cắt lỗ −120$, giữ trung vị
+15 bar; lời TB/rổ trước phí ngoài spread ≈ −2,5$ → spread (0,47 log) ăn hết. Kết luận vẫn như vòng
+trước: mô hình thoát lệnh đúng hơn KHÔNG làm xuất hiện edge sau phí.
+
+### Vấn đề mở (ưu tiên vòng sau)
+1. Breakout5 / 5-2-2: lưới martingale (`stepprice`, `volumefactor`, `hedgeatlevel`, `zonesequence`,
+   cổng `prevTime` mỗi bar) — chưa dịch, vẫn `giu` N bar. Breakout4: lệnh đầu cần `PivotsDay` R1/S1.
+2. Ngưỡng tiền (45/−120/−30$) chỉ đúng cho cặp yết giá USD + tài khoản USD; cặp khác cần quy đổi.
+3. `MinStopDistance` giả định STOPS/FREEZE level = 0; nên đọc từ dữ liệu sàn khi có.
+4. Đường giá trong bar vẫn là giả định (gần open trước); rổ hedge nhạy với thứ tự chạm → nên kiểm
+   bằng M1 (cũ). Tối ưu Template 4 tham số → t tối ưu trên placebo thường >2; phần KIỂM là chốt chặn.
+5. (cũ) `PivotsDay`, `SellLimit/BuyLimit`, kho .mq5 lớn, bộ chọn sàn.
+
+---
+
+## (trước) Vòng 10/10 đêm — SL/TP + KÉO SL + MỘT LỆNH/NGÀY + MÔ PHỎNG CẢ HỆ (phí thật)
 ### 1. Đọc từ mã EA (`nhan/doc_ma.py`)
 - **SL/TP** (`_sltp_mql`): từ `PositionOpen(sym, type, vol, price, sl, tp)` tìm phép gán
   trong nhánh `if(upbreakout){...}`: `price = SymbolInfoDouble(_Symbol,SYMBOL_ASK|BID)`,
