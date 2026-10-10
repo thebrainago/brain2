@@ -53,3 +53,13 @@ Các pattern còn lại cần xử lý tiếp:
 - Hàm gọi (`PivotsIsPivotRange(...)`)
 
 Đây là bước đầu có số liệu, không phải kết luận cuối.
+
+## 8. Vòng lặp tối thiểu đã chạy được
+Đã tạo `vong_thu_nghiem.py`:
+- Quét `mau_thu/*.mq5`
+- Bóc tách bằng `doc_chien_luoc`
+- Sinh tín hiệu qua `ngu_phap._dieu_kien`
+- Mô phỏng bằng `mo_phong.chay` trên dữ liệu giả lập
+- Kết quả: 3 cơ chế chạy thành công, sinh lệnh và phơi nhiễm.
+
+Đây là khung để sau này thay dữ liệu giả bằng dữ liệu thật và thêm bước tối ưu thông số.
