@@ -2,7 +2,7 @@
 
 ## Trạng thái hiện tại
 - **Tỷ lệ bóc tách**: 10/22 = **45.5%** (tăng từ 13.6% nhờ xử lý &&/||, Tradesinfo, giữ cơ chế khi có phần parse được)
-- Vòng lặp `vong_thu_nghiem.py` chạy được 10 cơ chế trên dữ liệu giả lập.
+- Vòng lặp `vong_thu_nghiem.py` chạy được 10 cơ chế trên dữ liệu giả lập (đã thêm placeholder tối ưu thông số).
 
 ## Việc đã làm
 - Tiền xử lý MQL5: && → and, || → or, Tradesinfo.initprice/hedgeprice → close, initup → 1.
