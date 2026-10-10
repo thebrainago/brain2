@@ -44,6 +44,12 @@ def in_bang(tieu_de: str, r: dict) -> None:
     ms = L["dich_duoc"] + L["chua_dich"]
     print("  tin hieu thanh nen     : %d/%d = %.1f%%"
           % (L["dich_duoc"], ms, (100.0 * L["dich_duoc"] / ms) if ms else 0.0))
+    T = r.get("thoat") or {}
+    co_ra = T.get("ro", 0) + T.get("sltp", 0)
+    print("  loi ra theo EA         : %d/%d co che (sltp=%d, ro=%d; giu co dinh=%d; dong theo"
+          " muc=%d; gia dinh _Point=%d)"
+          % (co_ra, r["co_che"], T.get("sltp", 0), T.get("ro", 0), T.get("giu_co_dinh", 0),
+             T.get("dong_theo_muc", 0), T.get("gia_dinh_point", 0)))
     print("  ly do 'chua dien dat duoc':")
     for k, n in sorted(r["ly_do"].items(), key=lambda x: -x[1])[:12]:
         print("   %2dx  %s" % (n, k))

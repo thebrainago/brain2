@@ -53,15 +53,25 @@ void OnTick(){
 
 class TestChiBaoNhieuBuffer(unittest.TestCase):
     def test_bands_duoi_input_va_dich_la_tre(self):
+        # Sua 11/10/2026: bands_shift = s -> buffer bar 0 = gia tri TINH TAI bar MQL5 s
+        # (bar 1 = bar i) -> tre s-1, co dinh trong bar. Truoc day test nay khoa
+        # `tre 1` cho s = 1 (lech MOT bar: bollinger(i-1) thay vi bollinger(i)).
         d = _doc(BB % "1")
         self.assertEqual(d["so_vao_lenh_co_co_che"], 1)
         v = d["co_che"][0]["vao"][0]
         self.assertEqual(v["trai"], {"chi_bao": "gia", "cot": "close"})
         self.assertEqual(v["phep"], "<=")
-        self.assertEqual(v["phai"]["chi_bao"], "tre")
-        self.assertEqual(v["phai"]["n"], 1)
-        self.assertEqual(v["phai"]["cua"], {"chi_bao": "bollinger", "n": 20, "k": 2.0,
-                                            "lay": "duoi", "ddof": 0})
+        self.assertEqual(v["phai"], {"chi_bao": "bollinger", "n": 20, "k": 2.0,
+                                     "lay": "duoi", "ddof": 0})
+        v2 = _doc(BB % "3")["co_che"][0]["vao"][0]
+        self.assertEqual(v2["phai"]["chi_bao"], "tre")
+        self.assertEqual(v2["phai"]["n"], 2)
+        self.assertEqual(v2["phai"]["cua"]["lay"], "duoi")
+        # buffer bar 1 (CopyBuffer start 1) voi shift 1 = tinh tai bar 2 = tre 1
+        v3 = _doc((BB % "1").replace("CopyBuffer(h,2,0,1,lo)", "CopyBuffer(h,2,1,1,lo)")
+                  )["co_che"][0]["vao"][0]
+        self.assertEqual(v3["phai"]["chi_bao"], "tre")
+        self.assertEqual(v3["phai"]["n"], 1)
         self.assertEqual(d["co_che"][0]["ho"], "quay_ve_trung_binh")
         self.assertEqual(NP.kiem_khai_bao(d["co_che"][0]), [])
 

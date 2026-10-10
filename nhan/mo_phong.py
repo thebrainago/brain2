@@ -540,7 +540,8 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
     idx = df.index
     sp = cp.spread_mang(idx)
     canh_bao = list(cp.canh_bao)
-    if any(c_.get("ro") for c_ in chan) or any(c_.get("spread_max_diem") for c_ in chan):
+    if any(c_.get("ro") for c_ in chan) or any(c_.get("spread_max_diem") for c_ in chan) \
+            or any(c_.get("sl_diem") or c_.get("tp_diem") for c_ in chan):
         if diem is None:
             diem = _diem_tu_gia(float(np.nanmedian(cl)) if n else 1.0)
             canh_bao.append(f"_Point uoc tu gia = {diem:g} (gia dinh)")
@@ -555,6 +556,8 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
         for f in ("cho", "muc", "sl", "keo", "sl_kc", "tp_kc"):
             if c_.get(f) is not None and len(c_[f]) != n:
                 raise ValueError(f"chan.{f} phai dai bang du lieu")
+        if c_.get("dong_mo") is not None and len(c_["dong_mo"][1]) != n:
+            raise ValueError("chan.dong_mo phai dai bang du lieu")
         if c_.get("muc") is not None and c_.get("huong") not in (">", "<"):
             raise ValueError("chan co `muc` phai co huong '>' hoac '<'")
 
@@ -924,6 +927,61 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
         if (ro.get("dinh") or {}).get("reset_vao"):
             dinh_g[0] = 0.0
 
+    def _sltp_mt5(c_: dict, i: int, j: int, gia: float, ch: int):
+        """SL/TP dat TRUC TIEP o lenh vao (chan `mt5`, 11/10/2026). `gia` = BID du
+        lieu; ASK = BID + spread bar j. Muc tinh tu goc ASK/BID cua EA, roi quy ve
+        BID de so voi duong gia: lenh MUA dong o BID (giu nguyen), lenh BAN dong khi
+        ASK cham (muc - spread). Tra (sl, tp) theo BID, hoac (False, None) khi MT5
+        tu choi (SL/TP sai phia gia hien tai; SYMBOL_TRADE_STOPS_LEVEL gia dinh 0)."""
+        s_ = sp[j] * gia
+        goc = {"ASK": gia + s_, "BID": gia}
+        e = gia + s_ if ch > 0 else gia       # gia khop (ASK mua / BID ban)
+        sl = tp = None
+        if c_.get("sl") is not None:
+            sl = float(c_["sl"][i])
+            if not np.isfinite(sl):
+                return False, None
+        elif c_.get("sl_diem"):
+            sl = goc[c_["ref_sl"]] - ch * float(c_["sl_diem"]) * diem
+        elif c_.get("sl_kc") is not None:
+            d = float(c_["sl_kc"][i])
+            if not np.isfinite(d) or d <= 0:
+                return False, None
+            sl = goc[c_["ref_sl"]] - ch * d
+        if c_.get("tp_diem"):
+            tp = goc[c_["ref_tp"]] + ch * float(c_["tp_diem"]) * diem
+        elif c_.get("tp_kc") is not None:
+            d = float(c_["tp_kc"][i])
+            if not np.isfinite(d) or d <= 0:
+                return False, None
+            tp = goc[c_["ref_tp"]] + ch * d
+        elif c_.get("tp") and sl is not None:
+            tp = e + float(c_["tp"]) * (e - sl)   # TP = gia_vao + R*(gia_vao - SL)
+        if ch < 0:                            # lenh ban dong o ASK -> quy ve BID
+            sl = None if sl is None else sl - s_
+            tp = None if tp is None else tp - s_
+        if sl is not None and (sl - gia) * ch >= 0:
+            return False, None
+        if tp is not None and (tp - gia) * ch <= 0:
+            return False, None
+        return sl, tp
+
+    def _dong_mo(i: int, j: int) -> bool:
+        """`dong_mo_bar`: o TICK DAU bar j, dong khi gia (BID/ASK) `phep` muc[i]."""
+        if pos is None or pos.get("ro") is not None:
+            return False
+        dm = chan[pos["k"]].get("dong_mo")
+        if dm is None:
+            return False
+        L = dm[1][i]
+        if not np.isfinite(L):
+            return False
+        g = o[j] + (sp[j] * o[j] if dm[2] == "ASK" else 0.0)
+        if _so(g, dm[0], L):
+            _ra(j, o[j], "dong_mo_bar")
+            return True
+        return False
+
     def _vao(k: int, i: int, j: int, gia: float, ngay) -> bool:
         nonlocal pos
         c_ = chan[k]
@@ -948,6 +1006,22 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
                 _tick_ro(j, gia)
             return True
         w = 1.0
+        if c_.get("mt5"):
+            sl, tp = _sltp_mt5(c_, i, j, gia, ch)
+            if sl is False:
+                return False                  # MT5 tu choi lenh (SL/TP sai phia / ATR <= 0)
+            het = None if (sl is not None or tp is not None or c_.get("dong_mo") is not None) \
+                else j + max(1, int(c_["giu"]))
+            pos = {"k": k, "chieu": ch, "sl": sl, "tp": tp, "het": het, "ref": gia, "w": w}
+            if nhat_ky is not None:
+                nhat_ky.append({"chan": k, "chieu": ch, "bar_vao": j, "gia_vao": gia,
+                                "sl": sl, "tp": tp, "trong_so": w})
+            for b in c_.get("dat") or []:
+                bien[b] = ngay
+            so_lenh[k] += 1
+            kl[k, j] += w
+            co_lenh[j] = 1.0
+            return True
         sl = float(c_["sl"][i]) if c_.get("sl") is not None else None
         tp = None
         if c_.get("sl_kc") is not None:
@@ -1009,6 +1083,7 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
                 return True
         return False
 
+    da_dong_mo = False
     for j in range(1, n):
         i = j - 1
         ngay = ngay_thang[j]
@@ -1025,11 +1100,16 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
                     _ra(j, o[j], "gap_sl")        # gap qua SL
                 elif tp is not None and (o[j] - tp) * ch >= 0:
                     _ra(j, o[j], "gap_tp")        # gap qua TP
+                elif _dong_mo(i, j):
+                    # EA: cntBuy>0 o tick nay -> khong vao lai cung tick (vao truoc dong)
+                    da_dong_mo = True
                 else:
                     _keo(i, o[j])
         cuc[0] = cuc[1] = o[j]
-        if pos is None:
-            _vao_tai(i, j, o[j], ngay, True)
+        if pos is None and not da_dong_mo:
+            if _vao_tai(i, j, o[j], ngay, True):
+                _dong_mo(i, j)                # EA kiem dong SAU lenh vao, cung tick
+        da_dong_mo = False
         duong = _duong_bar(o[j], hi[j], lo[j], cl[j])
         for s_ in range(3):
             cur, b = duong[s_], duong[s_ + 1]

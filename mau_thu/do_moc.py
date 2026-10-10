@@ -38,12 +38,22 @@ def do(files=None) -> dict:
             "quan_ly_dich_duoc": 0}
     ly_do: dict[str, int] = {}
     dong: list[tuple] = []
+    thoat: dict[str, int] = {}
     for p in (sorted(MAU.glob("*.mq5")) if files is None else files):
         vb = p.read_text(encoding="utf-8", errors="ignore")
         tong += 1
         ds = DM.doc_ma(vb, ngon_ngu="mql5", nguon=p.name)
         d = DM.doc_chien_luoc(vb, nguon=p.name)
         co_che += len(d.get("co_che", []))
+        for sp in d.get("co_che", []):
+            # LOI RA (them 11/10/2026): co che dong theo logic cua EA (SL/TP, ro lenh,
+            # dong theo muc) hay chi giu co dinh `giu` bar (KHONG phai EA)
+            k_ra = "ro" if sp.get("ro") else "sltp" if sp.get("sltp") else "giu_co_dinh"
+            thoat[k_ra] = thoat.get(k_ra, 0) + 1
+            if sp.get("dong_mo_bar"):
+                thoat["dong_theo_muc"] = thoat.get("dong_theo_muc", 0) + 1
+            if sp.get("gia_dinh_diem"):
+                thoat["gia_dinh_point"] = thoat.get("gia_dinh_point", 0) + 1
         vao_lenh += d.get("so_vao_lenh", 0)
         vao_co += d.get("so_vao_lenh_co_co_che", 0)
         for k, v in (d.get("phan_loai_vao_lenh") or {}).items():
@@ -54,7 +64,7 @@ def do(files=None) -> dict:
         dong.append((p.name, len(d.get("co_che", [])), d.get("so_vao_lenh", 0)))
     return {"file": tong, "co_che": co_che, "vao_lenh": vao_lenh,
             "vao_co": vao_co, "loai": loai,
-            "ly_do": ly_do, "dong": dong}
+            "ly_do": ly_do, "dong": dong, "thoat": thoat}
 
 
 def main() -> int:

@@ -1,6 +1,73 @@
-# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (tối, giờ VN)
+# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (khuya, giờ VN)
 
-## Vòng "THOÁT SỚM + CHỈ BÁO SỐNG TRONG BAR + MACD/STOCH + BUỘC THAM SỐ" (sau 56ee431e) — tối 10/10/2026
+## Vòng "SL/TP ĐẶT TRỰC TIẾP Ở LỆNH VÀO (bộ mo_rong) + `--diem`" (sau 95a59074) — khuya 10/10/2026
+Không nới ngưỡng giữ (t ≥ 2,0 tối ưu / 1,5 kiểm, ≥47/≥20 lệnh, cổng tài khoản/placebo/cháy).
+Breakout4 vẫn bỏ qua (không đoán `_Point`/PivotsDay).
+
+### Số đo
+| | trước (95a59074) | **bây giờ** |
+|---|---|---|
+| `mau_thu` (10 EA, 22 điểm vào) | 13/22 = 59,1% | **13/22 = 59,1%** (đầu ra `doc_chien_luoc` giống hệt từng byte) |
+| `mau_thu/mo_rong` (15 EA, 34) | 9/34 = 26,5% | **9/34 = 26,5%** |
+| gộp (25 EA, 56) | 22/56 = 39,3% | **22/56 = 39,3%** |
+| **lối ra theo EA** (mo_rong, 10 cơ chế) | 0/10 (giữ cố định `giu` bar) | **10/10** (sltp=10; đóng theo mức=2; giả định `_Point`=6) |
+| lối ra theo EA (gộp, 24 cơ chế) | 14/24 | **24/24** (sltp=14, rổ=10) |
+
+Tỷ lệ bóc tách điểm vào KHÔNG đổi — vòng này dịch LỐI RA (trước đây kết quả mo_rong chỉ là của điểm
+vào + giữ N bar, không phải EA). `do_moc*.py` in thêm dòng "loi ra theo EA".
+
+### 1. Đọc SL/TP trực tiếp (`nhan/doc_ma._sltp_truc_tiep`)
+- `PositionOpen(.., gia, SL, TP, ..)` / `trade.Buy/Sell(lot, sym, gia, SL, TP)`; truy biến SL/TP về
+  phép gán cuối trên đường đi (`_gan_tren_duong`, kể cả khối if/else-if gán chiều kiểu 015).
+- Dạng nhận (chỉ khi chắc): `ASK/BID ± N*_Point` (`_Point`, `Point()`, `SYMBOL_POINT`; N = số/input)
+  → `sl_diem/tp_diem` + `ref_sl/ref_tp` (giá gốc EA dùng: 011/013 lấy BID cho mua, 012 lấy ASK);
+  `ASK/BID ± ATR*k` → `sl_kc/tp_kc` (chỉ ATR); SL = mức chỉ báo + `TP = gia + R*(gia - SL)` → `sl`
+  mức + `tp` R (015). Khác → giữ `giu`, ghi lý do (không đoán).
+- Chuẩn hoá thêm chế độ `tach_ask_bid` (token `_ask0_/_bid0_` CÙNG độ dài `_gia0_` để vị trí khớp).
+- Đóng lệnh ở tick đầu bar (`_dong_mo_bar_mql`, 013): `if(cntBuy>0 && bid>=BB_Base[0]) ClosePositions(1)`
+  sau lệnh vào cùng hàm, EA cổng IsNewBar, hàm đóng lọc đúng loại → khối `dong_mo_bar`.
+- **Sửa lệch 1 bar** (`_toan_hang`): chỉ báo có dịch (`bands_shift`/`ma_shift` = s) đọc buffer bar 0
+  = giá trị tính tại bar MQL5 s → trễ s−1 (trước: trễ s, tức bollinger(i−1) thay vì bollinger(i)).
+  Test cũ khoá sai đã sửa trong `test_doc_ma_mo_rong.py`.
+
+### 2. DSL + mô phỏng
+- `ngu_phap`: `sltp.mt5` (≤1 kiểu SL, ≤1 kiểu TP, ref ASK/BID bắt buộc với khoảng cách), `dong_mo_bar`;
+  `tham_so_cua` phơi `sltp_sl_diem/tp_diem` + mức đóng; `sinh_chan` truyền qua.
+- `mo_phong.chay_he` chân `mt5`: giá dữ liệu = BID, ASK = BID + spread bar vào; lệnh BÁN đóng khi ASK
+  chạm (quy về BID: mức − spread); MT5 từ chối lệnh khi SL/TP sai phía (STOPS_LEVEL giả định 0);
+  không SL/TP/đóng-mức thì mới dùng `giu`. `dong_mo_bar` kiểm ở tick đầu, SAU lệnh vào cùng tick, và
+  không vào lại cùng tick vừa đóng (như EA đếm cntBuy).
+
+### 3. Vòng lặp (`vong_thu_nghiem.py`)
+- `--diem` (mặc định 1e-5 = EURUSD 5 số — GIẢ ĐỊNH khai báo); in cảnh báo nếu mức giá gợi ý `_Point`
+  khác; dòng kết quả ghi `[SL/TP theo _Point=..]`.
+- Cơ chế có `sltp`/`dong_mo_bar` không nhóm → chạy riêng qua `chay_he` (trước bị `danh_gia` bỏ qua).
+- Chỉ SIẾT tối ưu: không tối ưu độ trễ bar (`khoa_tre` — chỉ số bar trong mã, không phải input);
+  buffer cùng một handle (bands dưới/trên/giữa) buộc chung chu kỳ. Ứng viên SL/TP điểm = ×0,5…2.
+
+### 4. Vòng CÓ phí (EURUSD, spread 1,63 bps/chiều, trượt 0,41, qua đêm) — `--loc-file '**/*.mq5'`
+- mo_rong, EURUSD H1 server (17.127 bar): 10 cơ chế, **giữ 0**. Tốt nhất 013 bán t −0,9/+0,6,
+  012 bán −0,4/+0,5. Gốc (thông số EA) mọi chân âm (sh −2…−5,5 phần kiểm).
+- mo_rong, Dukascopy 2003–2021 (116.175 bar): **giữ 0**. 013 mua t −8,3/−7,4 (lỗ rõ sau phí);
+  015 bán t +1,9/+0,5 (gần nhất, vẫn dưới ngưỡng); 011 tối ưu chỉ còn 7–8 lệnh phần kiểm (bị loại vì ít lệnh).
+- mau_thu (lối ra không đổi): EURUSD H1 và Dukascopy giữ 0, số giống hệt lần trước.
+- So với mô hình cũ giữ N bar (cùng điểm vào): gốc thường bớt âm, nhưng không chân nào thành lợi thế.
+
+### 5. Test
+- Mới `test_sltp_truc_tiep.py` (21: đọc 011/012/013/015/017, từ chối khi không chắc, mô phỏng ASK/BID,
+  từ chối sai phía, đóng tick đầu, không nhìn trước, DSL, vòng chạy qua `chay_he`) — xanh.
+- 264 test đọc MQL5/SL-TP/thoát sớm xanh; 169 test vòng/rổ/lưới/stop-out/chi phí xanh. Đỏ còn lại
+  (`test_loi_ra`, `test_ngu_phap_toan_hang`, `test_cua_vao` mỗi file 1–2) đỏ y hệt trên 95a59074;
+  toàn bộ: 0 đỏ mới (2 test `test_sua_bang_llm` đỏ khi chạy cả bộ, xanh khi chạy riêng — phụ thuộc thứ tự/env).
+
+### Còn chặn
+- Hàm phụ/trạng thái lớp/cờ static (EMA Crossover, Box Breakout, Viprasol, 016 MACross); iADX MT5 (019).
+- Chỉ báo sống trong EA cổng bar mới (05/014); 3 điểm vào nhánh `else`; 2 mâu thuẫn bar0~bar1.
+- `_Point` thật theo broker/mã (đang giả định 1e-5 qua `--diem`); STOPS_LEVEL giả định 0.
+- EA không giới hạn số vị thế (011/012…): mô phỏng MỘT vị thế mỗi chân (xấp xỉ, ghi `gia_dinh`).
+- Breakout4 (PivotsDay, `_Point`) — vẫn không đoán.
+
+## (trước) Vòng "THOÁT SỚM + CHỈ BÁO SỐNG TRONG BAR + MACD/STOCH + BUỘC THAM SỐ" (sau 56ee431e) — tối 10/10/2026
 Không nới ngưỡng giữ (t ≥ 2,0 tối ưu / 1,5 kiểm, ≥47/≥20 lệnh, cổng tài khoản/placebo/cháy).
 Không coi định danh lạ là close. iADX (không Wilder) vẫn bỏ qua có lý do.
 

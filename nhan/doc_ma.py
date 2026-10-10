@@ -687,6 +687,14 @@ def _toan_hang(tu: str, vi_tri: int, bang: list,
         g = _toan_hang(tu[:-len(_CB0)], vi_tri, bang, bang_bt, sau)
         if g is None or "hang" in g:
             return g
+        if g.get("chi_bao") == "tre" and isinstance(g.get("n"), int) and g["n"] >= 1:
+            # Them 11/10/2026: chi bao co DICH (ma_shift/bands_shift = s >= 1) o
+            # buffer bar 0 = gia tri TINH TAI bar MQL5 s (bar 1 = bar i) -> tre s-1,
+            # va CO DINH trong bar (khong doi theo tick). Truoc day: bar 0 ~ bar i
+            # roi cong them tre s -> lech MOT bar (iBands(..,1,..)[0] doc thanh
+            # bollinger(i-1) thay vi bollinger(i)). Hau to `[S0]` chi gan cho ten
+            # ham buffer (khong co `[k]`), nen `tre` o goc chi co the den tu dich.
+            return g["cua"] if g["n"] == 1 else dict(g, n=g["n"] - 1)
         return dict(g, _bar0=1)
     tre = 0
     m_tre = re.search(r"\[(\d+)\]$", tu)
@@ -1395,6 +1403,8 @@ def _ten_bar_mql(goc: str, k: int) -> str:
 #: van la `close` (tick dau ~ close bar i), nhung giu dau vet de biet dieu kien
 #: nao doi theo tung tick - xem `_kiem_moi_tick` / khoi `trong_bar`.
 _GIA0 = "_gia0_"
+#: chi trong ban `tach_ask_bid` (bo doc SL/TP) - cung do dai voi `_GIA0`
+_ASK0, _BID0 = "_ask0_", "_bid0_"
 
 
 #: Hau to danh dau CHI BAO o bar 0 (gia tri doi theo tick). `_toan_hang` doc ra
@@ -1409,8 +1419,13 @@ def _ten_bar_mql_song(goc: str, k: int) -> str:
     return _ten_bar_mql(goc, k)
 
 
-def _chuan_hoa_mql5(vb: str) -> str:
-    """Viet lai CU PHAP MQL5 ve dang bo doc da hieu. Khong doi nghia."""
+def _chuan_hoa_mql5(vb: str, tach_ask_bid: bool = False) -> str:
+    """Viet lai CU PHAP MQL5 ve dang bo doc da hieu. Khong doi nghia.
+
+    `tach_ask_bid=True` (them 11/10/2026, chi cho bo doc SL/TP): `tk.ask`/`tk.bid`
+    -> `_ask0_`/`_bid0_` thay vi `_gia0_` - CUNG DO DAI nen moi vi tri trong van
+    ban ra trung khop voi ban thuong (bo doc SL/TP dung vi tri lenh vao cua ban
+    thuong)."""
     vb = vb.replace("&&", " and ").replace("||", " or ")
     vb = _gap_hang_cau_hinh(vb)
     # iClose(_Symbol,_Period,k) -> close[k-1]  (khung hien tai, quy uoc o tren)
@@ -1515,6 +1530,9 @@ def _chuan_hoa_mql5(vb: str) -> str:
     # (cung token `_GIA0` nhu `iClose(..,0)`; chenh lech ask/bid do mo hinh phi lo).
     for tk in set(re.findall(r"\bMqlTick[ \t]+(\w+)", vb)):
         if re.search(rf"\bSymbolInfoTick[ \t]*\([^,()]+,[ \t]*{tk}[ \t]*\)", vb):
+            if tach_ask_bid:
+                vb = re.sub(rf"\b{tk}\.ask\b", _ASK0, vb)
+                vb = re.sub(rf"\b{tk}\.bid\b", _BID0, vb)
             vb = re.sub(rf"\b{tk}\.(?:ask|bid|last)\b", _GIA0, vb)
 
     # dt.hour trong PHEP SO SANH -> gio (chi khi dt la MqlDateTime)
@@ -2721,6 +2739,348 @@ def _sltp_mql(vb: str, m, chieu: int, co: str | None, vi: int, bang_cb: list,
     return khoi, ghi
 
 
+
+# ---------------------------------------------------------------------
+# SL/TP DAT TRUC TIEP O LENH VAO (them 11/10/2026, bo EA mo rong)
+#
+# `double sl = currentTick.bid - Stop_Loss*_Point; PositionOpen(..,ask,sl,tp,..)`
+# (011/012/013), `sl = ask - ATR[0]*k; trade.Buy(lot,_Symbol,ask,sl,tp)` (017),
+# `SL = MA2[1]; TP = open + R*(open - SL)` (015). Khoi sinh ra co `mt5: True`:
+#   sl      : toan hang MUC (co dinh trong bar)        | None
+#   sl_diem : so DIEM (x `_Point`, doi bang `--diem`)  | None
+#   sl_kc   : khoang cach toan hang (ATR x he so)       | None
+#   tp      : he so R (TP = gia_vao + chieu*|gia_vao-SL|*R) | None
+#   tp_diem / tp_kc : nhu tren cho TP
+#   ref_sl / ref_tp : "ASK" | "BID" - gia ma EA lay lam GOC cua khoang cach
+# Mo phong (`mo_phong.chay_he`, chan `mt5`): gia du lieu = BID, ASK = BID +
+# spread; lenh BAN dong khi ASK cham SL/TP (quy ve BID: muc - spread). Chi dich
+# khi MOI mau doc chac chan; con lai giu `giu` va ghi ly do - khong doan.
+# ---------------------------------------------------------------------
+_RX_DIEM_MQL = r"(?:_Point|Point\(\)|SymbolInfoDouble\((?:_Symbol|Symbol\(\)),SYMBOL_POINT\))"
+_RX_ASKBID_MQL = r"SymbolInfoDouble\((?:_Symbol|Symbol\(\)),SYMBOL_(ASK|BID)\)"
+
+
+def _sau_khong_am(vb: str, a: int, b: int) -> bool:
+    """Do sau ngoac `{}` tu a toi b khong bao gio am (khong ra khoi khoi chua a)."""
+    d = 0
+    for ch in vb[a:b]:
+        if ch == "{":
+            d += 1
+        elif ch == "}":
+            d -= 1
+            if d < 0:
+                return False
+    return True
+
+
+def _gan_tren_duong(vb: str, goc: int, vi: int | None, den: int,
+                    ten: str) -> tuple[int, str] | None:
+    """Phep gan `ten = X;` CUOI CUNG nam tren duong toi `den` trong ham co `{` o
+    `goc`: hoac khoi chua phep gan con mo toi `den`, hoac phep gan nam trong khoi
+    `{}` dau tien sau guard nhanh `vi` (chuoi if/else-if gan chieu, EA 015)."""
+    kb = None
+    if vi is not None and vi > goc:
+        mo = vb.find("{", vi)
+        if 0 <= mo < den:
+            kb = (mo, _cuoi_khoi(vb, mo))
+    ra = None
+    for mm in re.finditer(rf"(?<![\w.]){re.escape(ten)}[ \t]*=(?!=)[ \t]*([^;{{}}]+);",
+                          vb[goc:den]):
+        p, e = goc + mm.start(), goc + mm.end()
+        ok = _sau_khong_am(vb, e, den)
+        if not ok and kb and kb[0] < p < kb[1] and _sau_khong_am(vb, e, kb[1]):
+            ok = True
+        if ok:
+            ra = (p, mm.group(1).strip())
+    return ra
+
+
+def _bo_ngoac_ngoai(bt: str) -> str:
+    while bt.startswith("(") and _dong_ngoac(bt, 0) == len(bt) - 1:
+        bt = bt[1:-1]
+    return bt
+
+
+def _tach_cong_tru1(bt: str) -> tuple[str, str, str] | None:
+    """`A-B` / `A+B` o muc ngoac 0 (dau dau tien sau ky tu dau). A,B khong rong."""
+    muc = 0
+    for i, ch in enumerate(bt):
+        if ch in "([":
+            muc += 1
+        elif ch in ")]":
+            muc -= 1
+        elif ch in "+-" and muc == 0 and i > 0 and bt[i - 1] not in "*/eE(?:":
+            a, b = bt[:i], bt[i + 1:]
+            return (a, ch, b) if a and b else None
+    return None
+
+
+def _so_hang(x: str, hang: dict) -> float | None:
+    if re.fullmatch(_SO, x):
+        return float(x)
+    v = hang.get(x)
+    return float(v) if isinstance(v, (int, float)) and not isinstance(v, bool) else None
+
+
+def _gia_ab(x: str, vb: str, goc: int, vi: int | None, den: int, sau: int = 0) -> str | None:
+    """Bieu thuc gia -> "ASK" | "BID" | None (gia tick hien tai)."""
+    x = _bo_ngoac_ngoai(re.sub(r"\s+", "", x))
+    if x == _ASK0:
+        return "ASK"
+    if x == _BID0:
+        return "BID"
+    m = re.fullmatch(_RX_ASKBID_MQL, x)
+    if m:
+        return m.group(1)
+    m = re.fullmatch(r"(\w+)\.(ask|bid)", x)
+    if m and re.search(rf"\bMqlTick[ \t]+{m.group(1)}\b", vb) and \
+            re.search(rf"\bSymbolInfoTick[ \t]*\((?:_Symbol|Symbol\(\)),[ \t]*{m.group(1)}[ \t]*\)",
+                      vb):
+        return m.group(2).upper()       # `SymbolInfoTick(Symbol(), tk)` (khong qua `_GIA0`)
+    if sau < 3 and re.fullmatch(_TEN, x):
+        g = _gan_tren_duong(vb, goc, vi, den, x)
+        if g is not None:
+            return _gia_ab(g[1], vb, goc, vi, g[0], sau + 1)
+    return None
+
+
+def _la_atr(t) -> bool:
+    while isinstance(t, dict) and t.get("chi_bao") == "tre":
+        t = t.get("cua")
+    return isinstance(t, dict) and t.get("chi_bao") == "atr"
+
+
+def _khoang(d: str, vi_tri: int, bang_cb: list, bang_bl: list,
+            hang: dict) -> tuple[str, object] | None:
+    """Khoang cach SL/TP: ("diem", N) | ("kc", toan hang tuyen_tinh ATR*k) | None."""
+    d = _bo_ngoac_ngoai(d)
+    for pat in (rf"(\w+(?:\.\d+)?)\*{_RX_DIEM_MQL}", rf"{_RX_DIEM_MQL}\*(\w+(?:\.\d+)?)"):
+        m = re.fullmatch(pat, d)
+        if m:
+            v = _so_hang(m.group(1), hang)
+            return ("diem", v) if v is not None and v > 0 else None
+    pt = d.split("*")
+    if len(pt) == 1:
+        op, he = pt[0], 1.0
+    elif len(pt) == 2:
+        a, b = _so_hang(pt[1], hang), _so_hang(pt[0], hang)
+        op, he = (pt[0], a) if a is not None else (pt[1], b)
+    else:
+        return None
+    if he is None or he <= 0:
+        return None
+    t = _toan_hang(op, vi_tri, bang_cb, bang_bl)
+    if t is None or not _muc_dong(t) or not _la_atr(t):
+        return None                     # chi nhan ATR (chac nghia); khac -> khong doan
+    return ("kc", {"chi_bao": "tuyen_tinh", "toan_hang": [t], "he_so": [float(he)]})
+
+
+def _sltp_truc_tiep(vb2: str, m, chieu: int, vi: int | None, bang_cb: list,
+                    bang_bl: list, hang: dict) -> tuple[dict | None, list[str]]:
+    """Khoi `sltp` (`mt5`) cho lenh vao `m` (PositionOpen / obj.Buy / obj.Sell).
+    `vb2` = van ban chuan hoa voi `tach_ask_bid=True` (vi tri trung `vb`)."""
+    if m.group("ham") == "PositionOpen":
+        ix = (3, 4, 5)
+    elif m.group("mql"):
+        ix = (2, 3, 4)                  # CTrade::Buy(volume, symbol, price, sl, tp, ..)
+    else:
+        return None, []
+    ds = _tach_doi_so(vb2, vb2.find("(", m.start()))
+    if not ds or len(ds) <= ix[2]:
+        return None, []
+    g_vao, sl_a, tp_a = (re.sub(r"\s+", "", ds[i]) for i in ix)
+    goc, _ = _dau_ham(vb2, m.start())
+    den = m.start()
+    can = "ASK" if chieu > 0 else "BID"
+    ghi: list[str] = []
+    gv = _gia_ab(g_vao, vb2, goc, vi, den) if g_vao not in ("0", "0.0") else can
+    if gv != can:
+        if m.group("mql") and gv is not None:
+            ghi.append(f"`{m.group('mql')}` truyen gia {gv}: gia dinh san khop lenh thi "
+                       f"truong o {can} (market execution / do lech <= Slippage)")
+        else:
+            return None, [f"gia vao `{g_vao[:30]}` khong phai {can} hien tai - SL/TP chua dich"]
+
+    def _bt(ten: str):
+        if ten in ("0", "0.0", "NULL"):
+            return "0"
+        if not re.fullmatch(_TEN, ten):
+            return None
+        x = _gan_tren_duong(vb2, goc, vi, den, ten)
+        if x is None:
+            return None
+        bt = _bo_ngoac_ngoai(re.sub(r"\s+", "", x[1]))
+        mt = re.fullmatch(r"\(?(\w+)==0(?:\.0)?\)?\?0(?:\.0)?:(.+)", bt)
+        if mt:                          # `Stop_Loss == 0 ? 0 : ...` (input = hang)
+            v = _so_hang(mt.group(1), hang)
+            if v is None:
+                return None
+            if v == 0:
+                return "0"
+            bt = _bo_ngoac_ngoai(mt.group(2))
+        if "?" in bt:
+            return None
+        return x[0], bt
+
+    khoi = {"mt5": True, "sl": None, "tp": None, "keo": None, "sl_diem": None,
+            "tp_diem": None, "sl_kc": None, "tp_kc": None, "ref_sl": None, "ref_tp": None}
+    mo_ta = {}
+    for f, ten, dau_dung in (("sl", sl_a, "-" if chieu > 0 else "+"),
+                             ("tp", tp_a, "+" if chieu > 0 else "-")):
+        x = _bt(ten)
+        if x is None:
+            return None, ghi + [f"{f.upper()} `{ten[:30]}` khong truy duoc phep gan - SL/TP chua dich"]
+        if x == "0":
+            mo_ta[f] = "khong"
+            continue
+        pos, bt = x
+        ct = _tach_cong_tru1(bt)
+        if ct is not None:
+            ref = _gia_ab(ct[0], vb2, goc, vi, pos)
+            if ref is not None:
+                if ct[1] != dau_dung:
+                    return None, ghi + [f"{f.upper()} `{bt[:40]}` sai phia - chua dich"]
+                kc = _khoang(ct[2], pos, bang_cb, bang_bl, hang)
+                if kc is None:
+                    return None, ghi + [f"{f.upper()} khoang `{ct[2][:40]}` khong phai "
+                                        "N*_Point hay ATR*k - chua dich"]
+                if kc[0] == "diem":
+                    khoi[f + "_diem"] = float(kc[1])
+                    mo_ta[f] = f"{ref} {ct[1]} {kc[1]:g} diem"
+                else:
+                    khoi[f + "_kc"] = kc[1]
+                    th = kc[1]["toan_hang"][0]
+                    mo_ta[f] = f"{ref} {ct[1]} {kc[1]['he_so'][0]:g} x ATR({th.get('n', th)})"
+                khoi["ref_" + f] = ref
+                continue
+        if f == "sl":
+            t = _toan_hang(bt, pos, bang_cb, bang_bl)
+            if t is not None and _muc_dong(t) and "hang" not in t and \
+                    t.get("chi_bao") not in ("gia",):
+                khoi["sl"] = t
+                mo_ta["sl"] = f"muc `{bt[:30]}` luc vao"
+                continue
+            return None, ghi + [f"SL `{bt[:40]}` khong dich duoc - chua dich"]
+        # TP = gia_vao + R*(gia_vao - SL) (dung cho ca hai chieu)
+        G, S = re.escape(g_vao), re.escape(sl_a)
+        R = None
+        if re.fullmatch(_TEN, g_vao) and re.fullmatch(_TEN, sl_a):
+            for pat in (rf"{G}\+\(?(\w+(?:\.\d+)?)\*\({G}-{S}\)\)?",
+                        rf"{G}\+\(?\({G}-{S}\)\*(\w+(?:\.\d+)?)\)?",
+                        rf"{G}-\(?(\w+(?:\.\d+)?)\*\({S}-{G}\)\)?",
+                        rf"{G}-\(?\({S}-{G}\)\*(\w+(?:\.\d+)?)\)?"):
+                mm = re.fullmatch(pat, bt)
+                if mm:
+                    R = _so_hang(mm.group(1), hang)
+                    break
+        if R is None or R <= 0 or khoi["sl"] is None and khoi["sl_diem"] is None \
+                and khoi["sl_kc"] is None:
+            return None, ghi + [f"TP `{bt[:40]}` khong dang gia+-khoang hay gia+R*(gia-SL)"
+                                " - chua dich"]
+        khoi["tp"] = float(R)
+        mo_ta["tp"] = f"gia_vao + {R:g} x (gia_vao - SL)"
+    if all(khoi[k] is None for k in ("sl", "sl_diem", "sl_kc", "tp", "tp_diem", "tp_kc")):
+        return None, ghi + ["EA khong dat SL/TP (ca hai = 0) - van giu `giu`"]
+    ghi.insert(0, f"SL = {mo_ta.get('sl')}; TP = {mo_ta.get('tp')} (dat tai lenh vao, san tu "
+               "dong; gia du lieu = BID, ASK = BID + spread cua bar vao; lenh BAN dong khi ASK "
+               "cham; SYMBOL_TRADE_STOPS_LEVEL gia dinh 0)")
+    if khoi["sl_diem"] is not None or khoi["tp_diem"] is not None:
+        ghi.append("SL/TP tinh bang _Point: gia dinh _Point = --diem cua vong lap "
+                   "(mac dinh 1e-5 = EURUSD 5 so) - KHONG dung cho cap JPY/vang neu khong doi")
+    if khoi["sl_kc"] is not None or khoi["tp_kc"] is not None:
+        ghi.append("ATR cua MT5 = trung binh cong TR (iATR), khong phai Wilder")
+    return khoi, ghi
+
+
+def _ham_dong_theo_loai(vb: str, ten: str, doi: str) -> set | None:
+    """`ClosePositions(1)`: than ham duyet PositionsTotal, `if(p==1 and type==
+    POSITION_TYPE_SELL){continue;}` ... `PositionClose(` -> tap loai bi dong."""
+    mh = re.search(rf"\b(?:bool|void|int)[ \t]+{re.escape(ten)}[ \t]*\([ \t]*int[ \t]+(\w+)"
+                   r"[ \t]*\)\s*\{", vb)
+    if not mh:
+        return None
+    a = mh.end() - 1
+    than = vb[a:_cuoi_khoi(vb, a)]
+    if "PositionClose(" not in than or "PositionsTotal()" not in than:
+        return None
+    p = mh.group(1)
+    bo = set()
+    for mm in re.finditer(rf"if[ \t]*\([ \t]*{p}[ \t]*==[ \t]*(\d+)[ \t]+and[ \t]+\w+[ \t]*==[ \t]*"
+                          r"POSITION_TYPE_(BUY|SELL)[ \t]*\)\s*\{?\s*continue\s*;", than):
+        if mm.group(1) == doi:
+            bo.add(mm.group(2))
+    if re.search(rf"\b{p}\b", re.sub(rf"if[ \t]*\([ \t]*{p}[ \t]*==[ \t]*\d+[ \t]+and[^)]*\)",
+                                       "", than)):
+        return None                     # tham so dung o cho khac -> khong chac
+    return {"BUY", "SELL"} - bo
+
+
+def _dong_mo_bar_mql(vb2: str, m, chieu: int, bang_cb: list, bang_bl: list
+                     ) -> tuple[dict | None, list[str]]:
+    """`if(cntBuy>0 and tk.bid>=BB_Base[0]){ClosePositions(1);}` SAU lenh vao trong
+    cung ham, EA chi chay o tick dau bar (cong IsNewBar) -> khoi `dong_mo_bar`:
+    {"phep", "muc": toan hang co dinh trong bar, "gia": "BID"|"ASK"}."""
+    goc, _ = _dau_ham(vb2, m.start())
+    het = _cuoi_khoi(vb2, goc)
+    if het < 0:
+        return None, []
+    loai = "BUY" if chieu > 0 else "SELL"
+    ra, ghi = None, []
+    for mm in re.finditer(r"\bif[ \t]*\(", vb2[m.end():het]):
+        a = m.end() + mm.end() - 1
+        k = _dong_ngoac(vb2, a)
+        if k < 0:
+            continue
+        sau = re.match(r"\s*\{?\s*(\w+)[ \t]*\([ \t]*(\d+)[ \t]*\)[ \t]*;\s*\}?", vb2[k + 1:])
+        if not sau:
+            continue
+        dong = _ham_dong_theo_loai(vb2, sau.group(1), sau.group(2))
+        if dong is None or loai not in dong:
+            continue
+        than = vb2[goc + 1:mm.start() + m.end()]
+        if than.count("{") != than.count("}"):
+            continue                    # khoi dong khong o muc than ham (nam trong nhanh)
+        # moi `if(X) return;` truoc no (ke ca trong nhanh lenh vao) phai la quan tri /
+        # kiem loi du lieu - khong thi co tick EA khong toi duoc lenh dong
+        chan = []
+        for mi in re.finditer(r"\bif[ \t]*\(", vb2[goc:a]):
+            ai = goc + mi.end() - 1
+            ki = _dong_ngoac(vb2, ai)
+            if ki < 0 or ki > a or _lenh_thoat(vb2, ki) is None:
+                continue
+            dk_ = vb2[ai + 1:ki].strip()
+            if not _la_quan_tri(dk_):
+                chan.append(dk_)
+        if chan:
+            return None, [f"dong lenh: co `return` theo dieu kien truoc no ({chan[0][:40]})"
+                          " - chua dich"]
+        ves = [x.strip() for x in _tach_va(_boc_ngoac(vb2[a + 1:k]))]
+        gia = [x for x in ves if not _la_quan_tri(x)]
+        if len(gia) != 1:
+            return None, [f"dong lenh `{vb2[a + 1:k][:50]}` khong phai mot phep so gia - chua dich"]
+        mc = re.fullmatch(r"(\S+)\s*(>=|<=|>|<)\s*(\S+)", gia[0])
+        if not mc:
+            return None, [f"dong lenh `{gia[0][:50]}` chua dich"]
+        tr, ph, ve = mc.group(1), mc.group(2), mc.group(3)
+        g = _gia_ab(tr, vb2, goc, None, a)
+        if g is None:
+            g, ve = _gia_ab(ve, vb2, goc, None, a), tr
+            ph = _DAO_VE[ph]
+        if g is None:
+            return None, [f"dong lenh `{gia[0][:50]}` khong so ASK/BID - chua dich"]
+        t = _toan_hang(ve, a, bang_cb, bang_bl)
+        if t is None or not _muc_dong(t) or "hang" in t:
+            return None, [f"dong lenh: muc `{ve[:40]}` khong co dinh trong bar - chua dich"]
+        if _kiem_moi_tick(vb2, a) is not False:
+            return None, ["dong lenh theo chi bao kiem MOI tick - chua mo phong (chi tick dau)"]
+        if ra is not None:
+            return None, ["nhieu dieu kien dong lenh - chua dich"]
+        ra = {"phep": ph, "muc": t, "gia": g}
+        ghi.append(f"dong lenh o TICK DAU bar khi {g} {ph} `{ve[:30]}` (EA cong IsNewBar; "
+                   "kiem SAU lenh vao cung tick)")
+    return ra, ghi
+
+
 def _keo_sl_mql(vb: str, chieu: int, bang_cb: list, bang_bl: list) -> dict | None:
     """`sl = MathMax(sl, X); trade.PositionModify(_Symbol, sl, ...)` trong khoi
     `if(posType==POSITION_TYPE_BUY)` (MathMin cho SELL), voi `sl` doc tu
@@ -2790,6 +3150,13 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
     global _CHE_DO_MQL
     vb_tho = vb                                     # truoc chuan hoa MQL5 (cho `RO.doc_sltp_kc`)
     vb = _chuan_hoa_mql5(vb)
+    # ban giu ASK/BID (bo doc SL/TP truc tiep) - chi dung neu vi tri trung khop
+    try:
+        vb2 = _chuan_hoa_mql5(vb_tho, tach_ask_bid=True)
+        if len(vb2) != len(vb):
+            vb2 = None
+    except Exception:                               # noqa: BLE001
+        vb2 = None
     bang_cb = sorted(_bang_ky_hieu(vb) + _bang_mql(vb), key=lambda x: x[0])
     bang_bl = _bang_bool(vb)
     khai = rut_input(vb)
@@ -3022,6 +3389,7 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
                             if not re.search(r"CountMyPositions|\batr[ \t]*<=[ \t]*0", x)]
                 if sltp is not None:
                     ra[-1]["sltp"] = sltp
+                ghi_sltp_cu = list(ghi) if sltp is None else []
                 gia_dinh += ghi
                 mln = _mot_lenh_ngay_mql(vb, m, co_nhanh, thoat)
                 if mln is not None:
@@ -3045,6 +3413,32 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
                         "ro lenh: loi lo tinh bang tien te YET GIA (USD voi EURUSD), "
                         "hop dong 100000/lot, tai khoan HEDGING chi co EA nay, "
                         "_Point = buoc gia nho nhat (1e-5 voi EURUSD 5 so)")
+                if "ro" not in ra[-1] and "sltp" not in ra[-1] and vb2 is not None:
+                    # SL/TP dat truc tiep o lenh vao (`_Point`, ATR, muc + R) - 11/10/2026
+                    try:
+                        k3, g3 = _sltp_truc_tiep(vb2, m, c, vi, bang_cb, bang_bl, hang)
+                        d3, g4 = _dong_mo_bar_mql(vb2, m, c, bang_cb, bang_bl) \
+                            if not ra[-1].get("trong_bar") and moi_tick_m is False else (None, [])
+                    except Exception as e:          # noqa: BLE001 - khong lam vo ca file
+                        k3, g3, d3, g4 = None, [f"SL/TP truc tiep: loi doc {type(e).__name__}"], \
+                            None, []
+                    if k3 is not None:
+                        ra[-1]["sltp"] = k3
+                        gia_dinh = [x for x in gia_dinh if x not in ghi_sltp_cu]
+                        gia_dinh += g3
+                        if (k3.get("sl_diem") or k3.get("tp_diem")):
+                            ra[-1]["gia_dinh_diem"] = True
+                        if d3 is not None:
+                            ra[-1]["dong_mo_bar"] = d3
+                        gia_dinh += g4
+                        if c and not re.search(r"\bcnt(?:Buy|Sell)\b|Count\w*Positions|"
+                                               r"PositionSelect|PositionsTotal",
+                                               " ".join(ra[-1]["bo_qua_quan_tri"])):
+                            gia_dinh.append(
+                                "EA KHONG gioi han so vi the (chi mot lenh/bar): mo phong MOT "
+                                "vi the moi chan - tin hieu khi dang co lenh bi bo (xap xi)")
+                    else:
+                        gia_dinh += [x for x in g3 if x not in gia_dinh]
                 if tac_th:
                     gia_dinh.append("thoat som co lenh khac truoc return (chua mo phong): "
                                     + "; ".join(sorted(set(tac_th)))[:160])

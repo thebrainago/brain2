@@ -1624,6 +1624,8 @@ def kiem_khai_bao(spec: dict) -> list[str]:
         loi += _kiem_trong_bar(spec)
     if spec.get("sltp") is not None:
         loi += _kiem_sltp(spec)
+    if spec.get("dong_mo_bar") is not None:
+        loi += _kiem_dong_mo_bar(spec)
     if spec.get("mot_lenh_ngay") is not None:
         loi += _kiem_mot_lenh_ngay(spec)
     if spec.get("ro") is not None:
@@ -1637,6 +1639,8 @@ def _kiem_sltp(spec: dict) -> list[str]:
     if not isinstance(k, dict):
         return ["'sltp' phai la dict"]
     loi = []
+    if k.get("mt5"):
+        return _kiem_sltp_mt5(spec, k)
     if isinstance(k.get("sl_kc"), dict):
         # SL/TP theo KHOANG CACH tu gia vao (EA Template: ATR x he so)
         loi += [f"sltp.sl_kc: {e}" for e in _kiem_toan_hang(k["sl_kc"])]
@@ -1670,6 +1674,61 @@ def _kiem_sltp(spec: dict) -> list[str]:
             loi += [f"sltp.keo: {e}" for e in _kiem_toan_hang(k["keo"])]
     if spec.get("ra"):
         loi.append("sltp chua ho tro dieu kien `ra`")
+    return loi
+
+
+def _kiem_sltp_mt5(spec: dict, k: dict) -> list[str]:
+    """Khoi `sltp` co `mt5: True` (SL/TP dat truc tiep o lenh vao, 11/10/2026):
+    toi da MOT kieu SL (`sl` muc | `sl_diem` | `sl_kc`) va MOT kieu TP (`tp` he so R
+    | `tp_diem` | `tp_kc`); `ref_sl`/`ref_tp` ("ASK"/"BID") bat buoc voi kieu khoang
+    cach; `tp` R can co SL. Xem `doc_ma._sltp_truc_tiep`, `mo_phong.chay_he`."""
+    loi = []
+    sl_k = [f for f in ("sl", "sl_diem", "sl_kc") if k.get(f) is not None]
+    tp_k = [f for f in ("tp", "tp_diem", "tp_kc") if k.get(f) is not None]
+    if len(sl_k) > 1:
+        loi.append(f"sltp(mt5): nhieu kieu SL {sl_k}")
+    if len(tp_k) > 1:
+        loi.append(f"sltp(mt5): nhieu kieu TP {tp_k}")
+    if not sl_k and not tp_k:
+        loi.append("sltp(mt5): khong co SL lan TP")
+    for f in ("sl", "sl_kc", "tp_kc"):
+        if k.get(f) is not None:
+            if not isinstance(k[f], dict):
+                loi.append(f"sltp.{f} phai la toan hang")
+            else:
+                loi += [f"sltp.{f}: {e}" for e in _kiem_toan_hang(k[f])]
+    for f in ("sl_diem", "tp_diem", "tp"):
+        if k.get(f) is not None and not _so_duong(k[f]):
+            loi.append(f"sltp.{f} phai la so > 0")
+    for f, ds in (("ref_sl", ("sl_diem", "sl_kc")), ("ref_tp", ("tp_diem", "tp_kc"))):
+        if any(k.get(x) is not None for x in ds) and k.get(f) not in ("ASK", "BID"):
+            loi.append(f"sltp.{f} phai la 'ASK' hoac 'BID'")
+    if k.get("tp") is not None and not sl_k:
+        loi.append("sltp.tp (he so R) can SL")
+    if k.get("keo") is not None:
+        loi.append("sltp(mt5) chua ho tro keo SL")
+    if spec.get("ra"):
+        loi.append("sltp chua ho tro dieu kien `ra`")
+    return loi
+
+
+def _kiem_dong_mo_bar(spec: dict) -> list[str]:
+    """`dong_mo_bar` = {phep, muc, gia}: dong lenh o TICK DAU bar j khi gia (BID/ASK
+    luc mo bar j) `phep` muc[i] (muc biet tai close bar i)."""
+    d = spec.get("dong_mo_bar")
+    if not isinstance(d, dict):
+        return ["'dong_mo_bar' phai la dict"]
+    loi = []
+    if d.get("phep") not in (">", ">=", "<", "<="):
+        loi.append("dong_mo_bar.phep phai la > >= < <=")
+    if d.get("gia") not in ("ASK", "BID"):
+        loi.append("dong_mo_bar.gia phai la 'ASK' hoac 'BID'")
+    if not isinstance(d.get("muc"), dict):
+        loi.append("dong_mo_bar.muc phai la toan hang")
+    else:
+        loi += [f"dong_mo_bar.muc: {e}" for e in _kiem_toan_hang(d["muc"])]
+    if spec.get("ro") is not None or spec.get("trong_bar") is not None:
+        loi.append("dong_mo_bar chi cho lenh vao tick dau, khong ro")
     return loi
 
 
@@ -2139,6 +2198,9 @@ def sinh_chan(spec: dict, df: pd.DataFrame) -> dict:
     tp = float(k["tp"]) if k.get("tp") else None
     sl_kc = toan_hang(df, k["sl_kc"]).to_numpy(dtype=float) if k.get("sl_kc") else None
     tp_kc = toan_hang(df, k["tp_kc"]).to_numpy(dtype=float) if k.get("tp_kc") else None
+    dmb = spec.get("dong_mo_bar")
+    dong_mo = (dmb["phep"], toan_hang(df, dmb["muc"]).to_numpy(dtype=float), dmb["gia"]) \
+        if isinstance(dmb, dict) else None
     mln = spec.get("mot_lenh_ngay") or {}
     # Cap mua/ban BU NHAU quanh mot muc (`vao_lai_giua_bar`, `doc_ma._vao_lai_giua_bar`, vd Breakout5:
     # mua khi gia < pivot gio, ban khi gia >= pivot): o tick dau `cho` la du; nhung khi
@@ -2161,7 +2223,11 @@ def sinh_chan(spec: dict, df: pd.DataFrame) -> dict:
             "ro": spec.get("ro"),
             # SL/TP theo khoang cach (ATR x he so), khoi luong theo rui ro, loc spread
             "sl_kc": sl_kc, "tp_kc": tp_kc, "sl_kc_min_spread": k.get("sl_kc_min_spread"),
-            "rui_ro": k.get("rui_ro"), "spread_max_diem": spec.get("loc_spread_diem")}
+            "rui_ro": k.get("rui_ro"), "spread_max_diem": spec.get("loc_spread_diem"),
+            # SL/TP dat truc tiep (MT5, 11/10/2026): diem x _Point, goc ASK/BID, ASK cham
+            # voi lenh ban; dong o tick dau bar theo muc (`dong_mo_bar`)
+            "mt5": bool(k.get("mt5")), "sl_diem": k.get("sl_diem"), "tp_diem": k.get("tp_diem"),
+            "ref_sl": k.get("ref_sl"), "ref_tp": k.get("ref_tp"), "dong_mo": dong_mo}
 
 
 # --------------------------------------------------------------- KHO CO CHE
@@ -2664,6 +2730,11 @@ def tham_so_cua(spec: dict) -> dict:
                     ra["sltp_atr_n"] = int(th["n"])
         if isinstance(k.get("tp"), (int, float)) and not isinstance(k.get("tp"), bool):
             ra["sltp_tp"] = float(k["tp"])
+        for f in ("sl_diem", "tp_diem"):            # input Stop_Loss / Take_Profit (diem)
+            if _so_duong(k.get(f)):
+                ra[f"sltp_{f}"] = float(k[f])
+        if isinstance(spec.get("dong_mo_bar"), dict):
+            _di_spec(spec["dong_mo_bar"].get("muc"), "dong_mo_bar_muc", ra)
         return ra
     if isinstance(spec.get("ro"), dict):
         # Dong theo RO (tong loi lo): `giu` khong co nghia -> khong phoi ra.
@@ -2683,6 +2754,9 @@ def ap_tham_so(spec: dict, ts: dict) -> dict:
         if khoa == "giu":
             moi["giu"] = int(gt)
             continue
+        if khoa.startswith("dong_mo_bar_muc") and isinstance(moi.get("dong_mo_bar"), dict):
+            _dat(moi["dong_mo_bar"], khoa[len("dong_mo_bar"):], gt)
+            continue
         if khoa.startswith("sltp_") and isinstance(moi.get("sltp"), dict):
             if khoa in ("sltp_sl_he", "sltp_tp_he", "sltp_atr_n"):
                 for f in (("sl_kc",) if khoa == "sltp_sl_he" else ("tp_kc",)
@@ -2699,6 +2773,8 @@ def ap_tham_so(spec: dict, ts: dict) -> dict:
                 continue
             if khoa == "sltp_tp":
                 moi["sltp"]["tp"] = float(gt)
+            elif khoa in ("sltp_sl_diem", "sltp_tp_diem"):
+                moi["sltp"][khoa[len("sltp_"):]] = float(gt)
             else:
                 _dat(moi["sltp"], khoa[len("sltp"):], gt)
             continue
