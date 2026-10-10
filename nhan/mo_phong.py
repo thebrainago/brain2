@@ -52,6 +52,7 @@ class KetQua:
     bar_chay: int | None = None
     ngay_chay: object = None
     von_mang: np.ndarray | None = None     # von SO HOC (co the ve 0)
+    chi_tiet: dict | None = None           # `chay_he`: tung chan (mua/ban) rieng
 
     @property
     def von(self) -> np.ndarray:
@@ -406,6 +407,279 @@ def chay_dung_trong_bar(df: pd.DataFrame, cho_phep, muc, huong: str, chieu: int,
         chi_phi_giu=float(np.nansum(phi_gi)), so_lan_doi=int(np.sum(kl > 0)),
         so_lenh=so_lenh, phoi_nhiem=float(np.mean(np.abs(v))),
         canh_bao=list(cp.canh_bao))
+
+
+# ------------------------------------------------------- HE NHIEU CHAN + SL/TP
+def _duong_bar(o: float, h: float, l: float, c: float) -> tuple:
+    """Duong gia gia dinh TRONG bar: O -> cuc tri GAN open hon -> cuc tri kia -> C.
+
+    Cung quy tac du an da dung o `chay_tpsl` ("gan open hon thi cham truoc",
+    KHONG mac dinh SL - THIET_KE muc 13). Bang nhau: nen tang O-L-H-C, nen
+    giam O-H-L-C (quy uoc OHLC cua MT5)."""
+    if abs(h - o) < abs(o - l):
+        return (o, h, l, c)
+    if abs(h - o) > abs(o - l):
+        return (o, l, h, c)
+    return (o, l, h, c) if c >= o else (o, h, l, c)
+
+
+def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "",
+            khung: str = "", nhat_ky: list | None = None) -> KetQua:
+    """Mo phong MOT EA co nhieu chan (mua + ban) chung mot tai khoan (10/10/2026 dem).
+
+    Vi sao: EA Breakout1 khong phai hai co che doc lap. No (1) chi mo lenh khi
+    KHONG co vi the (`if(PositionSelect) checkForClose(); else checkForOpen();`),
+    (2) chan moi lenh sau lenh dau trong ngay (`lastupday/lastdownday`) - ban
+    khop truoc thi mua bi chan ca ngay va nguoc lai, (3) dong bang SL/TP dat
+    luc vao (SL = bien doi dien khung phien, TP = R x TPFactor) va keo SL moi bar
+    - khong phai giu N bar. Mo phong tung chan rieng voi `giu` la mo phong mot he
+    KHAC.
+
+    `chan` = danh sach dict tu `ngu_phap.sinh_chan` (thu tu = uu tien khi hai
+    chan cung kich hoat o cung mot gia - hiem). Moi mang biet tai CLOSE bar i;
+    bar j = i+1:
+      1. Tick dau (open j): dang co lenh -> het gio (`giu`) dong o open; gap qua
+         SL/TP -> dong o open; roi keo SL bang keo[i] (chi siet, va chi khi muc
+         moi con o phia dung cua gia hien tai - khong thi MT5 tu choi).
+         Khong co lenh -> chan nao du dieu kien ma gia open da qua muc (hoac
+         chan vao o tick dau) thi vao o open.
+      2. Di duong gia trong bar (`_duong_bar`), tung doan don dieu: dang co lenh
+         thi tim SL/TP bi cat truoc; khong co lenh thi tim muc kich hoat bi cat
+         truoc. Vao lenh xong (tick ke tiep) ap keo SL ngay, roi tiep tuc doan.
+         Dong lenh giua bar xong van co the vao lai trong bar (neu luat ngay
+         cho phep) - dung nhu EA chay moi tick.
+      3. Cuoi bar con lenh: tinh lai/lo toi open j+1.
+    `nhat_ky` (list) neu co: moi lenh mot dict (chan, vao/ra: bar, gia, ly do) - de soat tay.
+    CHAN CHEO (co + loc): chan co `co` = (huong, muc[]) va `loc` = [(phep, muc[])]
+    (EA: `bool up = current[0].high > H; if(up && gia < MA) return;`). Co bat
+    khi CUC TRI bar dang chay vuot muc va giu suot bar. Khi co cua chan KHAC
+    dang bat ma loc cua no khong thoa o gia hien tai, EA `return` truoc lenh vao
+    -> chan nay cung KHONG vao duoc (Breakout1: gia da xuyen ca hai bien phien
+    trong mot bar -> hai loc MA trai nhau, khong vao lenh nao het bar do).
+    Luat ngay: chan bi chan khi ngay-trong-thang cua bar j bang gia tri cua BAT
+    KY bien nao trong `chan_boi`; vao lenh xong gan `dat` = ngay do (y het EA,
+    ke ca viec so NGAY TRONG THANG chu khong phai ngay day du).
+
+    KHONG nhin truoc: quyet dinh o bar j chi dung mang tai i = j-1 va gia cua
+    chinh bar j (lenh cho/SL/TP nam san tren san). Test cat: `test_sltp_he.py`.
+    """
+    n = len(df)
+    K = len(chan)
+    o = df["open"].to_numpy(dtype=float)
+    hi = df["high"].to_numpy(dtype=float)
+    lo = df["low"].to_numpy(dtype=float)
+    cl = df["close"].to_numpy(dtype=float)
+    idx = df.index
+    try:
+        ngay_thang = np.asarray(idx.day)
+    except AttributeError:
+        ngay_thang = np.zeros(n, dtype=int)
+    for c_ in chan:
+        for f in ("cho", "muc", "sl", "keo"):
+            if c_.get(f) is not None and len(c_[f]) != n:
+                raise ValueError(f"chan.{f} phai dai bang du lieu")
+        if c_.get("muc") is not None and c_.get("huong") not in (">", "<"):
+            raise ValueError("chan co `muc` phai co huong '>' hoac '<'")
+
+    loi_tho = np.zeros((K, n))
+    kl = np.zeros((K, n))
+    v_cuoi = np.zeros((K, n))
+    co_lenh = np.zeros(n)
+    so_lenh = [0] * K
+    bien: dict = {}
+    pos: dict | None = None
+    cuc = [0.0, 0.0]                           # cao / thap cua bar dang chay
+
+    def _so(a: float, phep: str, b: float) -> bool:
+        return {">": a > b, ">=": a >= b, "<": a < b, "<=": a <= b}.get(phep, False)
+
+    def _bi_chan_cheo(k: int, i: int, gia: float) -> bool:
+        hi_, lo_ = max(cuc[0], gia), min(cuc[1], gia)
+        for m_, c_ in enumerate(chan):
+            if m_ == k or c_.get("co") is None or not bool(c_["cho"][i]):
+                continue
+            h_, lv = c_["co"]
+            if not np.isfinite(lv[i]):
+                continue
+            bat = hi_ > lv[i] if h_ == ">" else lo_ < lv[i]
+            if bat and not all(np.isfinite(x[i]) and _so(gia, ph, x[i])
+                               for ph, x in c_.get("loc") or []):
+                return True
+        return False
+
+    def _duoc(k: int, i: int, ngay) -> bool:
+        c_ = chan[k]
+        if not bool(c_["cho"][i]):
+            return False
+        if any(bien.get(b) == ngay for b in c_.get("chan_boi") or []):
+            return False
+        if c_.get("muc") is not None and not np.isfinite(c_["muc"][i]):
+            return False
+        if c_.get("sl") is not None and not np.isfinite(c_["sl"][i]):
+            return False
+        return True
+
+    def _keo(i: int, gia: float) -> None:
+        kk = chan[pos["k"]].get("keo")
+        if kk is None or pos["sl"] is None:
+            return
+        x = kk[i]
+        if not np.isfinite(x):
+            return
+        if pos["chieu"] > 0 and pos["sl"] < x < gia:
+            pos["sl"] = x
+        elif pos["chieu"] < 0 and gia < x < pos["sl"]:
+            pos["sl"] = x
+
+    def _vao(k: int, i: int, j: int, gia: float, ngay) -> bool:
+        nonlocal pos
+        c_ = chan[k]
+        ch = c_["chieu"]
+        sl = float(c_["sl"][i]) if c_.get("sl") is not None else None
+        if sl is not None and (sl - gia) * ch >= 0:
+            return False                      # SL sai phia: MT5 tu choi lenh
+        tp = None
+        if sl is not None and c_.get("tp"):
+            tp = gia + ch * abs(gia - sl) * float(c_["tp"])
+        het = None if (sl is not None or tp is not None) else j + max(1, int(c_["giu"]))
+        pos = {"k": k, "chieu": ch, "sl": sl, "tp": tp, "het": het, "ref": gia}
+        if nhat_ky is not None:
+            nhat_ky.append({"chan": k, "chieu": ch, "bar_vao": j, "gia_vao": gia,
+                            "sl": sl, "tp": tp})
+        for b in c_.get("dat") or []:
+            bien[b] = ngay
+        so_lenh[k] += 1
+        kl[k, j] += 1.0
+        co_lenh[j] = 1.0
+        _keo(i, gia)                          # checkForClose o tick ke tiep
+        return True
+
+    def _ra(j: int, gia: float, ly_do: str = "") -> None:
+        nonlocal pos
+        k = pos["k"]
+        if nhat_ky is not None and nhat_ky:
+            nhat_ky[-1].update(bar_ra=j, gia_ra=gia, ly_do=ly_do, sl_cuoi=pos["sl"])
+        loi_tho[k, j] += pos["chieu"] * np.log(gia / pos["ref"])
+        kl[k, j] += 1.0
+        pos = None
+
+    def _vao_tai(i: int, j: int, gia: float, ngay, tick_dau: bool) -> bool:
+        """Vao NGAY tai gia hien tai neu co chan da qua muc (hoac vao o tick dau)."""
+        for k in range(K):
+            if not _duoc(k, i, ngay):
+                continue
+            c_ = chan[k]
+            m = c_.get("muc")
+            if m is None:
+                ok = tick_dau                 # tin hieu tick dau: chi o open
+            elif c_["huong"] == ">":
+                ok = gia > m[i]
+            else:
+                ok = gia < m[i]
+            if ok and not _bi_chan_cheo(k, i, gia) and _vao(k, i, j, gia, ngay):
+                return True
+        return False
+
+    for j in range(1, n):
+        i = j - 1
+        ngay = ngay_thang[j]
+        if pos is not None:
+            co_lenh[j] = 1.0
+            ch, sl, tp = pos["chieu"], pos["sl"], pos["tp"]
+            if pos["het"] is not None and pos["het"] <= j:
+                _ra(j, o[j], "het_gio")
+            elif sl is not None and (o[j] - sl) * ch <= 0:
+                _ra(j, o[j], "gap_sl")        # gap qua SL
+            elif tp is not None and (o[j] - tp) * ch >= 0:
+                _ra(j, o[j], "gap_tp")        # gap qua TP
+            else:
+                _keo(i, o[j])
+        cuc[0] = cuc[1] = o[j]
+        if pos is None:
+            _vao_tai(i, j, o[j], ngay, True)
+        duong = _duong_bar(o[j], hi[j], lo[j], cl[j])
+        for s_ in range(3):
+            cur, b = duong[s_], duong[s_ + 1]
+            if b == cur:
+                continue
+            len_ = b > cur
+            bo_qua: set = set()
+            for _ in range(8 + K):            # moi vong: mot su kien
+                if pos is not None:
+                    ch, sl, tp = pos["chieu"], pos["sl"], pos["tp"]
+                    x = ld = None
+                    if len_:
+                        if ch > 0 and tp is not None and cur < tp <= b:
+                            x, ld = tp, "tp"
+                        elif ch < 0 and sl is not None and cur < sl <= b:
+                            x, ld = sl, "sl"
+                    else:
+                        if ch > 0 and sl is not None and b <= sl < cur:
+                            x, ld = sl, "sl"
+                        elif ch < 0 and tp is not None and b <= tp < cur:
+                            x, ld = tp, "tp"
+                    if x is None:
+                        break
+                    _ra(j, x, ld)
+                    cur = x
+                    cuc[0], cuc[1] = max(cuc[0], x), min(cuc[1], x)
+                    _vao_tai(i, j, cur, ngay, False)   # EA kiem lai ngay tick sau
+                    continue
+                best = None
+                for k in range(K):
+                    c_ = chan[k]
+                    if c_.get("muc") is None or not _duoc(k, i, ngay) or k in bo_qua:
+                        continue
+                    L = c_["muc"][i]
+                    if len_ and c_["huong"] == ">" and cur <= L < b:
+                        d = L - cur
+                    elif not len_ and c_["huong"] == "<" and b < L <= cur:
+                        d = cur - L
+                    else:
+                        continue
+                    if best is None or d < best[0]:
+                        best = (d, k, L)
+                if best is None:
+                    break
+                if _bi_chan_cheo(best[1], i, best[2]):
+                    # Breakout1: chan cheo giu nguyen het bar (cuc tri chi lon
+                    # dan, hai loc MA trai nhau) -> bo chan nay o phan con lai
+                    # cua doan; doan sau xet lai.
+                    bo_qua.add(best[1])
+                    continue
+                if not _vao(best[1], i, j, best[2], ngay):
+                    break
+                cur = best[2]
+                cuc[0], cuc[1] = max(cuc[0], cur), min(cuc[1], cur)
+            cuc[0], cuc[1] = max(cuc[0], b), min(cuc[1], b)
+        if pos is not None:
+            co_lenh[j] = 1.0
+            if j + 1 < n:
+                loi_tho[pos["k"], j] += pos["chieu"] * np.log(o[j + 1] / pos["ref"])
+                pos["ref"] = o[j + 1]
+                v_cuoi[pos["k"], j] = pos["chieu"]
+
+    loi_tho = np.nan_to_num(loi_tho, nan=0.0, posinf=0.0, neginf=0.0)
+    sp = cp.spread_mang(idx)
+    loi_k = np.zeros((K, n))
+    phi_sp = phi_tr = phi_gi = 0.0
+    for k in range(K):
+        a = kl[k] * sp
+        t = kl[k] * cp.truot_gia_frac
+        g = cp.phi_giu_mang(idx, v_cuoi[k], None)
+        loi_k[k] = loi_tho[k] - a - t - g
+        phi_sp += float(np.nansum(a))
+        phi_tr += float(np.nansum(t))
+        phi_gi += float(np.nansum(g))
+    v = v_cuoi.sum(axis=0)
+    ct = {"chan": [{"chieu": chan[k]["chieu"], "so_lenh": so_lenh[k], "loi": loi_k[k]}
+                   for k in range(K)]}
+    return KetQua(
+        ma=ma, khung=khung, index=idx, vi_the=v, loi=loi_k.sum(axis=0),
+        loi_tho=loi_tho.sum(axis=0), r=_loi_suat_tien(df),
+        chi_phi_spread=phi_sp, chi_phi_truot=phi_tr, chi_phi_giu=phi_gi,
+        so_lan_doi=int(np.sum(kl.sum(axis=0) > 0)), so_lenh=int(sum(so_lenh)),
+        phoi_nhiem=float(np.mean(co_lenh)), canh_bao=list(cp.canh_bao), chi_tiet=ct)
 
 
 # ------------------------------------------------------------------ TIEN ICH

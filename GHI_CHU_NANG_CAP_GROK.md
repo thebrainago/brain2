@@ -1,4 +1,89 @@
-# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (khuya, giờ VN)
+# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (đêm, giờ VN)
+
+## Vòng 10/10 đêm — SL/TP + KÉO SL + MỘT LỆNH/NGÀY + MÔ PHỎNG CẢ HỆ (phí thật)
+### 1. Đọc từ mã EA (`nhan/doc_ma.py`)
+- **SL/TP** (`_sltp_mql`): từ `PositionOpen(sym, type, vol, price, sl, tp)` tìm phép gán
+  trong nhánh `if(upbreakout){...}`: `price = SymbolInfoDouble(_Symbol,SYMBOL_ASK|BID)`,
+  `sl = <mức>` (phải dịch được thành mức CỐ ĐỊNH trong bar), `tp = price ± ((price−sl)·k)`
+  với k là hằng/input (`TPFactor`). Breakout1: SL mua = đáy phiên 5-8h, SL bán = đỉnh
+  phiên, TP = 1R. Mẫu khác (TP hằng số pip, `price−calculateDistance`) → KHÔNG đoán, ghi
+  `gia_dinh`, giữ `giu` như cũ. Breakout2/2-2/3/5 mở lệnh `NULL, NULL` → không có SL/TP.
+- **Kéo SL** (`_keo_sl_mql`): `sl = MathMax(sl, lowrange)` + `PositionModify` trong khối
+  `if(posType==POSITION_TYPE_BUY)` (MathMin cho SELL), `sl` đọc từ `POSITION_SL`, hàm gọi
+  từ `OnTick` → Breakout1: kéo theo `thap_nhat(low,3)` / `cao_nhat(high,3)` (3 bar đã đóng).
+- **Sửa lỗi kèm** (`_bang_mql`): mảng `highs/lows` được `Copy*` ở NHIỀU hàm; bản cũ giữ lần
+  Copy CUỐI trong file nên `lowrange` của `checkForClose` bị dịch thành đáy PHIÊN. Giờ lấy
+  lần Copy gần nhất TRƯỚC phép gán. (JSON 14 cơ chế trước/sau giống hệt ngoài khoá mới.)
+- **Một lệnh/ngày** (`_mot_lenh_ngay_mql`): `if(a==dt.day || b==dt.day) return;` trước lệnh
+  + `if(up) a=dt.day;` sau lệnh → `"mot_lenh_ngay": {"nhom", "chan_boi", "dat"}`; guard bỏ
+  khỏi `bo_qua_quan_tri` (giờ được mô hình hoá). Có ở Breakout1, 2, 2-2, 3.
+- **Cờ vs lọc** (`trong_bar.loc`): `bool up = current[0].high > H;` là CỜ (cực trị bar đang
+  chạy, bật là giữ suốt bar); `if(up && close<MA) return;` là LỌC gắn với cờ. Đo trên
+  EURUSD: 42/682 lệnh (6%) của mô hình độc lập là lệnh EA KHÔNG vào được (giá đã xuyên
+  biên kia trong cùng bar → hai lọc MA trái nhau → `return` hết bar).
+### 2. DSL (`nhan/ngu_phap.py`)
+- Khoá mới: `"sltp": {"sl": toán hạng, "tp": hệ số R | null, "keo": toán hạng | null}`,
+  `"mot_lenh_ngay"`, `trong_bar.loc`; `kiem_khai_bao` kiểm cả ba.
+- `sinh_chan(spec, df)` → mảng biết tại close bar i (cho/mức/SL/kéo/cờ/lọc).
+- `tham_so_cua`: có `sltp` thì KHÔNG phơi `giu` (EA không đóng theo giờ) mà phơi `sltp_tp`
+  (TPFactor) và `sltp_keo_n`; `ap_tham_so` đặt ngược được.
+### 3. Mô phỏng (`nhan/mo_phong.chay_he`)
+Một tài khoản, nhiều chân: một vị thế một lúc (`if(PositionSelect) checkForClose(); else
+checkForOpen();`), luật ngày theo NGÀY-TRONG-THÁNG như EA, tick đầu: hết giờ/gap qua SL/TP
+→ đóng ở open, rồi kéo SL (chỉ siết, bỏ nếu mức mới vượt giá hiện tại – MT5 từ chối).
+Đường giá trong bar: O → cực trị GẦN open hơn → cực trị kia → C (cùng quy tắc dự án ở
+`chay_tpsl`, không mặc định SL). Đóng giữa bar xong vẫn có thể vào lại (EA chạy mọi tick).
+Chặn chéo cờ/lọc như trên. `nhat_ky=` ghi từng lệnh để soát tay. Không nhìn trước: test cắt.
+### 4. Vòng lặp (`vong_thu_nghiem.py`)
+- Các chân cùng `mot_lenh_ngay.nhom` chạy CHUNG (`danh_gia_nhom`), một dòng kết quả “HE …”,
+  in thêm từng chân + mô hình cũ (riêng, giữ N bar) để so.
+- Tối ưu cả hệ (`toi_uu_nhom`): tham số có mặt ở mọi chân với CÙNG giá trị là MỘT input của
+  EA (giờ, chu kỳ MA, TPFactor, kéo SL) → buộc chung; ứng viên TPFactor {0.5…3}R.
+- Ngưỡng giữ KHÔNG đổi: t ≥ 2,0 tối ưu / 1,5 kiểm, ≥47 lệnh tối ưu & ≥20 lệnh kiểm, phí thật.
+- `--he-so-spread F`: chỉ là ĐỘ NHẠY (nhân spread đo được), mặc định 1 = phí thật.
+
+### Số đo
+| | 9c39b674 | bây giờ |
+|---|---|---|
+| Điểm vào dịch được (`do_moc.py`) | 8/22 = 36,4% | **8/22 = 36,4%** (vòng này sửa ĐỘ ĐÚNG mô phỏng, không đổi tỷ lệ) |
+| Cơ chế có SL/TP thật / luật ngày | 0 / 0 | **2 (Breakout1) / 8 chân (Breakout1, 2, 2-2, 3)** |
+| `test_sltp_he.py` (mới) | — | **18 xanh** (đọc SL/TP/kéo/luật ngày + 5 đột biến mã EA, khớp giá tay: TP, gap SL, kéo SL, luật ngày bán chặn mua, một vị thế, chặn chéo cờ/lọc, phép cắt, placebo) |
+| `test_doc_ma*`, `test_trong_bar`, `test_toan_hang_tuyen_tinh` | 104 xanh | 104 xanh (2 test sửa kỳ vọng: Breakout1 giờ là 1 dòng NHÓM 2 chân) |
+| 54 file test chạm `doc_ma`/`ngu_phap`/`mo_phong`/`vong` | (worktree sạch 9c39b674) 920 xanh / 46 đỏ / 5 lỗi | **948 xanh / 36 đỏ / 5 lỗi, 0 đỏ mới** (10 đỏ chỉ ở worktree sạch – thiếu file dữ liệu cục bộ; đỏ còn lại có sẵn: scipy, nao.db…) |
+| Placebo `--gia-lap-duong` seed 1-16, KHÔNG phí | — | **giữ 0/16** (hệ Breakout1: Sharpe kiểm gốc TB +0,28; t tối ưu thường >2 – quá khớp trong mẫu, phần kiểm chặn được) |
+
+### Vòng lặp EURUSD H1 (`/workspace/eurusd_h1_server.csv`, 17.127 bar) — CÓ PHÍ (mặc định)
+Spread 1,63 bps/chiều (XM), trượt 0,41 bps, qua đêm mua +2,48%/bán −0,45%/năm.
+`10 bóc được, 4 trùng, 6 chạy được → **giữ lại: 0**`. Kết quả: `/workspace/vong_eurusd_sltp.json`.
+| cơ chế | tối ưu: gốc → tốt nhất (sh/lệnh) | kiểm sau tối ưu | t (tối ưu/kiểm) | ghi chú |
+|---|---|---|---|---|
+| **HỆ Breakout1** (mua+bán, SL/TP/kéo/1 lệnh ngày) | −3,12/474 → −0,96/426 | −2,36/187 (mua −1,61/88, bán −1,72/99) | −1,3/−2,1 | tham số chọn: TP 3R, kéo 4 bar, giờ 9-14, SMA 19 trễ 20 |
+| (cũ, cùng phí) Breakout1 mua / bán riêng, giữ 1 bar | | −1,01/124 · −0,50/113 | −1,0/−0,9 · −0,1/−0,5 | mô hình SAI (không SL/TP, không luật ngày) |
+| HỆ Breakout2-2 (=2=3; giu, luật ngày) | −10,1/508 → −0,98/507 | −3,03/217 | −1,4/−2,8 | thoát vẫn `giu` (lưới hedge chưa dịch) |
+| Breakout5-2-2 mua / bán | | −1,65/49 · +0,39/93 | −0,6/−1,5 · −1,1/+0,3 | không đổi |
+| Template mua / bán | | −1,60/50 · +0,43/39 | −0,5/−1,4 · −0,9/+0,4 | không đổi |
+So sánh: **không phí** hệ Breakout1 GIỮ (kiểm +1,75/194, t +2,9/+1,6); **spread ×0,33** (~ECN,
+chưa cộng hoa hồng) vẫn 0 giữ (hệ Breakout1 kiểm −0,45, t +0,7/−0,4). Biên lợi thô ~1 bps/lệnh
+(682 lệnh, thắng 47,5%, giữ TB 2,1 bar) < phí khứ hồi ~4 bps → không có edge giao dịch được.
+
+### Lựa chọn mở (chưa làm, không chặn)
+- **Sàn/tài khoản**: spread hiện đo từ XM micro (1,63 bps/chiều). Tài khoản ECN rẻ hơn ~3 lần
+  về spread nhưng có hoa hồng (~0,3 bps/chiều EURUSD). Nên thêm bộ chọn sàn (spread + hoa
+  hồng + qua đêm theo sàn) khi có số liệu sàn thật; tạm thời `--he-so-spread` để đo độ nhạy.
+
+### Vấn đề mở (ưu tiên vòng sau)
+1. Breakout2/2-2/3: thoát vẫn là `giu` N bar — lệnh hedge/lưới (`Tradesinfo.*`) trong
+   `checkForClose` chưa dịch, nên hệ này vẫn là xấp xỉ.
+2. Template: SL/TP theo ATR (`InpSlAtrMult`/`InpTpAtrMult`, `g_trade.Buy(lot,_Symbol,0,sl,tp)`)
+   chưa đọc — mẫu `price ± dir*slDist` với `slDist` từ ATR.
+3. Đường giá trong bar là giả định (gần open trước); với H1 có thể kiểm bằng dữ liệu M1.
+4. Chỉ báo bar 0 đổi theo tick (cũ); `PivotsDay`, `SellLimit/BuyLimit`, kho .mq5 lớn (cũ).
+5. Tối ưu cả hệ có 6 tham số → t tối ưu trên placebo thường > 2; ngưỡng phần KIỂM là chốt chặn
+   thật. Nếu thêm tham số nên cân nhắc hiệu chỉnh đa phép thử (không nới ngưỡng).
+
+---
+
+## (trước) Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (khuya, giờ VN)
 
 ## Vòng 10/10 khuya (2) — LỆNH DỪNG TRONG BAR + ĐỦ LỆNH HAI PHẦN + **PHÍ THẬT**
 ### 0. Lỗi lớn tìm ra: vòng lặp chạy KHÔNG PHÍ từ trước tới giờ

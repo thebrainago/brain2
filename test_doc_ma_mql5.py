@@ -97,7 +97,10 @@ class VongThuNghiem(unittest.TestCase):
         import vong_thu_nghiem as V
         df = V.du_lieu_gia_lap(24 * 120, seed=7)
         ra = V.chay_mot_file(MAU / "EA Snippets_Breakout_Breakout1.mq5", df)
-        self.assertEqual(len(ra), 2)
+        # 10/10/2026 dem: mua + ban cua Breakout1 chung luat mot lenh/ngay -> MOT
+        # dong nhom (mo phong chung), hai chan o `chan`.
+        self.assertEqual(len(ra), 1)
+        self.assertEqual(len(ra[0]["chan"]), 2)
         for x in ra:
             self.assertNotIn("loi", x)
             self.assertIn("tham_so_tot", x)

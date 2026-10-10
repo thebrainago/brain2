@@ -195,7 +195,8 @@ class VongLap(unittest.TestCase):
         for x in ra:
             if "loi" in x:
                 self.fail(x["loi"])
-            co_tb |= bool(x.get("trong_bar"))
+            co_tb |= bool(x.get("trong_bar")) or any(
+                c.get("trong_bar") for c in x.get("chan", []))   # dong nhom (10/10 dem)
             tu = x.get("tot_tu", x["goc_tu"])
             thieu = tu["so_lenh"] < can_tu or x["tot_kiem"]["so_lenh"] < 20
             self.assertEqual(bool(x.get("it_lenh")), thieu)

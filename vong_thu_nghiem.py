@@ -28,6 +28,10 @@ Cách làm (cập nhật 10/10/2026):
   6. Cơ chế mang `trong_bar` (EA kiểm lại MỖI tick → lệnh dừng khớp giữa bar,
      do `doc_ma._kiem_moi_tick` phát hiện) chạy bằng
      `mo_phong.chay_dung_trong_bar`; bản xấp xỉ tick đầu cũ chỉ ghi để so sánh.
+  7. NHÓM (10/10/2026 đêm): các chân cùng `mot_lenh_ngay.nhom` (mua + bán của MỘT
+     lệnh vào EA) chạy CHUNG bằng `mo_phong.chay_he`: một vị thế một lúc, một
+     lệnh/ngày, SL/TP/kéo SL của EA (`sltp`), chặn chéo cờ/lọc. Tối ưu cả hệ,
+     tham số chung (input EA) buộc lại; giữ/bỏ theo cả hệ, in thêm từng chân.
 
 Trên dữ liệu giả lập (bước ngẫu nhiên, không có lợi thế) gần như KHÔNG cơ chế
 nào nên được giữ - đó là phép thử placebo của chính vòng lặp. Nếu thấy nhiều
@@ -142,9 +146,60 @@ def danh_gia(spec: dict, df: pd.DataFrame, khung: str, tick_dau: bool = False,
             "loi_log": round(float(loi.sum()), 5), "sharpe": round(sharpe, 3)}
 
 
+def _sharpe(loi: np.ndarray, khung: str) -> float:
+    loi = np.nan_to_num(np.asarray(loi, dtype=float))
+    sd = loi.std()
+    return float(loi.mean() / sd * math.sqrt(BAR_NAM.get(khung, 260))) if sd > 0 else 0.0
+
+
+def danh_gia_nhom(specs: list[dict], df: pd.DataFrame, khung: str,
+                  cp: CP.MoHinhChiPhi | None = None) -> dict:
+    """Chay CA NHOM chan (mua + ban cua mot lenh vao EA) chung mot tai khoan:
+    mot vi the mot luc, luat mot lenh/ngay, SL/TP/keo SL - `mo_phong.chay_he`."""
+    cp = cp if cp is not None else mo_hinh_chi_phi(df)
+    kq = MP.chay_he(df, [NP.sinh_chan(sp, df) for sp in specs], cp, ma="EURUSD",
+                    khung=khung)
+    loi = np.nan_to_num(np.asarray(kq.loi, dtype=float))
+    chan = [{"chieu": c["chieu"], "so_lenh": int(c["so_lenh"]),
+             "loi_log": round(float(np.sum(c["loi"])), 5),
+             "sharpe": round(_sharpe(c["loi"], khung), 3)} for c in kq.chi_tiet["chan"]]
+    return {"so_lenh": int(kq.so_lenh), "phoi_nhiem": round(float(kq.phoi_nhiem), 4),
+            "loi_log": round(float(loi.sum()), 5), "sharpe": round(_sharpe(loi, khung), 3),
+            "chan": chan}
+
+
+def tham_so_nhom(specs: list[dict]) -> tuple[dict, dict]:
+    """Tham so CHUNG cua nhom: khoa co mat o moi chan voi CUNG gia tri la mot
+    input cua EA (gio, chu ky MA, TPFactor...) -> mot tham so; con lai tach
+    rieng `c{k}.<khoa>`. Tra (tham so, anh xa khoa -> [(chan, khoa chan)])."""
+    rieng = [NP.tham_so_cua(sp) for sp in specs]
+    ts, ax = {}, {}
+    chung = set(rieng[0]).intersection(*rieng[1:]) if rieng else set()
+    for k in sorted(chung):
+        if all(r[k] == rieng[0][k] for r in rieng):
+            ts[k] = rieng[0][k]
+            ax[k] = [(c, k) for c in range(len(specs))]
+    for c, r in enumerate(rieng):
+        for k, v in r.items():
+            if k not in ts:
+                ts[f"c{c}.{k}"] = v
+                ax[f"c{c}.{k}"] = [(c, k)]
+    return ts, ax
+
+
+def ap_tham_so_nhom(specs: list[dict], ax: dict, ts: dict) -> list[dict]:
+    moi = [dict() for _ in specs]
+    for k, v in ts.items():
+        for c, kc in ax.get(k, []):
+            moi[c][kc] = v
+    return [NP.ap_tham_so(sp, m) for sp, m in zip(specs, moi)]
+
+
 def _ung_vien(khoa: str, v) -> list:
     if khoa == "giu":
         return sorted({1, 2, 3, 5, 8, 13, int(v)})
+    if khoa.endswith("sltp_tp"):                    # TP = R x he so
+        return sorted({0.5, 0.75, 1.0, 1.5, 2.0, 3.0, float(v)})
     if isinstance(v, (int, np.integer)) or (khoa.endswith("_n") and float(v).is_integer()):
         return sorted({max(1, int(round(v * f))) for f in (0.5, 0.75, 1, 1.25, 1.5, 2)})
     v = float(v)
@@ -161,18 +216,35 @@ def toi_uu(spec: dict, df: pd.DataFrame, khung: str, lenh_min: int,
            luot: int = 2, cp: CP.MoHinhChiPhi | None = None) -> tuple[dict, dict, int]:
     """Dò từng toạ độ. Trả (tham số tốt nhất, kết quả trên phần tối ưu, số lần chạy)."""
     cp = cp if cp is not None else mo_hinh_chi_phi(df)
-    ts = NP.tham_so_cua(spec)
-    tot, kq_tot = dict(ts), danh_gia(spec, df, khung, cp=cp)
+    return _do_toa_do(NP.tham_so_cua(spec),
+                      lambda ts: danh_gia(NP.ap_tham_so(spec, ts), df, khung, cp=cp),
+                      lenh_min, luot)
+
+
+def toi_uu_nhom(specs: list[dict], df: pd.DataFrame, khung: str, lenh_min: int,
+                luot: int = 2, cp: CP.MoHinhChiPhi | None = None
+                ) -> tuple[dict, dict, int, dict]:
+    """Như `toi_uu` cho CẢ NHÓM (mục tiêu = Sharpe của cả EA). Trả thêm ánh xạ."""
+    cp = cp if cp is not None else mo_hinh_chi_phi(df)
+    ts, ax = tham_so_nhom(specs)
+    tot, kq, so = _do_toa_do(
+        ts, lambda t: danh_gia_nhom(ap_tham_so_nhom(specs, ax, t), df, khung, cp=cp),
+        lenh_min, luot)
+    return tot, kq, so, ax
+
+
+def _do_toa_do(ts: dict, ham, lenh_min: int, luot: int) -> tuple[dict, dict, int]:
+    tot, kq_tot = dict(ts), ham(dict(ts))
     so_chay = 1
     for _ in range(luot):
         doi = False
         for khoa in list(ts):
-            for v in _ung_vien(khoa, tot[khoa]):
+            for v in _ung_vien(khoa.split(".")[-1], tot[khoa]):
                 if v == tot[khoa]:
                     continue
                 thu = dict(tot, **{khoa: v})
                 try:
-                    r = danh_gia(NP.ap_tham_so(spec, thu), df, khung, cp=cp)
+                    r = ham(thu)
                 except Exception:
                     continue
                 so_chay += 1
@@ -210,7 +282,20 @@ def chay_mot_file(path: Path, df: pd.DataFrame, khung: str = "H1",
     lenh_min_tu = lenh_min_phan_tu(lenh_min, len(df_tu), len(df_kiem))
     cp = cp if cp is not None else mo_hinh_chi_phi(df)
     ra = []
+    # NHOM (10/10/2026 dem): cac chan cua CUNG mot lenh vao co luat mot lenh/ngay
+    # -> mo phong chung (`danh_gia_nhom`), khong tach rieng tung chieu.
+    nhom: dict[str, list[dict]] = {}
+    don = []
     for spec in r.get("co_che", []):
+        g = (spec.get("mot_lenh_ngay") or {}).get("nhom")
+        if g:
+            nhom.setdefault(g, []).append(spec)
+        else:
+            don.append(spec)
+    for g, specs in nhom.items():
+        ra.append(_chay_nhom(path, g, specs, df_tu, df_kiem, khung, toi_uu_bat,
+                             lenh_min, lenh_min_tu, t_tu, t_kiem, da_thay, cp))
+    for spec in don:
         dong = {"file": path.name, "ten": spec.get("ten"), "chieu": spec.get("chieu"),
                 "ho": spec.get("ho"), "so_dieu_kien": spec.get("so_dieu_kien")}
         vt = NP.van_tay_dieu_kien(spec) + f"|{spec.get('chieu')}" + \
@@ -268,6 +353,73 @@ def chay_mot_file(path: Path, df: pd.DataFrame, khung: str = "H1",
     return ra
 
 
+def _van_tay_nhom(specs: list[dict]) -> str:
+    phan = []
+    for sp in specs:
+        mln = dict(sp.get("mot_lenh_ngay") or {})
+        mln.pop("nhom", None)
+        phan.append(NP.van_tay_dieu_kien(sp) + f"|{sp.get('chieu')}|" + json.dumps(
+            {"tb": sp.get("trong_bar"), "sltp": sp.get("sltp"), "mln": mln},
+            sort_keys=True))
+    return "NHOM:" + "||".join(sorted(phan))
+
+
+def _chay_nhom(path: Path, g: str, specs: list[dict], df_tu, df_kiem, khung: str,
+               toi_uu_bat: bool, lenh_min: int, lenh_min_tu: int, t_tu: float,
+               t_kiem: float, da_thay: set | None, cp) -> dict:
+    dong = {"file": path.name, "nhom": g,
+            "ten": "HE " + " + ".join(str(sp.get("ten"))[:28] for sp in specs),
+            "chieu": 0, "ho": specs[0].get("ho"),
+            "so_dieu_kien": sum(int(sp.get("so_dieu_kien") or 0) for sp in specs),
+            "chan": [{"ten": sp.get("ten"), "chieu": sp.get("chieu"),
+                      "trong_bar": sp.get("trong_bar"), "sltp": sp.get("sltp")}
+                     for sp in specs]}
+    vt = _van_tay_nhom(specs)
+    if da_thay is not None:
+        if vt in da_thay:
+            dong["trung"] = True
+            return dong
+        da_thay.add(vt)
+    try:
+        loi_cp = [e for sp in specs for e in NP.kiem_khai_bao(sp)]
+        dong["kiem_cu_phap"] = loi_cp
+        goc_tu = danh_gia_nhom(specs, df_tu, khung, cp=cp)
+        goc_kiem = danh_gia_nhom(specs, df_kiem, khung, cp=cp)
+        dong.update(goc_tu=goc_tu, goc_kiem=goc_kiem)
+        # mo hinh CU (tung chan rieng, giu N bar, khong luat ngay) - de so sanh
+        dong["goc_kiem_rieng_cu"] = [danh_gia(sp, df_kiem, khung, cp=cp) for sp in specs]
+        tot_specs = specs
+        ts, _ = tham_so_nhom(specs)
+        if toi_uu_bat and ts:
+            ts_tot, kq_tu, so_chay, ax = toi_uu_nhom(specs, df_tu, khung, lenh_min_tu, cp=cp)
+            tot_specs = ap_tham_so_nhom(specs, ax, ts_tot)
+            dong.update(tham_so_goc=ts, tham_so_tot=ts_tot, so_lan_chay=so_chay,
+                        tot_tu=kq_tu)
+        kiem = danh_gia_nhom(tot_specs, df_kiem, khung, cp=cp)
+        tu = dong.get("tot_tu", goc_tu)
+        dong["tot_kiem"] = kiem
+        nam_tu = len(df_tu) / BAR_NAM.get(khung, 260)
+        nam_kiem = len(df_kiem) / BAR_NAM.get(khung, 260)
+        dong["t_tu"] = round(tu["sharpe"] * math.sqrt(nam_tu), 2)
+        dong["t_kiem"] = round(kiem["sharpe"] * math.sqrt(nam_kiem), 2)
+        it = []
+        if tu["so_lenh"] < lenh_min_tu:
+            it.append(f"toi_uu {tu['so_lenh']}<{lenh_min_tu}")
+        if kiem["so_lenh"] < lenh_min:
+            it.append(f"kiem {kiem['so_lenh']}<{lenh_min}")
+        if it:
+            dong["it_lenh"] = it
+        dong["giu_lai"] = bool(dong["t_tu"] >= t_tu and dong["t_kiem"] >= t_kiem
+                               and not it and not loi_cp)
+    except Exception as e:                           # noqa: BLE001
+        if type(e).__name__ == "KhungThieuGio":
+            dong["khong_hop_khung"] = str(e)[:80]
+        else:
+            dong["loi"] = f"{type(e).__name__}: {e}"
+        dong["giu_lai"] = False
+    return dong
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--mau", default=str(LAB / "mau_thu"))
@@ -285,6 +437,9 @@ def main(argv=None) -> int:
     ap.add_argument("--ma", default="EURUSD", help="mã để lấy chi phí thật")
     ap.add_argument("--khong-phi", action="store_true",
                     help="KHÔNG tính phí (chỉ để so với số cũ trước 10/10 khuya)")
+    ap.add_argument("--he-so-spread", type=float, default=1.0,
+                    help="nhân spread đo được (XM micro) - ĐỘ NHẠY, vd 0.33 ~ tài khoản "
+                         "ECN (chưa cộng hoa hồng). Mặc định 1 = phí thật hiện có")
     a = ap.parse_args(argv)
 
     if a.csv:
@@ -295,6 +450,8 @@ def main(argv=None) -> int:
         df = du_lieu_gia_lap(a.n, a.seed, a.khung)
     tong, da_thay = [], set()
     cp = mo_hinh_chi_phi(df, a.ma, a.khong_phi)
+    if not a.khong_phi and a.he_so_spread != 1.0:
+        cp = cp.bien_the(spread=cp.spread_frac_chung * a.he_so_spread)
     for f in sorted(Path(a.mau).glob("*.mq5")):
         tong.extend(chay_mot_file(f, df, a.khung, not a.khong_toi_uu, a.lenh_toi_thieu,
                                   a.t_tu, a.t_kiem, da_thay, cp=cp))
@@ -311,7 +468,8 @@ def main(argv=None) -> int:
     print(f"Chi phí {a.ma}: " + ("KHÔNG PHÍ (--khong-phi)" if a.khong_phi else
           f"spread {cp.spread_frac_chung * 1e4:.2f} bps/chiều, trượt "
           f"{cp.truot_gia_frac * 1e4:.2f} bps, qua đêm mua {cp.phi_nam_mua:+.4f}/bán "
-          f"{cp.phi_nam_ban:+.4f} /năm ({cp.do_tin})"))
+          f"{cp.phi_nam_ban:+.4f} /năm ({cp.do_tin})"
+          + (f" [ĐỘ NHẠY: spread x{a.he_so_spread:g}]" if a.he_so_spread != 1.0 else "")))
     chay = len(tong) - len(loi) - len(trung) - len(lech)
     print(f"Cơ chế: {len(tong)} bóc được, {len(trung)} trùng, {len(lech)} không hợp "
           f"khung, {len(loi)} lỗi, {chay} chạy được   → giữ lại: {len(giu)}")
@@ -331,6 +489,12 @@ def main(argv=None) -> int:
               + ("" if not x.get("trong_bar") else
                  f"  [lệnh dừng trong bar; tick đầu gốc sh="
                  f"{x['goc_kiem_tick_dau']['sharpe']:+.2f}/{x['goc_kiem_tick_dau']['so_lenh']}l]"))
+        if x.get("nhom"):
+            print("        từng chân (kiểm, sau tối ưu): " + "  ".join(
+                f"chieu={c['chieu']:+d} sh={c['sharpe']:+.2f}/{c['so_lenh']}l"
+                for c in tk["chan"])
+                + "  | mô hình cũ riêng (giu, không luật ngày): " + "  ".join(
+                f"sh={c['sharpe']:+.2f}/{c['so_lenh']}l" for c in x["goc_kiem_rieng_cu"]))
     if a.json:
         Path(a.json).write_text(json.dumps(tong, ensure_ascii=False, indent=1,
                                            default=str), encoding="utf-8")
