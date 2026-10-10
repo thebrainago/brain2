@@ -31,3 +31,12 @@
 - Không chạy được: MT5, nao.db đầy đủ, data/, browser Seeker.
 
 Tiếp tục: cải thiện parser biểu thức MQL5 và nối vào cổng kiểm định Python.
+
+## 6. Prototype parser đơn giản (chạy được trên Linux)
+Đã thử pattern cơ bản cho `current[0].high/low/close`. Có thể mở rộng thành lớp tiền xử lý trước khi gọi `_toan_hang`.
+
+Các module liên quan cần nối:
+- `doc_ma.py` (đã patch) → `ngu_phap.py` → `mo_phong.py` (Python backtest)
+- `cong_ra_tien.py` đã được dùng bởi `bang_he.py` (có thể kiểm tra với dữ liệu reports/)
+
+Tiếp theo: viết hàm chuẩn hóa biểu thức MQL5 đơn giản và tích hợp vào `doc_chien_luoc`.
