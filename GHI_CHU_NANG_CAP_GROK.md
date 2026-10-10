@@ -63,3 +63,16 @@ Các pattern còn lại cần xử lý tiếp:
 - Kết quả: 3 cơ chế chạy thành công, sinh lệnh và phơi nhiễm.
 
 Đây là khung để sau này thay dữ liệu giả bằng dữ liệu thật và thêm bước tối ưu thông số.
+
+## 9. Mục tiêu và logic làm việc (ghi nhớ)
+**Mục tiêu cuối**: Vòng lặp liên tục
+quét đầu vào → bóc tách cơ chế → kiểm định (Python/C++ thay MT5) → tối ưu thông số → giữ lại cơ chế/tính năng hay → học hỏi.
+
+**Logic ưu tiên hiện tại**:
+1. Nâng tỷ lệ bóc tách từ mẫu .mq5 (đo bằng `mau_thu/do_moc.py` và `vong_thu_nghiem.py`).
+2. Giữ vòng lặp tối thiểu chạy được trên Linux.
+3. Thêm tối ưu thông số cơ bản.
+4. Commit + push mỗi bước có số liệu.
+5. Cập nhật file này sau mỗi tiến bộ.
+
+**Automation**: Đã tạo "Brain2 continuous improvement" — chạy hàng ngày 09:00 Asia/Ho_Chi_Minh. Đã kích hoạt chạy ngay.
