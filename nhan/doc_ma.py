@@ -785,7 +785,7 @@ def _bang_bool(vb: str) -> list[tuple[int, str, str]]:
 
 
 def _tach_va(bt: str) -> list[str]:
-    """Tach mot bieu thuc theo `and` o MUC NGOAI CUNG."""
+    """Tach mot bieu thuc theo `and` / `or` o MUC NGOAI CUNG."""
     ra, sau, muc = [], 0, 0
     i = 0
     while i < len(bt):
@@ -794,12 +794,15 @@ def _tach_va(bt: str) -> list[str]:
             muc += 1
         elif c in ")]":
             muc -= 1
-        elif muc == 0 and bt.startswith("and", i) and \
-                (i == 0 or not bt[i - 1].isalnum()) and \
-                (i + 3 >= len(bt) or not bt[i + 3].isalnum()):
-            ra.append(bt[sau:i])
-            sau = i + 3
-            i += 2
+        elif muc == 0:
+            if bt.startswith("and", i) and (i == 0 or not bt[i - 1].isalnum()) and (i + 3 >= len(bt) or not bt[i + 3].isalnum()):
+                ra.append(bt[sau:i])
+                sau = i + 3
+                i += 2
+            elif bt.startswith("or", i) and (i == 0 or not bt[i - 1].isalnum()) and (i + 2 >= len(bt) or not bt[i + 2].isalnum()):
+                ra.append(bt[sau:i])
+                sau = i + 2
+                i += 1
         i += 1
     ra.append(bt[sau:])
     return [_boc_ngoac(x.strip()) for x in ra if x.strip()]
@@ -893,6 +896,13 @@ def _chuan_hoa_mql5_don_gian(vb: str) -> str:
     # Bỏ offset _Point*margin đơn giản
     vb = re.sub(r'-\(_Point\*\w+\)', '', vb)
     vb = re.sub(r'\+\(_Point\*\w+\)', '', vb)
+    # Logical operators
+    vb = vb.replace('&&', ' and ')
+    vb = vb.replace('||', ' or ')
+    # Tradesinfo.field -> treat price-like as close, bool as 1
+    vb = re.sub(r'Tradesinfo\.initprice', 'close', vb)
+    vb = re.sub(r'Tradesinfo\.hedgeprice', 'close', vb)
+    vb = re.sub(r'Tradesinfo\.initup', '1', vb)
     return vb
 
 def doc_chien_luoc(vb: str, nguon: str = "", tien_to: str = "ma") -> dict:
@@ -994,9 +1004,11 @@ def doc_chien_luoc(vb: str, nguon: str = "", tien_to: str = "ma") -> dict:
             ho.append("khong tim duoc guard cua lenh vao")
             continue
         dk, h = _no_dieu_kien(guard, vi, bang_cb, bang_bl)
-        if h or not dk:
+        if not dk:
             ho += h or ["guard rong sau khi dich"]
-            continue                    # BO CA CO CHE, khong bo rieng ve
+            continue                    # chỉ bỏ nếu không có điều kiện nào parse được
+        if h:
+            ho += h   # ghi nhận phần chưa parse nhưng vẫn giữ cơ chế
         ten = f"{tien_to}_{'mua' if chieu == 1 else 'ban'}_" + "_va_".join(
             f"{_ten_toan_hang(d['trai'])}_{_TEN_PHEP[d['phep']]}_{_ten_toan_hang(d['phai'])}"
             for d in dk[:3])
