@@ -66,6 +66,8 @@ _HO = {
     "atr": "bien_dong", "do_lech": "bien_dong", "bien_do": "bien_dong",
     "gio": "phien", "ngay_trong_tuan": "lich", "ngay_trong_thang": "lich",
     "thang": "lich", "khoi_luong": "dong_tien",
+    # tenkan/kijun = trung diem kenh cao-thap; giao cat cua chung la tin hieu xu huong
+    "ichimoku": "xu_huong",
 }
 
 #: Ten cot gia viet trong ma -> toan hang gia cua ngu phap.
@@ -87,19 +89,141 @@ _HAM_MQL5 = {
     "iobv": ("obv", None), "ima": ("sma", 2), "iema": ("ema", 2),
 }
 #: `iMA(...)` voi MODE_EMA o doi so phuong phap -> ema thay vi sma.
-_RX_HAM_MQL5 = re.compile(r"^(i[A-Za-z]+)[ \t]*\((.*)\)$", re.S)
+_RX_HAM_MQL5 = re.compile(r"^(i[A-Za-z]+(?:_[a-z]+)?)[ \t]*\((.*)\)$", re.S)
+
+
+#: Khung thoi gian = khung cua bieu do (vong thu nghiem chay tren chinh khung du lieu).
+#: Khung CO DINH khac (`PERIOD_H4`, bien `MA_Timeframe`...) -> khong dich (them 10/10 khuya:
+#: truoc do doi so khung bi BO QUA, `iMA(_Symbol,PERIOD_D1,...)` thanh sma tren H1).
+_TF_HIEN_TAI = {"_Period", "PERIOD_CURRENT", "0", "Period()"}
+#: ENUM_APPLIED_PRICE -> cot DSL (None = close). PRICE_WEIGHTED (HLCC/4) chua co cot.
+_GIA_AP = {"PRICE_CLOSE": None, "1": None, "PRICE_OPEN": "open", "2": "open",
+           "PRICE_HIGH": "high", "3": "high", "PRICE_LOW": "low", "4": "low",
+           "PRICE_MEDIAN": "hl2", "5": "hl2", "PRICE_TYPICAL": "hlc3", "6": "hlc3"}
+#: vi tri doi so (khung, gia ap dung, dich, phuong phap) cua tung ham MQL5
+_DOI_MQL5 = {"irsi": (1, 3, None, None), "icci": (1, 3, None, None),
+             "imomentum": (1, 3, None, None), "iatr": (1, None, None, None),
+             "ima": (1, 5, 3, 4), "ibands": (1, 5, 3, None),
+             "iichimoku": (1, None, None, None)}
+_PP_MA = {"MODE_SMA": "sma", "0": "sma", "MODE_EMA": "ema", "1": "ema",
+          "MODE_SMMA": "smma", "2": "smma", "MODE_LWMA": "wma", "3": "wma"}
+
+
+def _so_nguyen(x: str) -> int | None:
+    try:
+        v = float(x)
+    except ValueError:
+        return None
+    return int(v) if v == int(v) else None
+
+
+def _so_hoc_hang(x: str) -> float | None:
+    """`100-70`, `(2*15)` -> so; con ten bien / ham -> None. Khong dung eval."""
+    import ast
+    import operator as op
+    if not re.fullmatch(r"[\d.\s+\-*/()]+", x or "") or not re.search(r"\d", x):
+        return None
+    phep = {ast.Add: op.add, ast.Sub: op.sub, ast.Mult: op.mul, ast.Div: op.truediv,
+            ast.USub: op.neg, ast.UAdd: op.pos}
+
+    def _t(n):
+        if isinstance(n, ast.Constant) and isinstance(n.value, (int, float)):
+            return float(n.value)
+        if isinstance(n, ast.BinOp) and type(n.op) in phep:
+            return phep[type(n.op)](_t(n.left), _t(n.right))
+        if isinstance(n, ast.UnaryOp) and type(n.op) in phep:
+            return phep[type(n.op)](_t(n.operand))
+        raise ValueError
+    try:
+        return _t(ast.parse(x.strip(), mode="eval").body)
+    except (ValueError, SyntaxError, ZeroDivisionError):
+        return None
 
 
 def _tu_ham_mql5(tu: str) -> dict | None:
-    """`iRSI(_Symbol,PERIOD_H1,14,PRICE_CLOSE)` -> {chi_bao: rsi, n: 14}."""
+    """`iRSI(_Symbol,PERIOD_H1,14,PRICE_CLOSE)` -> {chi_bao: rsi, n: 14}.
+
+    Kiem (them 10/10 khuya, do tren bo EA ngoai `mau_thu/mo_rong`): khung phai la
+    khung bieu do; gia ap dung PRICE_OPEN/HIGH/LOW/MEDIAN/TYPICAL -> `cot` (truoc do
+    bi bo qua: rsi cua OPEN doc thanh rsi cua CLOSE); `iMA` co dich (ma_shift) != 0 ->
+    khong dich; MODE_SMMA -> smma, MODE_LWMA -> wma (truoc do SMMA bi doc thanh ema,
+    LWMA thanh sma); `iATR` cua MT5 = trung binh CONG cua TR -> `kieu: sma`.
+    Ten gia `iBands_TREN(...)`/`iIchimoku_KIJUN(...)` do `_chuan_hoa_mql5` sinh ra cho
+    CopyBuffer cua chi bao nhieu buffer.
+    """
     m = _RX_HAM_MQL5.match(tu.strip())
     if not m:
         return None
     ten = m.group(1).lower()
-    if ten not in _HAM_MQL5:
+    lay = None
+    if "_" in ten:
+        ten, lay = ten.split("_", 1)
+    doi = [d.strip() for d in m.group(2).split(",")]
+    if ten in _DOI_MQL5:
+        vt_tf, vt_gia, vt_dich, vt_pp = _DOI_MQL5[ten]
+        if len(doi) <= vt_tf or doi[vt_tf] not in _TF_HIEN_TAI:
+            return None
+        cot = None
+        if vt_gia is not None and len(doi) > vt_gia:
+            if doi[vt_gia] not in _GIA_AP:
+                return None
+            cot = _GIA_AP[doi[vt_gia]]
+        dich = 0
+        if vt_dich is not None and len(doi) > vt_dich:
+            dich = _so_nguyen(doi[vt_dich])
+            if dich is None or dich < 0:
+                return None
+        if dich:
+            # ma_shift/bands_shift = s > 0: duong ve dich PHAI s bar -> buffer o bar k
+            # la gia tri tinh tai bar k+s = tre s (chi doc qua khu).
+            moi = list(doi)
+            moi[vt_dich] = "0"
+            t = _tu_ham_mql5(m.group(1) + "(" + ",".join(moi) + ")")
+            return None if t is None else {"chi_bao": "tre", "cua": t, "n": dich}
+        if ten == "ibands":
+            n, k = (_so_nguyen(doi[2]) if len(doi) > 2 else None), None
+            try:
+                k = float(doi[4])
+            except (IndexError, ValueError):
+                k = None
+            if lay not in ("giua", "tren", "duoi") or not n or n <= 0 or not k or k <= 0:
+                return None
+            ra = {"chi_bao": "bollinger", "n": n, "k": k, "lay": lay, "ddof": 0}
+            if cot:
+                ra["cot"] = cot
+            return ra
+        if ten == "iichimoku":
+            ns = [_so_nguyen(x) for x in doi[2:5]]
+            if lay not in ("tenkan", "kijun") or len(ns) != 3 or \
+                    any(x is None or x <= 0 for x in ns):
+                return None
+            return {"chi_bao": "ichimoku", "n": ns[1], "lay": lay, "n_tenkan": ns[0],
+                    "n_kijun": ns[1], "n_senkou_b": ns[2]}
+        if lay is not None:
+            return None
+        if vt_pp is not None:
+            pp = _PP_MA.get(doi[vt_pp]) if len(doi) > vt_pp else None
+            if pp is None:
+                return None
+            cb = pp
+        else:
+            cb = _HAM_MQL5[ten][0]
+        n = _so_nguyen(doi[2]) if len(doi) > 2 else None
+        if n is None or n <= 0:
+            return None
+        ra = {"chi_bao": cb, "n": n}
+        if ten == "iatr":
+            ra["kieu"] = "sma"
+        if ten == "icci":
+            ra["cot"] = cot or "close"       # cci DSL mac dinh hlc3; MT5 doc doi so gia
+            if ra["cot"] == "hlc3":
+                ra.pop("cot")
+        elif cot:
+            ra["cot"] = cot
+        return ra
+    if lay is not None or ten not in _HAM_MQL5:
         return None
     cb, vt_n = _HAM_MQL5[ten]
-    doi = [d.strip() for d in m.group(2).split(",")]
     if cb == "sma" and any("MODE_EMA" in d or "MODE_SMMA" in d for d in doi):
         cb = "ema"
     if vt_n is None:
@@ -952,6 +1076,25 @@ _RX_LA_MQL = re.compile(r"\bOn(?:Tick|Init|Deinit|Start)[ \t]*\(|#property\b"
 _COT_MANG = {"high": "high", "low": "low", "close": "close", "open": "open"}
 _HAM_CB_MOT_BUFFER = {"ima", "irsi", "iatr", "icci", "imomentum", "istddev",
                       "istdev"}
+#: Chi bao nhieu buffer: so buffer -> `lay` (xem `_tu_ham_mql5`).
+#: Hang so buffer chuan cua MQL5 (tai lieu CopyBuffer / iBands / iIchimoku).
+_SO_BUFFER = {"MAIN_LINE": "0", "SIGNAL_LINE": "1", "BASE_LINE": "0", "UPPER_BAND": "1",
+              "LOWER_BAND": "2", "TENKANSEN_LINE": "0", "KIJUNSEN_LINE": "1"}
+_HAM_CB_NHIEU = {"ibands": {0: "giua", 1: "tren", 2: "duoi"},
+                 "iichimoku": {0: "tenkan", 1: "kijun"}}
+_RX_INPUT_GT = re.compile(
+    r"^[ \t]*(?:static[ \t]+)?(?:input|sinput|extern)[ \t]+\w+[ \t]+([A-Za-z_]\w*)"
+    r"[ \t]*=[ \t]*([A-Za-z_]\w*|[-+]?\d+(?:\.\d+)?)[ \t]*;", re.M)
+
+
+def _gia_tri_input(vb: str) -> dict:
+    """Ten input -> gia tri MAC DINH dang chu (`14`, `PRICE_CLOSE`, `MODE_EMA`).
+    EA chay voi input mac dinh - cung gia dinh nhu `_hang_mql`. `#define` cung tinh."""
+    ra = {m.group(1): m.group(2) for m in _RX_INPUT_GT.finditer(vb)}
+    for m in re.finditer(r"^[ \t]*#define[ \t]+([A-Za-z_]\w*)[ \t]+([-+]?\d+(?:\.\d+)?)"
+                         r"[ \t]*$", vb, re.M):
+        ra.setdefault(m.group(1), m.group(2))
+    return ra
 
 
 def _la_mql(vb: str) -> bool:
@@ -1232,16 +1375,49 @@ def _chuan_hoa_mql5(vb: str) -> str:
     for m in re.finditer(r"\bCopy(Rates|High|Low|Close|Open)[ \t]*\([^,()]+,[^,()]+,"
                          r"[ \t]*(\d+)[ \t]*,[ \t]*(\d+)[ \t]*,[ \t]*(\w+)[ \t]*\)", vb):
         mang[m.group(4)] = (m.group(1).lower(), int(m.group(2)), int(m.group(3)))
-    han = {}
-    for m in re.finditer(r"([\w.]+)[ \t]*=[ \t]*(i[A-Za-z]+[ \t]*\([^;\n]*\))[ \t]*;", vb):
-        ten_ham = m.group(2).split("(")[0].strip().lower()
-        if ten_ham in _HAM_CB_MOT_BUFFER:
-            han[m.group(1)] = m.group(2).replace(" ", "")
-    for m in re.finditer(r"\bCopyBuffer[ \t]*\([ \t]*([\w.]+)[ \t]*,[ \t]*0[ \t]*,"
+    # Handle chi bao -> loi goi (doi so la input cua tac gia thay bang gia tri mac
+    # dinh). Them 10/10 khuya: (a) doi so input (`iRSI(..,RSI_Period,..)` voi
+    # `input int RSI_Period=14;`) - truoc do chu ky la bien -> bo; (b) handle KHAI
+    # BAO CUC BO (`int h = iRSI(..)` trong OnInit) che bien toan cuc cung ten ma
+    # OnTick dung -> handle toan cuc = 0, EA khong doc duoc chi bao: KHONG dich
+    # (truoc do van dich - noi doi); (c) chi bao NHIEU buffer: iBands 0/1/2 =
+    # giua/tren/duoi, iIchimoku 0/1 = tenkan/kijun.
+    gt_in = _gia_tri_input(vb)
+    han: dict = {}
+    for m in re.finditer(r"(?:\b(int|long)[ \t]+)?\b([\w.]+)[ \t]*=[ \t]*(i[A-Za-z]+)[ \t]*\(",
+                         vb):
+        ten_ham = m.group(3).lower()
+        if ten_ham not in _HAM_CB_MOT_BUFFER and ten_ham not in _HAM_CB_NHIEU:
+            continue
+        mo = m.end() - 1
+        ds = _tach_doi_so(vb, mo)
+        if ds is None:
+            continue
+        ds = [gt_in.get(x, x) for x in ds]
+        goi = (m.group(3) + "(" + ",".join(ds) + ")").replace(" ", "")
+        cuc_bo = _dau_ham(vb, m.start())[1] if m.group(1) else None
+        han.setdefault(m.group(2), []).append((goi, cuc_bo))
+    for m in re.finditer(r"\bCopyBuffer[ \t]*\([ \t]*([\w.]+)[ \t]*,[ \t]*(\d+|[A-Z_]+)[ \t]*,"
                          r"[ \t]*(\d+)[ \t]*,[ \t]*(\d+)[ \t]*,[ \t]*(\w+)[ \t]*\)", vb):
-        if m.group(1) in han:
-            mang[m.group(4)] = ("buf:" + han[m.group(1)], int(m.group(2)),
-                                int(m.group(3)))
+        if m.group(1) not in han:
+            continue
+        ham_dung = _dau_ham(vb, m.start())[1]
+        hop = [g for g, cb_ in han[m.group(1)] if cb_ is None or cb_ == ham_dung]
+        if len(set(hop)) != 1:
+            continue                    # bi che boi bien cuc bo / gan nhieu kieu
+        b = _SO_BUFFER.get(m.group(2), m.group(2))
+        if not str(b).isdigit():
+            continue
+        goi, b = hop[0], int(b)
+        ten_ham = goi.split("(")[0].lower()
+        if ten_ham in _HAM_CB_NHIEU:
+            lay = _HAM_CB_NHIEU[ten_ham].get(b)
+            if lay is None:
+                continue
+            goi = goi.split("(")[0] + "_" + lay + goi[goi.index("("):]
+        elif b != 0:
+            continue
+        mang[m.group(5)] = ("buf:" + goi, int(m.group(3)), int(m.group(4)))
 
     def _lech(arr, k):
         loai, s, c = mang[arr]
@@ -1271,6 +1447,12 @@ def _chuan_hoa_mql5(vb: str) -> str:
         goc = loai[4:] if loai.startswith("buf:") else loai
         return _ten(goc, sh)
     vb = re.sub(r"(?<![\w.])(\w+)\[(\d+)\](?!\.)", _don, vb)
+
+    # Gia tick song: `SymbolInfoTick(_Symbol, tk)` roi `tk.ask/bid/last` = gia bar 0
+    # (cung token `_GIA0` nhu `iClose(..,0)`; chenh lech ask/bid do mo hinh phi lo).
+    for tk in set(re.findall(r"\bMqlTick[ \t]+(\w+)", vb)):
+        if re.search(rf"\bSymbolInfoTick[ \t]*\([^,()]+,[ \t]*{tk}[ \t]*\)", vb):
+            vb = re.sub(rf"\b{tk}\.(?:ask|bid|last)\b", _GIA0, vb)
 
     # dt.hour trong PHEP SO SANH -> gio (chi khi dt la MqlDateTime)
     for dt in re.findall(r"\bMqlDateTime[ \t]+(\w+)", vb):
@@ -1427,6 +1609,12 @@ def _so_sanh_tong_quat(ve: str, vi_tri: int, bang_cb: list,
 
     def _ve(x):
         x = _boc_ngoac(x)
+        # input SO cua tac gia (hang trong MQL5 - khong gan lai duoc) -> gia tri mac dinh
+        x = re.sub(r"(?<![\w.])([A-Za-z_]\w*)(?![\w(\[.])",
+                   lambda mm: _INPUT_SO.get(mm.group(1), mm.group(1)), x)
+        hs_ = _so_hoc_hang(x)
+        if hs_ is not None:
+            return {"hang": hs_}
         t = _toan_hang(x, vi_tri, bang_cb, bang_bl)
         if t is None:
             t = _tuyen_tinh(x, vi_tri, bang_cb, bang_bl, 0)
@@ -1450,14 +1638,80 @@ _RX_QUAN_TRI = re.compile(
     r"\bCopy\w+|\bPosition\w*|\bOrders?Total|\bPositionsTotal|\bCountMy\w*"
     r"|\bprevTime\b|\bcurTime\b|\blast\w*day\b|\.day\b|\bIsNewBar\b|Spread"
     r"|INVALID_HANDLE|\bstartmanual\b|\.min\b|StartAtFullHourOnly|IsStopped"
-    r"|\bInpMagic\b|\bmagic", re.I)
+    r"|\bInpMagic\b|\bmagic"
+    # `openTimeBuy != iTime(_Symbol,PERIOD_CURRENT,0)`: toi da mot lenh / bar (them 10/10 khuya)
+    r"|\biTime[ \t]*\(|\bSymbolInfoTick\b|\bCount\w*Positions?\b", re.I)
+#: Bien DEM VI THE dang mo (`cntBuy`), dien boi `_bien_dem_vi_the` cho file dang doc.
+_DEM_VI_THE: set = set()
+#: Bien khai bao `datetime` cua file dang doc.
+_BIEN_DATETIME: set = set()
+#: Input SO cua file dang doc (ten -> chu so), dien o `_doc_chien_luoc_mql`.
+_INPUT_SO: dict = {}
+
+
+def _bien_dem_vi_the(vb: str) -> set:
+    """Ten bien dem so vi the dang mo - de `cntBuy==0` duoc coi la QUAN TRI.
+
+    Hai dang (do tren `mau_thu/mo_rong`): (1) ham co tham so tham chieu `int &c`
+    duoc TANG (`c++`) trong than ham co duyet vi the (`PositionsTotal`/
+    `PositionGet*`/`PositionSelect*`) -> doi so o vi tri do o moi cho goi; (2) bien
+    tang trong vong `for(..PositionsTotal()..)`. Chi bat bien THAT SU dem vi the.
+    """
+    ra: set = set()
+    rx_vt = re.compile(r"\bPositions?Total\b|\bPositionGet\w*|\bPositionSelect\w*")
+    for m in _RX_KHAI_HAM_DU.finditer(vb):
+        ten, ts = m.group(1), m.group(2)
+        mo = m.end() - 1
+        dong = _cuoi_khoi(vb, mo)
+        if dong < 0:
+            continue
+        than = vb[mo:dong]
+        if not rx_vt.search(than):
+            continue
+        vt = set()
+        for i, p in enumerate(ts.split(",")):
+            if "&" not in p:
+                continue
+            tn = re.findall(r"\w+", p)
+            if tn and re.search(rf"\b{tn[-1]}[ \t]*(?:\+\+|\+=)|\+\+[ \t]*{tn[-1]}\b", than):
+                vt.add(i)
+        if vt:
+            for c in re.finditer(rf"\b{ten}[ \t]*\(", vb):
+                if c.start() == m.start() + m.group(0).find(ten):
+                    continue
+                ds = _tach_doi_so(vb, c.end() - 1) or []
+                for i in vt:
+                    if i < len(ds) and re.fullmatch(_TEN, ds[i]):
+                        ra.add(ds[i])
+    for m in re.finditer(r"\bfor[ \t]*\(([^;]*;[^;]*;[^)]*)\)", vb):
+        if not re.search(r"\bPositionsTotal\b", m.group(1)):
+            continue
+        k = m.end()
+        while k < len(vb) and vb[k] in " \t\n":
+            k += 1
+        if k >= len(vb) or vb[k] != "{":
+            continue
+        dong = _cuoi_khoi(vb, k)
+        than = vb[k:dong] if dong > 0 else ""
+        ra |= set(re.findall(r"\b([A-Za-z_]\w*)[ \t]*(?:\+\+|\+=[ \t]*1\b)", than))
+    return ra
 _RX_GIA_TRI_HONG = re.compile(r"^\s*!?\s*[\w.\[\]]+\s*(?:<=|==)\s*0(?:\.0*)?\s*$")
+
+
+def _la_dem_vi_the(p: str) -> bool:
+    m = re.fullmatch(r"\s*\(?\s*([A-Za-z_]\w*)\s*(?:==|!=|<=|>=|<|>)\s*\d+\s*\)?\s*", p)
+    if m and m.group(1) in _DEM_VI_THE:
+        return True
+    # cong thoi gian bar: hai bien `datetime` so voi nhau (`previousBarTime ==
+    # currentBarTime`) - khong phai tin hieu gia (them 10/10 khuya)
+    m = re.fullmatch(r"\s*\(?\s*([A-Za-z_]\w*)\s*(?:==|!=)\s*([A-Za-z_]\w*)\s*\)?\s*", p)
+    return bool(m) and m.group(1) in _BIEN_DATETIME and m.group(2) in _BIEN_DATETIME
 
 
 def _la_quan_tri(bt: str) -> bool:
     phan = [p.strip() for p in re.split(r"\bor\b|\band\b", bt) if p.strip()]
     return bool(phan) and all(_RX_QUAN_TRI.search(p) or _RX_GIA_TRI_HONG.match(p)
-                              for p in phan)
+                              or _la_dem_vi_the(p) for p in phan)
 
 
 def _phu_dinh(bt: str, vi_tri: int, bang_cb: list, bang_bl: list
@@ -1686,6 +1940,30 @@ def _ho_gia_thuan(dk: list[dict], chieu: int) -> str | None:
             return None
         tren = d["phep"] in (">", ">=")
         huong.add("xu_huong" if tren == (chieu == 1) else "quay_ve_trung_binh")
+    return huong.pop() if len(huong) == 1 else None
+
+
+def _ho_bollinger(dk: list[dict], chieu: int) -> str | None:
+    """Gia so voi dai Bollinger tren/duoi: mua DUOI dai duoi (ban TREN dai tren) =
+    `quay_ve_trung_binh`; mua TREN dai tren (ban DUOI dai duoi) = `pha_vo`. Chi khi
+    MOI dieu kien la gia vs dai va cung mot huong (them 10/10 khuya)."""
+    def _bb(t):
+        while isinstance(t, dict) and t.get("chi_bao") == "tre":
+            t = t.get("cua")
+        return t if isinstance(t, dict) and t.get("chi_bao") == "bollinger" \
+            and t.get("lay") in ("tren", "duoi") else None
+    huong = set()
+    for d in dk:
+        tr, ph, op = d.get("trai") or {}, d.get("phai") or {}, d.get("phep")
+        if op not in (">", ">=", "<", "<="):
+            return None
+        if tr.get("chi_bao") == "gia" and _bb(ph):
+            tren = op in (">", ">=")
+        elif ph.get("chi_bao") == "gia" and _bb(tr):
+            tren = op in ("<", "<=")
+        else:
+            return None
+        huong.add("pha_vo" if tren == (chieu == 1) else "quay_ve_trung_binh")
     return huong.pop() if len(huong) == 1 else None
 
 
@@ -2228,6 +2506,12 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
     hedge_cho = []                                  # lenh hedge doc duoc, cho xet sau
     cu = _CHE_DO_MQL
     _CHE_DO_MQL = True
+    _DEM_VI_THE.clear()
+    _DEM_VI_THE.update(_bien_dem_vi_the(vb))
+    _BIEN_DATETIME.clear()
+    _BIEN_DATETIME.update(re.findall(r"\bdatetime[ \t]+([A-Za-z_]\w*)\b(?![ \t]*\()", vb))
+    _INPUT_SO.clear()
+    _INPUT_SO.update({k: v for k, v in _gia_tri_input(vb).items() if re.fullmatch(_SO, v)})
     try:
         for m in _VAO_LENH.finditer(vb):
             if m.group("pine"):
@@ -2293,12 +2577,24 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
             else:
                 ten_ham = _ham_bao(vb, m.start())
                 th = _ham_tin_hieu(vb, ten_ham, chieu, m.start()) if ten_ham else None
-                if th is None:
+                chuoi = _chuoi_chieu(vb, m, bang_cb, bang_bl) \
+                    if th is None and chieu == 0 else None
+                if isinstance(chuoi, str):
+                    ho.append(chuoi)
+                    loai[loai_hong] += 1
+                    continue
+                if chuoi:
+                    nhom.extend(chuoi)
+                    th = False
+                if th is False:
+                    pass
+                elif th is None:
                     ho.append("khong tim duoc guard cua lenh vao")
                     loai[loai_hong] += 1
                     continue
-                g, vi, thoat0 = th
-                nhom.append((chieu, [g], vi, thoat0))
+                else:
+                    g, vi, thoat0 = th
+                    nhom.append((chieu, [g], vi, thoat0))
             co = False
             bat_dau = len(ra)
             for mu in nhom:
@@ -2307,6 +2603,15 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
                 thoat = (mu[3] if len(mu) > 3 else []) + _thoat_som(vb, goc, vi)
                 dk, h, qt = [], [], []
                 for g in guards:
+                    # Guard VA tron tin hieu + quan tri (`cntBuy==0 && rsi<30 &&
+                    # openTime!=iTime(..)`): bo VE quan tri (ghi `bo_qua_quan_tri`),
+                    # giu ve tin hieu. Chi khi khong co `or` o muc ngoai (them 10/10 khuya).
+                    if len(_tach_hoac(_boc_ngoac(g))) == 1:
+                        ves = _tach_va(_boc_ngoac(g))
+                        bo = [x for x in ves if _la_quan_tri(x)]
+                        if bo and len(bo) < len(ves):
+                            qt += [x[:60] for x in bo]
+                            g = " and ".join(x for x in ves if not _la_quan_tri(x))
                     d2, h2 = _no_dieu_kien(g, vi, bang_cb, bang_bl)
                     if h2 and _la_quan_tri(g):
                         qt.append(g[:60])
@@ -2335,6 +2640,10 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
                 if h or not dk:
                     ho += h or ["guard rong sau khi dich"]
                     continue
+                mt = _mau_thuan(dk)
+                if mt:
+                    ho.append(mt)
+                    continue
                 dk = _bo_trung_dieu_kien(dk)
                 # chi so cac dieu kien LOC gan voi co nhanh (xem `_ap_moi_tick`)
                 loc_idx = [k for k, d in enumerate(dk) if d.get("_loc")]
@@ -2343,7 +2652,7 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
                 dk = [_bo_bar0(d) for d in dk]
                 ho_cc = _ho_cua(dk[0])
                 if ho_cc == "khac":
-                    ho_cc = _ho_gia_thuan(dk, c) or "khac"
+                    ho_cc = _ho_gia_thuan(dk, c) or _ho_bollinger(dk, c) or "khac"
                 gia_dinh = []
                 if _co_pivot_gio(dk):
                     gia_dinh.append("pivot gio (MultiPivots.mqh) = (H+L+C)/3 cua thanh "
@@ -2474,6 +2783,113 @@ def _vao_lai_giua_bar(cac: list[dict]) -> None:
         sp.setdefault("gia_dinh", []).append(
             "ham mo chi chan mo lan 2 trong CUNG bar (prevTime gan sau khi mo lenh): ro dong "
             "giua bar -> vao lai ngay theo gia luc do so voi muc (cap mua/ban bu nhau)")
+
+
+def _khoi_if_bao(vb: str, pos: int) -> tuple[int, int, int, str] | None:
+    """Khoi `if(dk){ ... }` bao truc tiep `pos`: (vi tri `if`, `{`, `}`, dk)."""
+    muc, k = 0, pos
+    while k > 0:
+        k -= 1
+        if vb[k] == "}":
+            muc += 1
+        elif vb[k] == "{":
+            if muc == 0:
+                break
+            muc -= 1
+    else:
+        return None
+    truoc = vb[:k].rstrip()
+    if not truoc.endswith(")"):
+        return None
+    muc, a = 0, len(truoc) - 1
+    while a >= 0:
+        if truoc[a] == ")":
+            muc += 1
+        elif truoc[a] == "(":
+            muc -= 1
+            if muc == 0:
+                break
+        a -= 1
+    mi = re.search(r"\bif[ \t]*$", truoc[:a])
+    if a < 0 or not mi:
+        return None
+    dong = _cuoi_khoi(vb, k)
+    return (mi.start(), k, dong, truoc[a + 1:-1].strip()) if dong > 0 else None
+
+
+def _chuoi_chieu(vb: str, m, bang_cb: list, bang_bl: list):
+    """`if(A){t=ORDER_TYPE_BUY;..} else if(B){t=ORDER_TYPE_SELL;..} else return;`
+    roi `PositionOpen(sym, t, ...)` VO DIEU KIEN (them 10/10 khuya, EA Triple MA).
+
+    Tra [(chieu, [dk], vi_tri_if, thoat), ...] cho 2 nhanh; chuoi ly do neu thay
+    dang nay nhung khong chac; None neu khong phai dang nay. Nhanh `else if` chi
+    dung rieng `B` khi A va B LOAI TRU nhau chung minh duoc (`_mau_thuan(A+B)`);
+    neu khong, nhanh hai thuc chat la `B and not A` -> khong dich."""
+    if m.group("ham") != "PositionOpen":
+        return None
+    ds = _tach_doi_so(vb, m.end("ham") + vb[m.end("ham"):].find("("))
+    if not ds or len(ds) < 2 or not re.fullmatch(_TEN, ds[1]):
+        return None
+    t = ds[1]
+    goc, _ = _dau_ham(vb, m.start())
+    gan = [(goc + x.start(), x.group(1)) for x in re.finditer(
+        rf"\b{t}[ \t]*=[ \t]*ORDER_TYPE_(BUY|SELL)[ \t]*;", vb[goc:m.start()])]
+    if len(gan) != 2 or {g[1] for g in gan} != {"BUY", "SELL"}:
+        return None
+    k1, k2 = _khoi_if_bao(vb, gan[0][0]), _khoi_if_bao(vb, gan[1][0])
+    if not k1 or not k2:
+        return "chuoi if/else-if gan chieu lenh: khong doc duoc khoi"
+    giua = vb[k1[2] + 1:k2[0]]
+    if not re.fullmatch(r"\s*else\s*", giua):
+        return "chuoi if/else-if gan chieu lenh: hai khoi khong noi bang else"
+    ms = re.match(r"\s*else\s*(?:return\b[^;]*;|\{\s*return\b[^;]*;\s*\})", vb[k2[2] + 1:])
+    if not ms:
+        return "chuoi if/else-if gan chieu lenh: thieu `else return;` (nhanh khac van vao lenh)"
+    het = k2[2] + 1 + ms.end()
+    if _cac_if_bao(vb, m.start())[0] or het > m.start():
+        return None
+    dA, hA = _no_dieu_kien(k1[3], k1[0], bang_cb, bang_bl)
+    dB, hB = _no_dieu_kien(k2[3], k2[0], bang_cb, bang_bl)
+    if not hA and not hB and _mau_thuan(dA + dB) is None:
+        return "nhanh else-if khong chung minh loai tru nhanh truoc (= B and not A)"
+    thoat = _thoat_som(vb, het, m.start())
+    c1 = 1 if gan[0][1] == "BUY" else -1
+    return [(c1, [k1[3]], k1[0], thoat), (-c1, [k2[3]], k2[0], thoat)]
+
+
+def _mau_thuan(dk: list[dict]) -> str | None:
+    """Hai dieu kien cung cap toan hang, chieu NGUOC nhau (`a>=b` va `a<b`) -> tap rong.
+
+    Them 10/10 khuya (bo `mau_thu/mo_rong`): `RSI[1]>=30 && RSI[0]<30` hay
+    `fast[1]<=slow[1] && fast[0]>slow[0]` theo quy uoc chi so bar (bar 0 o tick dau
+    ~ bar 1 -> ca hai `tre 0`) thanh `x>=30 va x<30`: KHONG BAO GIO vao lenh, trong
+    khi EA that bat giao cat GIUA bar (gia tri bar 0 doi theo tick). Day khong phai
+    ban dich - bo, ghi ly do (truoc do duoc dem la "dich duoc")."""
+    def _k(t):
+        return json.dumps({k: v for k, v in t.items() if not k.startswith("_")},
+                          sort_keys=True)
+    tren, duoi = {">", ">="}, {"<", "<="}
+    lat = {">": "<", ">=": "<=", "<": ">", "<=": ">="}
+    ds = []
+    for d in dk:
+        if d.get("phep") not in lat:
+            continue
+        a, b, op = _k(d["trai"]), _k(d["phai"]), d["phep"]
+        if a == b:
+            # `maVal[0]>maVal[1]` voi bar 0 ~ bar 1 -> `ema > ema`: luon sai (hoac
+            # luon dung voi >=) - khong phai ban dich
+            return "so sanh toan hang voi chinh no sau quy uoc chi so bar: " + a[:40]
+        if a > b:
+            a, b, op = b, a, lat[op]
+        ds.append((a, b, op))
+    for i in range(len(ds)):
+        for j in range(i + 1, len(ds)):
+            if ds[i][:2] == ds[j][:2] and {ds[i][2], ds[j][2]} != {">=", "<="} and \
+                    ((ds[i][2] in tren and ds[j][2] in duoi) or
+                     (ds[i][2] in duoi and ds[j][2] in tren)):
+                return ("mau thuan sau quy uoc chi so bar (bar 0 ~ bar 1, vd. giao cat "
+                        "trong bar): " + ds[i][0][:40])
+    return None
 
 
 def _cac_co(guards: list, nhom: list) -> list[str]:

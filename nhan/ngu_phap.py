@@ -832,7 +832,9 @@ def _toan_hang_tinh(df: pd.DataFrame, t: dict) -> pd.Series:
              else _cot(df, str(t.get("cot", "close")).lower()))
         k = float(t.get("k", 2.0) or 2.0)
         giua = x.rolling(n).mean()
-        sd = x.rolling(n).std()
+        # `ddof`: 1 (mac dinh cu, do lech mau) | 0 (theo dan so - iBands cua MT5 chia
+        # cho n: `MathSqrt(sum/period)`; Pine `ta.stdev` cung chia n). Them 10/10 khuya.
+        sd = x.rolling(n).std(ddof=int(t.get("ddof", 1)))
         lay = str(t.get("lay", "duoi")).lower()
         if lay == "giua":
             return giua

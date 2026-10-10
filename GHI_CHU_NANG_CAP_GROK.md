@@ -1,4 +1,96 @@
-# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (19:00, giờ VN)
+# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (khuya, giờ VN)
+
+## Vòng "BỘ EA MỞ RỘNG — ĐO TỶ LỆ BÓC TÁCH NGOÀI 10 FILE MẪU" (sau 129f6a62) — khuya 10/10/2026
+Không đoán `_Point` của Breakout4. Không đụng ngưỡng giữ của vòng lặp (t ≥ 2,0/1,5, số lệnh,
+cổng tài khoản/placebo/cháy). Chỉ sửa lớp đọc MQL5 ở chỗ SAI NGHĨA hoặc THIẾU tổng quát.
+
+### 1. Kiểm kê .mq5/.mqh
+- Repo: 10 EA trong `mau_thu/` + 1 `.mqh` cache `/tmp/MultiPivots.mqh`; ngoài ra 7 `.mq5` khác
+  KHÔNG phải EA ngoài: `ea_MeanRevZ5.mq5`, `ea_QuanTriBench.mq5`, `xem_ghep.mq5` (do THE BRAIN
+  tự sinh), `reports/…` (bản ghép quản trị + 1 EA Wizard dùng lớp tín hiệu chuẩn + 1 stub). → Repo
+  chỉ có `mau_thu` để đo → làm bước 3 (lấy EA công khai).
+- Thêm `mau_thu/mo_rong/`: **15 EA MIT một file** (11 santiago-cruzlopez/MQL5, terencebeauj,
+  forexstrategystudio, Viprasol-Tech, je-zhou). Nguồn/commit/bản quyền: `mau_thu/mo_rong/NGUON.md`;
+  LICENSE trong từng thư mục. Bỏ khung lớn (geraked/metatrader5 dùng `EAUtils.mqh` chung).
+- Đo: `python mau_thu/do_moc_rong.py` (`--gop` = gộp với mau_thu). Cùng chỉ số trung thực với
+  `do_moc.py` (điểm vào dịch được / dich_duoc / hedge / ma_chet / chua_dich), không coi định danh
+  lạ là `close`. `do_moc.do(files=None)` nhận danh sách file; số chính của mau_thu không đổi.
+
+### 2. Số đo
+| | trước (129f6a62) | **bây giờ** |
+|---|---|---|
+| `mau_thu` (10 EA, 22 điểm vào) | 13/22 = 59,1% | **13/22 = 59,1%** — đầu ra `doc_chien_luoc` trên 10 file GIỐNG HỆT từng byte (đã diff JSON) |
+| `mau_thu/mo_rong` (15 EA, 34 điểm vào) | 1/34 = 2,9% — **và cái 1 đó SAI** | **5/34 = 14,7%** (6 cơ chế), cả 5 đã đọc tay đối chiếu mã EA |
+| gộp (25 EA, 56 điểm vào) | 14/56 = 25,0% | **18/56 = 32,1%** |
+- Cái "1 dịch được" cũ (`01_RSI_V1`: bán khi rsi14 > 30) là NÓI DỐI: EA khai `int rsiHandle = iRSI(..)`
+  CỤC BỘ trong OnInit, che biến toàn cục cùng tên → OnTick đọc handle 0, EA không đọc được RSI.
+  Giờ bộ đọc từ chối (handle bị che).
+- 5 điểm vào dịch được (đọc tay): `013_Bollinger` mua `close <= BB_dưới(21, 2.0, ddof 0) trễ 1`
+  / bán `close >= BB_trên … trễ 1` (bands_shift=1 → trễ 1; cổng IsNewBar); `015_Triple_MA` mua
+  `ema30>ema60 và ema10 trễ1 < ema30 trễ1 và ema10 >= ema30` / bán đối xứng (chuỗi if/else-if gán
+  `orderType`, `else return;`); `017_Ichi_ATR` mua `tenkan>kijun và tenkan trễ1 <= kijun trễ1` / bán
+  đối xứng (CopyBuffer start 1, mảng không đảo). SL/TP (điểm `_Point`, ATR×hệ số, mức MA) và lệnh
+  đóng theo dải giữa CHƯA dịch — cơ chế chỉ là ĐIỂM VÀO.
+- 29 chưa dịch, lý do chính: 4 **mâu thuẫn sau quy ước chỉ số bar** (RSI_V2, MA_V1, RSI_MA, RSI_MA_V2:
+  `X[1]>=30 && X[0]<30` — bar 0 ≈ bar 1 ở tick đầu, EA thật bắt giao cắt GIỮA bar khi chỉ báo
+  bar 0 đổi theo tick → DSL không nói được), 3 vào lệnh trong hàm phụ có trạng thái lớp/bộ lọc
+  (`EMA Crossover` sinh tự động dạng cây quyết định, `Box Breakout` theo `activeRange` lớp,
+  `Viprasol` qua `FiltersAllowEntry`), 3 nhánh `else`, `016_CCI_2MAVG` cờ `static` nhớ qua nhiều
+  bar, `018_Price_Action` lệnh dừng tự quản theo giá vào, `019_ADX` iADX của MT5 (không phải Wilder)
+  + DI±, `MA[0]>MA[1]` thành so với chính nó, `Basic_Bollinger_Bands` cờ sl/tp trạng thái.
+
+### 3. Sửa trong `nhan/doc_ma.py` (lớp MQL5) + `nhan/ngu_phap.py`
+Mở khoá (tổng quát, đúng nghĩa):
+- Đối số chỉ báo là **input** của tác giả (`iRSI(..,RSI_Period,..)`, `input int RSI_Period=14;`)
+  → giá trị mặc định (input MQL5 là hằng, không gán lại được). Input số trong vế so sánh
+  (`(100-RSI_Level)`) → hằng; số học hằng tính bằng `ast` (không eval).
+- Chỉ báo **nhiều buffer**: `iBands` 0/1/2 = giữa/trên/dưới, `iIchimoku` 0/1 = tenkan/kijun; tên
+  hằng buffer (`UPPER_BAND`, `TENKANSEN_LINE`…). Bollinger thêm `ddof` (0 = độ lệch dân số như
+  iBands MT5 `sqrt(sum/period)`; mặc định cũ 1 giữ nguyên cho mọi cơ chế cũ).
+- `ma_shift`/`bands_shift` = s > 0 → `trễ s` (đường vẽ dịch phải s bar, chỉ đọc quá khứ).
+- `MqlTick tk` + `SymbolInfoTick(_Symbol,tk)` → `tk.ask/bid/last` = giá bar 0 (token `_GIA0` như cũ).
+- Guard VÀ trộn tín hiệu + quản trị (`cntBuy==0 && rsi<30 && openTime!=iTime(..)`): bỏ VẾ quản trị
+  (ghi `bo_qua_quan_tri`), giữ vế tín hiệu; chỉ khi không có `or` mức ngoài. Quản trị mới: so với
+  `iTime(..)` (một lệnh/bar), `SymbolInfoTick`, `Count*Positions`, biến ĐẾM VỊ THẾ (tham chiếu
+  `int &c` được `c++` trong hàm duyệt `PositionsTotal`/`PositionGet*`, hoặc `x++` trong
+  `for(..PositionsTotal()..)`), so sánh hai biến `datetime` (cổng bar mới tự viết).
+- Chuỗi `if(A){t=ORDER_TYPE_BUY} else if(B){t=ORDER_TYPE_SELL} else return; PositionOpen(..,t,..)`
+  → hai cơ chế, CHỈ khi A và B loại trừ nhau chứng minh được (nếu không, nhánh hai là `B and not A`
+  → từ chối, có lý do).
+- Họ: `ichimoku` → `xu_huong`; giá vs dải Bollinger: mua dưới dải dưới = `quay_ve_trung_binh`,
+  mua trên dải trên = `pha_vo` (cùng hướng mới gán).
+Siết (trước đó dịch SAI, nay từ chối hoặc dịch đúng):
+- **Khung thời gian**: chỉ khung biểu đồ (`_Period/PERIOD_CURRENT/0/Period()`); trước đó đối số
+  khung bị BỎ QUA (`iMA(..,PERIOD_D1,..)` thành sma trên H1).
+- **Giá áp dụng**: PRICE_OPEN/HIGH/LOW/MEDIAN/TYPICAL → `cot`; WEIGHTED → từ chối (trước: rsi của
+  OPEN đọc thành rsi của CLOSE). `iCCI` theo đối số giá (DSL mặc định hlc3).
+- **Phương pháp MA**: MODE_SMMA → `smma`, MODE_LWMA → `wma` (trước: SMMA thành ema, LWMA thành sma).
+- `iATR` → `kieu: sma` (iATR MT5 = trung bình cộng TR, không phải Wilder).
+- **Handle bị che** bởi khai báo cục bộ cùng tên trong hàm khác → không dịch.
+- **Mâu thuẫn**: hai điều kiện cùng cặp toán hạng, chiều ngược (một phép chặt) → tập rỗng, từ chối;
+  so sánh toán hạng với chính nó → từ chối. Trên mau_thu không có trường hợp nào (đầu ra giữ nguyên).
+
+### 4. Test
+- Mới `test_doc_ma_mo_rong.py` (13): bands dưới + input + dịch = trễ, ddof 0/1 tính tay, hàm chỉ báo
+  (giá/phương pháp/khung/biến/shift), số học hằng (không eval chuỗi lạ), bỏ vế quản trị + biến đếm,
+  handle bị che, giao cắt bar0/bar1 = mâu thuẫn, so với chính nó, biến đếm KHÔNG duyệt vị thế thì
+  không bỏ, chuỗi if/else-if loại trừ / không loại trừ, `do_moc_rong` 15 file/34 điểm ≥5 + mau_thu 13/22.
+- 73 file test liên quan: **1109 xanh / 40 đỏ / 9 lỗi — 0 đỏ mới** so với HEAD (worktree HEAD đỏ 50
+  do thiếu file dữ liệu chưa track; tập đỏ của bản mới là tập con). Chạy lại 48 file chạm
+  doc_ma/ngu_phap sau chỉnh cuối: 0 đỏ mới.
+
+### 5. Chặn còn lại (vòng sau)
+1. **Giao cắt trong bar** (4/34 trên bộ rộng): EA kiểm mỗi tick, chỉ báo bar 0 đổi theo tick. Muốn
+   dịch trung thực cần toán hạng "chỉ báo với giá đóng thay bằng giá tick" + kích hoạt trong bar
+   (như khối `trong_bar` cho giá) — không làm bằng cách dời trễ 1 bar (đó là chiến lược khác).
+2. Hàm phụ / trạng thái lớp / cờ `static` qua nhiều bar → DSL không có biến trạng thái.
+3. `if(!X){ Print(..); return; }` (có lệnh trước `return`) KHÔNG được `_thoat_som` bắt — bộ lọc tín
+   hiệu viết kiểu này sẽ bị BỎ SÓT (lỏng hơn bản gốc). Trên 5 điểm vào đã nhận chỉ có lọc quản trị
+   kiểu đó (đã đọc tay), nhưng phải sửa trước khi chạy trên kho lớn.
+4. iADX MT5 (làm mượt EMA, khác Wilder) + DI±; iStochastic/iMACD nhiều buffer chưa ánh xạ.
+5. SL/TP theo `_Point`/ATR×hệ số/mức chỉ báo của bộ mở rộng chưa dịch; vòng lặp chưa chạy với các
+   cơ chế mới (`vong_thu_nghiem` mới đọc mau_thu).
+
 
 
 ## Vòng "RỔ HEDGE QUA CỔNG TÀI KHOẢN + SYMBOL_VOLUME_MAX" (sau 951e157a) — tối 10/10/2026

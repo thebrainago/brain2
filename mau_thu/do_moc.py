@@ -30,13 +30,15 @@ from nhan import doc_ma as DM                                    # noqa: E402
 MAU = LAB / "mau_thu"
 
 
-def do() -> dict:
+def do(files=None) -> dict:
+    """`files`: danh sach Path .mq5 (mac dinh: mau_thu/*.mq5, KHONG de quy -
+    so chinh lich su giu nguyen; bo mo rong do rieng o `do_moc_rong.py`)."""
     tong = co_che = vao_lenh = vao_co = 0
     loai = {"dich_duoc": 0, "ma_chet": 0, "quan_ly_vi_the": 0, "chua_dich": 0,
             "quan_ly_dich_duoc": 0}
     ly_do: dict[str, int] = {}
     dong: list[tuple] = []
-    for p in sorted(MAU.glob("*.mq5")):
+    for p in (sorted(MAU.glob("*.mq5")) if files is None else files):
         vb = p.read_text(encoding="utf-8", errors="ignore")
         tong += 1
         ds = DM.doc_ma(vb, ngon_ngu="mql5", nguon=p.name)
