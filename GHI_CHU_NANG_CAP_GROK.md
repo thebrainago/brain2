@@ -1,20 +1,18 @@
 # Ghi chú nâng cấp (Grok trên brain2) — 2026-10-10
 
-## Cập nhật 10/10/2026 — Nâng tỷ lệ bóc tách
+## Trạng thái hiện tại
+- **Tỷ lệ bóc tách**: 3/22 = **13.6%** (đã khôi phục sau khi commit 394266a6 làm hỏng file thành PLACEHOLDER)
+- Vòng lặp tối thiểu `vong_thu_nghiem.py` chạy được 3 cơ chế trên dữ liệu giả lập.
 
-**Đo được bằng `mau_thu/do_moc.py`:**
-- Trước: 3 / 22 = **13.6%**
-- Sau cải tiến trong `nhan/doc_ma.py`: 6 / 22 = **27.3%**
+## Việc đã làm
+- Patch bắt biến trung gian, tiền xử lý MQL5 cơ bản, fallback identifier.
+- Tạo vòng thí nghiệm quét → bóc tách → mô phỏng Python.
+- Khôi phục file bị hỏng.
 
-### Cải tiến đã làm
-- Tiền xử lý `&&` → `and`, `Tradesinfo.xxx` → `xxx`
-- Special-case cho pattern midpoint `lowrange+((highrange-lowrange)/2)` → `midrange`
-- Hỗ trợ so sánh có biểu thức số học đơn giản (thử parse bằng `_tuyen_tinh`)
-- Vòng lặp `vong_thu_nghiem.py` chạy được 6 cơ chế trên dữ liệu giả lập
+## Mục tiêu
+Vòng lặp liên tục: quét đầu vào → bóc tách cơ chế → kiểm định (Python) → tối ưu thông số → giữ lại cái hay.
 
-### Còn lại
-- Boolean state flags (`initup`, `!initup`)
-- Một số `true` từ guard phụ
-- Biểu thức phức tạp hơn và hàm gọi khác
-
-**Mục tiêu tiếp:** hoàn thiện vòng lặp quét → bóc tách → mô phỏng Python → tối ưu thông số cơ bản, và nâng tiếp tỷ lệ.
+## Ưu tiên tiếp
+1. Nâng tỷ lệ bóc tách lên ≥40% (xử lý &&, Tradesinfo, biểu thức phức tạp hơn) — làm cẩn thận, kiểm tra ngay sau mỗi thay đổi.
+2. Thêm tối ưu thông số cơ bản vào vòng lặp.
+3. Commit chỉ khi test pass.
