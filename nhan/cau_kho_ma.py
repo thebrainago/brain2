@@ -161,14 +161,15 @@ def gom_tu_thu_muc(thu_muc) -> list[dict]:
 
 
 def tai_mql5(thu_muc, so_trang: int = 1, muc: str = "experts", nghi_giay: float = 1.5,
-             in_ra=print) -> dict:
+             in_ra=print, han_giay: float | None = None, trang_dau: int = 1) -> dict:
     """QUET DAU VAO KHONG CAN nao.db: MQL5 Code Base -> `thu_muc/<id>_<ten>.mq5`.
 
     Dung CHINH bo tai cua SEEKER (`ma_nguon.liet_ke_mql5` + `tai_ma_nguon`: chi
     file don .mq5/.mq4, khong giai nen zip, co tran/san kich thuoc), nen chay
     duoc tren cloud/Linux noi `nao.db` trong. Bai da co file (theo so bai) thi
     BO QUA - chay lai chi lay bai moi. Provenance ghi vao `NGUON_TAI.json`.
-    Chi ghi file van ban trong `thu_muc`; khong chay gi.
+    Chi ghi file van ban trong `thu_muc`; khong chay gi. `han_giay`: tran thoi
+    gian (het thi dung, ghi `het_gio`; bai chua tai se lay o luot sau).
     """
     from nhan import ma_nguon as MN
     d = Path(thu_muc)
@@ -180,7 +181,11 @@ def tai_mql5(thu_muc, so_trang: int = 1, muc: str = "experts", nghi_giay: float 
         man = {}
     co = {p.name.split("_", 1)[0] for p in d.glob("*.mq[45]")}
     bao = Counter()
-    for trang in range(1, max(1, so_trang) + 1):
+    het = (time.time() + han_giay) if han_giay else None
+    for trang in range(max(1, trang_dau), max(1, trang_dau) + max(1, so_trang)):
+        if het is not None and time.time() >= het:
+            bao["het_gio"] += 1                     # tran thoi gian: luot sau lam tiep
+            break
         ds = MN.liet_ke_mql5(muc, trang)
         bao["trang"] += 1
         if not ds:
@@ -190,6 +195,9 @@ def tai_mql5(thu_muc, so_trang: int = 1, muc: str = "experts", nghi_giay: float 
             if str(b["id"]) in co or str(b["id"]) in man:
                 bao["da_co"] += 1
                 continue
+            if het is not None and time.time() >= het:
+                bao["het_gio"] += 1
+                break
             if nghi_giay:
                 time.sleep(nghi_giay)
             r = MN.tai_ma_nguon(b)
@@ -233,13 +241,38 @@ def _van_tay_mau_thu() -> set:
             for p in mau.rglob("*.mq5")}
 
 
-def do_kho(ban_ghi: list[dict], bo_mau_thu: bool = True) -> dict:
+#: Module ma ket qua `doc_chien_luoc` phu thuoc - doi mot file la doc lai ca kho.
+_MODULE_BO_DOC = ("doc_ma", "chot_mql", "fss_mql", "goi_ham_mql", "ro_mql", "ngu_phap",
+                  "thu_hoi_thanh_phan", "phan_loai_ma")
+
+
+def phien_ban_bo_doc() -> str:
+    """Van tay ma nguon bo doc (sha1 16 ky tu) - khoa cua bo nho dem `do_kho`."""
+    h = hashlib.sha1()
+    for ten in _MODULE_BO_DOC:
+        p = LAB / "nhan" / f"{ten}.py"
+        if p.exists():
+            h.update(p.read_bytes())
+    return h.hexdigest()[:16]
+
+
+def _tom_tat_doc(d: dict) -> dict:
+    return {k: d.get(k) for k in ("co_che", "so_vao_lenh", "so_vao_lenh_co_co_che",
+                                  "phan_loai_vao_lenh", "chua_dien_dat_duoc")}
+
+
+def do_kho(ban_ghi: list[dict], bo_mau_thu: bool = True, bo_nho: dict | None = None) -> dict:
     """Pheu: tong -> trung -> co/kich thuoc -> MQL4 -> lan -> doc_ma.
 
     Tra dict co `pheu`, `lan`, `so` (cung dinh nghia `do_moc`), `ly_do`, `ds`
     (moi file mot dong, khong kem ma nguon) va `xuat` (file ra >= 1 co che,
     KEM ma nguon de chep ra).
+
+    `bo_nho` (tuy chon, cho tru chay dinh ky): dict `van_tay@phien_ban_bo_doc ->
+    tom tat doc_chien_luoc`. File da doc bang CUNG ma bo doc khong doc lai; doi
+    bo doc (khoa khac) thi doc lai ca kho. So do ra GIONG HET khong dung bo nho.
     """
+    pb = phien_ban_bo_doc() if bo_nho is not None else ""
     pheu = Counter()
     lan = Counter()
     loai = Counter()
@@ -283,8 +316,15 @@ def do_kho(ban_ghi: list[dict], bo_mau_thu: bool = True) -> dict:
             continue
         pheu["ea_dat_lenh"] += 1
         t0 = time.time()
+        khoa = f"{vt}@{pb}"
         try:
-            d = DM.doc_chien_luoc(src, nguon=b["ten"])
+            if bo_nho is not None and khoa in bo_nho:
+                d = bo_nho[khoa]
+                pheu["tu_bo_nho"] += 1
+            else:
+                d = DM.doc_chien_luoc(src, nguon=b["ten"])
+                if bo_nho is not None:
+                    bo_nho[khoa] = json.loads(json.dumps(_tom_tat_doc(d), default=str))
         except Exception as e:              # loi bo doc = tin hieu sua, khong nuot
             pheu["loi_bo_doc"] += 1
             dong["ket_qua"] = "loi_bo_doc"

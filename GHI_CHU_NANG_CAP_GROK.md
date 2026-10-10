@@ -1,5 +1,73 @@
 # Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (khuya, giờ VN)
 
+## Vòng "CAUKHO TRONG dieu_phoi + NÂNG LỆNH VÀO LÊN CHỖ GỌI HÀM PHỤ" (sau 9aa53d77) — khuya 10/10/2026
+Không nới cổng giữ, không đụng `_Point` của Breakout4. Bộ 160 EA Code Base dùng làm PHÉP ĐO, không phải đáp án.
+
+### 1. Nối vào `dieu_phoi` — trụ mới `CAUKHO` (`tru/cau_kho.py`, `test_tru_cau_kho.py` 6 test)
+- `dieu_phoi.TRU["CAUKHO"]`: ngân sách 360 s, chu kỳ 6 giờ, nhóm `kham_pha`, **lane riêng `ma_nguon`**
+  (giới hạn 1) → chạy CẠNH SEEKER, không chiếm lượt `external` của SEEKER/NGHI, không dùng profile
+  trình duyệt. EVO theo dõi sống/chết (`TRU_CAN_SONG`, hạn im lặng 18 giờ).
+- KHÔNG cần `nao.db` có dữ liệu: nguồn chính là `tai_mql5` (bộ tải của SEEKER). Mỗi lượt tải trang 1
+  (bài mới) + MỘT trang sâu theo con trỏ `TRANG_SAU.json` (kho lớn dần ngược thời gian, tới trang 60),
+  trần thời gian tải `BRAIN_CAU_KHO_GIAY_TAI` (mặc định 180 s; `tai_mql5(han_giay=..)` dừng và ghi
+  `het_gio`). Nếu sổ cái có artifact mã (máy Windows) thì gom thêm `--tu-so`.
+- Đọc qua bộ nhớ đệm `bo_nho_doc.json` khoá theo vân tay NỘI DUNG + vân tay MÃ bộ đọc
+  (`cau_kho_ma.phien_ban_bo_doc()` = sha1 của doc_ma/chot_mql/fss_mql/goi_ham_mql/ro_mql/ngu_phap/…):
+  file cũ + bộ đọc cũ không đọc lại; sửa bộ đọc → đọc lại cả kho. Test: số đo qua bộ nhớ GIỐNG HỆT đọc lại.
+- Ghi trong `data/cau_kho/` (git bỏ qua): `mql5/`, `BAO_CAO.md`, `lich_su.jsonl` (mỗi lượt một dòng
+  phễu + tỷ lệ + phiên bản bộ đọc), `ea_ra_co_che/` + `NGUON.json` cho
+  `python vong_thu_nghiem.py --mau data/cau_kho/ea_ra_co_che`; chỉ số `cau_kho_ty_le_dich` vào sổ cái.
+- Mạng hỏng → `tai.loi` (dieu_phoi xếp `degraded`, không `error`), vẫn đo lại kho đang có.
+- Đo thật trên box qua `dieu_phoi.chay_tru("CAUKHO")`: status `ok`, 13,4 s lượt đầu (liệt kê 2 trang
+  thật từ mql5.com), 2,6 s lượt sau (117/117 từ bộ nhớ).
+- `test_dieu_phoi_control` (scheduler): cửa sổ 0,06 → 0,1 phút vì 6 trụ / 3 worker / vòng 2 s.
+
+### 2. Lỗi #1 "không tìm được guard": `nhan/goi_ham_mql.py` (`test_goi_ham_mql.py` 19 test)
+Lệnh vào trong HÀM PHỤ (`void OpenBuy(){ trade.Buy(..); }` gọi từ `if(rsi<30) OpenBuy();`) được NÂNG
+lên chỗ gọi, chỉ khi đồ thị gọi nhỏ và giải trọn vẹn: hàm tự do (tìm theo ngoặc, không theo regex kiểu
+trả về), định nghĩa 1 lần, gọi từ ĐÚNG 1 chỗ dạng lệnh đơn (`F();`, `x=F();`, `if(F())`, `if(!F())`),
+không trong for/while/switch/else, không return lồng có điều kiện, chuỗi ≤4 tầng tới `OnTick`
+(OnChartEvent/OnTimer → từ chối). Điều kiện vào chỉ được ở MỘT tầng (if bao HOẶC thoát sớm); tầng khác
+chỉ được là quản trị/kiểm lỗi API (ghi `bo_qua_quan_tri`) — hai tầng có điều kiện → từ chối (biến cục
+bộ tầng này không giải được ở vị trí tầng kia). Dịch điều kiện dùng lại nguyên đường cũ của doc_ma.
+Test tương đương: bản hàm phụ / hai tầng / chỉ thoát sớm trong `ulong DoBuy()` ra ĐÚNG `vao` như bản
+viết thẳng trong OnTick. 11 test từ chối có lý do (2 chỗ gọi, else, vòng for, OnChartEvent, phương thức
+lớp, hai tầng, biểu thức ghép, `?:`, overload, đệ quy, không có điều kiện vào).
+
+Sửa kèm (đều tương đương logic hoặc sửa lỗi gán sai hàm, không nới):
+- `_KHAI_HAM` thêm `ulong/uint/float/char/short/color/ENUM_*`: trước đó lệnh vào trong `ulong Open..()`
+  bị gán cho HÀM TRƯỚC → `return(INIT_SUCCEEDED)` của OnInit biến nó thành "mã chết" SAI.
+  `_ma_chet` còn kiểm thân hàm phải bao lệnh vào. Trên 160 EA: mã chết 7 → 4 (3 phân loại sai được gỡ).
+- `if(A or B) return;` tách thành hai thoát sớm (tương đương logic) để vế quản trị (`HasOpenPosition()`)
+  bỏ qua có ghi, vế tín hiệu dịch riêng. `mot_lenh_ngay` vẫn đọc dạng gốc (test Breakout1 giữ nguyên).
+- Hàm của tác giả CHỈ hỏi vị thế/lệnh (`HasPos()`, `CountPositions(..)`: thân chỉ gọi Position*/Order*
+  API, không giá/chỉ báo/đặt lệnh/hàm khác) = điều kiện quản trị như `cntBuy==0` (`_ham_hoi_vi_the`).
+
+### Số đo (cùng 160 EA `/workspace/seeker_mau/mql5`, `reports/CAU_KHO_MA.md`)
+| | trước (9aa53d77) | **bây giờ** |
+|---|---|---|
+| điểm vào dịch được | 1/240 = 0,4% | **1/240 = 0,4%** |
+| mã chết | 7 | 4 (3 cái cũ là gán nhầm hàm) |
+| "không tìm được guard" (lý do, theo file) | 63 | 20 (còn lại: chiều lệnh qua biến, lớp/struct, …) |
+| `mau_thu` / `mo_rong` / gộp | 13/22 · 13/34 · 26/56 | **giống hệt** (toàn bộ `co_che` so JSON: chỉ khác chữ `bo_qua_quan_tri` tách `c1 == 0`, `c2 == 0`) |
+
+Tỷ lệ KHÔNG tăng, nói thẳng: việc nâng thành công tới tầng điều kiện ở 8 điểm vào / 7 EA, nhưng cả 8 bị
+từ chối Ở BƯỚC DỊCH vì lỗ khác (đúng — không đoán): getter chỉ báo bọc hàm (`GetRSI(1)` →
+`ReadBufferValue` → CopyBuffer), biến bool từ hàm tín hiệu (`signal = SellSignal()`), giờ từ
+`TimeToStruct(iTime(..,1))`, kiểm `EMPTY_VALUE`, giới hạn lỗ ngày/drawdown (`XP_CheckDailyLossLimit()`).
+Các lệnh còn lại dừng ở lý do cụ thể hơn: gọi từ 2–5 chỗ (OR nhiều điều kiện, 15 lượt-file), điều kiện ở hai
+tầng (11), return lồng (8), lớp/struct (3), else (5), vòng for (4) — đếm theo lý do×file. Ký quỹ (`!CheckMargin(..)`) vẫn
+từ chối như ở đường trực tiếp (không coi là quản trị — giữ quy ước cũ).
+
+### Còn chặn (ưu tiên vòng sau, theo số đo)
+1. Getter chỉ báo bọc hàm (`double GetRSI(int s){ return Read(h,0,s); }`) — nội tuyến được khi thân
+   chỉ là CopyBuffer một handle đã biết; mở khoá 77738 (RSI exhaustion) nếu kèm giờ `TimeToStruct`.
+2. Hàm vào lệnh gọi từ nhiều chỗ với chiều khác nhau (`ExecuteTrade(ORDER_TYPE_BUY)` /
+   `(ORDER_TYPE_SELL)`) — tách theo chiều như `_chuoi_chieu`, từ chối khi hai chỗ cùng chiều.
+3. Nhánh `else` (17 + 4 qua chỗ gọi) — cần phủ định điều kiện chứng minh được.
+4. Chạy `CAUKHO` trên máy Windows (có `--tu-so`, 1.308 bản mã) để có mẫu lớn hơn 160.
+
+
 ## Vòng "SEEKER → doc_ma: CẦU KHO MÃ" (sau 055ec9be) — khuya 10/10/2026
 Không đổi `doc_ma`, không nới cổng giữ. Chỉ nối đầu vào.
 
@@ -43,7 +111,7 @@ Kết luận trung thực: 59,1%/46,4% trên mẫu **không tổng quát hoá** 
 - Chưa chạy `b cau-kho` (= `--tu-so`) trên nao.db thật (1.308 bản mã) — cần chạy trên máy Windows.
 - `doc_ma`: guard qua hàm phụ (`OpenBuy()` gọi từ `OnTick` theo biến tín hiệu), chiều lệnh qua biến
   (`trade.PositionOpen(_Symbol, type, ...)`), nhánh `else` — là ba lỗ lớn nhất trên đầu vào thật.
-- Chưa nối vào `dieu_phoi` (chạy tay / `b cau-kho`); bài tải hỏng không tự thử lại (ghi `ok:false`).
+- ~~Chưa nối vào `dieu_phoi`~~ — đã nối (trụ `CAUKHO`, vòng sau). Bài tải hỏng không tự thử lại (ghi `ok:false`).
 - `test_kien_truc::test_moi_thu_muc_that_deu_da_duoc_khai` đỏ do thư mục ngoài repo trong /workspace
   (venv, du_lieu_fx…) — môi trường box, có từ trước.
 

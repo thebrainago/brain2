@@ -69,7 +69,11 @@ TY_LE_KHAM_PHA = 0.70
 # Moi lane chi chay mot tru mot luc. Gioi han nay tranh hai cong viec cung tranh
 # mot profile browser/LLM hoac cung lam bao tri SQLite, trong khi van cho phep ba
 # loai tai song song tren may 20 logical CPU.
-LAN_GIOI_HAN = {"compute": 1, "external": 1, "maintenance": 1}
+#
+# `ma_nguon` (11/10/2026): CAUKHO tai .mq5 tu MQL5 Code Base bang `requests` (khong
+# dung profile browser/LLM cua SEEKER) roi doc bang `doc_ma` - lane rieng de khong
+# chiem luot cua SEEKER/NGHI; van chi MOT luot mot luc.
+LAN_GIOI_HAN = {"compute": 1, "external": 1, "maintenance": 1, "ma_nguon": 1}
 
 # tru -> script, ngan sach, chu ky toi thieu, nhom, lane, uu tien khoi dong.
 #
@@ -92,6 +96,7 @@ LAN_GIOI_HAN = {"compute": 1, "external": 1, "maintenance": 1}
 # | NGHI     | 4 s                  | 120 |
 # | BANKER   | 27 s                 | 180 |
 # | EVO      | 24 s                 | 150 |
+# | CAUKHO   | doc 160 EA 11 s + tai <= 180 s (11/10/2026) | 360 |
 #
 # CHU KY dat theo TOC DO DOI MOI CUA DAU VAO, khong theo "cang day cang tot":
 # nguon RSS ra bai theo ngay nen SEEKER 15 phut la thua; vi mo ra so theo ngay
@@ -108,6 +113,13 @@ TRU = {
                "nhom": "bao_tri", "lan": "maintenance", "uu_tien": 30},
     "EVO": {"script": "tru/evolution.py", "ngan_sach": 150, "chu_ky": 900,
             "nhom": "bao_tri", "lan": "maintenance", "uu_tien": 0},
+    # CAU KHO MA (11/10/2026): kho ma SEEKER / MQL5 Code Base -> doc_ma -> do ty le
+    # dich + xuat EA cho vong_thu_nghiem. Lane rieng `ma_nguon` (chay CANH SEEKER,
+    # khong tranh profile browser). Do 11/10: doc 160 EA het 11 s; tai tran 180 s
+    # ben trong (`BRAIN_CAU_KHO_GIAY_TAI`) -> ngan sach 360. Code Base ra vai bai/
+    # ngay nen chu ky 6 gio la du.
+    "CAUKHO": {"script": "tru/cau_kho.py", "ngan_sach": 360, "chu_ky": 6 * 3600,
+               "nhom": "kham_pha", "lan": "ma_nguon", "uu_tien": 35},
 }
 
 #: Ty le canh bao: luot nao thuong xuyen cham hon `ngan_sach * TY_LE_SAT_TRAN`

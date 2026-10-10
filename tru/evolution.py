@@ -63,8 +63,9 @@ from nhan import (cong as CONG, do_tai_nguyen as DTN, ket_qua_hoat_dong as KQHD,
 TRU = "EVO"
 LAB = Path(__file__).resolve().parent.parent
 REPORTS = LAB / "reports"
-TRU_CAN_SONG = ["SEEKER", "QUANTLAB", "NGHI", "BANKER", "EVO"]
+TRU_CAN_SONG = ["SEEKER", "QUANTLAB", "NGHI", "BANKER", "EVO", "CAUKHO"]
 HAN_DUNG_IM = {"SEEKER": 3 * 3600, "QUANTLAB": 2 * 3600, "NGHI": 6 * 3600,
+               "CAUKHO": 18 * 3600,                 # chu ky 6 gio x 3 (11/10/2026)
                "BANKER": 12 * 3600, "EVO": 3600}
 
 TU_SUA_DUOC = {

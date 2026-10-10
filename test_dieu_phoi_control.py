@@ -105,7 +105,9 @@ class ControlPlaneContractTest(unittest.TestCase):
                     _khoa=lambda: True, _tha_khoa=lambda: None,
                     giu_may_thuc=lambda: True, tha_may_ngu=lambda: None,
                     _cpu_hien_tai=lambda: 10.0), \
-                    mock.patch.object(sys, "argv", ["dieu_phoi.py", "--phut", "0.06"]):
+                    mock.patch.object(sys, "argv", ["dieu_phoi.py", "--phut", "0.1"]):
+                # 0.06 -> 0.1 phut (11/10/2026): 6 tru (them CAUKHO), 3 worker, vong 2 s
+                # -> lane maintenance (BANKER, EVO) can 3 vong khi vong 1 uu tien kham_pha
                 self.assertEqual(DP.main(), 0)
             state = json.loads((root / "control.json").read_text(encoding="utf-8"))
 

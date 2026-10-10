@@ -53,6 +53,7 @@ from nhan import ngu_phap as NP
 from nhan import ro_mql as RO
 from nhan import chot_mql as CHOT
 from nhan import fss_mql as FSS
+from nhan import goi_ham_mql as GH
 from nhan import thu_hoi_thanh_phan as TP
 
 #: Phep so sanh trong ma -> phep cua ngu phap.
@@ -943,8 +944,12 @@ _LA_PHAN_NHANH = re.compile(
     re.I)
 
 #: Khai bao ham kieu C: `void Ten(...)` / `bool Ten(...)` / `void Ten(...) {`.
+#: Them 11/10/2026: `ulong`/`uint`/`float`/`ENUM_*`... - truoc do lenh vao trong
+#: `ulong OpenBuy(){..}` bi gan cho HAM TRUOC (vd OnInit) -> `return(INIT_..)` cua
+#: ham do bien lenh vao thanh "ma chet" sai.
 _KHAI_HAM = re.compile(
-    r"^[ \t]*(?:static[ \t]+)?(?:void|bool|int|double|long|string|datetime)"
+    r"^[ \t]*(?:static[ \t]+)?(?:void|bool|char|uchar|short|ushort|int|uint|long|ulong"
+    r"|float|double|string|datetime|color|ENUM_\w+)"
     r"[ \t]+(\w+)[ \t]*\(", re.M)
 
 
@@ -1781,9 +1786,49 @@ def _bien_dem_vi_the(vb: str) -> set:
 _RX_GIA_TRI_HONG = re.compile(r"^\s*!?\s*[\w.\[\]]+\s*(?:<=|==)\s*0(?:\.0*)?\s*$")
 
 
+#: Ham cua tac gia CHI hoi vi the/lenh dang mo (`HasOpenPosition()`,
+#: `CountPositions(POSITION_TYPE_BUY)`), dien o `_doc_chien_luoc_mql` (them 11/10/2026).
+_HAM_VI_THE: set = set()
+_RX_GOI_VI_THE = re.compile(r"\bPositions?Total\b|\bPositionGet\w*|\bPositionSelect\w*"
+                            r"|\bOrdersTotal\b|\bOrderGet\w*|\bOrderSelect\b")
+#: Loi goi DUOC PHEP trong than ham hoi vi the: API vi the/lenh + ep kieu + tien ich chuoi.
+_RX_GOI_DUOC = re.compile(
+    r"(?:if|for|while|return|switch|sizeof|Positions?Total|PositionGet\w*|PositionSelect\w*"
+    r"|OrdersTotal|OrderGet\w*|OrderSelect|Symbol|StringCompare|Print\w*|long|ulong|int"
+    r"|uint|string|double|bool|ENUM_\w+)")
+
+
+def _ham_hoi_vi_the(vb: str) -> set:
+    """Ham tu do `bool/int F(..)` ma than ham co hoi vi the/lenh (`_RX_GOI_VI_THE`) va
+    MOI loi goi ham trong than deu thuoc `_RX_GOI_DUOC` (khong gia, khong chi bao,
+    khong dat/dong lenh, khong goi ham khac cua tac gia). Dieu kien chi tren ket qua
+    ham do = dieu kien VI THE (quan tri), nhu `cntBuy==0`."""
+    mn = GH.mat_na(vb)
+    ra = set()
+    for ten, ds in GH.ham_tu_do(mn).items():
+        if len(ds) != 1:
+            continue
+        h = ds[0]
+        dau = GH._dau_khoi(mn, h["mo"])
+        if not re.match(r"(?:static\s+)?(?:bool|int|uint|long|ulong)\s", dau):
+            continue
+        than = mn[h["mo"]:h["dong"]]
+        if not _RX_GOI_VI_THE.search(than):
+            continue
+        goi = re.findall(r"(?<![\w.])([A-Za-z_]\w*)\s*\(", than)
+        if goi and all(re.fullmatch(_RX_GOI_DUOC, x) for x in goi) and \
+                not re.search(r"\b(?:close|open|high|low|Ask|Bid)\b", than):
+            ra.add(ten)
+    return ra
+
+
 def _la_dem_vi_the(p: str) -> bool:
     m = re.fullmatch(r"\s*\(?\s*([A-Za-z_]\w*)\s*(?:==|!=|<=|>=|<|>)\s*\d+\s*\)?\s*", p)
     if m and m.group(1) in _DEM_VI_THE:
+        return True
+    m = re.fullmatch(r"\s*\(?\s*!?\s*([A-Za-z_]\w*)\s*\([\w\s,]*\)\s*"
+                     r"(?:(?:==|!=|<=|>=|<|>)\s*\d+\s*)?\)?\s*", p)
+    if m and m.group(1) in _HAM_VI_THE:
         return True
     # cong thoi gian bar: hai bien `datetime` so voi nhau (`previousBarTime ==
     # currentBarTime`) - khong phai tin hieu gia (them 10/10 khuya)
@@ -2332,8 +2377,8 @@ def _ma_chet(vb: str, vi_tri: int) -> bool:
     khoi do ra co che la gan cho tac gia mot chien luoc ho KHONG chay.
     """
     goc, _ = _dau_ham(vb, vi_tri)
-    if not goc:
-        return False
+    if not goc or _cuoi_khoi(vb, goc) < vi_tri:
+        return False                    # than ham da dong truoc lenh vao: sai ham
     muc, i = 0, goc
     while i < vi_tri:
         c = vb[i]
@@ -3197,6 +3242,8 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
     _BIEN_SO_COPY.update(_bien_so_copy(vb))
     _HAM_KIEM_LOI.clear()
     _HAM_KIEM_LOI.update(_ham_chi_kiem_loi(vb))
+    _HAM_VI_THE.clear()
+    _HAM_VI_THE.update(_ham_hoi_vi_the(vb))
     try:
         for m in _VAO_LENH.finditer(vb):
             if m.group("pine"):
@@ -3343,6 +3390,19 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
                     th = False
                 if th is False:
                     pass
+                elif th is None and chieu != 0:
+                    # Lenh vao trong HAM PHU, dieu kien o CHO GOI - `nhan/goi_ham_mql.py`
+                    # (them 11/10/2026). Chi khi do thi goi nho, giai duoc tron ven.
+                    try:
+                        gh = GH.nang_cho_goi(vb, m.start())
+                    except Exception as e:          # noqa: BLE001 - khong lam vo ca file
+                        gh = {"loi": f"goi ham: loi doc {type(e).__name__}"}
+                    if gh.get("loi"):
+                        ho.append(gh["loi"])
+                        loai[loai_hong] += 1
+                        continue
+                    nhom.append((chieu, [g for _, g in gh["guards"]], gh["vi"], [],
+                                 {"den": gh["den"], "qt": gh["qt"], "tang": gh["tang"]}))
                 elif th is None:
                     ho.append("khong tim duoc guard cua lenh vao")
                     loai[loai_hong] += 1
@@ -3354,13 +3414,22 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
             bat_dau = len(ra)
             for mu in nhom:
                 c, guards, vi = mu[0], mu[1], mu[2]
+                nang = mu[4] if len(mu) > 4 else None     # lenh vao nang len cho goi
                 goc, _ = _dau_ham(vb, vi)
+                if nang is not None:
+                    goc = GH.goc_ham(vb, vi)
                 # thoat som toi CHINH lenh vao (ke ca trong khoi guard: `if(sig){
                 # if(!X) return; Buy(); }`) khi lenh vao cung ham voi guard
-                den_th = m.start() if _dau_ham(vb, m.start())[0] == goc else vi
+                den_th = nang["den"] if nang is not None else \
+                    (m.start() if _dau_ham(vb, m.start())[0] == goc else vi)
                 tac_th: list = []
                 thoat = (mu[3] if len(mu) > 3 else []) + _thoat_som(vb, goc, den_th, tac_th)
-                dk, h, qt = [], [], []
+                # `if(A or B) return;` == `if(A) return; if(B) return;` (tuong duong
+                # logic dung) - tach de ve quan tri (`HasOpenPosition()`) duoc bo qua
+                # co ghi, ve tin hieu duoc dich rieng (them 11/10/2026)
+                thoat_goc = thoat                 # nguyen dang cho `_mot_lenh_ngay_mql`
+                thoat = [x for t in thoat for x in (_tach_hoac(_boc_ngoac(t)) or [t])]
+                dk, h, qt = [], [], list(nang["qt"]) if nang is not None else []
                 for g in guards:
                     # Guard VA tron tin hieu + quan tri (`cntBuy==0 && rsi<30 &&
                     # openTime!=iTime(..)`): bo VE quan tri (ghi `bo_qua_quan_tri`),
@@ -3377,7 +3446,7 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
                         continue
                     dk += d2
                     h += h2
-                co_nhanh = guards[0] if re.fullmatch(_TEN, guards[0]) else None
+                co_nhanh = guards[0] if guards and re.fullmatch(_TEN, guards[0]) else None
                 for t in thoat:
                     ve = _tach_va(t)
                     loc_co = False
@@ -3396,7 +3465,7 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
                         qt.append(t[:60])
                     else:
                         h.append("loc thoat som: " + t[:50])
-                if den_th == m.start():
+                if den_th == m.start() or nang is not None:
                     h += ["return trong khoi long truoc lenh vao (loc co dieu kien): " + x
                           for x in _return_long(vb, goc, den_th)]
                 if h or not dk:
@@ -3474,13 +3543,14 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
                     ra[-1]["sltp"] = sltp
                 ghi_sltp_cu = list(ghi) if sltp is None else []
                 gia_dinh += ghi
-                mln = _mot_lenh_ngay_mql(vb, m, co_nhanh, thoat)
+                mln = _mot_lenh_ngay_mql(vb, m, co_nhanh, thoat_goc)
                 if mln is not None:
                     g_ = mln.pop("_guard")
                     mln["nhom"] = f"{nguon}@{m.start()}"
                     ra[-1]["mot_lenh_ngay"] = mln
+                    bo_ = {g_[:60]} | {x[:60] for x in _tach_hoac(_boc_ngoac(g_))}
                     ra[-1]["bo_qua_quan_tri"] = [x for x in ra[-1]["bo_qua_quan_tri"]
-                                                 if x != g_[:60]]
+                                                 if x not in bo_]
                     gia_dinh.append(
                         "mot lenh/ngay: chan khi ngay-trong-thang cua bar = "
                         + "/".join(mln["chan_boi"]) + "; lenh nay dat "
@@ -3769,7 +3839,7 @@ def _mau_thuan(dk: list[dict]) -> str | None:
 
 def _cac_co(guards: list, nhom: list) -> list[str]:
     """Moi co nhanh (ten don) cua cac nhanh trong cung lenh vao."""
-    return [mu[1][0] for mu in nhom if re.fullmatch(_TEN, mu[1][0])]
+    return [mu[1][0] for mu in nhom if mu[1] and re.fullmatch(_TEN, mu[1][0])]
 
 
 def doc_chien_luoc(vb: str, nguon: str = "", tien_to: str = "ma") -> dict:
