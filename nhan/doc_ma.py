@@ -71,7 +71,9 @@ _GIA = {"close": "close", "open": "open", "high": "high", "low": "low",
         "bid": "close", "ask": "close",
         "iclose": "close", "iopen": "open", "ihigh": "high", "ilow": "low",
         "close[0]": "close", "price": "close", "last": "close",
-        "currentprice": "close", "gia": "close"}
+        "currentprice": "close", "gia": "close",
+        # Alias sau chuẩn hóa preprocessor
+        "cao_nhat": "high", "thap_nhat": "low"}
 
 #: HAM CHI BAO cua MQL5 -> chi bao DSL. `iMA(sym,tf,n,shift,method,price)`:
 #: doi so 5 la phuong phap (MODE_SMA=0, MODE_EMA=1) - lay `n` o doi so 3.
@@ -519,6 +521,9 @@ def _toan_hang_goc(tu: str, vi_tri: int, bang: list,
     k = tu.lower()
     if k in _GIA:
         return {"chi_bao": "gia", "cot": _GIA[k]}
+    # Fallback: identifier không biết nhưng xuất hiện trong so sánh -> coi là mức giá/ngưỡng
+    if re.fullmatch(_TEN, tu) and tu.lower() not in ("true", "false"):
+        return {"chi_bao": "gia", "cot": "close", "ten_goc": tu}
     # ham chi bao MQL5 viet thang trong dieu kien
     hm = _tu_ham_mql5(tu)
     if hm is not None:
@@ -874,6 +879,22 @@ def _no_dieu_kien(bt: str, vi_tri: int, bang_cb: list, bang_bl: list,
     return dk, ho
 
 
+
+def _chuan_hoa_mql5_don_gian(vb: str) -> str:
+    """Tiền xử lý các pattern MQL5 phổ biến để parser hiện có hiểu được.
+    Chỉ dùng cho mục đích bóc tách, không thay đổi logic gốc.
+    """
+    import re
+    # current[0].xxx -> tên chuẩn
+    vb = re.sub(r'current\[\d+\]\.high', 'cao_nhat', vb)
+    vb = re.sub(r'current\[\d+\]\.low', 'thap_nhat', vb)
+    vb = re.sub(r'current\[\d+\]\.close', 'close', vb)
+    vb = re.sub(r'current\[\d+\]\.open', 'open', vb)
+    # Bỏ offset _Point*margin đơn giản
+    vb = re.sub(r'-\(_Point\*\w+\)', '', vb)
+    vb = re.sub(r'\+\(_Point\*\w+\)', '', vb)
+    return vb
+
 def doc_chien_luoc(vb: str, nguon: str = "", tien_to: str = "ma") -> dict:
     """CHIEN LUOC THAT: lan tu `strategy.entry` nguoc ve dieu kien vao.
 
@@ -893,6 +914,7 @@ def doc_chien_luoc(vb: str, nguon: str = "", tien_to: str = "ma") -> dict:
     `chua_dien_dat_duoc` de biet ngu phap con thieu gi.
     """
     vb = _chuan_hoa(vb)
+    vb = _chuan_hoa_mql5_don_gian(vb)
 
     if not vb or not _VAO_LENH.search(vb):
         return {"co_che": [], "chua_dien_dat_duoc": [], "so_vao_lenh": 0}

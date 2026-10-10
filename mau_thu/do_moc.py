@@ -39,7 +39,7 @@ def do() -> dict:
         tong += 1
         ds = DM.doc_ma(vb, ngon_ngu="mql5", nguon=p.name)
         d = DM.doc_chien_luoc(vb, nguon=p.name)
-        co_che += len(ds)
+        co_che += len(d.get("co_che", []))
         vao_lenh += d.get("so_vao_lenh", 0)
         for x in d.get("chua_dien_dat_duoc", []):
             k = str(x)[:70]
