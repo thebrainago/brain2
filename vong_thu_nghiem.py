@@ -163,7 +163,7 @@ def doc_csv(p: Path) -> pd.DataFrame:
 
 
 def mo_hinh_chi_phi(df: pd.DataFrame, ma: str = "EURUSD",
-                    khong_phi: bool = False) -> CP.MoHinhChiPhi:
+                    khong_phi: bool = False, phi_cu: bool = False) -> CP.MoHinhChiPhi:
     """Chi phi THAT cua du an (`chi_phi.tu_du_lieu`: spread do tu bar/san, truot
     1/4 spread, phi qua dem do tu san).
 
@@ -171,10 +171,16 @@ def mo_hinh_chi_phi(df: pd.DataFrame, ma: str = "EURUSD",
     - constructor TRAN, moi thanh phan = 0. Tuc MOI ket qua vong lap truoc day
     (ke ca bang so trong GHI_CHU) la KHONG PHI, du ghi "sau phi".
     `khong_phi=True` chi de so sanh voi so cu.
+
+    P3 (11/10/2026): mac dinh PHI DUNG THOI KY (`chi_phi.ap_thoi_ky`): swap tinh theo LENH
+    qua rollover nua dem gio server (x3 thu Tu), ti le swap theo THANG = chenh lai suat qua
+    dem (FRED) + markup san do hom nay, spread theo NAM khi bar co cot spread (khong co ->
+    CHUA DO DUOC, giu spread hom nay). `phi_cu=True` -> mo hinh truoc P3 (chi de so sanh).
     """
     if khong_phi:
         return CP.MoHinhChiPhi(ma=ma)
-    return CP.tu_du_lieu(ma, df)
+    cp = CP.tu_du_lieu(ma, df)
+    return cp if phi_cu else CP.ap_thoi_ky(cp, df, ma)
 
 
 def danh_gia(spec: dict, df: pd.DataFrame, khung: str, tick_dau: bool = False,
@@ -890,6 +896,8 @@ def main(argv=None) -> int:
     ap.add_argument("--loc-file", default="*.mq5", help="mẫu tên file EA (vd '*Breakout5*')")
     ap.add_argument("--diem", type=float, default=DIEM,
                     help="_Point của mã (mặc định 1e-5 = EURUSD 5 số, GIẢ ĐỊNH; JPY 1e-3)")
+    ap.add_argument("--phi-cu", action="store_true",
+                    help="mô hình phí TRƯỚC P3 (swap liên tục, tỉ lệ hôm nay cho mọi năm) - chỉ để so")
     ap.add_argument("--he-so-spread", type=float, default=1.0,
                     help="nhân spread đo được (XM micro) - ĐỘ NHẠY, vd 0.33 ~ tài khoản "
                          "ECN (chưa cộng hoa hồng). Mặc định 1 = phí thật hiện có")
@@ -905,7 +913,7 @@ def main(argv=None) -> int:
     tong, da_thay = [], set()
     tk = {"von": a.von, "don_bay": a.don_bay, "stop_out": a.stop_out,
           "lot_max": a.lot_max or None, "lot_tong_max": a.lot_tong_max or None}
-    cp = mo_hinh_chi_phi(df, a.ma, a.khong_phi)
+    cp = mo_hinh_chi_phi(df, a.ma, a.khong_phi, a.phi_cu)
     if not a.khong_phi and a.he_so_spread != 1.0:
         cp = cp.bien_the(spread=cp.spread_frac_chung * a.he_so_spread)
     for f in sorted(Path(a.mau).glob(a.loc_file)):
@@ -914,6 +922,8 @@ def main(argv=None) -> int:
                                   n_placebo=a.n_placebo, p_placebo=a.p_placebo,
                                   p_chay_nam=a.p_chay_nam))
 
+    for x in tong:
+        x.setdefault("mo_hinh_phi", "khong_phi" if a.khong_phi else cp.phien_ban())
     loi = [x for x in tong if "loi" in x]
     giu = [x for x in tong if x.get("giu_lai")]
     trung = [x for x in tong if x.get("trung")]
@@ -931,7 +941,12 @@ def main(argv=None) -> int:
           f"spread {cp.spread_frac_chung * 1e4:.2f} bps/chiều, trượt "
           f"{cp.truot_gia_frac * 1e4:.2f} bps, qua đêm mua {cp.phi_nam_mua:+.4f}/bán "
           f"{cp.phi_nam_ban:+.4f} /năm ({cp.do_tin})"
-          + (f" [ĐỘ NHẠY: spread x{a.he_so_spread:g}]" if a.he_so_spread != 1.0 else "")))
+          + (f" [ĐỘ NHẠY: spread x{a.he_so_spread:g}]" if a.he_so_spread != 1.0 else "")
+          + f" | mô hình phí {cp.phien_ban()}"))
+    if not a.khong_phi:
+        for c_ in cp.canh_bao:
+            if c_.startswith("P3 "):
+                print(f"  {c_}")
     chay = len(tong) - len(loi) - len(trung) - len(lech)
     print(f"Cơ chế: {len(tong)} bóc được, {len(trung)} trùng, {len(lech)} không hợp "
           f"khung, {len(loi)} lỗi, {chay} chạy được   → giữ lại: {len(giu)}")

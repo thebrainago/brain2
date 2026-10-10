@@ -1,4 +1,24 @@
-# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (khuya, giờ VN)
+# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-11 (rạng sáng, giờ VN)
+
+## Vòng "P3 — SWAP THEO TỪNG LỆNH + PHÍ ĐÚNG THỜI KỲ" (sau dc074dab) — rạng sáng 11/10/2026
+Chi tiết + bảng: `hieu_chuan/P3_KET_QUA.md`. **Không đổi cổng duyệt.** Mọi số là MÔ PHỎNG, không phải tiền.
+- **Sửa (mặc định trong `vong_thu_nghiem`, `--phi-cu` = mô hình cũ):** (1) swap chỉ tính cho lệnh còn mở qua rollover nửa đêm
+  giờ server, thứ Tư ×3, T7/CN 0 (`chi_phi.dem_qua_dem`); (2) swap gắn vào TỪNG lệnh trong rổ (`chay_he`: vốn ròng = số dư +
+  thả nổi − swap lệnh mở; stop-out chọn lệnh lỗ nhất tính cả swap) — đóng lỗi tồn "swap gắn số dư chung"; (3) tỉ lệ swap theo
+  THÁNG = chênh lãi suất qua đêm USD−EUR (FRED, `config/lai_suat_qua_dem_thang.csv`) + markup XM đo 09/2026 (~1 %/năm mỗi chiều,
+  GIẢ ĐỊNH không đổi); (4) spread theo NĂM khi bar có cột spread — dữ liệu EURUSD hiện có KHÔNG có → **CHƯA ĐO ĐƯỢC**, vẫn
+  spread hôm nay cho 2003-2021 (lạc quan cho 2003-2010). Nhãn `mo_hinh_phi` trong JSON/báo cáo: `cp3` / `cp3+p3(...)`.
+- **Kiểm:** mô hình cũ qua mã mới = giống hệt từng số dc074dab (tái cấu trúc trung tính). `test_p3_phi_thoi_ky.py` 16 test
+  (×3 thứ Tư tính tay, lệnh trong ngày 0 swap, swap vào số dư khi đóng, stop-out do swap, phí tháng khớp phí sàn tháng đo…).
+  20 file test liên quan: 289 xanh / 6 đỏ — 6 đỏ y hệt HEAD (`test_don_bay_va_carry`, thiếu nao.db).
+- **Số đo EURUSD 2003-2021, phần kiểm 2016-2021:** Breakout5 lưới loi_log +6,67 → +7,57, vốn cuối 35.546 → 37.663 USD, DD vốn
+  ròng 95,6 → 95,4 %, stop-out 9 → 7, p placebo 0,24 → 0,19 → **vẫn loại**; hedge B2/B3 swap 642 → 564 USD, lỗ −0,635 → −0,628;
+  lệnh đơn đổi ≤ 0,005 log. **Giữ 0/6 trước và sau; đạt 25/09 0/6 trước và sau.** Mô hình mới hơi ít phí hơn → kết luận
+  "không lợi thế sau phí" không đổi.
+- **Chưa làm:** P4 (`hieu_chuan/p4_*`) đã đo bằng mô hình cũ — chưa chạy lại; `luoi_duong`/`luoi.chay` (P1) không có swap
+  (so với tester vốn không ghi swap — đúng thước); quantlab/đường ống cũ vẫn `cp3`.
+- **Việc tiếp:** giả thuyết 06 (gói the-brain); cài Đ1/Đ2 thành nhãn khi chủ dự án đồng ý; tìm nguồn spread lịch sử (Dukascopy
+  ask/bid tick khi tải được) để đo spread theo năm.
 
 ## Vòng "P4 — ĐỐI CHỨNG NHIỄU + ĐỒNG DẤU VỚI MT5 + LUẬT LOẠI SỚM" (sau 22c68c55) — rạng sáng 11/10/2026
 Chỉ ĐO + ĐỀ XUẤT. **Không đổi cổng duyệt.** Mọi số là MÔ PHỎNG (giá giả lập chỉ có nhiễu, hoặc so với tester MT5) — không phải tiền.
@@ -550,8 +570,8 @@ Kết quả: `/workspace/du_lieu_fx/vong_eurusd_duka_cong_ro.{json,txt}` (~6 ph�
    (Breakout1) vẫn chỉ qua ngưỡng t (đã có `--gia-lap-duong` làm placebo dữ liệu).
 4. Breakout4 — vẫn bỏ qua (không đoán `_Point`, logic đầu ngày, trigger trong nến).
 5. Dukascopy kéo đủ 2003-2026 + thêm cặp: chạy `tai_dukascopy_h1.py` qua đêm (bị 429 khi gọi dồn).
-6. Các xấp xỉ cũ: swap gắn số dư chung (không từng lệnh) khi chọn lệnh "lỗ nhất"; ký quỹ chỉ đúng
-   xxxUSD; phí hiện tại áp cho 2003-2010.
+6. Các xấp xỉ cũ: ~~swap gắn số dư chung (không từng lệnh) khi chọn lệnh "lỗ nhất"~~ (P3 11/10: đã gắn từng
+   lệnh); ký quỹ chỉ đúng xxxUSD; phí hiện tại áp cho 2003-2010 (P3: swap đã theo tháng; spread theo năm CHƯA ĐO ĐƯỢC).
 
 ---
 

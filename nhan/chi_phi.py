@@ -116,6 +116,41 @@ def hinh_hoc(index) -> tuple:
     return hh
 
 
+_BO_NHO_DEM: dict = {}
+_BO_NHO_CHENH: dict = {}
+
+
+def dem_qua_dem(index, ngay_ba: int = 2) -> np.ndarray:
+    """So DEM tinh swap (co trong so) cua tung interval open[i] -> open[i+1] (P3, 11/10/2026).
+
+    Swap MT5 chi tinh cho lenh CON MO luc rollover (nua dem GIO MAY CHU - du lieu brain2 la gio
+    server). Moi nua dem nam trong (t_i, t_{i+1}] ket thuc ngay D-1, co trong so:
+    thu 2/3/5/6 -> 1, ngay `ngay_ba` (0 = thu 2; 2 = thu Tu cho FX, 4 = thu Sau cho CFD) -> 3,
+    thu 7/CN -> 0 (cuoi tuan da tinh trong lan x3). Tong mot tuan = 7 = so ngay lich, nen
+    lenh giu dai tra NHU mo hinh lien tuc; khac o lenh trong ngay (0 dem -> 0 swap) va lenh
+    qua dem thu Tu (x3). Bar cuoi: 0.
+    """
+    k = _khoa_index(index) + (ngay_ba,)
+    d = _BO_NHO_DEM.get(k)
+    if d is not None:
+        return d
+    n = len(index)
+    d = np.zeros(n, dtype=float)
+    if n > 1:
+        ngay = index.to_numpy().astype("datetime64[D]").astype(np.int64)
+        lo_, hi_ = int(ngay.min()), int(ngay.max())
+        D = np.arange(lo_, hi_ + 1, dtype=np.int64)
+        thu_truoc = (D - 1 + 3) % 7                # thu cua ngay D-1 (0 = thu 2; 1970-01-01 = thu 5)
+        w = np.where(thu_truoc >= 5, 0.0, np.where(thu_truoc == ngay_ba, 3.0, 1.0))
+        C = np.cumsum(w)
+        C -= C[0] if len(C) else 0.0               # C[D] = tong w tu lo_+1 den D
+        d[:-1] = C[ngay[1:] - lo_] - C[ngay[:-1] - lo_]
+    if len(_BO_NHO_DEM) >= _TRAN_BO_NHO:
+        _BO_NHO_DEM.clear()
+    _BO_NHO_DEM[k] = d
+    return d
+
+
 #: Manh ten cho biet day la chi so co phieu / ETF co phieu, khong phai ty gia.
 #:
 #: Bo sung 21-22/08: kho co 33 chuoi chi so DAI (Yahoo, 20-56 nam) va ban cu
@@ -189,6 +224,27 @@ class MoHinhChiPhi:
     nguon: str = ""
     do_luc: str = ""
     canh_bao: list = field(default_factory=list)
+    # ---- P3 (11/10/2026): phi DUNG THOI KY - mac dinh TAT (hanh vi cu y het) --------------
+    #: "lien_tuc" (cu: phi tinh theo so ngay that giua cac bar, ke ca lenh trong ngay) |
+    #: "nua_dem" (swap chi tinh khi lenh mo qua rollover nua dem gio server, x3 thu Tu FX)
+    kieu_qua_dem: str = "lien_tuc"
+    #: {"YYYY-MM": r(yet gia) - r(co so)} (`nhan/lai_suat_fx`) + markup do tu san -> phi qua
+    #: dem theo THANG: mua d(t)+markup_mua, ban -d(t)+markup_ban. Rong -> phi_nam_* co dinh.
+    chenh_lai_suat: dict = field(default_factory=dict)
+    markup_mua: float = 0.0
+    markup_ban: float = 0.0
+    #: {nam: spread frac} DO tu cot spread cua bar theo tung nam; rong -> spread chung moi nam
+    spread_frac_theo_nam: dict = field(default_factory=dict)
+
+    def phien_ban(self) -> str:
+        """Nhan phien ban mo hinh phi cho bao cao (P3)."""
+        if self.kieu_qua_dem == "lien_tuc" and not self.chenh_lai_suat \
+                and not self.spread_frac_theo_nam:
+            return f"cp{THE_HE}"
+        return (f"cp{THE_HE}+p3(" + ",".join(x for x in (
+            "swap_nua_dem" if self.kieu_qua_dem == "nua_dem" else "",
+            "swap_theo_thang" if self.chenh_lai_suat else "",
+            "spread_theo_nam" if self.spread_frac_theo_nam else "") if x) + ")")
 
     # ---- ap vao mot chuoi bar --------------------------------------------
     def spread_mang(self, index: pd.DatetimeIndex) -> np.ndarray:
@@ -199,8 +255,37 @@ class MoHinhChiPhi:
             bang = np.full(24, mac, dtype=float)
             for g, v in self.spread_frac_theo_gio.items():
                 bang[int(g)] = v
-            return bang[gio]
-        return np.full(len(index), self.spread_frac_chung, dtype=float)
+            ra = bang[gio]
+        else:
+            ra = np.full(len(index), self.spread_frac_chung, dtype=float)
+        if self.spread_frac_theo_nam and self.spread_frac_chung > 0 and len(index):
+            # P3: nam co spread DO -> co gian ca ho so gio theo ti le nam/chung; nam khong do
+            # duoc giu spread chung (bao cao ghi "CHUA DO DUOC" cho nam do)
+            nam = np.asarray(index.year)
+            he = np.ones(len(index))
+            for y, v in self.spread_frac_theo_nam.items():
+                he[nam == int(y)] = float(v) / self.spread_frac_chung
+            ra = ra * he
+        return ra
+
+    def phi_nam_theo_bar(self, index: pd.DatetimeIndex) -> tuple[np.ndarray, np.ndarray]:
+        """(phi_mua, phi_ban) ti le/nam cho tung bar - theo THANG neu co `chenh_lai_suat`."""
+        n = len(index)
+        if not self.chenh_lai_suat or n == 0:
+            return np.full(n, self.phi_nam_mua), np.full(n, self.phi_nam_ban)
+        k = _khoa_index(index) + (hash(tuple(sorted(self.chenh_lai_suat.items()))),)
+        d = _BO_NHO_CHENH.get(k)
+        if d is None:
+            # do 11/10: strftime tren 116k bar mat ~0,4 s/luot -> nhan 1000 luot toi uu/placebo
+            # = treo vong. Tinh mot lan moi (index, bang) nhu `hinh_hoc`.
+            from nhan import lai_suat_fx as LS
+            v = index.to_numpy().astype("datetime64[M]")
+            uniq, inv = np.unique(v, return_inverse=True)
+            d = np.array([LS.tra_cuu(self.chenh_lai_suat, str(t)) for t in uniq])[inv]
+            if len(_BO_NHO_CHENH) >= _TRAN_BO_NHO:
+                _BO_NHO_CHENH.clear()
+            _BO_NHO_CHENH[k] = d
+        return d + self.markup_mua, -d + self.markup_ban
 
     def phi_giu_mang(self, index: pd.DatetimeIndex, huong: np.ndarray,
                      lai_suat_nam: np.ndarray | None = None) -> np.ndarray:
@@ -217,10 +302,15 @@ class MoHinhChiPhi:
         khi engine biet don bay thi cai chan do bien don bay thanh TIEN MIEN
         PHI. Voi |huong| <= 1 hai cach cho ket qua Y HET nen khong hoi quy.
         """
-        ngay = hinh_hoc(index)[0]
+        if self.kieu_qua_dem == "nua_dem":
+            ngay = dem_qua_dem(index, 2 if _loai_tai_san(self.ma) == "fx" else 4)
+        else:
+            ngay = hinh_hoc(index)[0]
         mua = np.clip(huong, 0, None)
         ban = np.clip(-huong, 0, None)
-        if lai_suat_nam is not None:
+        if lai_suat_nam is None and self.chenh_lai_suat:
+            pm, pb = self.phi_nam_theo_bar(index)
+        elif lai_suat_nam is not None:
             # mo hinh theo co che: lai suat thuc tung ngay + markup co dinh
             markup_mua = self.phi_nam_mua - float(np.nanmean(lai_suat_nam))
             markup_ban = self.phi_nam_ban + float(np.nanmean(lai_suat_nam))
@@ -251,10 +341,81 @@ class MoHinhChiPhi:
             elif k == "truot_gia":
                 m.truot_gia_frac = v
             elif k == "phi_mua":
+                m.markup_mua += v - m.phi_nam_mua      # co bang thang: day markup cung luong
                 m.phi_nam_mua = v
             elif k == "phi_ban":
+                m.markup_ban += v - m.phi_nam_ban
                 m.phi_nam_ban = v
         return m
+
+
+# ------------------------------------------------------------ P3: PHI DUNG THOI KY
+def do_spread_theo_nam(ma: str, df: pd.DataFrame, bar_min: int = 500) -> dict:
+    """{nam: spread frac} - trung vi cot `spread` (POINT) tung nam, cung bo loc nhu `do_spread`
+    (bo bar spread=0, cuoi tuan, gio rollover). Nam < `bar_min` bar hop le -> bo qua (CHUA DO
+    DUOC). Khong co cot spread -> {}."""
+    if "spread" not in df.columns or not len(df):
+        return {}
+    idx = df.index
+    s = df["spread"].to_numpy(dtype=float)
+    c = df["close"].to_numpy(dtype=float)
+    pt = point_cua(ma, float(np.nanmedian(c)))
+    ok = (s > 0) & np.isfinite(s) & (idx.dayofweek.to_numpy() < 5) \
+        & ~np.isin(idx.hour.to_numpy(), list(GIO_LOAI))
+    nam = np.asarray(idx.year)
+    ra = {}
+    for y in np.unique(nam):
+        m = ok & (nam == y)
+        if m.sum() >= bar_min:
+            ra[int(y)] = float(np.median(s[m] * pt / c[m]))
+    return ra
+
+
+def ap_thoi_ky(cp: "MoHinhChiPhi", df: pd.DataFrame, ma: str | None = None,
+               ngay_do: str | None = None) -> "MoHinhChiPhi":
+    """Ban sao `cp` voi phi DUNG THOI KY (P3, 11/10/2026):
+      1. swap tinh THEO LENH qua rollover nua dem (`kieu_qua_dem="nua_dem"`);
+      2. ti le swap THEO THANG = chenh lai suat qua dem thang do (`nhan/lai_suat_fx`) + markup
+         san (markup = phi san hom nay - chenh thang `ngay_do`; mac dinh thang ghi trong
+         canh_bao "phi qua dem do tu ... (YYYY-MM-DD", khong co -> thang cuoi bang);
+      3. spread THEO NAM khi bar co cot spread (`do_spread_theo_nam`).
+    "Thoi ky" = THANG lich cho swap, NAM lich cho spread. Thieu du lieu -> giu so hom nay va
+    ghi "CHUA DO DUOC" vao canh_bao (khong doan)."""
+    from nhan import lai_suat_fx as LS
+    ma = ma or cp.ma
+    m = cp.bien_the()
+    m.kieu_qua_dem = "nua_dem"
+    ch = LS.chenh_thang(ma)
+    if ch:
+        if ngay_do is None:
+            import re
+            for x in cp.canh_bao:
+                g = re.search(r"phi qua dem do tu .*?\((\d{4}-\d{2})-\d{2}", x)
+                if g:
+                    ngay_do = g.group(1)
+                    break
+        thang = (ngay_do or max(ch))[:7]
+        d0 = LS.tra_cuu(ch, thang)
+        m.chenh_lai_suat = dict(ch)
+        m.markup_mua = cp.phi_nam_mua - d0
+        m.markup_ban = cp.phi_nam_ban + d0
+        m.canh_bao.append(
+            f"P3 swap theo thang: chenh lai suat qua dem {ma} (FRED) + markup san "
+            f"(mua {m.markup_mua:+.4f}, ban {m.markup_ban:+.4f}/nam, do {thang}, GIA DINH "
+            "markup khong doi theo thoi gian)")
+    else:
+        m.canh_bao.append(f"P3 swap theo thang: CHUA DO DUOC cho {ma} (thieu lai suat) - "
+                          "giu ti le swap hom nay cho moi thoi ky")
+    sn = do_spread_theo_nam(ma, df)
+    if sn:
+        m.spread_frac_theo_nam = sn
+        nam = sorted(set(int(y) for y in np.asarray(df.index.year)) - set(sn))
+        if nam:
+            m.canh_bao.append(f"P3 spread theo nam: CHUA DO DUOC nam {nam} - dung spread chung")
+    else:
+        m.canh_bao.append("P3 spread theo nam: CHUA DO DUOC (bar khong co cot spread) - "
+                          "spread hom nay ap cho moi nam (lac quan cho giai doan spread rong)")
+    return m
 
 
 # ------------------------------------------------------------------- DO SPREAD
