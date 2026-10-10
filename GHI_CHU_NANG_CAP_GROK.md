@@ -1,7 +1,81 @@
-# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (17:10, giờ VN)
+# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-10 (17:30, giờ VN)
 
 
-## Vòng "LƯỚI MARTINGALE" (sau 54c8597e) — Breakout5 / Breakout5-2-2 dịch đúng như EA
+## Vòng "CỔNG GIỮ CHO LƯỚI/MARTINGALE" (sau 57657761) — Sharpe/t không còn đủ để giữ hệ lưới
+Vấn đề (vòng trước): lưới Breakout5 trên random walk CÓ phí cho Sharpe kiểm DƯƠNG 10/10 seed →
+Sharpe/t là phép thử SAI cho martingale (thắng nhỏ đều, đuôi phá sản hiếm). Ngưỡng KHÔNG nới;
+thêm một cổng riêng, chỉ có thể SIẾT THÊM.
+
+### Luật giữ mới cho hệ có `ro.luoi` (`vong_thu_nghiem._chay_nhom` → `cong_luoi`)
+Giữ khi qua ĐỦ: **(0)** ngưỡng cũ (t ≥ 2,0 tối ưu / 1,5 kiểm, ≥47/≥20 lệnh, kiểm cú pháp) — giữ
+nguyên, VÀ
+1. **Sống sót với tài khoản KHAI BÁO** (mặc định 10.000 USD, đòn bẩy 1:100, stop-out 50%;
+   `--von/--don-bay/--stop-out`): 0 stop-out, không cháy, ở CẢ phần tối ưu lẫn kiểm.
+   Bộ tối ưu chấm `-1e9` cho bộ tham số làm tài khoản stop-out.
+2. **Lời ròng phần kiểm > 0** (sau phí thật).
+3. **Thắng giả dược cùng cấu trúc** trên CHÍNH phần kiểm: `chan_placebo` giữ nguyên mọi thứ của
+   `sinh_chan` (rổ, lưới, chốt đỉnh, chuỗi lot, cổng mở bar, vào lại giữa bar, luật ngày, tài khoản)
+   và THỜI ĐIỂM được phép vào (hợp `cho` các chân), chỉ thay CHIỀU bằng tung đồng xu mỗi bar.
+   Thước đo khai báo: `loi_log` ròng phần kiểm. p một phía = (1 + #placebo ≥ thật)/(N+1),
+   N = 99 (`--n-placebo`), giữ khi p ≤ 0,05 (`--p-placebo`). Seed placebo cố định (0) → tái lập.
+   Chân lệnh dừng trong bar (`muc`/`co`) → `NotImplementedError` (chưa có null tương ứng; hiện
+   không hệ lưới nào dùng).
+Hệ KHÔNG lưới: không đổi gì (số liệu Breakout1/2/2-2/3/Template y hệt trước — đã so).
+
+### Mô hình tài khoản (`mo_phong.chay_he(tai_khoan=...)`, chỉ cho chân có `ro`)
+- Số dư cộng lời/lỗ TIỀN của rổ khi đóng (`_loi_ro`, đã trừ spread; trượt + qua đêm chỉ nằm trong
+  chuỗi `loi`, không trong số dư — ghi nhận).
+- Ký quỹ = hợp đồng × giá / đòn bẩy × max(Σlot mua, Σlot bán) (hedging, "chân lớn hơn"; đúng cho
+  xxxUSD tài khoản USD, cặp khác → `canh_bao`).
+- **Stop-out**: vốn ròng ≤ stop_out × ký quỹ → đóng CẢ rổ tại giá đó (MT5 đóng từng lệnh lỗ nhất
+  trước — đóng cả rổ là xấp xỉ). Trên đoạn đơn điệu `vốn + N·p + K0 − so·a·p` tuyến tính → mức
+  stop-out tìm CHÍNH XÁC trong bar; gap qua → khớp ở open.
+- Lệnh mới (đầu / hedge / lưới) bị **từ chối** khi vốn ròng < ký quỹ sau khi thêm
+  (`tu_choi_ky_quy`); lệnh lưới bị từ chối thử lại bar sau (chuỗi lot không tiến — giả định, EA
+  không có mã xử lý lỗi PositionOpen). Vốn ≤ 0 → cháy, không vào nữa.
+- `tai_khoan=None` → hành vi cũ y hệt (test: tài khoản 1e12 cho `loi` giống từng bit).
+
+### Số đo
+| | 57657761 (trước) | **bây giờ** |
+|---|---|---|
+| EURUSD H1 có phí, giữ lại | 0/6 | **0/6** |
+| Breakout5(-2-2) EURUSD kiểm | Sharpe +1,06 / 465 rổ, t +1,4/+1,0 → loại vì t | Sharpe +1,06, t +1,3/+1,0; tài khoản 10k: 0 stop-out (tối ưu: 11 lệnh lưới bị từ chối vì ký quỹ, lot max 7,99 → 3,80), mức KQ min kiểm 180%; **loi_log kiểm +1,146 vs placebo TB +1,170, q95 +1,511 → p = 0,93** → loại (cũng loại theo t) |
+| — độ nhạy 1.000 USD 1:500 stop-out 20% | — | phần kiểm **3 stop-out**, vốn 1.000 → 2,34 USD, loi_log −0,45; placebo sống sót 15% → loại (stop-out, lỗ, p = 0,33) |
+| Placebo random walk `--gia-lap-duong` seed 1-10, CÓ phí | Sharpe kiểm lưới dương **10/10**; giữ 0/10 (chỉ nhờ t) | Sharpe kiểm dương 8/10 (seed 1, 2 stop-out phần kiểm); **stop-out ở ít nhất một phần: 6/10 seed**; p placebo 0,16–0,91 (không seed nào ≤ 0,05); **giữ 0/10**, và cổng lưới tự nó loại 10/10 |
+| Test | 165 lõi xanh; 71 file liên quan 1081 xanh | **+12 test** (`test_cong_luoi.py`); 71 file: **1093 xanh / 40 đỏ / 9 lỗi — 0 đỏ mới** (đỏ/lỗi giống hệt bản gốc; worktree sạch có thêm 10 đỏ do thiếu file dữ liệu cục bộ) |
+
+Bảng placebo (random walk, tài khoản mặc định; t tối ưu/kiểm; stop-out tối ưu/kiểm; loi_log kiểm vs TB placebo; placebo sống sót; p):
+| seed | sh kiểm | t | stop-out | loi_log | TB placebo | sống | p |
+|---|---|---|---|---|---|---|---|
+| 1 | −2,21 | +1,4/−1,5 | 0/1 | −3,58 | −1,66 | 67% | 0,76 |
+| 2 | −2,75 | +0,2/−1,9 | 0/2 | −3,84 | −2,59 | 15% | 0,73 |
+| 3 | +0,65 | +0,5/+0,4 | 0/0 | +1,06 | +0,93 | 100% | 0,16 |
+| 4 | +1,21 | −1,4/+0,8 | 4/0 | +0,74 | +0,77 | 100% | 0,53 |
+| 5 | +1,16 | +0,4/+0,8 | 0/0 | +0,56 | +0,50 | 98% | 0,63 |
+| 6 | +0,32 | +0,8/+0,2 | 0/0 | +0,77 | +0,85 | 100% | 0,91 |
+| 7 | +1,74 | +0,7/+1,2 | 0/0 | +0,86 | +0,80 | 100% | 0,21 |
+| 8 | +2,35 | −0,9/+1,6 | 1/0 | +0,97 | −0,94 | 42% | 0,19 |
+| 9 | +1,72 | −1,7/+1,2 | 3/0 | +1,27 | +0,76 | 93% | 0,18 |
+| 10 | +0,83 | −2,4/+0,6 | 4/0 | +0,59 | −0,73 | 64% | 0,50 |
+Seed 8: Sharpe kiểm +2,35 (đúng loại "thắng nhỏ đều" từng đánh lừa Sharpe) — cổng mới loại vì
+stop-out phần tối ưu VÀ không thắng placebo (p 0,19).
+
+**Kết luận**: không có edge. Breakout5 EURUSD +1,06 KHÔNG phân biệt được với tung đồng xu cùng
+cấu trúc lưới (96% placebo cũng dương; p = 0,93) — chỉ là đặc tính martingale.
+Kết quả: `/workspace/vong_eurusd_cong_luoi.json`, `/workspace/vong_eurusd_cong_luoi_1000.json`,
+`/workspace/scratch/pl/s{1..10}.json`.
+
+### Vấn đề mở
+1. Placebo cho chân lệnh dừng trong bar (null cho mức giá) — chưa có; rổ hedge Breakout2/2-2/3
+   chưa đi qua cổng tài khoản (không phải lưới; ngưỡng t cũ vẫn chặn).
+2. Sống sót trên ~0,8 năm phần kiểm là phép thử YẾU cho đuôi martingale (placebo EURUSD sống 96%):
+   cần chuỗi dài hơn / nhiều cặp, hoặc ước xác suất cháy theo năm từ placebo.
+3. `SYMBOL_VOLUME_MAX`, stop-out từng lệnh kiểu MT5, số dư chưa trừ trượt/qua đêm.
+4. Breakout4 (PivotsDay R1/S1) — vẫn bỏ qua có lý do (xem dưới).
+
+---
+
+## (trước) Vòng "LƯỚI MARTINGALE" (sau 54c8597e) — Breakout5 / Breakout5-2-2 dịch đúng như EA
 ### 1. Đọc (`nhan/ro_mql.py`: `doc_luoi` + trình thông dịch MQL nhỏ `_ThongDich`)
 Hàm đóng của hai EA: cập nhật đỉnh `peakwin=MathMax(peakwin,profits)` (không về 0 khi lỗ) →
 `if(peakwin>=E && profits<=peakwin*0.7) CloseAll()` → **cổng bar** `if(curTime==prevTime) return;`
@@ -74,7 +148,7 @@ Có mã `MultiPivots.mqh` (/tmp, peterthomet), nhưng dịch chắc chắn cần
 → Breakout4 vẫn `co_che=0`; hedge của nó vẫn `quan_ly_vi_the` ("lệnh đầu của rổ chưa dịch").
 
 ### Vấn đề mở (ưu tiên vòng sau)
-1. **Cổng giữ cho lưới/martingale**: Sharpe/t không phải phép thử hợp lệ (placebo dương 10/10). Cần
+1. ~~**Cổng giữ cho lưới/martingale**~~ (ĐÃ LÀM ở vòng sau — xem đầu file): Sharpe/t không phải phép thử hợp lệ (placebo dương 10/10). Cần
    mô hình ký quỹ/stop-out với vốn & đòn bẩy KHAI BÁO, hoặc so với phân phối placebo cùng cấu trúc,
    trước khi một hệ lưới được phép "giữ". (Chưa đổi ngưỡng — chỉ ghi lại.)
 2. `SYMBOL_VOLUME_MAX` / ký quỹ: tham số hóa tường minh (`lot_toi_da`, vốn) khi có thông số sàn.
