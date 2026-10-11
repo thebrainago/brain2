@@ -1098,8 +1098,9 @@ NGUON_TRINH_DUYET = {
         "hang": "B", "loai": "dien_dan", "chu_ky": 43200, "uu_tien": 2},
     "elitetrader": {
         "kieu": "trang",
-        "trang": ["https://www.elitetrader.com/et/forums/automated-trading.15/",
-                  "https://www.elitetrader.com/et/forums/strategy-building.10/"],
+        # ID cu `automated-trading.15` nay chuyen huong sang `prop-firms.15` (do 11/10/2026).
+        "trang": ["https://www.elitetrader.com/et/forums/automated-trading.48/",
+                  "https://www.elitetrader.com/et/forums/strategy-scripting.34/"],
         "loc_lien_ket": r"elitetrader\.com/et/threads/",
         "hang": "B", "loai": "dien_dan", "chu_ky": 43200, "uu_tien": 2},
     # --- CONG DONG NGOAI TIENG ANH (them 30/08/2026) ---
@@ -2346,7 +2347,7 @@ dien no la dien SAI.
 #: luot SEEKER ke tiep, va `thu_thap_tat_ca` chi doc dong `trang_thai='BAT'` -
 #: nghia la ca tang bai viet van xuoi im lang sau MOT luot, khong bao loi, con
 #: so "0 bai moi" nhin y het "chua den han".
-TIEN_TO_NGUON_NGOAI = ("rss_", "trang_")
+TIEN_TO_NGUON_NGOAI = ("rss_", "trang_", "dd_", "ls_")   # dd_/ls_: nhan/doc_nhieu_trang
 
 
 def dang_ky_nguon() -> None:
@@ -2555,6 +2556,27 @@ def mot_luot(ngan_sach_giay: int = 600) -> dict:
         except Exception as e:
             vuon = {"loi": f"{type(e).__name__}: {str(e)[:100]}"}
 
+    # --- LAN 3 (11/10/2026): DANH SACH NHIEU TRANG co con tro (dien dan + 5 nguon
+    # co LICH SU LENH). `nhan/doc_nhieu_trang.py`: con tro moi danh sach, quet lai
+    # 168 gio, 403/429 -> dung ten mien. Bi chan thoi gian rieng (<= 60 s mac dinh)
+    # va chu ky rieng tung nguon trong CON_TRO.json, nen luot SEEKER khong phinh.
+    nhieu_trang = {}
+    con_lai = ngan_sach_giay - (time.time() - t0)
+    if con_lai > 45:
+        try:
+            from nhan import doc_nhieu_trang as DNT
+            han = min(float(os.environ.get("BRAIN_DOC_NHIEU_TRANG_GIAY", 60)), con_lai * 0.3)
+            r_nt = DNT.mot_luot(han, luu=DNT.luu_vao_so)
+            nhieu_trang = {k: r_nt.get(k) for k in ("tien", "moi", "tai", "giay", "loi_cau_hinh")}
+            nhieu_trang["trang_thai"] = {k: v.get("trang_thai") for k, v in r_nt["nguon"].items()}
+            nhieu_trang["chua_do_duoc"] = sorted(r_nt.get("chua_do_duoc") or {})
+            tong_moi += int(r_nt.get("moi") or 0)
+            if r_nt.get("loi_cau_hinh"):
+                SO.bao_van_de("nhieu_trang_cau_hinh", "VUA",
+                              "; ".join(r_nt["loi_cau_hinh"])[:300], {"chi_tiet": r_nt["loi_cau_hinh"]})
+        except Exception as e:
+            nhieu_trang = {"loi": f"{type(e).__name__}: {str(e)[:100]}"}
+
     # Tai lieu moi phai thanh artifact NGAY trong luot nay, neu khong bo bien
     # dich ben duoi doc kho cu va con so "bai moi" nhin nhu khong dan toi gi.
     if bai_viet.get("ban_doc_moi") or browser.get("nhan"):
@@ -2613,7 +2635,7 @@ def mot_luot(ngan_sach_giay: int = 600) -> dict:
             "DOC": ban_doc, "BOC": boc, "trinh_duyet": trinh_duyet,
             "telegram": telegram, "artifact_backfill": backfill,
             "ma_nguon": ma_nguon, "bai_viet": bai_viet,
-            "browser": browser, "vuon_nguon": vuon,
+            "browser": browser, "vuon_nguon": vuon, "nhieu_trang": nhieu_trang,
             "con_doc": con_doc, "con_boc": con_boc,
             "cho_giay": cho, "chi_tiet": chi_tiet, "thu_hoi": thu_hoi}
 
@@ -2655,6 +2677,14 @@ def viet_bao_cao(den_han, tong_moi, tong, hang, ban_doc, backfill, con_doc) -> N
           f"- Candidate dang cho Quantlab: **{queued}** (do tang phan tich tao, khong phai SEEKER)."]
     if backfill.get("loi"):
         d += ["", f"- **Loi backfill:** {backfill['loi']}"]
+    # Bang diem nguon (11/10/2026, the-brain A5): xep theo HE DA KIEM, khong theo so ung vien.
+    try:
+        from nhan import bang_diem_nguon as BDN
+        thu = {r["ma"]: r["thu_hoach"] or 0 for r in SO.nhieu(
+            "SELECT ma, thu_hoach FROM nguon WHERE trang_thai='BAT'")}
+        d += [""] + BDN.bang_md(BDN.bang(them_nguon=thu))
+    except Exception as e:                          # noqa: BLE001 - bao cao khong duoc chet
+        d += ["", f"- Bang diem nguon: LOI {type(e).__name__}: {str(e)[:100]}"]
     (REPORTS / "SEEKER.md").write_text("\n".join(d), encoding="utf-8")
 
 

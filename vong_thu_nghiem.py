@@ -84,6 +84,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import os
 import sys
 from pathlib import Path
 
@@ -1254,6 +1255,14 @@ def main(argv=None) -> int:
         Path(a.json).write_text(json.dumps(tong, ensure_ascii=False, indent=1,
                                            default=str), encoding="utf-8")
         print(f"Đã ghi {a.json}")
+    # BANG DIEM NGUON (11/10/2026): chi tinh lan chay tren GIA THAT (--csv); gia lap = kiem ong.
+    if a.csv and os.environ.get("BRAIN_BANG_DIEM_NGUON_TAT") != "1":
+        try:
+            from nhan import bang_diem_nguon as BDN
+            n_bd = BDN.ghi_tu_vong(tong, a.mau, a.csv)
+            print(f"Bảng điểm nguồn: ghi {n_bd} hệ đã chạy (data/bang_diem_nguon/so.jsonl)")
+        except Exception as e:                      # noqa: BLE001 - so cai khong duoc chan vong lap
+            print(f"Bảng điểm nguồn: LỖI {type(e).__name__}: {str(e)[:100]}")
     return 1 if loi else 0
 
 

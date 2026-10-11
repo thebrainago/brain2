@@ -1,5 +1,28 @@
 # Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-11 (trưa, giờ VN)
 
+## Vòng "SEEKER: DIỄN ĐÀN NHIỀU TRANG + 5 NGUỒN LỊCH SỬ LỆNH + BẢNG ĐIỂM NGUỒN" (the-brain A4/A5) — 11/10/2026 trưa
+Không nới cổng; không đăng nhập, không mật khẩu/khóa nào vào git; lịch sử lệnh thô (nếu có) chỉ ở `data/`. Mọi số vòng lặp là MÔ PHỎNG.
+- `nhan/doc_nhieu_trang.py` + `config/dien_dan.json`: đọc danh sách nhiều trang có CON TRỎ (`data/doc_nhieu_trang/CON_TRO.json`).
+  Trang kế: rel_next → mau_trang → neo_so → mau_suy_ra → chu_tiep; trang 1 không có trang kế = `KHONG_THAY_TRANG_TIEP` (lỗi cấu hình);
+  `phan_trang:false` = `MOT_TRANG`; tải hỏng → con trỏ đứng yên; 403/429/captcha → dừng tên miền 24 giờ; đoán trang 404 / trang lặp
+  = hết trang; hết vòng quét lại sau 168 giờ; đang đi sâu thì trang 1 đọc lại mỗi `chu_ky_gio` (bài mới). Chỉ chuyển hướng cùng miền + https.
+  Gọi trong `tru/seeker.mot_luot` (LAN 3, ≤ 60 s, `BRAIN_DOC_NHIEU_TRANG_GIAY`); chạy tay `python -m nhan.doc_nhieu_trang`.
+  Nguồn `dd_*`/`ls_*` vào bảng `nguon` (không bị `dang_ky_nguon` tắt). Sửa elitetrader: `automated-trading.15` nay là prop-firms → `.48` + `strategy-scripting.34`.
+- Diễn đàn (đo 11/10, requests từ box): ForexFactory Trading Systems (?page=N, 87 trang), Elite Trader Automated Trading + Strategy Scripting
+  (rel=next), TraderViet Hệ thống giao dịch (traderviet.tv, link `/t/<slug>.<id>/`). quant.stackexchange 403 (đã có API riêng trong NGUON).
+- 5 nguồn CÓ LỊCH SỬ LỆNH (A5): MQL5 Signals MT4 (bảng, /list/pageN, 35 trang) · SignalStart (/search-signals, AJAX → 1 trang) ·
+  ForexFactory Trade Explorer (/trades, ~40 tài khoản đang mở lệnh) — ba nguồn này chỉ lấy DANH SÁCH hồ sơ công khai.
+  **CHƯA ĐO ĐƯỢC (cần đăng nhập):** Darwinex (xếp hạng 404/302 đăng nhập; trang từng mã `/invest/<MA>` công khai nhưng không có danh sách),
+  FXStat (trang chủ chỉ có đăng nhập), và lịch sử lệnh chi tiết của cả 5 (MQL5 export positions cần đăng nhập MQL5).
+- Lượt thật (SEEKER, 52,7 s phần này): 17 trang tải, 454 mục mới — ff_trading_systems 120, elitetrader 90, traderviet 62,
+  mql5_signals_mt4 144, signalstart 20, ff_trade_explorer 18. 0 lỗi cấu hình, 0 bị chặn.
+- `nhan/bang_diem_nguon.py`: suất tiền = (hệ ĐẠT + 1)/(hệ ĐÃ THỬ + 10) (the-brain `pheu_gia_tri.xep_nguon`); chỉ đếm lần chạy
+  `vong_thu_nghiem --csv` trên GIÁ THẬT (tự ghi `data/bang_diem_nguon/so.jsonl`; nguồn lấy từ `NGUON.json` của `cau_kho_ma.xuat`,
+  không có thì `noi_bo:<thư mục>`). Mục 4 trong `reports/SEEKER.md`. Đo EURUSD H1 server, phí thật: mau_thu 6 hệ / 0 GIỮ
+  (1 đạt nhãn 25/09), mo_rong 13 hệ / 0 GIỮ (3 đạt nhãn 25/09) → mọi nguồn khác CHƯA ĐO ĐƯỢC (chưa có hệ nào chạy).
+- CAUKHO trên box (`data/cau_kho` mới): 86 EA, 46 đặt lệnh, 67 điểm vào, dịch 0 → 0 EA ra vòng lặp (khớp ~0,4 % đã đo).
+- `test_doc_nhieu_trang.py` 16 test. `test_nguon_track_record::test_co_che_theo_nguon_noi_duoc_ve_tai_lieu` ĐỎ CÓ SẴN (đọc nao.db box, đỏ cả trước vòng này).
+
 ## Vòng "P6 — HIỆU CHUẨN NGƯỠNG LOẠI SỚM (DD 65 % / lãi 10 %/năm của chủ dự án)" — 11/10/2026 trưa
 Chủ dự án: 65 % / 10 % là ƯỚC LƯỢNG của họ, cần đo lại để chốt. **Chỉ NHÃN, GIỮ/BỎ không đổi; mọi số là MÔ PHỎNG.**
 `hieu_chuan/p6_hieu_chuan_loai_som.py` (chỉ đọc p1/p4/g07/g08 đã có) → `p6_ket_qua.json`, chi tiết `hieu_chuan/P6_KET_QUA.md`.
