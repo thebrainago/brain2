@@ -1,5 +1,14 @@
 # Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-11 (rạng sáng, giờ VN)
 
+## Vòng "P4 → NHÃN Đ1/Đ2 trong báo cáo vòng" (sau 71a4a0ce) — 11/10/2026 trưa
+**Chỉ NHÃN, không đổi GIỮ/BỎ, không nới cổng.** Mọi số là MÔ PHỎNG.
+- `vong_thu_nghiem.nhan_p4` + dòng in "nhãn cảnh báo P4 (loại sớm đề xuất)" dưới dòng "đạt tiêu chí 25/09?" (giữ nguyên) cho
+  mọi hệ có rổ; JSON có `nhan_p4` = {qua, muc, ly_do}. Đ1 (lưới): luoi_duong lãi > 0 ở biến thể XẤU NHẤT (4 thứ tự × spread
+  1,5/2,5) — rổ EA (Breakout5…) chạy qua `mo_phong.chay_he`, không qua luoi_duong → in **CHƯA ĐO ĐƯỢC** (hàm nhận sẵn danh
+  sách lãi biến thể khi có). Đ2 (lưới/hedge): placebo cùng cấu trúc p ≤ 0,05, lấy từ `cong_luoi`; placebo bỏ qua → CHƯA ĐO ĐƯỢC.
+- Kiểm: `test_nhan_p4.py` 4 test; chạy thử giả lập Breakout2/2-2/5-2-2 (placebo 19): giữ 0 như trước; Breakout2-2 "đạt 25/09"
+  nhưng P4 KHÔNG QUA (p 0,25) — đúng loại ca nhiễu lọt mà P4 đã đo.
+
 ## Vòng "G08 — G-a: QUẢN TRỊ RỔ có quyết định hơn entry?" (sau e8830e4c) — 11/10/2026
 **KẾ HOẠCH ĐÓNG BĂNG TRƯỚC KHI CÓ SỐ:** `hieu_chuan/G08_KE_HOACH.json` sha `d065186fb65a7bcc`. Không đổi cổng. Mọi số sẽ là MÔ PHỎNG.
 - Chỉ AUDCAD + EURGBP (hai cặp nhỉnh hơn nhiễu ở G07, p 0,14 / 0,095 — chưa đạt). Cùng dữ liệu / chuyển k / swap / năm

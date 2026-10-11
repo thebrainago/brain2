@@ -9,7 +9,9 @@
 
 NHÃN (10/10/2026 khuya, không đổi GIỮ/BỎ): mỗi cơ chế in "đạt tiêu chí 25/09?" (tiêu chí của
 chủ dự án: lãi sau phí phần kiểm > 0, maxDD < 80 %, không cháy) cạnh cổng hiện tại; hệ có rổ in
-thêm dòng "mô phỏng lệch so với MT5" (P1, `hieu_chuan/P1_KET_QUA.md`).
+thêm dòng "mô phỏng lệch so với MT5" (P1, `hieu_chuan/P1_KET_QUA.md`) và "nhãn cảnh báo P4"
+(11/10/2026: Đ1 lưới lãi ở biến thể luoi_duong xấu nhất, Đ2 lưới/hedge thắng placebo cùng cấu
+trúc p ≤ 0,05 - chỉ NHÃN, chưa đo được thì ghi CHƯA ĐO ĐƯỢC; không đổi GIỮ/BỎ).
 
 Cách làm (cập nhật 10/10/2026):
   1. Chia chuỗi theo THỜI GIAN: 70% đầu để TỐI ƯU, 30% sau để KIỂM. Không bao
@@ -257,6 +259,55 @@ def nhan_25_09(kiem: dict) -> dict:
     if chay:
         ly.append("stop-out/cháy")
     return {"dat": not ly, "maxdd_pct": round(dd, 2), "nguon_dd": nguon_dd, "ly_do": ly}
+
+
+#: P4 (11/10/2026, GHI_CHU muc P4, hieu_chuan/p4_dau.json): hai luat LOAI SOM de xuat - CHI LA
+#: NHAN canh bao, KHONG doi GIU/BO. D1 (luoi): luoi_duong lai > 0 o bien the XAU NHAT (4 thu tu
+#: gia trong nen x spread 1,5/2,5 pip) - 15 o MT5: giu dung 3 o tester lai, 0 lot, 0 chan oan.
+#: D2 (luoi/hedge): thang placebo cung cau truc p <= 0,05 - nhieu: luoi 72->1/100, hedge 104->11/300.
+P4_P_NGUONG = 0.05
+
+
+def nhan_p4(loai_ro: str | None, cong: dict | None = None,
+            lai_bien_the_duong: list[float] | None = None) -> dict | None:
+    """NHAN 'loai som P4' cho he co ro. Chi la nhan; khong doi `giu_lai`.
+
+    `lai_bien_the_duong`: lai sau phi tung bien the `luoi_duong` (4 thu tu x 2 spread) neu da
+    chay; None -> D1 'CHUA DO DUOC' (ro EA chay qua `mo_phong.chay_he`, khong qua luoi_duong).
+    `cong`: ket qua `cong_luoi` (lay p placebo cung cau truc). Moi muc: True/False/None (chua do)."""
+    if not loai_ro:
+        return None
+    muc = {}
+    if loai_ro == "luoi":
+        if lai_bien_the_duong:
+            xau = float(min(lai_bien_the_duong))
+            muc["D1_duong_xau_nhat_lai"] = {"dat": xau > 0, "do": round(xau, 5),
+                                            "so_bien_the": len(lai_bien_the_duong)}
+        else:
+            muc["D1_duong_xau_nhat_lai"] = {
+                "dat": None, "do": "rổ EA không chạy trên luoi_duong 4 thứ tự × spread "
+                                   "1,5/2,5; luoi_duong chỉ có lưới TP-trung-bình"}
+    cong = cong or {}
+    if cong.get("placebo_bo_qua") or cong.get("p") is None:
+        muc["D2_thang_placebo"] = {"dat": None, "do": str(cong.get("placebo_bo_qua")
+                                                            or "không có placebo")}
+    else:
+        p = float(cong["p"])
+        muc["D2_thang_placebo"] = {"dat": p <= P4_P_NGUONG, "do": f"p={p:.3f}"}
+    trang = [m["dat"] for m in muc.values()]
+    tong = (False if any(x is False for x in trang)
+            else None if any(x is None for x in trang) else True)
+    return {"qua": tong, "muc": muc,
+            "ly_do": [k for k, m in muc.items() if m["dat"] is False]}
+
+
+def _chu_p4(n: dict) -> str:
+    txt = {True: "QUA", False: "KHÔNG QUA", None: "CHƯA ĐO ĐƯỢC"}
+    ten = {"D1_duong_xau_nhat_lai": "Đ1 lưới lãi ở biến thể xấu nhất",
+           "D2_thang_placebo": "Đ2 thắng placebo cùng cấu trúc p≤0,05"}
+    ct = "; ".join(f"{ten[k]} {txt[m['dat']]} ({m['do']})" for k, m in n["muc"].items())
+    return (f"nhãn cảnh báo P4 (loại sớm đề xuất): {txt[n['qua']]} - {ct} - chỉ là NHÃN, "
+            "không đổi GIỮ/BỎ")
 
 
 def la_luoi(specs: list[dict]) -> bool:
@@ -849,6 +900,7 @@ def _chay_nhom(path: Path, g: str, specs: list[dict], df_tu, df_kiem, khung: str
                            p_chay_nam=p_chay_nam, placebo_bo_qua=bo_qua)
             cl["dat_nguong_t_cu"] = dat_cu
             dong["cong_luoi"] = cl
+            dong["nhan_p4"] = nhan_p4(dong.get("loai_ro"), cl)
             dong["giu_lai"] = bool(dat_cu and cl["dat"])
         else:
             dong["giu_lai"] = dat_cu
@@ -975,6 +1027,8 @@ def main(argv=None) -> int:
                   + " - chỉ là NHÃN, không đổi GIỮ/BỎ")
         if x.get("canh_bao_mt5"):
             print(f"        {x['canh_bao_mt5']}")
+        if x.get("nhan_p4"):
+            print(f"        {_chu_p4(x['nhan_p4'])}")
         if x.get("cong_luoi"):
             cl = x["cong_luoi"]
             tkk = x["tot_kiem"].get("tai_khoan") or {}
