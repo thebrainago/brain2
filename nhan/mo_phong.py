@@ -580,6 +580,9 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
     cong_dong = [-1]                            # bar ham dong da qua cong `prevTime` (luoi)
     mo_bar = [-1]                               # bar mo lenh dau gan nhat (cong ham mo)
     luoi_tk = {"max_lenh": 0, "max_lot": 0.0, "lo_tha_noi_max": 0.0, "vuot_chuoi": 0}
+    # B3 (11/10/2026, the-brain B9): DINH LO TREO cua MOI ro (luoi + hedge) - lo tha noi lon
+    # nhat (USD, gom swap lenh mo) tai cac lan goi ham dong. Chi DO, khong doi gi khac.
+    ro_treo = [0.0]
     cuc = [0.0, 0.0]                           # cao / thap cua bar dang chay
     EPS = 1e-7
     tk = None
@@ -793,6 +796,8 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
 
     def _tick_ro(j: int, p: float) -> bool:
         """Mot lan goi ham dong cua EA tai gia p. Tra True neu vua them hedge."""
+        if pos is not None and pos.get("legs"):  # do TRUOC stop-out: gom ca luc xau nhat
+            ro_treo[0] = max(ro_treo[0], -(_loi_ro(p) - _sw_ro()))
         if _kiem_stop_out(j, p):
             return False
         ro = pos["ro"]
@@ -1268,6 +1273,8 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
           "ro_bat_thuong": bat_thuong[0]}
     if any((c_.get("ro") or {}).get("luoi") for c_ in chan):
         ct["luoi"] = dict(luoi_tk)
+    if any(c_.get("ro") for c_ in chan):
+        ct["lo_treo_max_usd"] = float(ro_treo[0])
     if tk is not None:
         if pos is not None and pos.get("legs"):
             tk["swap_lenh_mo_usd"] = _sw_ro()

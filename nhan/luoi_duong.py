@@ -28,6 +28,8 @@ Quan tri ro (G08 / G-a, 11/10/2026) - TUY CHON, mac dinh tat (= giong het truoc 
   - `duoi`=(kich_pip, lui_pip): bo TP pip; khi gia vuot trung binh + kich_pip thi theo dinh, dong ca ro khi
     gia lui `lui_pip` tu dinh (khop tai nguong; nhay gia: tai gia nhay);
   - `dung_gio`: ro (tinh tu luc mo tang 1) song >= N gio -> dong ca ro tai gia mo nen, mo lai tang 1.
+Them 11/10/2026 (chi do, so cu giu nguyen): `lo_treo_max_tk/pct` (dinh lo treo, B3) va
+`phan_giai_ty_le` (buoc / trung vi bien do nen; < 2 -> lai CHUA DO DUOC, B2).
 KET QUA LA MO PHONG, KHONG PHAI TIEN THAT.
 """
 from __future__ import annotations
@@ -249,6 +251,7 @@ def chay_duong(df, ts: ThamSo, von_tk: float, thu_tu: str = "gan_open",
     cham_so = False
     gia_truoc = None
     swap_tk = 0.0
+    lo_treo = 0.0                                   # B3: lo tha noi lon nhat (tien tai khoan)
     lot_dem = [0.0, 0.0]                            # lot x dem (co trong so) mua / ban - do phoi bay
     if swap_nam is not None:
         from nhan.chi_phi import dem_qua_dem
@@ -282,7 +285,9 @@ def chay_duong(df, ts: ThamSo, von_tk: float, thu_tu: str = "gan_open",
                         r.so_dung += 1
                 else:
                     r.toi(pts[j - 1], p, dv[i], lai_tk, nhay=False)
-            eq = von_tk + lai_tk[0] + sum(r.noi(p) for r in ros) / dv[i]
+            noi_tk = sum(r.noi(p) for r in ros) / dv[i]
+            lo_treo = max(lo_treo, -noi_tk)
+            eq = von_tk + lai_tk[0] + noi_tk
             dinh = max(dinh, eq)
             dd = max(dd, (dinh - eq) / dinh)
             lot_m = max(sum(x for _g, x in r.vao) for r in ros)
@@ -302,4 +307,14 @@ def chay_duong(df, ts: ThamSo, von_tk: float, thu_tu: str = "gan_open",
         "tang_max": max(r.tang_max for r in ros), "cham_stopout": cham_so,
         "so_duoi": sum(r.so_duoi for r in ros), "so_dung_gio": sum(r.so_dung for r in ros),
         "swap_tk": swap_tk, "lot_dem_mua": lot_dem[0], "lot_dem_ban": lot_dem[1],
+        # B3/B2 (11/10/2026, goi the-brain) - CHI DO, khong doi so nao o tren:
+        "lo_treo_max_tk": lo_treo, "lo_treo_max_pct": 100.0 * lo_treo / von_tk if von_tk else None,
+        "phan_giai_ty_le": phan_giai(df, ts),
     }
+
+
+def phan_giai(df, ts: ThamSo) -> float | None:
+    """B2: buoc tang 1 (gia) / trung vi bien do nen. < 2 -> nen khong phan giai thu tu cham:
+    lai cua cau hinh nay la CHUA DO DUOC (the-brain: random walk khong phi ra +720 %)."""
+    bd = float(np.nanmedian((df["high"] - df["low"]).to_numpy(float))) if len(df) else 0.0
+    return (ts.buoc * PIP / bd) if bd > 0 else None

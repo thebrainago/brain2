@@ -12,6 +12,9 @@ chủ dự án: lãi sau phí phần kiểm > 0, maxDD < 80 %, không cháy) c�
 thêm dòng "mô phỏng lệch so với MT5" (P1, `hieu_chuan/P1_KET_QUA.md`) và "nhãn cảnh báo P4"
 (11/10/2026: Đ1 lưới lãi ở biến thể luoi_duong xấu nhất, Đ2 lưới/hedge thắng placebo cùng cấu
 trúc p ≤ 0,05 - chỉ NHÃN, chưa đo được thì ghi CHƯA ĐO ĐƯỢC; không đổi GIỮ/BỎ).
+Lọc nhanh B1/B2/B3 (11/10/2026, gói the-brain): nhãn lọc phí (spread > 8 bps → bỏ trước xếp
+hạng), "phí ăn x% lãi gộp", nhãn độ phân giải (bước lưới < 2× biên độ nến → lãi CHƯA ĐO ĐƯỢC),
+đỉnh lỗ treo cạnh mọi số lãi hệ có rổ - tất cả chỉ NHÃN, không đổi GIỮ/BỎ.
 Hệ có rổ in thêm "nhãn loại sớm nhanh" (11/10/2026, chủ dự án: mô phỏng maxDD > 65 % hoặc lãi
 < 10 %/năm → loại trước MT5) - ƯỚC LƯỢNG đo trên 15 ô (`hieu_chuan/P5_KET_QUA.md`), chỉ NHÃN.
 
@@ -354,6 +357,112 @@ def _chu_loai_som(n: dict) -> str:
             " - ƯỚC LƯỢNG trước MT5 (15 ô P5), không phải sự thật MT5; chỉ là NHÃN, không đổi GIỮ/BỎ")
 
 
+#: LOC NHANH (11/10/2026, goi ban giao the-brain 02 C11/B2/B9) - CHI LA NHAN, KHONG doi GIU/BO.
+#: B1: spread (bps cua gia, toan bo chenh mua/ban) > 8 -> "bo truoc khi xep hang" (the-brain:
+#:     xep thuan theo Hurst tung dua GBPPLN 98,5 bps len dau; G07/G08 cua brain2: phi an het loi).
+#: B2: buoc luoi (hoac khoang hedge) < 2 x trung vi bien do nen -> nen khong phan giai duoc thu
+#:     tu cham -> lai mo phong CHUA DO DUOC (the-brain: random walk khong phi ra +720 %, dap an 0).
+#: B3: dinh lo treo (lo tha noi lon nhat / von) in canh MOI so lai he co ro - maxDD cua duong von
+#:     dep vi lai da chot bu cho lo dang treo (the-brain R6: maxDD -19 % nhung lo treo 29,65 %).
+TRAN_SPREAD_BPS = 8.0
+NGUONG_PHAN_GIAI = 2.0
+
+
+def nhan_loc_phi(cp: CP.MoHinhChiPhi | None, df: pd.DataFrame, khong_phi: bool = False) -> dict:
+    """B1: spread (bps) va spread / trung vi bien do nen. `loai_truoc_xep_hang` True khi spread
+    > TRAN_SPREAD_BPS. Khong phi / khong co spread -> None (CHUA DO DUOC). Chi la NHAN."""
+    bd = (df["high"] - df["low"]) / df["close"]
+    bien_do_bps = float(np.nanmedian(bd.to_numpy(float))) * 1e4 if len(df) else float("nan")
+    sp = None if (khong_phi or cp is None) else float(cp.spread_frac_chung) * 1e4
+    if sp is None or sp <= 0:
+        return {"spread_bps": None, "bien_do_nen_bps": round(bien_do_bps, 3),
+                "spread_tren_bien_do": None, "loai_truoc_xep_hang": None}
+    return {"spread_bps": round(sp, 3), "bien_do_nen_bps": round(bien_do_bps, 3),
+            "spread_tren_bien_do": (round(sp / bien_do_bps, 4)
+                                    if bien_do_bps and math.isfinite(bien_do_bps) else None),
+            "loai_truoc_xep_hang": bool(sp > TRAN_SPREAD_BPS)}
+
+
+def _chu_loc_phi(n: dict) -> str:
+    if n["loai_truoc_xep_hang"] is None:
+        tt = "CHƯA ĐO ĐƯỢC (không có spread)"
+    else:
+        tt = (f"BỎ TRƯỚC XẾP HẠNG (spread {n['spread_bps']:.2f} bps > {TRAN_SPREAD_BPS:g})"
+              if n["loai_truoc_xep_hang"] else
+              f"qua (spread {n['spread_bps']:.2f} bps ≤ {TRAN_SPREAD_BPS:g})")
+        if n.get("spread_tren_bien_do") is not None:
+            tt += f", spread = {n['spread_tren_bien_do']:.0%} biên độ nến trung vị"
+    return f"nhãn lọc phí (B1): {tt} - chỉ là NHÃN, không đổi GIỮ/BỎ"
+
+
+def khoang_luoi_gia(specs: list[dict], diem: float | None = None) -> list[float]:
+    """Cac khoang gia kich them lenh cua ro (gia, khong phai diem): `ro.luoi.buoc` mua/ban va
+    `ro.hedge[].khoang_diem` (kich 'diem'). Rong neu he khong co khoang theo diem."""
+    d = float(diem if diem is not None else DIEM)
+    ra = []
+    for sp in specs:
+        ro = sp.get("ro") or {}
+        lu = ro.get("luoi") or {}
+        for c in ("mua", "ban"):
+            b = (lu.get("buoc") or {}).get(c)
+            if isinstance(b, (list, tuple)) and len(b) == 2 and isinstance(b[1], (int, float)) \
+                    and b[1] > 0:
+                ra.append(float(b[1]) * d)
+        hs = ro.get("hedge") or []
+        for h in (hs if isinstance(hs, list) else [hs]):
+            if isinstance(h, dict) and h.get("kich") == "diem" and \
+                    isinstance(h.get("khoang_diem"), (int, float)) and h["khoang_diem"] > 0:
+                ra.append(float(h["khoang_diem"]) * d)
+    return ra
+
+
+def nhan_phan_giai(specs: list[dict], df: pd.DataFrame, diem: float | None = None) -> dict | None:
+    """B2: buoc nho nhat / trung vi (high-low). < NGUONG_PHAN_GIAI -> `do_duoc` False: lai mo
+    phong CHUA DO DUOC (nen khong phan giai thu tu cham). Khong co khoang -> None. Chi NHAN."""
+    kc = khoang_luoi_gia(specs, diem)
+    if not kc or not len(df):
+        return None
+    bd = float(np.nanmedian((df["high"] - df["low"]).to_numpy(float)))
+    if not (bd > 0):
+        return None
+    ty = min(kc) / bd
+    return {"buoc_min_gia": round(min(kc), 8), "bien_do_nen_tv": round(bd, 8),
+            "ty_le": round(ty, 3), "do_duoc": bool(ty >= NGUONG_PHAN_GIAI)}
+
+
+def _chu_phan_giai(n: dict) -> str:
+    tt = ("đủ phân giải" if n["do_duoc"] else
+          "lãi mô phỏng CHƯA ĐO ĐƯỢC (nến không phân giải thứ tự chạm)")
+    return (f"nhãn độ phân giải (B2): bước nhỏ nhất = {n['ty_le']:.2f}× biên độ nến trung vị "
+            f"(cần ≥ {NGUONG_PHAN_GIAI:g}) → {tt} - chỉ là NHÃN, không đổi GIỮ/BỎ")
+
+
+def nhan_lo_treo(kiem: dict) -> dict | None:
+    """B3: dinh lo treo (USD, % von dau khai bao) cua phan kiem. Khong co ro -> None."""
+    lo = kiem.get("lo_treo_max_usd")
+    if lo is None:
+        return None
+    von = float((kiem.get("tai_khoan") or {}).get("von_dau") or 0.0)
+    return {"usd": round(float(lo), 2),
+            "pct_von": round(100.0 * float(lo) / von, 2) if von > 0 else None}
+
+
+def _chu_lo_treo(n: dict | None) -> str:
+    if n is None:
+        return "đỉnh lỗ treo CHƯA ĐO ĐƯỢC"
+    return (f"đỉnh lỗ treo {n['usd']:,.0f} USD"
+            + ("" if n["pct_von"] is None else f" ({n['pct_von']:.1f}% vốn)"))
+
+
+def _chu_phi_an(kiem: dict) -> str:
+    gop, rong = kiem.get("loi_log_gop"), kiem.get("loi_log")
+    if gop is None or rong is None:
+        return "phí ăn lãi gộp: CHƯA ĐO ĐƯỢC"
+    if gop <= 0:
+        return f"phí ăn lãi gộp: lãi gộp ≤ 0 ({gop:+.3f} log) - không có gì để phí ăn"
+    return f"phí ăn {100.0 * (gop - rong) / gop:.0f}% lãi gộp (gộp {gop:+.3f} → ròng {rong:+.3f} log)"
+
+
 def _chu_p4(n: dict) -> str:
     txt = {True: "QUA", False: "KHÔNG QUA", None: "CHƯA ĐO ĐƯỢC"}
     ten = {"D1_duong_xau_nhat_lai": "Đ1 lưới lãi ở biến thể xấu nhất",
@@ -392,7 +501,10 @@ def danh_gia_nhom(specs: list[dict], df: pd.DataFrame, khung: str,
              "sharpe": round(_sharpe(c["loi"], khung), 3)} for c in kq.chi_tiet["chan"]]
     ra = {"so_lenh": int(kq.so_lenh), "phoi_nhiem": round(float(kq.phoi_nhiem), 4),
           "loi_log": round(float(loi.sum()), 5), "sharpe": round(_sharpe(loi, khung), 3),
-          "maxdd_pct": round(_maxdd_pct(loi), 2), "chan": chan}
+          "maxdd_pct": round(_maxdd_pct(loi), 2), "chan": chan,
+          "loi_log_gop": round(float(np.nansum(np.asarray(kq.loi_tho, dtype=float))), 5)}
+    if kq.chi_tiet.get("lo_treo_max_usd") is not None:
+        ra["lo_treo_max_usd"] = round(float(kq.chi_tiet["lo_treo_max_usd"]), 2)
     if kq.chi_tiet.get("ro_bat_thuong"):
         ra["ro_bat_thuong"] = int(kq.chi_tiet["ro_bat_thuong"])
     if kq.chi_tiet.get("luoi"):
@@ -932,6 +1044,10 @@ def _chay_nhom(path: Path, g: str, specs: list[dict], df_tu, df_kiem, khung: str
         nam_kiem = len(df_kiem) / BAR_NAM.get(khung, 260)
         if ro:
             dong["loai_som_nhanh"] = nhan_loai_som_nhanh(kiem, nam_kiem)
+            dong["lo_treo"] = nhan_lo_treo(kiem)
+            pg = nhan_phan_giai(tot_specs, df_kiem)
+            if pg is not None:
+                dong["phan_giai"] = pg
         dong["t_tu"] = round(tu["sharpe"] * math.sqrt(nam_tu), 2)
         dong["t_kiem"] = round(kiem["sharpe"] * math.sqrt(nam_kiem), 2)
         it = []
@@ -1029,8 +1145,10 @@ def main(argv=None) -> int:
                                   n_placebo=a.n_placebo, p_placebo=a.p_placebo,
                                   p_chay_nam=a.p_chay_nam))
 
+    loc_phi = nhan_loc_phi(cp, df, a.khong_phi)
     for x in tong:
         x.setdefault("mo_hinh_phi", "khong_phi" if a.khong_phi else cp.phien_ban())
+        x.setdefault("loc_phi", loc_phi)
     loi = [x for x in tong if "loi" in x]
     giu = [x for x in tong if x.get("giu_lai")]
     trung = [x for x in tong if x.get("trung")]
@@ -1054,6 +1172,7 @@ def main(argv=None) -> int:
         for c_ in cp.canh_bao:
             if c_.startswith("P3 "):
                 print(f"  {c_}")
+    print(f"{_chu_loc_phi(loc_phi)} | biên độ nến trung vị {loc_phi['bien_do_nen_bps']:.2f} bps")
     chay = len(tong) - len(loi) - len(trung) - len(lech)
     print(f"Cơ chế: {len(tong)} bóc được, {len(trung)} trùng, {len(lech)} không hợp "
           f"khung, {len(loi)} lỗi, {chay} chạy được   → giữ lại: {len(giu)}")
@@ -1074,6 +1193,10 @@ def main(argv=None) -> int:
               + ("" if not x.get("trong_bar") else
                  f"  [lệnh dừng trong bar; tick đầu gốc sh="
                  f"{x['goc_kiem_tick_dau']['sharpe']:+.2f}/{x['goc_kiem_tick_dau']['so_lenh']}l]"))
+        print(f"        {_chu_phi_an(tk)}"
+              + ("" if "lo_treo" not in x else f" | {_chu_lo_treo(x['lo_treo'])} (phần kiểm)"))
+        if x.get("phan_giai"):
+            print(f"        {_chu_phan_giai(x['phan_giai'])}")
         if x.get("tieu_chi_25_09"):
             n25 = x["tieu_chi_25_09"]
             print(f"        nhãn: đạt tiêu chí 25/09? {'CÓ' if n25['dat'] else 'KHÔNG'} (cần: lãi kiểm sau phí, "
@@ -1103,7 +1226,7 @@ def main(argv=None) -> int:
                   f"stop-out tối ưu/kiểm {(x.get('tot_tu') or x['goc_tu']).get('tai_khoan', {}).get('so_stop_out')}"
                   f"/{tkk.get('so_stop_out')}, mức KQ min kiểm {tkk.get('muc_ky_quy_min')}, từ chối "
                   f"KQ/lot {tkk.get('tu_choi_ky_quy')}/{tkk.get('tu_choi_lot_max')}; "
-                  f"loi_log kiểm {cl['that']:+.3f} {pl_txt}"
+                  f"loi_log kiểm {cl['that']:+.3f} [{_chu_lo_treo(x.get('lo_treo'))}] {pl_txt}"
                   + ("" if not cl.get("chay_nam") else
                      f"; P(stop-out/năm) {cl['chay_nam']['p_nam']:.1%} (placebo "
                      f"{cl['chay_nam']['placebo']['so_stop_out']} lần chạy cháy/"
