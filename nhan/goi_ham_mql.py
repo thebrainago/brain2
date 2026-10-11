@@ -215,7 +215,9 @@ def _hop_le_cho_goi(mn: str, p: int, ten: str) -> str | None:
     a = _cau_lenh_dau(mn, p)
     tien = mn[a:p].strip()
     if re.match(r"else\b", tien):
-        return f"loi goi {ten} nam trong nhanh else"
+        if not re.match(r"else\s+if\s*\(", tien):
+            return f"loi goi {ten} nam trong nhanh else"
+        tien = tien[4:].strip()                     # `else if(B) F();`: chuoi do tang tren kiem
     # bo cac `if(dk)` dung truoc tren cung cau lenh (dk do `_cac_if_bao` doc)
     while True:
         m = re.match(r"if\s*\(", tien)
@@ -277,6 +279,7 @@ def nang_cho_goi(vb: str, vi_lenh: int) -> dict:
         return {"loi": "goi ham: khong tach duoc than ham (ngoac lech)"}
     vi, tang, qt = vi_lenh, [], []
     guard = None
+    loai_tru: list[tuple[int, str]] = []
     for buoc in range(TANG_TOI_DA + 1):
         hc = _ham_chua(bang, vi)
         if hc is None:
@@ -287,15 +290,22 @@ def nang_cho_goi(vb: str, vi_lenh: int) -> dict:
             return {"loi": f"goi ham: {ten} dinh nghia {len(bang[ten])} lan (overload)"}
         khoi = _khoi_bao(mn, ham["mo"], vi)
         loai = [_loai_khoi(d) for _, d in khoi]
-        if "else" in loai:
-            return {"loi": f"goi ham: {'lenh vao' if buoc == 0 else 'loi goi'} trong nhanh else ({ten})"}
+        ifs, gap_else = D._cac_if_bao(vb, vi)
+        if "else" in loai or gap_else:
+            # 11/10/2026 dem: `if(A){..} else if(B){ F(); }` -> ghi cac A de doc_ma CHUNG MINH
+            # B loai tru A (`_mau_thuan`); `else` tran / khong doc duoc chuoi -> tu choi
+            try:
+                ce = D._chuoi_else_if(vb, vi)
+            except Exception:                       # noqa: BLE001
+                ce = None
+            if not ce:
+                return {"loi": f"goi ham: {'lenh vao' if buoc == 0 else 'loi goi'} trong nhanh else ({ten})"}
+            loai_tru += [(p_, a_) for p_, a_ in ce if ham["mo"] < p_ < ham["dong"]]
+            loai = [x for x in loai if x != "else"]
         xau = [x for x in loai if x not in ("if", "khoi")]
         if xau:
             return {"loi": f"goi ham: {'lenh vao' if buoc == 0 else 'loi goi'} trong khoi "
                            f"{xau[0]} ({ten}) - lap/re nhanh chua dich"}
-        ifs, gap_else = D._cac_if_bao(vb, vi)
-        if gap_else:
-            return {"loi": f"goi ham: nhanh else ({ten})"}
         ifs = [(p, g) for p, g in ifs if ham["mo"] < p < ham["dong"]
                and not D._LA_KIEM_LOI.search(g)
                and not (buoc > 0 and re.search(rf"\b{re.escape(tang[-2])}\s*\(", g))]
@@ -335,6 +345,8 @@ def nang_cho_goi(vb: str, vi_lenh: int) -> dict:
         return {"loi": "goi ham: chuoi toi OnTick khong co dieu kien vao (chi quan tri)"}
     guard["qt"] = qt
     guard["tang"] = tang
+    if loai_tru:
+        guard["loai_tru_else"] = loai_tru
     return guard
 
 

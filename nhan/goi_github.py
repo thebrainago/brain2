@@ -45,8 +45,11 @@ TRUY_VAN_GH = (
     "trend EA language:MQL4",
 )
 TRAN_BYTE = 400_000
-TRAN_MQ5_MOI_REPO = 8
+TRAN_MQ5_MOI_REPO = 16
 TRAN_MQH_MOI_REPO = 40
+#: Duoi file EA da liet ke khi xem repo. Ban ghi manifest KHAC gia tri nay (vong 1 chi `.mq5`) ->
+#: repo duoc xem LAI (them `.mq4`) du `pushed_at` khong doi; goi da co tren dia khong tai lai.
+DUOI = [".mq4", ".mq5"]
 _RX_ONTICK = re.compile(r"\bvoid\s+OnTick\s*\(|\bint\s+start\s*\(\s*\)")   # MQL4 cu: start()
 
 
@@ -131,6 +134,12 @@ def tai_github_goi(thu_muc, han_giay: float = 120.0, so_repo: int = 20,
         if dung_search:
             break
     bao["repo_thay"] = len(ung)
+    for fn, cu in man.items():                      # repo xem bang duoi cu -> xem lai (HEAD)
+        if fn not in ung and cu.get("duoi") != DUOI and not cu.get("loi"):
+            ung[fn] = {"full_name": fn, "name": fn.split("/")[-1], "description": "",
+                       "default_branch": "HEAD", "pushed_at": cu.get("pushed_at"),
+                       "stargazers_count": 0}
+            bao["xem_lai_duoi"] = bao.get("xem_lai_duoi", 0) + 1
 
     def _diem(r):
         return TV.diem_tieu_de("%s %s" % (r.get("name", ""), r.get("description") or ""),
@@ -145,7 +154,7 @@ def tai_github_goi(thu_muc, han_giay: float = 120.0, so_repo: int = 20,
             break
         fn = r["full_name"]
         cu = man.get(fn)
-        if cu and cu.get("pushed_at") == r.get("pushed_at"):
+        if cu and cu.get("pushed_at") == r.get("pushed_at") and cu.get("duoi") == DUOI:
             continue
         nhanh = r.get("default_branch") or "main"
         t, loi = get(GH + "/repos/%s/git/trees/%s" % (fn, quote(nhanh)), {"recursive": "1"})
@@ -161,20 +170,25 @@ def tai_github_goi(thu_muc, han_giay: float = 120.0, so_repo: int = 20,
         p_mq5 = [n["path"] for n in cay if n["path"].lower().endswith((".mq5", ".mq4"))]
         p_mqh = [n["path"] for n in cay if n["path"].lower().endswith(".mqh")]
         p_set = [n["path"] for n in cay if n["path"].lower().endswith(".set")]
-        ghi = {"pushed_at": r.get("pushed_at"), "mq5": len(p_mq5), "set": len(p_set), "ea": []}
+        ghi = {"pushed_at": r.get("pushed_at"), "mq5": len(p_mq5), "set": len(p_set), "ea": [],
+               "duoi": DUOI}
         if not p_mq5:
             man[fn] = ghi
             continue
         bao["repo_co_mq5"] += 1
         mqh_cache: dict[str, str] = {}
         for p in p_mq5[:TRAN_MQ5_MOI_REPO]:
+            goi = d / _ten_an_toan("%s__%s" % (fn.replace("/", "__"),
+                                               p.rsplit(".", 1)[0].replace("/", "_")
+                                               + ("_mq4" if p.lower().endswith(".mq4") else "")))
+            if (goi / _ten_an_toan(p.rsplit("/", 1)[-1])).is_file():
+                ghi["ea"].append(p)                 # goi da co (vong truoc): khong tai lai
+                bao["da_co"] = bao.get("da_co", 0) + 1
+                continue
             b, loi = get("%s/%s/%s/%s" % (RAW, fn, quote(nhanh), quote(p)), None, False)
             src = _giai(b) if b else None
             if not src or not _RX_ONTICK.search(src):
                 continue                            # chi bao / script / tai hong: khong phai EA
-            goi = d / _ten_an_toan("%s__%s" % (fn.replace("/", "__"),
-                                               p.rsplit(".", 1)[0].replace("/", "_")
-                                               + ("_mq4" if p.lower().endswith(".mq4") else "")))
             goi.mkdir(parents=True, exist_ok=True)
             tep = {p.rsplit("/", 1)[-1]: src}
             sets = ghep_set(p, p_mq5, p_set)

@@ -120,3 +120,46 @@ def test_else_if_nguong_rsi_roi_nhau():
 def test_else_if_nguong_rsi_giao_nhau_tu_choi():
     r = _doc(_RSI.replace("input double InpSell = 70;", "input double InpSell = 20;"))
     assert r["so_vao_lenh_co_co_che"] == 1
+
+
+_HAM = """
+#include <Trade/Trade.mqh>
+CTrade trade;
+int h;
+int OnInit(){ h=iRSI(_Symbol,_Period,14,PRICE_CLOSE); return 0; }
+void MoMua(){ trade.Buy(0.1,_Symbol); }
+void MoBan(){ trade.Sell(0.1,_Symbol); }
+void OnTick()
+{
+   double r[];
+   ArraySetAsSeries(r,true);
+   if(CopyBuffer(h,0,1,1,r)!=1) return;
+   if(PositionsTotal() > 0) return;
+   if(r[0] < 30) MoMua();
+   else if(r[0] > 70) MoBan();
+}
+"""
+
+
+def test_else_if_mot_lenh_va_ham_phu():
+    r = _doc(_HAM)
+    assert r["so_vao_lenh_co_co_che"] == 2, r["chua_dien_dat_duoc"]
+
+
+def test_else_if_mot_lenh_giao_nhau_tu_choi():
+    # B = r<50 giao A = r<30: `else if` nghia la 30<=r<50 - truoc day bi dich SAI thanh r<50
+    r = _doc(_HAM.replace("r[0] > 70", "r[0] < 50"))
+    assert r["so_vao_lenh_co_co_che"] == 1
+    assert any("loai tru" in x for x in r["chua_dien_dat_duoc"])
+    vb = _RSI.replace("   if(r[0] < InpBuy)\n   {\n      trade.Buy(0.1,_Symbol);\n   }\n"
+                      "   else if(r[0] > InpSell)\n   {\n      trade.Sell(0.1,_Symbol);\n   }",
+                      "   if(r[0] < InpBuy) trade.Buy(0.1,_Symbol);\n"
+                      "   else if(r[0] < 50) trade.Sell(0.1,_Symbol);")
+    assert "else if(r[0] < 50) trade.Sell" in vb
+    r = _doc(vb)
+    assert r["so_vao_lenh_co_co_che"] == 1
+
+
+def test_else_tran_ham_phu_tu_choi():
+    r = _doc(_HAM.replace("else if(r[0] > 70) MoBan();", "else MoBan();"))
+    assert r["so_vao_lenh_co_co_che"] == 1

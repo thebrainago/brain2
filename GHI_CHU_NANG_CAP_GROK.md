@@ -1678,3 +1678,28 @@ có hoa hồng thật; 3 EA `.set` MQL4 vẫn chưa dịch (không bịa HA/ms).
   ĐÚNG các số bảng trên (kiểm .set sh −2,18/185 lệnh, sau tối ưu −1,25/35 lệnh, giữ 0); CSV H1 với `--khung M5` → thoát mã 2;
   đường H1 mau_thu (`--khong-toi-uu`) in ra Y HỆT HEAD; do_moc 13/22 không đổi; test bộ đọc/vòng: không hỏng mới
   (`test_ngu_phap_toan_hang` hỏng sẵn 2 → 1). Bỏ các file báo cáo/nhật ký phụ do lượt chạy sinh ra (BANG_HE bị ghi 0 hệ).
+
+## 12/10/2026 rang sang - vong 3 (Grok, tren box): `.mq4` vong 1 + loi else-if mot lenh
+
+Do that (cung bo doc, cung kho; `cau_kho --khong-tai`, BRAIN_DIEU_TOC=tat):
+- **MQL5: diem vao dich duoc 19 -> 21 / 1349, EA ra co che 15 -> 16** (moi: `navamirhossein/MQL5`
+  CrossMovingAverageEA 2/3). Kho 1106 -> 1278 tep (EA dat lenh 714), lan MQL4 299 -> 380 EA doc,
+  MQL4 dich duoc VAN 4/670 (2 EA, khong tang). Hang A 16, B 815, C 392; goi co .set MQL5 29.
+- Nguon (`nhan/goi_github.py`): ban ghi manifest co truong `duoi` = [.mq4,.mq5]; repo vong 1 (chi
+  liet ke .mq5) duoc xem LAI du `pushed_at` khong doi, goi da co tren dia KHONG tai lai (`da_co`);
+  tran EA/repo 8 -> 16. Luot: 528 repo xem, 237 EA moi, 974 da co, 326 giay (token chi o env).
+- Bo doc (`nhan/doc_ma.py`, `nhan/goi_ham_mql.py`) - SUA LOI DUNG DAN, khong nham so:
+  1. `else if(B) lenh;` MOT LENH (cung dong / dong sau) truoc day bi dich thanh `B` tran (bo qua
+     `not A`) -> nay danh dau `gap_else` va di qua `_chuoi_else_if` (chi nhan khi chung minh B
+     loai tru moi A). `_chuoi_else_if` doc ca nhanh truoc dang lenh don `if(A) lenh;` (`_truoc_else`).
+  2. ham phu goi trong nhanh `else if(B)` (khoi hoac mot lenh) -> `nang_cho_goi` tra
+     `loai_tru_else`, `doc_ma` kiem cung quy tac `_mau_thuan`. `else` tran van tu choi.
+  Do tren kho: 21 -> 21 (khong EA nao mat, khong EA nao them): 15 lan helper-else nay ve ly do
+  "khong chung minh loai tru" (da so B la co bool / `true`). Mau thu 13/22, 13/34 khong doi.
+- 27-29 goi MQL5 co `.set`: VAN chi 1 dich duoc (RSI_Exhaustion). Doc tay ly do: geraked/
+  metatrader5 (6 goi, 655 sao) dat lenh qua thu vien `GerEA` (`ea.BuyOpen`, .set tac gia bat
+  Grid x1.5 toi 20 tang + trailing %) - can dich THU VIEN + luoi, chua lam; con lai la luoi/ro
+  (basket), phuong thuc lop, helper goi tu 2 cho voi tham so huong (`OpenTrade(ORDER_TYPE_BUY)`),
+  vong for thu lai lenh. Viec tiep: dich `GerEA` (mot lan cho ca ho EA), roi tham so hang tai cho goi.
+- Mo phong (XM, EURUSD HistData, co dan nhan) CrossMovingAverageEA: M5 kiem sh -12.65 / -14.63
+  (159 lenh), H1 sh +0.13 / -3.07 (16 lenh); khong lai sau phi -> giu lai 0. Tong giu: 0.

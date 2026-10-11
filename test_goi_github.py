@@ -112,6 +112,40 @@ class MotLuot(unittest.TestCase):
         self.assertEqual(goi["tree"], 1)
 
 
+class XemLaiDuoi(unittest.TestCase):
+    def test_repo_vong_cu_chi_mq5_duoc_xem_lai_lay_mq4(self):
+        with tempfile.TemporaryDirectory() as td:
+            d = Path(td)
+            (d / "NGUON_GH.json").write_text(json.dumps(
+                {"u/old": {"pushed_at": "2026-10-01", "mq5": 1, "set": 0, "ea": ["A.mq5"]}}))
+            goi_cu = d / "u__old__A"
+            goi_cu.mkdir()
+            (goi_cu / "A.mq5").write_text(EA, encoding="utf-8")
+            tai = []
+            tree = {"u/old": ["A.mq5", "B.mq4"]}
+            tep = {("u/old", "A.mq5"): EA, ("u/old", "B.mq4"): "int start(){ OrderSend(0); return 0; }\n"}
+            get0, goi = _gia(tree, tep, search_loi="HTTP 403")
+
+            def get(url, params=None, j=True):
+                if "raw.githubusercontent" in url:
+                    tai.append(url)
+                    url = url.replace("/HEAD/", "/main/")
+                if "/git/trees/" in url:
+                    url = url.replace("/HEAD", "/main")
+                return get0(url, params, j)
+            r = GG.tai_github_goi(d, han_giay=60, get=get, nghi_giay=0, in_ra=lambda *_: None)
+            self.assertEqual(r.get("xem_lai_duoi"), 1)
+            self.assertEqual(r["ea_moi"], 1)                 # chi B.mq4 moi
+            self.assertEqual(r.get("da_co"), 1)              # A.mq5 khong tai lai
+            self.assertFalse(any(u.endswith("/A.mq5") for u in tai))
+            self.assertTrue((d / "u__old__B_mq4" / "B.mq4").is_file())
+            man = json.loads((d / "NGUON_GH.json").read_text())
+            self.assertEqual(man["u/old"]["duoi"], GG.DUOI)
+            # luot sau: khong xem lai nua
+            r2 = GG.tai_github_goi(d, han_giay=60, get=get, nghi_giay=0, in_ra=lambda *_: None)
+            self.assertIsNone(r2.get("xem_lai_duoi"))
+
+
 class TruCauKho(unittest.TestCase):
     def test_tru_doc_kho_github(self):
         with tempfile.TemporaryDirectory() as td:
