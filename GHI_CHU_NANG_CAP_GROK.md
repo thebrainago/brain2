@@ -4,6 +4,38 @@
 
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
 
+## 11/10/2026 tối — SEEKER nguồn thứ hai: GitHub EA MQL5 (+ .set) vào cầu kho (chọn B; MÔ PHỎNG)
+**Vì sao B (đo trên box mới, Linux, kho dựng lại từ đầu vì `data/` không có trong git):** `cau_kho` một lượt tải
+(MQL5 Code Base trang 1–2 + MT4 + Telegram công khai) → 67 EA, điểm vào dịch được **3/77 (3,9 %)**, 2 EA ra cơ chế
+(EMA_Cross_Demo, RSI_Exhaustion_Reversal), `co_set_mql5 = 1`; vòng thử giữ **0** (M5: RSI_Exhaustion kiểm .set sh −2,18/185 lệnh,
+sau tối ưu −1,25/35 — Y HỆT số cũ; H1: EMA_Cross_Demo sh −3,48/155). Nút thắt = quá ít EA đầu vào (chỉ 2 EA dịch được để
+thử) → kho cơ chế (A) sẽ chỉ ghép trên 2 EA đã lỗ sau phí; thêm nguồn (B) tăng số ứng viên mà KHÔNG chỉnh bộ đọc.
+**Làm:** `nhan/goi_github.py` — tìm repo (`/search/repositories`, 5 truy vấn chốt trước, `language:MQL5`), MỘT lượt Git Trees
+mỗi repo, tải raw (không tốn lượt API): mỗi `.mq5` có `OnTick` → gói `data/cau_kho/goi_github/<owner>__<repo>__<ten>/` + `.mqh`
+của repo khi EA include ngoài + `.set` ghép theo quy tắc CẤU TRÚC (tên .set bắt đầu bằng tên EA, hoặc cùng thư mục khi thư mục có
+đúng một .mq5) + `GOI.json` (url blob GitHub, revision `github-<repo>@<nhánh>`). Search 403/429 → dừng; repo không đổi
+`pushed_at` → không tốn lượt lại. Không token trong mã (chỉ biến môi trường qua `bi_mat.dau_github`; lượt đo chạy KHÔNG token,
+60 lượt/giờ). `tru/cau_kho.py`: tải GitHub trong lượt (`BRAIN_CAU_KHO_GIAY_GH`, mặc định 150 s) + đọc kho `goi_github`.
+Bộ đọc, cổng giữ, xếp hạng KHÔNG đổi. Test `test_goi_github.py` 8 (cả ca PHẢI từ chối ghép .set).
+**Đo (bộ đọc a6fe049905619a5a, `BRAIN_DIEU_TOC=tat cau_kho --khong-tai`; khi vong_thu_nghiem đang chạy, điều tốc `cham` chỉ đọc
+≤20 file mới → phải tắt để đo đủ):**
+| | trước | sau |
+|---|---|---|
+| EA duy nhất (MQL5+MQL4) | 66 | 258 (+95 repo GitHub xem, 84 có .mq5, 196 gói EA) |
+| điểm vào tìm thấy | 77 | 391 |
+| **điểm vào dịch được** | **3** (3,9 %) | **10** (2,6 %) |
+| EA ra cơ chế | 2 | 7 (+BreakoutStrategyEA, EMA_RSI_EA, TrendFollower_EA, DualMovingAverage, RsiEA — đều GitHub) |
+| hạng A / co_set_mql5 | 2 / 1 | 7 / 3 (2 .set mới chưa gắn được EA dịch được) |
+| vòng thử H1 (EURUSD, phí XM) chạy được / giữ | 1 / 0 | 8 / 0 |
+Tỉ lệ dịch GIẢM (EA GitHub đa dạng hơn, bộ đọc chưa tổng quát) nhưng số dịch được tăng thật 3 → 10. Vòng thử H1 MÔ PHỎNG phần kiểm sau
+tối ưu: EMA_RSI sh −1,70/67 lệnh, TrendFollower −1,51/21, DualMA −3,08/39, RsiEA −1,53/18 + −1,63/17 (ít lệnh), BreakoutStrategyEA
+0 lệnh ("không qua kiểm cú pháp" — CHƯA ĐO ĐƯỢC), EMA_Cross_Demo −3,48/155 → **giữ 0**; không hệ nào lãi sau phí. MÔ PHỎNG, không phải tiền.
+mau_thu 13/22 không đổi. Dữ liệu box: M5 HistData dựng lại 208.300 bar (2023-12-25→2026-10-09); H1 `/workspace/eurusd_h1_server.csv`
+lần này GỘP TỪ M5 HistData (17.365 bar) vì Dukascopy không trả lời trong 60 s — khác nguồn H1 cũ, nên số H1 không so 1-1 với số cũ.
+**Chưa / kẹt:** .set GitHub chủ yếu đi với EA bộ đọc chưa dịch được (FvgGold, Grid_BB_RSI_News 2 .set → set_cua_goi không chọn);
+EA M1/M5 GitHub chưa chạy khung riêng; `NGUON_GH.json` mới phủ 95/122 repo của 5 truy vấn. Kế: chạy thêm lượt GitHub
+(có token môi trường thì 5.000/giờ), rồi đọc tay lý do hỏng hạng B GitHub (180 EA) — không chỉnh bộ đọc cho vừa đáp án.
+
 ## 11/10/2026 — Bàn giao cập nhật sau M5 (token sắp hết)
 Cập nhật `BAN_GIAO_GROK.md` mục 2+5: M5 ĐÃ XONG (`e1e3c9ae`); RSI_Exhaustion MÔ PHỎNG −4,1%/DD 4,2%/185 lệnh không giữ; bot MQL5 khác có .set tác giả trong HANG/ea_ra_co_che: **CHƯA CÓ** (co_set_mql5=1). Không đổi cổng; không chạy thêm --theo-hang.
 

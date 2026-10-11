@@ -90,7 +90,7 @@ def _muc_toc(dieu_toc) -> dict:
 
 
 def mot_luot(tai: bool = True, tai_mql5=None, gom_tu_so=None, tai_mt4=None, tg=None,
-             dieu_toc=None) -> dict:
+             dieu_toc=None, tai_github=None) -> dict:
     """Mot luot cau kho. `tai_mql5`/`gom_tu_so`/`tai_mt4`/`tg`/`dieu_toc` thay duoc cho test.
 
     11/10/2026 (uu tien chu du an: bot MT4/MT5 cong khai co chien luoc + .set):
@@ -111,7 +111,8 @@ def mot_luot(tai: bool = True, tai_mql5=None, gom_tu_so=None, tai_mt4=None, tg=N
     kho = GOC / "mql5"                              # kho phang cu (file don) - van doc
     kho_goi = GOC / "goi_mql5"
     kho_mt4 = GOC / "goi_mql4"
-    for k in (kho, kho_goi, kho_mt4):
+    kho_gh = GOC / "goi_github"                     # 11/10/2026: nguon thu hai (GitHub EA + .set)
+    for k in (kho, kho_goi, kho_mt4, kho_gh):
         k.mkdir(parents=True, exist_ok=True)
     ra: dict = {"tru": TRU, "kho": str(kho_goi)}
     toc = _muc_toc(dieu_toc) if (dieu_toc or not thu) else {"muc": "binh_thuong", "ly_do": []}
@@ -157,6 +158,14 @@ def mot_luot(tai: bool = True, tai_mql5=None, gom_tu_so=None, tai_mt4=None, tg=N
                     truy_van=tv, nghi_giay=nghi)
             except Exception as e:                  # noqa: BLE001
                 bao["mt4_loi"] = f"{type(e).__name__}: {str(e)[:160]}"
+        if tai_github or not thu:
+            try:
+                from nhan import goi_github as GG
+                bao["github"] = (tai_github or GG.tai_github_goi)(
+                    kho_gh, han_giay=_so("BRAIN_CAU_KHO_GIAY_GH", 150, 0, 900)
+                    * (DT.HE_SO_CHAM if cham else 1.0), truy_van=tv, in_ra=lambda *_: None)
+            except Exception as e:                  # noqa: BLE001 - mang hong: van do kho cu
+                bao["github_loi"] = f"{type(e).__name__}: {str(e)[:160]}"
         ra["tai"] = bao
     tg_ra = {}
     if (tg or not thu) and tai:
@@ -169,14 +178,15 @@ def mot_luot(tai: bool = True, tai_mql5=None, gom_tu_so=None, tai_mt4=None, tg=N
     elif not thu:                                   # khong tai: dung ket qua Telegram luot truoc
         tg_ra = _doc_json(GOC / "TELEGRAM_CONG_KHAI.json", {})
     bg = []
-    for k in (kho_goi, kho_mt4, kho):
+    for k in (kho_goi, kho_mt4, kho_gh, kho):
         g = CK.gom_tu_thu_muc(k)
         CK._url_tu_nguon_tai(g, k)
         for b in g:
             if not b["url"]:
                 m = _doc_json(Path(b["nguon"][4:]).parent / "GOI.json", {})
                 b["url"] = m.get("url", "")
-                b["revision"] = ("mql5-code-%s" % m["id"]) if m.get("id") else ""
+                b["revision"] = m.get("revision") or (
+                    ("mql5-code-%s" % m["id"]) if m.get("id") else "")
         bg += g
     try:
         tu_so = gom_tu_so()
