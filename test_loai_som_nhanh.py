@@ -46,3 +46,13 @@ def test_khong_doi_giu():
     src = inspect.getsource(V._chay_nhom)
     assert 'dong["giu_lai"] = bool(dat_cu and cl["dat"])' in src
     assert "loai_som_nhanh" in src and "giu_lai" not in src.split("loai_som_nhanh")[1].split("\n")[0]
+
+
+def test_de_xuat_p6_chi_nhan_khong_thay_goc():
+    # lai +7 %/nam, DD 55 %: goc (65/10) loai vi lai; de xuat 65/5 khong loai; 50/5 loai vi DD
+    n = V.nhan_loai_som_nhanh(_tk(10000, 10700, 4500), 1.0)
+    assert n["loai"] is True
+    assert n["de_xuat_p6"] == {"65|5": False, "50|5": True}
+    t = V._chu_loai_som(n)
+    assert "CHƯA CHỐT" in t and "không đổi GIỮ/BỎ" in t
+    assert (V.LS_DD_MAX, V.LS_LAI_NAM_MIN) == (65.0, 10.0)

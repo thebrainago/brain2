@@ -314,6 +314,11 @@ def nhan_p4(loai_ro: str | None, cong: dict | None = None,
 #: +12..+22). Ve maxDD 65 %: 15 o chi DD <= 33 % -> nguong DD CHUA DO DUOC tren MT5.
 LS_DD_MAX = 65.0
 LS_LAI_NAM_MIN = 10.0
+#: P6 (11/10/2026, hieu_chuan/p6_hieu_chuan_loai_som.py -> P6_KET_QUA.md): cap nguong DE XUAT,
+#: CHUA CHOT (cho chu du an duyet) - in them canh nhan goc, KHONG thay nhan goc, KHONG doi GIU/BO.
+#: 15 o MT5 (luoi_duong): lai_min 2..8 %/nam -> 0/24 giet oan o MT5 lai, 0/96 lot o MT5 lo
+#: (10 % giet oan o 2 MT5 +9,4 %; 0 % lot o 4). DD > 33 % CHUA DO DUOC tren MT5.
+LS_DE_XUAT = ((65.0, 5.0), (50.0, 5.0))
 
 
 def nhan_loai_som_nhanh(kiem: dict, nam_kiem: float | None) -> dict:
@@ -342,8 +347,9 @@ def nhan_loai_som_nhanh(kiem: dict, nam_kiem: float | None) -> dict:
         ly.append(f"maxDD {dd:.0f}% > {LS_DD_MAX:.0f}%")
     if lai_nam < LS_LAI_NAM_MIN:
         ly.append(f"lãi {lai_nam:+.1f}%/năm < {LS_LAI_NAM_MIN:.0f}%")
+    de_xuat = {f"{a:g}|{b:g}": bool(dd > a or lai_nam < b) for a, b in LS_DE_XUAT}
     return {"loai": bool(ly), "lai_nam_pct": round(lai_nam, 2), "maxdd_pct": round(dd, 2),
-            "nguon": nguon, "ly_do": ly}
+            "nguon": nguon, "ly_do": ly, "de_xuat_p6": de_xuat}
 
 
 def _chu_loai_som(n: dict) -> str:
@@ -353,8 +359,13 @@ def _chu_loai_som(n: dict) -> str:
         tt = ("LOẠI SỚM (" + "; ".join(n["ly_do"]) + ")") if n["loai"] else "không loại sớm"
     so = ("" if n["lai_nam_pct"] is None else
           f" [mô phỏng: lãi {n['lai_nam_pct']:+.1f}%/năm, maxDD {n['maxdd_pct']:.1f}%, {n['nguon']}]")
-    return (f"nhãn loại sớm nhanh (DD>{LS_DD_MAX:.0f}% hoặc lãi<{LS_LAI_NAM_MIN:.0f}%/năm): {tt}{so}"
-            " - ƯỚC LƯỢNG trước MT5 (15 ô P5), không phải sự thật MT5; chỉ là NHÃN, không đổi GIỮ/BỎ")
+    dx = ""
+    if n.get("de_xuat_p6"):
+        dx = "; đề xuất P6 CHƯA CHỐT: " + ", ".join(
+            f"DD>{k.split('|')[0]}%/lãi<{k.split('|')[1]}% → {'loại' if v else 'không loại'}"
+            for k, v in n["de_xuat_p6"].items())
+    return (f"nhãn loại sớm nhanh (DD>{LS_DD_MAX:.0f}% hoặc lãi<{LS_LAI_NAM_MIN:.0f}%/năm): {tt}{so}{dx}"
+            " - ƯỚC LƯỢNG trước MT5 (15 ô P5/P6), không phải sự thật MT5; chỉ là NHÃN, không đổi GIỮ/BỎ")
 
 
 #: LOC NHANH (11/10/2026, goi ban giao the-brain 02 C11/B2/B9) - CHI LA NHAN, KHONG doi GIU/BO.

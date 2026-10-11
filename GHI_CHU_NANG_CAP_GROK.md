@@ -1,5 +1,15 @@
 # Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-11 (trưa, giờ VN)
 
+## Vòng "P6 — HIỆU CHUẨN NGƯỠNG LOẠI SỚM (DD 65 % / lãi 10 %/năm của chủ dự án)" — 11/10/2026 trưa
+Chủ dự án: 65 % / 10 % là ƯỚC LƯỢNG của họ, cần đo lại để chốt. **Chỉ NHÃN, GIỮ/BỎ không đổi; mọi số là MÔ PHỎNG.**
+`hieu_chuan/p6_hieu_chuan_loai_som.py` (chỉ đọc p1/p4/g07/g08 đã có) → `p6_ket_qua.json`, chi tiết `hieu_chuan/P6_KET_QUA.md`.
+- 15 ô MT5 (luoi_duong): lãi tối thiểu 2…8 % → 0/24 giết oan, 0/96 lọt; 10 % (gốc) giết oan ô 2 (MT5 +9,4 %/năm) 8/24; 0 % lọt ô 4.
+  DD > 33 % CHƯA ĐO ĐƯỢC trên MT5. v3 cũ: không ngưỡng lãi < 22 % chặn được ô 6.
+- Nhiễu: không cặp nào lọc được lưới giả (lọt 32–67 %) → placebo (P4 Đ2) vẫn bắt buộc. DD 50 thay 65: lưới nhiễu lọt 39 → 32 %.
+- Lưới thật có phí P3 (g07/g08): DD thật ≤ 24 % nên DD 50/65 không đổi gì; lãi 5 % để lọt 2/168 năm-tài sản g08 (nhiễu 1,3 %).
+- Đề xuất CHƯA CHỐT: (1) 65 % / 5 %, (2) 50 % / 5 % — đọc trên biến thể luoi_duong xấu nhất. `vong_thu_nghiem.LS_DE_XUAT`
+  in cạnh nhãn gốc (`de_xuat_p6`), nhãn gốc 65/10 giữ nguyên. `test_loai_som_nhanh` +1 test; 172 test liên quan vòng xanh.
+
 ## Vòng "SEEKER TRÊN BOX: CÒN GÌ / MẤT GÌ SAU CÀI LẠI WINDOWS + NỐI LẠI ĐƯỜNG KHÔNG CẦN ĐĂNG NHẬP" — 11/10/2026 trưa
 Không nới cổng; không có khóa/mật khẩu/hồ sơ trình duyệt nào vào git. Danh sách APPLY/LATER/SKIP từ the-brain: xem vòng trên
 (`/workspace/thebrain_sang_brain2.md`, phiên song song) — vòng này KHÔNG làm lại, chỉ phần SEEKER chạy thật trên box.
