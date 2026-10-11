@@ -1,0 +1,116 @@
+{
+ "luat": "loai neu maxDD mo phong > 65% hoac lai mo phong < 10%/nam",
+ "nhan": "MO PHONG vs TESTER MT5, 15 o, 6 thang 2019, AUDCAD/NZDCAD - uoc luong",
+ "dong_co": {
+  "v3": {
+   "bien_the": 30,
+   "mt5_lai_bi_loai": 0,
+   "mt5_lai_duoc_giu": 6,
+   "mt5_lo_bi_loai": 22,
+   "mt5_lo_lot_qua": 2,
+   "mt5_dang_10pc_bi_loai": 0,
+   "chi_tiet_sai": [
+    {
+     "o": 6,
+     "bien_the": "1.5",
+     "mo_phong_lai": 21.95,
+     "mo_phong_dd": 7.57,
+     "mt5_lai": -10.819,
+     "mt5_dd": 7.44,
+     "loi": "lot o MT5 lo"
+    },
+    {
+     "o": 6,
+     "bien_the": "2.5",
+     "mo_phong_lai": 12.04,
+     "mo_phong_dd": 12.61,
+     "mt5_lai": -10.819,
+     "mt5_dd": 7.44,
+     "loi": "lot o MT5 lo"
+    }
+   ]
+  },
+  "duong": {
+   "bien_the": 120,
+   "mt5_lai_bi_loai": 8,
+   "mt5_lai_duoc_giu": 16,
+   "mt5_lo_bi_loai": 96,
+   "mt5_lo_lot_qua": 0,
+   "mt5_dang_10pc_bi_loai": 0,
+   "chi_tiet_sai": [
+    {
+     "o": 2,
+     "bien_the": "gan_open|1.5",
+     "mo_phong_lai": 9.32,
+     "mo_phong_dd": 3.66,
+     "mt5_lai": 9.353,
+     "mt5_dd": 3.68,
+     "loi": "giet o MT5 lai"
+    },
+    {
+     "o": 2,
+     "bien_the": "thap_truoc|1.5",
+     "mo_phong_lai": 9.69,
+     "mo_phong_dd": 3.66,
+     "mt5_lai": 9.353,
+     "mt5_dd": 3.68,
+     "loi": "giet o MT5 lai"
+    },
+    {
+     "o": 2,
+     "bien_the": "cao_truoc|1.5",
+     "mo_phong_lai": 9.4,
+     "mo_phong_dd": 3.66,
+     "mt5_lai": 9.353,
+     "mt5_dd": 3.68,
+     "loi": "giet o MT5 lai"
+    },
+    {
+     "o": 2,
+     "bien_the": "mau_nen|1.5",
+     "mo_phong_lai": 9.22,
+     "mo_phong_dd": 3.66,
+     "mt5_lai": 9.353,
+     "mt5_dd": 3.68,
+     "loi": "giet o MT5 lai"
+    },
+    {
+     "o": 2,
+     "bien_the": "gan_open|2.5",
+     "mo_phong_lai": 8.15,
+     "mo_phong_dd": 3.67,
+     "mt5_lai": 9.353,
+     "mt5_dd": 3.68,
+     "loi": "giet o MT5 lai"
+    },
+    {
+     "o": 2,
+     "bien_the": "thap_truoc|2.5",
+     "mo_phong_lai": 8.43,
+     "mo_phong_dd": 3.67,
+     "mt5_lai": 9.353,
+     "mt5_dd": 3.68,
+     "loi": "giet o MT5 lai"
+    },
+    {
+     "o": 2,
+     "bien_the": "cao_truoc|2.5",
+     "mo_phong_lai": 8.21,
+     "mo_phong_dd": 3.67,
+     "mt5_lai": 9.353,
+     "mt5_dd": 3.68,
+     "loi": "giet o MT5 lai"
+    },
+    {
+     "o": 2,
+     "bien_the": "mau_nen|2.5",
+     "mo_phong_lai": 8.05,
+     "mo_phong_dd": 3.67,
+     "mt5_lai": 9.353,
+     "mt5_dd": 3.68,
+     "loi": "giet o MT5 lai"
+    }
+   ]
+  }
+ }
+}

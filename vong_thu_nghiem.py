@@ -12,6 +12,8 @@ chủ dự án: lãi sau phí phần kiểm > 0, maxDD < 80 %, không cháy) c�
 thêm dòng "mô phỏng lệch so với MT5" (P1, `hieu_chuan/P1_KET_QUA.md`) và "nhãn cảnh báo P4"
 (11/10/2026: Đ1 lưới lãi ở biến thể luoi_duong xấu nhất, Đ2 lưới/hedge thắng placebo cùng cấu
 trúc p ≤ 0,05 - chỉ NHÃN, chưa đo được thì ghi CHƯA ĐO ĐƯỢC; không đổi GIỮ/BỎ).
+Hệ có rổ in thêm "nhãn loại sớm nhanh" (11/10/2026, chủ dự án: mô phỏng maxDD > 65 % hoặc lãi
+< 10 %/năm → loại trước MT5) - ƯỚC LƯỢNG đo trên 15 ô (`hieu_chuan/P5_KET_QUA.md`), chỉ NHÃN.
 
 Cách làm (cập nhật 10/10/2026):
   1. Chia chuỗi theo THỜI GIAN: 70% đầu để TỐI ƯU, 30% sau để KIỂM. Không bao
@@ -299,6 +301,57 @@ def nhan_p4(loai_ro: str | None, cong: dict | None = None,
             else None if any(x is None for x in trang) else True)
     return {"qua": tong, "muc": muc,
             "ly_do": [k for k, m in muc.items() if m["dat"] is False]}
+
+
+#: LOAI SOM NHANH (11/10/2026, chu du an): truoc khi ton thoi gian MT5, loai neu mo phong
+#: maxDD > 65 % HOAC lai mo phong < 10 %/nam. CHI LA NHAN UOC LUONG, KHONG doi GIU/BO.
+#: Do tren 15 o MT5 (hieu_chuan/p5_loai_som.py -> p5_ket_qua.json, MO PHONG vs TESTER):
+#: luoi_duong 0/120 bien the giet o MT5 lai >= 10 %/nam; giet o 2 (MT5 +9,4 %/nam, duoi 10 %)
+#: 8/8; giet 96/96 bien the o MT5 lo. Ban v3 cu (luoi.chay) lot o 6 (MT5 -10,8, mo phong
+#: +12..+22). Ve maxDD 65 %: 15 o chi DD <= 33 % -> nguong DD CHUA DO DUOC tren MT5.
+LS_DD_MAX = 65.0
+LS_LAI_NAM_MIN = 10.0
+
+
+def nhan_loai_som_nhanh(kiem: dict, nam_kiem: float | None) -> dict:
+    """NHAN 'loai som nhanh' (maxDD > 65 % hoac lai < 10 %/nam) tren phan KIEM mo phong.
+
+    Lai/nam: tai khoan khai bao -> (von_cuoi/von_dau)^(1/nam) - 1 ; lenh don -> exp(loi_log/nam)-1
+    (don bay 1). maxDD: cung thuoc voi nhan 25/09. Chi la nhan; khong doi `giu_lai`."""
+    tk = kiem.get("tai_khoan") or {}
+    nam = float(nam_kiem or 0.0)
+    if tk and float(tk.get("von_dau") or 0) > 0:
+        von = float(tk["von_dau"])
+        cuoi = max(float(tk.get("von_cuoi", 0.0)), 0.0)
+        dd = (1.0 - float(tk["von_rong_min"]) / von) * 100.0
+        lai_nam = ((cuoi / von) ** (1.0 / nam) - 1.0) * 100.0 if nam > 0 else float("nan")
+        nguon = "tài khoản khai báo"
+    else:
+        dd = float(kiem.get("maxdd_pct", float("nan")))
+        lai_nam = (math.exp(float(kiem.get("loi_log", 0.0)) / nam) - 1.0) * 100.0 \
+            if nam > 0 else float("nan")
+        nguon = "lệnh đơn, đòn bẩy 1"
+    ly = []
+    if math.isnan(lai_nam) or math.isnan(dd):
+        return {"loai": None, "lai_nam_pct": None, "maxdd_pct": None, "nguon": nguon,
+                "ly_do": ["CHƯA ĐO ĐƯỢC (thiếu số năm hoặc vốn)"]}
+    if dd > LS_DD_MAX:
+        ly.append(f"maxDD {dd:.0f}% > {LS_DD_MAX:.0f}%")
+    if lai_nam < LS_LAI_NAM_MIN:
+        ly.append(f"lãi {lai_nam:+.1f}%/năm < {LS_LAI_NAM_MIN:.0f}%")
+    return {"loai": bool(ly), "lai_nam_pct": round(lai_nam, 2), "maxdd_pct": round(dd, 2),
+            "nguon": nguon, "ly_do": ly}
+
+
+def _chu_loai_som(n: dict) -> str:
+    if n["loai"] is None:
+        tt = "CHƯA ĐO ĐƯỢC"
+    else:
+        tt = ("LOẠI SỚM (" + "; ".join(n["ly_do"]) + ")") if n["loai"] else "không loại sớm"
+    so = ("" if n["lai_nam_pct"] is None else
+          f" [mô phỏng: lãi {n['lai_nam_pct']:+.1f}%/năm, maxDD {n['maxdd_pct']:.1f}%, {n['nguon']}]")
+    return (f"nhãn loại sớm nhanh (DD>{LS_DD_MAX:.0f}% hoặc lãi<{LS_LAI_NAM_MIN:.0f}%/năm): {tt}{so}"
+            " - ƯỚC LƯỢNG trước MT5 (15 ô P5), không phải sự thật MT5; chỉ là NHÃN, không đổi GIỮ/BỎ")
 
 
 def _chu_p4(n: dict) -> str:
@@ -877,6 +930,8 @@ def _chay_nhom(path: Path, g: str, specs: list[dict], df_tu, df_kiem, khung: str
             dong["canh_bao_mt5"] = CANH_BAO_MT5_RO
         nam_tu = len(df_tu) / BAR_NAM.get(khung, 260)
         nam_kiem = len(df_kiem) / BAR_NAM.get(khung, 260)
+        if ro:
+            dong["loai_som_nhanh"] = nhan_loai_som_nhanh(kiem, nam_kiem)
         dong["t_tu"] = round(tu["sharpe"] * math.sqrt(nam_tu), 2)
         dong["t_kiem"] = round(kiem["sharpe"] * math.sqrt(nam_kiem), 2)
         it = []
@@ -1029,6 +1084,8 @@ def main(argv=None) -> int:
             print(f"        {x['canh_bao_mt5']}")
         if x.get("nhan_p4"):
             print(f"        {_chu_p4(x['nhan_p4'])}")
+        if x.get("loai_som_nhanh"):
+            print(f"        {_chu_loai_som(x['loai_som_nhanh'])}")
         if x.get("cong_luoi"):
             cl = x["cong_luoi"]
             tkk = x["tot_kiem"].get("tai_khoan") or {}
