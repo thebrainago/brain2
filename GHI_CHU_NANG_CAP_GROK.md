@@ -16,6 +16,14 @@
 - Phần "đổi entry" của G-a (06 viết: vào ngay / theo xu hướng / hồi quy / ngẫu nhiên) KHÔNG làm ở vòng này — để sau nếu quản trị có gì.
 - Minh bạch: sau khi ghi tệp kế hoạch (trước commit) đã chạy thử 6 biến thể trên AUDCAD 2018 thật để kiểm V0 = G07 (−551,62 USD,
   trùng từng số). Không đổi kế hoạch sau đó (sha giữ nguyên).
+- **KẾT QUẢ (1848 lần, 4,5 giờ, 2 nhân — bản 7 nhân kẹt đã cắt; chi tiết `hieu_chuan/G08_KET_QUA.md`, `g08_ket_qua.json`):
+  G-a MỘT PHẦN theo luật đóng băng, nhưng BÁC BỎ về tiền (mô phỏng).** V0 = G07 từng số. Không (biến thể, tài sản) nào LAI; 0 stop-out,
+  maxDD ≤ 21 %. "Một phần" chỉ vì V5 (dừng rổ 120 h) hơn nhiễu p 0,048 trên cả hai cặp — nhưng V5 lỗ NHIỀU hơn gốc trên giá thật
+  (−765 / −2.183 USD); nó chỉ làm nhiễu lỗ còn nặng hơn. Tốt nhất theo tiền: V4 chốt rổ ≥ 1 USD AUDCAD −1.408 USD/7 năm (−1,31 %/năm,
+  p hơn nhiễu 0,14). Năm đạt luật chủ: tối đa 3/14 (V2), ngang tỉ lệ năm nhiễu đạt (≤ 26 %).
+- **Đọc cho việc tiếp:** quản trị rổ (5 cách đã khóa) không thắng được phí; lưới cặp chéo trên mô phỏng brain2 chỉ có thể ra tiền nếu
+  chi phí thật thấp hơn (sàn swap thấp / ECN — CHƯA ĐO ĐƯỢC) hoặc có luật entry/quản trị khác lấy từ lịch sử lệnh người thắng
+  (cần chủ đăng nhập MQL5). Không nới cổng.
 
 ## Vòng "G07 — G-b: CHỌN TÀI SẢN (lưới có lãi trên tài sản hồi quy, không trên chỉ số?)" (sau d43e1f56) — 11/10/2026
 **KẾ HOẠCH ĐÓNG BĂNG TRƯỚC KHI CÓ SỐ:** `hieu_chuan/G07_KE_HOACH.json` sha `eddb7e748b7924e9`. Không đổi cổng. Mọi số sẽ là MÔ PHỎNG.
