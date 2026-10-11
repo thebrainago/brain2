@@ -1,5 +1,7 @@
 # Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-11 (trưa, giờ VN)
 
+**Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
+
 ## Vòng "SEEKER: DIỄN ĐÀN NHIỀU TRANG + 5 NGUỒN LỊCH SỬ LỆNH + BẢNG ĐIỂM NGUỒN" (the-brain A4/A5) — 11/10/2026 trưa
 Không nới cổng; không đăng nhập, không mật khẩu/khóa nào vào git; lịch sử lệnh thô (nếu có) chỉ ở `data/`. Mọi số vòng lặp là MÔ PHỎNG.
 - `nhan/doc_nhieu_trang.py` + `config/dien_dan.json`: đọc danh sách nhiều trang có CON TRỎ (`data/doc_nhieu_trang/CON_TRO.json`).
