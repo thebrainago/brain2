@@ -1472,3 +1472,36 @@ phải tín hiệu bar) + 5 phụ thuộc `MultiPivots.mqh`/`iCustom` không có
   — **dịch được 0** (bộ đọc chưa tổng quát hoá; đúng nút thắt 0,4% đã đo). Hàng: A 0 / B 45 /
   C 60; đầu hàng: RSI_Exhaustion_Reversal (+.set EURUSD).
 - Nút thắt kế: bộ đọc `doc_ma` trên hạng B (45 EA đã xếp) — không chỉnh bộ đọc cho vừa đáp án.
+
+## 11/10/2026 — Bộ đọc trên tập "chờ bộ đọc" (hạng B của SEEKER): 0/94 → 2/94 (MÔ PHỎNG)
+Đọc tay lý do hỏng của 41 EA MQL5 hạng B (+3 MQL4 có `.set`, +1 bản ghi nao.db). Chỉ sửa lỗi bộ đọc
+**chung** giải thích được thất bại, không chỉnh cho vừa một EA (`nhan/doc_ma.py`):
+- `const` cấp file (`const int InpEndHourServer = 18;`) = hằng như `#define` (chỉ mức ngoặc 0).
+- Phủ định kép trong lọc thoát sớm: `if(!(a && b)) return;` → a VÀ b; `!co` với co = biến bool.
+- Khai báo nhiều biến một dòng (`double rsiNow=r[0], rsiPrev=r[1];`) → mỗi biến một dòng.
+- `const` cục bộ trong hàm (`const bool buy_signal = ...`) trước đây vô hình với bảng biến bool.
+- `x == EMPTY_VALUE`, `iATR(..) <= 0` = kiểm dữ liệu (quản trị, ghi `bo_qua_quan_tri`).
+- Hàm hỏi vị thế có `&&` xuống dòng: `and (` bị tính là lời gọi hàm → `HasManagedPosition()` bị sót.
+- Lệnh vào nằm TRONG `return(OrderSend(..) && ..)` không còn bị gắn nhãn mã chết.
+- Toán tử ba ngôi chọn lệnh `sig ? t.Buy(..) : t.Sell(..)`: nhánh `:` = `!sig`, chỉ nhận khi CHỨNG
+  MINH loại trừ (`_mau_thuan`); cờ chọn nhánh thuần (`isBuy`, `dir>0`) không lấy. SL/TP qua biến
+  (`entry = sig ? ask : bid`, `RoundPrice(..)`, `MathMax(atr*k, min_stop_san)`) → ATR×k.
+Đo:
+- Tập chờ (cau_kho `--khong-tai`, bộ đọc c25add5f): điểm vào dịch được **0/94 → 2/94** (2,1%); file
+  ra cơ chế 0 → 1 (RiskGuardLite: EMA20/50 giao cắt, SL 2×ATR14, TP 3×ATR14, một vị thế một lúc).
+  Hạng A 0 → 1, B 45 → 44.
+- mau_thu 13/22 = 59,1% (không đổi), mo_rong 13/34 = 38,2% (không đổi); 25 file mẫu: số cơ chế/điểm
+  vào giống hệt (chỉ khoá `nhom` dời vị trí ký tự).
+- Test: `test_doc_ma_cho_doc.py` 8 test mới (cả ca PHẢI từ chối); 292 test bộ đọc xanh. Suite đầy đủ
+  trên box: 84 hỏng / 17 lỗi thu thập (thiếu scipy, đường dẫn Windows...) — 80 hỏng y hệt khi chạy
+  bản gốc; 4 hỏng `test_chay_that` chỉ khi chạy chung (chạy riêng 12/12 xanh) → không do bộ đọc.
+- Vòng thử RiskGuardLite (EURUSD H1 server, phí thật, `--theo-hang`): giữ 0, kiểm sau tối ưu
+  sh −0,96 / 22 lệnh, không lãi sau phí — MÔ PHỎNG, không phải tiền.
+Lỗi còn lại trên tập chờ (đọc tay): GDS Renko ×8 (gạch Renko tự dựng — không dịch được trung thực);
+điều kiện vào ở hàm phụ/hai tầng với trạng thái (`dir = CheckBreakout()`, `g_pending*`, `g_activeTicket`)
+~12; khung cố định khác khung biểu đồ (RSI_Exhaustion M5, EMA_Cross_Scalper, SMC TF xu hướng, ZoneUS30
+M30, AAPL M5, Sniper M15) ~7; chỉ báo iCustom/.ex5 hoặc tự tính/tick (SuperTrendEA, StochDaily Stoch
+SMMA tự tính + lệnh chờ, PulseStrike z-score tick, lyapunov, AurumNeuro) ~5; panel/công cụ tay ~12.
+- EA có `.set` duy nhất (MQL5): RSI_Exhaustion_Reversal — vẫn chưa dịch: `.set` chốt `InpTimeframe=5`
+  (M5) + chỉ báo qua hàm bọc `GetRSI(shift)`→`ReadBufferValue(handle,0,shift)`. Vòng chỉ có H1/D1 →
+  **chưa sẵn sàng** `--theo-hang`. 3 EA `.set` còn lại là MQL4 (làn riêng, bộ đọc chưa đọc).
