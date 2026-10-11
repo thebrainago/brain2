@@ -290,3 +290,87 @@ def thu_thap(so_tin_hieu: int = 12, trang: int = 1, in_ra=print) -> dict:
     SO.ghi_chi_so("tin_hieu_ho_so", float(bao["ghi"]), {"trang": trang})
     in_ra(f"mql5 signals: {bao}")
     return bao
+
+
+# ------------------------------------------------ PHAN BO SYMBOL (A3, 11/10/2026)
+# Bai hoc the-brain (ban giao 02 D5): nhan ma lay bang regex "6 chu hoa tren CA TRANG"
+# (`_quet_signal_mql5._RX_SYM` cu) gan SAI ma 19/31 ho so: bo sot `GOLD#`/`XAUUSDm`, va
+# gan `USDCHF` (2 lenh) cho tai khoan vang 1.549 lenh. Nguon dung la bang *Distribution*
+# cua trang tin hieu (cong khai, khong can dang nhap). Cau truc do that 11/10/2026 tren
+# /en/signals/2196457: `<table class="signals-chart-dist ...">`, thead `Symbol | | Deals |
+# Sell | Buy`, moi hang `<td class="col-symbol">GOLD#</td><td class="col-buy-sell ...">1563
+# </td>` + `title="Trades on GOLD#: 1563"` (so CHINH XAC; o hien thi co the rut gon "1.5K").
+# Bang thu hai cung class la Gross Profit/Loss/Profit, USD - khong dung de dem lenh.
+
+_RX_BANG_DIST = re.compile(r'<table[^>]*class="[^"]*signals-chart-dist[^"]*"[^>]*>(.*?)</table>',
+                           re.S | re.I)
+_RX_TH = re.compile(r"<th[^>]*>(.*?)</th>", re.S | re.I)
+_RX_HANG = re.compile(r"<tr[^>]*>(.*?)</tr>", re.S | re.I)
+_RX_O_SYM = re.compile(r'<td[^>]*class="[^"]*col-symbol[^"]*"[^>]*>(.*?)</td>', re.S | re.I)
+_RX_O_SO = re.compile(r'<td[^>]*class="[^"]*col-buy-sell[^"]*"[^>]*>(.*?)</td>', re.S | re.I)
+_RX_TITLE_LENH = re.compile(r'title="Trades on ([^":]+):\s*([\d,]+)"', re.I)
+_HAU_TO_SO = {"K": 1e3, "M": 1e6, "B": 1e9}
+
+
+def _bo_the(s: str) -> str:
+    return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", s or "")).strip()
+
+
+def _so_ngan(s) -> float | None:
+    """'1563' -> 1563 · '9.8K' -> 9800 · '1,549' -> 1549 · khac -> None."""
+    t = str(s or "").replace("\xa0", "").replace(" ", "").strip()
+    m = re.fullmatch(r"([+-]?\d[\d,]*(?:\.\d+)?)([KMB]?)", t, re.I)
+    if not m:
+        return None
+    return float(m.group(1).replace(",", "")) * _HAU_TO_SO.get(m.group(2).upper(), 1.0)
+
+
+def chuan_symbol(tho) -> str:
+    """Ten symbol cua san -> ten chung. 'GOLD#'/'XAUUSDm'/'GOLD.pro' -> XAUUSD ; 'EURUSD.pro' /
+    'EURUSD_i' / 'EURUSDm' / 'USDCHF#' -> EURUSD/USDCHF ; 'US30m' -> US30. Khong nhan ra thi tra
+    ten da cat hau to, chu hoa - KHONG doan ten la."""
+    s = re.split(r"[^A-Za-z0-9]", str(tho or "").strip(), maxsplit=1)[0]
+    m = re.fullmatch(r"([A-Z0-9]{3,})([a-z]{1,5})", s)
+    if m:
+        s = m.group(1)
+    u = s.upper()
+    if u.startswith(("GOLD", "XAUUSD")):
+        return "XAUUSD"
+    if u.startswith(("SILVER", "XAGUSD")):
+        return "XAGUSD"
+    return u
+
+
+def phan_bo_symbol(html: str) -> dict | None:
+    """Bang Distribution (Symbol | Deals) cua trang tin hieu MQL5 -> phan bo lenh theo ma.
+
+    Tra {"symbol_chinh", "ty_le_lenh", "symbol": [{tho, chuan, lenh}], "top": [ma chuan theo so
+    lenh giam dan]} hoac None khi trang KHONG co bang (khong doan tu chu trong trang)."""
+    for bang in _RX_BANG_DIST.findall(html or ""):
+        tieu = [_bo_the(x).lower() for x in _RX_TH.findall(bang)]
+        if not tieu or tieu[0] != "symbol" or not any("deals" in t for t in tieu):
+            continue
+        hang = []
+        for h in _RX_HANG.findall(bang):
+            ms = _RX_O_SYM.search(h)
+            if not ms:
+                continue
+            tho = _bo_the(ms.group(1))
+            mt = _RX_TITLE_LENH.search(h)
+            so = float(mt.group(2).replace(",", "")) if mt else None
+            if so is None:
+                mo = _RX_O_SO.search(h)
+                so = _so_ngan(_bo_the(mo.group(1))) if mo else None
+            if tho and so is not None:
+                hang.append({"tho": tho, "chuan": chuan_symbol(tho), "lenh": int(so)})
+        if not hang:
+            continue
+        gop: dict = {}
+        for x in hang:
+            gop[x["chuan"]] = gop.get(x["chuan"], 0) + x["lenh"]
+        tong = sum(gop.values())
+        top = sorted(gop, key=lambda k: -gop[k])
+        return {"symbol_chinh": top[0],
+                "ty_le_lenh": round(gop[top[0]] / tong, 3) if tong else None,
+                "symbol": hang, "top": top}
+    return None

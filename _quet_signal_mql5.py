@@ -28,17 +28,17 @@ import re
 import sys
 import time
 import warnings
+from pathlib import Path
 
+# SUA 11/10/2026: `Path` duoc dung o dong duoi TRUOC khi import (import o cuoi khoi) ->
+# NameError ngay khi chay/import file nay.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-sys.stdout.reconfigure(encoding="utf-8")
 warnings.filterwarnings("ignore")
 
 import numpy as np
-import requests
 
 from nhan import dau_chan as DC
 from nhan import tin_hieu_mql5 as TH
-from pathlib import Path
 
 RA = "reports/signal_ho_so.json"
 SO_TRANG = 14
@@ -48,7 +48,23 @@ NGHI = 0.6
 _RX_O = re.compile(
     r'<div class="s-data-columns__label">([^<]{2,40})</div>\s*'
     r'<div class="s-data-columns__value[^"]*"[^>]*>(.{0,80}?)</div>', re.S)
+#: KHONG DUNG NUA (11/10/2026, the-brain 02 D5): dem moi chuoi 6 chu hoa tren CA TRANG -> gan
+#: sai ma (bo sot GOLD#/XAUUSDm, gan USDCHF 2 lenh cho tai khoan vang 1.549 lenh). Nhan ma
+#: lay tu bang Distribution: `TH.phan_bo_symbol`. Giu ten de test kiem no khong con duoc goi.
 _RX_SYM = re.compile(r"\b([A-Z]{6}|XAU[A-Z]{3}|XAG[A-Z]{3})\b")
+
+
+def nhan_symbol(html: str) -> dict:
+    """Nhan ma cua mot trang tin hieu: tu bang Distribution, KHONG tu chu trong trang.
+    Khong co bang -> symbol [] + `symbol_nguon` = 'CHƯA ĐO ĐƯỢC' (khong doan)."""
+    pb = TH.phan_bo_symbol(html)
+    if pb is None:
+        return {"symbol": [], "symbol_chinh": None, "ty_le_lenh_ma_chinh": None,
+                "symbol_nguon": "CHƯA ĐO ĐƯỢC (không thấy bảng Distribution)"}
+    return {"symbol": pb["top"][:3], "symbol_chinh": pb["symbol_chinh"],
+            "ty_le_lenh_ma_chinh": pb["ty_le_lenh"],
+            "symbol_lenh": {x["chuan"]: x["lenh"] for x in pb["symbol"]},
+            "symbol_nguon": "distribution"}
 
 
 def _o_thong_so(html: str) -> dict:
@@ -104,9 +120,7 @@ def mot(sid: int) -> dict | None:
             cat = float(np.median([a / b for a, b in cap]))
 
     ten = re.search(r"<title>([^<]+)</title>", h)
-    sym = [s for s, _ in
-           sorted({s: h.count(s) for s in set(_RX_SYM.findall(h))}.items(),
-                  key=lambda kv: -kv[1])][:3]
+    sym = nhan_symbol(h)
 
     dd = None
     for k in ("By Equity", "By Balance", "Maximal"):
@@ -119,7 +133,7 @@ def mot(sid: int) -> dict | None:
     return {
         "id": sid,
         "ten": (ten.group(1)[:90] if ten else None),
-        "symbol": sym,
+        **sym,
         "so_lenh": _so(o.get("Trades")),
         "tuan": _so(o.get("Trades per week")),
         "giu_phut": _phut(o.get("Avg holding time")),
@@ -218,4 +232,5 @@ def nhom(ho: list[dict]) -> None:
 
 
 if __name__ == "__main__":
+    sys.stdout.reconfigure(encoding="utf-8")
     chay()
