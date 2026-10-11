@@ -1,8 +1,47 @@
-# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-11 (trưa, giờ VN)
+# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-12 (sáng, giờ VN)
 
 > **Tài khoản Grok Bot mới:** đọc `START_HERE.md` → `BAN_GIAO_GROK.md` → `GHI_CHU_NANG_CAP_GROK.md`. Không secret trong git.
 
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
+
+## 12/10/2026 sáng — Vòng 4: thư viện GerEA (geraked) + tham số hằng tại chỗ gọi + `else if` = B and not A (MÔ PHỎNG)
+**0.** `reports/VONG_DAY_DU.json` treo từ vòng 3: diff chỉ đổi dấu giờ `luc` (một lần chạy test, `giay: 0.0`, không phải báo cáo đo) → `git checkout`, không commit.
+**1. GerEA thành cơ chế dùng lại** (`nhan/ger_ea.py`): dịch MỘT LẦN phần quản trị của `EAUtils.mqh` (geraked/metatrader5, 655 sao) —
+vào lệnh tick đầu bar khi không có vị thế, `BuyOpen` (grid ⇒ bỏ SL, comment d = |in−sl|, `reverse` đảo SL/TP + cờ bỏ), `order()`
+(từ chối SL/TP sai phía, khối lượng = min(balance, margin_free)·risk / (|in−sl|·giá trị điểm), làm tròn 0,01), `checkForTrail`
+(SL = max(pin, hoà vốn) + (Bid−pin) − L·d, đóng ngay nếu < 30 điểm và có lãi), `checkForGrid` (tầng n ở pin ∓ n·d, lot = lot lớn nhất ×
+mult, TP CẢ RỔ = giá mà tổng lãi = lỗ lệnh đầu tại d (+ phí), ≥ 30 điểm), stop-out kiểu MT5 lệnh lỗ nhất trước, phí XM (spread theo giờ,
+trượt giá, qua đêm từng lệnh). Tham số đọc từ `OnInit` (`ea.X = Input*0.01`; thành viên không gán → mặc định constructor — vd 3MAF không
+gán `gridTrailingStopLevel` dù input = 40); `.set` khớp tên CHÍNH XÁC (`SLLookBack` ≠ `SLLookback` → bỏ qua, ghi lại). Timer 30–60 s
+GIẢ ĐỊNH kiểm liên tục trên đường giá M5 (tín hiệu khung EA, khớp/lưới/kéo SL trên M5). Không dịch: tin tức, EquityDrawdownLimit, nhánh
+grid trailing (cả 6 .set = 0 → báo lỗi nếu bật), số dư âm được bảo vệ của XM (mô phỏng để âm).
+Tín hiệu (`nhan/ger_ea_tin_hieu.py`) **DỊCH TAY** từng `BuySignal/SellSignal` (chỉ chỉ báo chuẩn MT5: EMA, MACD, Stochastic, RSI,
+Bands) — KHÔNG qua bộ đọc, KHÔNG tính vào số "điểm vào dịch được". 4/6 EA có .set: 3MAF, 2MACDSTO, BBRSI, 3MACD. CHƯA dịch: CEZLSMA,
+AFAOSMD (iCustom). GIẢ ĐỊNH 3MAF: `Fractals.mq5` không bao giờ ghi buffer ở series 2 (`i<rates_total-3`) → giá trị là bộ nhớ mới;
+tác giả có backtest CÓ lệnh nên coi ≠ EMPTY_VALUE (điều kiện fractal luôn đúng) — chưa kiểm được khi chưa có MT5.
+Dữ liệu: HistData M1 USDCAD/AUDUSD/NZDUSD/XAUUSD 2024-01 → 2026-09 (ngoài repo, `/workspace/du_lieu_fx/*_m5_histdata_server.csv`).
+Toàn bộ dữ liệu nằm SAU giai đoạn tác giả chỉnh .set → cả chuỗi là ngoài mẫu với .set. `ger_chay.py` → `reports/GER_EA.json`.
+**Kết quả (MÔ PHỎNG, 10.000 USD, 1:100, stop-out 50%; độ nhạy XM 1:500/20% trong json):**
+| EA (.set tác giả) | mã/khung tác giả | EURUSD cùng khung | EURUSD M5 | EURUSD H1 |
+|---|---|---|---|---|
+| 3MAF | USDCAD M15: −99,9 %, DD 99,9 %, 161 lệnh | −100 % | −100 % | −96 % (DD 99 %) |
+| 2MACDSTO | NZDUSD H3: −99,95 %, 117 lệnh | −99,9 % | −100 % | −99,9 % |
+| BBRSI | XAUUSD M5: −99,9 %, 38 lệnh | (=M5) | −98,7 % | **+14,6 %, DD 10,9 %, Sharpe 0,67, 39 lệnh / 23 rổ** |
+| 3MACD | AUDUSD M5: −113 % (cháy) | (=M5) | −100 % | **+23,8 %, DD 24,9 %, Sharpe 0,42, 492 lệnh / 245 rổ; 30 % cuối −9,1 %** |
+Lưới không SL + nhân lot cháy ở MỌI cặp/khung tác giả chọn. Hai ô đạt nhãn cổng (lãi sau phí, DD < 80 %, không cháy) đều KHÔNG phải
+mã/khung tác giả, là 2/16 tổ hợp đã thử (rủi ro chọn lọc), chỉ 2,75 năm; BBRSI H1 nhạy thứ tự trong bar (thấp trước: +10,8 %, DD 28,8 %);
+3MACD H1 lỗ ở 30 % cuối. Không phí: BBRSI 14,4 % (đường đi lưới khác), 3MACD 33,2 %. KHÔNG phải tiền thật; cần MT5 tester trước khi tin.
+**2. Hàm mở lệnh gọi 2 chỗ với tham số hướng** (`nhan/goi_ham_mql.py` `_dk_tham_so_tang`, `doc_ma` gọi `GH.chi_tham_so`): điều kiện
+CHỈ trên tham số (`type == ORDER_TYPE_BUY`, `!=`, `p`, `!p`, cả nhánh `else` của chúng) được TÍNH tại từng chỗ gọi có đối số HẰNG;
+chỉ chỗ gọi làm mọi điều kiện đúng mới tới lệnh; đúng một chỗ → nâng lên chỗ đó; 0 hay >1, đối số không hằng, tham số bị gán lại → từ chối.
+**3. `else if(B)` = B and not A** (`_them_phu_dinh_else`): khi không chứng minh được B loại trừ A, thêm guard `not A` nếu A là HOẶC các
+vế đơn (NOT → VÀ các so sánh đảo) và dịch trọn vẹn; A là VÀ ghép → vẫn từ chối. Ở lớp gọi hàm chỉ thêm khi A cùng hàm với tầng điều kiện.
+`else lệnh;` trần (không ngoặc) giờ được đánh dấu else (trước bị coi như không điều kiện).
+Test: `test_ger_ea.py` 9, `test_else_if_va_bars.py` +4 (2 ca cũ "phải từ chối" đổi thành "dịch đúng B and not A", thêm ca A ghép vẫn từ chối).
+Cơ chế 25 file `mau_thu/**` giống hệt; do_moc 13/22, mo_rong 13/34 không đổi.
+**Đo (`BRAIN_DIEU_TOC=tat cau_kho --khong-tai`, cùng kho 1.278 file):** điểm vào dịch được **21 → 22**, EA ra cơ chế 16 → 16; lý do
+"type == ORDER_TYPE_BUY" 23× biến mất (chuyển thành else-if chưa giải được giữa hai biến khác nhau / OR nhiều chỗ gọi cùng hướng).
+EA có .set tác giả mô phỏng được: 1 (RSI_Exhaustion) → 5 (+4 geraked qua GerEA). Đạt nhãn cổng (mô phỏng): 0 → 2 ô (xem cảnh báo trên).
 
 ## 11/10/2026 khuya — Vòng 2: quét GitHub rộng (MQL4+MQL5) + bộ đọc else-if/Bars + M5 phí XM (MÔ PHỎNG)
 Token GitHub chỉ đặt trong MÔI TRƯỜNG tiến trình lúc chạy (`export GITHUB_TOKEN=$(gh auth token)`), không ghi file/log/git.

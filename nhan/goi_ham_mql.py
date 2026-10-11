@@ -246,6 +246,125 @@ def _hop_le_cho_goi(mn: str, p: int, ten: str) -> str | None:
     return None
 
 
+# ------------------------------------------------ THAM SO HANG TAI CHO GOI (12/10/2026)
+# `void OpenTrade(ENUM_ORDER_TYPE type){ if(type == ORDER_TYPE_BUY) trade.Buy(..); else trade.Sell(..); }`
+# goi `if(A) OpenTrade(ORDER_TYPE_BUY); if(B) OpenTrade(ORDER_TYPE_SELL);` (do 11/10: 77 EA trong kho
+# hong o "goi tu N cho" + "type == ORDER_TYPE_BUY"). Dieu kien CHI tren tham so (`p == HANG`,
+# `p != HANG`, `p`, `!p`) duoc TINH tai tung cho goi co doi so HANG; chi cho goi lam MOI dieu kien do
+# dung moi toi duoc lenh vao. Dung MOT cho toi duoc -> nang len cho do (khong OR); 0 hay > 1 -> tu choi.
+# Tham so bi gan lai trong ham / doi so khong phai hang -> khong tinh (tu choi nhu cu).
+_HANG = r"(?:[A-Z][A-Z0-9_]*|true|false|-?\d+(?:\.\d+)?)"
+
+
+def _tach_phay(s: str) -> list[str]:
+    ra, muc, cur = [], 0, ""
+    for ch in s:
+        if ch in "([{":
+            muc += 1
+        elif ch in ")]}":
+            muc -= 1
+        if ch == "," and muc == 0:
+            ra.append(cur)
+            cur = ""
+        else:
+            cur += ch
+    if cur.strip():
+        ra.append(cur)
+    return [x.strip() for x in ra]
+
+
+def _ten_tham_so(ts: str) -> list[str]:
+    ra = []
+    for x in _tach_phay(ts):
+        x = x.split("=")[0].strip()
+        m = re.search(rf"({_TEN})\s*(?:\[\s*\])?$", x)
+        ra.append(m.group(1) if m and x != "void" else "")
+    return [t for t in ra] if any(ra) else []
+
+
+def _doi_so_cho_goi(mn: str, p: int) -> list[str] | None:
+    k0 = mn.find("(", p)
+    k = _D()._dong_ngoac(mn, k0)
+    return None if k0 < 0 or k < 0 else _tach_phay(mn[k0 + 1:k])
+
+
+def _dk_chi_tham_so(g: str, ten_ts: list[str]):
+    """`p == C` / `C == p` / `p != C` / `p` / `!p` (p la tham so) -> (p, phep, C); khac -> None."""
+    b = _D()._boc_ngoac(g.strip())
+    for rx, thu in ((rf"^({_TEN})\s*(==|!=)\s*({_HANG})$", (1, 2, 3)),
+                    (rf"^({_HANG})\s*(==|!=)\s*({_TEN})$", (3, 2, 1))):
+        m = re.match(rx, b)
+        if m and m.group(thu[0]) in ten_ts:
+            return m.group(thu[0]), m.group(thu[1]), m.group(thu[2])
+    m = re.match(rf"^(!\s*)?({_TEN})$", b)
+    if m and m.group(2) in ten_ts:
+        return m.group(2), "!=" if not m.group(1) else "==", "false"
+    return None
+
+
+def _tinh(dk, gan: dict) -> bool | None:
+    p, phep, c = dk
+    v = gan.get(p)
+    if v is None or not re.fullmatch(_HANG, v):
+        return None
+    bang = (v == c) or (v in ("0", "false") and c in ("0", "false"))
+    return bang if phep == "==" else not bang
+
+
+def _dk_tham_so_tang(vb, mn, ham, vi, ifs, khoi, loai, gap_else):
+    """Tach dieu kien CHI tren tham so cua ham `ham` bao lenh/cho goi `vi`. Tra (dk_ts, ifs con lai,
+    loai khoi, gap_else) - nhanh `else` ma moi nhanh truoc deu la dieu kien tham so thi duoc giai
+    thanh (A, sai) va bo khoi `loai`/`gap_else`. Khong ap duoc -> tra nguyen dau vao, dk_ts rong."""
+    D = _D()
+    ten_ts = [t for t in _ten_tham_so(ham["tham_so"]) if t]
+    if not ten_ts or any(re.search(rf"(?<![\w.]){re.escape(t)}\s*(?:[-+*/]?=(?!=)|\+\+|--)",
+                                   mn[ham["mo"]:vi]) for t in ten_ts):
+        return [], ifs, loai, gap_else
+    dk_ts, con_ifs = [], []
+    for p_, g_ in ifs:
+        dk = _dk_chi_tham_so(g_, ten_ts) if ham["mo"] < p_ < ham["dong"] else None
+        if dk:
+            dk_ts.append((dk, True))
+        else:
+            con_ifs.append((p_, g_))
+    moc_else = [mn.rfind("else", 0, mo_) for (mo_, _), lk in zip(khoi, loai) if lk == "else"]
+    j_ = vi - 1
+    while j_ > ham["mo"] and mn[j_] not in ";{}":
+        j_ -= 1
+    if re.match(r"\s*else\b", mn[j_ + 1:vi]):
+        moc_else.append(mn.index("else", j_ + 1))
+    if moc_else:
+        them = []
+        for k_ in moc_else:
+            tr = D._truoc_else(vb, k_, ham["mo"]) if k_ >= 0 else None
+            dks = [_dk_chi_tham_so(a_, ten_ts) for _, a_ in (tr or [])]
+            if not tr or not all(dks):
+                return dk_ts, con_ifs, loai, gap_else      # else chua giai bang tham so
+            them += [(x, False) for x in dks]
+        dk_ts += them
+        loai = [x for x in loai if x != "else"]
+        gap_else = False
+    return dk_ts, con_ifs, loai, gap_else
+
+
+def chi_tham_so(vb: str, vi_lenh: int) -> bool:
+    """Lenh vao tai `vi_lenh` chi bi bao boi dieu kien THAM SO cua ham tu do chua no (vd
+    `if(type == ORDER_TYPE_BUY) trade.Buy(..); else trade.Sell(..);`) -> doc_ma nen nang len cho goi."""
+    D = _D()
+    mn = mat_na(vb)
+    bang = ham_tu_do(mn)
+    hc = _ham_chua(bang, vi_lenh) if bang else None
+    if hc is None or hc[0] in _SU_KIEN:
+        return False
+    ten, ham = hc
+    khoi = _khoi_bao(mn, ham["mo"], vi_lenh)
+    loai = [_loai_khoi(d) for _, d in khoi]
+    ifs, gap_else = D._cac_if_bao(vb, vi_lenh)
+    ifs = [(p, g) for p, g in ifs if ham["mo"] < p < ham["dong"] and not D._LA_KIEM_LOI.search(g)]
+    dk_ts, con, loai, gap_else = _dk_tham_so_tang(vb, mn, ham, vi_lenh, ifs, khoi, loai, gap_else)
+    return bool(dk_ts) and not con and not gap_else and "else" not in loai
+
+
 def _phan_quan_tri(ds: list[str]) -> tuple[list[str], list[str]]:
     """Tach dieu kien thanh (quan tri / kiem loi -> bo qua co ghi, con lai)."""
     D = _D()
@@ -280,6 +399,7 @@ def nang_cho_goi(vb: str, vi_lenh: int) -> dict:
     vi, tang, qt = vi_lenh, [], []
     guard = None
     loai_tru: list[tuple[int, str]] = []
+    dung_ts: list[str] = []
     for buoc in range(TANG_TOI_DA + 1):
         hc = _ham_chua(bang, vi)
         if hc is None:
@@ -291,6 +411,8 @@ def nang_cho_goi(vb: str, vi_lenh: int) -> dict:
         khoi = _khoi_bao(mn, ham["mo"], vi)
         loai = [_loai_khoi(d) for _, d in khoi]
         ifs, gap_else = D._cac_if_bao(vb, vi)
+        ten_ts = [t for t in _ten_tham_so(ham["tham_so"]) if t]
+        dk_ts, ifs, loai, gap_else = _dk_tham_so_tang(vb, mn, ham, vi, ifs, khoi, loai, gap_else)
         if "else" in loai or gap_else:
             # 11/10/2026 dem: `if(A){..} else if(B){ F(); }` -> ghi cac A de doc_ma CHUNG MINH
             # B loai tru A (`_mau_thuan`); `else` tran / khong doc duoc chuoi -> tu choi
@@ -335,6 +457,21 @@ def nang_cho_goi(vb: str, vi_lenh: int) -> dict:
             return {"loi": "goi ham: " + ly}
         if not ds:
             return {"loi": f"goi ham: {ten} khong duoc goi o dau"}
+        if dk_ts:
+            toi = []
+            for p_ in ds:
+                ds_ = _doi_so_cho_goi(mn, p_)
+                gan = dict(zip(ten_ts, ds_ or []))
+                kq_ = [_tinh(dk, gan) for dk, _ in dk_ts]
+                if any(v is None for v in kq_):
+                    return {"loi": f"goi ham: doi so cua {ten} khong phai hang tai mot cho goi "
+                                   "(khong tinh duoc dieu kien tham so)"}
+                if all(v == mu for v, (_, mu) in zip(kq_, dk_ts)):
+                    toi.append(p_)
+            if not toi:
+                return {"loi": f"goi ham: khong cho goi {ten} nao toi duoc lenh vao (tham so hang)"}
+            ds = toi
+            dung_ts.append(ten)
         if len(ds) > 1:
             return {"loi": f"goi ham: {ten} goi tu {len(ds)} cho (OR nhieu dieu kien - chua dich)"}
         ly = _hop_le_cho_goi(mn, ds[0], ten)
@@ -347,6 +484,8 @@ def nang_cho_goi(vb: str, vi_lenh: int) -> dict:
     guard["tang"] = tang
     if loai_tru:
         guard["loai_tru_else"] = loai_tru
+    if dung_ts:
+        guard["tham_so_hang"] = dung_ts
     return guard
 
 

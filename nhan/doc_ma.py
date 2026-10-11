@@ -2125,6 +2125,13 @@ def _cac_if_bao(vb: str, vi_tri: int) -> tuple[list[tuple[int, str]], bool]:
                 # bo qua `else` -> dich thanh B tran, SAI khi A va B giao nhau)
                 if re.search(r"\belse[ \t]*$", doan[:m.start()]):
                     gap_else = True
+    # `else lenh;` / `else\n lenh;` (khong ngoac, khong if) = not A: danh dau de nguoi goi tu choi
+    # (12/10/2026: truoc day lenh trong `else` tran khong co `{` bi coi la KHONG dieu kien)
+    j0 = vi_tri - 1
+    while j0 > goc and vb[j0] not in ";{}":
+        j0 -= 1
+    if re.match(r"\s*else\b", vb[j0 + 1:vi_tri]):
+        gap_else = True
     if not ra and dong_dau > 0:
         d0 = vb.rfind("\n", 0, dong_dau - 1) + 1
         dong_truoc = vb[d0:dong_dau - 1]
@@ -2238,6 +2245,69 @@ def _truoc_else(vb: str, k: int, goc: int) -> list[tuple[int, str]] | None:
         if not e2:
             return ra
         k = goc + e2.start()
+
+
+def _phu_dinh_van_ban(A: str) -> str | None:
+    """NOT(A) thanh VAN BAN guard (12/10/2026, nhanh `else if(B)` = B and not A): A = HOAC cua cac
+    ve DON (`a op b` / `x` / `!x`) -> `not a1 and not a2 ..`; ve la VA ghep (NOT -> HOAC) -> None."""
+    ra = []
+    for p in _tach_hoac(_boc_ngoac(A.strip())):
+        p = _boc_ngoac(p.strip())
+        if _tach_va(p) != [p] or " or " in f" {p} ":
+            return None
+        if re.fullmatch(_TEN, p):
+            ra.append("!" + p)
+            continue
+        mm = re.fullmatch(rf"!\s*({_TEN})", p)
+        if mm:
+            ra.append(mm.group(1))
+            continue
+        muc, k = 0, None
+        i = 0
+        while i < len(p):
+            ch = p[i]
+            if ch in "([":
+                muc += 1
+            elif ch in ")]":
+                muc -= 1
+            elif muc == 0 and p[i:i + 2] in (">=", "<=", "==", "!="):
+                k = (i, p[i:i + 2])
+                break
+            elif muc == 0 and ch in "<>":
+                k = (i, ch)
+                break
+            i += 1
+        if k is None:
+            return None
+        trai, phai = p[:k[0]].strip(), p[k[0] + len(k[1]):].strip()
+        if re.search(r"[<>]|==|!=", phai) or not trai or not phai:
+            return None
+        ra.append(f"{trai} {_PHEP_DAO[k[1]]} {phai}")
+    return " and ".join(ra) if ra else None
+
+
+def _them_phu_dinh_else(ce, hop, bang_cb, bang_bl):
+    """Moi A trong `ce` (nhanh truoc cua chuoi else-if): CHUNG MINH B loai tru A (khi do bo qua) HOAC
+    them guard `not A` dich duoc tron ven. Tra (guard them [(vi, chu)], ly do tu choi | None)."""
+    dB, hB = [], []
+    for p, g in hop:
+        d_, h_ = _no_dieu_kien(g, p, bang_cb, bang_bl)
+        dB += d_
+        hB += h_
+    them = []
+    for pA, A in ce:
+        dA, hA = _no_dieu_kien(A, pA, bang_cb, bang_bl)
+        if not (hA or hB or not dA or not dB or _mau_thuan(dA) is not None or
+                _mau_thuan(dB) is not None or _mau_thuan(dA + dB) is None):
+            continue                            # da chung minh loai tru: not A thua
+        neg = _phu_dinh_van_ban(A)
+        if neg:
+            dn, hn_ = _no_dieu_kien(neg, pA, bang_cb, bang_bl)
+            if dn and not hn_ and len(dn) == len(_tach_va(neg)):
+                them.append((pA, neg))
+                continue
+        return [], ("nhanh else-if khong chung minh loai tru nhanh truoc (= B and not A): " + A[:40])
+    return them, None
 
 
 def _chuoi_else_if(vb: str, vi_tri: int) -> list[tuple[int, str]] | None:
@@ -3853,6 +3923,15 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
             ifs = [(p, g) for p, g in ifs if not _LA_KIEM_LOI.search(g)]
             if hn is not None:
                 ifs, gap_else = [], False
+            elif (ifs or gap_else) and chieu != 0:
+                # 12/10/2026: lenh chi bao boi dieu kien THAM SO cua ham phu (`if(type ==
+                # ORDER_TYPE_BUY) trade.Buy(..); else trade.Sell(..);`) -> nang len cho goi,
+                # tham so duoc TINH tai tung cho goi (`goi_ham_mql._dk_tham_so_tang`)
+                try:
+                    if GH.chi_tham_so(vb, m.start()):
+                        ifs, gap_else = [], False
+                except Exception:                   # noqa: BLE001
+                    pass
             # toan tu ba ngoi chon lenh (`sig ? t.Buy(..) : t.Sell(..)`) - them 11/10/2026
             tn = _guard_tam_nguyen(vb, m) if hn is None else None
             lit_tn = set()
@@ -3874,20 +3953,11 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
                     ce = None
                 ly_e = "lenh vao nam trong nhanh else"
                 if ce:
-                    for pA, A in ce:
-                        dA, hA = _no_dieu_kien(A, pA, bang_cb, bang_bl)
-                        hop = [(p, g) for p, g in ifs]
-                        dB, hB = [], []
-                        for p, g in hop:
-                            d_, h_ = _no_dieu_kien(g, p, bang_cb, bang_bl)
-                            dB += d_
-                            hB += h_
-                        if hA or hB or not dA or not dB or _mau_thuan(dA) is not None or \
-                                _mau_thuan(dB) is not None or _mau_thuan(dA + dB) is None:
-                            ly_e = ("nhanh else-if khong chung minh loai tru nhanh truoc "
-                                    "(= B and not A): " + A[:40])
-                            break
+                    them_e, ly_x = _them_phu_dinh_else(ce, list(ifs), bang_cb, bang_bl)
+                    if ly_x:
+                        ly_e = ly_x
                     else:
+                        ifs = list(ifs) + them_e    # `B and not A` dich duoc tron ven
                         gap_else = False
             if gap_else:
                 ho.append(ly_e)
@@ -3948,14 +4018,28 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
                             d_, h_ = _no_dieu_kien(g_, p_, bang_cb, bang_bl)
                             dB += d_
                             hB += h_
-                        for pA, A in gh["loai_tru_else"]:
-                            dA, hA = _no_dieu_kien(A, pA, bang_cb, bang_bl)
-                            if hA or hB or not dA or not dB or _mau_thuan(dA) is not None \
-                                    or _mau_thuan(dB) is not None or \
-                                    _mau_thuan(dA + dB) is None:
-                                gh = {"loi": "goi ham: nhanh else-if khong chung minh loai "
-                                             "tru nhanh truoc (= B and not A): " + A[:40]}
-                                break
+                        # not A chi them khi A nam CUNG ham voi tang dieu kien (bien cuc bo
+                        # cua A giai o dung vi tri); khac ham -> phai chung minh loai tru
+                        goc_dk = GH.goc_ham(vb, gh["vi"])
+                        ce_cung = [(pA, A) for pA, A in gh["loai_tru_else"]
+                                   if GH.goc_ham(vb, pA) == goc_dk]
+                        ce_khac = [(pA, A) for pA, A in gh["loai_tru_else"]
+                                   if GH.goc_ham(vb, pA) != goc_dk]
+                        them_e, ly_x = _them_phu_dinh_else(ce_cung, list(gh["guards"]),
+                                                           bang_cb, bang_bl)
+                        if not ly_x:
+                            for pA, A in ce_khac:
+                                dA, hA = _no_dieu_kien(A, pA, bang_cb, bang_bl)
+                                if hA or hB or not dA or not dB or _mau_thuan(dA) is not None \
+                                        or _mau_thuan(dB) is not None or \
+                                        _mau_thuan(dA + dB) is None:
+                                    ly_x = ("nhanh else-if khong chung minh loai tru nhanh "
+                                            "truoc (= B and not A): " + A[:40])
+                                    break
+                        if ly_x:
+                            gh = {"loi": "goi ham: " + ly_x}
+                        else:
+                            gh["guards"] = list(gh["guards"]) + them_e
                     if gh.get("loi"):
                         ho.append(gh["loi"])
                         loai[loai_hong] += 1

@@ -117,9 +117,12 @@ def test_else_if_nguong_rsi_roi_nhau():
     assert r["so_vao_lenh_co_co_che"] == 2, r["chua_dien_dat_duoc"]
 
 
-def test_else_if_nguong_rsi_giao_nhau_tu_choi():
+def test_else_if_nguong_rsi_giao_nhau_them_not_a():
+    # 12/10/2026: B (rsi > 20) giao A (rsi < 30) -> dich DUNG thanh `rsi > 20 and rsi >= 30`
     r = _doc(_RSI.replace("input double InpSell = 70;", "input double InpSell = 20;"))
-    assert r["so_vao_lenh_co_co_che"] == 1
+    assert r["so_vao_lenh_co_co_che"] == 2
+    ban = [c for c in r["co_che"] if c["chieu"] == -1][0]["vao"]
+    assert {(d["phep"], d["phai"]["hang"]) for d in ban} == {(">", 20.0), (">=", 30.0)}
 
 
 _HAM = """
@@ -146,20 +149,80 @@ def test_else_if_mot_lenh_va_ham_phu():
     assert r["so_vao_lenh_co_co_che"] == 2, r["chua_dien_dat_duoc"]
 
 
-def test_else_if_mot_lenh_giao_nhau_tu_choi():
+def test_else_if_mot_lenh_giao_nhau_them_not_a():
     # B = r<50 giao A = r<30: `else if` nghia la 30<=r<50 - truoc day bi dich SAI thanh r<50
     r = _doc(_HAM.replace("r[0] > 70", "r[0] < 50"))
-    assert r["so_vao_lenh_co_co_che"] == 1
-    assert any("loai tru" in x for x in r["chua_dien_dat_duoc"])
+    assert r["so_vao_lenh_co_co_che"] == 2
+    ban = [c for c in r["co_che"] if c["chieu"] == -1][0]["vao"]
+    assert {(d["phep"], d["phai"]["hang"]) for d in ban} == {("<", 50.0), (">=", 30.0)}
+    # A la VA ghep -> NOT(A) = HOAC -> khong dien dat -> tu choi
+    r = _doc(_HAM.replace("r[0] > 70", "r[0] < 50").replace("if(r[0] < 30) MoMua();",
+                                                             "if(r[0] < 30 && r[1] < 30) MoMua();"))
+    assert all(c["chieu"] != -1 for c in r["co_che"])
     vb = _RSI.replace("   if(r[0] < InpBuy)\n   {\n      trade.Buy(0.1,_Symbol);\n   }\n"
                       "   else if(r[0] > InpSell)\n   {\n      trade.Sell(0.1,_Symbol);\n   }",
                       "   if(r[0] < InpBuy) trade.Buy(0.1,_Symbol);\n"
                       "   else if(r[0] < 50) trade.Sell(0.1,_Symbol);")
     assert "else if(r[0] < 50) trade.Sell" in vb
     r = _doc(vb)
-    assert r["so_vao_lenh_co_co_che"] == 1
+    assert r["so_vao_lenh_co_co_che"] == 2
+    ban = [c for c in r["co_che"] if c["chieu"] == -1][0]["vao"]
+    assert len(ban) == 2 and any(d["phep"] == ">=" for d in ban)       # co `not A`
 
 
 def test_else_tran_ham_phu_tu_choi():
     r = _doc(_HAM.replace("else if(r[0] > 70) MoBan();", "else MoBan();"))
     assert r["so_vao_lenh_co_co_che"] == 1
+
+
+_TS = """
+#include <Trade/Trade.mqh>
+CTrade trade;
+int h;
+int OnInit(){ h=iRSI(_Symbol,_Period,14,PRICE_CLOSE); return 0; }
+void OpenTrade(ENUM_ORDER_TYPE type)
+{
+   double lot = 0.1;
+   if(type == ORDER_TYPE_BUY)
+      trade.Buy(lot,_Symbol);
+   else
+      trade.Sell(lot,_Symbol);
+}
+void OnTick()
+{
+   double r[];
+   ArraySetAsSeries(r,true);
+   if(CopyBuffer(h,0,1,1,r)!=1) return;
+   if(PositionsTotal() > 0) return;
+   if(r[0] < 30) OpenTrade(ORDER_TYPE_BUY);
+   if(r[0] > 70) OpenTrade(ORDER_TYPE_SELL);
+}
+"""
+
+
+def test_tham_so_hang_hai_cho_goi():
+    r = _doc(_TS)
+    assert r["so_vao_lenh_co_co_che"] == 2, r["chua_dien_dat_duoc"]
+    vao = {c["chieu"]: c["vao"] for c in r["co_che"]}
+    assert vao[1][0]["phai"]["hang"] == 30.0 and vao[1][0]["phep"] == "<"
+    assert vao[-1][0]["phai"]["hang"] == 70.0 and vao[-1][0]["phep"] == ">"
+
+
+def test_tham_so_hang_ca_hai_cho_cung_huong_tu_choi():
+    # hai cho goi cung ORDER_TYPE_BUY -> trade.Buy toi tu 2 cho = OR -> tu choi
+    r = _doc(_TS.replace("OpenTrade(ORDER_TYPE_SELL)", "OpenTrade(ORDER_TYPE_BUY)"))
+    assert r["so_vao_lenh_co_co_che"] == 0
+
+
+def test_tham_so_khong_hang_tu_choi():
+    r = _doc(_TS.replace("if(r[0] > 70) OpenTrade(ORDER_TYPE_SELL);",
+                         "ENUM_ORDER_TYPE t = ORDER_TYPE_SELL;\n   if(r[0] > 70) OpenTrade(t);"))
+    assert r["so_vao_lenh_co_co_che"] == 0
+
+
+def test_else_tran_mot_lenh_trong_ham_phu_tu_choi():
+    vb = _TS.replace("if(type == ORDER_TYPE_BUY)", "if(SymbolInfoDouble(_Symbol,SYMBOL_ASK) > 0)") \
+        .replace("if(r[0] > 70) OpenTrade(ORDER_TYPE_SELL);", "")
+    r = _doc(vb)
+    # Sell nam trong `else` (not A, A khong phai tham so) -> khong duoc coi la khong dieu kien
+    assert all(c["chieu"] != -1 for c in r["co_che"])
