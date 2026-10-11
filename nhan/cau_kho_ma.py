@@ -160,6 +160,22 @@ def gom_tu_thu_muc(thu_muc) -> list[dict]:
     return ra
 
 
+#: Bai tai hong (`ok: False` trong NGUON_TAI.json) duoc thu lai sau ngan nay gio.
+THU_LAI_GIO = 24.0
+
+
+def _den_luot_thu_lai(cu: dict, bay_gio: float | None = None) -> bool:
+    """Ban ghi NGUON_TAI: bai `ok: False` da qua `THU_LAI_GIO` -> thu lai. Ban ghi hong cu
+    khong co `luc` (truoc 11/10/2026) -> thu lai ngay. Bai `ok: True` -> khong bao gio."""
+    if cu.get("ok", True):
+        return False
+    try:
+        t = time.mktime(time.strptime(str(cu["luc"]), "%Y-%m-%d %H:%M:%S"))
+    except (KeyError, ValueError, OverflowError):
+        return True
+    return ((bay_gio if bay_gio is not None else time.time()) - t) >= THU_LAI_GIO * 3600
+
+
 def tai_mql5(thu_muc, so_trang: int = 1, muc: str = "experts", nghi_giay: float = 1.5,
              in_ra=print, han_giay: float | None = None, trang_dau: int = 1) -> dict:
     """QUET DAU VAO KHONG CAN nao.db: MQL5 Code Base -> `thu_muc/<id>_<ten>.mq5`.
@@ -170,6 +186,11 @@ def tai_mql5(thu_muc, so_trang: int = 1, muc: str = "experts", nghi_giay: float 
     BO QUA - chay lai chi lay bai moi. Provenance ghi vao `NGUON_TAI.json`.
     Chi ghi file van ban trong `thu_muc`; khong chay gi. `han_giay`: tran thoi
     gian (het thi dung, ghi `het_gio`; bai chua tai se lay o luot sau).
+
+    SUA 11/10/2026 (the-brain 02 D2): trang danh sach TAI HONG (`liet_ke_mql5` tra
+    `None`) -> `loi_trang` (+ `trang_loi`), KHONG phai het trang; trang tai duoc ma
+    rong -> `het_trang`. Bai tai hong (`ok: False`) duoc THU LAI sau
+    `THU_LAI_GIO` gio (truoc day khong bao gio thu lai).
     """
     from nhan import ma_nguon as MN
     d = Path(thu_muc)
@@ -181,6 +202,7 @@ def tai_mql5(thu_muc, so_trang: int = 1, muc: str = "experts", nghi_giay: float 
         man = {}
     co = {p.name.split("_", 1)[0] for p in d.glob("*.mq[45]")}
     bao = Counter()
+    loi_trang: list[int] = []
     het = (time.time() + han_giay) if han_giay else None
     for trang in range(max(1, trang_dau), max(1, trang_dau) + max(1, so_trang)):
         if het is not None and time.time() >= het:
@@ -188,13 +210,21 @@ def tai_mql5(thu_muc, so_trang: int = 1, muc: str = "experts", nghi_giay: float 
             break
         ds = MN.liet_ke_mql5(muc, trang)
         bao["trang"] += 1
+        if ds is None:                              # tai hong: KHONG phai het trang
+            bao["loi_trang"] += 1
+            loi_trang.append(trang)
+            break
         if not ds:
+            bao["het_trang"] += 1
             break
         for b in ds:
             bao["thay"] += 1
-            if str(b["id"]) in co or str(b["id"]) in man:
+            cu = man.get(str(b["id"]))
+            if str(b["id"]) in co or (cu is not None and not _den_luot_thu_lai(cu)):
                 bao["da_co"] += 1
                 continue
+            if cu is not None:
+                bao["thu_lai"] += 1
             if het is not None and time.time() >= het:
                 bao["het_gio"] += 1
                 break
@@ -203,7 +233,9 @@ def tai_mql5(thu_muc, so_trang: int = 1, muc: str = "experts", nghi_giay: float 
             r = MN.tai_ma_nguon(b)
             if not r:
                 bao["khong_tai_duoc"] += 1
-                man[str(b["id"])] = {**b, "ok": False}
+                man[str(b["id"])] = {**b, "ok": False,
+                                     "luc": time.strftime("%Y-%m-%d %H:%M:%S"),
+                                     "so_lan_hong": int((cu or {}).get("so_lan_hong", 0)) + 1}
                 continue
             ten = "%s_%s" % (b["id"], re.sub(r"[^A-Za-z0-9_.-]+", "_", r["ten_file"])[:80])
             (d / ten).write_text(r["noi_dung"], encoding="utf-8")
@@ -212,8 +244,11 @@ def tai_mql5(thu_muc, so_trang: int = 1, muc: str = "experts", nghi_giay: float 
                                  "luc": time.strftime("%Y-%m-%d %H:%M:%S")}
             bao["moi"] += 1
     pm.write_text(json.dumps(man, ensure_ascii=False, indent=1), encoding="utf-8")
-    in_ra("tai_mql5 %s: %s" % (muc, dict(bao)))
-    return dict(bao)
+    ra = dict(bao)
+    if loi_trang:
+        ra["trang_loi"] = loi_trang
+    in_ra("tai_mql5 %s: %s" % (muc, ra))
+    return ra
 
 
 def _url_tu_nguon_tai(ban_ghi: list[dict], thu_muc) -> None:

@@ -20,7 +20,8 @@ MOI moi doc lai):
   4. ghi `data/cau_kho/BAO_CAO.md`, `lich_su.jsonl`, chi so `cau_kho_ty_le_dich`.
 
 Chi ghi trong `data/cau_kho/` (git bo qua) + so cai (nhip, chi so). In JSON cuoi
-cho `dieu_phoi.danh_gia_ket_qua`. Mang hong -> `tai.loi` (suy giam, khong chet):
+cho `dieu_phoi.danh_gia_ket_qua`. Mang hong -> `tai.loi` / `tai.canh_bao` (suy giam, khong
+chet; con tro trang sau DUNG YEN - `buoc_con_tro`):
 van do lai kho dang co.
 """
 from __future__ import annotations
@@ -61,6 +62,22 @@ def _ghi_json(p: Path, x) -> None:
     os.replace(tam, p)                              # nguyen tu: khong de file nua voi
 
 
+def buoc_con_tro(sau: dict, trang_sau: int) -> dict:
+    """Con tro trang sau (SUA 11/10/2026, the-brain 02 D2). Chi LUI them mot trang khi trang
+    sau tai DUOC va co >= 1 bai. Tai hong (`loi_trang`) hoac het gio -> DUNG YEN (luot sau thu
+    lai dung trang do). Tai duoc ma rong (`het_trang`) hoac cham TRANG_TOI_DA -> ve trang 2.
+    Truoc day con tro doi ca khi tai hong -> mot trang sau bi bo qua vinh vien, im lang."""
+    if sau.get("loi_trang"):
+        return {"trang_moi": trang_sau, "ly_do": "loi_trang"}
+    if sau.get("het_gio"):
+        return {"trang_moi": trang_sau, "ly_do": "het_gio"}
+    if sau.get("het_trang"):
+        return {"trang_moi": 2, "ly_do": "het_trang"}
+    if int(sau.get("thay", 0) or 0) < 1:
+        return {"trang_moi": trang_sau, "ly_do": "khong_thay_bai"}
+    return {"trang_moi": 2 if trang_sau >= TRANG_TOI_DA else trang_sau + 1, "ly_do": "tien"}
+
+
 def mot_luot(tai: bool = True, tai_mql5=None, gom_tu_so=None) -> dict:
     """Mot luot cau kho. `tai_mql5`/`gom_tu_so` thay duoc cho test (khong mang)."""
     tai_mql5 = tai_mql5 or CK.tai_mql5
@@ -81,10 +98,13 @@ def mot_luot(tai: bool = True, tai_mql5=None, gom_tu_so=None) -> dict:
             sau = tai_mql5(kho, so_trang=1, trang_dau=trang_sau, in_ra=lambda *_: None,
                            han_giay=con)
             bao = {"trang_1": moi, f"trang_{trang_sau}": sau}
-            if not sau.get("het_gio"):              # trang sau xong -> lui them mot trang
-                _ghi_json(con_tro_p, {"trang": 2 if trang_sau >= TRANG_TOI_DA
-                                      else trang_sau + 1,
+            bao["con_tro"] = buoc = buoc_con_tro(sau, trang_sau)
+            if buoc["trang_moi"] != trang_sau:
+                _ghi_json(con_tro_p, {"trang": buoc["trang_moi"],
                                       "luc": time.strftime("%Y-%m-%d %H:%M:%S")})
+            if moi.get("loi_trang") or sau.get("loi_trang"):
+                bao["canh_bao"] = ("trang danh sach MQL5 tai HONG (mang/403/429) - con tro "
+                                   "DUNG YEN, luot sau thu lai; khong phai het trang")
         except Exception as e:                      # noqa: BLE001 - mang hong: van do kho cu
             bao["loi"] = f"{type(e).__name__}: {str(e)[:160]}"
         ra["tai"] = bao
@@ -130,7 +150,9 @@ def main() -> int:
         SO.ghi_chi_so("cau_kho_ty_le_dich", ra["ty_le_dich"],
                       {"vao_lenh": ra["so"].get("vao_lenh", 0), "bo_doc": ra["bo_doc"]})
     SO.nhip_tim(TRU, "nghi", {k: ra.get(k) for k in ("ty_le_dich", "ea_ra_co_che", "giay")}
-                | {"ea_dat_lenh": ra["pheu"].get("ea_dat_lenh", 0)})
+                | {"ea_dat_lenh": ra["pheu"].get("ea_dat_lenh", 0)}
+                | ({"canh_bao": ra["tai"]["canh_bao"]}
+                   if (ra.get("tai") or {}).get("canh_bao") else {}))
     print(json.dumps(ra, ensure_ascii=False, indent=1))
     return 0
 

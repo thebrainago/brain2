@@ -97,7 +97,7 @@ class MotLuot(unittest.TestCase):
 
         def gia(thu_muc, so_trang=1, trang_dau=1, **k):
             goi.append(trang_dau)
-            return {"trang": 1}
+            return {"trang": 1, "thay": 3}
         self.T.mot_luot(tai_mql5=gia, gom_tu_so=lambda: [])
         self.T.mot_luot(tai_mql5=gia, gom_tu_so=lambda: [])
         self.assertEqual(goi, [1, 2, 1, 3])

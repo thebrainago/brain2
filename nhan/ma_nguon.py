@@ -159,8 +159,14 @@ def _ghi_con_tro(d: dict) -> None:
     CON_TRO.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
-def liet_ke_mql5(muc: str = "experts", trang: int = 1) -> list[dict]:
+def liet_ke_mql5(muc: str = "experts", trang: int = 1) -> list[dict] | None:
     """Danh sach bai trong MQL5 Code Base. Tra [{id, url, tieu_de}].
+
+    SUA 11/10/2026 (the-brain 02 D2): TAI HONG -> `None`, KHONG phai `[]`.
+    Truoc day ca hai deu tra `[]`, nen nguoi goi (`cau_kho_ma.tai_mql5`) hieu mot
+    lan mang hong / 403 / 429 la "het trang" va `tru/cau_kho.py` van doi con tro:
+    trang sau bi bo qua VINH VIEN ma khong bao gi. `[]` chi con nghia: tai DUOC
+    trang nhung khong co bai nao.
 
     HREF o day la TUONG DOI (`/en/code/76331`). Regex doi href tuyet doi la loi
     da lam `tru/seeker.py::n_mql5_code` tra ve rong suot ma khong bao gi.
@@ -170,7 +176,7 @@ def liet_ke_mql5(muc: str = "experts", trang: int = 1) -> list[dict]:
         u += f"/page{trang}"
     txt = _lay(u)
     if not txt:
-        return []
+        return None                     # LOI tai - nguoi goi phai thu lai, khong doi con tro
     ra, da = [], set()
     for m in re.finditer(
             r'href="(?:https://www\.mql5\.com)?/en/code/(\d+)"[^>]*>(.*?)</a>',
