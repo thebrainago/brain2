@@ -1,5 +1,7 @@
 # Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-11 (trưa, giờ VN)
 
+> **Tài khoản Grok Bot mới:** đọc `START_HERE.md` → `BAN_GIAO_GROK.md` → `GHI_CHU_NANG_CAP_GROK.md`. Không secret trong git.
+
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
 
 ## 11/10/2026 — Bàn giao cập nhật sau M5 (token sắp hết)
