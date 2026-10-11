@@ -1,0 +1,207 @@
+{
+ "arxiv": {
+  "ok": false,
+  "n": 0,
+  "giay": 110.1
+ },
+ "github": {
+  "ok": true,
+  "n": 101,
+  "giay": 6.4
+ },
+ "openalex": {
+  "ok": true,
+  "n": 30,
+  "giay": 5.0
+ },
+ "stackexchange": {
+  "ok": true,
+  "n": 20,
+  "giay": 4.5
+ },
+ "hackernews": {
+  "ok": true,
+  "n": 20,
+  "giay": 6.3
+ },
+ "semantic": {
+  "ok": true,
+  "n": 17,
+  "giay": 3.6
+ },
+ "lean_algo": {
+  "ok": true,
+  "n": 40,
+  "giay": 0.3
+ },
+ "mql5_code": {
+  "ok": true,
+  "n": 118,
+  "giay": 6.7
+ },
+ "blog": {
+  "ok": true,
+  "n": 27,
+  "giay": 4.6
+ },
+ "quantconnect": {
+  "ok": false,
+  "n": 0,
+  "giay": 0.5
+ },
+ "crossref": {
+  "ok": true,
+  "n": 40,
+  "giay": 4.1
+ },
+ "tradingview_pine": {
+  "ok": true,
+  "n": 50,
+  "giay": 2.2
+ },
+ "fxblue": {
+  "ok": true,
+  "n": 144,
+  "giay": 0.8
+ },
+ "etoro": {
+  "ok": true,
+  "n": 50,
+  "giay": 0.6
+ },
+ "rss_fh_financial_hacker": {
+  "ok": false,
+  "n": 0,
+  "giay": 1.5
+ },
+ "rss_quantinsti": {
+  "ok": true,
+  "n": 15,
+  "giay": 0.8
+ },
+ "rss_priceactionlab": {
+  "ok": true,
+  "n": 20,
+  "giay": 1.0
+ },
+ "rss_alphaarchitect": {
+  "ok": true,
+  "n": 5,
+  "giay": 0.1
+ },
+ "rss_allocatesmartly": {
+  "ok": true,
+  "n": 10,
+  "giay": 0.5
+ },
+ "rss_qoppac": {
+  "ok": true,
+  "n": 25,
+  "giay": 0.4
+ },
+ "rss_mrzepczynski": {
+  "ok": true,
+  "n": 25,
+  "giay": 0.4
+ },
+ "rss_tr8dr": {
+  "ok": true,
+  "n": 10,
+  "giay": 0.3
+ },
+ "rss_thinknewfound": {
+  "ok": true,
+  "n": 10,
+  "giay": 0.2
+ },
+ "rss_robotwealth": {
+  "ok": true,
+  "n": 12,
+  "giay": 0.2
+ },
+ "rss_quantpedia_blog": {
+  "ok": true,
+  "n": 10,
+  "giay": 1.4
+ },
+ "rss_followingthetrend": {
+  "ok": true,
+  "n": 10,
+  "giay": 1.6
+ },
+ "rss_tradingmarkets": {
+  "ok": true,
+  "n": 12,
+  "giay": 2.0
+ },
+ "rss_mql5_articles": {
+  "ok": true,
+  "n": 10,
+  "giay": 0.5
+ },
+ "rss_reddit_algotrading": {
+  "ok": true,
+  "n": 25,
+  "giay": 0.8
+ },
+ "rss_reddit_quant": {
+  "ok": false,
+  "n": 0,
+  "giay": 0.1
+ },
+ "rss_quantitativo": {
+  "ok": true,
+  "n": 20,
+  "giay": 0.4
+ },
+ "rss_hangukquant": {
+  "ok": true,
+  "n": 20,
+  "giay": 0.4
+ },
+ "rss_quantdare": {
+  "ok": true,
+  "n": 12,
+  "giay": 1.1
+ },
+ "rss_tradingview_blog": {
+  "ok": true,
+  "n": 30,
+  "giay": 0.3
+ },
+ "rss_reddit_algotrading_nam": {
+  "ok": true,
+  "n": 25,
+  "giay": 0.6
+ },
+ "rss_headlandstech": {
+  "ok": true,
+  "n": 5,
+  "giay": 0.3
+ },
+ "rss_quantumtrading": {
+  "ok": true,
+  "n": 10,
+  "giay": 2.3
+ },
+ "rss_alvarezquant": {
+  "ok": true,
+  "n": 10,
+  "giay": 0.4
+ },
+ "rss_buildalpha": {
+  "ok": true,
+  "n": 10,
+  "giay": 0.2
+ },
+ "rss_gestaltu": {
+  "ok": false,
+  "n": 0,
+  "giay": 0.3
+ },
+ "rss_newtraderu": {
+  "ok": true,
+  "n": 10,
+  "giay": 0.3
+ }
+}

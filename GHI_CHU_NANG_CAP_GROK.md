@@ -1,5 +1,40 @@
 # Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-11 (trưa, giờ VN)
 
+## Vòng "SEEKER TRÊN BOX: CÒN GÌ / MẤT GÌ SAU CÀI LẠI WINDOWS + NỐI LẠI ĐƯỜNG KHÔNG CẦN ĐĂNG NHẬP" — 11/10/2026 trưa
+Không nới cổng; không có khóa/mật khẩu/hồ sơ trình duyệt nào vào git. Danh sách APPLY/LATER/SKIP từ the-brain: xem vòng trên
+(`/workspace/thebrain_sang_brain2.md`, phiên song song) — vòng này KHÔNG làm lại, chỉ phần SEEKER chạy thật trên box.
+### Còn trong repo (mã + cấu hình, đọc 11/10)
+- **72 nguồn đăng ký** (= "~70 nguồn" chủ dự án nói): `tru/seeker.py` NGUON 14 (API/requests) + NGUON_TRINH_DUYET 23 (cần Chrome
+  CDP đã đăng nhập: MQL5 Signals, Myfxbook, Collective2, ZuluTrade, Darwinex, Reddit, X, TikTok, Facebook, YouTube, TradingView
+  scripts/ideas, Quantpedia, Elitetrader, **diễn đàn đa quốc gia: Qiita (Nhật), Habr + Smart-Lab (Nga), cnblogs (Trung), velog (Hàn)**)
+  + 27 RSS + 7 trang (`nhan/nguon_bai_viet.py`) + Telegram. `NGUON.md` = sổ ưu tiên 5 bậc (sàn đấu, prop leaderboard, copy/signal…).
+- Đa ngôn ngữ: `nhan/tu_khoa_da_ngon_ngu.py` (NGON_NGU × KHAI_NIEM), `keywords_nguon.py` (459 dòng), `vuon_nguon.TU_KHOA_NGON_NGU`,
+  `seeker_deep.py` (Bing/Google/DDG nhiều ngôn ngữ), `seeker_cong_dong.py`, `_do_dien_dan_quoc_gia.py`.
+- Tự tìm nguồn mới: `nhan/vuon_nguon.py` (miền ứng viên → dò feed → `config/nguon_tu_tim.json`), `nhan/kham_pha_nguon.py`
+  (`config/nguon_ung_vien.json`). Từ khóa tự mở rộng: `seeker.mo_rong_tu_khoa` (chấm theo năng suất). Theo dõi người/nhóm:
+  `seeker_theo_doi.py`; tự follow/join có hạn mức: `tu_follow_join.py` (8/ngày, nghỉ 60 s).
+- Thao tác tay trên web: `simulator_nguoi.py` (chuột Bezier, cuộn, gõ trễ), `vao_web.py` + `web_registry.json` (10 site lấy khóa API),
+  `tu_dang_ky.py` (đăng ký tài khoản qua Gmail), `nhan/tu_dang_nhap.py`, `doc_cdp.py`, `mo_chrome_cdp.py`.
+### Mất sau cài lại Windows (không có trong git — đúng luật, không phục hồi được từ repo)
+- Hồ sơ Chrome đã đăng nhập `.browser_darwinex` / `.browser_thebrain2` (cookie gắn thư mục hồ sơ, the-brain D3: chép hồ sơ là mất phiên).
+- `config/tai_khoan.json` (mật khẩu cho `tu_dang_nhap`), `config/api_keys.json`/`credentials.json`, phiên Telegram `telethon*.session`.
+- `nao.db` (11.856 tài liệu, 1.308 bản mã — số từ `reports/SEEKER.md` 14/09). `config/dien_dan.json` (23 diễn đàn/14 nước của the-brain)
+  không có ở brain2. Đường dẫn Windows (`C:\Program Files\...chrome.exe`, lịch Task Scheduler `Brain*.xml`) phải chỉnh tay.
+### Đo THẬT trên box (Linux, không đăng nhập) — `_do_nguon_seeker_box.py` → `reports/SEEKER_BOX_DO.json`
+- API/requests: **13/14 ra dữ liệu** (github 101, mql5_code 118, fxblue 144, tradingview_pine 50, etoro 50, lean_algo 40, crossref 40,
+  openalex 30, blog 27, stackexchange 20, hackernews 20, semantic 17); **arxiv 0** (110 s, hết thời gian), **quantconnect 0**.
+- RSS: **23/27 ra bài**; hỏng: financial-hacker, reddit_quant, gestaltu (0 mục). Trang (7): chưa đo vòng này.
+- Một lượt `seeker.mot_luot(420 s)` vào `nao.db` CỤC BỘ của box (gitignore): **604 tài liệu mới** (A 55/B 306/C 269), 10 bản đọc
+  toàn văn (72 nghìn ký tự), 16 file mã MQL5 Code Base; Telegram "không có telethon"; trình duyệt bỏ qua (xem dưới).
+  `cau_kho_ma.gom_tu_so()` đọc lại được 17 bản mã từ nao.db này → 2 EA đặt lệnh, 4 điểm vào, dịch 0 → **đường SEEKER → nao.db → cầu
+  kho → doc_ma chạy được trên box**, không cần máy Windows.
+- **23 nguồn trình duyệt: CHƯA ĐO ĐƯỢC.** Cổng 9224 trên box đang là **Chrome desktop của box** (`/home/box/chrome-profile`, phiên
+  GitHub của chủ dự án), KHÔNG phải hồ sơ riêng của SEEKER. Thêm `seeker.cdp_duoc_phep()`: ngoài Windows chỉ quét trình duyệt khi
+  `BRAIN_CDP_CHO_PHEP=1` (Windows giữ hành vi cũ) — tránh việc SEEKER tự mở X/FB/Reddit trong trình duyệt người dùng. Muốn bật: chủ
+  dự án đăng nhập MQL5/Reddit/X… trên desktop box (hoặc hồ sơ riêng), rồi đặt biến đó. `test_thieu_tep.py` có test cổng này.
+- Không tự đăng ký / follow / join (luật 01 của chủ dự án: phải hỏi trước) — `tu_follow_join`/`tu_dang_ky` không chạy.
+- `dieu_phoi` KHÔNG chạy thường trực trên box (không có tiến trình) — chạy theo lượt khi cần; bật thường trực là việc riêng.
+
 ## Vòng "LẤY TỪ THE-BRAIN: A1/A3/B1-B3/A2" (sau e542788a) — 11/10/2026 trưa
 Nguồn chọn việc: `/workspace/thebrain_sang_brain2.md` (mục F, các mục APPLY ngay). **Không nới cổng; mọi nhãn mới chỉ là NHÃN,
 không đổi GIỮ/BỎ. Mọi số lãi là MÔ PHỎNG, không phải tiền.** Không có khóa/mật khẩu nào vào git.

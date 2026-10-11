@@ -20,6 +20,7 @@ Doi linh vuc = doi bo nguon + bo tu khoa goc, khong phai viet lai tru.
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 import time
@@ -1314,6 +1315,15 @@ def _tien_con_tro_trang(ma: str, ct: dict, van_tay: dict) -> None:
     _ghi_con_tro(ma, ct)
 
 
+def cdp_duoc_phep() -> bool:
+    """Windows (may nha, ho so `.browser_darwinex` rieng) -> giu hanh vi cu. May khac (box Linux
+    dung chung) -> CHI khi bien moi truong BRAIN_CDP_CHO_PHEP=1 (tranh dieu khien Chrome desktop
+    cua nguoi dung chi vi no tinh co nghe cung cong 9224)."""
+    if os.environ.get("BRAIN_CDP_CHO_PHEP") == "1":
+        return True
+    return os.name == "nt"
+
+
 def quet_trinh_duyet(ngan_sach_giay: int = 90, t0: float | None = None) -> dict:
     """Doc cac nguon can-trinh-duyet qua CON CHROME CDP DANG MO (dang nhap san).
 
@@ -1322,6 +1332,12 @@ def quet_trinh_duyet(ngan_sach_giay: int = 90, t0: float | None = None) -> dict:
     t0 = t0 or time.time()
     ra = {"port": None, "da_quet": 0, "tai_lieu_moi": 0}
     if not NGUON_TRINH_DUYET:
+        return ra
+    if not cdp_duoc_phep():
+        # 11/10/2026: tren box Linux dung chung, cong 9224 la Chrome DESKTOP cua box (phien
+        # dang nhap cua nguoi dung, khong phai ho so `.browser_darwinex` rieng cua SEEKER).
+        # Khong tu lai trinh duyet cua nguoi khac: phai bat ro BRAIN_CDP_CHO_PHEP=1.
+        ra["bo_qua"] = "CDP chua duoc phep tren may khong phai Windows (BRAIN_CDP_CHO_PHEP=1)"
         return ra
     port = DT.cdp_dang_chay() if DT else None
     ra["port"] = port
