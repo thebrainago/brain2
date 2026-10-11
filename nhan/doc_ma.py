@@ -2026,6 +2026,11 @@ def _la_kiem_loi_du_lieu(p: str) -> bool:
         op, n = m.group(2), int(m.group(3))
         return (op in ("!=", "<") and n > 0) or (op == "<=" and n == 0) or \
             (op == "==" and n in (0, -1)) or (op == "<" and n == 0)
+    # 11/10/2026 dem: `Bars(_Symbol, tf) < N` / `iBars(..) <= N` / `BarsCalculated(h) < N` =
+    # kiem DU LIEU KHOI DONG (chua du bar cho chi bao) - mo phong: chi bao NaN o dau chuoi ->
+    # khong vao (cung nghia `x <= 0`/EMPTY_VALUE). Chi dang `<`/`<=` (it bar -> thoat).
+    if re.fullmatch(r"(?:i?Bars|BarsCalculated)\s*\([^()]*\)\s*<=?\s*[\w\s.+*()-]+", p):
+        return True
     m = re.fullmatch(r"!\s*([A-Za-z_]\w*)\s*\([^()]*\)", p)
     if m and m.group(1) in _HAM_KIEM_LOI:
         return True
@@ -2158,6 +2163,84 @@ def _cac_if_bao(vb: str, vi_tri: int) -> tuple[list[tuple[int, str]], bool]:
                 muc -= 1
         i -= 1
     return ra, gap_else
+
+
+def _chuoi_else_if(vb: str, vi_tri: int) -> list[tuple[int, str]] | None:
+    """Lenh vao nam trong nhanh `else if(B){..}` (them 11/10/2026 dem, doc tay hang B GitHub:
+    66/169 EA hong vi "lenh vao nam trong nhanh else", da so la `if(A){Buy} else if(B){Sell}`).
+    Tra moi dieu kien A cua cac nhanh TRUOC trong chuoi (moi tang khoi bao co `else`), de
+    nguoi goi chi nhan khi CHUNG MINH B loai tru tung A (`_mau_thuan(A+B)`) - khi do
+    `B and not A` == `B`. Gap `else {` tran (khong co if), `if(A) lenh;` khong ngoac, hay
+    khong doc duoc khoi -> None (giu tu choi nhu cu)."""
+    goc, _ = _dau_ham(vb, vi_tri)
+    ra: list[tuple[int, str]] = []
+    muc, i = 0, vi_tri - 1
+    while i > goc:
+        c = vb[i]
+        if c == "}":
+            muc += 1
+        elif c == "{":
+            if muc == 0:
+                dau = vb[max(goc, i - 400):i].rstrip()
+                s0 = max(goc, i - 400)
+                if re.search(r"\belse$", dau):
+                    return None                 # `else {` tran = not A (khong co B)
+                if dau.endswith(")"):
+                    j, sau = len(dau) - 1, 0
+                    while j >= 0:
+                        if dau[j] == ")":
+                            sau += 1
+                        elif dau[j] == "(":
+                            sau -= 1
+                            if sau == 0:
+                                break
+                        j -= 1
+                    tu = re.search(r"(\w+)[ \t]*$", dau[:j])
+                    me = re.search(r"\belse[ \t]*$", dau[:tu.start()]) if tu and \
+                        tu.group(1) == "if" else None
+                    if me:
+                        # lui qua chuoi: `if(A1){..} else if(A2){..} else` ngay truoc
+                        k = s0 + me.start()
+                        while True:
+                            truoc = vb[goc:k].rstrip()
+                            if not truoc.endswith("}"):
+                                return None     # `if(A) lenh;` khong ngoac: chua doc
+                            dong = len(truoc) - 1
+                            m2, q = 0, dong
+                            while q > 0:
+                                if truoc[q] == "}":
+                                    m2 += 1
+                                elif truoc[q] == "{":
+                                    m2 -= 1
+                                    if m2 == 0:
+                                        break
+                                q -= 1
+                            if q <= 0:
+                                return None
+                            d2 = truoc[:q].rstrip()
+                            if not d2.endswith(")"):
+                                return None
+                            j2, s2 = len(d2) - 1, 0
+                            while j2 >= 0:
+                                if d2[j2] == ")":
+                                    s2 += 1
+                                elif d2[j2] == "(":
+                                    s2 -= 1
+                                    if s2 == 0:
+                                        break
+                                j2 -= 1
+                            t2 = re.search(r"(\w+)[ \t]*$", d2[:j2])
+                            if not t2 or t2.group(1) != "if":
+                                return None
+                            ra.append((goc + j2, d2[j2 + 1:-1]))
+                            e2 = re.search(r"\belse[ \t]*$", d2[:t2.start()])
+                            if not e2:
+                                break
+                            k = goc + e2.start()
+            else:
+                muc -= 1
+        i -= 1
+    return ra
 
 
 #: Lenh "vo hai" truoc `return` trong khoi thoat som: chi in/ghi log, khong doi
@@ -3738,7 +3821,30 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
             vi_the = any(_phu_thuoc_vi_the(g, p, bang_bl) for p, g in ifs)
             loai_hong = "quan_ly_vi_the" if vi_the else "chua_dich"
             if gap_else:
-                ho.append("lenh vao nam trong nhanh else")
+                # `if(A){..} else if(B){lenh}`: nhan B khi CHUNG MINH B loai tru moi A
+                try:
+                    ce = _chuoi_else_if(vb, m.start())
+                except Exception:                   # noqa: BLE001 - khong lam vo ca file
+                    ce = None
+                ly_e = "lenh vao nam trong nhanh else"
+                if ce:
+                    for pA, A in ce:
+                        dA, hA = _no_dieu_kien(A, pA, bang_cb, bang_bl)
+                        hop = [(p, g) for p, g in ifs]
+                        dB, hB = [], []
+                        for p, g in hop:
+                            d_, h_ = _no_dieu_kien(g, p, bang_cb, bang_bl)
+                            dB += d_
+                            hB += h_
+                        if hA or hB or not dA or not dB or _mau_thuan(dA) is not None or \
+                                _mau_thuan(dB) is not None or _mau_thuan(dA + dB) is None:
+                            ly_e = ("nhanh else-if khong chung minh loai tru nhanh truoc "
+                                    "(= B and not A): " + A[:40])
+                            break
+                    else:
+                        gap_else = False
+            if gap_else:
+                ho.append(ly_e)
                 loai[loai_hong] += 1
                 continue
             nhom = []                         # [(chieu, [guard...], vi_tri)]
@@ -4351,6 +4457,26 @@ def _mau_thuan(dk: list[dict]) -> str | None:
                      (ds[i][2] in duoi and ds[j][2] in tren)):
                 return ("mau thuan sau quy uoc chi so bar (bar 0 ~ bar 1, vd. giao cat "
                         "trong bar): " + ds[i][0][:40])
+    # 11/10/2026 dem: CUNG toan hang so voi hai HANG SO ra hai khoang ROI nhau
+    # (`rsi < 30` va `rsi > 70`) -> tap rong (logic thuan, khong phu thuoc EA).
+    for i in range(len(dk)):
+        for j in range(i + 1, len(dk)):
+            a_, b_ = dk[i], dk[j]
+            if a_.get("phep") not in lat or b_.get("phep") not in lat:
+                continue
+            if _k(a_["trai"]) != _k(b_["trai"]):
+                continue
+            if not isinstance(a_["phai"], dict) or not isinstance(b_["phai"], dict):
+                continue
+            ha, hb = a_["phai"].get("hang"), b_["phai"].get("hang")
+            if not isinstance(ha, (int, float)) or not isinstance(hb, (int, float)):
+                continue
+            lo = [(v, op) for v, op in ((ha, a_["phep"]), (hb, b_["phep"])) if op in tren]
+            hi = [(v, op) for v, op in ((ha, a_["phep"]), (hb, b_["phep"])) if op in duoi]
+            if len(lo) == 1 and len(hi) == 1:
+                (vl, ol), (vh, oh) = lo[0], hi[0]
+                if vl > vh or (vl == vh and (ol == ">" or oh == "<")):
+                    return "hai khoang hang so roi nhau: " + _k(a_["trai"])[:40]
     return None
 
 

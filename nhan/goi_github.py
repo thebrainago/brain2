@@ -7,7 +7,8 @@ Do 11/10/2026 (cau_kho tren box): Code Base MQL5 trang 1-2 cho 67 EA, chi **1** 
   1. tim repo (`/search/repositories`, truy van chot truoc trong `TRUY_VAN_GH`), xep theo
      `truy_van_seeker.diem_tieu_de` cua ten+mo ta (chi la THU TU tai);
   2. MOT luot Git Trees cho moi repo -> chi giu repo co >= 1 `.mq5`;
-  3. tai qua raw.githubusercontent.com (khong ton luot API): moi `.mq5` co `OnTick` -> mot goi
+  3. tai qua raw.githubusercontent.com (khong ton luot API): moi `.mq5`/`.mq4` co `OnTick` (MQL4 cu:
+     `int start()`; vong 2 them MQL4 -> lan `mql4` cua cau kho, dem RIENG) -> mot goi
      `thu_muc/<owner>__<repo>__<ten>/` gom file EA + moi `.mqh` cua repo (phang theo ten goc,
      dung quy tac `tep_thieu_that`) + `.set` GHEP DUOC (xem `ghep_set`) + `GOI.json`.
 Khong giai nen, khong chay ma, khong dang nhap. Token (neu co) chi qua bien moi truong
@@ -33,11 +34,20 @@ TRUY_VAN_GH = (
     "expert advisor strategy language:MQL5",
     "mt5 ea set",
     "expert advisor language:MQL5",
+    # vong 2 (11/10/2026 dem): them MQL4 + tu khoa he co so (backtest/strategy tester/.set)
+    "expert advisor language:MQL4",
+    "EA set file language:MQL4",
+    "strategy tester EA",
+    "forex robot mq5",
+    "scalping EA language:MQL5",
+    "grid EA language:MQL5",
+    "breakout EA language:MQL5",
+    "trend EA language:MQL4",
 )
 TRAN_BYTE = 400_000
 TRAN_MQ5_MOI_REPO = 8
 TRAN_MQH_MOI_REPO = 40
-_RX_ONTICK = re.compile(r"\bvoid\s+OnTick\s*\(")
+_RX_ONTICK = re.compile(r"\bvoid\s+OnTick\s*\(|\bint\s+start\s*\(\s*\)")   # MQL4 cu: start()
 
 
 def _get(url: str, params: dict | None = None, timeout: int = 30, json_: bool = True):
@@ -81,7 +91,7 @@ def _giai(b: bytes) -> str | None:
 
 def tai_github_goi(thu_muc, han_giay: float = 120.0, so_repo: int = 20,
                    truy_van: list[dict] | None = None, nghi_giay: float = 1.0,
-                   get=None, in_ra=print) -> dict:
+                   get=None, in_ra=print, so_trang: int = 1) -> dict:
     """Mot luot nguon GitHub -> goi EA trong `thu_muc`. `get(url, params, json_)` thay duoc cho
     test. Manifest `NGUON_GH.json` (repo da xem -> khong ton luot lai; repo moi day -> xem lai
     khi `pushed_at` doi). Tra bang dem."""
@@ -98,18 +108,28 @@ def tai_github_goi(thu_muc, han_giay: float = 120.0, so_repo: int = 20,
     bao = {"truy_van": 0, "repo_thay": 0, "repo_xem": 0, "repo_co_mq5": 0, "ea_moi": 0,
            "ea_co_set": 0, "tep": 0, "loi": []}
     ung: dict[str, dict] = {}
+    dung_search = False
     for q in TRUY_VAN_GH:
-        if time.time() - t0 > han_giay * 0.25:
+        for trang in range(1, max(1, so_trang) + 1):
+            if time.time() - t0 > han_giay * 0.25:
+                dung_search = True
+                break
+            j, loi = get(GH + "/search/repositories",
+                         {"q": q, "sort": "updated", "per_page": 50, "page": trang})
+            bao["truy_van"] += 1
+            if loi:
+                bao["loi"].append("search:%s" % loi)
+                dung_search = True                  # 403/422 search: dung, khong quay vong
+                break
+            items = (j or {}).get("items", [])
+            for r in items:
+                ung.setdefault(r["full_name"], r)
+            if nghi_giay:
+                time.sleep(nghi_giay)
+            if len(items) < 50:
+                break
+        if dung_search:
             break
-        j, loi = get(GH + "/search/repositories", {"q": q, "sort": "updated", "per_page": 50})
-        bao["truy_van"] += 1
-        if loi:
-            bao["loi"].append("search:%s" % loi)
-            break                                   # 403/422 search: dung, khong quay vong
-        for r in (j or {}).get("items", []):
-            ung.setdefault(r["full_name"], r)
-        if nghi_giay:
-            time.sleep(nghi_giay)
     bao["repo_thay"] = len(ung)
 
     def _diem(r):
@@ -138,7 +158,7 @@ def tai_github_goi(thu_muc, han_giay: float = 120.0, so_repo: int = 20,
             continue
         cay = [n for n in (t or {}).get("tree", []) if n.get("type") == "blob"
                and int(n.get("size") or 0) <= TRAN_BYTE]
-        p_mq5 = [n["path"] for n in cay if n["path"].lower().endswith(".mq5")]
+        p_mq5 = [n["path"] for n in cay if n["path"].lower().endswith((".mq5", ".mq4"))]
         p_mqh = [n["path"] for n in cay if n["path"].lower().endswith(".mqh")]
         p_set = [n["path"] for n in cay if n["path"].lower().endswith(".set")]
         ghi = {"pushed_at": r.get("pushed_at"), "mq5": len(p_mq5), "set": len(p_set), "ea": []}
@@ -153,7 +173,8 @@ def tai_github_goi(thu_muc, han_giay: float = 120.0, so_repo: int = 20,
             if not src or not _RX_ONTICK.search(src):
                 continue                            # chi bao / script / tai hong: khong phai EA
             goi = d / _ten_an_toan("%s__%s" % (fn.replace("/", "__"),
-                                               p.rsplit(".", 1)[0].replace("/", "_")))
+                                               p.rsplit(".", 1)[0].replace("/", "_")
+                                               + ("_mq4" if p.lower().endswith(".mq4") else "")))
             goi.mkdir(parents=True, exist_ok=True)
             tep = {p.rsplit("/", 1)[-1]: src}
             sets = ghep_set(p, p_mq5, p_set)
@@ -176,7 +197,8 @@ def tai_github_goi(thu_muc, han_giay: float = 120.0, so_repo: int = 20,
             meta = {"id": "gh:%s:%s" % (fn, p), "revision": "github-%s@%s" % (fn, nhanh),
                     "url": "https://github.com/%s/blob/%s/%s" % (fn, nhanh, quote(p)),
                     "tieu_de": "%s — %s" % (fn, r.get("description") or ""),
-                    "nen_tang": "mt5", "nguon": "github", "tep": sorted(tep),
+                    "nen_tang": "mt4" if p.lower().endswith(".mq4") else "mt5",
+                    "nguon": "github", "tep": sorted(tep),
                     "sao": int(r.get("stargazers_count") or 0), "co_zip": False,
                     "chi_zip": False, "anh": [], "anh_ket_qua": [], "bo": [],
                     "diem_tieu_de": _diem(r), "luc": time.strftime("%Y-%m-%d %H:%M:%S")}

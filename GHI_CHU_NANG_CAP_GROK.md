@@ -4,6 +4,51 @@
 
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
 
+## 11/10/2026 khuya — Vòng 2: quét GitHub rộng (MQL4+MQL5) + bộ đọc else-if/Bars + M5 phí XM (MÔ PHỎNG)
+Token GitHub chỉ đặt trong MÔI TRƯỜNG tiến trình lúc chạy (`export GITHUB_TOKEN=$(gh auth token)`), không ghi file/log/git.
+**1. Quét GitHub** (`nhan/goi_github.py`): 13 truy vấn chốt trước (thêm MQL4, scalping/grid/breakout/trend, strategy tester),
+tối đa 3 trang/truy vấn; nhận `.mq4` (EA MQL4 cũ `int start()`) → làn `mql4` của cầu kho (đếm RIÊNG). Một lượt (452 s): 527 repo
+thấy, 432 xem mới, 422 có .mq5/.mq4, **778 gói EA mới, 27 gói có .set**. Repo đã xem ở vòng 1 (95) không xem lại (`pushed_at`
+không đổi) → `.mq4` của chúng CHƯA tải.
+**2. Đọc tay lý do hỏng hạng B** (169 EA MQL5 hạng B lúc bắt đầu vòng): nhóm theo lý do — "lệnh vào trong nhánh else" 29 EA (60 điểm
+vào; đa số `if(A){Buy} else if(B){Sell}`), "không tìm được guard" 23 (Renko/khối for/hàm phụ), lọc thoát sớm trạng thái 54 lần (nhiều
+bản sao một repo DAX), OR nhiều chỗ gọi 15, khối for vị thế 9, rổ lệnh 7, MathRand 5 (EA ngẫu nhiên — đúng là không dịch). Sửa CHUNG
+(`nhan/doc_ma.py`), không theo một EA:
+- `_chuoi_else_if`: lệnh vào trong `else if(B){..}` → nhận B CHỈ KHI chứng minh B loại trừ MỌI nhánh A trước trong chuỗi
+  (`_mau_thuan(A+B)`), vì khi đó `B and not A` = B. `else {` trần, `if(A) lệnh;` không ngoặc, A/B có phần không dịch → vẫn từ chối
+  (lý do mới "nhanh else-if khong chung minh loai tru..."). Cùng nguyên tắc với `_chuoi_chieu` (PositionOpen) đã có.
+- `_mau_thuan`: thêm hai khoảng HẰNG SỐ rời nhau trên CÙNG toán hạng (`rsi<30` và `rsi>70`) = tập rỗng (logic thuần).
+- `_la_kiem_loi_du_lieu`: `Bars/iBars/BarsCalculated(..) <(=) N` = kiểm dữ liệu khởi động (quản trị), như `x<=0`/EMPTY_VALUE.
+Test `test_else_if_va_bars.py` 7 (cả ca PHẢI từ chối: else trần, B không loại trừ, khoảng giao nhau, khác toán hạng, `Bars > N`);
+3/4 test đầu ĐỎ trên bộ đọc cũ. Cơ chế của 25 file `mau_thu/**` GIỐNG HỆT bản cũ; do_moc 13/22, mo_rong 13/34 không đổi.
+**Đo (`BRAIN_DIEU_TOC=tat cau_kho --khong-tai`, cùng một kho 1.041 file):**
+| | vòng 1 (f3eeb313) | sau quét, bộ đọc cũ | sau quét + bộ đọc mới |
+|---|---|---|---|
+| file / EA duy nhất | 263 / 258 | 1.041 / 1.003 | 1.041 / 1.003 |
+| điểm vào tìm thấy (MQL5) | 391 | 1.106 | 1.106 |
+| **điểm vào dịch được** | **10** | **16** (1,45 %) | **19** (1,72 %) |
+| EA ra cơ chế | 7 | 15 (13 MQL5 + 2 MQL4) | 15 (3 EA thêm nhánh bán) |
+| MQL4 đọc / ra cơ chế | 11 / 0 | 299 / 2 | 299 / 2 |
+| co_set (MQL5) | 6 (3) | 32 (27) | 32 (27) |
+| hạng A / B | 7 / 180 | 15 / 663 | 15 / 663 |
+EA mới ra cơ chế: fusionPLUS, EA04_Bollinger_Bands_Reversal, EA05_MACD_Momentum, IFR2_Visual, RSI_SinglePosition, SimpleEMA_SinglePosition
+(GitHub MQL5), avg_scalper, AntiLatency_Sniper (GitHub MQL4). Bộ đọc mới thêm nhánh bán cho EA05_MACD_Momentum, RSI_SinglePosition,
+SimpleEMA_SinglePosition (đọc tay: đúng `else if`, ngưỡng/giao cắt loại trừ).
+**3. Vòng thử MÔ PHỎNG, EURUSD, phí XM thật mặc định (spread 1,63 bps), cổng KHÔNG đổi** (`--theo-hang`, 15 EA, 22 cơ chế):
+- M5 (HistData 208.300 bar): 20 chạy được, **giữ 0**. RSI_Exhaustion y hệt (kiểm .set −2,18/185; tối ưu −1,25/35). Nhãn "đạt 25/09"
+  (chỉ NHÃN): EA05_MACD_Momentum nhánh bán kiểm sau tối ưu sh +0,72 / 21 lệnh (t +0,7, phí ăn 8 % lãi gộp, maxDD 3,8 %) và fusionPLUS
+  bán sh +0,53 / 22 lệnh (t +0,5) — quá ít lệnh, t thấp → KHÔNG giữ. Còn lại âm (IFR2 −5,30/314, DualMA −13,12/538, EMA_Cross −13,55/563…).
+- H1 (gộp từ HistData, xem mục 4): 19 chạy được, **giữ 0**. EA05_MACD_Momentum bán sh +0,59 / 19 lệnh (ít lệnh), avg_scalper bán
+  +0,34 / 39 (t +0,3); còn lại âm. BreakoutStrategyEA 0 lệnh ("không qua kiểm cú pháp") → CHƯA ĐO ĐƯỢC.
+→ Ứng viên đáng theo dõi (CHƯA đủ số): EA05_MACD_Momentum — có lãi sau phí ở cả M5 và H1 nhưng ~20 lệnh/đoạn kiểm. Không phải tiền.
+**4. Dữ liệu:** Dukascopy `datafeed.dukascopy.com` thử lại nhiều lần (23:2x–23:5x): 503 "No server is available" hoặc treo 30–40 s → CHƯA TẢI ĐƯỢC
+từ box. H1 dùng trong đo = gộp từ HistData M1 (BID), đổi tên rõ `/workspace/du_lieu_fx/eurusd_h1_tu_histdata_m1_server.csv`
+(symlink `/workspace/eurusd_h1_server.csv`), ghi nguồn ở `/workspace/du_lieu_fx/NGUON_DU_LIEU.md` (ngoài repo). ASK/spread lịch sử:
+CHƯA ĐO ĐƯỢC.
+**Còn lại:** "không tìm được guard" (86 điểm vào), else-if không chứng minh loại trừ (≥34), rổ lệnh `PositionSelect` (23), `type ==
+ORDER_TYPE_BUY` (23), OpenTrade gọi từ 2 chỗ (20); .set GitHub 27 gói nhưng EA kèm .set vẫn chưa dịch (trừ RSI_Exhaustion); `.mq4` của 95 repo
+vòng 1 chưa tải.
+
 ## 11/10/2026 tối — SEEKER nguồn thứ hai: GitHub EA MQL5 (+ .set) vào cầu kho (chọn B; MÔ PHỎNG)
 **Vì sao B (đo trên box mới, Linux, kho dựng lại từ đầu vì `data/` không có trong git):** `cau_kho` một lượt tải
 (MQL5 Code Base trang 1–2 + MT4 + Telegram công khai) → 67 EA, điểm vào dịch được **3/77 (3,9 %)**, 2 EA ra cơ chế
