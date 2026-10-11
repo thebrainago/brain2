@@ -159,7 +159,8 @@ def _ghi_con_tro(d: dict) -> None:
     CON_TRO.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
-def liet_ke_mql5(muc: str = "experts", trang: int = 1) -> list[dict] | None:
+def liet_ke_mql5(muc: str = "experts", trang: int = 1,
+                 nen_tang: str = "mt5") -> list[dict] | None:
     """Danh sach bai trong MQL5 Code Base. Tra [{id, url, tieu_de}].
 
     SUA 11/10/2026 (the-brain 02 D2): TAI HONG -> `None`, KHONG phai `[]`.
@@ -171,7 +172,7 @@ def liet_ke_mql5(muc: str = "experts", trang: int = 1) -> list[dict] | None:
     HREF o day la TUONG DOI (`/en/code/76331`). Regex doi href tuyet doi la loi
     da lam `tru/seeker.py::n_mql5_code` tra ve rong suot ma khong bao gi.
     """
-    u = f"https://www.mql5.com/en/code/mt5/{muc}"
+    u = f"https://www.mql5.com/en/code/{'mt4' if nen_tang == 'mt4' else 'mt5'}/{muc}"
     if trang > 1:
         u += f"/page{trang}"
     txt = _lay(u)
@@ -186,8 +187,90 @@ def liet_ke_mql5(muc: str = "experts", trang: int = 1) -> list[dict] | None:
             continue
         da.add(ma_so)
         ra.append({"id": ma_so, "url": f"https://www.mql5.com/en/code/{ma_so}",
-                   "tieu_de": tt[:250], "muc": muc})
+                   "tieu_de": tt[:250], "muc": muc}
+                  | ({"nen_tang": "mt4"} if nen_tang == "mt4" else {}))
     return ra
+
+
+#: GOI BAI (11/10/2026, uu tien cua chu du an: "bot MT4/MT5 co san chien luoc VA set up").
+#: Do tay 25 bai Code Base moi nhat: moi bai liet ke TUNG FILE rieng
+#: (`/en/code/download/<id>/<ten>`), ke ca `.mqh` kem theo (vd 77871: 7 `.mqh` + 1 `.mq5`)
+#: va `.set` cua tac gia (vd 77738 `RSI_Exhaustion_Reversal_EURUSD.set`). `tai_ma_nguon`
+#: chi lay `.mq5` DAU TIEN -> bo mat `.mqh` (nguon chinh cua nhan THIEU_TEP) va `.set`.
+#: Chi lay file VAN BAN theo duoi duoi day; `.zip` KHONG giai nen (giu rang buoc cu), chi ghi
+#: nhan `co_zip`; anh chi ghi TEN (nhan `anh_ket_qua` neu ten giong bao cao tester).
+DUOI_GOI = (".mq5", ".mq4", ".mqh", ".set")
+TRAN_FILE_GOI = 12
+_ANH_KET_QUA = ("result", "tester", "backtest", "report", "equity", "balance", "graph")
+
+
+def liet_ke_tep_bai(txt: str, ma_so: str) -> dict:
+    """HTML trang bai -> {tep: [ten...], co_zip, anh: [ten...]} (khong tai gi)."""
+    tep, anh, co_zip = [], [], False
+    for l in re.findall(r'href="/en/code/download/(\d+)(/[^"]+|\.zip)"', txt or ""):
+        so, duoi = l
+        if so != str(ma_so):
+            continue
+        if duoi == ".zip":
+            co_zip = True
+            continue
+        ten = duoi.lstrip("/")
+        if "/" in ten or ten in tep or ten in anh:
+            continue
+        thap = ten.lower()
+        if thap.endswith(DUOI_GOI):
+            tep.append(ten)
+        elif thap.endswith((".png", ".jpg", ".jpeg", ".gif")):
+            anh.append(ten)
+        elif thap.endswith(".zip"):
+            co_zip = True
+    return {"tep": tep, "co_zip": co_zip, "anh": anh}
+
+
+def _giai_ma_van_ban(b: bytes) -> str | None:
+    if b[:2] in (b"\xff\xfe", b"\xfe\xff"):
+        try:
+            return b.decode("utf-16")
+        except UnicodeDecodeError:
+            return None
+    try:
+        return b.decode("utf-8")
+    except UnicodeDecodeError:
+        try:
+            return b.decode("utf-16")
+        except UnicodeDecodeError:
+            return b.decode("latin-1")         # .set cu hay la cp1252/latin-1
+
+
+def tai_goi_ma_nguon(bai: dict, nghi_giay: float = 1.0) -> dict | None:
+    """Trang bai -> MOI file van ban (`DUOI_GOI`) cua bai, khong giai nen zip.
+
+    Tra {**bai, tep: {ten: noi_dung}, co_zip, anh, anh_ket_qua, bo: [ten bi bo]} hoac None
+    (trang hong). `tep` rong = bai chi co zip/anh -> nguoi goi ghi `chi_zip`.
+    """
+    txt = _lay(bai["url"])
+    if not txt:
+        return None
+    ds = liet_ke_tep_bai(txt, bai["id"])
+    tep, bo = {}, []
+    for ten in ds["tep"][:TRAN_FILE_GOI]:
+        if nghi_giay:
+            time.sleep(nghi_giay)
+        b = _lay(f"https://www.mql5.com/en/code/download/{bai['id']}/{ten}",
+                 timeout=40, nhi_phan=True)
+        san = 20 if ten.lower().endswith(".set") else SAN_BYTE // 4
+        if b is None or not (san <= len(b) <= TRAN_BYTE):
+            bo.append(ten)
+            continue
+        vb = _giai_ma_van_ban(b)
+        if not vb or not vb.strip():
+            bo.append(ten)
+            continue
+        tep[ten] = vb
+    bo += ds["tep"][TRAN_FILE_GOI:]
+    anh_kq = [a for a in ds["anh"] if any(k in a.lower() for k in _ANH_KET_QUA)]
+    return {**bai, "tep": tep, "co_zip": ds["co_zip"], "anh": ds["anh"],
+            "anh_ket_qua": anh_kq, "bo": bo}
 
 
 def tai_ma_nguon(bai: dict) -> dict | None:

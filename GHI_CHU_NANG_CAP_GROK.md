@@ -1442,3 +1442,33 @@ phải tín hiệu bar) + 5 phụ thuộc `MultiPivots.mqh`/`iCustom` không có
 2. ~~Họ cho cơ chế `close[1] > close[2]`~~ — đã gán `xu_huong` ở vòng 10/10 tối.
 3. Nếu có `MultiPivots.mqh`: dịch pivot ngày bằng `moc_ky` (cao/thấp/đóng trước).
 4. Chạy `doc_chien_luoc` trên kho .mq5 lớn để đo tỷ lệ thật ngoài 10 file mẫu.
+
+## 11/10/2026 — SEEKER vòng gói công khai: cào → xếp hạng → điều tốc → đọc (MÔ PHỎNG chưa chạy)
+Ưu tiên chủ dự án (t30u): bot MT4/MT5 công khai có chiến lược + `.set` trước; hệ đã ra tiền
+(lịch sử lệnh) sau — phần sau vẫn **CHƯA ĐO ĐƯỢC** (cần đăng nhập MQL5/Darwinex/FXStat).
+- **Gói Code Base** (`ma_nguon.tai_goi_ma_nguon`, `cau_kho_ma.tai_mql5_goi`): mỗi bài lấy MỌI
+  file văn bản `.mq5/.mq4/.mqh/.set` (đo tay 25 bài: Code Base liệt kê từng file; bản cũ chỉ
+  lấy `.mq5` đầu tiên → mất `.mqh` và `.set`). Không giải nén zip. `goi_mql5/<id>/` + `GOI.json`.
+  MT4 (`nen_tang='mt4'`) → `goi_mql4/`, làn riêng `mql4` (file `.mq4` không có CTrade = MQL4,
+  kể cả kiểu mới có OnTick — trước đây lọt vào bộ đọc MQL5).
+- **Truy vấn** (`nhan/truy_van_seeker.py`): 22 hạt giống đa ngôn ngữ (EA+.set) + từ đào từ tên
+  `.set`/EA, khoá input `.set` (GridStep→grid, LotMultiplier→martingale), họ cơ chế, lý do chưa
+  dịch. Chỉ đào từ ứng viên hạng A/B/T. Dùng để xếp bài trước khi tải và lọc bài Telegram.
+- **Telegram** (`nhan/tg_cong_khai.py`): chỉ đọc xem trước web công khai của kênh đã biết; không
+  tham gia nhóm. Tìm kênh mới + tải file đính kèm: **CHƯA ĐO ĐƯỢC** trên box (chưa có phiên
+  MTProto/telethon). 3/4 kênh đã biết tắt xem trước web.
+- **Xếp hạng** (`nhan/xep_hang_ung_vien.py`, điểm chốt trước): dịch được +40 / thấy điểm vào
+  +15 / không điểm vào −20 / thiếu tệp −30 / quản trị-tiện ích −40 / chỉ báo −50; `.set` +20,
+  SL/TP (khi có điểm vào) +10, đủ include +10, ảnh kết quả +5, chỉ zip −10. Hạng A → vòng thử
+  (`vong_thu_nghiem --theo-hang`), B → việc của bộ đọc, T → Telegram cần MTProto, C còn lại.
+  Chỉ là THỨ TỰ; cổng giữ không đổi.
+- **Điều tốc** (`nhan/dieu_toc.py`): khoá tester / MT5 / CPU ≥80% → `dung` (CAUKHO bỏ lượt,
+  `dieu_phoi` không khởi động SEEKER/CAUKHO); `vong_thu_nghiem` (tự ghi dấu
+  `config/dang_backtest/<pid>.json`) / script quét tay / CPU ≥60% → `cham` (tải ×0,33, nghỉ ×3,
+  đọc ≤20 file mới). Tắt: `BRAIN_DIEU_TOC=tat`.
+- Lượt thật (11/10 13:00, 300 s): MT5 2 trang 52 bài mới (62 file, 1 có `.set`, 1 có `.mqh`),
+  MT4 1 trang 15 bài (3 có `.set`); Telegram 4 kênh, 1 đọc được, 38 bài, 8 khớp truy vấn (1 có
+  file mã, 0 `.set`). Phễu: 105 file duy nhất, 16 MQL4 làn riêng, 42 EA có điểm vào, 94 điểm vào
+  — **dịch được 0** (bộ đọc chưa tổng quát hoá; đúng nút thắt 0,4% đã đo). Hàng: A 0 / B 45 /
+  C 60; đầu hàng: RSI_Exhaustion_Reversal (+.set EURUSD).
+- Nút thắt kế: bộ đọc `doc_ma` trên hạng B (45 EA đã xếp) — không chỉnh bộ đọc cho vừa đáp án.

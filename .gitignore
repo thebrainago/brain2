@@ -65,3 +65,6 @@ __pycache__/
 
 # mau_thu/ PHAI len repo: bo mau .mq5 cho phien cloud do duoc
 !mau_thu/
+
+# dau backtest dang chay (nhan/dieu_toc.py) - trang thai runtime
+config/dang_backtest/

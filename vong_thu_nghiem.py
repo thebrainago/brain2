@@ -1096,6 +1096,21 @@ def _chay_nhom(path: Path, g: str, specs: list[dict], df_tu, df_kiem, khung: str
     return dong
 
 
+def danh_sach_file(mau: Path, loc: str = "*.mq5", theo_hang: bool = False,
+                   toi_da: int = 0) -> list[Path]:
+    """File EA se chay. `theo_hang`: thu tu `HANG.json` (cau_kho xuat), file khong co trong
+    hang xep sau theo ten. Chi THU TU - moi file van qua cung mot cong."""
+    ds = sorted(mau.glob(loc))
+    if theo_hang and (mau / "HANG.json").exists():
+        try:
+            thu = {t: i for i, t in enumerate(json.loads((mau / "HANG.json").read_text(
+                encoding="utf-8")))}
+        except Exception:
+            thu = {}
+        ds.sort(key=lambda f: (thu.get(f.name, 10 ** 9), f.name))
+    return ds[:toi_da] if toi_da and toi_da > 0 else ds
+
+
 def main(argv=None) -> int:
     global DIEM
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
@@ -1136,6 +1151,11 @@ def main(argv=None) -> int:
     ap.add_argument("--he-so-spread", type=float, default=1.0,
                     help="nhân spread đo được (XM micro) - ĐỘ NHẠY, vd 0.33 ~ tài khoản "
                          "ECN (chưa cộng hoa hồng). Mặc định 1 = phí thật hiện có")
+    ap.add_argument("--theo-hang", action="store_true",
+                    help="chạy file theo thứ tự HANG.json trong --mau (xếp hạng của cau_kho: "
+                         "có .set + gói đủ trước). Chỉ đổi THỨ TỰ, không đổi cổng")
+    ap.add_argument("--toi-da", type=int, default=0,
+                    help="chỉ chạy N file đầu (theo thứ tự); 0 = tất cả")
     a = ap.parse_args(argv)
     DIEM = float(a.diem)
 
@@ -1151,11 +1171,14 @@ def main(argv=None) -> int:
     cp = mo_hinh_chi_phi(df, a.ma, a.khong_phi, a.phi_cu)
     if not a.khong_phi and a.he_so_spread != 1.0:
         cp = cp.bien_the(spread=cp.spread_frac_chung * a.he_so_spread)
-    for f in sorted(Path(a.mau).glob(a.loc_file)):
-        tong.extend(chay_mot_file(f, df, a.khung, not a.khong_toi_uu, a.lenh_toi_thieu,
-                                  a.t_tu, a.t_kiem, da_thay, cp=cp, tai_khoan=tk,
-                                  n_placebo=a.n_placebo, p_placebo=a.p_placebo,
-                                  p_chay_nam=a.p_chay_nam))
+    ds_file = danh_sach_file(Path(a.mau), a.loc_file, a.theo_hang, a.toi_da)
+    from nhan import dieu_toc as DTOC       # dau "backtest dang chay" -> SEEKER cham lai
+    with DTOC.dang_chay("vong_thu_nghiem %s" % Path(a.mau).name):
+        for f in ds_file:
+            tong.extend(chay_mot_file(f, df, a.khung, not a.khong_toi_uu, a.lenh_toi_thieu,
+                                      a.t_tu, a.t_kiem, da_thay, cp=cp, tai_khoan=tk,
+                                      n_placebo=a.n_placebo, p_placebo=a.p_placebo,
+                                      p_chay_nam=a.p_chay_nam))
 
     loc_phi = nhan_loc_phi(cp, df, a.khong_phi)
     for x in tong:

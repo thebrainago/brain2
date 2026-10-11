@@ -302,6 +302,100 @@ def tai_mql5(thu_muc, so_trang: int = 1, muc: str = "experts", nghi_giay: float 
     return ra
 
 
+def tai_mql5_goi(thu_muc, so_trang: int = 1, muc: str = "experts", nen_tang: str = "mt5",
+                 nghi_giay: float = 1.5, in_ra=print, han_giay: float | None = None,
+                 trang_dau: int = 1, truy_van: list[dict] | None = None,
+                 toi_da_bai: int | None = None) -> dict:
+    """QUET GOI (11/10/2026): moi bai Code Base -> `thu_muc/<id>/` voi MOI file van ban cua bai
+    (`.mq5/.mq4/.mqh/.set`, `ma_nguon.tai_goi_ma_nguon`) + `GOI.json` (tieu de, url, co_zip,
+    anh ket qua, file bi bo). Khac `tai_mql5`: lay ca `.mqh` kem theo (het nhan THIEU_TEP oan)
+    va `.set` cua tac gia (uu tien so 1 cua chu du an). Khong giai nen zip, khong chay gi.
+
+    Bai trong trang danh sach duoc XEP theo `truy_van_seeker.diem_tieu_de` TRUOC khi tai: het
+    `han_giay` thi bai co ve la chien luoc/co .set da tai truoc, panel/auditor de sau.
+    `nen_tang='mt4'` -> danh sach MT4 (ma MQL4: lan rieng, bo doc chua doc).
+    Manifest `NGUON_GOI.json`; bai hong thu lai sau `THU_LAI_GIO`.
+    """
+    from nhan import ma_nguon as MN
+    from nhan import truy_van_seeker as TV
+    d = Path(thu_muc)
+    d.mkdir(parents=True, exist_ok=True)
+    pm = d / "NGUON_GOI.json"
+    try:
+        man = json.loads(pm.read_text(encoding="utf-8")) if pm.exists() else {}
+    except Exception:
+        man = {}
+    bao = Counter()
+    loi_trang: list[int] = []
+    het = (time.time() + han_giay) if han_giay else None
+    for trang in range(max(1, trang_dau), max(1, trang_dau) + max(1, so_trang)):
+        if het is not None and time.time() >= het:
+            bao["het_gio"] += 1
+            break
+        ds = MN.liet_ke_mql5(muc, trang, nen_tang=nen_tang)
+        bao["trang"] += 1
+        if ds is None:
+            bao["loi_trang"] += 1
+            loi_trang.append(trang)
+            break
+        if not ds:
+            bao["het_trang"] += 1
+            break
+        ds = sorted(ds, key=lambda b: -TV.diem_tieu_de(b.get("tieu_de", ""), truy_van))
+        dung = False
+        for b in ds:
+            bao["thay"] += 1
+            cu = man.get(str(b["id"]))
+            if cu is not None and not _den_luot_thu_lai(cu):
+                bao["da_co"] += 1
+                continue
+            if het is not None and time.time() >= het:
+                bao["het_gio"] += 1
+                dung = True
+                break
+            if toi_da_bai is not None and bao["moi"] + bao["khong_tai_duoc"] >= toi_da_bai:
+                bao["tran_bai"] += 1
+                dung = True
+                break
+            if nghi_giay:
+                time.sleep(nghi_giay)
+            r = MN.tai_goi_ma_nguon(b, nghi_giay=nghi_giay)
+            luc = time.strftime("%Y-%m-%d %H:%M:%S")
+            if r is None:
+                bao["khong_tai_duoc"] += 1
+                man[str(b["id"])] = {**b, "ok": False, "luc": luc,
+                                     "so_lan_hong": int((cu or {}).get("so_lan_hong", 0)) + 1}
+                continue
+            goi = d / str(b["id"])
+            goi.mkdir(exist_ok=True)
+            for ten, vb in r["tep"].items():
+                (goi / re.sub(r"[^A-Za-z0-9_.-]+", "_", ten)[:100]).write_text(vb, encoding="utf-8")
+            n_set = sum(1 for t in r["tep"] if t.lower().endswith(".set"))
+            meta = {"id": b["id"], "url": b["url"], "tieu_de": b.get("tieu_de", ""),
+                    "nen_tang": nen_tang, "tep": sorted(r["tep"]), "co_zip": r["co_zip"],
+                    "chi_zip": r["co_zip"] and not any(
+                        t.lower().endswith((".mq5", ".mq4")) for t in r["tep"]),
+                    "anh": r["anh"], "anh_ket_qua": r["anh_ket_qua"], "bo": r["bo"],
+                    "diem_tieu_de": TV.diem_tieu_de(b.get("tieu_de", ""), truy_van), "luc": luc}
+            (goi / "GOI.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1),
+                                          encoding="utf-8")
+            man[str(b["id"])] = {**b, "ok": True, "luc": luc, "so_tep": len(r["tep"]),
+                                 "so_set": n_set, "chi_zip": meta["chi_zip"]}
+            bao["moi"] += 1
+            bao["tep"] += len(r["tep"])
+            bao["co_set"] += 1 if n_set else 0
+            bao["co_mqh"] += 1 if any(t.lower().endswith(".mqh") for t in r["tep"]) else 0
+            bao["chi_zip"] += 1 if meta["chi_zip"] else 0
+        if dung:
+            break
+    pm.write_text(json.dumps(man, ensure_ascii=False, indent=1), encoding="utf-8")
+    ra = dict(bao)
+    if loi_trang:
+        ra["trang_loi"] = loi_trang
+    in_ra("tai_mql5_goi %s/%s: %s" % (nen_tang, muc, ra))
+    return ra
+
+
 def _url_tu_nguon_tai(ban_ghi: list[dict], thu_muc) -> None:
     """Gan url/revision tu `NGUON_TAI.json` cho file tai bang `tai_mql5`."""
     pm = Path(thu_muc) / "NGUON_TAI.json"
@@ -390,7 +484,10 @@ def do_kho(ban_ghi: list[dict], bo_mau_thu: bool = True, bo_nho: dict | None = N
             ds.append(dong)
             continue
         pheu["duy_nhat"] += 1
-        if la_mql4(src):
+        # 11/10/2026: file `.mq4` (Code Base MT4) la MQL4 ke ca kieu moi (OnTick + OrderSend
+        # khop dau hieu MQL5 `OnTick`) - tru khi co lop giao dich MQL5 that (CTrade/MqlTrade).
+        if la_mql4(src) or (str(b["ten"]).lower().endswith(".mq4")
+                            and not re.search(r"\bCTrade\b|\bMqlTradeRequest\b", src)):
             pheu["mql4_bo_qua"] += 1
             dong["ket_qua"] = "mql4_bo_qua"
             ds.append(dong)
@@ -483,7 +580,7 @@ def _ten_an_toan(ten: str) -> str:
     return goc if goc.lower().endswith(".mq5") else goc + ".mq5"
 
 
-def xuat(r: dict, thu_muc) -> Path:
+def xuat(r: dict, thu_muc, hang: list[dict] | None = None) -> Path:
     """Chep EA ra co che vao `thu_muc` + `NGUON.json`. Ten = <van_tay>_<ten>.mq5.
 
     Chi ghi trong `thu_muc` (tao neu chua co); file cu cung van tay bi ghi de
@@ -492,14 +589,29 @@ def xuat(r: dict, thu_muc) -> Path:
     d = Path(thu_muc)
     d.mkdir(parents=True, exist_ok=True)
     nguon = []
-    for x in r["xuat"]:
+    theo_vt = {x.get("van_tay"): x for x in (hang or [])}
+    ds_xuat = sorted(r["xuat"], key=lambda x: theo_vt.get(x["van_tay"], {}).get("thu_tu", 10 ** 9))
+    for x in ds_xuat:
         ten = "%s_%s" % (x["van_tay"], _ten_an_toan(x["ten"]))
         (d / ten).write_text(x["src"], encoding="utf-8")
+        h = theo_vt.get(x["van_tay"], {})
+        set_ra = []
+        # 11/10/2026: .set cua tac gia di kem EA (ten <van_tay>_<ten set>) - provenance cho
+        # buoc sau (dung gia tri .set lam diem xuat phat); vong thu HIEN chua doc .set.
+        if str(x.get("nguon", "")).startswith("tep:"):
+            for sp in sorted(Path(x["nguon"][4:]).parent.glob("*.set")):
+                st = "%s_%s" % (x["van_tay"], re.sub(r"[^A-Za-z0-9_.-]+", "_", sp.name)[:80])
+                (d / st).write_text(sp.read_text(encoding="utf-8", errors="ignore"),
+                                    encoding="utf-8")
+                set_ra.append(st)
         nguon.append({k: x[k] for k in ("ten", "url", "revision", "nguon", "van_tay",
                                         "vao_lenh", "vao_co", "co_che", "ho")}
-                     | {"file": ten})
+                     | {"file": ten, "set": set_ra}
+                     | ({"thu_tu": h["thu_tu"], "diem": h["diem"], "hang": h["hang"]} if h else {}))
     p = d / "NGUON.json"
     p.write_text(json.dumps(nguon, ensure_ascii=False, indent=1), encoding="utf-8")
+    (d / "HANG.json").write_text(json.dumps([n["file"] for n in nguon], ensure_ascii=False,
+                                            indent=1), encoding="utf-8")
     return p
 
 

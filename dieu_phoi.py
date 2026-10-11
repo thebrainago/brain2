@@ -724,6 +724,22 @@ def _cpu_hien_tai() -> float:
         return 0.0
 
 
+#: Lane QUET (SEEKER, CAUKHO) bi dieu toc khi backtest/tester chay (nhan/dieu_toc.py). Lane
+#: compute (QUANTLAB) KHONG bi: no chinh la viec tinh toan, va chu ky 120 s ngan.
+LAN_DIEU_TOC = ("external", "ma_nguon")
+
+
+def _dieu_toc_quet(den_han: list[str], cpu: float | None) -> dict:
+    """Muc dieu toc chi khi co tru QUET den han (doc /proc re, CPU dung so da do)."""
+    if not any(TRU[t]["lan"] in LAN_DIEU_TOC for t in den_han):
+        return {"muc": "binh_thuong"}
+    try:
+        from nhan import dieu_toc as DT
+        return DT.trang_thai(cpu=cpu)
+    except Exception as e:                      # noqa: BLE001 - do hong khong chan dieu phoi
+        return {"muc": "binh_thuong", "ly_do": ["dieu_toc_loi:%s" % type(e).__name__]}
+
+
 def _xep_uu_tien(den_han: list[str], da_dung: dict[str, float], ke_tiep: dict[str, float],
                   now: float) -> list[str]:
     tong = sum(da_dung.values()) or 1.0
@@ -992,11 +1008,17 @@ def main() -> int:
                     backpressure.append(
                         f"cpu_{cpu:.1f}_vuot_nguong_khoi_dong_{CPU_NGUONG_KHOI_DONG:.1f}")
                 else:
+                    toc = _dieu_toc_quet(den_han, cpu)
                     for ten in _xep_uu_tien(den_han, da_dung, ke_tiep, now):
                         if con_slot <= 0:
                             backpressure.append("worker_pool_day")
                             break
                         lan = TRU[ten]["lan"]
+                        if lan in LAN_DIEU_TOC and toc.get("muc") == "dung":
+                            # 11/10/2026: backtest/tester dang chay -> quet cho (nhan/dieu_toc)
+                            backpressure.append("dieu_toc_dung:%s:%s" % (
+                                ten, ",".join(toc.get("ly_do", []))[:80]))
+                            continue
                         if lan_dang.get(lan, 0) >= LAN_GIOI_HAN.get(lan, 1):
                             backpressure.append(f"lane_{lan}_day:{ten}")
                             continue
