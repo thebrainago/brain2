@@ -1541,3 +1541,58 @@ trong vòng lặp từ giá, đo trễ ms). `cau_kho_ma` đọc MQL4 qua đó (k
   RiskGuardLite như cũ sh −0,96 / 22 lệnh. MÔ PHỎNG, không phải tiền.
 - Còn lại: GoldBreakout (lọc spread/rủi ro trong OpenTrade + Donchian tự tính, `dir` dùng trong
   điều kiện), RegimeRouter (return trong khối dài), RSI_Exhaustion (.set M5).
+
+## 11/10/2026 — M5 hạng nhất trong vòng thử + RSI_Exhaustion_Reversal (.set M5) dịch được (MÔ PHỎNG)
+**Dữ liệu M5 (thật, công khai, $0):** HistData.com M1 EURUSD (GENERIC_ASCII, giá BID, giờ EST cố định
+UTC−5) 2023-12 → 2026-10, gộp M5 bằng `gop_histdata_m5.py` (nhãn trái, bar không có phút nào → bỏ, không
+bịa) → giờ `Europe/Helsinki` như chuỗi H1 của dự án → `/workspace/du_lieu_fx/eurusd_m5_histdata_server.csv`
+(ngoài repo): 1.036.393 phút → **208.203 bar M5**, 2023-12-26 00:00 → 2026-10-09 23:55 (cùng cửa sổ chuỗi H1
+`/workspace/eurusd_h1_server.csv`). Độ đủ theo tháng ≥ 99 % trừ tháng 12/1 (lễ) và 09/2026 (95,7 %).
+Đối chiếu múi giờ: HistData quy UTC khớp Dukascopy M1 ngày 2024-01-03 — chênh close trung vị **0,0 pip**
+(lệch ±1 h → 4,1–4,4 pip). Dukascopy ngày-theo-ngày (`tai_dukascopy_m5.py`) bị giới hạn ~13 s/yêu cầu
+→ không dùng làm nguồn chính (để lại làm công cụ đối chiếu/ASK).
+**Vòng thử M5** (`vong_thu_nghiem.py`): `BAR_NAM` thêm M5/M15/M30/H4 (M5 = 12×H1); giả lập theo khung
+(σ ∝ √thời gian); `--csv` phải có khung = `--khung` (khoảng cách trung vị giữa bar, `khung_tu_du_lieu`) —
+lệch → thoát mã 2 (không chạy H1 mà tưởng M5). Đường H1/D1 cũ giữ nguyên.
+**Bộ đọc** (`nhan/khung_ea_mql.py`, móc trong `doc_ma.doc_chien_luoc(..., set_ea=)`; chỉ viết lại cú pháp có chứng minh):
+- `.set` của tác giả áp vào `input` (ENUM_TIMEFRAMES số MT5 → `PERIOD_*`; enum khác dạng số → không áp, ghi).
+- KHUNG CỐ ĐỊNH: mọi đối số khung (iRSI/iATR/iTime/iBarShift/Copy*...) giải về CÙNG một `PERIOD_X`, không
+  dùng khung biểu đồ ở đâu (bỏ chuỗi ký tự và phép so `==PERIOD_CURRENT`) → coi X là khung biểu đồ, cơ chế
+  mang `khung_ea`. Trộn khung / hai khung cố định / biến không giải được → không đổi (bộ đọc từ chối như cũ).
+- Hàm bọc đọc MỘT buffer (`ReadBufferValue(h,b,s)` một CopyBuffer count 1, `GetRSI(s)`) → mảng series.
+- Giờ của `TimeToStruct(iTime(_Symbol,_Period,1))` = giờ MỞ bar i (trước đây mọi `dt.hour` = lúc đóng → lệch
+  một bar ở hai biên khung giờ); iTime(..,0)/TimeCurrent giữ quy ước cũ; iTime(..,≥2) → không dịch.
+- SL/TP: `NormalizeDouble(x,digits)` bỏ làm tròn cả khi không có nhánh ba ngôi, `sl = NormalizeDouble(sl,d)` →
+  phép gán trước; khoảng ATR qua THAM SỐ hàm lệnh khi hàm được gọi đúng một chỗ (`_tham_so_cho_goi`).
+- Hết giờ N bar (`if(BarsSinceEntry()<N) return; PositionClose`, BarsSinceEntry = iBarShift(POSITION_TIME),
+  gọi trực tiếp trong OnTick) → `sltp.het_bar`; `mo_phong.chay_he` đóng ở tick đầu bar vào+N.
+- `cau_kho_ma` đọc EA kèm .set của gói (đúng MỘT .set), khoá bộ nhớ gồm vân tay .set, ghi `khung_ea`;
+  `xep_hang_ung_vien` thêm lý do `khung_M5`; `vong_thu_nghiem` đọc .set qua `NGUON.json` (`set_cua_ea`), cơ
+  chế `khung_ea` ≠ khung dữ liệu → `khong_hop_khung` (KHÔNG giả khung khác).
+Đo:
+- Tập chờ (cau_kho `--khong-tai`): điểm vào dịch được **4/94 → 5/94** (5,3 %); hạng A 2 → 3, đầu hàng
+  RSI_Exhaustion_Reversal (A 80: ra_co_che+40 set+20 sltp+10 du_tep+10 khung_M5). mau_thu 13/22, mo_rong 13/34
+  không đổi; cơ chế của 56 file mẫu GIỐNG HỆT bản gốc; EMA_Cross_Demo/RiskGuardLite đọc y hệt.
+- RSI_Exhaustion đọc ra: BÁN khi RSI(14,M5) bar 1 ≥ 65 và bar 2 < 65, giờ mở bar 14–17 (server), SL = BID +
+  4×ATR(14), TP = BID − 4×ATR(14), đóng sau 96 bar, một vị thế. CHƯA mô hình: lọc `spread/ATR > 0,15` (ghi
+  `bo_qua_quan_tri`), lot cố định/ký quỹ.
+- Test: `test_khung_ea_mql.py` 25 (cả ca PHẢI từ chối); 406 test bộ đọc/vòng xanh.
+**Vòng thử MÔ PHỎNG** (`--theo-hang --toi-da 1 --khung M5`, EURUSD M5 HistData, phí thật mặc định, cổng giữ
+KHÔNG đổi; tối ưu 2023-12-26→2025-12-08, kiểm 2025-12-08→2026-10-09):
+| bản | phần | lệnh | lãi gộp (log, đòn bẩy 1) | lãi ròng sau phí | maxDD | Sharpe |
+|---|---|---|---|---|---|---|
+| .set tác giả, phí XM (spread 1,63 bps) | tối ưu | 431 | +10,7 % | **−6,7 %** | 7,2 % | −1,26 |
+| .set tác giả, phí XM | kiểm | 185 | +3,4 % | **−4,1 %** | 4,2 % | −2,18 |
+| sau tối ưu, phí XM | kiểm | 35 | +0,04 % | −1,4 % | 1,6 % | −1,25 (t −1,1) |
+| ĐỘ NHẠY spread ×0,33 (~ECN chưa hoa hồng), .set | kiểm | 187 | +3,1 % | −0,4 % | 2,5 % | −0,21 |
+| ĐỘ NHẠY ×0,33, sau tối ưu | kiểm | 161 | +2,2 % | −0,8 % | 2,7 % | −0,33 (t −0,3) |
+→ **giữ 0**. Có lãi GỘP nhỏ ở cả hai phần, phí ăn hết (spread XM = 68 % biên độ nến M5 trung vị).
+Lọc spread của chính EA: với spread XM 1,63 bps, 97,4 % tín hiệu có spread/ATR > 0,15 → EA thật gần như KHÔNG
+vào lệnh trên XM (mô phỏng bỏ lọc nên vào nhiều hơn EA); ở 0,2 bps (ECN) lọc chặn 0 %. Tức EA chỉ dành
+cho tài khoản spread thấp — và ngay cả ×0,33 vẫn lỗ phần kiểm. MÔ PHỎNG, không phải tiền.
+Chặn tiếp: lọc spread/ATR theo spread lịch sử thật (cần cột spread/ASK M5 — Dukascopy ASK chậm), phí ECN
+có hoa hồng thật; 3 EA `.set` MQL4 vẫn chưa dịch (không bịa HA/ms).
+- Kiểm lại 11/10/2026 15:xx (sau khi phiên trước bị ngắt, chưa commit): chạy lại `cau_kho --khong-tai` 5/94; vòng M5 ra
+  ĐÚNG các số bảng trên (kiểm .set sh −2,18/185 lệnh, sau tối ưu −1,25/35 lệnh, giữ 0); CSV H1 với `--khung M5` → thoát mã 2;
+  đường H1 mau_thu (`--khong-toi-uu`) in ra Y HỆT HEAD; do_moc 13/22 không đổi; test bộ đọc/vòng: không hỏng mới
+  (`test_ngu_phap_toan_hang` hỏng sẵn 2 → 1). Bỏ các file báo cáo/nhật ký phụ do lượt chạy sinh ra (BANG_HE bị ghi 0 hệ).

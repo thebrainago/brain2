@@ -1643,8 +1643,22 @@ def _chuan_hoa_mql5(vb: str, tach_ask_bid: bool = False) -> str:
 
     # dt.hour trong PHEP SO SANH -> gio (chi khi dt la MqlDateTime)
     for dt in re.findall(r"\bMqlDateTime[ \t]+(\w+)", vb):
-        vb = re.sub(rf"\b{dt}\.hour(?=[ \t]*(?:[<>]|==|!=))", "_gio_", vb)
-        vb = re.sub(rf"\b{dt}\.day_of_week(?=[ \t]*(?:[<>]|==|!=))", "_thu_", vb)
+        # 11/10/2026: `TimeToStruct(t, dt)` voi t = `iTime(_Symbol,_Period,1)` (gan MOT lan) =
+        # luc MO bar vua dong = luc mo bar i cua mo phong -> gio KHONG mang "luc dong"
+        # (`_giomo_`). t = iTime(..,k>=2) -> `_giokhong_` (khong co trong bang -> khong dich).
+        # Nguon khac (TimeCurrent, iTime(..,0)) giu quy uoc cu: luc dong bar i.
+        tok_gio, tok_thu = "_gio_", "_thu_"
+        nguon = re.findall(rf"\bTimeToStruct[ \t]*\([ \t]*(\w+)[ \t]*,[ \t]*{dt}[ \t]*\)", vb)
+        if len(set(nguon)) == 1:
+            gan = re.findall(rf"\b{nguon[0]}[ \t]*=(?!=)[ \t]*([^;]+);", vb)
+            mi = re.fullmatch(r"iTime[ \t]*\([^,()]+,[ \t]*_Period[ \t]*,[ \t]*(\d+)[ \t]*\)",
+                              gan[0].strip()) if len(gan) == 1 else None
+            if mi and int(mi.group(1)) == 1:
+                tok_gio, tok_thu = "_giomo_", "_thumo_"
+            elif mi and int(mi.group(1)) >= 2:
+                tok_gio, tok_thu = "_giokhong_", "_thukhong_"
+        vb = re.sub(rf"\b{dt}\.hour(?=[ \t]*(?:[<>]|==|!=))", tok_gio, vb)
+        vb = re.sub(rf"\b{dt}\.day_of_week(?=[ \t]*(?:[<>]|==|!=))", tok_thu, vb)
     return _pivot_gio(vb)
 
 
@@ -1765,6 +1779,9 @@ def _bang_mql(vb: str) -> list[tuple[int, str, dict]]:
     # gio/thu EA doc o tick dau bar i+1 = luc DONG bar i (quy uoc chi so bar)
     ra.append((0, "_gio_", {"chi_bao": "gio", "luc": "dong", "_thang": 1}))
     ra.append((0, "_thu_", {"chi_bao": "ngay_trong_tuan", "luc": "dong", "_thang": 1}))
+    # gio/thu cua iTime(..,1) = luc MO bar vua dong = bar i (them 11/10/2026)
+    ra.append((0, "_giomo_", {"chi_bao": "gio", "_thang": 1}))
+    ra.append((0, "_thumo_", {"chi_bao": "ngay_trong_tuan", "_thang": 1}))
     return ra
 
 
@@ -2970,6 +2987,47 @@ def _gan_tren_duong(vb: str, goc: int, vi: int | None, den: int,
     return ra
 
 
+def _tham_so_cho_goi(vb: str, goc: int, ten: str) -> tuple[int, int, str] | None:
+    """`ten` la tham so TRUYEN TRI (khong `&`, khong bi gan lai) cua ham co `{` o `goc`, va ham
+    duoc goi tu DUNG MOT cho (lenh `F(..);`) -> (goc ham goi, vi tri goi, bieu thuc doi so).
+    Them 11/10/2026 (RSI_Exhaustion: `OpenSell(t, atr, ..)` -> SL = bid + 4*atr)."""
+    dau = vb[:goc]
+    m = re.search(r"\b([A-Za-z_]\w*)[ \t]*\(([^()]*)\)\s*$", dau)
+    if not m:
+        return None
+    ham = m.group(1)
+    ts = [x.strip() for x in m.group(2).split(",") if x.strip()]
+    vt = None
+    for i, t in enumerate(ts):
+        mt = re.fullmatch(r"(?:const[ \t]+)?[\w:]+[ \t]+([A-Za-z_]\w*)", t)
+        if mt is None:
+            if re.search(rf"\b{re.escape(ten)}\b", t):
+                return None                         # tham chieu / mang / mac dinh
+            continue
+        if mt.group(1) == ten:
+            vt = i
+    if vt is None:
+        return None
+    cuoi = _cuoi_khoi(vb, goc)
+    if cuoi < 0 or re.search(rf"(?<![\w.]){re.escape(ten)}[ \t]*(?:[-+*/]?=(?!=)|\+\+|--)",
+                             vb[goc:cuoi]):
+        return None
+    goi = [g for g in re.finditer(rf"(?<![\w.>]){re.escape(ham)}[ \t]*\(", vb)
+           if g.start() != m.start(1)]
+    if len(goi) != 1:
+        return None
+    g = goi[0]
+    ds = _tach_doi_so(vb, g.end() - 1)
+    if not ds or len(ds) != len(ts):
+        return None
+    # cho goi la lenh don `F(..);` hoac `if(..) F(..);` (khong trong bieu thuc)
+    truoc = vb[:g.start()].rstrip()
+    if truoc and truoc[-1] not in ";{})":
+        return None
+    goc2, _ = _dau_ham(vb, g.start())
+    return goc2, g.start(), ds[vt].strip()
+
+
 def _bo_ngoac_ngoai(bt: str) -> str:
     while bt.startswith("(") and _dong_ngoac(bt, 0) == len(bt) - 1:
         bt = bt[1:-1]
@@ -3098,7 +3156,11 @@ def _mo_khoang(x: str, vb2: str, goc: int, vi: int | None, den: int, hang: dict,
             return ten
         g = _gan_tren_duong(vb2, goc, vi, den, ten)
         if g is None:
-            return ten
+            tc = _tham_so_cho_goi(vb2, goc, ten)
+            if tc is None:
+                return ten
+            ghi.append(f"`{ten}` = doi so `{tc[2][:30]}` tu cho goi duy nhat")
+            return "(" + _mo_khoang(tc[2], vb2, tc[0], None, tc[1], hang, ghi, sau + 1) + ")"
         return "(" + _mo_khoang(g[1], vb2, goc, vi, g[0], hang, ghi, sau + 1) + ")"
     return re.sub(r"(?<![\w.])[A-Za-z_]\w*(?![\w(.])", _thay, x)
 
@@ -3207,7 +3269,7 @@ def _sltp_truc_tiep(vb2: str, m, chieu: int, vi: int | None, bang_cb: list,
     can = "ASK" if chieu > 0 else "BID"
     ghi: list[str] = []
     gv = _gia_ab(g_vao, vb2, goc, vi, den, lit=lit) if g_vao not in ("0", "0.0") else can
-    lam_tron = _ham_lam_tron(vb2) if lit else set()
+    lam_tron = _ham_lam_tron(vb2)
     if gv != can:
         if m.group("mql") and gv is not None:
             ghi.append(f"`{m.group('mql')}` truyen gia {gv}: gia dinh san khop lenh thi "
@@ -3232,12 +3294,20 @@ def _sltp_truc_tiep(vb2: str, m, chieu: int, vi: int | None, bang_cb: list,
             if v == 0:
                 return "0"
             bt = _bo_ngoac_ngoai(mt.group(2))
+        # lam tron gia (`NormalizeDouble(x, digits)`, ham lam tron cua tac gia) - 11/10/2026:
+        # ap ca khi khong co nhanh ba ngoi; `sl = NormalizeDouble(sl, d)` -> phep gan TRUOC.
+        bt, bo = _bo_lam_tron(bt, lam_tron)
+        if bo:
+            ghi.append(f"`{ten}`: lam tron gia theo tick/_Digits - bo qua")
+            if bt == ten:
+                x2 = _gan_tren_duong(vb2, goc, vi, x[0], ten)
+                if x2 is None:
+                    return None
+                x = x2
+                bt = _bo_ngoac_ngoai(re.sub(r"\s+", "", x[1]))
         if lit:
-            # nhanh ba ngoi da biet + lam tron gia (them 11/10/2026)
-            bt, bo = _bo_lam_tron(bt, lam_tron)
+            # nhanh ba ngoi da biet (them 11/10/2026)
             bt = _bo_ngoac_ngoai(_chon_tn(bt, lit))
-            if bo:
-                ghi.append(f"`{ten}`: lam tron gia theo tick/_Digits - bo qua")
         if "?" in bt:
             return None
         return x[0], bt
@@ -3261,7 +3331,7 @@ def _sltp_truc_tiep(vb2: str, m, chieu: int, vi: int | None, bang_cb: list,
                 if ct[1] != dau_dung:
                     return None, ghi + [f"{f.upper()} `{bt[:40]}` sai phia - chua dich"]
                 kc = _khoang(ct[2], pos, bang_cb, bang_bl, hang)
-                if kc is None and lit:
+                if kc is None:
                     kc = _khoang_tich(_mo_khoang(ct[2], vb2, goc, vi, pos, hang, ghi),
                                       pos, bang_cb, bang_bl, hang)
                 if kc is None:
@@ -3931,6 +4001,15 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
                         k3, g3, d3, g4 = None, [f"SL/TP truc tiep: loi doc {type(e).__name__}"], \
                             None, []
                     if k3 is not None:
+                        # het gio theo so bar tu bar vao (`khung_ea_mql.het_gio_bar`, 11/10/2026)
+                        from nhan import khung_ea_mql as KEA
+                        try:
+                            hb, ghb = KEA.het_gio_bar(vb, hang)
+                        except Exception as e:      # noqa: BLE001
+                            hb, ghb = None, [f"het gio: loi doc {type(e).__name__}"]
+                        if hb is not None:
+                            k3["het_bar"] = hb
+                        g3 = list(g3) + ghb
                         ra[-1]["sltp"] = k3
                         gia_dinh = [x for x in gia_dinh if x not in ghi_sltp_cu]
                         gia_dinh += g3
@@ -4280,7 +4359,8 @@ def _cac_co(guards: list, nhom: list) -> list[str]:
     return [mu[1][0] for mu in nhom if mu[1] and re.fullmatch(_TEN, mu[1][0])]
 
 
-def doc_chien_luoc(vb: str, nguon: str = "", tien_to: str = "ma") -> dict:
+def doc_chien_luoc(vb: str, nguon: str = "", tien_to: str = "ma",
+                   set_ea: str | dict | None = None) -> dict:
     """CHIEN LUOC THAT: lan tu `strategy.entry` nguoc ve dieu kien vao.
 
     Vi sao ham nay ton tai rieng voi `doc_ma`: ban dau bo doc nhat MOI phep so
@@ -4303,7 +4383,21 @@ def doc_chien_luoc(vb: str, nguon: str = "", tien_to: str = "ma") -> dict:
     if not vb or not _VAO_LENH.search(vb):
         return {"co_che": [], "chua_dien_dat_duoc": [], "so_vao_lenh": 0}
     if _la_mql(vb):
-        return _doc_chien_luoc_mql(vb, nguon, tien_to)
+        # 11/10/2026: .set cua tac gia + khung CO DINH cua EA (moi chi bao/cong bar tren CUNG
+        # mot PERIOD_X -> nhu bieu do X) + ham boc doc mot buffer - `nhan/khung_ea_mql.py`.
+        # Co che mang `khung_ea`; vong thu chi chay no tren du lieu dung khung do.
+        from nhan import khung_ea_mql as KEA
+        vb, kea = KEA.chuan_bi(vb, set_ea)
+        r = _doc_chien_luoc_mql(vb, nguon, tien_to)
+        if kea.get("khung_ea"):
+            r["khung_ea"] = kea["khung_ea"]
+            for sp in r.get("co_che", []):
+                sp["khung_ea"] = kea["khung_ea"]
+        if kea.get("set") is not None:
+            r["set_ap_dung"] = kea["set"]
+        if kea.get("boc_buffer"):
+            r["boc_buffer"] = kea["boc_buffer"]
+        return r
     bang_cb = _bang_ky_hieu(vb)
     bang_bl = _bang_bool(vb)
     khai = rut_input(vb)

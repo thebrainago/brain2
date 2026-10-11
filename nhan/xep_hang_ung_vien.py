@@ -109,6 +109,8 @@ def cham(dong: dict, src: str) -> dict:
         ly.append("chi_zip-10")
     if dong.get("chan_cau_truc"):
         ly.append("chan_cau_truc:" + str(dong["chan_cau_truc"][0])[:40])
+    if dong.get("khung_ea"):
+        ly.append("khung_" + str(dong["khung_ea"]))   # EA khung co dinh: vong thu can du lieu khung nay
     if kq == "ra_co_che" and not dong.get("thieu_tep_that"):
         hang = "A"
     elif kq in ("chua_dich", "loi_bo_doc") or (lan == "mql4" and co_set):
@@ -122,6 +124,7 @@ def cham(dong: dict, src: str) -> dict:
             "vao": [dong.get("vao_co", 0), dong.get("vao_lenh", 0)],
             "tieu_de": meta.get("tieu_de", ""),
             **({"chan_cau_truc": dong["chan_cau_truc"]} if dong.get("chan_cau_truc") else {}),
+            **({"khung_ea": dong["khung_ea"]} if dong.get("khung_ea") else {}),
             **({"ly_do_doc": dong["ly_do_doc"]} if dong.get("ly_do_doc") else {})}
 
 

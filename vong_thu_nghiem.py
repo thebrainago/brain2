@@ -99,7 +99,34 @@ from nhan import ngu_phap as NP        # noqa: E402
 from nhan import mo_phong as MP        # noqa: E402
 from nhan import chi_phi as CP         # noqa: E402
 
-BAR_NAM = {"H1": 24 * 260, "D1": 260}
+BAR_NAM = {"M5": 12 * 24 * 260, "M15": 4 * 24 * 260, "M30": 2 * 24 * 260, "H1": 24 * 260,
+           "H4": 6 * 260, "D1": 260}
+#: phut moi bar (khung bieu do) - nhan dien khung cua CSV va du lieu gia lap (them 11/10/2026)
+PHUT_KHUNG = {"M5": 5, "M15": 15, "M30": 30, "H1": 60, "H4": 240, "D1": 1440}
+
+
+def khung_tu_du_lieu(df: pd.DataFrame) -> str | None:
+    """Khung cua chuoi gia = khoang cach TRUNG VI giua hai bar lien tiep (phut). Khong khop
+    khung nao trong `PHUT_KHUNG` -> None. Chi doc index, khong nhin gia."""
+    if len(df) < 3:
+        return None
+    phut = float(pd.Series(pd.DatetimeIndex(df.index)).diff().dropna().median()
+                 / pd.Timedelta(minutes=1))
+    for k, v in PHUT_KHUNG.items():
+        if abs(phut - v) < 0.5:
+            return k
+    return None
+
+
+def _tan_so(khung: str) -> str:
+    return "D" if khung == "D1" else f"{PHUT_KHUNG.get(khung, 60)}min"
+
+
+def _sd_bar(khung: str) -> float:
+    """Do lech chuan loi suat moi bar cua gia lap: 0,0007 o H1, ti le can bac hai thoi gian."""
+    if khung == "D1":
+        return 0.006
+    return 0.0007 * math.sqrt(PHUT_KHUNG.get(khung, 60) / 60.0)
 
 # Tai khoan KHAI BAO cho he luoi/martingale (cong giu luoi). Lenh dau EA = 0,02 lot.
 # 10.000 USD, don bay 1:100, stop-out 50% (muc ESMA/nhieu san; XM quoc te 20%,
@@ -122,9 +149,8 @@ DIEM = 1e-5
 def du_lieu_gia_lap(n: int = 24 * 400, seed: int = 42, khung: str = "H1") -> pd.DataFrame:
     """Bước ngẫu nhiên có biến động theo giờ - KHÔNG có lợi thế nào cài sẵn."""
     rng = np.random.default_rng(seed)
-    freq = "h" if khung == "H1" else "D"
-    idx = pd.date_range("2021-01-04", periods=n, freq=freq)
-    sd = 0.0007 if khung == "H1" else 0.006
+    idx = pd.date_range("2021-01-04", periods=n, freq=_tan_so(khung))
+    sd = _sd_bar(khung)
     r = rng.normal(0, sd, n)
     close = 1.10 * np.exp(np.cumsum(r))
     open_ = np.r_[close[0], close[:-1]]
@@ -147,9 +173,8 @@ def du_lieu_gia_lap_duong(n: int = 24 * 400, seed: int = 42, khung: str = "H1",
     (`du_lieu_gia_lap` vẽ râu nến bằng nhiễu độc lập với đường giá - râu đó
     "chạm" mức rồi giá không hề đi qua, sai cho placebo trong bar.)"""
     rng = np.random.default_rng(seed)
-    freq = "h" if khung == "H1" else "D"
-    idx = pd.date_range("2021-01-04", periods=n, freq=freq)
-    sd = (0.0007 if khung == "H1" else 0.006) / math.sqrt(buoc)
+    idx = pd.date_range("2021-01-04", periods=n, freq=_tan_so(khung))
+    sd = _sd_bar(khung) / math.sqrt(buoc)
     duong = 1.10 * np.exp(np.cumsum(rng.normal(0, sd, n * buoc)))
     duong = np.r_[1.10, duong]
     o = duong[:-1:buoc][:n]
@@ -899,7 +924,10 @@ def chay_mot_file(path: Path, df: pd.DataFrame, khung: str = "H1",
                   tai_khoan: dict | None = None, n_placebo: int = 99,
                   p_placebo: float = 0.05, p_chay_nam: float = 0.05) -> list[dict]:
     vb = path.read_text(encoding="utf-8", errors="ignore")
-    r = DM.doc_chien_luoc(vb, nguon=path.name)
+    tep_set, ghi_set = set_cua_ea(path)
+    r = DM.doc_chien_luoc(vb, nguon=path.name,
+                          set_ea=tep_set.read_text(encoding="utf-8", errors="ignore")
+                          if tep_set else None)
     cat = int(len(df) * 0.7)
     df_tu, df_kiem = df.iloc[:cat], df.iloc[cat:]
     lenh_min_tu = lenh_min_phan_tu(lenh_min, len(df_tu), len(df_kiem))
@@ -910,6 +938,14 @@ def chay_mot_file(path: Path, df: pd.DataFrame, khung: str = "H1",
     nhom: dict[str, list[dict]] = {}
     don = []
     for spec in r.get("co_che", []):
+        # KHUNG EA (11/10/2026): co che doc tu EA khung CO DINH (`khung_ea`, tu ma hoac .set)
+        # chi chay tren du lieu DUNG khung do - khong gia khung khac.
+        if spec.get("khung_ea") and spec["khung_ea"] != khung:
+            ra.append({"file": path.name, "ten": spec.get("ten"), "chieu": spec.get("chieu"),
+                       "ho": spec.get("ho"), "khung_ea": spec["khung_ea"], "giu_lai": False,
+                       "khong_hop_khung": f"EA khung co dinh {spec['khung_ea']} != du lieu "
+                                          f"{khung}"})
+            continue
         # `nhom_he`: cac chan dong theo RO / SL-TP khoang cach cua CUNG mot EA
         # (mot vi the mot luc) ma khong co luat mot lenh/ngay.
         g = (spec.get("mot_lenh_ngay") or {}).get("nhom") or spec.get("nhom_he")
@@ -982,7 +1018,36 @@ def chay_mot_file(path: Path, df: pd.DataFrame, khung: str = "H1",
                 dong["loi"] = f"{type(e).__name__}: {e}"
             dong["giu_lai"] = False
         ra.append(dong)
+    for d_ in ra:
+        if r.get("khung_ea"):
+            d_.setdefault("khung_ea", r["khung_ea"])
+        if tep_set:
+            d_.setdefault("set", {"tep": tep_set.name, **(r.get("set_ap_dung") or {})})
+        elif ghi_set:
+            d_.setdefault("set", {"ghi": ghi_set})
     return ra
+
+
+def set_cua_ea(path: Path) -> tuple[Path | None, str]:
+    """File .set cua tac gia di kem EA: `NGUON.json` (cau_kho xuat: muc `set` cua file) hoac
+    `<ten EA>*.set` canh file. DUNG MOT .set -> dung; nhieu -> KHONG chon (ghi ly do, chay
+    input mac dinh); khong co -> (None, "")."""
+    ung: list[Path] = []
+    ng = path.parent / "NGUON.json"
+    if ng.exists():
+        try:
+            for x in json.loads(ng.read_text(encoding="utf-8")):
+                if x.get("file") == path.name:
+                    ung = [path.parent / t for t in x.get("set") or [] if (path.parent / t).exists()]
+        except Exception:                           # noqa: BLE001
+            ung = []
+    if not ung:
+        ung = sorted(path.parent.glob(path.stem + "*.set"))
+    if len(ung) == 1:
+        return ung[0], ""
+    if len(ung) > 1:
+        return None, f"{len(ung)} file .set - chua chon, chay input mac dinh"
+    return None, ""
 
 
 def _van_tay_nhom(specs: list[dict]) -> str:
@@ -1161,6 +1226,12 @@ def main(argv=None) -> int:
 
     if a.csv:
         df = doc_csv(Path(a.csv))
+        kd = khung_tu_du_lieu(df)
+        if kd is None or kd != a.khung:
+            # khung CSV phai trung --khung (BAR_NAM, so nam, khung EA co dinh deu dua vao do)
+            print(f"LOI: CSV {a.csv} co khung {kd or 'khong nhan ra'} (khoang cach trung vi "
+                  f"giua bar) != --khung {a.khung}. Them --khung {kd} neu dung.")
+            return 2
     elif a.gia_lap_duong:
         df = du_lieu_gia_lap_duong(a.n, a.seed, a.khung)
     else:

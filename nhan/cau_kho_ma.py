@@ -425,7 +425,7 @@ def _van_tay_mau_thu() -> set:
 #: Module ma ket qua `doc_chien_luoc` phu thuoc - doi mot file la doc lai ca kho.
 _MODULE_BO_DOC = ("doc_ma", "chot_mql", "fss_mql", "goi_ham_mql", "ro_mql", "ngu_phap",
                   "thu_hoi_thanh_phan", "phan_loai_ma", "huong_int_mql",
-                  "mql4_chuan")
+                  "mql4_chuan", "khung_ea_mql")
 
 
 def phien_ban_bo_doc() -> str:
@@ -440,7 +440,20 @@ def phien_ban_bo_doc() -> str:
 
 def _tom_tat_doc(d: dict) -> dict:
     return {k: d.get(k) for k in ("co_che", "so_vao_lenh", "so_vao_lenh_co_co_che",
-                                  "phan_loai_vao_lenh", "chua_dien_dat_duoc")}
+                                  "phan_loai_vao_lenh", "chua_dien_dat_duoc", "khung_ea",
+                                  "set_ap_dung")}
+
+
+def set_cua_goi(nguon: str) -> tuple[str | None, str | None]:
+    """Ban ghi `tep:<duong>` trong goi co DUNG MOT .set cua tac gia -> (ten, noi dung).
+    Nhieu .set -> khong chon (None). Khong phai goi -> None. (11/10/2026: .set chot khung /
+    input that cua tac gia - EA duoc doc VOI .set do.)"""
+    if not str(nguon or "").startswith("tep:"):
+        return None, None
+    sets = sorted(Path(nguon[4:]).parent.glob("*.set"))
+    if len(sets) != 1:
+        return None, None
+    return sets[0].name, sets[0].read_text(encoding="utf-8", errors="ignore")
 
 
 def do_kho(ban_ghi: list[dict], bo_mau_thu: bool = True, bo_nho: dict | None = None) -> dict:
@@ -555,13 +568,14 @@ def do_kho(ban_ghi: list[dict], bo_mau_thu: bool = True, bo_nho: dict | None = N
         if thieu:
             dong["thieu_tep_that"] = thieu
         t0 = time.time()
-        khoa = f"{vt}@{pb}"
+        ten_set, set_src = set_cua_goi(b.get("nguon") or "")
+        khoa = f"{vt}@{pb}" + (f"@set{van_tay(set_src)}" if set_src else "")
         try:
             if bo_nho is not None and khoa in bo_nho:
                 d = bo_nho[khoa]
                 pheu["tu_bo_nho"] += 1
             else:
-                d = DM.doc_chien_luoc(src, nguon=b["ten"])
+                d = DM.doc_chien_luoc(src, nguon=b["ten"], set_ea=set_src)
                 if bo_nho is not None:
                     bo_nho[khoa] = json.loads(json.dumps(_tom_tat_doc(d), default=str))
         except Exception as e:              # loi bo doc = tin hieu sua, khong nuot
@@ -597,6 +611,10 @@ def do_kho(ban_ghi: list[dict], bo_mau_thu: bool = True, bo_nho: dict | None = N
             thoat[k_ra] += 1
         dong.update({"vao_lenh": vl, "vao_co": vc, "co_che": len(cc),
                      "ho": sorted({sp.get("ho", "") for sp in cc})})
+        if d.get("khung_ea"):
+            dong["khung_ea"] = d["khung_ea"]        # EA khung co dinh (ma / .set)
+        if ten_set:
+            dong["set_doc"] = ten_set
         if vl:
             pheu["co_diem_vao"] += 1
         if cc:
@@ -641,8 +659,8 @@ def xuat(r: dict, thu_muc, hang: list[dict] | None = None) -> Path:
         (d / ten).write_text(x["src"], encoding="utf-8")
         h = theo_vt.get(x["van_tay"], {})
         set_ra = []
-        # 11/10/2026: .set cua tac gia di kem EA (ten <van_tay>_<ten set>) - provenance cho
-        # buoc sau (dung gia tri .set lam diem xuat phat); vong thu HIEN chua doc .set.
+        # 11/10/2026: .set cua tac gia di kem EA (ten <van_tay>_<ten set>). Vong thu doc .set
+        # nay qua NGUON.json (`vong_thu_nghiem.set_cua_ea`, DUNG MOT .set) - input + khung EA.
         if str(x.get("nguon", "")).startswith("tep:"):
             for sp in sorted(Path(x["nguon"][4:]).parent.glob("*.set")):
                 st = "%s_%s" % (x["van_tay"], re.sub(r"[^A-Za-z0-9_.-]+", "_", sp.name)[:80])
@@ -652,6 +670,7 @@ def xuat(r: dict, thu_muc, hang: list[dict] | None = None) -> Path:
         nguon.append({k: x[k] for k in ("ten", "url", "revision", "nguon", "van_tay",
                                         "vao_lenh", "vao_co", "co_che", "ho")}
                      | {"file": ten, "set": set_ra}
+                     | ({"khung_ea": x["khung_ea"]} if x.get("khung_ea") else {})
                      | ({"thu_tu": h["thu_tu"], "diem": h["diem"], "hang": h["hang"]} if h else {}))
     p = d / "NGUON.json"
     p.write_text(json.dumps(nguon, ensure_ascii=False, indent=1), encoding="utf-8")

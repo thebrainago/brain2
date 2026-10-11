@@ -1055,6 +1055,8 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
                 return False                  # MT5 tu choi lenh (SL/TP sai phia / ATR <= 0)
             het = None if (sl is not None or tp is not None or c_.get("dong_mo") is not None) \
                 else j + max(1, int(c_["giu"]))
+            if c_.get("het_bar"):
+                het = j + int(c_["het_bar"])  # EA dong khi so bar tu bar vao >= N (tick dau)
             pos = {"k": k, "chieu": ch, "sl": sl, "tp": tp, "het": het, "ref": gia, "w": w}
             if nhat_ky is not None:
                 nhat_ky.append({"chan": k, "chieu": ch, "bar_vao": j, "gia_vao": gia,
