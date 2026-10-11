@@ -117,9 +117,11 @@ class Pheu(unittest.TestCase):
         import do_moc_rong as DR
         g = DMOC.do(sorted(DMOC.MAU.glob("*.mq5")) + DR.tep_rong())
         r = CK.do_kho(CK.gom_tu_thu_muc(LAB / "mau_thu"), bo_mau_thu=False)
-        self.assertEqual(r["so"]["vao_lenh"], g["vao_lenh"])
-        self.assertEqual(r["so"]["vao_co"], g["vao_co"])
-        self.assertEqual(r["so"]["co_che"], g["co_che"])
+        # A2 (11/10/2026): cau kho TACH lan THIEU_TEP (include ngoai khong co trong kho) ra
+        # khoi `so`; TONG hai phan phai bang dung so do_moc (do_moc khong biet include).
+        tt = r.get("so_thieu_tep", {})
+        for k in ("vao_lenh", "vao_co", "co_che"):
+            self.assertEqual(r["so"].get(k, 0) + tt.get(k, 0), g[k], k)
 
 
 class TuSo(unittest.TestCase):

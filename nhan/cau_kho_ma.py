@@ -97,6 +97,57 @@ def la_mql4(src: str) -> bool:
     return bool(_MQL4.search(src)) and not _MQL5.search(src)
 
 
+# ----------------------------------------------------- THIEU TEP (D10) ----
+#: Bai hoc the-brain (ban giao 02 D10, 03/10/2026): 9/22 EA KHONG chay duoc nguyen ban vi thieu
+#: `.mqh`/chi bao kem theo. Danh dau `thieu_tep` TRUOC khi ton luot tester/doc. CHI LA NHAN.
+#: Thu vien chuan MT5 (MQL5/Include) - thu muc goc va file goc.
+_INCLUDE_CHUAN_THU_MUC = {"trade", "arrays", "indicators", "expert", "chartobjects", "controls",
+                          "canvas", "charts", "files", "generic", "graphics", "math", "strings",
+                          "tools", "winapi", "opencl", "fuzzy", "alglib"}
+_INCLUDE_CHUAN_TEP = {"object.mqh", "stdliberr.mqh", "movingaverages.mqh", "virtualkeys.mqh",
+                      "errordescription.mqh"}
+_RX_INCLUDE = re.compile(r'^[ \t]*#include\s*([<"])([^>"]+)[>"]', re.M)
+
+
+def tep_include_ngoai(src: str) -> list[str]:
+    """`#include` KHONG thuoc thu vien chuan MT5 (bo chu thich truoc). `"x.mqh"` (cung thu muc)
+    luon tinh la ngoai; `<Dir/x.mqh>` ngoai neu Dir/x khong thuoc thu vien chuan."""
+    ra = []
+    for kieu, ten in _RX_INCLUDE.findall(_CHU_THICH.sub("", src or "")):
+        t = ten.strip().replace("\\", "/")
+        dau = t.split("/", 1)[0].lower()
+        if kieu == "<" and ("/" in t and dau in _INCLUDE_CHUAN_THU_MUC
+                            or t.lower() in _INCLUDE_CHUAN_TEP):
+            continue
+        if t not in ra:
+            ra.append(t)
+    return ra
+
+
+#: Include ngoai ma bo doc DA DICH tu ma that cua chinh tep do (doc_ma: pivot gio theo
+#: `MultiPivots.mqh`, peterthomet/MetaTrader-5-and-4-Tools) -> khong tinh la thieu.
+_INCLUDE_BO_DOC_DA_BIET = {"multipivots.mqh"}
+
+
+def tep_thieu_that(src: str, nguon: str = "", co_san: set | None = None) -> list[str]:
+    """A2 (11/10/2026): cac `#include` ngoai (`tep_include_ngoai`) KHONG tim thay: khong co tep
+    cung ten (khong phan biet hoa thuong) trong kho dang do (`co_san`, ten goc) va - voi ban
+    ghi tu thu muc (`nguon` = 'tep:<duong>') - khong nam canh file. Bo tai Code Base chi lay
+    file don nen moi include ngoai cua no deu THIEU THAT."""
+    co = co_san or set()
+    ra = []
+    for t in tep_include_ngoai(src):
+        goc = t.rsplit("/", 1)[-1].lower()
+        if goc in co or goc in _INCLUDE_BO_DOC_DA_BIET:
+            continue
+        if nguon.startswith("tep:"):
+            cha = Path(nguon[4:]).parent
+            if (cha / t).is_file() or (cha / goc).is_file():
+                continue
+        ra.append(t)
+    return ra
+
+
 # ---------------------------------------------------------------- GOM ----
 def _ban_ghi(ten: str, src: str, url: str = "", revision: str = "",
              nguon: str = "") -> dict:
@@ -317,6 +368,8 @@ def do_kho(ban_ghi: list[dict], bo_mau_thu: bool = True, bo_nho: dict | None = N
     ds, xuat = [], []
     da = {}
     mau = _van_tay_mau_thu() if bo_mau_thu else set()
+    so_tt = Counter()                           # so cua lan THIEU_TEP (khong vao `so`)
+    co_san = {Path(str(b.get("ten") or "").replace("\\", "/")).name.lower() for b in ban_ghi}
     for b in ban_ghi:
         pheu["tong"] += 1
         src = b["src"] or ""
@@ -350,6 +403,16 @@ def do_kho(ban_ghi: list[dict], bo_mau_thu: bool = True, bo_nho: dict | None = N
             ds.append(dong)
             continue
         pheu["ea_dat_lenh"] += 1
+        ngoai = tep_include_ngoai(src)
+        if ngoai:
+            pheu["thieu_tep"] += 1          # NHAN: can tep kem theo, chua chac chay nguyen ban
+            dong["thieu_tep"] = ngoai
+        # A2 (11/10/2026): include ngoai KHONG co trong kho -> lan THIEU_TEP: van doc de biet
+        # (so rieng `so_thieu_tep`), nhung KHONG vao mau so ty le dich va KHONG xuat ra vong lap
+        # (dieu kien vao co the nam trong tep thieu - khong gia vo la da dich).
+        thieu = tep_thieu_that(src, b.get("nguon") or "", co_san) if ngoai else []
+        if thieu:
+            dong["thieu_tep_that"] = thieu
         t0 = time.time()
         khoa = f"{vt}@{pb}"
         try:
@@ -370,6 +433,15 @@ def do_kho(ban_ghi: list[dict], bo_mau_thu: bool = True, bo_nho: dict | None = N
         cc = d.get("co_che", []) or []
         vl = int(d.get("so_vao_lenh", 0) or 0)
         vc = int(d.get("so_vao_lenh_co_co_che", 0) or 0)
+        if thieu:
+            pheu["lan_thieu_tep"] += 1
+            so_tt["vao_lenh"] += vl
+            so_tt["vao_co"] += vc
+            so_tt["co_che"] += len(cc)
+            dong.update({"vao_lenh": vl, "vao_co": vc, "co_che": len(cc),
+                         "ket_qua": "thieu_tep"})
+            ds.append(dong)
+            continue
         so["vao_lenh"] += vl
         so["vao_co"] += vc
         so["co_che"] += len(cc)
@@ -394,7 +466,7 @@ def do_kho(ban_ghi: list[dict], bo_mau_thu: bool = True, bo_nho: dict | None = N
             dong["ket_qua"] = "chua_dich" if vl else "khong_thay_diem_vao"
         ds.append(dong)
     return {"pheu": dict(pheu), "lan": dict(lan), "loai_vao_lenh": dict(loai),
-            "so": dict(so), "ly_do": dict(ly_do.most_common(15)),
+            "so": dict(so), "so_thieu_tep": dict(so_tt), "ly_do": dict(ly_do.most_common(15)),
             "thoat": dict(thoat), "ds": ds, "xuat": xuat}
 
 
@@ -440,7 +512,8 @@ def bao_cao_md(r: dict, tieu_de: str = "") -> str:
          "## Pheu", "",
          "| buoc | so |", "|---|---|"]
     for k in ("tong", "bo_kich_thuoc", "trung_noi_dung", "trung_mau_thu", "duy_nhat",
-              "mql4_bo_qua", "ea_dat_lenh", "loi_bo_doc", "co_diem_vao", "ra_co_che"):
+              "mql4_bo_qua", "ea_dat_lenh", "thieu_tep", "lan_thieu_tep", "loi_bo_doc",
+              "co_diem_vao", "ra_co_che"):
         L.append("| %s | %d |" % (k, P.get(k, 0)))
     L += ["", "## Lan (phan_loai_ma, file duy nhat MQL5)", ""]
     L += ["- %s: %d" % (k, v) for k, v in sorted(r["lan"].items(), key=lambda x: -x[1])]
@@ -449,6 +522,10 @@ def bao_cao_md(r: dict, tieu_de: str = "") -> str:
           "- diem vao dich duoc: %d  -> **%s**" % (
               S.get("vao_co", 0), "chua do" if tl is None else "%.1f%%" % (100 * tl)),
           "- co che ra: %d (tu %d EA)" % (S.get("co_che", 0), P.get("ra_co_che", 0)),
+          "- lan THIEU_TEP (include ngoai khong co trong kho; KHONG vao mau so, KHONG xuat): "
+          "%d EA, diem vao %d (doc duoc %d - chua tinh)" % (
+              P.get("lan_thieu_tep", 0), r.get("so_thieu_tep", {}).get("vao_lenh", 0),
+              r.get("so_thieu_tep", {}).get("vao_co", 0)),
           "- phan loai diem vao: %s" % json.dumps(r["loai_vao_lenh"], ensure_ascii=False),
           "- loi ra theo EA: %s" % json.dumps(r["thoat"], ensure_ascii=False),
           "", "## Ly do chua dich (top)", ""]
