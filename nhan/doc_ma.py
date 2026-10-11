@@ -54,6 +54,7 @@ from nhan import ro_mql as RO
 from nhan import chot_mql as CHOT
 from nhan import fss_mql as FSS
 from nhan import goi_ham_mql as GH
+from nhan import huong_int_mql as HI
 from nhan import thu_hoi_thanh_phan as TP
 
 #: Phep so sanh trong ma -> phep cua ngu phap.
@@ -3618,11 +3619,48 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
                 n_co += 1
                 loai["dich_duoc"] += 1
                 continue
+            # HAM TIN HIEU TRA HUONG SO NGUYEN (`dir = CheckX(); if(dir==1) Buy();`,
+            # `OpenPosition(sig)` -> `isBuy = sig > 0`) - `nhan/huong_int_mql.py` (11/10/2026)
+            hn = None
+            if chieu != 0:
+                try:
+                    hn = HI.nang_huong(vb, m, chieu)
+                except Exception as e:              # noqa: BLE001 - khong lam vo ca file
+                    hn = f"huong int: loi doc {type(e).__name__}"
+            if isinstance(hn, str):
+                ho.append(hn)
+                loai["chua_dich"] += 1
+                continue
+            if hn is not None:
+                d_s, h_s = _no_dieu_kien(hn["guard"], hn["vi"], bang_cb, bang_bl)
+                ly_lt = None
+                for lt, p_lt in hn["loai_tru"]:
+                    d_x, h_x = _no_dieu_kien(lt, p_lt, bang_cb, bang_bl)
+                    if h_s or h_x or not d_s or not d_x or _mau_thuan(d_s) is not None or \
+                            _mau_thuan(d_x) is not None or _mau_thuan(d_s + d_x) is None:
+                        ly_lt = (f"huong int: {hn['ham']}() tra {hn['s']:+d} sau/ghi de nhanh "
+                                 f"khac chua chung minh loai tru: {lt[:40]}")
+                        break
+                if ly_lt:
+                    ho.append(ly_lt)
+                    loai["chua_dich"] += 1
+                    continue
+                qt_lt = [lt[:50] + " (suy ra: loai tru voi nhanh huong nay)"
+                         for lt, _ in hn["loai_tru"]]
+                nhom_hn = [(chieu, [hn["guard"]], hn["vi"], list(hn["thoat"]),
+                            {"den": hn["goc"] + 1, "qt": hn["qt"] + qt_lt, "tang": hn["tang"],
+                             "ghi": hn["ghi"], "dao": hn.get("dao")})]
             ifs, gap_else = _cac_if_bao(vb, m.start())
             ifs = [(p, g) for p, g in ifs if not _LA_KIEM_LOI.search(g)]
+            if hn is not None:
+                ifs, gap_else = [], False
             # toan tu ba ngoi chon lenh (`sig ? t.Buy(..) : t.Sell(..)`) - them 11/10/2026
-            tn = _guard_tam_nguyen(vb, m)
+            tn = _guard_tam_nguyen(vb, m) if hn is None else None
             lit_tn = set()
+            if hn is not None and hn.get("chon") and re.fullmatch(_TEN, hn["chon"][0].strip()):
+                # nhanh ba ngoi chon lenh cua lop huong int: SL/TP `isBuy ? a : b` chon dung nhanh
+                c0 = hn["chon"][0].strip()
+                lit_tn = {c0 if hn["chon"][1] else "!" + c0}
             if tn is not None:
                 ifs = ifs + [tn]
                 lit_tn = {tn[1].replace(" ", "")}
@@ -3634,7 +3672,9 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
                 loai[loai_hong] += 1
                 continue
             nhom = []                         # [(chieu, [guard...], vi_tri)]
-            if ifs:
+            if hn is not None:
+                nhom = nhom_hn
+            elif ifs:
                 guards = [g for _, g in ifs]
                 vi = min(p for p, _ in ifs)
                 if chieu == 0:
@@ -3802,6 +3842,8 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
                 if ho_cc == "khac":
                     ho_cc = _ho_gia_thuan(dk, c) or _ho_bollinger(dk, c) or "khac"
                 gia_dinh = []
+                if nang is not None and nang.get("ghi"):
+                    gia_dinh.append(nang["ghi"])
                 if _co_pivot_gio(dk):
                     gia_dinh.append("pivot gio (MultiPivots.mqh) = (H+L+C)/3 cua thanh "
                                     "H1 vua dong (bar i): dung khi chay tren du lieu H1")
@@ -3822,6 +3864,14 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
                     "so_dieu_kien": len(dk),
                     "bo_qua_quan_tri": sorted(set(qt)),
                 })
+                if nang is not None and nang.get("dao"):
+                    # dong-va-dao (`huong_int_mql._khoi_dao`): mot vi the mot luc cho ca mua+ban;
+                    # tin hieu nguoc chieu khi dang co lenh -> dong o tick dau roi vao lenh moi
+                    ra[-1]["dao_khi_nguoc"] = True
+                    ra[-1]["nhom_he"] = nguon
+                    gia_dinh.append("dong-va-dao: cung chieu dang mo -> bo tin hieu; nguoc chieu "
+                                    "-> dong lenh cu o tick dau bar roi vao lenh moi (mo phong "
+                                    "`dao_khi_nguoc` trong mo_phong.chay_he)")
                 # SL/TP, keo SL, mot lenh mot ngay (them 10/10/2026 dem)
                 sltp, ghi = _sltp_mql(vb, m, c, co_nhanh, vi, bang_cb, bang_bl, hang)
                 if sltp is None and m.group("mql"):

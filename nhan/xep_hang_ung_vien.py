@@ -18,8 +18,10 @@ DIEM (chot TRUOC khi do kho, KHONG chinh theo ket qua vong thu; chi la thu tu, k
   goi:   co `.set` cua tac gia +20 | co SL/TP trong ma +10 (chi khi co diem vao) | include du (khong co include
          ngoai, hoac co du tep trong goi) +10 | anh ket qua tester trong bai +5 (yeu: tac gia tu
          dang) | chi co .zip (khong lay, khong giai nen) -10
-  MQL4: KHONG cham bang bo doc (bo doc chi hieu MQL5) -> lan rieng `mql4`, diem chi tu goi
-        (set/sltp/include); ghi `mql4_chua_doc` - khong dem la bo doc that bai.
+  MQL4: tu 11/10/2026 doc qua lan MONG (`nhan/mql4_chuan.py`: chuan hoa cu phap -> cung bo doc)
+        -> lan `mql4`, cham ket qua bo doc nhu MQL5 (ra_co_che +40 / chua_dich +15 ...). Ban ghi
+        cu `mql4_bo_qua` (chua doc) giu cach cu: diem chi tu goi, ghi `mql4_chua_doc`.
+        Ly do cau truc (lenh cho, chuoi tu tinh, khong OrderSend) di kem `chan_cau_truc`.
   Telegram (xem truoc cong khai): bai co dinh kem .set/.mq5 nhung file CHUA lay duoc (can
         MTProto) -> hang `T`, diem = diem khop - 20 (chua co ma trong tay < goi co ma).
   Bai dien dan / Telegram KHONG co ma va KHONG co dinh kem: khong vao hang doi nay.
@@ -74,9 +76,9 @@ def cham(dong: dict, src: str) -> dict:
     kq = dong.get("ket_qua", "")
     g = thong_tin_goi(dong.get("nguon", ""))
     meta = g.get("meta") or {}
-    lan = "mql4" if kq == "mql4_bo_qua" else "mql5"
+    lan = "mql4" if (kq == "mql4_bo_qua" or dong.get("lan_doc") == "mql4") else "mql5"
     d, ly = 0, []
-    if lan == "mql5":
+    if kq != "mql4_bo_qua":
         if dong.get("lan") in ("quan_tri", "tien_ich") and kq != "ra_co_che":
             v = -40
         elif kq == "khong_dat_lenh":
@@ -92,7 +94,7 @@ def cham(dong: dict, src: str) -> dict:
         d += 20
         ly.append("set+20")
     # SL/TP chi cong khi co diem vao (cong cu trailing cung goi PositionModify(sl,...))
-    sltp = co_sltp(src) and (lan == "mql4" or int(dong.get("vao_lenh") or 0) > 0)
+    sltp = co_sltp(src) and (kq == "mql4_bo_qua" or int(dong.get("vao_lenh") or 0) > 0)
     if sltp:
         d += 10
         ly.append("sltp+10")
@@ -105,9 +107,11 @@ def cham(dong: dict, src: str) -> dict:
     if meta.get("chi_zip"):
         d -= 10
         ly.append("chi_zip-10")
-    if lan == "mql5" and kq == "ra_co_che" and not dong.get("thieu_tep_that"):
+    if dong.get("chan_cau_truc"):
+        ly.append("chan_cau_truc:" + str(dong["chan_cau_truc"][0])[:40])
+    if kq == "ra_co_che" and not dong.get("thieu_tep_that"):
         hang = "A"
-    elif (lan == "mql5" and kq in ("chua_dich", "loi_bo_doc")) or (lan == "mql4" and co_set):
+    elif kq in ("chua_dich", "loi_bo_doc") or (lan == "mql4" and co_set):
         hang = "B"
     else:
         hang = "C"
@@ -116,7 +120,9 @@ def cham(dong: dict, src: str) -> dict:
             "ly_do": ly, "co_set": co_set, "tep_set": g.get("tep_set", []),
             "khoa_set": g.get("khoa_set", []), "sltp": sltp, "ho": dong.get("ho", []),
             "vao": [dong.get("vao_co", 0), dong.get("vao_lenh", 0)],
-            "tieu_de": meta.get("tieu_de", "")}
+            "tieu_de": meta.get("tieu_de", ""),
+            **({"chan_cau_truc": dong["chan_cau_truc"]} if dong.get("chan_cau_truc") else {}),
+            **({"ly_do_doc": dong["ly_do_doc"]} if dong.get("ly_do_doc") else {})}
 
 
 def xep(r: dict, ban_ghi: list[dict], telegram: list[dict] | None = None) -> list[dict]:

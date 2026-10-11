@@ -2320,7 +2320,10 @@ def sinh_chan(spec: dict, df: pd.DataFrame) -> dict:
             "mt5": bool(k.get("mt5")), "sl_diem": k.get("sl_diem"), "tp_diem": k.get("tp_diem"),
             "ref_sl": k.get("ref_sl"), "ref_tp": k.get("ref_tp"), "dong_mo": dong_mo,
             # dong o tick dau theo PIP so voi gia khop (EA Forex Strategy Studio)
-            "dong_pip": spec.get("dong_mo_pip")}
+            "dong_pip": spec.get("dong_mo_pip"),
+            # dong-va-dao (11/10/2026, `huong_int_mql`): tin hieu chan NGUOC chieu o tick dau
+            # khi dang co lenh -> dong lenh cu roi vao chan nay
+            "dao_khi_nguoc": bool(spec.get("dao_khi_nguoc"))}
 
 
 # --------------------------------------------------------------- KHO CO CHE

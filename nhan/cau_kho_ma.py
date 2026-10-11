@@ -61,6 +61,7 @@ if str(LAB) not in sys.path:
 
 from nhan import doc_ma as DM                    # noqa: E402
 from nhan import phan_loai_ma as PL              # noqa: E402
+from nhan import mql4_chuan as MQ4               # noqa: E402
 
 #: Tran kich thuoc (ky tu) - cung y nghia `ma_nguon.TRAN_BYTE`: tren muc nay
 #: gan nhu chac la thu vien dinh kem, doc_ma tren no chi ton thoi gian.
@@ -423,7 +424,8 @@ def _van_tay_mau_thu() -> set:
 
 #: Module ma ket qua `doc_chien_luoc` phu thuoc - doi mot file la doc lai ca kho.
 _MODULE_BO_DOC = ("doc_ma", "chot_mql", "fss_mql", "goi_ham_mql", "ro_mql", "ngu_phap",
-                  "thu_hoi_thanh_phan", "phan_loai_ma")
+                  "thu_hoi_thanh_phan", "phan_loai_ma", "huong_int_mql",
+                  "mql4_chuan")
 
 
 def phien_ban_bo_doc() -> str:
@@ -463,6 +465,8 @@ def do_kho(ban_ghi: list[dict], bo_mau_thu: bool = True, bo_nho: dict | None = N
     da = {}
     mau = _van_tay_mau_thu() if bo_mau_thu else set()
     so_tt = Counter()                           # so cua lan THIEU_TEP (khong vao `so`)
+    so4 = Counter()                             # so cua lan MQL4 (khong vao `so`)
+    ly_do4 = Counter()
     co_san = {Path(str(b.get("ten") or "").replace("\\", "/")).name.lower() for b in ban_ghi}
     for b in ban_ghi:
         pheu["tong"] += 1
@@ -488,8 +492,48 @@ def do_kho(ban_ghi: list[dict], bo_mau_thu: bool = True, bo_nho: dict | None = N
         # khop dau hieu MQL5 `OnTick`) - tru khi co lop giao dich MQL5 that (CTrade/MqlTrade).
         if la_mql4(src) or (str(b["ten"]).lower().endswith(".mq4")
                             and not re.search(r"\bCTrade\b|\bMqlTradeRequest\b", src)):
-            pheu["mql4_bo_qua"] += 1
-            dong["ket_qua"] = "mql4_bo_qua"
+            # LAN MQL4 MONG (11/10/2026, `nhan/mql4_chuan.py`): chuan hoa CU PHAP roi doc bang
+            # CUNG bo doc; so RIENG (`so_mql4`) - KHONG vao mau so ty le dich MQL5 (de so sanh
+            # duoc voi cac moc cu). Ly do cau truc (lenh cho, chuoi tu tinh...) ghi kem.
+            dong["lan_doc"] = "mql4"
+            try:
+                chan_ct = MQ4.dau_hieu_chan(src)
+                khoa4 = f"{vt}@{pb}@mql4"
+                if bo_nho is not None and khoa4 in bo_nho:
+                    d4 = bo_nho[khoa4]
+                    pheu["tu_bo_nho"] += 1
+                else:
+                    src4 = MQ4.chuan_hoa(src)
+                    d4 = DM.doc_chien_luoc(src4, nguon=b["ten"])
+                    if bo_nho is not None:
+                        bo_nho[khoa4] = json.loads(json.dumps(_tom_tat_doc(d4), default=str))
+            except Exception as e:          # noqa: BLE001 - loi bo doc = tin hieu sua
+                pheu["mql4_loi"] += 1
+                dong["ket_qua"] = "loi_bo_doc"
+                dong["loi"] = "mql4 %s: %s" % (type(e).__name__, str(e)[:160])
+                ds.append(dong)
+                continue
+            pheu["mql4_doc"] += 1
+            cc4 = d4.get("co_che", []) or []
+            vl4 = int(d4.get("so_vao_lenh", 0) or 0)
+            vc4 = int(d4.get("so_vao_lenh_co_co_che", 0) or 0)
+            so4["vao_lenh"] += vl4
+            so4["vao_co"] += vc4
+            so4["co_che"] += len(cc4)
+            for x in d4.get("chua_dien_dat_duoc", []) or []:
+                ly_do4[str(x)[:70]] += 1
+            dong.update({"vao_lenh": vl4, "vao_co": vc4, "co_che": len(cc4),
+                         "ho": sorted({sp.get("ho", "") for sp in cc4}),
+                         "chan_cau_truc": chan_ct,
+                         "ly_do_doc": [str(x)[:90] for x in (d4.get("chua_dien_dat_duoc") or [])][:6]})
+            if cc4:
+                pheu["mql4_ra_co_che"] += 1
+                dong["ket_qua"] = "ra_co_che"
+                xuat.append({**dong, "src": "// CHUAN HOA CU PHAP TU MQL4 (nhan/mql4_chuan.py) - "
+                                            "khong them logic; goc: %s\n" % b["ten"]
+                                            + MQ4.chuan_hoa(src)})
+            else:
+                dong["ket_qua"] = "chua_dich" if vl4 else "khong_thay_diem_vao"
             ds.append(dong)
             continue
         z = PL.phan_loai_mot(src, b["ten"])
@@ -564,6 +608,7 @@ def do_kho(ban_ghi: list[dict], bo_mau_thu: bool = True, bo_nho: dict | None = N
         ds.append(dong)
     return {"pheu": dict(pheu), "lan": dict(lan), "loai_vao_lenh": dict(loai),
             "so": dict(so), "so_thieu_tep": dict(so_tt), "ly_do": dict(ly_do.most_common(15)),
+            "so_mql4": dict(so4), "ly_do_mql4": dict(ly_do4.most_common(15)),
             "thoat": dict(thoat), "ds": ds, "xuat": xuat}
 
 
@@ -624,8 +669,8 @@ def bao_cao_md(r: dict, tieu_de: str = "") -> str:
          "## Pheu", "",
          "| buoc | so |", "|---|---|"]
     for k in ("tong", "bo_kich_thuoc", "trung_noi_dung", "trung_mau_thu", "duy_nhat",
-              "mql4_bo_qua", "ea_dat_lenh", "thieu_tep", "lan_thieu_tep", "loi_bo_doc",
-              "co_diem_vao", "ra_co_che"):
+              "mql4_bo_qua", "mql4_doc", "mql4_ra_co_che", "ea_dat_lenh", "thieu_tep",
+              "lan_thieu_tep", "loi_bo_doc", "co_diem_vao", "ra_co_che"):
         L.append("| %s | %d |" % (k, P.get(k, 0)))
     L += ["", "## Lan (phan_loai_ma, file duy nhat MQL5)", ""]
     L += ["- %s: %d" % (k, v) for k, v in sorted(r["lan"].items(), key=lambda x: -x[1])]
@@ -638,6 +683,10 @@ def bao_cao_md(r: dict, tieu_de: str = "") -> str:
           "%d EA, diem vao %d (doc duoc %d - chua tinh)" % (
               P.get("lan_thieu_tep", 0), r.get("so_thieu_tep", {}).get("vao_lenh", 0),
               r.get("so_thieu_tep", {}).get("vao_co", 0)),
+          "- lan MQL4 (chuan hoa cu phap `mql4_chuan`; so RIENG, KHONG vao mau so tren): "
+          "%d EA doc, diem vao dich duoc %d/%d, ra co che %d EA" % (
+              P.get("mql4_doc", 0), r.get("so_mql4", {}).get("vao_co", 0),
+              r.get("so_mql4", {}).get("vao_lenh", 0), P.get("mql4_ra_co_che", 0)),
           "- phan loai diem vao: %s" % json.dumps(r["loai_vao_lenh"], ensure_ascii=False),
           "- loi ra theo EA: %s" % json.dumps(r["thoat"], ensure_ascii=False),
           "", "## Ly do chua dich (top)", ""]

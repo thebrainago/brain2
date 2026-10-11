@@ -1129,6 +1129,20 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
                 return True
         return False
 
+    def _dao(i: int, j: int, ngay) -> bool:
+        """DONG-VA-DAO (11/10/2026): o TICK DAU bar j, chan `dao_khi_nguoc` NGUOC chieu lenh dang
+        mo co tin hieu tick dau (khong muc) -> dong lenh cu o open; vao lenh moi do `_vao_tai`."""
+        if pos is None or pos.get("ro") is not None:
+            return False
+        for k in range(K):
+            c_ = chan[k]
+            if not c_.get("dao_khi_nguoc") or c_["chieu"] == pos["chieu"] or \
+                    c_.get("muc") is not None or not _duoc(k, i, ngay):
+                continue
+            _ra(j, o[j], "dao_chieu")
+            return True
+        return False
+
     da_dong_mo = False
     for j in range(1, n):
         i = j - 1
@@ -1146,6 +1160,8 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
                     _ra(j, o[j], "gap_sl")        # gap qua SL
                 elif tp is not None and (o[j] - tp) * ch >= 0:
                     _ra(j, o[j], "gap_tp")        # gap qua TP
+                elif _dao(i, j, ngay):
+                    pass                          # vao lenh nguoc chieu ngay duoi (tick dau)
                 elif _dong_pip(j):
                     # EA FSS: tick dong lenh `return` ngay -> khong vao lai cung tick
                     da_dong_mo = True

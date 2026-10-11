@@ -1505,3 +1505,37 @@ SMMA tự tính + lệnh chờ, PulseStrike z-score tick, lyapunov, AurumNeuro) 
 - EA có `.set` duy nhất (MQL5): RSI_Exhaustion_Reversal — vẫn chưa dịch: `.set` chốt `InpTimeframe=5`
   (M5) + chỉ báo qua hàm bọc `GetRSI(shift)`→`ReadBufferValue(handle,0,shift)`. Vòng chỉ có H1/D1 →
   **chưa sẵn sàng** `--theo-hang`. 3 EA `.set` còn lại là MQL4 (làn riêng, bộ đọc chưa đọc).
+
+## 11/10/2026 — Hướng int (helper trả 1/−1/0) + làn MQL4: tập chờ 2/94 → 4/94 (MÔ PHỎNG)
+**A. Tín hiệu hướng kiểu int** (`nhan/huong_int_mql.py`, móc vào `doc_ma` trước `_cac_if_bao`):
+- `ham_huong`: hàm int dạng R (`if(C) return ±1; … return 0;`) hoặc dạng V (`int d=0; if(C) d=±1;
+  … return d;`). Từ chối: nhiều điều kiện cho cùng một dấu (OR), dạng V dùng lại `d` trong điều
+  kiện, biến bị gán lại, `&var`/truyền vào tham chiếu, `return` trong khối dài, điều kiện giá ở tầng
+  ngoài. `nang_huong` đi lên tối đa 4 tầng tới OnTick, thử s ∈ {+1, −1, 0}: phải đúng MỘT s≠0 tới
+  được lệnh và s=0 không được bắn. Chiều −1 chỉ nhận khi CHỨNG MINH loại trừ (`_mau_thuan`), không
+  thì "chua chung minh loai tru". Kiểm ký quỹ (`marginNeeded > freeMargin`) = quản trị.
+- Đóng-và-đảo (`if(ticket!=0){ if(side==signal) return; if(!PositionClose) return; }`) → cờ
+  `dao_khi_nguoc` (ngu_phap.sinh_chan) + `mo_phong.chay_he._dao`: tín hiệu ngược ở tick đầu đóng vị
+  thế (`dao_chieu`) rồi vào lệnh mới; một vị thế một lúc.
+- Test `test_huong_int_mql.py` 14 (cả các ca PHẢI từ chối).
+**B. Làn MQL4** (`nhan/mql4_chuan.py`): chỉ viết lại cú pháp 1-1 (extern→input, start→OnTick,
+OP_BUY/SELL→ORDER_TYPE_*, Close[k]/Bid/Ask/Point, chỉ báo MQL4 iMA/iRSI/iATR/iCCI/iMomentum/
+iStdDev/iBands/iMACD/iStochastic → ký pháp nội bộ); KHÔNG bịa logic; lệnh chờ giữ nguyên.
+`dau_hieu_chan` ghi lý do cấu trúc (không OrderSend, lệnh chờ, OrderModify trailing, mảng tự tính
+trong vòng lặp từ giá, đo trễ ms). `cau_kho_ma` đọc MQL4 qua đó (khoá bộ nhớ `@mql4`), đếm RIÊNG
+(`so_mql4`, không vào mẫu số chính). Test `test_mql4_chuan.py` 6.
+Đo (bộ đọc 1478ed4093cdefc6, `tru/cau_kho.py --khong-tai`):
+- Tập chờ MQL5: điểm vào dịch được **2/94 → 4/94** (4,3%); file ra cơ chế 1 → 2 (thêm
+  EMA_Cross_Demo_EA: EMA12/26 giao cắt trên bar đóng, cả hai chiều, đóng-và-đảo, một vị thế). SL/TP
+  của nó CHƯA dịch (bọc EnforceStopsLevel + MathMax MinStopDistance + atr truyền tham chiếu) — ghi
+  `gia_dinh`, không đoán. Hạng A 1 → 2.
+- MQL4: 16 EA đọc được qua chuẩn hoá, điểm vào dịch được **0/26**. 3 EA có `.set`: APB_Channel
+  (Heikin-Ashi tự tính trong vòng lặp + không tìm được guard), Md_Scalper_v2 (lệnh chờ + trailing +
+  HFT đo trễ ms), StrategyTesterInPips_sketch (không có OrderSend — khuôn mẫu). `.set` MT4 không chốt
+  khung → **CHƯA ĐO ĐƯỢC**; không EA `.set` nào sẵn sàng `--theo-hang`.
+- mau_thu 13/22 = 59,1% và mo_rong 13/34 = 38,2% (không đổi, RA cơ chế 14/14 giống hệt bản gốc).
+- Vòng thử (EURUSD H1 server, phí thật, `--theo-hang`): EMA_Cross_Demo giữ 0 — kiểm sau tối ưu
+  sh −3,78 / 161 lệnh, không lãi sau phí (SL/TP chưa dịch → không phải bản EA trung thực);
+  RiskGuardLite như cũ sh −0,96 / 22 lệnh. MÔ PHỎNG, không phải tiền.
+- Còn lại: GoldBreakout (lọc spread/rủi ro trong OpenTrade + Donchian tự tính, `dir` dùng trong
+  điều kiện), RegimeRouter (return trong khối dài), RSI_Exhaustion (.set M5).

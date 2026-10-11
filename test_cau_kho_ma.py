@@ -80,7 +80,11 @@ class Pheu(unittest.TestCase):
         self.assertEqual(P["tong"], 5)
         self.assertEqual(P["bo_kich_thuoc"], 1)
         self.assertEqual(P["trung_noi_dung"], 1)
-        self.assertEqual(P["mql4_bo_qua"], 1)
+        # 11/10/2026: MQL4 doc qua lan mong (`mql4_chuan`), so RIENG - khong vao `so` MQL5
+        self.assertEqual(P["mql4_doc"], 1)
+        self.assertEqual(P.get("mql4_bo_qua", 0), 0)
+        self.assertEqual(r["so"].get("vao_lenh"), 1)   # chi EA MQL5
+        self.assertEqual(r["so_mql4"].get("vao_lenh"), 1)
         self.assertEqual(P["ea_dat_lenh"], 1)          # chi bao khong vao doc_ma
         self.assertEqual(r["lan"].get("chi_bao"), 1)
         a = next(x for x in r["ds"] if x["ten"] == "a.mq5")
