@@ -2,6 +2,9 @@
 
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
 
+## 11/10/2026 — Bàn giao cập nhật sau M5 (token sắp hết)
+Cập nhật `BAN_GIAO_GROK.md` mục 2+5: M5 ĐÃ XONG (`e1e3c9ae`); RSI_Exhaustion MÔ PHỎNG −4,1%/DD 4,2%/185 lệnh không giữ; bot MQL5 khác có .set tác giả trong HANG/ea_ra_co_che: **CHƯA CÓ** (co_set_mql5=1). Không đổi cổng; không chạy thêm --theo-hang.
+
 ## Vòng "SEEKER: DIỄN ĐÀN NHIỀU TRANG + 5 NGUỒN LỊCH SỬ LỆNH + BẢNG ĐIỂM NGUỒN" (the-brain A4/A5) — 11/10/2026 trưa
 Không nới cổng; không đăng nhập, không mật khẩu/khóa nào vào git; lịch sử lệnh thô (nếu có) chỉ ở `data/`. Mọi số vòng lặp là MÔ PHỎNG.
 - `nhan/doc_nhieu_trang.py` + `config/dien_dan.json`: đọc danh sách nhiều trang có CON TRỎ (`data/doc_nhieu_trang/CON_TRO.json`).

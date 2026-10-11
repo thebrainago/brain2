@@ -7,10 +7,11 @@ Ngày: 2026-10-11. Repo: thebrainago/brain2, nhánh main.
 - Luật user: gói the-brain ban_giao_brain2/01 (mâu thuẫn thì 01 thắng)
 - Repo thebrainago/brain2 nhánh main
 
-## 2. Việc đang dang dở (uưu tiên)
-1. Mở khung M5 trong vong_thu_nghiem để bot có .set (RSI_Exhaustion_Reversal, InpTimeframe=5) vào thử được — dữ liệu M5 công khai, không đoán khung khác. (Có thể đang chạy nền từ Grok.)
-2. Sau đó: kho cơ chế tách rời (SL/TP ATR, thoát đỉnh lỗ nổi, lọc spread…) + giới hạn tổ hợp AB/AC tối đa 2–3 mảnh; không để nổ tổ hợp.
-3. Chờ user: repo riêng tư hộp thư máy nhà↔cloud + Python/git máy nhà; đăng nhập Telegram nếu muốn kênh mới.
+## 2. Việc đang dang dở (ưu tiên)
+1. **M5 ĐÃ XONG** (commit `e1e3c9ae`): HistData M5 EURUSD; RSI_Exhaustion_Reversal dịch được với .set tác giả; MÔ PHỎNG đoạn kiểm sau phí −4,1% / maxDD 4,2% / 185 lệnh — **không giữ** (spread XM ăn hết biên); lịch sử ASK/spread **CHƯA ĐO ĐƯỢC**.
+2. Bot MQL5 khác có .set tác giả trên M5 (nếu HANG xếp được) — hiện HANG `co_set_mql5=1` chỉ RSI_Exhaustion → các .set còn lại là MQL4.
+3. Kho cơ chế tách rời (SL/TP ATR, thoát đỉnh lỗ nổi, lọc spread…) + giới hạn tổ hợp AB/AC tối đa 2–3 mảnh; không để nổ tổ hợp.
+4. Chờ user: repo riêng tư hộp thư máy nhà↔cloud + Python/git máy nhà; đăng nhập Telegram nếu muốn kênh mới.
 
 ## 3. Luật vận hành (không đổi)
 - Mục tiêu tiền; số phải đo được; chưa đo ghi CHƯA ĐO ĐƯỢC; mô phỏng ghi rõ mô phổng.
@@ -26,10 +27,12 @@ Ngày: 2026-10-11. Repo: thebrainago/brain2, nhánh main.
 - Evo: dieu_phoi.py
 
 ## 5. Số đo gần nhất (chạy lại trước khi tin)
-- Tập chờ: dịch được 4/94 điểm vào (RiskGuardLite, EMA_Cross_Demo hạng A; mô phổng EURUSD H1 có phí: không giữ).
-- 3 bot MQL4 có .set: đọc cú pháp được, dịch logic 0/3.
-- RSI_Exhaustion: chỉ .set M5 — chưa vào --theo-hang đến khi có M5.
-- Commit gần: f164440f (int-dir + làn MQL4); trước đó 9f86bc31, 6a9936eb.
+- Commit M5: `e1e3c9ae` — khung M5 trong `vong_thu_nghiem` + dữ liệu HistData M5 EURUSD (`/workspace/du_lieu_fx/eurusd_m5_histdata_server.csv`, ngoài repo).
+- Tập chờ: dịch được **5/94** điểm vào (thêm RSI_Exhaustion_Reversal hạng A với .set tác giả).
+- RSI_Exhaustion MÔ PHỎNG M5 có phí (XM): đoạn kiểm sau phí **−4,1% / maxDD 4,2% / 185 lệnh** — **không giữ**; spread XM ăn hết biên. ASK/spread lịch sử **CHƯA ĐO ĐƯỢC**.
+- Bot MQL5 khác có .set tác giả: **CHƯA CÓ** trong HANG/ea_ra_co_che (chỉ 1 = RSI_Exhaustion; 3 .set còn lại là MQL4, dịch logic 0/3).
+- RiskGuardLite / EMA_Cross_Demo: mô phổng EURUSD H1 có phí — không giữ.
+- Commit trước M5: f164440f (int-dir + làn MQL4); 9f86bc31; 6a9936eb.
 
 ## 6. Cách nhận việc
 1. git pull trên /workspace/brain2 (hoặc clone thebrainago/brain2).
@@ -41,4 +44,4 @@ Ngày: 2026-10-11. Repo: thebrainago/brain2, nhánh main.
 ## 7. Không làm
 Chỉnh bộ đọc cho vừa đáp án; tuyên bố đã ra tiền từ mô phổng; đổi cổng duyệt khi chưa đo; đưa secret vào git; mua máy khi chưa hỏi.
 
-Khi nhận việc: paste file này + GHI_CHU_NANG_CAP_GROK.md là đủ để nối từ bước M5.
+Khi nhận việc: paste file này + GHI_CHU_NANG_CAP_GROK.md là đủ để nối từ ưu tiên mục 2 (bot .set khác / kho cơ chế / chờ máy nhà).
