@@ -1,4 +1,35 @@
-# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-11 (rạng sáng, giờ VN)
+# Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-11 (trưa, giờ VN)
+
+## Vòng "LẤY TỪ THE-BRAIN: A1/A3/B1-B3/A2" (sau e542788a) — 11/10/2026 trưa
+Nguồn chọn việc: `/workspace/thebrain_sang_brain2.md` (mục F, các mục APPLY ngay). **Không nới cổng; mọi nhãn mới chỉ là NHÃN,
+không đổi GIỮ/BỎ. Mọi số lãi là MÔ PHỎNG, không phải tiền.** Không có khóa/mật khẩu nào vào git.
+- **P5 (e542788a, phiên song song, chưa ghi ở đây trước):** nhãn "loại sớm nhanh" maxDD mô phỏng > 65 % hoặc lãi < 10 %/năm cho hệ có
+  rổ. Đo trên 15 ô MT5: luoi_duong 0/120 biến thể giết nhầm ô MT5 lãi ≥ 10 %/năm; ngưỡng DD 65 % CHƯA ĐO ĐƯỢC (15 ô DD ≤ 33 %).
+  Vòng này KHÔNG làm lại, chỉ in cạnh các nhãn mới.
+- **A1 — tải hỏng ≠ hết trang (c7ba14c6).** `ma_nguon.liet_ke_mql5` trả `None` khi tải hỏng (`[]` = trang rỗng thật);
+  `cau_kho_ma.tai_mql5` ghi `loi_trang`/`trang_loi`/`het_trang`; `tru/cau_kho.buoc_con_tro`: con trỏ `TRANG_SAU.json` chỉ lùi khi
+  trang sau tải được và có ≥ 1 bài; hỏng/hết giờ → ĐỨNG YÊN (lượt sau thử lại đúng trang), hết trang thật → về 2; cảnh báo vào nhịp tim.
+  Bài `ok: False` thử lại sau `THU_LAI_GIO` = 24 h (trước: không bao giờ). `test_trang_hong.py` 12 test.
+- **A3 — mã tín hiệu đọc từ bảng Distribution (d5caaad7).** `tin_hieu_mql5.phan_bo_symbol` + `chuan_symbol` (GOLD#/XAUUSDm → XAUUSD);
+  `_quet_signal_mql5` bỏ đếm 6 chữ hoa trên cả trang (`_RX_SYM` đánh dấu KHÔNG DÙNG); không có bảng → CHƯA ĐO ĐƯỢC. Sửa luôn lỗi
+  `NameError: Path` khiến script không chạy được. Đo trên trang công khai 3 ID: 2196457 XAUUSD (99,9 % lệnh), 762818 USDJPY (0,301),
+  884935 CADJPY — khớp mã chính the-brain đã sửa tay. `test_phan_bo_symbol.py` 5 test (fixture theo cấu trúc trang thật).
+- **B1/B2/B3 — lọc nhanh (ccf62b34).** `vong_thu_nghiem`: (B1) nhãn lọc phí spread > 8 bps → "BỎ TRƯỚC XẾP HẠNG" + spread/biên độ nến,
+  và dòng "phí ăn x % lãi gộp" cho mọi cơ chế; (B2) bước lưới / khoảng hedge < 2× biên độ nến trung vị → lãi CHƯA ĐO ĐƯỢC;
+  (B3) đỉnh lỗ treo (USD, % vốn; đo trước stop-out, mọi rổ) cạnh mọi số lãi hệ có rổ + JSON `lo_treo`. `luoi_duong` thêm
+  `lo_treo_max_*`, `phan_giai_ty_le` (số cũ giữ nguyên). `test_loc_nhanh.py` 7 test.
+  EURUSD H1 2003–21 (mô phỏng, placebo 19): spread 1,63 bps → qua B1. **Breakout5-2-2 "đạt 25/09" (+54 %/năm mô phỏng) nhưng bước lưới
+  = 0,36× biên độ nến → B2: lãi CHƯA ĐO ĐƯỢC; đỉnh lỗ treo 14,4 % vốn trong khi maxDD 12,2 %.** Breakout2/2-2: phí ăn 714 % / 957 %
+  lãi gộp. Giữ: 0 (như trước).
+  Ghi chú: maxDD của nhãn 25/09 tính trên EQUITY nhưng từ VỐN ĐẦU, không từ đỉnh → có thể lạc quan khi lãi trước rồi lỗ; đỉnh lỗ treo
+  in kèm để thấy. Chưa đổi (đổi cách tính = đổi tiêu chí → hỏi chủ dự án).
+- **A2 — THIẾU_TỆP (5181ceef).** Gộp nhãn `thieu_tep` của phiên song song (include ngoài thư viện chuẩn) + `tep_thieu_that`: include
+  không có trong kho (không nằm cạnh file, không trùng tên trong kho, không phải `MultiPivots.mqh` bộ đọc đã dịch) → làn THIẾU_TỆP:
+  không vào mẫu số tỷ lệ dịch, không xuất ra vòng lặp (số riêng `so_thieu_tep`). 160 EA Code Base: **4/117 EA đặt lệnh thiếu tệp
+  (15 điểm vào); tỷ lệ dịch 1/225 = 0,44 %** (trước 1/240) → thiếu tệp KHÔNG phải nguyên nhân chính của 0,4 %; nguyên nhân vẫn là
+  điều kiện trong hàm phụ/trạng thái. mau_thu+mo_rong: `so + so_thieu_tep` = đúng `do_moc` (`test_khop_so_do_moc_gop`).
+- Chưa làm (mục F): A4 diễn đàn nhiều trang, A5 5 nguồn có lịch sử lệnh + suất tiền, D1 bảng điểm, D4–D7; A7/C1 cần chủ dự án
+  đăng nhập MQL5 trên box (export 31 ID người thắng) — bước duy nhất đưa "thứ đang ra tiền" lại gần.
 
 ## Vòng "P4 → NHÃN Đ1/Đ2 trong báo cáo vòng" (sau 71a4a0ce) — 11/10/2026 trưa
 **Chỉ NHÃN, không đổi GIỮ/BỎ, không nới cổng.** Mọi số là MÔ PHỎNG.
