@@ -1,0 +1,377 @@
+{
+ "nhan": "MO PHONG",
+ "ho_holm": 34,
+ "ibs_tai_san": [
+  {
+   "tai_san": "gdaxi",
+   "x1": {
+    "toan": {
+     "loi_pct": -72.83,
+     "cagr_pct": -3.482,
+     "maxdd_pct": 77.66,
+     "sharpe": -0.292,
+     "nam": 36.77,
+     "t": -1.768
+    },
+    "nm": {
+     "loi_pct": -48.54,
+     "cagr_pct": -5.861,
+     "maxdd_pct": 53.79,
+     "sharpe": -0.59,
+     "nam": 11.0,
+     "t": -1.958
+    },
+    "sau_2010": {
+     "loi_pct": -62.89,
+     "cagr_pct": -5.742,
+     "maxdd_pct": 65.8,
+     "sharpe": -0.564,
+     "nam": 16.76,
+     "t": -2.309
+    }
+   },
+   "x1.5": {
+    "toan": {
+     "loi_pct": -74.56,
+     "cagr_pct": -3.655,
+     "maxdd_pct": 78.87,
+     "sharpe": -0.309,
+     "nam": 36.77,
+     "t": -1.873
+    },
+    "nm": {
+     "loi_pct": -49.59,
+     "cagr_pct": -6.037,
+     "maxdd_pct": 54.58,
+     "sharpe": -0.61,
+     "nam": 11.0,
+     "t": -2.024
+    },
+    "sau_2010": {
+     "loi_pct": -64.05,
+     "cagr_pct": -5.922,
+     "maxdd_pct": 66.83,
+     "sharpe": -0.584,
+     "nam": 16.76,
+     "t": -2.39
+    }
+   },
+   "tu": "1990-01-02",
+   "p": 0.9614695481702508,
+   "p_holm_34": 1.0,
+   "tieu_chi": {
+    "lai_toan": false,
+    "dd_lt_80": true,
+    "nm_x1": false,
+    "nm_x1_5": false,
+    "sau_2010": false,
+    "p_holm": false
+   },
+   "song": false
+  },
+  {
+   "tai_san": "n225",
+   "x1": {
+    "toan": {
+     "loi_pct": 74.0,
+     "cagr_pct": 1.518,
+     "maxdd_pct": 54.9,
+     "sharpe": 0.186,
+     "nam": 36.76,
+     "t": 1.126
+    },
+    "nm": {
+     "loi_pct": 31.33,
+     "cagr_pct": 2.488,
+     "maxdd_pct": 30.91,
+     "sharpe": 0.281,
+     "nam": 11.09,
+     "t": 0.935
+    },
+    "sau_2010": {
+     "loi_pct": 69.56,
+     "cagr_pct": 3.201,
+     "maxdd_pct": 30.91,
+     "sharpe": 0.34,
+     "nam": 16.76,
+     "t": 1.394
+    }
+   },
+   "x1.5": {
+    "toan": {
+     "loi_pct": 40.07,
+     "cagr_pct": 0.921,
+     "maxdd_pct": 56.57,
+     "sharpe": 0.138,
+     "nam": 36.76,
+     "t": 0.835
+    },
+    "nm": {
+     "loi_pct": 24.29,
+     "cagr_pct": 1.98,
+     "maxdd_pct": 31.67,
+     "sharpe": 0.235,
+     "nam": 11.09,
+     "t": 0.784
+    },
+    "sau_2010": {
+     "loi_pct": 55.01,
+     "cagr_pct": 2.649,
+     "maxdd_pct": 31.67,
+     "sharpe": 0.292,
+     "nam": 16.76,
+     "t": 1.197
+    }
+   },
+   "tu": "1990-01-04",
+   "p": 0.13008275966224928,
+   "p_holm_34": 1.0,
+   "tieu_chi": {
+    "lai_toan": true,
+    "dd_lt_80": true,
+    "nm_x1": true,
+    "nm_x1_5": true,
+    "sau_2010": true,
+    "p_holm": false
+   },
+   "song": false
+  },
+  {
+   "tai_san": "ftse",
+   "x1": {
+    "toan": {
+     "loi_pct": -76.94,
+     "cagr_pct": -3.911,
+     "maxdd_pct": 77.88,
+     "sharpe": -0.399,
+     "nam": 36.77,
+     "t": -2.419
+    },
+    "nm": {
+     "loi_pct": -53.21,
+     "cagr_pct": -6.654,
+     "maxdd_pct": 55.35,
+     "sharpe": -0.773,
+     "nam": 11.03,
+     "t": -2.566
+    },
+    "sau_2010": {
+     "loi_pct": -62.97,
+     "cagr_pct": -5.755,
+     "maxdd_pct": 63.87,
+     "sharpe": -0.676,
+     "nam": 16.76,
+     "t": -2.769
+    }
+   },
+   "x1.5": {
+    "toan": {
+     "loi_pct": -79.62,
+     "cagr_pct": -4.233,
+     "maxdd_pct": 80.4,
+     "sharpe": -0.436,
+     "nam": 36.77,
+     "t": -2.645
+    },
+    "nm": {
+     "loi_pct": -54.71,
+     "cagr_pct": -6.93,
+     "maxdd_pct": 56.69,
+     "sharpe": -0.808,
+     "nam": 11.03,
+     "t": -2.682
+    },
+    "sau_2010": {
+     "loi_pct": -64.77,
+     "cagr_pct": -6.034,
+     "maxdd_pct": 65.56,
+     "sharpe": -0.712,
+     "nam": 16.76,
+     "t": -2.916
+    }
+   },
+   "tu": "1990-01-02",
+   "p": 0.9922183798950021,
+   "p_holm_34": 1.0,
+   "tieu_chi": {
+    "lai_toan": false,
+    "dd_lt_80": true,
+    "nm_x1": false,
+    "nm_x1_5": false,
+    "sau_2010": false,
+    "p_holm": false
+   },
+   "song": false
+  },
+  {
+   "tai_san": "hsi",
+   "x1": {
+    "toan": {
+     "loi_pct": -61.41,
+     "cagr_pct": -2.556,
+     "maxdd_pct": 79.4,
+     "sharpe": -0.161,
+     "nam": 36.77,
+     "t": -0.977
+    },
+    "nm": {
+     "loi_pct": 52.71,
+     "cagr_pct": 3.898,
+     "maxdd_pct": 21.01,
+     "sharpe": 0.432,
+     "nam": 11.07,
+     "t": 1.438
+    },
+    "sau_2010": {
+     "loi_pct": 26.54,
+     "cagr_pct": 1.414,
+     "maxdd_pct": 29.86,
+     "sharpe": 0.197,
+     "nam": 16.77,
+     "t": 0.806
+    }
+   },
+   "x1.5": {
+    "toan": {
+     "loi_pct": -69.22,
+     "cagr_pct": -3.154,
+     "maxdd_pct": 82.23,
+     "sharpe": -0.214,
+     "nam": 36.77,
+     "t": -1.295
+    },
+    "nm": {
+     "loi_pct": 42.87,
+     "cagr_pct": 3.275,
+     "maxdd_pct": 21.94,
+     "sharpe": 0.372,
+     "nam": 11.07,
+     "t": 1.238
+    },
+    "sau_2010": {
+     "loi_pct": 14.3,
+     "cagr_pct": 0.8,
+     "maxdd_pct": 34.02,
+     "sharpe": 0.133,
+     "nam": 16.77,
+     "t": 0.543
+    }
+   },
+   "tu": "1990-01-02",
+   "p": 0.8357154238164004,
+   "p_holm_34": 1.0,
+   "tieu_chi": {
+    "lai_toan": false,
+    "dd_lt_80": true,
+    "nm_x1": true,
+    "nm_x1_5": true,
+    "sau_2010": true,
+    "p_holm": false
+   },
+   "song": false
+  },
+  {
+   "tai_san": "gcf",
+   "x1": {
+    "toan": {
+     "loi_pct": 161.82,
+     "cagr_pct": 3.754,
+     "maxdd_pct": 30.31,
+     "sharpe": 0.49,
+     "nam": 26.12,
+     "t": 2.505
+    },
+    "nm": {
+     "loi_pct": 61.94,
+     "cagr_pct": 6.361,
+     "maxdd_pct": 9.94,
+     "sharpe": 1.059,
+     "nam": 7.82,
+     "t": 2.96
+    },
+    "sau_2010": {
+     "loi_pct": 125.81,
+     "cagr_pct": 4.977,
+     "maxdd_pct": 10.49,
+     "sharpe": 0.731,
+     "nam": 16.77,
+     "t": 2.993
+    }
+   },
+   "x1.5": {
+    "toan": {
+     "loi_pct": 136.51,
+     "cagr_pct": 3.351,
+     "maxdd_pct": 31.37,
+     "sharpe": 0.443,
+     "nam": 26.12,
+     "t": 2.263
+    },
+    "nm": {
+     "loi_pct": 57.79,
+     "cagr_pct": 6.008,
+     "maxdd_pct": 10.15,
+     "sharpe": 1.004,
+     "nam": 7.82,
+     "t": 2.806
+    },
+    "sau_2010": {
+     "loi_pct": 111.46,
+     "cagr_pct": 4.567,
+     "maxdd_pct": 10.52,
+     "sharpe": 0.675,
+     "nam": 16.77,
+     "t": 2.764
+    }
+   },
+   "tu": "2000-08-30",
+   "p": 0.006122569669247553,
+   "p_holm_34": 0.15306424173118882,
+   "tieu_chi": {
+    "lai_toan": true,
+    "dd_lt_80": true,
+    "nm_x1": true,
+    "nm_x1_5": true,
+    "sau_2010": true,
+    "p_holm": false
+   },
+   "song": false
+  }
+ ],
+ "p_holm_34": {
+  "DANH_MUC_4_SPX": 1.7055243977564597e-05,
+  "USD_CUOI_THANG": 1.0,
+  "CUOI_QUY_TAI_CAN_BANG": 1.0,
+  "CUOI_NAM_USD": 1.0,
+  "USD_THANG12_THANG1": 1.0,
+  "JPY_CUOI_NAM_TAI_KHOA": 1.0,
+  "VANG_THANG8_THANG2": 0.06395542441678344,
+  "DAU_THANG2_THANG4": 1.0,
+  "CHENH_2Y_MY_DUC_EURUSD": 1.0,
+  "TNX_USDJPY": 0.028832693757768542,
+  "TNX_VANG": 0.9660425763508144,
+  "AUD_NZD_HOI_QUY": 1.0,
+  "CARRY_AUDJPY": 1.0,
+  "VIX_THAP_US500": 1.0,
+  "CHU_KY_BAU_CU_NAM3": 0.0715418709998362,
+  "HALLOWEEN": 0.06646657948362508,
+  "DAU_CUOI_THANG": 1.732751728466601e-05,
+  "SANTA": 0.003911282946052704,
+  "VANG_TRUOC_TET": 1.0,
+  "SPX_10THANG": 0.42141095486235347,
+  "VANG_10THANG": 0.703875940384539,
+  "SPX_3TUAN_GIAM": 1.0,
+  "VANG_M30_VN": 1.0,
+  "VANG_M30_SERVER": 1.0,
+  "VANG_M30_GMT": 1.0,
+  "IBS": 0.04805359504674391,
+  "V6_IBS_DANH_MUC": 0.028705382750848798,
+  "AUDCAD_RSI_DAO_CHIEU": 1.0,
+  "AUDCAD_OU_N50_Z25_MUA": 1.0,
+  "IBS_GDAXI": 1.0,
+  "IBS_N225": 1.0,
+  "IBS_FTSE": 1.0,
+  "IBS_HSI": 1.0,
+  "IBS_GCF": 0.15306424173118882
+ }
+}
