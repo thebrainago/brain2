@@ -4,6 +4,15 @@
 
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
 
+## 12/10/2026 chiều (12) — Vòng 20: lọc trạng thái thị trường → chọn nhóm (MÔ PHỎNG)
+
+- Đăng ký trước `reports/vong20_tien_dang_ky.md`; `v20.py`, `reports/vong20.json`, `test_v20.py`. Thêm `scikit-learn` vào venv (GMM); `hmmlearn` không có → dùng GMM 3 thành phần (không có ma trận chuyển), Hurst không dùng.
+- Phân loại tại nến tín hiệu (chỉ dữ liệu ≤ nến đó): C1 = (ER20>0,30 hoặc ADX>25) × (ATR > trung vị 500 nến trước) → 4 trạng thái; C2 = GMM fit chỉ trên nửa phát hiện.
+- Ánh xạ chọn trên nửa phát hiện bộ 1: C1 ngang-yên→RSI/6 nến, ngang-động→news fade, xu hướng-yên→logistic/TR2, xu hướng-động→đa khung/TR2; C2 thấp→news fade, giữa→đa khung, cao→Fib.
+- 26 ô (13 chuỗi × 2 bộ phân loại), Holm cộng dồn 6.321: 0 sống; p thô nhỏ nhất 0,066. Bộ 2 AUDCAD 2008–23: C1 −9 %, C2 −59 %.
+- Bảng nhóm × trạng thái (bps/lệnh, nửa kiểm bộ 1 và toàn bộ 2): hầu hết ô âm ở mọi trạng thái; chênh lệch giữa trạng thái nhỏ (1–3 bps) và đổi dấu giữa hai bộ (vd. đa khung ngang-yên +10,1 bộ 1, −4,7 bộ 2) → không có ánh xạ trạng thái→nhóm ổn định.
+- Đổi trạng thái: trung vị mỗi đoạn 7,2 nến (C1), 8,2 nến (C2). Độ trễ ER20 thời gian thực so với cửa sổ tâm: 10 nến — trạng thái đổi gần nhanh như độ trễ nhận diện, nên lọc khó bắt kịp.
+
 ## 12/10/2026 chiều (11) — Vòng 19: nhóm chiến lược, trailing, ghép, phong cách khác, bộ dữ liệu 2 (MÔ PHỎNG)
 
 - Đăng ký trước `reports/vong19_tien_dang_ky.md` (+ phần BỔ SUNG trước khi chạy phong cách mới). `v19.py`, `v19b.py`, `test_v19.py`, `reports/vong19.json`, `reports/vong19b.json`.
