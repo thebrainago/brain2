@@ -4,6 +4,20 @@
 
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
 
+## 12/10/2026 chiều — Vòng 8: spread THẬT (tick bid/ask), sửa giờ HistData, Seeker tần suất thấp, ứng viên EA05 (MÔ PHỎNG)
+
+**1. Dữ liệu spread thật.** Dukascopy vẫn chập chờn (503/timeout; `tai_dukascopy_spread.py` tải BID+ASK H1 từng tháng, ~1 file/phút, chưa xong). Nguồn dùng: **HistData Tick** (bid/ask từng tick, miễn phí) 2024-01→2026-09, 7 cặp → `gop_histdata_tick.py` → H1 có `spread_open` (tick đầu bar).
+- **Sửa giờ:** giờ HistData thực tế là giờ New York CÓ DST (không phải EST cố định). Kiểm trên tick: đỉnh spread qua đêm và giờ mở tuần rơi vào 00:00 server cả đông lẫn hè chỉ khi đổi theo NY+7; cách cũ lệch +1 h mùa DST Mỹ. `gop_histdata_m5.py` mặc định NY+7 (cách cũ: `--gio-cu`); file mới `*_m5_histdata_ny7.csv`. Các vòng trước dùng giờ cũ (lọc giờ lệch 1 h ~7 tháng/năm).
+- `MoHinhChiPhi.spread_frac_bar` (spread từng bar) + cờ `spread_mot_lan` (mặc định TẮT).
+- **Phát hiện:** mô phỏng tính ĐỦ spread ở cả chiều vào lẫn chiều ra (khứ hồi = 2× spread; lệnh trên giá phẳng: 3,26 bps với spread 1,63). Chưa đổi mặc định — cần người dùng quyết.
+
+**2. Đo mảnh S** (đăng ký trước `reports/vong8_tien_dang_ky_spread.md`): 47 EA H1 × 7 cặp × 26 tổ hợp = 8.554 ô, spread XM = spread thật + markup cố định. S lọc 126.680 lệnh; trên 3.619 cặp (X, X+S): trung vị chênh NM **+0,40 điểm %**, 2.531 tốt hơn / 397 tệ hơn, sign test p ≈ 0 → **S có ích** (giảm lỗ), nhưng gốc NM TB −27 %, nhãn cổng 83 ô, sống **0** (p Holm min 1,0). Chẩn đoán `spread_mot_lan` (không dùng chọn): nhãn cổng 279, sống 0.
+
+**3. EA05_MACD NZDUSD H1 + P** (đăng ký trước `reports/vong8_tien_dang_ky_EA05.md`, dữ liệu mới NZDUSD 2018–2023): +12,5 %, DD 17,6 %, 455 lệnh nhưng p = 0,31, spread ×1,5 lỗ −19 % → **KHÔNG sống** (giờ đã sửa: +17,3 %, p 0,25, 3/6 năm lãi → cũng không). Bỏ ứng viên.
+
+**4. Seeker** (`goi_github.TRUY_VAN_V8` tần suất thấp + `TRUY_VAN_V8_RONG` quét rộng theo ngôn ngữ): +~1.640 EA mới tải (61 kèm .set). `cau_kho --khong-tai` (kho 2.787 xếp hạng): điểm vào dịch được **48 → 60**, EA ra cơ chế **31 → 48**, co_set 81 (MQL5 69); do_moc 13/22. Bộ đọc không đổi.
+`vong_thu_nghiem --theo-hang` EURUSD H1/M5: 6 chạy được, giữ **0**. Test liên quan đạt; `test_cong_do_phan_giai::test_che_do_giao_dich_chan_chi_phi_khai_bao` lỗi có từ trước (cả code vòng 7).
+
 ## 12/10/2026 trưa — Vòng 7: Val(i,b,s) + lọc ngày switch + cổng bar tự tính; thư viện cơ chế nhỏ (A) (MÔ PHỎNG)
 
 **1. Bộ đọc** (`khung_ea_mql.py`: `mang_handle`, `noi_ham_gia`, `cong_bar_tu_tinh`; `ham_bool_mql.py`: lọc ngày `switch(day_of_week)`; `doc_ma.py`, `goi_ham_mql.py`):
