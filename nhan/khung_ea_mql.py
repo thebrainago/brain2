@@ -466,6 +466,91 @@ def noi_ham_gia(vb: str) -> tuple[str, list[str]]:
     return vb, ghi
 
 
+# ------------------------------------------------------------ CONG BAR TU TINH (vong 7)
+_BT_BAR = (r"(?:iBars[ \t]*\([ \t]*(?:_Symbol|Symbol\(\)|NULL)[ \t]*,[ \t]*(?:_Period|PERIOD_CURRENT|0"
+           r"|Period\(\))[ \t]*\)|Bars[ \t]*\([ \t]*(?:_Symbol|Symbol\(\)|NULL)[ \t]*,[ \t]*(?:_Period"
+           r"|PERIOD_CURRENT|0|Period\(\))[ \t]*\)|iTime[ \t]*\([ \t]*(?:_Symbol|Symbol\(\)|NULL)[ \t]*,"
+           r"[ \t]*(?:_Period|PERIOD_CURRENT|0|Period\(\))[ \t]*,[ \t]*0[ \t]*\)|\(datetime\)[ \t]*"
+           r"SeriesInfoInteger[ \t]*\([ \t]*(?:_Symbol|Symbol\(\))[ \t]*,[ \t]*(?:_Period|PERIOD_CURRENT)"
+           r"[ \t]*,[ \t]*SERIES_LASTBAR_DATE[ \t]*\)|Time[ \t]*\[[ \t]*0[ \t]*\]|Bars)")
+
+
+def cong_bar_tu_tinh(vb: str) -> tuple[str, list[str]]:
+    """BIEN DEM / MOC THOI GIAN TU TINH lam cong bar moi -> `IsNewBar()` (bo doc da hieu):
+      (a) `int bars = iBars(sym,_Period); if(bars != totalBars){ totalBars = bars; ... }`
+          (lenh dau trong khoi gan lai moc = moc chi doi khi sang bar moi);
+      (b) `bool F(){ static datetime p=0; datetime t=iTime(sym,_Period,0);
+          if(t != p){ p = t; return(true); } return(false); }` -> loi goi `F()`.
+    Chi ap khi file KHONG tu dinh nghia ham ten IsNewBar. Gia tri X phai la so bar / thoi
+    gian bar 0 cua KHUNG bieu do (sau `khung_co_dinh`)."""
+    if re.search(r"\bbool[ \t]+IsNewBar[ \t]*\(", vb):
+        return vb, []
+    ghi = []
+    # (b) ham bool
+    for m in list(re.finditer(r"^[ \t]*bool[ \t]+([A-Za-z_]\w*)[ \t]*\([ \t]*(?:void)?[ \t]*\)\s*\{", vb, re.M)):
+        ten = m.group(1)
+        t = _than(vb, m.end() - 1)
+        if t is None:
+            continue
+        than = re.sub(r"//[^\n]*", "", t[0])
+        mm = re.fullmatch(
+            r"\s*static[ \t]+(?:datetime|int|long)[ \t]+(\w+)[ \t]*(?:=[ \t]*[-\w]+)?[ \t]*;"
+            r"\s*(?:(?:datetime|int|long)[ \t]+(\w+)[ \t]*=[ \t]*(" + _BT_BAR + r")[ \t]*;\s*)?"
+            r"if[ \t]*\([ \t]*(\w+|" + _BT_BAR + r")[ \t]*!=[ \t]*(\w+)[ \t]*\)\s*\{\s*(\w+)[ \t]*=[ \t]*"
+            r"(\w+|" + _BT_BAR + r")[ \t]*;\s*return[ \t]*\(?[ \t]*true[ \t]*\)?[ \t]*;\s*\}\s*"
+            r"return[ \t]*\(?[ \t]*false[ \t]*\)?[ \t]*;\s*", than)
+        if not mm:
+            # dang 2: `static T p; if(X == p) return false; [else] p = X; return true;`
+            m2 = re.fullmatch(
+                r"\s*static[ \t]+(?:datetime|int|long)[ \t]+(\w+)[ \t]*(?:=[ \t]*[-\w]+)?[ \t]*;"
+                r"\s*if[ \t]*\([ \t]*(" + _BT_BAR + r")[ \t]*==[ \t]*(\w+)[ \t]*\)\s*return[ \t]*\(?"
+                r"[ \t]*false[ \t]*\)?[ \t]*;\s*(?:else\s*)?(\w+)[ \t]*=[ \t]*(" + _BT_BAR + r")[ \t]*;"
+                r"\s*return[ \t]*\(?[ \t]*true[ \t]*\)?[ \t]*;\s*", than)
+            if not m2 or not (m2.group(1) == m2.group(3) == m2.group(4)) or \
+                    re.sub(r"\s", "", m2.group(2)) != re.sub(r"\s", "", m2.group(5)):
+                continue
+            mm = None
+            p = x = a = b = c = d = None
+        if mm is not None:
+            p, x, ex, a, b, c, d = mm.groups()
+        else:
+            p, x, a, b, c, d = "p", "x", "x", "p", "p", "x"
+        if False:
+            pass
+        x_ok = (x and a == x and d == x) or (not x and re.fullmatch(_BT_BAR, a) and
+                                              re.sub(r"\s", "", a) == re.sub(r"\s", "", d))
+        if not (x_ok and b == p and c == p):
+            continue
+        n0 = vb
+        vb = re.sub(rf"(?<![\w.]){ten}[ \t]*\([ \t]*\)(?![ \t]*\{{)", "IsNewBar()", vb)
+        vb = vb.replace(f"bool IsNewBar()", f"bool {ten}()", 1) if f"bool IsNewBar()" in vb else vb
+        if vb != n0:
+            ghi.append(f"cong bar tu tinh: ham {ten}() -> IsNewBar()")
+    # (a) inline
+    goc = vb
+
+    def _thay(m):
+        x, y, y2, x2 = m.groups()
+        if not (y2 == y and x2 == x):
+            return m.group(0)
+        gx = list(re.finditer(rf"(?<![\w.]){x}[ \t]*=(?!=)[ \t]*([^;]*);", goc[:m.start()]))
+        if not gx or not re.fullmatch(_BT_BAR, gx[-1].group(1).strip()):
+            return m.group(0)
+        # Y: bien cap file / static; chi gan bang X (hoac cung loai bieu thuc, 0)
+        if not re.search(rf"^(?:static[ \t]+)?(?:datetime|int|long)[ \t]+{y}\b", goc, re.M) and \
+                not re.search(rf"\bstatic[ \t]+(?:datetime|int|long)[ \t]+{y}\b", goc):
+            return m.group(0)
+        for g in re.finditer(rf"(?<![\w.]){y}[ \t]*=(?!=)[ \t]*([^;]*);", goc):
+            v = g.group(1).strip()
+            if v != x and not re.fullmatch(_BT_BAR, v) and v not in ("0", "WRONG_VALUE"):
+                return m.group(0)
+        ghi.append(f"cong bar tu tinh: {x} != {y} -> IsNewBar()")
+        return m.group(0).replace(m.group(0)[m.start(1) - m.start():m.end(2) - m.start()], "IsNewBar()", 1)
+    vb = re.sub(r"\bif[ \t]*\([ \t]*(\w+)[ \t]*!=[ \t]*(\w+)[ \t]*\)\s*\{\s*(\w+)[ \t]*=(?!=)[ \t]*(\w+)[ \t]*;",
+                _thay, vb)
+    return vb, ghi
+
+
 def chuan_bi(vb: str, set_ea: str | dict | None = None) -> tuple[str, dict]:
     """.set -> khung co dinh -> ham boc buffer. Tra (van ban, ghi chu)."""
     gt = doc_set(set_ea) if isinstance(set_ea, str) else (set_ea or None)
@@ -473,9 +558,11 @@ def chuan_bi(vb: str, set_ea: str | dict | None = None) -> tuple[str, dict]:
     vb, g_mang = mang_handle(vb)
     khung, vb, ly = khung_co_dinh(vb)
     vb, g_gia = noi_ham_gia(vb)
+    vb, g_cong = cong_bar_tu_tinh(vb)
     vb, g_boc = noi_ham_boc_buffer(vb)
     return vb, {"khung_ea": khung, "khung_ly_do": ly, "set": g_set if gt else None,
-                "boc_buffer": g_mang + g_gia + g_boc}
+                "boc_buffer": g_mang + g_gia + g_boc,
+            "cong_bar": g_cong}
 
 
 # ------------------------------------------------------------ HET GIO THEO SO BAR

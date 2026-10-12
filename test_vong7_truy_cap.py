@@ -116,3 +116,27 @@ class Vong7(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class CongBarTuTinh(unittest.TestCase):
+    def test_bien_dem_bar_va_ham_moc_thoi_gian(self):
+        v = ("int totalBars;\nvoid OnTick(){\n   int bars = iBars(_Symbol, PERIOD_CURRENT);\n"
+             "   if(bars != totalBars)\n   {\n      totalBars = bars;\n      x();\n   }\n}\n"
+             "bool NewCandle()\n{\n   static datetime p;\n   if(Time[0] == p)\n      return false;\n"
+             "   else\n      p = Time[0];\n   return true;\n}\nvoid f(){ if(NewCandle()) y(); }\n")
+        r, g = KEA.cong_bar_tu_tinh(v)
+        self.assertIn("if(IsNewBar())\n   {\n      totalBars = bars;", r)
+        self.assertIn("void f(){ if(IsNewBar()) y(); }", r)
+        self.assertEqual(len(g), 2)
+
+    def test_moc_gan_gia_tri_khac_khong_doi(self):
+        v = ("int totalBars;\nvoid OnTick(){\n   int bars = iBars(_Symbol, PERIOD_CURRENT);\n"
+             "   if(bars != totalBars)\n   {\n      totalBars = bars;\n      x();\n   }\n"
+             "   totalBars = 5;\n}\n")
+        r, g = KEA.cong_bar_tu_tinh(v)
+        self.assertEqual(r, v)
+
+    def test_khung_khac_khong_doi(self):
+        v = ("int totalBars;\nvoid OnTick(){\n   int bars = iBars(_Symbol, PERIOD_D1);\n"
+             "   if(bars != totalBars)\n   {\n      totalBars = bars;\n      x();\n   }\n}\n")
+        self.assertEqual(KEA.cong_bar_tu_tinh(v)[0], v)
