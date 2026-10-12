@@ -1,0 +1,486 @@
+{
+ "mua_giu": [
+  {
+   "chuoi": "US500_1950",
+   "L": 1,
+   "hang_ngay": {
+    "cagr_pct": 1.2,
+    "maxdd_pct": 79.5,
+    "sharpe": 0.076,
+    "chay": false
+   },
+   "co_dinh": {
+    "cagr_pct": -100.0,
+    "maxdd_pct": 100.0,
+    "sharpe": -0.138,
+    "chay": true
+   },
+   "bootstrap_10nam_chay_pct": 0.0,
+   "bootstrap_10nam_dd80_pct": 0.2,
+   "chi_so_gia": {
+    "cagr_pct": 8.34,
+    "maxdd_pct": 56.8,
+    "sharpe": 0.508,
+    "chay": false
+   }
+  },
+  {
+   "chuoi": "US500_1950",
+   "L": 1.5,
+   "hang_ngay": {
+    "cagr_pct": 0.84,
+    "maxdd_pct": 94.1,
+    "sharpe": 0.035,
+    "chay": false
+   },
+   "co_dinh": {
+    "cagr_pct": -100.0,
+    "maxdd_pct": 100.0,
+    "sharpe": -0.126,
+    "chay": true
+   },
+   "bootstrap_10nam_chay_pct": 0.0,
+   "bootstrap_10nam_dd80_pct": 5.75,
+   "chi_so_gia": {
+    "cagr_pct": 8.34,
+    "maxdd_pct": 56.8,
+    "sharpe": 0.508,
+    "chay": false
+   }
+  },
+  {
+   "chuoi": "US500_1950",
+   "L": 2,
+   "hang_ngay": {
+    "cagr_pct": -0.18,
+    "maxdd_pct": 98.8,
+    "sharpe": -0.006,
+    "chay": false
+   },
+   "co_dinh": {
+    "cagr_pct": -100.0,
+    "maxdd_pct": 100.0,
+    "sharpe": -0.131,
+    "chay": true
+   },
+   "bootstrap_10nam_chay_pct": 0.0,
+   "bootstrap_10nam_dd80_pct": 20.1,
+   "chi_so_gia": {
+    "cagr_pct": 8.34,
+    "maxdd_pct": 56.8,
+    "sharpe": 0.508,
+    "chay": false
+   }
+  },
+  {
+   "chuoi": "US500_1950",
+   "L": 3,
+   "hang_ngay": {
+    "cagr_pct": -4.14,
+    "maxdd_pct": 100.0,
+    "sharpe": -0.088,
+    "chay": false
+   },
+   "co_dinh": {
+    "cagr_pct": -100.0,
+    "maxdd_pct": 100.0,
+    "sharpe": -0.12,
+    "chay": true
+   },
+   "bootstrap_10nam_chay_pct": 0.0,
+   "bootstrap_10nam_dd80_pct": 62.1,
+   "chi_so_gia": {
+    "cagr_pct": 8.34,
+    "maxdd_pct": 56.8,
+    "sharpe": 0.508,
+    "chay": false
+   }
+  },
+  {
+   "chuoi": "US500_1990",
+   "L": 1,
+   "hang_ngay": {
+    "cagr_pct": 3.2,
+    "maxdd_pct": 72.6,
+    "sharpe": 0.175,
+    "chay": false
+   },
+   "co_dinh": {
+    "cagr_pct": -100.0,
+    "maxdd_pct": 100.0,
+    "sharpe": -0.188,
+    "chay": true
+   },
+   "bootstrap_10nam_chay_pct": 0.0,
+   "bootstrap_10nam_dd80_pct": 0.1,
+   "chi_so_gia": {
+    "cagr_pct": 8.73,
+    "maxdd_pct": 56.8,
+    "sharpe": 0.466,
+    "chay": false
+   }
+  },
+  {
+   "chuoi": "US500_1990",
+   "L": 1.5,
+   "hang_ngay": {
+    "cagr_pct": 3.55,
+    "maxdd_pct": 87.8,
+    "sharpe": 0.129,
+    "chay": false
+   },
+   "co_dinh": {
+    "cagr_pct": -100.0,
+    "maxdd_pct": 100.0,
+    "sharpe": -0.187,
+    "chay": true
+   },
+   "bootstrap_10nam_chay_pct": 0.0,
+   "bootstrap_10nam_dd80_pct": 2.95,
+   "chi_so_gia": {
+    "cagr_pct": 8.73,
+    "maxdd_pct": 56.8,
+    "sharpe": 0.466,
+    "chay": false
+   }
+  },
+  {
+   "chuoi": "US500_1990",
+   "L": 2,
+   "hang_ngay": {
+    "cagr_pct": 3.05,
+    "maxdd_pct": 95.2,
+    "sharpe": 0.083,
+    "chay": false
+   },
+   "co_dinh": {
+    "cagr_pct": -100.0,
+    "maxdd_pct": 100.0,
+    "sharpe": -0.183,
+    "chay": true
+   },
+   "bootstrap_10nam_chay_pct": 0.0,
+   "bootstrap_10nam_dd80_pct": 16.25,
+   "chi_so_gia": {
+    "cagr_pct": 8.73,
+    "maxdd_pct": 56.8,
+    "sharpe": 0.466,
+    "chay": false
+   }
+  },
+  {
+   "chuoi": "US500_1990",
+   "L": 3,
+   "hang_ngay": {
+    "cagr_pct": -0.48,
+    "maxdd_pct": 99.5,
+    "sharpe": -0.009,
+    "chay": false
+   },
+   "co_dinh": {
+    "cagr_pct": -100.0,
+    "maxdd_pct": 100.0,
+    "sharpe": -0.175,
+    "chay": true
+   },
+   "bootstrap_10nam_chay_pct": 0.0,
+   "bootstrap_10nam_dd80_pct": 57.85,
+   "chi_so_gia": {
+    "cagr_pct": 8.73,
+    "maxdd_pct": 56.8,
+    "sharpe": 0.466,
+    "chay": false
+   }
+  },
+  {
+   "chuoi": "UK100_1990",
+   "L": 1,
+   "hang_ngay": {
+    "cagr_pct": -1.23,
+    "maxdd_pct": 69.2,
+    "sharpe": -0.072,
+    "chay": false
+   },
+   "co_dinh": {
+    "cagr_pct": -100.0,
+    "maxdd_pct": 100.0,
+    "sharpe": -0.197,
+    "chay": true
+   },
+   "bootstrap_10nam_chay_pct": 0.0,
+   "bootstrap_10nam_dd80_pct": 0.5,
+   "chi_so_gia": {
+    "cagr_pct": 4.07,
+    "maxdd_pct": 52.6,
+    "sharpe": 0.234,
+    "chay": false
+   }
+  },
+  {
+   "chuoi": "UK100_1990",
+   "L": 1.5,
+   "hang_ngay": {
+    "cagr_pct": -2.92,
+    "maxdd_pct": 86.9,
+    "sharpe": -0.116,
+    "chay": false
+   },
+   "co_dinh": {
+    "cagr_pct": -100.0,
+    "maxdd_pct": 100.0,
+    "sharpe": -0.186,
+    "chay": true
+   },
+   "bootstrap_10nam_chay_pct": 0.0,
+   "bootstrap_10nam_dd80_pct": 10.3,
+   "chi_so_gia": {
+    "cagr_pct": 4.07,
+    "maxdd_pct": 52.6,
+    "sharpe": 0.234,
+    "chay": false
+   }
+  },
+  {
+   "chuoi": "UK100_1990",
+   "L": 2,
+   "hang_ngay": {
+    "cagr_pct": -5.29,
+    "maxdd_pct": 95.6,
+    "sharpe": -0.159,
+    "chay": false
+   },
+   "co_dinh": {
+    "cagr_pct": -100.0,
+    "maxdd_pct": 100.0,
+    "sharpe": -0.177,
+    "chay": true
+   },
+   "bootstrap_10nam_chay_pct": 0.0,
+   "bootstrap_10nam_dd80_pct": 36.15,
+   "chi_so_gia": {
+    "cagr_pct": 4.07,
+    "maxdd_pct": 52.6,
+    "sharpe": 0.234,
+    "chay": false
+   }
+  },
+  {
+   "chuoi": "UK100_1990",
+   "L": 3,
+   "hang_ngay": {
+    "cagr_pct": -11.88,
+    "maxdd_pct": 99.7,
+    "sharpe": -0.245,
+    "chay": false
+   },
+   "co_dinh": {
+    "cagr_pct": -100.0,
+    "maxdd_pct": 100.0,
+    "sharpe": -0.178,
+    "chay": true
+   },
+   "bootstrap_10nam_chay_pct": 0.0,
+   "bootstrap_10nam_dd80_pct": 75.3,
+   "chi_so_gia": {
+    "cagr_pct": 4.07,
+    "maxdd_pct": 52.6,
+    "sharpe": 0.234,
+    "chay": false
+   }
+  }
+ ],
+ "loc": [
+  {
+   "chuoi": "US500_1950",
+   "loc": "MA200",
+   "L": 1,
+   "cagr_pct": 2.45,
+   "maxdd_pct": 40.2,
+   "sharpe": 0.234,
+   "chay": false,
+   "phoi_nhiem_tb": 0.71,
+   "z": 1.472239753919646,
+   "p": 0.07047807286634271,
+   "vuot_mua_giu_khop": 1.2263007961706192,
+   "vuot_mua_giu_khop_x1_5": 1.2116788114705948,
+   "vuot_30cuoi": -1.1195013018927982,
+   "hon_mua_giu_1x": true
+  },
+  {
+   "chuoi": "US500_1950",
+   "loc": "MA200",
+   "L": 2,
+   "cagr_pct": 3.81,
+   "maxdd_pct": 67.9,
+   "sharpe": 0.181,
+   "chay": false,
+   "phoi_nhiem_tb": 1.42,
+   "z": 1.4315007982885335,
+   "p": 0.07614336917710807,
+   "vuot_mua_giu_khop": 2.4325951609573413,
+   "vuot_mua_giu_khop_x1_5": 2.3983495837113176,
+   "vuot_30cuoi": -2.262026064284938,
+   "hon_mua_giu_1x": true
+  },
+  {
+   "chuoi": "US500_1950",
+   "loc": "VOL15",
+   "L": 1,
+   "cagr_pct": -0.04,
+   "maxdd_pct": 91.0,
+   "sharpe": -0.003,
+   "chay": false,
+   "phoi_nhiem_tb": 1.38,
+   "z": -1.6073108780899363,
+   "p": 0.9460069053981608,
+   "vuot_mua_giu_khop": -2.025091257521685,
+   "vuot_mua_giu_khop_x1_5": -2.061814913338959,
+   "vuot_30cuoi": -3.210524265645139,
+   "hon_mua_giu_1x": false
+  },
+  {
+   "chuoi": "US500_1950",
+   "loc": "VOL15",
+   "L": 2,
+   "cagr_pct": -1.06,
+   "maxdd_pct": 99.0,
+   "sharpe": -0.035,
+   "chay": false,
+   "phoi_nhiem_tb": 2.39,
+   "z": -1.7849898338282948,
+   "p": 0.9628685170577913,
+   "vuot_mua_giu_khop": -2.3660847990952063,
+   "vuot_mua_giu_khop_x1_5": -2.4092702881970522,
+   "vuot_30cuoi": -3.531102392931233,
+   "hon_mua_giu_1x": false
+  },
+  {
+   "chuoi": "US500_1950",
+   "loc": "MUA_KHI_GIAM",
+   "L": 1,
+   "cagr_pct": -0.95,
+   "maxdd_pct": 98.3,
+   "sharpe": -0.038,
+   "chay": false,
+   "phoi_nhiem_tb": 1.21,
+   "z": -0.8726225989444061,
+   "p": 0.8085655907224156,
+   "vuot_mua_giu_khop": -0.7267313024130991,
+   "vuot_mua_giu_khop_x1_5": -0.7379929647690316,
+   "vuot_30cuoi": 1.0160397782198718,
+   "hon_mua_giu_1x": false
+  },
+  {
+   "chuoi": "US500_1950",
+   "loc": "MUA_KHI_GIAM",
+   "L": 2,
+   "cagr_pct": -8.62,
+   "maxdd_pct": 100.0,
+   "sharpe": -0.169,
+   "chay": false,
+   "phoi_nhiem_tb": 2.41,
+   "z": -0.9648719856595712,
+   "p": 0.8326955327018877,
+   "vuot_mua_giu_khop": -1.51970114145593,
+   "vuot_mua_giu_khop_x1_5": -1.558784100325229,
+   "vuot_30cuoi": 1.9567309910087383,
+   "hon_mua_giu_1x": false
+  },
+  {
+   "chuoi": "UK100_1990",
+   "loc": "MA200",
+   "L": 1,
+   "cagr_pct": -2.27,
+   "maxdd_pct": 74.4,
+   "sharpe": -0.224,
+   "chay": false,
+   "phoi_nhiem_tb": 0.66,
+   "z": -1.8041067577258274,
+   "p": 0.9643927137231184,
+   "vuot_mua_giu_khop": -1.9113235225523686,
+   "vuot_mua_giu_khop_x1_5": -1.9472698635381283,
+   "vuot_30cuoi": -3.7052754699205956,
+   "hon_mua_giu_1x": false
+  },
+  {
+   "chuoi": "UK100_1990",
+   "loc": "MA200",
+   "L": 2,
+   "cagr_pct": -5.52,
+   "maxdd_pct": 95.1,
+   "sharpe": -0.276,
+   "chay": false,
+   "phoi_nhiem_tb": 1.32,
+   "z": -1.7370068635764364,
+   "p": 0.95880702030752,
+   "vuot_mua_giu_khop": -3.8472289534172974,
+   "vuot_mua_giu_khop_x1_5": -3.926496207882587,
+   "vuot_30cuoi": -7.433537355760531,
+   "hon_mua_giu_1x": false
+  },
+  {
+   "chuoi": "UK100_1990",
+   "loc": "VOL15",
+   "L": 1,
+   "cagr_pct": -3.98,
+   "maxdd_pct": 86.9,
+   "sharpe": -0.246,
+   "chay": false,
+   "phoi_nhiem_tb": 1.22,
+   "z": -2.478062578527156,
+   "p": 0.9933951012810311,
+   "vuot_mua_giu_khop": -2.9516577923527203,
+   "vuot_mua_giu_khop_x1_5": -3.001434247879039,
+   "vuot_30cuoi": -5.220508884698822,
+   "hon_mua_giu_1x": false
+  },
+  {
+   "chuoi": "UK100_1990",
+   "loc": "VOL15",
+   "L": 2,
+   "cagr_pct": -7.94,
+   "maxdd_pct": 97.7,
+   "sharpe": -0.267,
+   "chay": false,
+   "phoi_nhiem_tb": 2.25,
+   "z": -2.404284454306002,
+   "p": 0.9918979205088135,
+   "vuot_mua_giu_khop": -3.9767458418070465,
+   "vuot_mua_giu_khop_x1_5": -4.045058283815288,
+   "vuot_30cuoi": -6.450883321407881,
+   "hon_mua_giu_1x": false
+  },
+  {
+   "chuoi": "UK100_1990",
+   "loc": "MUA_KHI_GIAM",
+   "L": 1,
+   "cagr_pct": -2.33,
+   "maxdd_pct": 89.8,
+   "sharpe": -0.085,
+   "chay": false,
+   "phoi_nhiem_tb": 1.24,
+   "z": 1.33855808803152,
+   "p": 0.0903572890484978,
+   "vuot_mua_giu_khop": 1.2197231682109544,
+   "vuot_mua_giu_khop_x1_5": 1.195965010055831,
+   "vuot_30cuoi": 1.8989329772675028,
+   "hon_mua_giu_1x": false
+  },
+  {
+   "chuoi": "UK100_1990",
+   "loc": "MUA_KHI_GIAM",
+   "L": 2,
+   "cagr_pct": -11.92,
+   "maxdd_pct": 99.8,
+   "sharpe": -0.226,
+   "chay": false,
+   "phoi_nhiem_tb": 2.48,
+   "z": 1.3873884504015925,
+   "p": 0.08266167244623669,
+   "vuot_mua_giu_khop": 2.3399131063400946,
+   "vuot_mua_giu_khop_x1_5": 2.2625368210053005,
+   "vuot_30cuoi": 3.721248920305467,
+   "hon_mua_giu_1x": false
+  }
+ ]
+}
