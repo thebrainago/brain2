@@ -4,6 +4,14 @@
 
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
 
+## 12/10/2026 chiều (7) — Vòng 15: kiểm đã trừ xu hướng (MÔ PHỎNG) — sửa thiên lệch phép thử
+
+- Phép thử cũ so với 0 nên lợi cho tài sản có xu hướng tăng. Đăng ký trước `reports/vong15_tien_dang_ky.md`; `v15.py`, `reports/vong15.json`, `test_v15.py`: hoán vị dịch vòng chuỗi phơi nhiễm trên cùng tài sản (2000 lần, giữ số ngày/độ dài lần giữ, phí tính lại), cộng điều kiện vượt mua-giữ khớp phơi nhiễm (toàn chuỗi + 30 % cuối, ×1/×1,5). Holm cộng dồn 4.347 (34 quy tắc + 4.258 ô vòng 14 + 7 hệ + 48 ô CPI).
+- **Còn sống:** danh mục 4 S&P (z 4,8, Holm 0,003), đầu/cuối tháng (z 4,4, Holm 0,023).
+- **Rớt:** IBS S&P (z 3,6 → Holm 0,73), V6 (Holm 1,0), Santa (Holm 1,0), TNX_USDJPY (Holm 1,0) — vẫn vượt mua-giữ khớp phơi nhiễm, rớt vì họ phép thử quá lớn; NDX sau USDCAD giảm (z 1,25) — lợi thế vòng 14 là do xu hướng tăng của NDX.
+- CPI: ngày công bố từ ALFRED (rid=10, `reports/cpi_ngay_cong_bo_alfred.txt`; tháng có 2 ngày giữ ngày muộn hơn). 48 ô CPI (trừ xu hướng), p nhỏ nhất 0,009 → không ô nào sống.
+- `ea_demo/INSTALL_DEMO.md` ghi rõ IBS demo không còn là hệ sống.
+
 ## 12/10/2026 chiều (6) — Vòng 14: quét lịch/chéo/vĩ mô (MÔ PHỎNG)
 
 - Đăng ký trước `reports/vong14_tien_dang_ky.md`; `v14.py`, `lich_su_kien.py` (FOMC từ federalreserve.gov 1994–2026, 255 ngày; NFP = thứ 6 đầu tháng, xấp xỉ; CPI KHÔNG lấy được — BLS chặn 403), `reports/vong14.json`, `test_v14.py`.

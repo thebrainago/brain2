@@ -1,3 +1,5 @@
+> **CẬP NHẬT VÒNG 15 (mô phỏng):** sau phép kiểm đã trừ xu hướng tăng và hiệu chỉnh Holm cộng dồn 4.347 phép thử, hệ của `BRAIN_IBS_Demo` (IBS S&P, cả V6) **KHÔNG CÒN SỐNG** (z 3,6, p 1,7e-4 → Holm 0,73). Vẫn có thể chạy demo để quan sát phí, nhưng không coi là hệ đạt. `BRAIN_MuaVu_SPX`: danh mục 4 quy tắc **vẫn sống**; riêng quy tắc Santa không còn sống khi đứng một mình, Halloween/năm 3 đã rớt từ trước (chỉ sống trong danh mục).
+
 # Cài EA demo brain2 trên MT5 (tài khoản DEMO XM) — vòng 13
 
 > Đây là EA để **chạy thử trên tài khoản DEMO** và so với mô phỏng. Kết quả brain2 đều là **mô phỏng**, không phải tiền thật.

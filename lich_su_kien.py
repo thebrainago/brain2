@@ -39,3 +39,11 @@ def nfp(tu=1994, den=2026):
 
 if __name__ == "__main__":
     f = fomc(); print(len(f), f[:3], f[-3:])
+
+
+def cpi(tep="/workspace/du_lieu_ngay/cpi_ngay_cong_bo_alfred.txt"):
+    """Ngay cong bo CPI theo ALFRED (rid=10). Thang co 2 ngay (sua he so mua vu): giu ngay MUON hon (ban tin CPI)."""
+    ds = [dt.date.fromisoformat(x) for l in open(tep) if not l.startswith("#") for x in l.split()]
+    by = {}
+    for d in ds: by[(d.year, d.month)] = max(by.get((d.year, d.month), d), d)
+    return sorted(by.values())
