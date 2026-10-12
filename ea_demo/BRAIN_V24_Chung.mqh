@@ -1,0 +1,159 @@
+//+------------------------------------------------------------------+
+//| BRAIN_V24_Chung.mqh - brain2 vong 24/25 - logic chung 2 EA D1      |
+//| Khop v24.py -> v22.chay(thoat="TR2") + v19.tin_hieu (RSI / MRZ):   |
+//|  - Tin hieu tren nen D1 VUA DONG (shift 1), vao o open nen ke tiep |
+//|  - SL ban dau = gia vao -/+ 1,5*ATR14(nen tin hieu)                |
+//|  - Sau moi nen dong: best = max/min(best, close); SL = best -/+ 2*ATR14(nen do), chi keo theo huong co loi |
+//|  - Giu toi da 72 nen: dong o open nen thu 73, nen do KHONG xet vao moi |
+//|  - Mot vi the moi chart; MO PHONG -> chi backtest/demo.            |
+//+------------------------------------------------------------------+
+#include <Trade/Trade.mqh>
+
+enum ENUM_CHE_DO_LOT { LOT_CO_DINH = 0, LOT_PHAN_TRAM_RUI_RO = 1 };
+
+input ENUM_CHE_DO_LOT InpCheDoLot = LOT_CO_DINH; // lot co dinh hoac % rui ro
+input double InpLots          = 0.01;   // lot co dinh
+input double InpRuiRoPct      = 0.5;    // % von rui ro / lenh (khoang SL ban dau 1,5 ATR)
+input int    InpSoNen         = 1500;   // so nen D1 de tinh chi bao (EWM hoi tu)
+input long   InpMagic         = 2026102401;
+input string InpFileLog       = "brain2_v24_log.csv";
+input bool   InpLogChung      = true;   // ghi vao thu muc Common\Files (de lay log ca khi chay Tester)
+
+// hang so CO DINH (khong toi uu) - khop Python
+#define ATR_N      14
+#define RSI_N      14
+#define MRZ_N      50
+#define SL_ATR     1.5
+#define TR_ATR     2.0
+#define GIU_TOI_DA 72
+
+CTrade trade;
+datetime g_nen_cuoi = 0;
+string   g_gv_best;
+
+void GhiLog(string s)
+{
+   int co = FILE_READ|FILE_WRITE|FILE_CSV|FILE_ANSI|FILE_SHARE_READ|(InpLogChung ? FILE_COMMON : 0);
+   int h = FileOpen(InpFileLog, co, ';');
+   if(h == INVALID_HANDLE) return;
+   FileSeek(h, 0, SEEK_END);
+   FileWriteString(h, s + "\r\n");
+   FileClose(h);
+}
+
+// tinh chi bao tren cac nen DA DONG; r[] tu cu toi moi, phan tu cuoi = nen shift 1
+bool ChiBao(double &atr1, double &gia_tri1, int &tin)
+{
+   MqlRates r[];
+   ArraySetAsSeries(r, false);
+   int n = CopyRates(_Symbol, PERIOD_D1, 1, InpSoNen, r);
+   if(n < MRZ_N + 2) return false;
+   double atr = r[0].high - r[0].low;
+   double eu = 0, ed = 0; bool co_ewm = false;
+   for(int i = 1; i < n; i++)
+   {
+      double pc = r[i-1].close;
+      double tr = MathMax(r[i].high - r[i].low, MathMax(MathAbs(r[i].high - pc), MathAbs(r[i].low - pc)));
+      atr = atr + (tr - atr) / ATR_N;
+      double d = r[i].close - pc, u = MathMax(d, 0.0), v = MathMax(-d, 0.0);
+      if(!co_ewm) { eu = u; ed = v; co_ewm = true; }
+      else { eu = eu + (u - eu) / RSI_N; ed = ed + (v - ed) / RSI_N; }
+   }
+   atr1 = atr; tin = 0;
+#ifdef CHE_DO_RSI
+   if(eu == 0 && ed == 0) { gia_tri1 = EMPTY_VALUE; return true; }
+   double rsi = (ed == 0) ? 100.0 : 100.0 - 100.0 / (1.0 + eu / ed);
+   gia_tri1 = rsi;
+   if(rsi < 30) tin = 1; else if(rsi > 70) tin = -1;
+#else
+   double m = 0, s2 = 0;
+   for(int i = n - MRZ_N; i < n; i++) m += r[i].close;
+   m /= MRZ_N;
+   for(int i = n - MRZ_N; i < n; i++) s2 += (r[i].close - m) * (r[i].close - m);
+   double sd = MathSqrt(s2 / (MRZ_N - 1));          // ddof=1 nhu pandas rolling.std()
+   if(sd <= 0) { gia_tri1 = EMPTY_VALUE; return true; }
+   double z = (r[n-1].close - m) / sd;
+   gia_tri1 = z;
+   if(z < -2) tin = 1; else if(z > 2) tin = -1;
+#endif
+   return true;
+}
+
+bool ViThe(ulong &ticket, long &loai, double &sl, datetime &t_vao)
+{
+   for(int i = PositionsTotal() - 1; i >= 0; i--)
+   {
+      ulong t = PositionGetTicket(i);
+      if(t == 0) continue;
+      if(PositionGetString(POSITION_SYMBOL) != _Symbol || PositionGetInteger(POSITION_MAGIC) != InpMagic) continue;
+      ticket = t; loai = PositionGetInteger(POSITION_TYPE); sl = PositionGetDouble(POSITION_SL);
+      t_vao = (datetime)PositionGetInteger(POSITION_TIME); return true;
+   }
+   return false;
+}
+
+double TinhLot(double kc_sl)
+{
+   double lot = InpLots;
+   if(InpCheDoLot == LOT_PHAN_TRAM_RUI_RO)
+   {
+      double tv = SymbolInfoDouble(_Symbol, SYMBOL_TRADE_TICK_VALUE), ts = SymbolInfoDouble(_Symbol, SYMBOL_TRADE_TICK_SIZE);
+      if(tv > 0 && ts > 0 && kc_sl > 0) lot = AccountInfoDouble(ACCOUNT_EQUITY) * InpRuiRoPct / 100.0 / (kc_sl / ts * tv);
+   }
+   double st = SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_STEP), mn = SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_MIN), mx = SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_MAX);
+   if(st > 0) lot = MathFloor(lot / st) * st;
+   return MathMax(mn, MathMin(mx, lot));
+}
+
+int OnInit()
+{
+   trade.SetExpertMagicNumber(InpMagic);
+   g_gv_best = "brain2_v24_best_" + _Symbol + "_" + IntegerToString(InpMagic);
+   GhiLog("thoi_gian;ma;su_kien;khoi_luong;gia;bid;ask;spread_point;swap;hoa_hong;loi;chi_bao");
+   return INIT_SUCCEEDED;
+}
+
+void OnTick()
+{
+   datetime t0 = iTime(_Symbol, PERIOD_D1, 0);
+   if(t0 == 0 || t0 == g_nen_cuoi) return;          // chi xu ly 1 lan khi mo nen D1 moi
+   g_nen_cuoi = t0;
+   double atr1, gt1; int tin;
+   if(!ChiBao(atr1, gt1, tin)) return;
+   double bid = SymbolInfoDouble(_Symbol, SYMBOL_BID), ask = SymbolInfoDouble(_Symbol, SYMBOL_ASK);
+   GhiLog(StringFormat("%s;%s;kiem;0;0;%.5f;%.5f;%d;0;0;0;%.4f", TimeToString(TimeCurrent()), _Symbol, bid, ask,
+          (int)SymbolInfoInteger(_Symbol, SYMBOL_SPREAD), gt1));
+   int dg = (int)SymbolInfoInteger(_Symbol, SYMBOL_DIGITS);
+   ulong tk; long loai; double sl; datetime tv;
+   if(ViThe(tk, loai, sl, tv))
+   {
+      int giu = iBarShift(_Symbol, PERIOD_D1, tv, false);   // so nen da dong tinh ca nen vao
+      if(giu >= GIU_TOI_DA) { trade.PositionClose(tk); GlobalVariableDel(g_gv_best); return; }  // nen nay khong vao moi
+      double c1 = iClose(_Symbol, PERIOD_D1, 1);
+      double best = GlobalVariableCheck(g_gv_best) ? GlobalVariableGet(g_gv_best) : c1;
+      double moi;
+      if(loai == POSITION_TYPE_BUY) { best = MathMax(best, c1); moi = best - TR_ATR * atr1; if(moi > sl) trade.PositionModify(tk, NormalizeDouble(moi, dg), 0); }
+      else                          { best = MathMin(best, c1); moi = best + TR_ATR * atr1; if(moi < sl) trade.PositionModify(tk, NormalizeDouble(moi, dg), 0); }
+      GlobalVariableSet(g_gv_best, best);
+      return;
+   }
+   GlobalVariableDel(g_gv_best);
+   if(tin == 0) return;
+   double kc = SL_ATR * atr1, lot = TinhLot(kc);
+   if(tin > 0) trade.Buy(lot, _Symbol, 0, NormalizeDouble(ask - kc, dg), 0, "brain2 v24");
+   else        trade.Sell(lot, _Symbol, 0, NormalizeDouble(bid + kc, dg), 0, "brain2 v24");
+}
+
+void OnTradeTransaction(const MqlTradeTransaction &tr, const MqlTradeRequest &rq, const MqlTradeResult &rs)
+{
+   if(tr.type != TRADE_TRANSACTION_DEAL_ADD) return;
+   if(!HistoryDealSelect(tr.deal)) return;
+   if(HistoryDealGetInteger(tr.deal, DEAL_MAGIC) != InpMagic || HistoryDealGetString(tr.deal, DEAL_SYMBOL) != _Symbol) return;
+   GhiLog(StringFormat("%s;%s;%s;%.2f;%.5f;%.5f;%.5f;%d;%.2f;%.2f;%.2f;",
+          TimeToString(TimeCurrent()), _Symbol,
+          HistoryDealGetInteger(tr.deal, DEAL_ENTRY) == DEAL_ENTRY_IN ? "vao" : "ra",
+          HistoryDealGetDouble(tr.deal, DEAL_VOLUME), HistoryDealGetDouble(tr.deal, DEAL_PRICE),
+          SymbolInfoDouble(_Symbol, SYMBOL_BID), SymbolInfoDouble(_Symbol, SYMBOL_ASK),
+          (int)SymbolInfoInteger(_Symbol, SYMBOL_SPREAD), HistoryDealGetDouble(tr.deal, DEAL_SWAP),
+          HistoryDealGetDouble(tr.deal, DEAL_COMMISSION), HistoryDealGetDouble(tr.deal, DEAL_PROFIT)));
+}

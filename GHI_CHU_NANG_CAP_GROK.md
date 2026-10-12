@@ -4,6 +4,13 @@
 
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
 
+## 12/10/2026 tối (17) — EA MT5 cho RSI/MRZ trailing D1 (vòng 24) — CHƯA COMPILE
+
+- `ea_demo/BRAIN_V24_Chung.mqh`, `BRAIN_V24_RSI_Trail_D1.mq5`, `BRAIN_V24_MRZ_Trail_D1.mq5` + `.set`; log CSV `;` cùng định dạng (đọc bằng `do_phi_xm.py`).
+- `ea_demo/ea_logic_v24.py` + `test_ea_v24.py`: bản Python theo luồng EA khớp từng lệnh (ngày vào, hướng, số nến, lợi nhuận đến 1e-12) với `v22.chay(TR2)` trên 6 chuỗi ngẫu nhiên × 2 hệ (bỏ 80 nến cuối do biên dữ liệu). Khác biệt còn lại: MT5 khớp SL có gap.
+- `tai_lieu/BACKTEST_MT5_V24.md`: compile, Strategy Tester (real ticks, D1, 2004–2015 / 2015–2026), danh sách mã XM, xuất báo cáo.
+- Box không có MetaEditor → CHƯA COMPILE. Nhắc: hai hệ này KHÔNG sống ở vòng 24; backtest chỉ để kiểm tra khớp và đo phí.
+
 ## 12/10/2026 tối (16) — Vòng 24: pooled 54 tài sản D1 + máy nhà (MÔ PHỎNG)
 
 - Đăng ký trước `reports/vong24_tien_dang_ky.md`; `v24.py`, `test_v24.py`, `reports/vong24.json`. Dữ liệu Yahoo D1 54 tài sản (28 FX, 14 hàng hóa liên tục, 12 chỉ số) từ 2004, ở `/workspace/du_lieu_ngay/v24` (ngoài git).
