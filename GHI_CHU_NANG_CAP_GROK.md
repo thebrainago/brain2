@@ -4,6 +4,15 @@
 
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
 
+## 12/10/2026 tối (16) — Vòng 24: pooled 54 tài sản D1 + máy nhà (MÔ PHỎNG)
+
+- Đăng ký trước `reports/vong24_tien_dang_ky.md`; `v24.py`, `test_v24.py`, `reports/vong24.json`. Dữ liệu Yahoo D1 54 tài sản (28 FX, 14 hàng hóa liên tục, 12 chỉ số) từ 2004, ở `/workspace/du_lieu_ngay/v24` (ngoài git).
+- 12 hệ cố định, một luật chung; p chính = t gom cụm theo tuần vào lệnh; bootstrap khối tuần làm kiểm tra phụ. Holm 12.445 → 12.457: **0 SỐNG**.
+- Mọi hệ đều LỖ ở nửa phát hiện (2004–2015) sau phí; nửa kiểm (2015–2026) dương ở 9/12. Tốt nhất: RSI_TR2_D1 (+25 bps/lệnh, p cụm 0,023, 4.205 lệnh, 65 % tài sản lãi) và MRZ_TR2_D1 (+17 bps, p 0,028) — nửa đầu −6 và −1,6 bps → không ổn định qua thời kỳ.
+- PAXG_ST_D1: hàng hóa/chỉ số dương, FX âm; p 0,26. TRENDBREAKER D1 p 0,10, H4 p 0,15.
+- Hạn chế: hàng hóa Yahoo là hợp đồng liên tục (nhảy giá khi đáo hạn); phí theo bảng cố định từng lớp tài sản.
+- Thêm `do_phi_xm.py` (+ `test_do_phi_xm.py`) đọc log CSV EA demo → spread/trượt/swap/hoa hồng thật; `tai_lieu/CHAY_MAY_NHA.md` hướng dẫn Windows 10.
+
 ## 12/10/2026 tối (15) — Vòng 23: 15 script TradingView (BẢN DỊCH THEO MÔ TẢ CÔNG KHAI) + ghép chéo (MÔ PHỎNG)
 
 - Đăng ký trước `reports/vong23_tien_dang_ky.md`; `v23.py`, `test_v23.py`, `reports/vong23.json`. 15 trang script trả HTTP 200; chỉ dùng mô tả (không đọc/chép mã Pine).
