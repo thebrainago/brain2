@@ -29,6 +29,12 @@ input bool   InpLogChung      = true;   // ghi vao thu muc Common\Files (de lay 
 
 CTrade trade;
 datetime g_nen_cuoi = 0;
+// 13/10/2026: CFD/vang XM dong cua luc 00:00 server -> lenh thi truong o tick dau nen D1 bi tu choi [Market closed].
+// Giu lenh CHO (vao / dong het han) va thu lai o cac tick sau CUNG nen, tuc khop o gia mo phien dau tien
+// (tuong duong 'open nen' cua du lieu ngay trong Python). Sang nen moi thi bo lenh cho, tinh lai binh thuong.
+int    g_cho_tin = 0;      // +1/-1: con lenh vao dang cho
+double g_cho_kc  = 0;      // khoang SL ban dau (1,5*ATR nen tin hieu)
+ulong  g_cho_dong = 0;     // ve can dong (het 72 nen) dang cho
 string   g_gv_best;
 
 void GhiLog(string s)
@@ -116,8 +122,9 @@ int OnInit()
 void OnTick()
 {
    datetime t0 = iTime(_Symbol, PERIOD_D1, 0);
-   if(t0 == 0 || t0 == g_nen_cuoi) return;          // chi xu ly 1 lan khi mo nen D1 moi
-   g_nen_cuoi = t0;
+   if(t0 == 0) return;
+   if(t0 == g_nen_cuoi) { ThuLaiLenhCho(); return; } // trong nen: chi thu lai lenh bi tu choi vi dong cua
+   g_nen_cuoi = t0; g_cho_tin = 0; g_cho_dong = 0;
    double atr1, gt1; int tin;
    if(!ChiBao(atr1, gt1, tin)) return;
    double bid = SymbolInfoDouble(_Symbol, SYMBOL_BID), ask = SymbolInfoDouble(_Symbol, SYMBOL_ASK);
@@ -128,7 +135,7 @@ void OnTick()
    if(ViThe(tk, loai, sl, tv))
    {
       int giu = iBarShift(_Symbol, PERIOD_D1, tv, false);   // so nen da dong tinh ca nen vao
-      if(giu >= GIU_TOI_DA) { trade.PositionClose(tk); GlobalVariableDel(g_gv_best); return; }  // nen nay khong vao moi
+      if(giu >= GIU_TOI_DA) { if(!trade.PositionClose(tk) && DongCua()) g_cho_dong = tk; GlobalVariableDel(g_gv_best); return; }  // nen nay khong vao moi
       double c1 = iClose(_Symbol, PERIOD_D1, 1);
       double best = GlobalVariableCheck(g_gv_best) ? GlobalVariableGet(g_gv_best) : c1;
       double moi;
@@ -139,9 +146,27 @@ void OnTick()
    }
    GlobalVariableDel(g_gv_best);
    if(tin == 0) return;
-   double kc = SL_ATR * atr1, lot = TinhLot(kc);
-   if(tin > 0) trade.Buy(lot, _Symbol, 0, NormalizeDouble(ask - kc, dg), 0, "brain2 v24");
-   else        trade.Sell(lot, _Symbol, 0, NormalizeDouble(bid + kc, dg), 0, "brain2 v24");
+   double kc = SL_ATR * atr1;
+   if(!VaoLenh(tin, kc) && DongCua()) { g_cho_tin = tin; g_cho_kc = kc; }
+}
+
+bool DongCua() { uint rc = trade.ResultRetcode(); return rc == TRADE_RETCODE_MARKET_CLOSED || rc == TRADE_RETCODE_TRADE_DISABLED; }
+
+bool VaoLenh(int tin, double kc)
+{
+   int dg = (int)SymbolInfoInteger(_Symbol, SYMBOL_DIGITS); double lot = TinhLot(kc);
+   double bid = SymbolInfoDouble(_Symbol, SYMBOL_BID), ask = SymbolInfoDouble(_Symbol, SYMBOL_ASK);
+   if(tin > 0) return trade.Buy(lot, _Symbol, 0, NormalizeDouble(ask - kc, dg), 0, "brain2 v24") && trade.ResultRetcode() == TRADE_RETCODE_DONE;
+   return trade.Sell(lot, _Symbol, 0, NormalizeDouble(bid + kc, dg), 0, "brain2 v24") && trade.ResultRetcode() == TRADE_RETCODE_DONE;
+}
+
+void ThuLaiLenhCho()
+{
+   if(g_cho_dong != 0) { if(!PositionSelectByTicket(g_cho_dong) || trade.PositionClose(g_cho_dong)) g_cho_dong = 0; return; }  // nen nay khong vao moi
+   if(g_cho_tin == 0) return;
+   ulong tk; long loai; double sl; datetime tv;
+   if(ViThe(tk, loai, sl, tv)) { g_cho_tin = 0; return; }
+   if(VaoLenh(g_cho_tin, g_cho_kc) || !DongCua()) g_cho_tin = 0;
 }
 
 void OnTradeTransaction(const MqlTradeTransaction &tr, const MqlTradeRequest &rq, const MqlTradeResult &rs)
