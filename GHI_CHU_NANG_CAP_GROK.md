@@ -4,6 +4,13 @@
 
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
 
+## 12/10/2026 chiều (6) — Vòng 14: quét lịch/chéo/vĩ mô (MÔ PHỎNG)
+
+- Đăng ký trước `reports/vong14_tien_dang_ky.md`; `v14.py`, `lich_su_kien.py` (FOMC từ federalreserve.gov 1994–2026, 255 ngày; NFP = thứ 6 đầu tháng, xấp xỉ; CPI KHÔNG lấy được — BLS chặn 403), `reports/vong14.json`, `test_v14.py`.
+- 16 tài sản D1 Yahoo, nửa đầu phát hiện / nửa sau kiểm. 4.258 ô (3.682 lịch đơn+ghép 2, 480 chéo trễ 1 ngày, 96 sự kiện) + 34 quy tắc cũ = 4.292 trong Holm/BH.
+- Chỉ 1 ô qua Holm (0,038) và BH: **mua NDX (US100) khi USDCAD giảm ở phiên t-1** (tín hiệu trễ đủ 1 ngày, không lệch giờ đóng). Sau phí XM + qua đêm: 4,4 %/năm, DD 54 %, nửa kiểm +517 % (×1,5 +465 %), sau 2010 Sharpe 0,87 → đạt tiêu chí. Đối chứng: ngày USDCAD tăng −0,6 %/năm. Cảnh báo: phép thử so với 0 nên tài sản có xu hướng tăng được lợi; chỉ là ứng viên theo dõi, chưa có cơ chế kinh tế rõ.
+- Không ô lịch nào (thứ/tháng/vị trí/chu kỳ, ghép 2) và không sự kiện FOMC/NFP nào qua hiệu chỉnh. Giá bid/ask thật chỉ có FX H1 2024–2026, không dùng cho quét D1.
+
 ## 12/10/2026 chiều (5) — Vòng 13: EA demo cho hệ sống + IBS tài sản khác (MÔ PHỎNG)
 
 - **EA demo (sản phẩm giao, CHỈ cho tài khoản DEMO XM):** `ea_demo/BRAIN_IBS_Demo.mq5` (+`.set`): IBS < 0,2 của phiên cash Mỹ (16:30→22:55 giờ server) trên US500Cash/US100Cash, giữ 1 ngày, khối lượng cố định 0,10. `ea_demo/BRAIN_MuaVu_SPX.mq5` (+`.set`): danh mục 4 quy tắc (đầu/cuối tháng, Santa, Halloween, năm 3) có công tắc từng quy tắc, khối lượng = số quy tắc bật × 0,05. Cả hai ghi CSV khớp lệnh/bid/ask/spread/swap/hoa hồng. Hướng dẫn `ea_demo/INSTALL_DEMO.md`. CHƯA biên dịch (không có MetaEditor trên box) — chỉ kiểm cú pháp thô (ngoặc cân, input khớp `.set`). Bản Python đối chiếu `ea_demo/ea_logic_py.py`; `test_ea_demo.py`: lịch thứ 2–6 khớp mô phỏng 100 %, lịch thật (ngày lễ) khớp > 97 %.
