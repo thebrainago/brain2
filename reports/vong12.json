@@ -1,0 +1,214 @@
+{
+ "nhan": "MO PHONG",
+ "ho_holm": 29,
+ "quy_tac": [
+  {
+   "quy_tac": "V6_IBS_DANH_MUC",
+   "x1": {
+    "toan": {
+     "loi_pct": 531.45,
+     "cagr_pct": 5.14,
+     "maxdd_pct": 44.65,
+     "sharpe": 0.513,
+     "nam": 36.77,
+     "t": 3.113
+    },
+    "nm": {
+     "loi_pct": 151.46,
+     "cagr_pct": 8.705,
+     "maxdd_pct": 13.2,
+     "sharpe": 0.9,
+     "nam": 11.05,
+     "t": 2.99
+    },
+    "sau_cong_bo": {
+     "loi_pct": 265.65,
+     "cagr_pct": 8.042,
+     "maxdd_pct": 13.68,
+     "sharpe": 0.873,
+     "nam": 16.76,
+     "t": 3.572
+    }
+   },
+   "x1.5": {
+    "toan": {
+     "loi_pct": 481.78,
+     "cagr_pct": 4.906,
+     "maxdd_pct": 46.08,
+     "sharpe": 0.493,
+     "nam": 36.77,
+     "t": 2.99
+    },
+    "nm": {
+     "loi_pct": 145.88,
+     "cagr_pct": 8.485,
+     "maxdd_pct": 13.26,
+     "sharpe": 0.879,
+     "nam": 11.05,
+     "t": 2.921
+    },
+    "sau_cong_bo": {
+     "loi_pct": 253.66,
+     "cagr_pct": 7.828,
+     "maxdd_pct": 13.74,
+     "sharpe": 0.851,
+     "nam": 16.76,
+     "t": 3.486
+    }
+   },
+   "tu": "1990-01-02",
+   "den": "2026-10-09",
+   "so_lenh": null,
+   "p": 0.000925980088737058,
+   "p_holm_29": 0.02407548230716351,
+   "tieu_chi": {
+    "lai_toan": true,
+    "dd_lt_80": true,
+    "nm_lai_x1": true,
+    "nm_lai_x1_5": true,
+    "p_holm_lt_005": true,
+    "sau_cong_bo": true
+   },
+   "song": true
+  },
+  {
+   "quy_tac": "AUDCAD_RSI_DAO_CHIEU",
+   "x1": {
+    "toan": {
+     "loi_pct": 31.29,
+     "cagr_pct": 1.463,
+     "maxdd_pct": 18.43,
+     "sharpe": 0.358,
+     "nam": 18.74,
+     "t": 1.548
+    },
+    "nm": {
+     "loi_pct": 24.29,
+     "cagr_pct": 3.965,
+     "maxdd_pct": 3.35,
+     "sharpe": 1.233,
+     "nam": 5.59,
+     "t": 2.915
+    },
+    "sau_cong_bo": null
+   },
+   "x1.5": {
+    "toan": {
+     "loi_pct": 28.01,
+     "cagr_pct": 1.326,
+     "maxdd_pct": 18.47,
+     "sharpe": 0.327,
+     "nam": 18.74,
+     "t": 1.415
+    },
+    "nm": {
+     "loi_pct": 23.18,
+     "cagr_pct": 3.799,
+     "maxdd_pct": 3.36,
+     "sharpe": 1.186,
+     "nam": 5.59,
+     "t": 2.805
+    },
+    "sau_cong_bo": null
+   },
+   "tu": "2008-01-02",
+   "den": "2026-09-30",
+   "so_lenh": 181,
+   "p": 0.060811148255697695,
+   "p_holm_29": 0.9729783720911631,
+   "tieu_chi": {
+    "lai_toan": true,
+    "dd_lt_80": true,
+    "nm_lai_x1": true,
+    "nm_lai_x1_5": true,
+    "p_holm_lt_005": false
+   },
+   "song": false
+  },
+  {
+   "quy_tac": "AUDCAD_OU_N50_Z25_MUA",
+   "x1": {
+    "toan": {
+     "loi_pct": 26.37,
+     "cagr_pct": 1.256,
+     "maxdd_pct": 11.4,
+     "sharpe": 0.318,
+     "nam": 18.74,
+     "t": 1.375
+    },
+    "nm": {
+     "loi_pct": 15.95,
+     "cagr_pct": 2.682,
+     "maxdd_pct": 5.02,
+     "sharpe": 0.833,
+     "nam": 5.59,
+     "t": 1.97
+    },
+    "sau_cong_bo": null
+   },
+   "x1.5": {
+    "toan": {
+     "loi_pct": 23.34,
+     "cagr_pct": 1.126,
+     "maxdd_pct": 11.42,
+     "sharpe": 0.287,
+     "nam": 18.74,
+     "t": 1.243
+    },
+    "nm": {
+     "loi_pct": 15.06,
+     "cagr_pct": 2.541,
+     "maxdd_pct": 5.04,
+     "sharpe": 0.792,
+     "nam": 5.59,
+     "t": 1.873
+    },
+    "sau_cong_bo": null
+   },
+   "tu": "2008-01-02",
+   "den": "2026-09-30",
+   "so_lenh": 173,
+   "p": 0.08456572235133572,
+   "p_holm_29": 1.0,
+   "tieu_chi": {
+    "lai_toan": true,
+    "dd_lt_80": true,
+    "nm_lai_x1": true,
+    "nm_lai_x1_5": true,
+    "p_holm_lt_005": false
+   },
+   "song": false
+  }
+ ],
+ "p_holm_29": {
+  "DANH_MUC_4_SPX": 1.4547119863216864e-05,
+  "USD_CUOI_THANG": 1.0,
+  "CUOI_QUY_TAI_CAN_BANG": 1.0,
+  "CUOI_NAM_USD": 1.0,
+  "USD_THANG12_THANG1": 1.0,
+  "JPY_CUOI_NAM_TAI_KHOA": 1.0,
+  "VANG_THANG8_THANG2": 0.0525348129137864,
+  "DAU_THANG2_THANG4": 0.9544338825467311,
+  "CHENH_2Y_MY_DUC_EURUSD": 1.0,
+  "TNX_USDJPY": 0.02407548230716351,
+  "TNX_VANG": 0.7903984715597572,
+  "AUD_NZD_HOI_QUY": 1.0,
+  "CARRY_AUDJPY": 0.9729783720911631,
+  "VIX_THAP_US500": 1.0,
+  "CHU_KY_BAU_CU_NAM3": 0.05778381888448308,
+  "HALLOWEEN": 0.05415795365332414,
+  "DAU_CUOI_THANG": 1.4702135877898433e-05,
+  "SANTA": 0.0033001449857319692,
+  "VANG_TRUOC_TET": 0.9729783720911631,
+  "SPX_10THANG": 0.3511757957186279,
+  "VANG_10THANG": 0.581462733361141,
+  "SPX_3TUAN_GIAM": 1.0,
+  "VANG_M30_VN": 1.0,
+  "VANG_M30_SERVER": 1.0,
+  "VANG_M30_GMT": 1.0,
+  "IBS": 0.03976849245247772,
+  "V6_IBS_DANH_MUC": 0.02407548230716351,
+  "AUDCAD_RSI_DAO_CHIEU": 0.9729783720911631,
+  "AUDCAD_OU_N50_Z25_MUA": 1.0
+ }
+}

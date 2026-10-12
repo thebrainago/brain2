@@ -4,6 +4,15 @@
 
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
 
+## 12/10/2026 chiều (4) — Vòng 12: tái hiện V6 và AUDCAD của the-brain (chỉ tham khảo) (MÔ PHỎNG)
+
+- Đọc the-brain (nhánh claude/autonomous-trading-system-rzzt7h = main = 3c982747), không lấy bí mật/mã. V6 = IBS < 0,2 trên chỉ số Mỹ (+ lớp bias vĩ mô, danh mục, bar phiên Mỹ); tuyên bố "8,6 %/năm trên XM cent" (HANDOFF) và 20,7 %/năm đòn bẩy 4×, DD −49 % (Python, báo cáo 03/09); bản gốc EA/.set đã mất. AUDCAD = danh mục 8 cụm hồi quy H4, tuyên bố 27 %/năm, DD 30 % (MT5 tester holdout + demo, lot chọn sau) nhưng 18/09 chính the-brain kết luận 668 cơ chế AUDCAD không có hệ nào vừa đủ tần suất vừa Sharpe > 0; rsi_dao_chieu Python 1,16 → tester 0,68.
+- Đăng ký trước `reports/vong12_tien_dang_ky.md`; mã `v12.py`; kết quả `reports/vong12.json`. Holm trên 29 quy tắc.
+  - V6_IBS_DANH_MUC (^GSPC + ^NDX, 1990→): CAGR 5,1 %, DD 44,7 %, NM +151 % (×1,5: +146 %), p Holm 0,024 → SỐNG (rất tương quan với IBS đơn).
+  - AUDCAD RSI(14) 30/55 H4 2008→: +1,5 %/năm, DD 18 %, p 0,06 → Holm 0,97, KHÔNG sống. AUDCAD OU z50/2,5: +1,3 %/năm, Holm 1,0, KHÔNG.
+  - Với 29 phép thử: vàng tháng 8→2 (0,0525) và Halloween (0,054) RỚT. Danh sách sống: danh mục 4 S&P, đầu/cuối tháng, Santa, IBS, V6_IBS_DANH_MUC (+ TNX→USDJPY nghi rò rỉ).
+- Số giữ không tăng (6 → 5 + 1 nghi) → nhánh `vong12` giữ LOCAL, không push.
+
 ## 12/10/2026 chiều (3) — Vòng 11: danh mục S&P, FX/hàng hoá/vĩ mô, vàng M30, IBS, quét khám phá/giữ lại (MÔ PHỎNG)
 
 Đăng ký trước: `reports/vong11_tien_dang_ky.md`, `reports/vong11b_tien_dang_ky.md` (vàng M30 định nghĩa chính theo giờ VN GMT+7, người dùng xác nhận). Mã: `fx_vi_mo.py`, `v11b.py`, `v11b_xn.py`. Dữ liệu: Yahoo (FX, GC=F, BZ=F, chỉ số, ^TNX, ^VIX), BIS lãi suất chính sách (AU/JP/US/EA), US Treasury 2y, Bundesbank 2y; HistData M1/tick.
