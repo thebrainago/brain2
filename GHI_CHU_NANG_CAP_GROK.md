@@ -4,6 +4,14 @@
 
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
 
+## 12/10/2026 chiều (9) — Vòng 17: đòn bẩy, đảo chiều ghép, phá vỡ, hàng hóa (MÔ PHỎNG)
+
+- Đăng ký trước: `reports/vong17_tien_dang_ky.md`, `reports/vong17_hang_hoa_tien_dang_ky.md`. Họ Holm cộng dồn cuối: 5.061 (bản đăng ký hàng hóa ghi nhầm 5.323+351; số đúng 4.710+351 — họ nhỏ hơn nên KHÔNG khắt khe hơn, kết luận không đổi).
+- (2) `v17_don_bay.py`, `reports/vong17_don_bay.json`: mua-giữ CFD US500 1950 (phí qua đêm T-bill+2,5 % trên toàn danh nghĩa): 1× 1,2 %/năm DD 79,5 %; 1,5× 0,8 % DD 94 %; 2× −0,2 % DD 99 %; 3× −4,1 % DD 100 % (chỉ số giá không phí 8,3 %/năm). Từ 1990: 1,5× tốt nhất 3,6 %/năm nhưng DD 88 % > cổng. UK100: âm ở mọi mức. Giữ lot cố định không cân bằng: phí qua đêm ăn hết vốn (cháy) ở mọi mức. Bootstrap 10 năm: xác suất DD>80 % 0,2 % (1×) → 20 % (2×) → 62 % (3×). Lọc: MA200 US500 1×/2× hơn mua-giữ CFD 1× (2,5 / 3,8 %/năm, DD 40 / 68 %) nhưng z 1,4, 30 % cuối thua mua-giữ khớp phơi nhiễm; vol-target, mua khi giảm: kém. Không có ô nào sống.
+- (3)+(4) `v17_fx.py`, `reports/vong17_fx.json`: 476 ô (56 đảo chiều ghép ≤3 mảnh × 4 quản lý, 12 phá vỡ) × 7 cặp, H1 bid/ask thật 2024–2026 + 20 % XM. 335 ô đủ lệnh; trung vị nửa kiểm −5,2 %; 11 ô lãi cả hai nửa; p thô nhỏ nhất 0,028 → 0 sống.
+- (5) `v17_hang_hoa.py`, `reports/vong17_hang_hoa.json`: 13 futures Yahoo 2000–2026 (bỏ |r|>8 % làm xấp xỉ khoảng trống roll), 351 ô lịch đã trừ xu hướng: tốt nhất vàng tháng 1 (z 3,15, p 0,0008) → Holm 1,0; 0 sống. Xếp hạng: trung vị z hàng hóa 0,05 (≈ ngẫu nhiên); chỉ số 0,54 nhưng là so với 0 (vòng 14, gồm xu hướng).
+- (1) Seeker: chạy lại `cau_kho --khong-tai` bị ngắt giữa chừng, CHƯA ĐO ĐƯỢC vòng này.
+
 ## 12/10/2026 chiều (8) — Vòng 16: kiểm sâu 2 hệ sống (MÔ PHỎNG)
 
 - Đăng ký trước `reports/vong16_tien_dang_ky.md`; `v16.py`, `reports/vong16.json`, `test_v16.py`. Phép kiểm vòng 15, Holm cộng dồn 4.363.
