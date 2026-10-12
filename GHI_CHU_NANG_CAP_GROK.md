@@ -4,6 +4,14 @@
 
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
 
+## 12/10/2026 chiều (3) — Vòng 11: danh mục S&P, FX/hàng hoá/vĩ mô, vàng M30, IBS, quét khám phá/giữ lại (MÔ PHỎNG)
+
+Đăng ký trước: `reports/vong11_tien_dang_ky.md`, `reports/vong11b_tien_dang_ky.md` (vàng M30 định nghĩa chính theo giờ VN GMT+7, người dùng xác nhận). Mã: `fx_vi_mo.py`, `v11b.py`, `v11b_xn.py`. Dữ liệu: Yahoo (FX, GC=F, BZ=F, chỉ số, ^TNX, ^VIX), BIS lãi suất chính sách (AU/JP/US/EA), US Treasury 2y, Bundesbank 2y; HistData M1/tick.
+- **Holm trên 26 quy tắc** (8 vòng 10 + danh mục + 13 FX/vĩ mô + 3 biến thể vàng M30 + IBS), `reports/vong11_tong_hop.json`. Sống (mọi tiêu chí, spread ×1 và ×1,5): DANH_MUC_4_SPX (CAGR 2,6 %, DD 16 %, Sharpe 0,56), ĐẦU/CUỐI THÁNG, SANTA, HALLOWEEN (p Holm 0,049), VÀNG tháng 8→2 (CAGR 6,8 %, DD 27 %, p Holm 0,048), S&P IBS < 0,2 (CAGR 4,2 %, DD 38 %, NM +71 %, sau 2010 Sharpe 0,68, p Holm 0,037), TNX→USDJPY (p Holm 0,022 — NHƯNG trễ thêm 1 ngày thì p 0,007 → Holm ~0,1: nghi rò rỉ do giờ đóng cửa nến ngày FX của Yahoo, coi là CHƯA CHẮC). Năm 3 bầu cử rớt (p Holm 0,052 với 26 phép thử).
+- Vàng M30 (đảo chiều 12:00 / tiếp diễn 12:30): giờ VN −7,5 % (165 lệnh), giờ server −0,1 %, GMT −4,9 % → không có lợi thế.
+- **Quét 972 ô** (thứ, ngày, tháng, giờ, cặp chéo; khám phá nửa đầu / xác nhận nửa sau): 38 qua Holm thô — TẤT CẢ là ảo ảnh: (i) cặp chéo do giờ đóng cửa không đồng bộ (kiểm bằng HistData đóng 17:00 NY: vàng→AUDUSD đồng thời t = 9,7, giao dịch được t = −1,6); (ii) giờ 23/0/1 là spread giãn lúc qua đêm trên giá BID. Sau trễ cho giao dịch được và giá khớp bid/ask thật + markup XM: **0/38 sống**.
+- Kết quả là MÔ PHỎNG, không phải tiền thật. Lãi suất GB/CH/CA/NZ không có → giả định chênh 0 (ghi trong mã).
+
 ## 12/10/2026 chiều (2) — Vòng 10: hệ MÙA VỤ / CHU KỲ tần suất thấp trên dữ liệu ngày dài (MÔ PHỎNG)
 
 - Đăng ký trước 8 quy tắc (`reports/vong10_tien_dang_ky_mua_vu.md`, commit `1927af67` trước khi tải dữ liệu). Dữ liệu: Yahoo chart API — ^GSPC 1950→2026 (chỉ số GIÁ, không cổ tức), vàng GC=F 2000-08→2026 (chuỗi vàng dài hơn không lấy được miễn phí: Stooq/FRED trả trang thử thách chống bot), ^IRX cho phí qua đêm. Phí kiểu CFD XM: spread khứ hồi 1 bps (US500) / 2 bps (vàng) trả một lần, trượt 0,5 bps/chiều, qua đêm mua −(T-bill + 2,5 %)/365 mỗi ngày lịch. `mua_vu.py`, `test_mua_vu.py`, kết quả `reports/vong10_mua_vu.json`.
