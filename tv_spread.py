@@ -74,8 +74,14 @@ def main(argv=None):
     ap.add_argument("--mot-lan", action="store_true")
     ap.add_argument("--nhan", action="store_true", help="mo hinh spread NHAN (do nhay, chi goc/S)")
     ap.add_argument("--tien-trinh", type=int, default=6)
+    ap.add_argument("--gom", help="pickle danh sach EA da gom (tv_chay.gom_ea) - chay lai nhanh")
     a = ap.parse_args(argv)
-    ds = [e for e in TC.gom_ea() if (e.get("khung_ea") or "H1") == "H1"]
+    if a.gom:
+        import pickle
+        tat = pickle.load(open(a.gom, "rb"))
+    else:
+        tat = TC.gom_ea()
+    ds = [e for e in tat if (e.get("khung_ea") or "H1") == "H1"]
     viec = [(e, c, "nhan" if a.nhan else "cong", a.mot_lan, a.nhan) for e in ds for c in TC.CAP]
     print(len(ds), "EA H1,", len(viec), "viec", flush=True)
     t0 = time.time()

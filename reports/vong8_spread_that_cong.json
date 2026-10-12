@@ -1,0 +1,155 @@
+{
+ "so_o": 8554,
+ "loi": 0,
+ "bo_ro": 0,
+ "nhan_cong": 83,
+ "nhan_cong_va_tm_lai": 8,
+ "qua_buoc1": 0,
+ "p_min": 0.09358455623430521,
+ "p_holm_min": 1.0,
+ "theo_manh": {
+  "SPD": {
+   "o": 329,
+   "nhan_cong": 4,
+   "nm_tb_pct": -6.6
+  },
+  "PD": {
+   "o": 329,
+   "nhan_cong": 5,
+   "nm_tb_pct": -6.662
+  },
+  "APD": {
+   "o": 329,
+   "nhan_cong": 6,
+   "nm_tb_pct": -6.942
+  },
+  "ASD": {
+   "o": 329,
+   "nhan_cong": 6,
+   "nm_tb_pct": -7.46
+  },
+  "TPD": {
+   "o": 329,
+   "nhan_cong": 4,
+   "nm_tb_pct": -7.757
+  },
+  "SD": {
+   "o": 329,
+   "nhan_cong": 3,
+   "nm_tb_pct": -7.781
+  },
+  "TSD": {
+   "o": 329,
+   "nhan_cong": 3,
+   "nm_tb_pct": -8.356
+  },
+  "AD": {
+   "o": 329,
+   "nhan_cong": 5,
+   "nm_tb_pct": -9.337
+  },
+  "ASP": {
+   "o": 329,
+   "nhan_cong": 5,
+   "nm_tb_pct": -9.787
+  },
+  "AP": {
+   "o": 329,
+   "nhan_cong": 5,
+   "nm_tb_pct": -9.823
+  },
+  "ATD": {
+   "o": 329,
+   "nhan_cong": 0,
+   "nm_tb_pct": -10.533
+  },
+  "D": {
+   "o": 329,
+   "nhan_cong": 5,
+   "nm_tb_pct": -10.616
+  },
+  "TD": {
+   "o": 329,
+   "nhan_cong": 0,
+   "nm_tb_pct": -10.969
+  },
+  "AS": {
+   "o": 329,
+   "nhan_cong": 5,
+   "nm_tb_pct": -11.109
+  },
+  "A": {
+   "o": 329,
+   "nhan_cong": 4,
+   "nm_tb_pct": -12.114
+  },
+  "ATP": {
+   "o": 329,
+   "nhan_cong": 0,
+   "nm_tb_pct": -16.142
+  },
+  "TSP": {
+   "o": 329,
+   "nhan_cong": 0,
+   "nm_tb_pct": -17.177
+  },
+  "TP": {
+   "o": 329,
+   "nhan_cong": 0,
+   "nm_tb_pct": -17.325
+  },
+  "ATS": {
+   "o": 329,
+   "nhan_cong": 0,
+   "nm_tb_pct": -19.282
+  },
+  "SP": {
+   "o": 329,
+   "nhan_cong": 5,
+   "nm_tb_pct": -19.457
+  },
+  "P": {
+   "o": 329,
+   "nhan_cong": 5,
+   "nm_tb_pct": -19.579
+  },
+  "TS": {
+   "o": 329,
+   "nhan_cong": 0,
+   "nm_tb_pct": -20.477
+  },
+  "AT": {
+   "o": 329,
+   "nhan_cong": 0,
+   "nm_tb_pct": -20.982
+  },
+  "T": {
+   "o": 329,
+   "nhan_cong": 0,
+   "nm_tb_pct": -22.089
+  },
+  "S": {
+   "o": 329,
+   "nhan_cong": 7,
+   "nm_tb_pct": -24.696
+  },
+  "goc": {
+   "o": 329,
+   "nhan_cong": 6,
+   "nm_tb_pct": -27.033
+  }
+ },
+ "S": {
+  "so_cap": 3619,
+  "lenh_bi_loc_tong": 126680,
+  "lenh_bi_loc_tb": 35.0,
+  "cap_co_lenh_bi_loc": 3244,
+  "chenh_nm_trung_vi_pct": 0.398,
+  "chenh_nm_tb_pct": 1.304,
+  "cai_thien": 2531,
+  "te_hon": 397,
+  "bang": 691,
+  "sign_p": 0.0,
+  "ket_luan": "S co ich"
+ }
+}
