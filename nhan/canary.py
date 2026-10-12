@@ -46,12 +46,12 @@ def _so_ngay(index) -> np.ndarray:
 # --------------------------------------------------------------- CAC CANARY
 def ca_luon_mua(df, cp, ma):
     """Luon mua 100%. Ky vong tinh tay:
-        sum(r) - spread[0] - truot[0] - phi_mua * tong_ngay/365
+        sum(r) - spread[0]*he_so_phi_spread (vong 9: 0,5) - truot[0] - phi_mua * tong_ngay/365
     Bat: sai sot ke toan chi phi, hoac ghep vi the voi loi suat sai cho."""
     kq = MP.chay(df, np.ones(len(df)), cp, ma=ma, da_dich=True)
     r = MP._loi_suat_tien(df)
     sp = cp.spread_mang(df.index)
-    cho = (float(np.sum(r)) - float(sp[0]) - cp.truot_gia_frac
+    cho = (float(np.sum(r)) - float(sp[0]) * cp.he_so_phi_spread() - cp.truot_gia_frac
            - cp.phi_nam_mua * float(np.sum(_so_ngay(df.index))) / 365.0)
     thuc = float(np.sum(kq.loi))
     return abs(thuc - cho) < 1e-9, f"thuc {thuc:+.9f} vs tay {cho:+.9f}"
@@ -59,12 +59,12 @@ def ca_luon_mua(df, cp, ma):
 
 def ca_luon_ban(df, cp, ma):
     """Luon ban 100%. Ky vong tinh tay:
-        -sum(r) - spread[0] - truot[0] - phi_BAN * tong_ngay/365
+        -sum(r) - spread[0]*he_so_phi_spread (vong 9: 0,5) - truot[0] - phi_BAN * tong_ngay/365
     Bat DUNG loi that #1: phi qua dem chi tinh cho chieu mua."""
     kq = MP.chay(df, -np.ones(len(df)), cp, ma=ma, da_dich=True)
     r = MP._loi_suat_tien(df)
     sp = cp.spread_mang(df.index)
-    cho = (-float(np.sum(r)) - float(sp[0]) - cp.truot_gia_frac
+    cho = (-float(np.sum(r)) - float(sp[0]) * cp.he_so_phi_spread() - cp.truot_gia_frac
            - cp.phi_nam_ban * float(np.sum(_so_ngay(df.index))) / 365.0)
     thuc = float(np.sum(kq.loi))
     return abs(thuc - cho) < 1e-9, f"thuc {thuc:+.9f} vs tay {cho:+.9f}"
