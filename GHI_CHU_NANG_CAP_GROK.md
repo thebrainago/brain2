@@ -1990,3 +1990,9 @@ Do that (cung bo doc, cung kho; `cau_kho --khong-tai`, BRAIN_DIEU_TOC=tat):
   vong for thu lai lenh. Viec tiep: dich `GerEA` (mot lan cho ca ho EA), roi tham so hang tai cho goi.
 - Mo phong (XM, EURUSD HistData, co dan nhan) CrossMovingAverageEA: M5 kiem sh -12.65 / -14.63
   (159 lenh), H1 sh +0.13 / -3.07 (16 lenh); khong lai sau phi -> giu lai 0. Tong giu: 0.
+
+## Vòng 25 (MÔ PHỎNG) — EA mới Seeker tải về
+- Kiểm kê (`v25_kiem_ke.py`): 279 file EA duy nhất (github24 25, mql5 210, ea_ra_co_che 52); bộ đọc (không tune) dịch được 53 EA → 85 cơ chế duy nhất; dịch tay 4 EA (ASQ_SafeScalping .set XAUUSD_M5_v2, EarnForex RSI_EA, MA cross mq4, MACD_Sample).
+- 396 ô (85+4 hệ × M15/H1/H4/D1 + 30 ghép lọc xu hướng ST/EMA200 + chandelier 22×3); 362 đo được; Holm cộng dồn 12.457 → 12.819. **0 hệ sống.**
+- Bài học: lần chạy đầu cho 27 "hệ sống" do lỗi lookahead trong mảng thoát (`ex` dùng s[i+1]). Đã sửa, thêm test_v25 kiểm cắt dữ liệu. Mọi kết quả quá đẹp phải coi là lỗi trước.
+- EarnForex RSI D1: holdout +202 bps/lệnh nhưng discovery âm, p 0.16 → không qua.

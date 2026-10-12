@@ -111,6 +111,7 @@ def sim(d, S, sp, A):
                 elif tr[0] == "chand":
                     w = slice(max(j, k - tr[1] + 1), k + 1); st = keo(h[w].max() - tr[2] * a if s > 0 else l[w].min() + tr[2] * a)
                 elif tr[0] == "line" and np.isfinite(tr[1][k]): st = keo(tr[1][k])
+                elif tr[0] == "fix" and (best - E) * s >= tr[2]: st = keo(best - s * tr[1])   # vong 25: trailing khoang co dinh
                 elif tr[0] == "orb":
                     m = 3 if lai < R else (2 if lai < 2 * R else 1); w = slice(max(0, k - 4), k + 1)
                     sw = l[w].min() if s > 0 else h[w].max(); at = best - s * m * a
