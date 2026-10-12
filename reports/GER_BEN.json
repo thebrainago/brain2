@@ -1,0 +1,835 @@
+{
+ "luc": "2026-10-12 07:06:12",
+ "nhan": "MO PHONG - kiem do ben GerEA",
+ "o": {
+  "BBRSI EURUSD 60p": {
+   "goc": {
+    "lai_sau_phi_pct": 14.57,
+    "maxdd_pct": 10.9,
+    "sharpe": 0.67,
+    "so_lenh": 39,
+    "so_ro": 23,
+    "tang_max": 4,
+    "chay": false,
+    "giu": true,
+    "tu": "2023-12-25",
+    "den": "2026-10-09"
+   },
+   "cua_so_6": [
+    {
+     "lai_sau_phi_pct": 1.92,
+     "maxdd_pct": 2.35,
+     "sharpe": 1.12,
+     "so_lenh": 6,
+     "so_ro": 5,
+     "tang_max": 2,
+     "chay": false,
+     "giu": true,
+     "tu": "2023-12-25",
+     "den": "2024-06-12"
+    },
+    {
+     "lai_sau_phi_pct": 1.03,
+     "maxdd_pct": 11.11,
+     "sharpe": 0.26,
+     "so_lenh": 5,
+     "so_ro": 1,
+     "tang_max": 4,
+     "chay": false,
+     "giu": true,
+     "tu": "2024-06-12",
+     "den": "2024-11-28"
+    },
+    {
+     "lai_sau_phi_pct": 0.67,
+     "maxdd_pct": 1.04,
+     "sharpe": 0.93,
+     "so_lenh": 3,
+     "so_ro": 3,
+     "tang_max": 1,
+     "chay": false,
+     "giu": true,
+     "tu": "2024-11-28",
+     "den": "2025-05-19"
+    },
+    {
+     "lai_sau_phi_pct": 3.62,
+     "maxdd_pct": 3.32,
+     "sharpe": 0.98,
+     "so_lenh": 8,
+     "so_ro": 5,
+     "tang_max": 2,
+     "chay": false,
+     "giu": true,
+     "tu": "2025-05-19",
+     "den": "2025-11-03"
+    },
+    {
+     "lai_sau_phi_pct": 1.46,
+     "maxdd_pct": 1.05,
+     "sharpe": 1.53,
+     "so_lenh": 2,
+     "so_ro": 1,
+     "tang_max": 1,
+     "chay": false,
+     "giu": true,
+     "tu": "2025-11-03",
+     "den": "2026-04-23"
+    },
+    {
+     "lai_sau_phi_pct": 0.93,
+     "maxdd_pct": 4.32,
+     "sharpe": 0.26,
+     "so_lenh": 7,
+     "so_ro": 2,
+     "tang_max": 3,
+     "chay": false,
+     "giu": true,
+     "tu": "2026-04-23",
+     "den": "2026-10-09"
+    }
+   ],
+   "bat_dau_lech_8": [
+    {
+     "lai_sau_phi_pct": 13.95,
+     "maxdd_pct": 10.97,
+     "sharpe": 0.66,
+     "so_lenh": 37,
+     "so_ro": 21,
+     "tang_max": 4,
+     "chay": false,
+     "giu": true,
+     "tu": "2024-02-28",
+     "den": "2026-10-09"
+    },
+    {
+     "lai_sau_phi_pct": 12.53,
+     "maxdd_pct": 11.11,
+     "sharpe": 0.62,
+     "so_lenh": 33,
+     "so_ro": 18,
+     "tang_max": 4,
+     "chay": false,
+     "giu": true,
+     "tu": "2024-05-01",
+     "den": "2026-10-09"
+    },
+    {
+     "lai_sau_phi_pct": 12.53,
+     "maxdd_pct": 11.11,
+     "sharpe": 0.65,
+     "so_lenh": 33,
+     "so_ro": 18,
+     "tang_max": 4,
+     "chay": false,
+     "giu": true,
+     "tu": "2024-07-03",
+     "den": "2026-10-09"
+    },
+    {
+     "lai_sau_phi_pct": 6.59,
+     "maxdd_pct": 29.79,
+     "sharpe": 0.23,
+     "so_lenh": 32,
+     "so_ro": 14,
+     "tang_max": 7,
+     "chay": false,
+     "giu": true,
+     "tu": "2024-09-04",
+     "den": "2026-10-09"
+    },
+    {
+     "lai_sau_phi_pct": 9.32,
+     "maxdd_pct": 4.3,
+     "sharpe": 0.69,
+     "so_lenh": 28,
+     "so_ro": 16,
+     "tang_max": 3,
+     "chay": false,
+     "giu": true,
+     "tu": "2024-11-06",
+     "den": "2026-10-09"
+    },
+    {
+     "lai_sau_phi_pct": 9.06,
+     "maxdd_pct": 4.31,
+     "sharpe": 0.71,
+     "so_lenh": 26,
+     "so_ro": 14,
+     "tang_max": 3,
+     "chay": false,
+     "giu": true,
+     "tu": "2025-01-10",
+     "den": "2026-10-09"
+    },
+    {
+     "lai_sau_phi_pct": 8.53,
+     "maxdd_pct": 4.33,
+     "sharpe": 0.71,
+     "so_lenh": 24,
+     "so_ro": 12,
+     "tang_max": 3,
+     "chay": false,
+     "giu": true,
+     "tu": "2025-03-17",
+     "den": "2026-10-09"
+    },
+    {
+     "lai_sau_phi_pct": 7.01,
+     "maxdd_pct": 4.4,
+     "sharpe": 0.66,
+     "so_lenh": 20,
+     "so_ro": 10,
+     "tang_max": 3,
+     "chay": false,
+     "giu": true,
+     "tu": "2025-05-19",
+     "den": "2026-10-09"
+    }
+   ],
+   "thu_tu": {
+    "gan_open": {
+     "lai_sau_phi_pct": 14.57,
+     "maxdd_pct": 10.9,
+     "sharpe": 0.67,
+     "so_lenh": 39,
+     "so_ro": 23,
+     "tang_max": 4,
+     "chay": false,
+     "giu": true,
+     "tu": "2023-12-25",
+     "den": "2026-10-09"
+    },
+    "thap_truoc": {
+     "lai_sau_phi_pct": 10.8,
+     "maxdd_pct": 28.76,
+     "sharpe": 0.26,
+     "so_lenh": 39,
+     "so_ro": 20,
+     "tang_max": 7,
+     "chay": false,
+     "giu": true,
+     "tu": "2023-12-25",
+     "den": "2026-10-09"
+    },
+    "cao_truoc": {
+     "lai_sau_phi_pct": 14.57,
+     "maxdd_pct": 10.9,
+     "sharpe": 0.67,
+     "so_lenh": 39,
+     "so_ro": 23,
+     "tang_max": 4,
+     "chay": false,
+     "giu": true,
+     "tu": "2023-12-25",
+     "den": "2026-10-09"
+    }
+   },
+   "spread_x1.5": {
+    "lai_sau_phi_pct": 14.12,
+    "maxdd_pct": 10.93,
+    "sharpe": 0.65,
+    "so_lenh": 38,
+    "so_ro": 23,
+    "tang_max": 4,
+    "chay": false,
+    "giu": true,
+    "tu": "2023-12-25",
+    "den": "2026-10-09"
+   },
+   "spread_x1.5_xau_nhat": {
+    "lai_sau_phi_pct": 10.23,
+    "maxdd_pct": 28.7,
+    "sharpe": 0.25,
+    "so_lenh": 38,
+    "so_ro": 20,
+    "tang_max": 7,
+    "chay": false,
+    "giu": true,
+    "tu": "2023-12-25",
+    "den": "2026-10-09"
+   },
+   "cap_khac": {
+    "GBPUSD": {
+     "lai_sau_phi_pct": 15.23,
+     "maxdd_pct": 5.62,
+     "sharpe": 0.7,
+     "so_lenh": 45,
+     "so_ro": 29,
+     "tang_max": 3,
+     "chay": false,
+     "giu": true,
+     "tu": "2024-01-02",
+     "den": "2026-10-01"
+    },
+    "USDJPY": {
+     "lai_sau_phi_pct": 11.6,
+     "maxdd_pct": 24.9,
+     "sharpe": 0.31,
+     "so_lenh": 34,
+     "so_ro": 18,
+     "tang_max": 6,
+     "chay": false,
+     "giu": true,
+     "tu": "2024-01-02",
+     "den": "2026-10-01"
+    },
+    "USDCHF": {
+     "lai_sau_phi_pct": -97.64,
+     "maxdd_pct": 98.18,
+     "sharpe": -0.84,
+     "so_lenh": 39,
+     "so_ro": 20,
+     "tang_max": 10,
+     "chay": false,
+     "giu": false,
+     "tu": "2024-01-02",
+     "den": "2026-10-01"
+    },
+    "AUDUSD": {
+     "lai_sau_phi_pct": 12.86,
+     "maxdd_pct": 75.72,
+     "sharpe": 0.42,
+     "so_lenh": 47,
+     "so_ro": 24,
+     "tang_max": 10,
+     "chay": false,
+     "giu": true,
+     "tu": "2024-01-02",
+     "den": "2026-10-01"
+    },
+    "NZDUSD": {
+     "lai_sau_phi_pct": 13.36,
+     "maxdd_pct": 15.29,
+     "sharpe": 0.37,
+     "so_lenh": 39,
+     "so_ro": 24,
+     "tang_max": 5,
+     "chay": false,
+     "giu": true,
+     "tu": "2024-01-02",
+     "den": "2026-10-01"
+    },
+    "USDCAD": {
+     "lai_sau_phi_pct": 0.42,
+     "maxdd_pct": 21.23,
+     "sharpe": 0.08,
+     "so_lenh": 47,
+     "so_ro": 23,
+     "tang_max": 6,
+     "chay": false,
+     "giu": true,
+     "tu": "2024-01-02",
+     "den": "2026-10-01"
+    },
+    "XAUUSD": {
+     "lai_sau_phi_pct": 14.45,
+     "maxdd_pct": 25.31,
+     "sharpe": 0.32,
+     "so_lenh": 33,
+     "so_ro": 13,
+     "tang_max": 6,
+     "chay": false,
+     "giu": true,
+     "tu": "2024-01-02",
+     "den": "2026-10-01"
+    }
+   },
+   "eurusd_2018_2023": {
+    "lai_sau_phi_pct": 20.18,
+    "maxdd_pct": 29.44,
+    "sharpe": 0.24,
+    "so_lenh": 59,
+    "so_ro": 30,
+    "tang_max": 7,
+    "chay": false,
+    "giu": true,
+    "tu": "2018-01-02",
+    "den": "2023-12-29"
+   },
+   "p": {
+    "o": "BBRSI EURUSD 60p",
+    "p": 0.1149,
+    "t": 1.2,
+    "ngay": 821,
+    "p_holm": 1.0,
+    "p_bonf": 1.0
+   },
+   "dem_giu": "27/28",
+   "song": false
+  },
+  "3MACD EURUSD 60p": {
+   "goc": {
+    "lai_sau_phi_pct": 23.8,
+    "maxdd_pct": 24.88,
+    "sharpe": 0.42,
+    "so_lenh": 492,
+    "so_ro": 245,
+    "tang_max": 14,
+    "chay": false,
+    "giu": true,
+    "tu": "2023-12-25",
+    "den": "2026-10-09"
+   },
+   "cua_so_6": [
+    {
+     "lai_sau_phi_pct": 8.05,
+     "maxdd_pct": 7.65,
+     "sharpe": 1.78,
+     "so_lenh": 74,
+     "so_ro": 46,
+     "tang_max": 8,
+     "chay": false,
+     "giu": true,
+     "tu": "2023-12-25",
+     "den": "2024-06-12"
+    },
+    {
+     "lai_sau_phi_pct": 3.81,
+     "maxdd_pct": 10.16,
+     "sharpe": 0.43,
+     "so_lenh": 68,
+     "so_ro": 27,
+     "tang_max": 9,
+     "chay": false,
+     "giu": true,
+     "tu": "2024-06-12",
+     "den": "2024-11-28"
+    },
+    {
+     "lai_sau_phi_pct": 7.87,
+     "maxdd_pct": 12.13,
+     "sharpe": 0.81,
+     "so_lenh": 97,
+     "so_ro": 53,
+     "tang_max": 10,
+     "chay": false,
+     "giu": true,
+     "tu": "2024-11-28",
+     "den": "2025-05-19"
+    },
+    {
+     "lai_sau_phi_pct": 8.44,
+     "maxdd_pct": 5.52,
+     "sharpe": 1.14,
+     "so_lenh": 100,
+     "so_ro": 45,
+     "tang_max": 7,
+     "chay": false,
+     "giu": true,
+     "tu": "2025-05-19",
+     "den": "2025-11-03"
+    },
+    {
+     "lai_sau_phi_pct": 5.16,
+     "maxdd_pct": 25.32,
+     "sharpe": 0.46,
+     "so_lenh": 73,
+     "so_ro": 30,
+     "tang_max": 14,
+     "chay": false,
+     "giu": true,
+     "tu": "2025-11-03",
+     "den": "2026-04-23"
+    },
+    {
+     "lai_sau_phi_pct": -12.6,
+     "maxdd_pct": 19.96,
+     "sharpe": -1.22,
+     "so_lenh": 58,
+     "so_ro": 29,
+     "tang_max": 13,
+     "chay": false,
+     "giu": false,
+     "tu": "2026-04-23",
+     "den": "2026-10-09"
+    }
+   ],
+   "bat_dau_lech_8": [
+    {
+     "lai_sau_phi_pct": 19.7,
+     "maxdd_pct": 25.58,
+     "sharpe": 0.38,
+     "so_lenh": 454,
+     "so_ro": 224,
+     "tang_max": 14,
+     "chay": false,
+     "giu": true,
+     "tu": "2024-02-28",
+     "den": "2026-10-09"
+    },
+    {
+     "lai_sau_phi_pct": 17.43,
+     "maxdd_pct": 24.22,
+     "sharpe": 0.37,
+     "so_lenh": 427,
+     "so_ro": 206,
+     "tang_max": 14,
+     "chay": false,
+     "giu": true,
+     "tu": "2024-05-01",
+     "den": "2026-10-09"
+    },
+    {
+     "lai_sau_phi_pct": 13.45,
+     "maxdd_pct": 24.91,
+     "sharpe": 0.33,
+     "so_lenh": 409,
+     "so_ro": 194,
+     "tang_max": 14,
+     "chay": false,
+     "giu": true,
+     "tu": "2024-07-03",
+     "den": "2026-10-09"
+    },
+    {
+     "lai_sau_phi_pct": 11.29,
+     "maxdd_pct": 25.33,
+     "sharpe": 0.31,
+     "so_lenh": 380,
+     "so_ro": 184,
+     "tang_max": 14,
+     "chay": false,
+     "giu": true,
+     "tu": "2024-09-04",
+     "den": "2026-10-09"
+    },
+    {
+     "lai_sau_phi_pct": 10.63,
+     "maxdd_pct": 25.45,
+     "sharpe": 0.31,
+     "so_lenh": 359,
+     "so_ro": 175,
+     "tang_max": 14,
+     "chay": false,
+     "giu": true,
+     "tu": "2024-11-06",
+     "den": "2026-10-09"
+    },
+    {
+     "lai_sau_phi_pct": 7.87,
+     "maxdd_pct": 24.0,
+     "sharpe": 0.28,
+     "so_lenh": 305,
+     "so_ro": 148,
+     "tang_max": 14,
+     "chay": false,
+     "giu": true,
+     "tu": "2025-01-10",
+     "den": "2026-10-09"
+    },
+    {
+     "lai_sau_phi_pct": 3.33,
+     "maxdd_pct": 24.89,
+     "sharpe": 0.19,
+     "so_lenh": 273,
+     "so_ro": 127,
+     "tang_max": 14,
+     "chay": false,
+     "giu": true,
+     "tu": "2025-03-17",
+     "den": "2026-10-09"
+    },
+    {
+     "lai_sau_phi_pct": -0.36,
+     "maxdd_pct": 25.63,
+     "sharpe": 0.11,
+     "so_lenh": 241,
+     "so_ro": 109,
+     "tang_max": 14,
+     "chay": false,
+     "giu": false,
+     "tu": "2025-05-19",
+     "den": "2026-10-09"
+    }
+   ],
+   "thu_tu": {
+    "gan_open": {
+     "lai_sau_phi_pct": 23.8,
+     "maxdd_pct": 24.88,
+     "sharpe": 0.42,
+     "so_lenh": 492,
+     "so_ro": 245,
+     "tang_max": 14,
+     "chay": false,
+     "giu": true,
+     "tu": "2023-12-25",
+     "den": "2026-10-09"
+    },
+    "thap_truoc": {
+     "lai_sau_phi_pct": 23.25,
+     "maxdd_pct": 24.89,
+     "sharpe": 0.42,
+     "so_lenh": 490,
+     "so_ro": 246,
+     "tang_max": 14,
+     "chay": false,
+     "giu": true,
+     "tu": "2023-12-25",
+     "den": "2026-10-09"
+    },
+    "cao_truoc": {
+     "lai_sau_phi_pct": 23.34,
+     "maxdd_pct": 24.95,
+     "sharpe": 0.42,
+     "so_lenh": 491,
+     "so_ro": 246,
+     "tang_max": 14,
+     "chay": false,
+     "giu": true,
+     "tu": "2023-12-25",
+     "den": "2026-10-09"
+    }
+   },
+   "spread_x1.5": {
+    "lai_sau_phi_pct": 21.43,
+    "maxdd_pct": 22.88,
+    "sharpe": 0.41,
+    "so_lenh": 488,
+    "so_ro": 239,
+    "tang_max": 14,
+    "chay": false,
+    "giu": true,
+    "tu": "2023-12-25",
+    "den": "2026-10-09"
+   },
+   "spread_x1.5_xau_nhat": {
+    "lai_sau_phi_pct": 20.16,
+    "maxdd_pct": 23.0,
+    "sharpe": 0.39,
+    "so_lenh": 485,
+    "so_ro": 240,
+    "tang_max": 14,
+    "chay": false,
+    "giu": true,
+    "tu": "2023-12-25",
+    "den": "2026-10-09"
+   },
+   "cap_khac": {
+    "GBPUSD": {
+     "lai_sau_phi_pct": -91.02,
+     "maxdd_pct": 99.54,
+     "sharpe": 0.12,
+     "so_lenh": 496,
+     "so_ro": 266,
+     "tang_max": 26,
+     "chay": false,
+     "giu": false,
+     "tu": "2024-01-02",
+     "den": "2026-10-01"
+    },
+    "USDJPY": {
+     "lai_sau_phi_pct": 41.92,
+     "maxdd_pct": 47.45,
+     "sharpe": 0.47,
+     "so_lenh": 503,
+     "so_ro": 256,
+     "tang_max": 19,
+     "chay": false,
+     "giu": true,
+     "tu": "2024-01-02",
+     "den": "2026-10-01"
+    },
+    "USDCHF": {
+     "lai_sau_phi_pct": 36.31,
+     "maxdd_pct": 14.71,
+     "sharpe": 0.83,
+     "so_lenh": 429,
+     "so_ro": 231,
+     "tang_max": 11,
+     "chay": false,
+     "giu": true,
+     "tu": "2024-01-02",
+     "den": "2026-10-01"
+    },
+    "AUDUSD": {
+     "lai_sau_phi_pct": 15.15,
+     "maxdd_pct": 51.49,
+     "sharpe": 0.28,
+     "so_lenh": 400,
+     "so_ro": 189,
+     "tang_max": 21,
+     "chay": false,
+     "giu": true,
+     "tu": "2024-01-02",
+     "den": "2026-10-01"
+    },
+    "NZDUSD": {
+     "lai_sau_phi_pct": -2.13,
+     "maxdd_pct": 25.6,
+     "sharpe": 0.04,
+     "so_lenh": 415,
+     "so_ro": 183,
+     "tang_max": 14,
+     "chay": false,
+     "giu": false,
+     "tu": "2024-01-02",
+     "den": "2026-10-01"
+    },
+    "USDCAD": {
+     "lai_sau_phi_pct": -99.95,
+     "maxdd_pct": 99.96,
+     "sharpe": -0.22,
+     "so_lenh": 408,
+     "so_ro": 183,
+     "tang_max": 23,
+     "chay": false,
+     "giu": false,
+     "tu": "2024-01-02",
+     "den": "2026-10-01"
+    },
+    "XAUUSD": {
+     "lai_sau_phi_pct": -99.87,
+     "maxdd_pct": 99.87,
+     "sharpe": -0.85,
+     "so_lenh": 60,
+     "so_ro": 20,
+     "tang_max": 31,
+     "chay": false,
+     "giu": false,
+     "tu": "2024-01-02",
+     "den": "2026-10-01"
+    }
+   },
+   "eurusd_2018_2023": {
+    "lai_sau_phi_pct": -99.94,
+    "maxdd_pct": 99.95,
+    "sharpe": 0.02,
+    "so_lenh": 144,
+    "so_ro": 78,
+    "tang_max": 23,
+    "chay": false,
+    "giu": false,
+    "tu": "2018-01-02",
+    "den": "2023-12-29"
+   },
+   "p": {
+    "o": "3MACD EURUSD 60p",
+    "p": 0.2223,
+    "t": 0.76,
+    "ngay": 821,
+    "p_holm": 1.0,
+    "p_bonf": 1.0
+   },
+   "dem_giu": "21/28",
+   "song": false
+  }
+ },
+ "kiem_dinh_boi": {
+  "so_o": 14,
+  "ds": [
+   {
+    "o": "3MAF USDCAD 15p",
+    "p": 0.7746,
+    "t": -0.75,
+    "ngay": 811,
+    "p_holm": 1.0,
+    "p_bonf": 1.0
+   },
+   {
+    "o": "3MAF EURUSD 15p",
+    "p": 0.7926,
+    "t": -0.82,
+    "ngay": 821,
+    "p_holm": 1.0,
+    "p_bonf": 1.0
+   },
+   {
+    "o": "3MAF EURUSD 5p",
+    "p": 0.8384,
+    "t": -0.99,
+    "ngay": 821,
+    "p_holm": 1.0,
+    "p_bonf": 1.0
+   },
+   {
+    "o": "3MAF EURUSD 60p",
+    "p": 0.3618,
+    "t": 0.35,
+    "ngay": 821,
+    "p_holm": 1.0,
+    "p_bonf": 1.0
+   },
+   {
+    "o": "2MACDSTO NZDUSD 180p",
+    "p": 0.6352,
+    "t": -0.35,
+    "ngay": 811,
+    "p_holm": 1.0,
+    "p_bonf": 1.0
+   },
+   {
+    "o": "2MACDSTO EURUSD 180p",
+    "p": 0.8492,
+    "t": -1.03,
+    "ngay": 821,
+    "p_holm": 1.0,
+    "p_bonf": 1.0
+   },
+   {
+    "o": "2MACDSTO EURUSD 5p",
+    "p": 0.8023,
+    "t": -0.85,
+    "ngay": 821,
+    "p_holm": 1.0,
+    "p_bonf": 1.0
+   },
+   {
+    "o": "2MACDSTO EURUSD 60p",
+    "p": 0.9544,
+    "t": -1.69,
+    "ngay": 821,
+    "p_holm": 1.0,
+    "p_bonf": 1.0
+   },
+   {
+    "o": "BBRSI XAUUSD 5p",
+    "p": 0.9728,
+    "t": -1.92,
+    "ngay": 792,
+    "p_holm": 1.0,
+    "p_bonf": 1.0
+   },
+   {
+    "o": "BBRSI EURUSD 5p",
+    "p": 0.5476,
+    "t": -0.12,
+    "ngay": 821,
+    "p_holm": 1.0,
+    "p_bonf": 1.0
+   },
+   {
+    "o": "BBRSI EURUSD 60p",
+    "p": 0.1149,
+    "t": 1.2,
+    "ngay": 821,
+    "p_holm": 1.0,
+    "p_bonf": 1.0
+   },
+   {
+    "o": "3MACD AUDUSD 5p",
+    "p": 0.8638,
+    "t": -1.1,
+    "ngay": 811,
+    "p_holm": 1.0,
+    "p_bonf": 1.0
+   },
+   {
+    "o": "3MACD EURUSD 5p",
+    "p": 0.8371,
+    "t": -0.98,
+    "ngay": 821,
+    "p_holm": 1.0,
+    "p_bonf": 1.0
+   },
+   {
+    "o": "3MACD EURUSD 60p",
+    "p": 0.2223,
+    "t": 0.76,
+    "ngay": 821,
+    "p_holm": 1.0,
+    "p_bonf": 1.0
+   }
+  ]
+ }
+}

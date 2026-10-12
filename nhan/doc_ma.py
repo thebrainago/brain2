@@ -3923,17 +3923,19 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
             ifs = [(p, g) for p, g in ifs if not _LA_KIEM_LOI.search(g)]
             if hn is not None:
                 ifs, gap_else = [], False
-            elif (ifs or gap_else) and chieu != 0:
+            bo_tn = False
+            if hn is None and chieu != 0 and (ifs or gap_else or "?" in vb[max(
+                    vb.rfind(";", 0, m.start()), vb.rfind("{", 0, m.start())) + 1:m.start()]):
                 # 12/10/2026: lenh chi bao boi dieu kien THAM SO cua ham phu (`if(type ==
                 # ORDER_TYPE_BUY) trade.Buy(..); else trade.Sell(..);`) -> nang len cho goi,
                 # tham so duoc TINH tai tung cho goi (`goi_ham_mql._dk_tham_so_tang`)
                 try:
-                    if GH.chi_tham_so(vb, m.start()):
-                        ifs, gap_else = [], False
+                    if GH.chi_tham_so(vb, m.start(), m):
+                        ifs, gap_else, bo_tn = [], False, True
                 except Exception:                   # noqa: BLE001
                     pass
             # toan tu ba ngoi chon lenh (`sig ? t.Buy(..) : t.Sell(..)`) - them 11/10/2026
-            tn = _guard_tam_nguyen(vb, m) if hn is None else None
+            tn = _guard_tam_nguyen(vb, m) if hn is None and not bo_tn else None
             lit_tn = set()
             if hn is not None and hn.get("chon") and re.fullmatch(_TEN, hn["chon"][0].strip()):
                 # nhanh ba ngoi chon lenh cua lop huong int: SL/TP `isBuy ? a : b` chon dung nhanh
@@ -4007,7 +4009,7 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
                     # Lenh vao trong HAM PHU, dieu kien o CHO GOI - `nhan/goi_ham_mql.py`
                     # (them 11/10/2026). Chi khi do thi goi nho, giai duoc tron ven.
                     try:
-                        gh = GH.nang_cho_goi(vb, m.start())
+                        gh = GH.nang_cho_goi(vb, m.start(), m)
                     except Exception as e:          # noqa: BLE001 - khong lam vo ca file
                         gh = {"loi": f"goi ham: loi doc {type(e).__name__}"}
                     if not gh.get("loi") and gh.get("loai_tru_else"):

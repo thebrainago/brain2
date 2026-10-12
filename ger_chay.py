@@ -30,8 +30,8 @@ KHO = GOC / "data" / "cau_kho" / "goi_github"
 KHUNG_PHUT = {"5M": 5, "15M": 15, "30M": 30, "1H": 60, "3H": 180, "M5": 5, "H1": 60}
 
 
-def du_lieu(ma: str, phut: int) -> pd.DataFrame:
-    df = V.doc_csv(DL / f"{ma.lower()}_m5_histdata_server.csv")
+def du_lieu(ma: str, phut: int, tep: str | None = None) -> pd.DataFrame:
+    df = V.doc_csv(DL / (tep or f"{ma.lower()}_m5_histdata_server.csv"))
     if phut == 5:
         return df
     g = df.resample(f"{phut}min", label="left", closed="left")
@@ -41,7 +41,8 @@ def du_lieu(ma: str, phut: int) -> pd.DataFrame:
 
 
 def diem_cua(ma: str) -> float:
-    return 0.01 if ma.upper().startswith("XAU") else 1e-5
+    m = ma.upper()
+    return 0.01 if m.startswith("XAU") else 1e-3 if m.endswith("JPY") else 1e-5
 
 
 def mot_lan(ten: str, vb: str, th: dict, ma: str, phut: int, tk: G.TaiKhoan,

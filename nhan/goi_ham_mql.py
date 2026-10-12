@@ -311,7 +311,12 @@ def _tinh(dk, gan: dict) -> bool | None:
     return bang if phep == "==" else not bang
 
 
-def _dk_tham_so_tang(vb, mn, ham, vi, ifs, khoi, loai, gap_else):
+def _HI():
+    from nhan import huong_int_mql as HI
+    return HI
+
+
+def _dk_tham_so_tang(vb, mn, ham, vi, ifs, khoi, loai, gap_else, tn=None):
     """Tach dieu kien CHI tren tham so cua ham `ham` bao lenh/cho goi `vi`. Tra (dk_ts, ifs con lai,
     loai khoi, gap_else) - nhanh `else` ma moi nhanh truoc deu la dieu kien tham so thi duoc giai
     thanh (A, sai) va bo khoi `loai`/`gap_else`. Khong ap duoc -> tra nguyen dau vao, dk_ts rong."""
@@ -321,6 +326,12 @@ def _dk_tham_so_tang(vb, mn, ham, vi, ifs, khoi, loai, gap_else):
                                    mn[ham["mo"]:vi]) for t in ten_ts):
         return [], ifs, loai, gap_else
     dk_ts, con_ifs = [], []
+    if tn is not None:
+        # `ok = (type == ORDER_TYPE_BUY) ? t.Buy(..) : t.Sell(..);` - nhanh ba ngoi chon lenh
+        dk = _dk_chi_tham_so(tn[0], ten_ts)
+        if dk is None:
+            return [], ifs, loai, gap_else
+        dk_ts.append((dk, bool(tn[1])))
     for p_, g_ in ifs:
         dk = _dk_chi_tham_so(g_, ten_ts) if ham["mo"] < p_ < ham["dong"] else None
         if dk:
@@ -347,7 +358,7 @@ def _dk_tham_so_tang(vb, mn, ham, vi, ifs, khoi, loai, gap_else):
     return dk_ts, con_ifs, loai, gap_else
 
 
-def chi_tham_so(vb: str, vi_lenh: int) -> bool:
+def chi_tham_so(vb: str, vi_lenh: int, m=None) -> bool:
     """Lenh vao tai `vi_lenh` chi bi bao boi dieu kien THAM SO cua ham tu do chua no (vd
     `if(type == ORDER_TYPE_BUY) trade.Buy(..); else trade.Sell(..);`) -> doc_ma nen nang len cho goi."""
     D = _D()
@@ -361,7 +372,9 @@ def chi_tham_so(vb: str, vi_lenh: int) -> bool:
     loai = [_loai_khoi(d) for _, d in khoi]
     ifs, gap_else = D._cac_if_bao(vb, vi_lenh)
     ifs = [(p, g) for p, g in ifs if ham["mo"] < p < ham["dong"] and not D._LA_KIEM_LOI.search(g)]
-    dk_ts, con, loai, gap_else = _dk_tham_so_tang(vb, mn, ham, vi_lenh, ifs, khoi, loai, gap_else)
+    tn = _HI()._chon_tam_nguyen(vb, m) if m is not None else None
+    dk_ts, con, loai, gap_else = _dk_tham_so_tang(vb, mn, ham, vi_lenh, ifs, khoi, loai, gap_else,
+                                                  tn)
     return bool(dk_ts) and not con and not gap_else and "else" not in loai
 
 
@@ -380,7 +393,7 @@ def _phan_quan_tri(ds: list[str]) -> tuple[list[str], list[str]]:
     return qt, con
 
 
-def nang_cho_goi(vb: str, vi_lenh: int) -> dict:
+def nang_cho_goi(vb: str, vi_lenh: int, m=None) -> dict:
     """Nang lenh vao tai `vi_lenh` (khong co `if` bao trong ham cua no) len tang dieu kien.
 
     Tra {"loi": ly_do} hoac {"guards": [(vi, dk)], "vi": vi tri if ngoai cung (hoac
@@ -412,7 +425,9 @@ def nang_cho_goi(vb: str, vi_lenh: int) -> dict:
         loai = [_loai_khoi(d) for _, d in khoi]
         ifs, gap_else = D._cac_if_bao(vb, vi)
         ten_ts = [t for t in _ten_tham_so(ham["tham_so"]) if t]
-        dk_ts, ifs, loai, gap_else = _dk_tham_so_tang(vb, mn, ham, vi, ifs, khoi, loai, gap_else)
+        tn_ = _HI()._chon_tam_nguyen(vb, m) if (m is not None and buoc == 0) else None
+        dk_ts, ifs, loai, gap_else = _dk_tham_so_tang(vb, mn, ham, vi, ifs, khoi, loai, gap_else,
+                                                      tn_)
         if "else" in loai or gap_else:
             # 11/10/2026 dem: `if(A){..} else if(B){ F(); }` -> ghi cac A de doc_ma CHUNG MINH
             # B loai tru A (`_mau_thuan`); `else` tran / khong doc duoc chuoi -> tu choi

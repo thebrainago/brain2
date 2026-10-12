@@ -416,11 +416,26 @@ def nang_huong(vb: str, m, chieu: int) -> dict | str | None:
         if len(bang[ten]) > 1:
             return None
         khoi = GH._khoi_bao(mn, ham["mo"], vi)
-        if any(GH._loai_khoi(d) not in ("if", "khoi") for _, d in khoi):
+        if any(GH._loai_khoi(d) not in ("if", "khoi", "else") for _, d in khoi):
             return None
         ifs, gap_else = D._cac_if_bao(vb, vi)
-        if gap_else:
+        # 12/10/2026: nhanh `else` (khoi hoac lenh don) ma MOI nhanh truoc trong chuoi la BIEU THUC
+        # HUONG (`if(dir > 0) trade.Buy(..); else trade.Sell(..);`) -> them (A, sai) vao dieu kien
+        # tang, tinh nhu moi bieu thuc huong khac (thu ba gia tri s). Khac -> khong phai dang nay.
+        moc_else = [mn.rfind("else", 0, mo_) for mo_, d in khoi if GH._loai_khoi(d) == "else"]
+        j_ = vi - 1
+        while j_ > ham["mo"] and mn[j_] not in ";{}":
+            j_ -= 1
+        if re.match(r"\s*else\b", mn[j_ + 1:vi]):
+            moc_else.append(mn.index("else", j_ + 1))
+        if gap_else and not moc_else:
             return None
+        dk_else = []
+        for k_ in moc_else:
+            tr = D._truoc_else(vb, k_, ham["mo"]) if k_ > ham["mo"] else None
+            if not tr or not all(la_bieu_thuc_huong(D._boc_ngoac(a_.strip())) for _, a_ in tr):
+                return None
+            dk_else += [(a_, False) for _, a_ in tr]
         ifs = [(p, g) for p, g in ifs if ham["mo"] < p < ham["dong"]
                and not D._LA_KIEM_LOI.search(g)
                and not (buoc > 0 and re.search(rf"\b{re.escape(tang[-2])}\s*\(", g))]
@@ -437,7 +452,7 @@ def nang_huong(vb: str, m, chieu: int) -> dict | str | None:
         for p in tham:
             mp = re.search(rf"({_TEN})\s*(?:=.*)?$", p)
             ten_tham.append(mp.group(1) if mp and "&" not in p else "")
-        dk_tang = [(g, True) for _, g in ifs] + [(t, False) for t in thoat]
+        dk_tang = [(g, True) for _, g in ifs] + [(t, False) for t in thoat] + dk_else
         if buoc == 0 and tn is not None:
             dk_tang.append((tn[0], tn[1]))
         for g, dung in dk_tang:

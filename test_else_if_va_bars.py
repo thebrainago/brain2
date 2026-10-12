@@ -226,3 +226,64 @@ def test_else_tran_mot_lenh_trong_ham_phu_tu_choi():
     r = _doc(vb)
     # Sell nam trong `else` (not A, A khong phai tham so) -> khong duoc coi la khong dieu kien
     assert all(c["chieu"] != -1 for c in r["co_che"])
+
+
+def test_huong_int_nhanh_else_bieu_thuc_huong():
+    # `if(dir > 0) Buy else Sell`, dir = tham so nhan gia tri ham huong (+1/-1/0)
+    vb = _DIR
+    r = _doc(vb)
+    assert r["so_vao_lenh_co_co_che"] == 2, r["chua_dien_dat_duoc"]
+    vao = {c["chieu"]: c["vao"] for c in r["co_che"]}
+    assert vao[1][0]["phep"] == "<" and vao[-1][0]["phep"] == ">"
+
+
+def test_huong_int_else_sau_dieu_kien_khong_huong_tu_choi():
+    r = _doc(_DIR.replace("if(dir > 0)", "if(SymbolInfoDouble(_Symbol,SYMBOL_ASK) > 0)"))
+    assert all(c["chieu"] != -1 for c in r["co_che"])
+
+
+def test_tham_so_hang_ba_ngoi_chon_lenh():
+    vb = _TS.replace("""   if(type == ORDER_TYPE_BUY)
+      trade.Buy(lot,_Symbol);
+   else
+      trade.Sell(lot,_Symbol);""", """   bool ok = (type == ORDER_TYPE_BUY)
+             ? trade.Buy(lot,_Symbol)
+             : trade.Sell(lot,_Symbol);""")
+    assert "?" in vb
+    r = _doc(vb)
+    assert r["so_vao_lenh_co_co_che"] == 2, r["chua_dien_dat_duoc"]
+
+
+_DIR = """
+#include <Trade/Trade.mqh>
+CTrade trade;
+int h;
+int OnInit(){ h=iRSI(_Symbol,_Period,14,PRICE_CLOSE); return 0; }
+int TrendDirection()
+{
+   double r[];
+   ArraySetAsSeries(r,true);
+   if(CopyBuffer(h,0,1,1,r)!=1) return 0;
+   if(r[0] < 30) return 1;
+   if(r[0] > 70) return -1;
+   return 0;
+}
+bool OpenPosition(const int dir)
+{
+   double lot = 0.1;
+   bool sent;
+   if(dir > 0)
+      sent = trade.Buy(lot, _Symbol);
+   else
+      sent = trade.Sell(lot, _Symbol);
+   return sent;
+}
+void OnTick()
+{
+   if(PositionsTotal() > 0) return;
+   int dir = TrendDirection();
+   if(dir == 0)
+      return;
+   OpenPosition(dir);
+}
+"""

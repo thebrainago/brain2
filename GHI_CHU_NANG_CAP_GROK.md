@@ -4,6 +4,34 @@
 
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
 
+## 12/10/2026 sáng (2) — Vòng 5: kiểm độ bền 2 ô GerEA + bộ đọc (MÔ PHỎNG) — CHƯA vào main (số không tăng)
+**Sửa số vòng 4:** số ô đã thử là **14** (3MAF 4, 2MACDSTO 4, BBRSI 3, 3MACD 3), không phải 16.
+**1. Kiểm độ bền** (`ger_ben.py` → `reports/GER_BEN.json`; .set tác giả KHÔNG đổi, EURUSD H1, khớp trên M5; cổng không đổi):
+| kiểm | BBRSI H1 | 3MACD H1 |
+|---|---|---|
+| gốc 2024-01→2026-10 | +14,6 %, DD 10,9 % | +23,8 %, DD 24,9 % |
+| 6 cửa sổ rời (vốn mới mỗi cửa sổ) | 6/6 lãi (+0,7…+3,6 %) | 5/6, cửa sổ cuối −12,6 % |
+| 8 điểm bắt đầu lệch | 8/8 lãi (+6,6…+14 %, DD tới 29,8 %) | 7/8, một ô −0,4 % |
+| thứ tự trong bar xấu nhất | +10,8 %, DD 28,8 % | +23,3 %, DD 24,9 % |
+| spread XM ×1,5 (+ trượt ×1,5), xấu nhất | +10,2 %, DD 28,7 % | +20,2 %, DD 23,0 % |
+| cặp khác H1 (GBP, JPY, CHF, AUD, NZD, CAD, XAU) | 6/7 lãi; USDCHF −97,6 % (cháy), AUDUSD DD 75,7 % | 3/7; GBPUSD, USDCAD, XAUUSD cháy |
+| EURUSD 2018-2023 (HistData, trước chuỗi đã thử) | +20,2 %, DD 29,4 %, Sharpe 0,24 | **−99,9 % (cháy)** |
+| p một phía (lãi ngày) / Holm trên 14 ô | 0,115 / 1,0 | 0,222 / 1,0 |
+Kết luận (luật chốt TRƯỚC khi chạy: sống = MỌI kiểm đạt nhãn cổng VÀ p Holm < 0,05): **cả hai KHÔNG sống**. 3MACD trượt nặng (cháy 2018-2023,
+3 cặp cháy). BBRSI đạt 27/28 kiểm nhãn cổng nhưng cháy USDCHF và lợi nhuận không có ý nghĩa thống kê sau hiệu chỉnh (Sharpe 0,24–0,67,
+23–30 rổ / ~3 năm). Số "đạt nhãn cổng (mô phỏng)" của họ GerEA coi như 2 → **0 ô sống qua kiểm bền**.
+Dukascopy thử lại 12/10 07:0x: 429 (giới hạn tần suất) → 503 → lỗi TLS (curl 35) — vẫn CHƯA tải được. Dữ liệu mới (ngoài repo): HistData
+GBPUSD/USDJPY/USDCHF 2024-01→2026-09, EURUSD 2018-2023 (`eurusd_cu_m5_histdata_server.csv`).
+**2. Bộ đọc (chung, có test):** `huong_int_mql`: nhánh `else` mà mọi nhánh trước là BIỂU THỨC HƯỚNG (`if(dir > 0) Buy; else Sell;`) → thêm
+(A, sai), tính như biểu thức hướng khác; điều kiện không phải hướng → vẫn từ chối. `goi_ham_mql`: điều kiện tham số hằng nay nhận cả
+toán tử ba ngôi chọn lệnh (`(type == ORDER_TYPE_BUY) ? t.Buy(..) : t.Sell(..)`). Test +3 (151 test liên quan đạt), 25 file mau_thu giống hệt.
+**Đo:** điểm vào dịch được **22 → 22**, EA ra cơ chế 16 → 16. Đọc tay: các EA vừa gỡ được nút hướng/else giờ dừng ở lọc TRẠNG THÁI
+(`dailyTrades < Max`, `dailyLoss >= Max`, số lệnh mở, giờ phiên `!IsTradeTime()`…) — đây là nút cổ chai thật kế tiếp (khoảng 100 lý do
+dạng `F()`/`!F()` là lọc phiên/rủi ro). else-if còn lại chủ yếu A là VÀ ghép (`trendUp and close > sma ...`) → NOT = HOẶC, DSL không
+diễn đạt → đúng là phải từ chối. Cùng hướng gọi 2 chỗ (fBuy/fSell 12, OpenTrade) = HOẶC hai điều kiện → chưa làm (cần chân HOẶC trong hệ).
+**Chỉ báo tự viết CEZLSMA/AFAOSMD: CHƯA làm** — gói không kèm nguồn chỉ báo (`PATH_CE/ZL/HA/AF/AOS` nằm ở thư mục Indicators của repo,
+chưa tải); cả họ lưới không SL đã cháy 12/14 ô nên giá trị kỳ vọng thấp.
+
 ## 12/10/2026 sáng — Vòng 4: thư viện GerEA (geraked) + tham số hằng tại chỗ gọi + `else if` = B and not A (MÔ PHỎNG)
 **0.** `reports/VONG_DAY_DU.json` treo từ vòng 3: diff chỉ đổi dấu giờ `luc` (một lần chạy test, `giay: 0.0`, không phải báo cáo đo) → `git checkout`, không commit.
 **1. GerEA thành cơ chế dùng lại** (`nhan/ger_ea.py`): dịch MỘT LẦN phần quản trị của `EAUtils.mqh` (geraked/metatrader5, 655 sao) —
