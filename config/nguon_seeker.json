@@ -1,0 +1,5549 @@
+{
+ "_ghi_chu": [
+  "Kiem ke tu the-brain origin/claude/autonomous-trading-system-rzzt7h (ban giao 3c982747). Sinh boi _kiem_ke_nguon_the_brain.py.",
+  "Nhan 4 chieu theo luat tu khoa chot truoc trong nhan/nguon_seeker.gan_nhan; 'tong_hop' = nguon nhieu phong cach.",
+  "KHONG co khoa / mat khau / phien. Ket qua quet that o reports/SEEKER_QUET_NGUON.json."
+ ],
+ "tong": 222,
+ "nguon": {
+  "allocatesmartly": {
+   "ten": "allocatesmartly",
+   "url": "https://allocatesmartly.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "nhan/nguon_bai_viet.FEEDS"
+   ],
+   "hang": "A",
+   "phong_cach": [
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "danh_muc"
+   ],
+   "can_dang_nhap": false
+  },
+  "alphaarchitect": {
+   "ten": "alphaarchitect",
+   "url": "https://alphaarchitect.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "nhan/nguon_bai_viet.FEEDS"
+   ],
+   "hang": "A",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "alvarezquant": {
+   "ten": "alvarezquant",
+   "url": "https://alvarezquanttrading.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "nhan/nguon_bai_viet.FEEDS"
+   ],
+   "hang": "A",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "api_alphavantage": {
+   "ten": "AlphaVantage (API ca nhan)",
+   "url": "https://www.alphavantage.co/support/#api-key",
+   "loai": "api_ca_nhan",
+   "cach": "dang_nhap",
+   "khai_bao_tai": [
+    "web_registry.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": true
+  },
+  "api_binance": {
+   "ten": "Binance (API ca nhan)",
+   "url": "https://www.binance.com/en/my/settings/api-management",
+   "loai": "api_ca_nhan",
+   "cach": "dang_nhap",
+   "khai_bao_tai": [
+    "web_registry.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "crypto"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": true
+  },
+  "api_bybit": {
+   "ten": "Bybit (API ca nhan)",
+   "url": "https://www.bybit.com/app/user/api-management",
+   "loai": "api_ca_nhan",
+   "cach": "dang_nhap",
+   "khai_bao_tai": [
+    "web_registry.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "crypto"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": true
+  },
+  "api_collective2": {
+   "ten": "Collective2 (API ca nhan)",
+   "url": "https://trade.collective2.com/c2-api.html",
+   "loai": "api_ca_nhan",
+   "cach": "dang_nhap",
+   "khai_bao_tai": [
+    "web_registry.json"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": true
+  },
+  "api_darwinex": {
+   "ten": "Darwinex (API ca nhan)",
+   "url": "https://www.darwinex.com/data/darwin-api?hsLang=en",
+   "loai": "api_ca_nhan",
+   "cach": "dang_nhap",
+   "khai_bao_tai": [
+    "web_registry.json"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": true
+  },
+  "api_myfxbook": {
+   "ten": "Myfxbook (API ca nhan)",
+   "url": "https://www.myfxbook.com/api",
+   "loai": "api_ca_nhan",
+   "cach": "dang_nhap",
+   "khai_bao_tai": [
+    "web_registry.json"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": true
+  },
+  "api_oanda": {
+   "ten": "OANDA (API ca nhan)",
+   "url": "https://www.oanda.com/account/tpa/personal_token",
+   "loai": "api_ca_nhan",
+   "cach": "dang_nhap",
+   "khai_bao_tai": [
+    "web_registry.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": true
+  },
+  "api_okx": {
+   "ten": "OKX (API ca nhan)",
+   "url": "https://www.okx.com/account/my-api",
+   "loai": "api_ca_nhan",
+   "cach": "dang_nhap",
+   "khai_bao_tai": [
+    "web_registry.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "crypto"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": true
+  },
+  "api_polygon": {
+   "ten": "Polygon.io (API ca nhan)",
+   "url": "https://polygon.io/dashboard/apikey",
+   "loai": "api_ca_nhan",
+   "cach": "dang_nhap",
+   "khai_bao_tai": [
+    "web_registry.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": true
+  },
+  "api_quantconnect": {
+   "ten": "QuantConnect (API ca nhan)",
+   "url": "https://www.quantconnect.com/account",
+   "loai": "api_ca_nhan",
+   "cach": "dang_nhap",
+   "khai_bao_tai": [
+    "web_registry.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": true
+  },
+  "arabictrader": {
+   "ten": "arabictrader",
+   "url": "https://www.arabictrader.com/",
+   "loai": "dien_dan",
+   "cach": "http",
+   "nuoc": "ar",
+   "loc_lien_ket": "arabictrader\\.com/[^\\\"']+",
+   "khai_bao_tai": [
+    "_do_dien_dan_quoc_gia.UNG_VIEN",
+    "config/dien_dan.json"
+   ],
+   "kiem_tra_the_brain": "15/09: KHONG_VAO_DUOC. Do lai bang Chrome AI (cong 9224).",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": true
+  },
+  "ariva_forum": {
+   "ten": "Ariva - dien dan (Duc)",
+   "url": "https://www.ariva.de/forum/",
+   "loai": "dien_dan",
+   "cach": "http",
+   "nuoc": "de",
+   "mau_trang": null,
+   "loc_lien_ket": null,
+   "bat_o_the_brain": true,
+   "kiem_tra_the_brain": "08/10 do: dung duoc, co phan trang; chu du an yeu cau quet sau -> BAT",
+   "khai_bao_tai": [
+    "config/dien_dan.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "co_phieu"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "arxiv": {
+   "ten": "arxiv",
+   "url": "https://export.arxiv.org/api/query?search_query=all:trading+strategy&max_results=10",
+   "loai": "hoc_thuat",
+   "cach": "api",
+   "khai_bao_tai": [
+    "tru/seeker.NGUON"
+   ],
+   "chu_ky_giay": 21600,
+   "uu_tien": 3,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "babypips_forum": {
+   "ten": "babypips_forum",
+   "url": "https://forums.babypips.com/",
+   "loai": "dien_dan",
+   "cach": "http",
+   "nuoc": "en",
+   "loc_lien_ket": "forums\\.babypips\\.com/t/[^\\\"']+/\\d+",
+   "khai_bao_tai": [
+    "_do_dien_dan_quoc_gia.UNG_VIEN",
+    "config/dien_dan.json",
+    "config/nguon_cho_ea.json"
+   ],
+   "kiem_tra_the_brain": "15/09: KHONG_VAO_DUOC. Dien dan Discourse: sau khi vao duoc se co rel=next.",
+   "ghi_chu": "cong khai, it EA that",
+   "phong_cach": [
+    "hoc_may"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "bankier_forum": {
+   "ten": "Bankier.pl - dien dan chung khoan (Ba Lan)",
+   "url": "https://www.bankier.pl/forum/",
+   "loai": "dien_dan",
+   "cach": "http",
+   "nuoc": "pl",
+   "mau_trang": null,
+   "loc_lien_ket": null,
+   "bat_o_the_brain": false,
+   "kiem_tra_the_brain": "chua kiem (ten tu tri nho). Dien dan chung khoan chung, it bot: uu tien thap, chi de du mat nuoc.",
+   "khai_bao_tai": [
+    "config/dien_dan.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "co_phieu"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "blog": {
+   "ten": "blog",
+   "url": "(nhieu RSS - xem FEEDS)",
+   "loai": "blog",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "tru/seeker.NGUON"
+   ],
+   "chu_ky_giay": 43200,
+   "uu_tien": 2,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "boursorama_forum": {
+   "ten": "Boursorama - forum (Phap)",
+   "url": "https://www.boursorama.com/bourse/forum/",
+   "loai": "dien_dan",
+   "cach": "http",
+   "nuoc": "fr",
+   "mau_trang": null,
+   "loc_lien_ket": null,
+   "bat_o_the_brain": false,
+   "kiem_tra_the_brain": "chua kiem (ten tu tri nho). Dien dan chung khoan chung: chi de du mat nuoc.",
+   "khai_bao_tai": [
+    "config/dien_dan.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "co_phieu"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "buildalpha": {
+   "ten": "buildalpha",
+   "url": "https://www.buildalpha.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "nhan/nguon_bai_viet.FEEDS"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "cnblogs_trung": {
+   "ten": "cnblogs_trung",
+   "url": "https://www.cnblogs.com/cate/python/",
+   "seed": [
+    "https://www.cnblogs.com/cate/python/",
+    "https://www.cnblogs.com/cate/ai/"
+   ],
+   "loai": "cong_dong",
+   "cach": "trinh_duyet",
+   "mau_tim": null,
+   "loc_lien_ket": "cnblogs\\.com/[^/]+/p/\\d+",
+   "mau_trang": null,
+   "khai_bao_tai": [
+    "tru/seeker.NGUON_TRINH_DUYET"
+   ],
+   "chu_ky_giay": 43200,
+   "uu_tien": 3,
+   "tu_khoa_rieng": null,
+   "phong_cach": [
+    "hoc_may"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "collective2": {
+   "ten": "collective2",
+   "url": "https://www.collective2.com/",
+   "seed": [
+    "https://www.collective2.com/"
+   ],
+   "loai": "track_record",
+   "cach": "trinh_duyet",
+   "mau_tim": null,
+   "loc_lien_ket": null,
+   "mau_trang": null,
+   "khai_bao_tai": [
+    "config/nguon_cho_ea.json",
+    "tru/seeker.NGUON_TRINH_DUYET"
+   ],
+   "chu_ky_giay": 86400,
+   "uu_tien": 2,
+   "tu_khoa_rieng": null,
+   "ghi_chu": "chien luoc co lich su lenh + kiem toan 10+ nam (futures/co phieu nhieu hon FX)",
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx",
+    "futures_hang_hoa"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": true
+  },
+  "crossref": {
+   "ten": "crossref",
+   "url": "https://api.crossref.org/works?query=trading+strategy&rows=20",
+   "loai": "hoc_thuat",
+   "cach": "api",
+   "khai_bao_tai": [
+    "tru/seeker.NGUON"
+   ],
+   "chu_ky_giay": 86400,
+   "uu_tien": 3,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "ctrader_algo": {
+   "ten": "ctrader_algo",
+   "url": "https://ctrader.com/algo",
+   "loai": "cho_cbot",
+   "cach": "trinh_duyet",
+   "ghi_chu": "cBot C# ma nguon mo -> doc luat truc tiep, nhung lab chua co engine cTrader (chi doc luat, viet lai thanh EA MT5)",
+   "khai_bao_tai": [
+    "config/nguon_cho_ea.json"
+   ],
+   "phong_cach": [
+    "hoc_may"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": true
+  },
+  "ctrader_copy": {
+   "ten": "ctrader_copy",
+   "url": "https://ctrader.com/copy",
+   "loai": "copy_trading",
+   "cach": "trinh_duyet",
+   "ghi_chu": "chien luoc cTrader co thong ke nam; cBot Algo store (ctrader.com/algo) co ma nguon .algo/.cs",
+   "khai_bao_tai": [
+    "config/nguon_cho_ea.json"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": true
+  },
+  "darwinex": {
+   "ten": "darwinex",
+   "url": "https://www.darwinex.com/data/darwin-api",
+   "seed": [
+    "https://www.darwinex.com/data/darwin-api",
+    "https://www.darwinex.com/account"
+   ],
+   "loai": "track_record",
+   "cach": "trinh_duyet",
+   "mau_tim": null,
+   "loc_lien_ket": null,
+   "mau_trang": null,
+   "khai_bao_tai": [
+    "config/nguon_cho_ea.json",
+    "tru/seeker.NGUON_TRINH_DUYET"
+   ],
+   "chu_ky_giay": 86400,
+   "uu_tien": 2,
+   "tu_khoa_rieng": null,
+   "ghi_chu": "track record kiem toan nhieu nam, co DARWIN la luoi/martingale; co D-Score; khong co lich su lenh chi tiet nhung co duong von + drawdown de LOC",
+   "phong_cach": [
+    "luoi_dca",
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "luoi_martingale",
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": true
+  },
+  "duplitrade": {
+   "ten": "dupliTrade",
+   "url": "https://www.duplitrade.com/",
+   "loai": "copy_trading",
+   "cach": "trinh_duyet",
+   "ghi_chu": "it, thong ke thang",
+   "khai_bao_tai": [
+    "config/nguon_cho_ea.json"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "ea_marketplace_ngoai": {
+   "ten": "ea_marketplace_ngoai",
+   "url": "https://www.forexrobotnation.com/",
+   "loai": "cho_ea_thuong_mai",
+   "cach": "tay",
+   "ghi_chu": "CANH BAO: ban EA tra phi, 'backtest' tu khai, hop den; chi doc de lay TEN he thong/luoi roi tim lich su that o Myfxbook/FXBlue",
+   "khai_bao_tai": [
+    "config/nguon_cho_ea.json"
+   ],
+   "phong_cach": [
+    "luoi_dca",
+    "hoc_may",
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "luoi_martingale"
+   ],
+   "can_dang_nhap": false
+  },
+  "elitetrader": {
+   "ten": "elitetrader",
+   "url": "https://www.elitetrader.com/et/forums/automated-trading.15/",
+   "seed": [
+    "https://www.elitetrader.com/et/forums/automated-trading.15/",
+    "https://www.elitetrader.com/et/forums/strategy-building.10/"
+   ],
+   "loai": "dien_dan",
+   "cach": "trinh_duyet",
+   "mau_tim": null,
+   "loc_lien_ket": "elitetrader\\.com/et/threads/",
+   "mau_trang": null,
+   "khai_bao_tai": [
+    "tru/seeker.NGUON_TRINH_DUYET"
+   ],
+   "chu_ky_giay": 43200,
+   "uu_tien": 2,
+   "tu_khoa_rieng": null,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "etoro": {
+   "ten": "etoro",
+   "url": "https://www.etoro.com/sapi/rankings/rankings/",
+   "loai": "track_record",
+   "cach": "api",
+   "khai_bao_tai": [
+    "config/nguon_cho_ea.json",
+    "tru/seeker.NGUON"
+   ],
+   "chu_ky_giay": 86400,
+   "uu_tien": 3,
+   "ghi_chu": "chu yeu co phieu/crypto, ngoai pham vi FX/chi so",
+   "phong_cach": [
+    "hoc_may",
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx",
+    "crypto",
+    "co_phieu"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "facebook": {
+   "ten": "facebook",
+   "url": "https://www.facebook.com/search/posts?q={k}",
+   "seed": [
+    "https://www.facebook.com/search/posts?q={k}"
+   ],
+   "loai": "social",
+   "cach": "trinh_duyet",
+   "mau_tim": "https://www.facebook.com/search/posts?q={k}",
+   "loc_lien_ket": "facebook\\.com/.*(/posts/|/videos/|story_fbid|permalink)",
+   "mau_trang": null,
+   "khai_bao_tai": [
+    "tru/seeker.NGUON_TRINH_DUYET"
+   ],
+   "chu_ky_giay": 21600,
+   "uu_tien": 3,
+   "tu_khoa_rieng": null,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": true
+  },
+  "fh_financial_hacker": {
+   "ten": "fh_financial_hacker",
+   "url": "https://financial-hacker.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "nhan/nguon_bai_viet.FEEDS"
+   ],
+   "hang": "A",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "followingthetrend": {
+   "ten": "followingthetrend",
+   "url": "https://www.followingthetrend.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "nhan/nguon_bai_viet.FEEDS"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "xu_huong"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "forex_nawigator": {
+   "ten": "forex_nawigator",
+   "url": "https://www.forex-nawigator.biz/forum/",
+   "loai": "dien_dan",
+   "cach": "http",
+   "nuoc": "pl",
+   "loc_lien_ket": "forex-nawigator\\.biz/forum/[^\\\"']+",
+   "khai_bao_tai": [
+    "_do_dien_dan_quoc_gia.UNG_VIEN",
+    "config/dien_dan.json"
+   ],
+   "kiem_tra_the_brain": "15/09: KHONG_VAO_DUOC. Do lai bang Chrome AI (cong 9224).",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "forexfactory": {
+   "ten": "forexfactory",
+   "url": "https://www.forexfactory.com/thread/post/1#p1",
+   "loai": "dien_dan",
+   "cach": "http",
+   "khai_bao_tai": [
+    "_do_dien_dan_quoc_gia.UNG_VIEN",
+    "config/dien_dan.json",
+    "nguon_dien_dan.DIEN_DAN"
+   ],
+   "nuoc": "en",
+   "loc_lien_ket": "forexfactory\\.com/thread/\\d+",
+   "kiem_tra_the_brain": "15/09: KHONG_VAO_DUOC (Cloudflare). Chan = DUNG, khong ne; chi thu bang Chrome AI mot lan.",
+   "phong_cach": [
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "forexfactory_ea_threads": {
+   "ten": "forexfactory_ea_threads",
+   "url": "https://www.forexfactory.com/forum/71-trading-systems",
+   "loai": "dien_dan_he_thong",
+   "cach": "http",
+   "ghi_chu": "thread he thong dai hoi co ket qua thang; sap theo views/replies",
+   "khai_bao_tai": [
+    "config/nguon_cho_ea.json"
+   ],
+   "phong_cach": [
+    "hoc_may",
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "forexfactory_trade_explorer": {
+   "ten": "forexfactory_trade_explorer",
+   "url": "https://www.forexfactory.com/trades",
+   "loai": "nhat_ky_giao_dich",
+   "cach": "http",
+   "ghi_chu": "Trade Explorer + thread 'EA/grid journal' ghi qua nhieu nam (nhieu thread 100+ trang); nguon LUAT mo ta bang chu",
+   "khai_bao_tai": [
+    "config/nguon_cho_ea.json"
+   ],
+   "phong_cach": [
+    "luoi_dca",
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "luoi_martingale"
+   ],
+   "can_dang_nhap": false
+  },
+  "forexforum_tr": {
+   "ten": "forexforum_tr",
+   "url": "https://www.forexforum.com.tr/",
+   "loai": "dien_dan",
+   "cach": "http",
+   "nuoc": "tr",
+   "loc_lien_ket": "forexforum\\.com\\.tr/[^\\\"']+",
+   "khai_bao_tai": [
+    "_do_dien_dan_quoc_gia.UNG_VIEN",
+    "config/dien_dan.json"
+   ],
+   "kiem_tra_the_brain": "15/09: KHONG_VAO_DUOC. Do lai bang Chrome AI (cong 9224); neu van chan thi bo, khong ne.",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "futures_io": {
+   "ten": "futures.io",
+   "url": "https://futures.io/forum",
+   "loai": "dien_dan",
+   "cach": "http",
+   "khai_bao_tai": [
+    "nguon_dien_dan.DIEN_DAN"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "futures_hang_hoa"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "fx168": {
+   "ten": "fx168",
+   "url": "https://www.fx168.com/",
+   "loai": "dien_dan",
+   "cach": "http",
+   "nuoc": "zh",
+   "loc_lien_ket": "fx168\\.com/[^\\\"']+\\.html",
+   "khai_bao_tai": [
+    "_do_dien_dan_quoc_gia.UNG_VIEN",
+    "config/dien_dan.json"
+   ],
+   "kiem_tra_the_brain": "15/09: KHONG_VAO_DUOC.",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "fxblue": {
+   "ten": "fxblue",
+   "url": "https://www.fxblue.com/users",
+   "loai": "cong_cu",
+   "cach": "http",
+   "khai_bao_tai": [
+    "tru/seeker.NGUON"
+   ],
+   "chu_ky_giay": 86400,
+   "uu_tien": 3,
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "fxblue_com": {
+   "ten": "fxblue_com",
+   "url": "https://www.fxblue.com/users",
+   "loai": "lich_su_tai_khoan",
+   "cach": "http",
+   "ghi_chu": "tai khoan that cong khai, co tab lich su lenh + equity, ca MT4/MT5, it nguoi cao hon Myfxbook",
+   "khai_bao_tai": [
+    "config/nguon_cho_ea.json"
+   ],
+   "phong_cach": [
+    "hoc_may",
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "fxblue_market": {
+   "ten": "fxblue_market",
+   "url": "https://www.fxblue.com/market",
+   "loai": "cho_ea",
+   "cach": "http",
+   "ghi_chu": "danh sach EA/indicator kem so lieu",
+   "khai_bao_tai": [
+    "config/nguon_cho_ea.json"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "fxon": {
+   "ten": "fxon",
+   "url": "https://fx-on.com/",
+   "seed": [
+    "https://fx-on.com/"
+   ],
+   "loai": "dien_dan",
+   "cach": "http",
+   "loc_lien_ket": "fx-on\\.com/(?:\\w\\w/)?(?:post|systemtrade|review)/[^\\\"'\\s]*\\d+",
+   "khai_bao_tai": [
+    "_do_dien_dan_quoc_gia.UNG_VIEN",
+    "config/dien_dan.json",
+    "nhan/nguon_bai_viet.TRANG"
+   ],
+   "ngon_ngu": null,
+   "nuoc": "ja",
+   "bat_o_the_brain": true,
+   "kiem_tra_the_brain": "15/09: VAO_DUOC 246962 ky tu, 28 link. Trang chu khong phan trang (chi trang 1) cho toi khi biet muc co phan trang.",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "fxstat": {
+   "ten": "fxstat",
+   "url": "https://www.fxstat.com/",
+   "loai": "lich_su_tai_khoan",
+   "cach": "http",
+   "ghi_chu": "giong Myfxbook, it tai khoan",
+   "khai_bao_tai": [
+    "config/nguon_cho_ea.json"
+   ],
+   "phong_cach": [
+    "hoc_may",
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "gestaltu": {
+   "ten": "gestaltu",
+   "url": "https://gestaltu.com/feed",
+   "loai": "blog",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "nhan/nguon_bai_viet.FEEDS"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "gh_addyosmani_agent_skills": {
+   "ten": "addyosmani/agent-skills",
+   "url": "https://github.com/addyosmani/agent-skills",
+   "loai": "cong_cu_nang_nang_luc",
+   "cach": "http",
+   "nguoi_theo_doi": null,
+   "tu_khoa": null,
+   "khai_bao_tai": [
+    "config/nguon_ung_vien.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "gh_awesome_claude_skills": {
+   "ten": "awesome-claude-skills",
+   "url": "https://github.com/ComposioHQ/awesome-claude-skills",
+   "loai": "cong_cu_nang_nang_luc",
+   "cach": "http",
+   "nguoi_theo_doi": null,
+   "tu_khoa": null,
+   "khai_bao_tai": [
+    "config/nguon_ung_vien.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "gh_caveman": {
+   "ten": "caveman",
+   "url": "https://github.com/raphaelmansuy/caveman",
+   "loai": "cong_cu_nang_nang_luc",
+   "cach": "http",
+   "nguoi_theo_doi": null,
+   "tu_khoa": null,
+   "khai_bao_tai": [
+    "config/nguon_ung_vien.json"
+   ],
+   "phong_cach": [
+    "xu_huong"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "gh_tech_leads_club_agent_skills": {
+   "ten": "tech-leads-club/agent-skills",
+   "url": "https://github.com/tech-leads-club/agent-skills",
+   "loai": "cong_cu_nang_nang_luc",
+   "cach": "http",
+   "nguoi_theo_doi": null,
+   "tu_khoa": null,
+   "khai_bao_tai": [
+    "config/nguon_ung_vien.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "github": {
+   "ten": "github",
+   "url": "https://api.github.com/search/repositories?q=expert+advisor+language:MQL5&per_page=30",
+   "loai": "ma_nguon",
+   "cach": "api",
+   "khai_bao_tai": [
+    "tru/seeker.NGUON"
+   ],
+   "chu_ky_giay": 43200,
+   "uu_tien": 1,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "github_mql5": {
+   "ten": "github_mql5",
+   "url": "https://github.com/search?q=language%3AMQL5+grid+OR+martingale&type=repositories",
+   "loai": "ma_nguon",
+   "cach": "http",
+   "ghi_chu": "EA .mq5 mo + set file + README ket qua; loc theo sao/cap nhat, topic: expert-advisor, mt5-ea, grid-trading",
+   "khai_bao_tai": [
+    "config/nguon_cho_ea.json"
+   ],
+   "phong_cach": [
+    "luoi_dca"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "luoi_martingale"
+   ],
+   "can_dang_nhap": false
+  },
+  "gogojungle": {
+   "ten": "gogojungle",
+   "url": "https://www.gogojungle.co.jp/systemtrade/fx",
+   "loai": "dien_dan",
+   "cach": "http",
+   "nuoc": "ja",
+   "loc_lien_ket": "gogojungle\\.co\\.jp/(systemtrade|fx)/[^\\\"']*\\d+",
+   "khai_bao_tai": [
+    "_do_dien_dan_quoc_gia.UNG_VIEN",
+    "config/dien_dan.json"
+   ],
+   "kiem_tra_the_brain": "15/09: KHONG_VAO_DUOC.",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "habr_nga": {
+   "ten": "habr_nga",
+   "url": "https://habr.com/ru/hubs/finance/articles/",
+   "seed": [
+    "https://habr.com/ru/hubs/finance/articles/",
+    "https://habr.com/ru/hubs/algorithms/articles/",
+    "https://habr.com/ru/hubs/machine_learning/articles/"
+   ],
+   "loai": "cong_dong",
+   "cach": "trinh_duyet",
+   "mau_tim": null,
+   "loc_lien_ket": "habr\\.com/ru/(articles|companies/[^/]+/articles)/\\d+",
+   "mau_trang": null,
+   "khai_bao_tai": [
+    "tru/seeker.NGUON_TRINH_DUYET"
+   ],
+   "chu_ky_giay": 43200,
+   "uu_tien": 2,
+   "tu_khoa_rieng": null,
+   "phong_cach": [
+    "hoc_may"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "hackernews": {
+   "ten": "hackernews",
+   "url": "https://hn.algolia.com/api/v1/search?query=trading+strategy",
+   "loai": "cong_dong",
+   "cach": "api",
+   "khai_bao_tai": [
+    "tru/seeker.NGUON"
+   ],
+   "chu_ky_giay": 43200,
+   "uu_tien": 3,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "hangukquant": {
+   "ten": "hangukquant",
+   "url": "https://hangukquant.substack.com/feed",
+   "loai": "blog",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "nhan/nguon_bai_viet.FEEDS"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "headlandstech": {
+   "ten": "headlandstech",
+   "url": "https://blog.headlandstech.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "nhan/nguon_bai_viet.FEEDS"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "indomt5": {
+   "ten": "indomt5",
+   "url": "https://www.kaskus.co.id/forum/64/forex",
+   "loai": "dien_dan",
+   "cach": "http",
+   "nuoc": "id",
+   "loc_lien_ket": "kaskus\\.co\\.id/thread/[0-9a-f]+",
+   "khai_bao_tai": [
+    "_do_dien_dan_quoc_gia.UNG_VIEN",
+    "config/dien_dan.json"
+   ],
+   "kiem_tra_the_brain": "15/09: VAO_NHUNG_0_LINK (82641 ky tu, 0 bai: trang dung JS). Thu cdp_render khi Chrome AI cong 9224 dang mo.",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "lean_algo": {
+   "ten": "lean_algo",
+   "url": "https://api.github.com/repos/QuantConnect/Lean/contents/Algorithm.Python",
+   "loai": "ma_nguon",
+   "cach": "api",
+   "khai_bao_tai": [
+    "tru/seeker.NGUON"
+   ],
+   "chu_ky_giay": 86400,
+   "uu_tien": 1,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "mmgp": {
+   "ten": "mmgp",
+   "url": "https://mmgp.com/forums/",
+   "loai": "dien_dan",
+   "cach": "http",
+   "nuoc": "ru",
+   "loc_lien_ket": "mmgp\\.com/(showthread|threads)[^\\\"']*",
+   "khai_bao_tai": [
+    "_do_dien_dan_quoc_gia.UNG_VIEN",
+    "config/dien_dan.json"
+   ],
+   "kiem_tra_the_brain": "15/09: KHONG_VAO_DUOC.",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "mql5_articles": {
+   "ten": "mql5_articles",
+   "url": "https://www.mql5.com/en/articles/rss",
+   "loai": "bai_bao",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "nhan/nguon_bai_viet.FEEDS"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "mql5_bai_viet": {
+   "ten": "mql5_bai_viet",
+   "url": "https://www.mql5.com/en/articles/trading_systems",
+   "seed": [
+    "https://www.mql5.com/en/articles/trading_systems",
+    "https://www.mql5.com/en/articles/tester",
+    "https://www.mql5.com/en/articles/machine_learning",
+    "https://www.mql5.com/en/articles/statistics"
+   ],
+   "loai": "ma_nguon",
+   "cach": "trinh_duyet",
+   "mau_tim": null,
+   "loc_lien_ket": "mql5\\.com/en/articles/\\d+",
+   "mau_trang": null,
+   "khai_bao_tai": [
+    "tru/seeker.NGUON_TRINH_DUYET"
+   ],
+   "chu_ky_giay": 43200,
+   "uu_tien": 1,
+   "tu_khoa_rieng": null,
+   "phong_cach": [
+    "hoc_may"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "mql5_code": {
+   "ten": "mql5_code",
+   "url": "https://www.mql5.com/en/code/mt5/experts",
+   "loai": "ma_nguon",
+   "cach": "http",
+   "khai_bao_tai": [
+    "tru/seeker.NGUON"
+   ],
+   "chu_ky_giay": 43200,
+   "uu_tien": 2,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "mql5_codebase": {
+   "ten": "mql5_codebase",
+   "url": "https://www.mql5.com/en/code/mt5/experts",
+   "loai": "ma_nguon",
+   "cach": "http",
+   "ghi_chu": "EA mien phi co ma nguon (da la lan EA tho)",
+   "khai_bao_tai": [
+    "config/nguon_cho_ea.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "mql5_forum_ru": {
+   "ten": "mql5_forum_ru",
+   "url": "https://www.mql5.com/ru/forum",
+   "seed": [
+    "https://www.mql5.com/ru/forum"
+   ],
+   "loai": "dien_dan",
+   "cach": "http",
+   "loc_lien_ket": "mql5\\.com/ru/forum/\\d+",
+   "khai_bao_tai": [
+    "_do_dien_dan_quoc_gia.UNG_VIEN",
+    "config/dien_dan.json",
+    "nhan/nguon_bai_viet.TRANG"
+   ],
+   "ngon_ngu": null,
+   "nuoc": "ru",
+   "mau_trang": "{base}/page{n}",
+   "bat_o_the_brain": true,
+   "kiem_tra_the_brain": "15/09: VAO_DUOC 180201 ky tu, 106 link bai. Phan trang CHUA kiem: `b dien-dan do` se noi co thay rel=next / so trang khong. Neu 403/429 thi DUNG (mql5 cam IP sau ~50-150 yeu cau).",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "mql5_ma_expert": {
+   "ten": "mql5_ma_expert",
+   "url": "https://www.mql5.com/en/code/mt5/experts",
+   "seed": [
+    "https://www.mql5.com/en/code/mt5/experts",
+    "https://www.mql5.com/en/code/mt5/indicators"
+   ],
+   "loai": "ma_nguon",
+   "cach": "trinh_duyet",
+   "mau_tim": null,
+   "loc_lien_ket": "mql5\\.com/en/code/\\d+",
+   "mau_trang": null,
+   "khai_bao_tai": [
+    "tru/seeker.NGUON_TRINH_DUYET"
+   ],
+   "chu_ky_giay": 43200,
+   "uu_tien": 1,
+   "tu_khoa_rieng": null,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "mql5_market_free": {
+   "ten": "mql5_market_free",
+   "url": "https://www.mql5.com/en/market/mt5/expert/free",
+   "loai": "cho_ea",
+   "cach": "http",
+   "ghi_chu": "chi doc trang: mo ta + so ban + rating; .ex5 hop den",
+   "khai_bao_tai": [
+    "config/nguon_cho_ea.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "mql5_signals": {
+   "ten": "mql5_signals",
+   "url": "https://www.mql5.com/en/signals",
+   "seed": [
+    "https://www.mql5.com/en/signals"
+   ],
+   "loai": "ma_nguon",
+   "cach": "trinh_duyet",
+   "mau_tim": null,
+   "loc_lien_ket": null,
+   "mau_trang": null,
+   "khai_bao_tai": [
+    "tru/seeker.NGUON_TRINH_DUYET"
+   ],
+   "chu_ky_giay": 43200,
+   "uu_tien": 1,
+   "tu_khoa_rieng": null,
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "mql5_tin_hieu_mt5": {
+   "ten": "Danh sach tin hieu MQL5 (MT5) - nguon 'nguoi thang'",
+   "url": "https://www.mql5.com/en/signals/mt5/list",
+   "loai": "danh_sach",
+   "cach": "http",
+   "nuoc": "en",
+   "mau_trang": "{base}/page{n}",
+   "loc_lien_ket": "mql5\\.com/(?:[a-z]{2}/)?signals/\\d+",
+   "bat_o_the_brain": true,
+   "kiem_tra_the_brain": "08/10 do: dung duoc, co phan trang; chu du an yeu cau quet sau -> BAT",
+   "khai_bao_tai": [
+    "config/dien_dan.json"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "mrzepczynski": {
+   "ten": "mrzepczynski",
+   "url": "https://mrzepczynski.blogspot.com/feeds/posts/default",
+   "loai": "blog",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "nhan/nguon_bai_viet.FEEDS"
+   ],
+   "hang": "C",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "myfxbook": {
+   "ten": "myfxbook",
+   "url": "https://www.myfxbook.com/",
+   "seed": [
+    "https://www.myfxbook.com/"
+   ],
+   "loai": "track_record",
+   "cach": "trinh_duyet",
+   "mau_tim": null,
+   "loc_lien_ket": null,
+   "mau_trang": null,
+   "khai_bao_tai": [
+    "tru/seeker.NGUON_TRINH_DUYET"
+   ],
+   "chu_ky_giay": 43200,
+   "uu_tien": 1,
+   "tu_khoa_rieng": null,
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": true
+  },
+  "myfxbook_autotrade": {
+   "ten": "myfxbook_autotrade",
+   "url": "https://www.myfxbook.com/forex-autotrade",
+   "loai": "lich_su_tai_khoan",
+   "cach": "trinh_duyet",
+   "ghi_chu": "(da co trong NGUON_NGUOI_THANG) sap he thong theo Gain/DD/Age",
+   "khai_bao_tai": [
+    "config/nguon_cho_ea.json"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": true
+  },
+  "nen_alpaca_challenges": {
+   "ten": "Alpaca challenges",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "thắng giải",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_alpha_capital_group": {
+   "ten": "Alpha Capital Group",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "leaderboard",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_apex_trader_funding": {
+   "ten": "Apex Trader Funding",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "leaderboard",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_barclayhedge_cta_index": {
+   "ten": "BarclayHedge CTA Index",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "chuẩn ngành",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "xu_huong",
+    "luoi_dca"
+   ],
+   "tai_san": [
+    "futures_hang_hoa",
+    "chi_so"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_binance_okx_bybit_copy_trade": {
+   "ten": "Binance / OKX / Bybit copy trade",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "top trader crypto",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "crypto"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_bloomberg_reuters_top_50_hf": {
+   "ten": "Bloomberg/Reuters Top 50 HF",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "top quỹ",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_collective2_c2": {
+   "ten": "Collective2 (C2)",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "thư viện chiến lược + kết quả",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_copyfx_roboforex": {
+   "ten": "CopyFX (RoboForex)",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "xếp hạng",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_darwinex_d_live": {
+   "ten": "Darwinex D-Live",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "api",
+   "ghi_chu": "DARWIN track record kiểm toán",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_e8_funding": {
+   "ten": "E8 Funding",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "leaderboard",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_earn2trade": {
+   "ten": "Earn2Trade",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "leaderboard",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_etoro_popular_investor": {
+   "ten": "eToro Popular Investor",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "leaderboard",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "co_phieu"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_eurekahedge_hfri": {
+   "ten": "Eurekahedge / HFRI",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "hedge fund index",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "luoi_dca"
+   ],
+   "tai_san": [
+    "chi_so"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_ftmo_leaderboard": {
+   "ten": "FTMO leaderboard",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "funded profile + track",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_fundednext": {
+   "ten": "FundedNext",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "leaderboard",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_funderpro": {
+   "ten": "FunderPro",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "leaderboard",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_fx_blue": {
+   "ten": "FX Blue",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "xếp hạng",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_hfm_awards": {
+   "ten": "HFM Awards",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "top quỹ",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_hungarian_trading_championship": {
+   "ten": "Hungarian Trading Championship",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "xếp hạng",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_kaggle": {
+   "ten": "Kaggle",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "thắng giải",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "hoc_may"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_moneyshow_top_traders": {
+   "ten": "MoneyShow Top Traders",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "top",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_mql5_market": {
+   "ten": "MQL5 Market",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "EA top bán",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_mql5_signals": {
+   "ten": "MQL5 Signals",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "track record signal",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_myfxbook_autotrade": {
+   "ten": "Myfxbook AutoTrade",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "xếp hạng",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_nilssonhedge": {
+   "ten": "NilssonHedge",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "CTA ranking",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "xu_huong",
+    "luoi_dca"
+   ],
+   "tai_san": [
+    "futures_hang_hoa"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_numerai_tournament": {
+   "ten": "Numerai tournament",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "chiến lược ranking",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "hoc_may"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_optiver_jane_street_imc_two_sigma": {
+   "ten": "Optiver / Jane Street / IMC / Two Sigma comps",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "thắng giải",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_peak_index": {
+   "ten": "Peak Index",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "leaderboard",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "chi_so"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_quantconnect_competitions": {
+   "ten": "QuantConnect competitions",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "chiến lược thắng",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_quantinsti_contests": {
+   "ten": "QuantInsti contests",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "thắng giải",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_robbins_world_cup_futures_championship": {
+   "ten": "Robbins World Cup Futures Championship",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "champion + equity",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "co_phieu",
+    "futures_hang_hoa"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_roboforex_exness_alpari_contests": {
+   "ten": "RoboForex / Exness / Alpari contests",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "xếp hạng",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_sg_cta_sg_trend_index": {
+   "ten": "SG CTA / SG Trend Index",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "chuẩn ngành trend",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "xu_huong"
+   ],
+   "tai_san": [
+    "futures_hang_hoa",
+    "chi_so"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_signal_start": {
+   "ten": "Signal Start",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "signal",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_stockcharts_contests": {
+   "ten": "StockCharts contests",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "top",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "co_phieu"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_swissquote_oanda_comps": {
+   "ten": "Swissquote / OANDA comps",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "xếp hạng",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_the5ers": {
+   "ten": "The5ers",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "leaderboard",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_topstep_trader_combine": {
+   "ten": "TopStep Trader Combine",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "leaderboard",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_toptier_trader": {
+   "ten": "TopTier Trader",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "leaderboard",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_trading_cup_tradingcup_com": {
+   "ten": "Trading Cup (tradingcup.com)",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "xếp hạng",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_tradingview_house_cup_tthc": {
+   "ten": "TradingView House Cup (TTHC)",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "nhà vô địch",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_us_investing_championship_usic": {
+   "ten": "US Investing Championship (USIC)",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "top traders",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_world_cup_of_automated_trading_wccta_ne": {
+   "ten": "World Cup of Automated Trading (wccta.net)",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "champion + track record",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "xu_huong",
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "futures_hang_hoa"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_worldquant_brain_websim": {
+   "ten": "WorldQuant BRAIN WebSim",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "backtest + ranking",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "nen_zulutrade": {
+   "ten": "ZuluTrade",
+   "url": "",
+   "loai": "nen_tang_nguon_md",
+   "cach": "http",
+   "ghi_chu": "leaderboard",
+   "khai_bao_tai": [
+    "NGUON.md"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "newtraderu": {
+   "ten": "newtraderu",
+   "url": "https://www.newtraderu.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "nhan/nguon_bai_viet.FEEDS"
+   ],
+   "hang": "C",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "note_fx": {
+   "ten": "note_fx",
+   "url": "https://note.com/hashtag/FX%E8%87%AA%E5%8B%95%E5%A3%B2%E8%B2%B7",
+   "seed": [
+    "https://note.com/hashtag/FX%E8%87%AA%E5%8B%95%E5%A3%B2%E8%B2%B7"
+   ],
+   "loai": "dien_dan",
+   "cach": "http",
+   "loc_lien_ket": "note\\.com/[^/\\\"']+/n/n[0-9a-f]+",
+   "khai_bao_tai": [
+    "_do_dien_dan_quoc_gia.UNG_VIEN",
+    "config/dien_dan.json",
+    "nhan/nguon_bai_viet.TRANG"
+   ],
+   "ngon_ngu": null,
+   "nuoc": "ja",
+   "bat_o_the_brain": true,
+   "kiem_tra_the_brain": "15/09: VAO_DUOC 1004203 ky tu, 50 link. Trang cuon vo han bang JS: chi doc trang 1 moi luot; muon nhieu hon thi thu cdp_render.",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "openalex": {
+   "ten": "openalex",
+   "url": "https://api.openalex.org/works?search=trading+strategy&per-page=25",
+   "loai": "hoc_thuat",
+   "cach": "api",
+   "khai_bao_tai": [
+    "tru/seeker.NGUON"
+   ],
+   "chu_ky_giay": 43200,
+   "uu_tien": 3,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "pantip_sinlapa": {
+   "ten": "pantip_sinlapa",
+   "url": "https://pantip.com/tag/Forex",
+   "loai": "dien_dan",
+   "cach": "http",
+   "nuoc": "th",
+   "loc_lien_ket": "pantip\\.com/topic/\\d+",
+   "khai_bao_tai": [
+    "_do_dien_dan_quoc_gia.UNG_VIEN",
+    "config/dien_dan.json"
+   ],
+   "kiem_tra_the_brain": "15/09: KHONG_VAO_DUOC.",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "paperswithcode": {
+   "ten": "paperswithcode",
+   "url": "https://paperswithcode.com/search?q=trading",
+   "seed": [
+    "https://paperswithcode.com/search?q=trading",
+    "https://paperswithcode.com/search?q=time+series+forecasting",
+    "https://paperswithcode.com/search?q=portfolio+optimization"
+   ],
+   "loai": "hoc_thuat",
+   "cach": "trinh_duyet",
+   "mau_tim": null,
+   "loc_lien_ket": "paperswithcode\\.com/paper/",
+   "mau_trang": null,
+   "khai_bao_tai": [
+    "tru/seeker.NGUON_TRINH_DUYET"
+   ],
+   "chu_ky_giay": 43200,
+   "uu_tien": 1,
+   "tu_khoa_rieng": null,
+   "phong_cach": [
+    "hoc_may",
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "danh_muc"
+   ],
+   "can_dang_nhap": false
+  },
+  "priceactionlab": {
+   "ten": "priceactionlab",
+   "url": "https://www.priceactionlab.com/Blog/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "nhan/nguon_bai_viet.FEEDS"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "qiita_nhat": {
+   "ten": "qiita_nhat",
+   "url": "https://qiita.com/search?q={k}",
+   "seed": [
+    "https://qiita.com/search?q={k}"
+   ],
+   "loai": "cong_dong",
+   "cach": "trinh_duyet",
+   "mau_tim": "https://qiita.com/search?q={k}",
+   "loc_lien_ket": "qiita\\.com/[^/]+/items/[0-9a-f]{8,}",
+   "mau_trang": null,
+   "khai_bao_tai": [
+    "tru/seeker.NGUON_TRINH_DUYET"
+   ],
+   "chu_ky_giay": 43200,
+   "uu_tien": 2,
+   "tu_khoa_rieng": [
+    "システムトレード",
+    "アルゴリズム取引",
+    "バックテスト 株"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "qoppac": {
+   "ten": "qoppac",
+   "url": "https://qoppac.blogspot.com/feeds/posts/default",
+   "loai": "blog",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "nhan/nguon_bai_viet.FEEDS"
+   ],
+   "hang": "A",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "quant": {
+   "ten": "quant",
+   "url": "https://quant.stackexchange.com/questions",
+   "loai": "dien_dan",
+   "cach": "http",
+   "khai_bao_tai": [
+    "nguon_dien_dan.DIEN_DAN"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "quantconnect": {
+   "ten": "quantconnect",
+   "url": "https://www.quantconnect.com/forum/discussions",
+   "loai": "dien_dan",
+   "cach": "http",
+   "khai_bao_tai": [
+    "tru/seeker.NGUON"
+   ],
+   "chu_ky_giay": 43200,
+   "uu_tien": 3,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "quantconnect_alpha": {
+   "ten": "quantconnect_alpha",
+   "url": "https://www.quantconnect.com/forum/",
+   "loai": "ma_nguon_chien_luoc",
+   "cach": "http",
+   "ghi_chu": "thuat toan Python/C# co backtest, nhung phan lon co phieu/futures My",
+   "khai_bao_tai": [
+    "config/nguon_cho_ea.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "futures_hang_hoa"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "quantconnect_forum": {
+   "ten": "quantconnect_forum",
+   "url": "https://www.quantconnect.com/forum/discussions",
+   "seed": [
+    "https://www.quantconnect.com/forum/discussions"
+   ],
+   "loai": "dien_dan",
+   "cach": "trinh_duyet",
+   "mau_tim": null,
+   "loc_lien_ket": "quantconnect\\.com/forum/discussion/\\d+",
+   "mau_trang": null,
+   "khai_bao_tai": [
+    "tru/seeker.NGUON_TRINH_DUYET"
+   ],
+   "chu_ky_giay": 43200,
+   "uu_tien": 2,
+   "tu_khoa_rieng": null,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "quantdare": {
+   "ten": "quantdare",
+   "url": "https://quantdare.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "nhan/nguon_bai_viet.FEEDS"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "quantifiedstrategies": {
+   "ten": "quantifiedstrategies",
+   "url": "https://www.quantifiedstrategies.com/rsi-trading-strategy/",
+   "seed": [
+    "https://www.quantifiedstrategies.com/rsi-trading-strategy/",
+    "https://www.quantifiedstrategies.com/trading-strategies/",
+    "https://www.quantifiedstrategies.com/rsi2-on-spy/"
+   ],
+   "loai": "blog",
+   "cach": "http",
+   "loc_lien_ket": null,
+   "khai_bao_tai": [
+    "nhan/nguon_bai_viet.TRANG"
+   ],
+   "ngon_ngu": null,
+   "phong_cach": [
+    "hoi_quy"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "quantinsti": {
+   "ten": "quantinsti",
+   "url": "https://blog.quantinsti.com/rss/",
+   "loai": "blog",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "nhan/nguon_bai_viet.FEEDS"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "quantitativo": {
+   "ten": "quantitativo",
+   "url": "https://quantitativo.substack.com/feed",
+   "loai": "blog",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "nhan/nguon_bai_viet.FEEDS"
+   ],
+   "hang": "A",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "quantpedia": {
+   "ten": "quantpedia",
+   "url": "https://quantpedia.com/strategies/",
+   "seed": [
+    "https://quantpedia.com/strategies/"
+   ],
+   "loai": "co_che",
+   "cach": "trinh_duyet",
+   "mau_tim": null,
+   "loc_lien_ket": "quantpedia\\.com/strategies/[a-z0-9-]{6,}",
+   "mau_trang": null,
+   "khai_bao_tai": [
+    "tru/seeker.NGUON_TRINH_DUYET"
+   ],
+   "chu_ky_giay": 86400,
+   "uu_tien": 1,
+   "tu_khoa_rieng": null,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "quantpedia_blog": {
+   "ten": "quantpedia_blog",
+   "url": "https://quantpedia.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "nhan/nguon_bai_viet.FEEDS"
+   ],
+   "hang": "A",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "quantumtrading": {
+   "ten": "quantumtrading",
+   "url": "https://www.quantumtrading.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "nhan/nguon_bai_viet.FEEDS"
+   ],
+   "hang": "C",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "rankia_foros": {
+   "ten": "Rankia - foros (Tay Ban Nha)",
+   "url": "https://www.rankia.com/foros/",
+   "loai": "dien_dan",
+   "cach": "http",
+   "nuoc": "es",
+   "mau_trang": null,
+   "loc_lien_ket": null,
+   "bat_o_the_brain": false,
+   "kiem_tra_the_brain": "chua kiem (ten tu tri nho). Dien dan dau tu chung, it bot: chi de du mat nuoc.",
+   "khai_bao_tai": [
+    "config/dien_dan.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "co_phieu"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "reddit_algotrading": {
+   "ten": "reddit_algotrading",
+   "url": "https://www.reddit.com/r/algotrading/.rss",
+   "loai": "dien_dan",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "config/nguon_cho_ea.json",
+    "nhan/nguon_bai_viet.FEEDS"
+   ],
+   "hang": "C",
+   "ghi_chu": "nhieu y tuong + ma Python; phan lon retail overfit -> chi lay thread co ma + so lieu out-of-sample",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "reddit_algotrading_nam": {
+   "ten": "reddit_algotrading_nam",
+   "url": "https://www.reddit.com/r/algotrading/top/.rss?t=year",
+   "loai": "dien_dan",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "nhan/nguon_bai_viet.FEEDS"
+   ],
+   "hang": "C",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "reddit_quant": {
+   "ten": "reddit_quant",
+   "url": "https://www.reddit.com/r/quant/.rss",
+   "loai": "dien_dan",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "nhan/nguon_bai_viet.FEEDS"
+   ],
+   "hang": "C",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "reddit_td": {
+   "ten": "reddit_td",
+   "url": "https://www.reddit.com/r/algotrading/hot/",
+   "seed": [
+    "https://www.reddit.com/r/algotrading/hot/",
+    "https://www.reddit.com/r/quant/hot/",
+    "https://www.reddit.com/r/options/hot/"
+   ],
+   "loai": "cong_dong",
+   "cach": "trinh_duyet",
+   "mau_tim": null,
+   "loc_lien_ket": null,
+   "mau_trang": null,
+   "khai_bao_tai": [
+    "tru/seeker.NGUON_TRINH_DUYET"
+   ],
+   "chu_ky_giay": 21600,
+   "uu_tien": 3,
+   "tu_khoa_rieng": null,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "robotwealth": {
+   "ten": "robotwealth",
+   "url": "https://robotwealth.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "nhan/nguon_bai_viet.FEEDS"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "semantic": {
+   "ten": "semantic",
+   "url": "https://api.semanticscholar.org/graph/v1/paper/search?query=trading+strategy",
+   "loai": "hoc_thuat",
+   "cach": "api",
+   "khai_bao_tai": [
+    "tru/seeker.NGUON"
+   ],
+   "chu_ky_giay": 172800,
+   "uu_tien": 4,
+   "phong_cach": [
+    "xu_huong"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "signalstart": {
+   "ten": "signalstart",
+   "url": "https://www.signalstart.com/search-signals",
+   "loai": "lich_su_tai_khoan",
+   "cach": "http",
+   "ghi_chu": "tin hieu MT4/MT5 verified, co lich su lenh + drawdown; nhieu luoi",
+   "khai_bao_tai": [
+    "config/nguon_cho_ea.json"
+   ],
+   "phong_cach": [
+    "luoi_dca",
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "luoi_martingale",
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "smartlab": {
+   "ten": "smartlab",
+   "url": "https://smart-lab.ru/forum/",
+   "loai": "dien_dan",
+   "cach": "http",
+   "khai_bao_tai": [
+    "nguon_dien_dan.DIEN_DAN"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "co_phieu"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "smartlab_blog": {
+   "ten": "smartlab_blog",
+   "url": "https://smart-lab.ru/blogs/",
+   "seed": [
+    "https://smart-lab.ru/blogs/"
+   ],
+   "loai": "dien_dan",
+   "cach": "http",
+   "loc_lien_ket": "smart-lab\\.ru/(blog|company)/[^\\\"']+/\\d+",
+   "khai_bao_tai": [
+    "_do_dien_dan_quoc_gia.UNG_VIEN",
+    "config/dien_dan.json",
+    "nhan/nguon_bai_viet.TRANG"
+   ],
+   "ngon_ngu": null,
+   "nuoc": "ru",
+   "mau_trang": "{base}page{n}/",
+   "kiem_tra_the_brain": "15/09: VAO_DUOC nhung chi 1 link bai (mau_bai cu co the sai). Chay `b dien-dan do` roi bat neu so bai >= 3.",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "co_phieu"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "smartlab_nga": {
+   "ten": "smartlab_nga",
+   "url": "https://smart-lab.ru/search/?q={k}",
+   "seed": [
+    "https://smart-lab.ru/search/?q={k}"
+   ],
+   "loai": "cong_dong",
+   "cach": "trinh_duyet",
+   "mau_tim": "https://smart-lab.ru/search/?q={k}",
+   "loc_lien_ket": "smart-lab\\.ru/(blog|company)/.+/\\d+",
+   "mau_trang": null,
+   "khai_bao_tai": [
+    "tru/seeker.NGUON_TRINH_DUYET"
+   ],
+   "chu_ky_giay": 43200,
+   "uu_tien": 3,
+   "tu_khoa_rieng": [
+    "алгоритмический трейдинг",
+    "торговая стратегия тест"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "co_phieu"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "ssrn_quantpedia": {
+   "ten": "ssrn_quantpedia",
+   "url": "https://quantpedia.com/strategies/",
+   "loai": "ly_thuyet_chien_luoc",
+   "cach": "http",
+   "ghi_chu": "~800 chien luoc hoc thuat kem so lieu: nguon GIA THUYET cho HEPHAESTUS (khong phai EA ra tien ngay)",
+   "khai_bao_tai": [
+    "config/nguon_cho_ea.json"
+   ],
+   "phong_cach": [
+    "hoc_may"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "stackexchange": {
+   "ten": "stackexchange",
+   "url": "https://api.stackexchange.com/2.3/search/advanced?site=quant&q=strategy",
+   "loai": "cong_dong",
+   "cach": "api",
+   "khai_bao_tai": [
+    "tru/seeker.NGUON"
+   ],
+   "chu_ky_giay": 43200,
+   "uu_tien": 3,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "telegram_autotraderzrobotchallenges": {
+   "ten": "AutoTraderz Forex Robots Challenges 🤖",
+   "url": "https://t.me/AutoTraderzRobotChallenges",
+   "loai": "telegram",
+   "cach": "telegram_web",
+   "nguoi_theo_doi": 641,
+   "tu_khoa": "robot forex",
+   "khai_bao_tai": [
+    "config/nguon_ung_vien.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "telegram_backtestingchartbyeazychan": {
+   "ten": "Backtesting chart by Eazy Chan",
+   "url": "https://t.me/BacktestingchartbyEazyChan",
+   "loai": "telegram",
+   "cach": "telegram_web",
+   "nguoi_theo_doi": 952,
+   "tu_khoa": "backtest ea",
+   "khai_bao_tai": [
+    "config/nguon_ung_vien.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "telegram_bestexpertadvisors": {
+   "ten": "Best Expert Advisors for MT4 & MT5",
+   "url": "https://t.me/bestexpertadvisors",
+   "loai": "telegram",
+   "cach": "telegram_web",
+   "nguoi_theo_doi": 389,
+   "tu_khoa": "expert advisor mt5",
+   "khai_bao_tai": [
+    "config/nguon_ung_vien.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "telegram_cauvangso1": {
+   "ten": "💥MASTER GOLD 245 💥 SCALPING VÀNG CHỐT LỢI NHUẬN TRONG NGÀY.",
+   "url": "https://t.me/cauvangso1",
+   "loai": "telegram",
+   "cach": "telegram_web",
+   "nguoi_theo_doi": 464,
+   "tu_khoa": "scalping vang",
+   "khai_bao_tai": [
+    "config/nguon_ung_vien.json"
+   ],
+   "phong_cach": [
+    "luot_song"
+   ],
+   "tai_san": [
+    "futures_hang_hoa"
+   ],
+   "khung": [
+    "ngan_M1_M15"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "telegram_cryptoutu": {
+   "ten": "Crypto Quantitative Trading",
+   "url": "https://t.me/Cryptoutu",
+   "loai": "telegram",
+   "cach": "telegram_web",
+   "nguoi_theo_doi": 9276,
+   "tu_khoa": "quant trading",
+   "khai_bao_tai": [
+    "config/nguon_ung_vien.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "crypto"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "telegram_developer_ea_mt5": {
+   "ten": "Developer EA(expert Advisor) Metatrader 5. Bengkel EA/Bot",
+   "url": "https://t.me/Developer_EA_MT5",
+   "loai": "telegram",
+   "cach": "telegram_web",
+   "nguoi_theo_doi": 574,
+   "tu_khoa": "expert advisor mt5",
+   "khai_bao_tai": [
+    "config/nguon_ung_vien.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "trailing_ATR"
+   ],
+   "can_dang_nhap": false
+  },
+  "telegram_ea": {
+   "ten": "telegram_ea",
+   "url": "https://t.me/s/ForexFreeEA",
+   "loai": "nhom_chia_se_ea",
+   "cach": "trinh_duyet",
+   "ghi_chu": "da co trong nguon_ung_vien.json; quy trinh QUY_TRINH_NHOM_TELEGRAM.md",
+   "khai_bao_tai": [
+    "config/nguon_cho_ea.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "telegram_etherdrops_news": {
+   "ten": "Drops Bot: Tracking & Trading",
+   "url": "https://t.me/EtherDrops_News",
+   "loai": "telegram",
+   "cach": "telegram_web",
+   "nguoi_theo_doi": 744041,
+   "tu_khoa": "trading bot",
+   "khai_bao_tai": [
+    "config/nguon_ung_vien.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "crypto"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "telegram_forexeatradingchannel": {
+   "ten": "Forex EA Trading Channel - My Telegram:@Thangforex",
+   "url": "https://t.me/forexeatradingchannel",
+   "loai": "telegram",
+   "cach": "telegram_web",
+   "nguoi_theo_doi": 4961,
+   "tu_khoa": "forex ea",
+   "khai_bao_tai": [
+    "config/nguon_ung_vien.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "trailing_ATR"
+   ],
+   "can_dang_nhap": false
+  },
+  "telegram_forexflarefxrobot": {
+   "ten": "Forex flare RoBoT",
+   "url": "https://t.me/ForexFlarefxRobot",
+   "loai": "telegram",
+   "cach": "telegram_web",
+   "nguoi_theo_doi": 2535,
+   "tu_khoa": "robot forex",
+   "khai_bao_tai": [
+    "config/nguon_ung_vien.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "telegram_forexfreeea": {
+   "ten": "Free Trading EA - Indicator - Book - Signal",
+   "url": "https://t.me/ForexFreeEA",
+   "loai": "telegram",
+   "cach": "telegram_web",
+   "nguoi_theo_doi": 5549,
+   "tu_khoa": "forex ea",
+   "khai_bao_tai": [
+    "config/nguon_ung_vien.json"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "telegram_jmqg69": {
+   "ten": "Robot, Bot, FX Expert Advisor FREE MT4, MT5, Copy.",
+   "url": "https://t.me/Jmqg69",
+   "loai": "telegram",
+   "cach": "telegram_web",
+   "nguoi_theo_doi": 648,
+   "tu_khoa": "expert advisor mt5",
+   "khai_bao_tai": [
+    "config/nguon_ung_vien.json"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "telegram_juanma69": {
+   "ten": "Robot, Bot, Expert Advisor MT4, MT5, Copy FX.",
+   "url": "https://t.me/JuanMa69",
+   "loai": "telegram",
+   "cach": "telegram_web",
+   "nguoi_theo_doi": 488,
+   "tu_khoa": "expert advisor mt5",
+   "khai_bao_tai": [
+    "config/nguon_ung_vien.json"
+   ],
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "telegram_mql5decompile": {
+   "ten": "Free Source Code Ex4,Ex5",
+   "url": "https://t.me/Mql5Decompile",
+   "loai": "telegram",
+   "cach": "telegram_web",
+   "nguoi_theo_doi": 575,
+   "tu_khoa": "mql5 source",
+   "khai_bao_tai": [
+    "config/nguon_ung_vien.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "telegram_pine_script1": {
+   "ten": "آموزش پاین اسکریپت | pine script",
+   "url": "https://t.me/pine_script1",
+   "loai": "telegram",
+   "cach": "telegram_web",
+   "nguoi_theo_doi": 1942,
+   "tu_khoa": "pine script",
+   "khai_bao_tai": [
+    "config/nguon_ung_vien.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "telegram_pinescripter": {
+   "ten": "Pine Script collection",
+   "url": "https://t.me/pinescripter",
+   "loai": "telegram",
+   "cach": "telegram_web",
+   "nguoi_theo_doi": 4644,
+   "tu_khoa": "pine script",
+   "khai_bao_tai": [
+    "config/nguon_ung_vien.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "telegram_quanttradingvn": {
+   "ten": "Quant Trading VN 📊",
+   "url": "https://t.me/QuantTradingVN",
+   "loai": "telegram",
+   "cach": "telegram_web",
+   "nguoi_theo_doi": 1312,
+   "tu_khoa": "quant trading",
+   "khai_bao_tai": [
+    "config/nguon_ung_vien.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "telegram_soltradingbot_channel": {
+   "ten": "Sol Trading Bot Announcement",
+   "url": "https://t.me/SolTradingBot_Channel",
+   "loai": "telegram",
+   "cach": "telegram_web",
+   "nguoi_theo_doi": 20919,
+   "tu_khoa": "trading bot",
+   "khai_bao_tai": [
+    "config/nguon_ung_vien.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "crypto"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "telegram_sp77forex": {
+   "ten": "SUPER PROFITS 77 🚀 FOREX EA",
+   "url": "https://t.me/sp77forex",
+   "loai": "telegram",
+   "cach": "telegram_web",
+   "nguoi_theo_doi": 1056,
+   "tu_khoa": "forex ea",
+   "khai_bao_tai": [
+    "config/nguon_ung_vien.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "telegram_tigeraiquantitative888888": {
+   "ten": "Tiger AI Quantitative Trading Bot🇻🇳",
+   "url": "https://t.me/TigerAIQuantitative888888",
+   "loai": "telegram",
+   "cach": "telegram_web",
+   "nguoi_theo_doi": 510,
+   "tu_khoa": "quant trading",
+   "khai_bao_tai": [
+    "config/nguon_ung_vien.json"
+   ],
+   "phong_cach": [
+    "hoc_may"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "telegram_trading_bot1": {
+   "ten": "Trading Bot",
+   "url": "https://t.me/Trading_Bot1",
+   "loai": "telegram",
+   "cach": "telegram_web",
+   "nguoi_theo_doi": 5281,
+   "tu_khoa": "trading bot",
+   "khai_bao_tai": [
+    "config/nguon_ung_vien.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "telegram_trading_bot9": {
+   "ten": "TRADING BOT ⚡️",
+   "url": "https://t.me/Trading_bot9",
+   "loai": "telegram",
+   "cach": "telegram_web",
+   "nguoi_theo_doi": 3666,
+   "tu_khoa": "trading bot",
+   "khai_bao_tai": [
+    "config/nguon_ung_vien.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "telegram_trinvz": {
+   "ten": "TradingView Pine Script 🌐 ⁨مؤشرات تريدنق فيو",
+   "url": "https://t.me/trinvz",
+   "loai": "telegram",
+   "cach": "telegram_web",
+   "nguoi_theo_doi": 9252,
+   "tu_khoa": "pine script",
+   "khai_bao_tai": [
+    "config/nguon_ung_vien.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "thaiforexschool": {
+   "ten": "thaiforexschool",
+   "url": "https://www.thaiforexschool.com/",
+   "seed": [
+    "https://www.thaiforexschool.com/"
+   ],
+   "loai": "dien_dan",
+   "cach": "http",
+   "loc_lien_ket": "thaiforexschool\\.com/[^\\\"']+",
+   "khai_bao_tai": [
+    "_do_dien_dan_quoc_gia.UNG_VIEN",
+    "config/dien_dan.json",
+    "nhan/nguon_bai_viet.TRANG"
+   ],
+   "ngon_ngu": null,
+   "nuoc": "th",
+   "mau_trang": "{base}page/{n}/",
+   "bat_o_the_brain": true,
+   "kiem_tra_the_brain": "15/09: VAO_DUOC 96094 ky tu, 55 link. Bai nhan bang do dai tieu de (khong co mau_bai). /page/N/ la kieu WordPress, CHUA kiem.",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "thinknewfound": {
+   "ten": "thinknewfound",
+   "url": "https://blog.thinknewfound.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "nhan/nguon_bai_viet.FEEDS"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tiktok": {
+   "ten": "tiktok",
+   "url": "https://www.tiktok.com/search/video?q={k}",
+   "seed": [
+    "https://www.tiktok.com/search/video?q={k}"
+   ],
+   "loai": "social",
+   "cach": "trinh_duyet",
+   "mau_tim": "https://www.tiktok.com/search/video?q={k}",
+   "loc_lien_ket": "tiktok\\.com/@[^/]+/video/\\d+",
+   "mau_trang": null,
+   "khai_bao_tai": [
+    "tru/seeker.NGUON_TRINH_DUYET"
+   ],
+   "chu_ky_giay": 21600,
+   "uu_tien": 3,
+   "tu_khoa_rieng": null,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": true
+  },
+  "tqtj_ru": {
+   "ten": "tqtj_ru",
+   "url": "https://www.mql5.com/ru/forum",
+   "loai": "dien_dan_da_ngon_ngu",
+   "cach": "http",
+   "ghi_chu": "mql5 forum RU/ZH/ES/PT/JA co thread EA rieng (it nguoi viet bang EN); dung keywords_nguon.py",
+   "khai_bao_tai": [
+    "config/nguon_cho_ea.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tr8dr": {
+   "ten": "tr8dr",
+   "url": "https://tr8dr.github.io/feed.xml",
+   "loai": "blog",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "nhan/nguon_bai_viet.FEEDS"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "traderslaboratory": {
+   "ten": "traderslaboratory",
+   "url": "https://www.traderslaboratory.com/forums/",
+   "loai": "dien_dan",
+   "cach": "http",
+   "khai_bao_tai": [
+    "nguon_dien_dan.DIEN_DAN"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "traderviet": {
+   "ten": "traderviet",
+   "url": "https://traderviet.com/",
+   "seed": [
+    "https://traderviet.com/",
+    "https://traderviet.com/forums/robot-ea-indicator.44/"
+   ],
+   "loai": "dien_dan",
+   "cach": "http",
+   "loc_lien_ket": "traderviet\\.com/t/[^\\\"'\\s]+",
+   "khai_bao_tai": [
+    "_do_dien_dan_quoc_gia.UNG_VIEN",
+    "nguon_dien_dan.DIEN_DAN",
+    "nhan/nguon_bai_viet.TRANG"
+   ],
+   "ngon_ngu": null,
+   "nuoc": "vi",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "traderviet_ea": {
+   "ten": "traderviet_ea",
+   "url": "https://traderviet.com/forums/robot-ea-indicator.44/",
+   "loai": "dien_dan",
+   "cach": "http",
+   "nuoc": "vi",
+   "loc_lien_ket": "traderviet\\.com/t/[^\\\"'\\s]+",
+   "khai_bao_tai": [
+    "_do_dien_dan_quoc_gia.UNG_VIEN",
+    "config/dien_dan.json"
+   ],
+   "mau_trang": "{base}page-{n}",
+   "bat_o_the_brain": true,
+   "kiem_tra_the_brain": "15/09: VAO_DUOC 156154 ky tu, 89 link bai (bai la /t/<slug>, khong phai /threads/). Trang 2+ dung kieu XenForo /page-N: CHUA kiem.",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tradeview_mt4_signals": {
+   "ten": "tradeview_mt4_signals",
+   "url": "https://www.mql5.com/en/signals/mt4",
+   "loai": "danh_sach_tin_hieu",
+   "cach": "trinh_duyet",
+   "ghi_chu": "MT4 signals (da co MT5); nhieu EA luoi cu song lau nam 2012-2018",
+   "khai_bao_tai": [
+    "config/nguon_cho_ea.json"
+   ],
+   "phong_cach": [
+    "luoi_dca",
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "luoi_martingale",
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": false
+  },
+  "tradingmarkets": {
+   "ten": "tradingmarkets",
+   "url": "https://tradingmarkets.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "nhan/nguon_bai_viet.FEEDS"
+   ],
+   "hang": "C",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tradingqna": {
+   "ten": "TradingQ&A - Zerodha (An Do)",
+   "url": "https://tradingqna.com/",
+   "loai": "dien_dan",
+   "cach": "http",
+   "nuoc": "in",
+   "mau_trang": null,
+   "loc_lien_ket": null,
+   "bat_o_the_brain": true,
+   "kiem_tra_the_brain": "08/10 do: dung duoc, co phan trang; chu du an yeu cau quet sau -> BAT",
+   "khai_bao_tai": [
+    "config/dien_dan.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "co_phieu"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tradingview_blog": {
+   "ten": "tradingview_blog",
+   "url": "https://www.tradingview.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "khai_bao_tai": [
+    "nhan/nguon_bai_viet.FEEDS"
+   ],
+   "hang": "C",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tradingview_ideas": {
+   "ten": "tradingview_ideas",
+   "url": "https://www.tradingview.com/ideas/?q={k}",
+   "seed": [
+    "https://www.tradingview.com/ideas/?q={k}"
+   ],
+   "loai": "cong_dong",
+   "cach": "trinh_duyet",
+   "mau_tim": "https://www.tradingview.com/ideas/?q={k}",
+   "loc_lien_ket": null,
+   "mau_trang": null,
+   "khai_bao_tai": [
+    "tru/seeker.NGUON_TRINH_DUYET"
+   ],
+   "chu_ky_giay": 43200,
+   "uu_tien": 3,
+   "tu_khoa_rieng": null,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tradingview_pine": {
+   "ten": "tradingview_pine",
+   "url": "https://www.tradingview.com/pubscripts-suggest-json/?search=strategy",
+   "loai": "ma_nguon",
+   "cach": "api",
+   "khai_bao_tai": [
+    "config/nguon_cho_ea.json",
+    "tru/seeker.NGUON"
+   ],
+   "chu_ky_giay": 21600,
+   "uu_tien": 1,
+   "ghi_chu": "Pine strategy() MA MO co luat vao/ra + tham so; loc 'strategy', sap theo likes; day la nguon MA, khong phai lich su lenh",
+   "phong_cach": [
+    "hoc_may"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tradingview_scripts": {
+   "ten": "tradingview_scripts",
+   "url": "https://www.tradingview.com/scripts/meanreversion/",
+   "seed": [
+    "https://www.tradingview.com/scripts/meanreversion/",
+    "https://www.tradingview.com/scripts/breakout/",
+    "https://www.tradingview.com/scripts/momentum/",
+    "https://www.tradingview.com/scripts/volatility/"
+   ],
+   "loai": "ma_nguon",
+   "cach": "trinh_duyet",
+   "mau_tim": null,
+   "loc_lien_ket": null,
+   "mau_trang": "{u}page-{n}/",
+   "khai_bao_tai": [
+    "tru/seeker.NGUON_TRINH_DUYET"
+   ],
+   "chu_ky_giay": 43200,
+   "uu_tien": 1,
+   "tu_khoa_rieng": null,
+   "phong_cach": [
+    "xu_huong",
+    "hoi_quy",
+    "pha_vo"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tradingview_strategies": {
+   "ten": "TradingView - Public strategies (Pine ma mo)",
+   "url": "https://www.tradingview.com/scripts/?script_type=strategies",
+   "loai": "ma_nguon",
+   "cach": "http",
+   "ghi_chu": "trang cong khai, khong dang nhap; strategy() Pine ma mo; hang cho: config/hang_cho_tradingview.json",
+   "khai_bao_tai": [
+    "bo_sung_12_10_2026"
+   ],
+   "phong_cach": [
+    "hoc_may"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_aligrithm": {
+   "ten": "aligrithm.com",
+   "url": "https://aligrithm.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_betterbuyandhold": {
+   "ten": "betterbuyandhold.com",
+   "url": "https://betterbuyandhold.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_beyondpassive": {
+   "ten": "beyondpassive.substack.com",
+   "url": "https://beyondpassive.substack.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_capitalspectator": {
+   "ten": "capitalspectator.substack.com",
+   "url": "https://capitalspectator.substack.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "xu_huong"
+   ],
+   "tai_san": [
+    "futures_hang_hoa"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_concretumgroup": {
+   "ten": "concretumgroup.substack.com",
+   "url": "https://concretumgroup.substack.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_crackingmarkets": {
+   "ten": "crackingmarkets.com",
+   "url": "https://crackingmarkets.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_factorinvestor": {
+   "ten": "factorinvestor.substack.com",
+   "url": "https://factorinvestor.substack.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_fxmacrodata": {
+   "ten": "fxmacrodata.com",
+   "url": "https://www.fxmacrodata.com/rss.xml",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "vi_mo_carry"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_gatambook": {
+   "ten": "gatambook.substack.com",
+   "url": "https://gatambook.substack.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_investresolve": {
+   "ten": "investresolve.com",
+   "url": "https://investresolve.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "crypto"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_jonathankinlay": {
+   "ten": "jonathankinlay.com",
+   "url": "https://jonathankinlay.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_mebfaber": {
+   "ten": "mebfaber.com",
+   "url": "https://mebfaber.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_morguelabs": {
+   "ten": "morguelabs.com",
+   "url": "https://morguelabs.com/rss.xml",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_outcastbeta": {
+   "ten": "outcastbeta.com",
+   "url": "https://outcastbeta.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_oxford_capital": {
+   "ten": "oxford-capital.com",
+   "url": "https://oxford-capital.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_papertoprofit": {
+   "ten": "papertoprofit.substack.com",
+   "url": "https://papertoprofit.substack.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_philosophicaleconomics": {
+   "ten": "philosophicaleconomics.com",
+   "url": "https://philosophicaleconomics.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_quant_galore": {
+   "ten": "quant-galore.com",
+   "url": "https://quant-galore.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_quantfiction": {
+   "ten": "quantfiction.com",
+   "url": "https://quantfiction.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_quantforhire": {
+   "ten": "quantforhire.com",
+   "url": "https://quantforhire.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_quantifiableedges": {
+   "ten": "quantifiableedges.com",
+   "url": "https://quantifiableedges.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_quantish": {
+   "ten": "quantish.substack.com",
+   "url": "https://quantish.substack.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_quantjourney": {
+   "ten": "quantjourney.substack.com",
+   "url": "https://quantjourney.substack.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_returnstacked": {
+   "ten": "returnstacked.com",
+   "url": "https://returnstacked.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_rulyfi": {
+   "ten": "rulyfi.com",
+   "url": "https://rulyfi.com/rss.xml",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_sixfigureinvesting": {
+   "ten": "sixfigureinvesting.com",
+   "url": "https://sixfigureinvesting.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_therefutation": {
+   "ten": "therefutation.com",
+   "url": "https://therefutation.com/rss.xml",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "tutim_todotrader": {
+   "ten": "todotrader.com",
+   "url": "https://todotrader.com/feed/",
+   "loai": "blog",
+   "cach": "rss",
+   "tu_dong_sinh": true,
+   "tu_thu_muc": "quantocracy",
+   "khai_bao_tai": [
+    "config/nguon_tu_tim.json"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "velog_han": {
+   "ten": "velog_han",
+   "url": "https://velog.io/search?q={k}",
+   "seed": [
+    "https://velog.io/search?q={k}"
+   ],
+   "loai": "cong_dong",
+   "cach": "trinh_duyet",
+   "mau_tim": "https://velog.io/search?q={k}",
+   "loc_lien_ket": "velog\\.io/@[^/]+/",
+   "mau_trang": null,
+   "khai_bao_tai": [
+    "tru/seeker.NGUON_TRINH_DUYET"
+   ],
+   "chu_ky_giay": 86400,
+   "uu_tien": 3,
+   "tu_khoa_rieng": [
+    "퀀트 투자 전략",
+    "알고리즘 트레이딩"
+   ],
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "wallstreet_online": {
+   "ten": "wallstreet_online",
+   "url": "https://www.wallstreet-online.de/diskussion/",
+   "loai": "dien_dan",
+   "cach": "http",
+   "nuoc": "de",
+   "loc_lien_ket": "wallstreet-online\\.de/diskussion/[^\\\"']+",
+   "khai_bao_tai": [
+    "_do_dien_dan_quoc_gia.UNG_VIEN",
+    "config/dien_dan.json"
+   ],
+   "kiem_tra_the_brain": "15/09: KHONG_VAO_DUOC. Do lai bang Chrome AI (cong 9224).",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "co_phieu"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "x": {
+   "ten": "x",
+   "url": "https://x.com/search?q={k}&f=live",
+   "seed": [
+    "https://x.com/search?q={k}&f=live"
+   ],
+   "loai": "social",
+   "cach": "trinh_duyet",
+   "mau_tim": "https://x.com/search?q={k}&f=live",
+   "loc_lien_ket": "x\\.com/[^/]+/status/\\d+",
+   "mau_trang": null,
+   "khai_bao_tai": [
+    "tru/seeker.NGUON_TRINH_DUYET"
+   ],
+   "chu_ky_giay": 21600,
+   "uu_tien": 3,
+   "tu_khoa_rieng": null,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": true
+  },
+  "youtube": {
+   "ten": "youtube",
+   "url": "https://www.youtube.com/results?search_query={k}",
+   "seed": [
+    "https://www.youtube.com/results?search_query={k}"
+   ],
+   "loai": "video",
+   "cach": "trinh_duyet",
+   "mau_tim": "https://www.youtube.com/results?search_query={k}",
+   "loc_lien_ket": "youtube\\.com/watch\\?v=",
+   "mau_trang": null,
+   "khai_bao_tai": [
+    "tru/seeker.NGUON_TRINH_DUYET"
+   ],
+   "chu_ky_giay": 21600,
+   "uu_tien": 1,
+   "tu_khoa_rieng": null,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false
+  },
+  "zulutrade": {
+   "ten": "zulutrade",
+   "url": "https://www.zulutrade.com/",
+   "seed": [
+    "https://www.zulutrade.com/"
+   ],
+   "loai": "track_record",
+   "cach": "trinh_duyet",
+   "mau_tim": null,
+   "loc_lien_ket": null,
+   "mau_trang": null,
+   "khai_bao_tai": [
+    "config/nguon_cho_ea.json",
+    "tru/seeker.NGUON_TRINH_DUYET"
+   ],
+   "chu_ky_giay": 86400,
+   "uu_tien": 2,
+   "tu_khoa_rieng": null,
+   "ghi_chu": "hang nghin trader FX, nhieu nguoi chay luoi/martingale; thong ke 1-3 nam, can dang nhap de xem lenh",
+   "phong_cach": [
+    "luoi_dca",
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "luoi_martingale",
+    "copy_theo_doi"
+   ],
+   "can_dang_nhap": true
+  }
+ }
+}

@@ -1,0 +1,22 @@
+{
+ "_ghi_chu": "Hang cho DICH/TEST script TradingView (12/10/2026, tac tu cha lay 30 script ma mo tu trang cong khai). Chi ghi ID cong khai + truong phai. KHONG chep ma Pine vao git (repo PUBLIC). Cung luat cung: dich sang Python, test tren OHLC san co, phi that, giu cong; can volume delta / volume profile that -> CHUA DO DUOC.",
+ "phan_bo_30_script": {"smc": 2, "dao_chieu": 4, "dong_luong": 2, "breakout": 4, "theo_phien": 4, "hoi_quy": 3, "xu_huong_ma": 5, "luot_song": 1, "luoi": 1, "khac": 4},
+ "cho_dich": [
+  {"id": "PdJvHIfQ", "ten": "HTF Level Breakout", "phong_cach": "pha_vo", "trang_thai": "CHO_DICH"},
+  {"id": "o9qty0BL", "ten": "PAXG Supertrend + 40-bar breakout", "phong_cach": "xu_huong", "tai_san": "vang", "trang_thai": "CHO_DICH"},
+  {"id": "2u7KKcCG", "ten": "TrendBreaker auto trendline", "phong_cach": "pha_vo", "trang_thai": "CHO_DICH"},
+  {"id": "asmZOvXE", "ten": "EMA + Fib pivot break", "phong_cach": "pha_vo", "trang_thai": "CHO_DICH"},
+  {"id": "G6KZH6HX", "ten": "Trend Pullback Re-Entry", "phong_cach": "xu_huong", "trang_thai": "CHO_DICH"},
+  {"id": "LcA4mcE6", "ten": "Confluence Rank Trend", "phong_cach": "xu_huong", "trang_thai": "CHO_DICH"},
+  {"id": "U0wTnRuE", "ten": "Apex Trail", "phong_cach": "xu_huong", "quan_tri": "trailing", "trang_thai": "CHO_DICH"},
+  {"id": "Z8EhgIzs", "ten": "Trend Engine", "phong_cach": "xu_huong", "trang_thai": "CHO_DICH"},
+  {"id": "rvBgD3aP", "ten": "Elliott wave 5 reversal", "phong_cach": "dao_chieu", "trang_thai": "CHO_DICH"},
+  {"id": "a9lBrLZx", "ten": "CRT liquidity sweep", "phong_cach": "smc", "trang_thai": "CHO_DICH"},
+  {"id": "hDvlx4ut", "ten": "FVG + BOS", "phong_cach": "smc", "trang_thai": "CHO_DICH"},
+  {"id": "VW4M6aCA", "ten": "Opening-range breakout", "phong_cach": "theo_phien", "trang_thai": "CHO_DICH"},
+  {"id": "CDhXq8DM", "ten": "8PM session breakout", "phong_cach": "theo_phien", "trang_thai": "CHO_DICH"},
+  {"id": "sf4Hf10r", "ten": "NAS100 session breakout", "phong_cach": "theo_phien", "tai_san": "chi_so", "trang_thai": "CHO_DICH"},
+  {"id": "N6ZDwigU", "ten": "Session breakout", "phong_cach": "theo_phien", "trang_thai": "CHO_DICH"}
+ ],
+ "chua_do_duoc": "cac script con lai trong 30 can volume delta / volume profile that -> CHUA DO DUOC (khong gia lap bang volume tick)."
+}

@@ -1,0 +1,88 @@
+{
+ "xu_huong": {
+  "truy_van": 3,
+  "repo_thay": 12,
+  "repo_xem": 1,
+  "repo_co_mq5": 1,
+  "ea_moi": 8,
+  "ea_co_set": 0,
+  "tep": 8,
+  "giay": 9.1,
+  "loi": []
+ },
+ "hoi_quy": {
+  "truy_van": 3,
+  "repo_thay": 39,
+  "repo_xem": 10,
+  "repo_co_mq5": 7,
+  "ea_moi": 7,
+  "ea_co_set": 0,
+  "tep": 9,
+  "loi": [
+   "Rikose/Ea:HTTP 409"
+  ],
+  "giay": 21.0
+ },
+ "pha_vo": {
+  "truy_van": 3,
+  "repo_thay": 8,
+  "repo_xem": 0,
+  "repo_co_mq5": 0,
+  "ea_moi": 0,
+  "ea_co_set": 0,
+  "tep": 0,
+  "giay": 5.5,
+  "loi": []
+ },
+ "luoi_dca": {
+  "truy_van": 3,
+  "repo_thay": 27,
+  "repo_xem": 6,
+  "repo_co_mq5": 2,
+  "ea_moi": 1,
+  "ea_co_set": 0,
+  "tep": 1,
+  "da_co": 1,
+  "giay": 10.8,
+  "loi": []
+ },
+ "luot_song": {
+  "truy_van": 2,
+  "repo_thay": 47,
+  "repo_xem": 21,
+  "repo_co_mq5": 2,
+  "ea_moi": 2,
+  "ea_co_set": 0,
+  "tep": 2,
+  "loi": [
+   "reborn1413-cell/MT5-Scalping-EA-Vol80:HTTP 404",
+   "g3n3r8-org/MT5-MeanScalper:HTTP 409",
+   "RuanTaute2000/GOLD_SCALPER:HTTP 409"
+  ],
+  "da_co": 6,
+  "giay": 13.6
+ },
+ "vi_mo_carry": {
+  "truy_van": 2,
+  "repo_thay": 4,
+  "repo_xem": 1,
+  "repo_co_mq5": 1,
+  "ea_moi": 0,
+  "ea_co_set": 0,
+  "tep": 0,
+  "da_co": 1,
+  "giay": 5.4,
+  "loi": []
+ },
+ "hoc_may": {
+  "truy_van": 2,
+  "repo_thay": 12,
+  "repo_xem": 9,
+  "repo_co_mq5": 5,
+  "ea_moi": 6,
+  "ea_co_set": 0,
+  "tep": 14,
+  "giay": 15.2,
+  "loi": []
+ }
+}
