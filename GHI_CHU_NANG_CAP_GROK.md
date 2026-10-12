@@ -4,6 +4,21 @@
 
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
 
+## 12/10/2026 trưa (2) — Vòng 9: SỬA MÔ HÌNH PHÍ spread (1 lần / khứ hồi) + mảnh B/R (MÔ PHỎNG)
+
+**1. Sửa mô hình phí — KHÔNG phải đổi cổng.** Từ vòng 9, `MoHinhChiPhi.spread_mot_lan` mặc định **True**: mỗi lệnh khứ hồi trả spread MỘT lần (nửa ở chiều vào, nửa ở chiều ra), đúng thực tế mua ASK / bán BID. Trước đó mô phỏng trả đủ spread ở cả hai chiều (= 2× spread; kiểm: lệnh trên giá phẳng 3,26 bps với spread 1,63). Cổng (lãi sau phí, maxDD < 80 %) giữ nguyên. Bật lại 2× làm stress thận trọng: `spread_mot_lan=False` hoặc `BRAIN_SPREAD_HAI_LAN=1`; `tv_spread.py --hai-lan`. Mọi kết quả từ vòng 9 báo cả spread ×1 và ×1,5.
+
+**2. Đo lại ứng viên** (đăng ký trước `reports/vong9_tien_dang_ky.md`; họ = 8.554 ô vòng 8 chạy đúng mô hình mới): 37 ô nhãn cổng + trong mẫu lãi; p Holm nhỏ nhất 1,0; với spread ×1,5 còn 9/37 lãi cả hai đoạn → **sống 0** (`reports/vong9_phan1_ung_vien.json`).
+
+**3. Mảnh mới từ file tiện ích** (`thu_vien_co_che.py`; `mo_phong` có `hoa_von_kc` + giá vào cố định `pos["vao"]`):
+- B hoà vốn: giá đi ≥ 1,5×ATR14 có lời → SL về giá vào + 10 point (mode tác giả: InpBreakEvenATR 1.5 / 18 file, InpBEBufferPoints 10 / 15 file).
+- R khối lượng theo rủi ro 1 %/lệnh (mode 509 file); chỉ khi SL theo khoảng.
+- Lọc tin: CHƯA ĐO ĐƯỢC (không có lịch tin lịch sử).
+- 7 mảnh, trần 3 → 64 tổ hợp; chạy 38 tổ hợp mới (có B hoặc R) × 47 EA H1 × 7 cặp = **12.502 ô, đếm hết**. Nhãn cổng 322, có TM lãi 48, p nhỏ nhất 0,061, Holm 1,0; ×1,5 còn 23 lãi hai đoạn → **sống 0**.
+- Tác dụng TB ngoài mẫu: gốc −19,8 % → B −20,2 %; A −7,9 % → AB −9,3 % (B không giúp); A → AR −33 % (R tăng đòn bẩy, khuếch đại lỗ).
+
+**4. Đo:** bộ đọc/kho không đổi → điểm vào 60, EA ra cơ chế 48, do_moc 13/22 (như vòng 8). Không push main (dịch/giữ không tăng).
+
 ## 12/10/2026 chiều — Vòng 8: spread THẬT (tick bid/ask), sửa giờ HistData, Seeker tần suất thấp, ứng viên EA05 (MÔ PHỎNG)
 
 **1. Dữ liệu spread thật.** Dukascopy vẫn chập chờn (503/timeout; `tai_dukascopy_spread.py` tải BID+ASK H1 từng tháng, ~1 file/phút, chưa xong). Nguồn dùng: **HistData Tick** (bid/ask từng tick, miễn phí) 2024-01→2026-09, 7 cặp → `gop_histdata_tick.py` → H1 có `spread_open` (tick đầu bar).
