@@ -4,6 +4,13 @@
 
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
 
+## 12/10/2026 chiều (13) — Vòng 21: "giá luôn gặp lại EMA" (MÔ PHỎNG)
+
+- Đăng ký trước `reports/vong21_tien_dang_ky.md`; `v21.py`, `reports/vong21.json`, `test_v21.py`. `scikit-learn` thêm vào `requirements.txt`.
+- Luận điểm (9 chuỗi H1 + 6 chuỗi D1, so với 40 chuỗi giá trộn lợi nhuận cùng biến động): giá thật chạm lại EMA nhiều hơn ngẫu nhiên một chút. H1: EMA20 100 % vs 98 %, EMA50 k=3: 85 % vs 78 %, EMA200 k=2: 66 % vs 62 % (z trung vị 1–2,4). D1: EMA20 k=2: 87 % vs 76 % (z 3,1); EMA100/200 k≥3: không hơn ngẫu nhiên. Thời gian trung vị 7–25 nến. "Luôn gặp lại" chỉ đúng với EMA ngắn và phần lớn là do bước ngẫu nhiên cũng hay chạm lại.
+- Lưới 288 ô/chuỗi × 19 chuỗi = 5.472 ô, 2.614 đủ lệnh; Holm cộng dồn 8.935: 0 sống; p thô nhỏ nhất 0,0034. Lãi cả hai nửa 329/2.614; trung vị nửa kiểm −1,8 % (bộ 1 −1,7 %, bộ 2 −2,6 %, D1 +0,5 % với 52 % ô lãi). PB với EMA100/200 không phát tín hiệu (độ dốc ≥0,5 ATR/10 nến hiếm khi giá sát EMA).
+- Độ nhạy: 10 ô p tốt nhất đều có lân cận (EMA±1 bậc, k±1 bậc) lãi ở nửa kiểm (50–100 %) nhưng nửa phát hiện thường âm → vùng "ổn định" ở nửa kiểm chủ yếu là cùng một giai đoạn thị trường, không phải lợi thế lặp lại.
+
 ## 12/10/2026 chiều (12) — Vòng 20: lọc trạng thái thị trường → chọn nhóm (MÔ PHỎNG)
 
 - Đăng ký trước `reports/vong20_tien_dang_ky.md`; `v20.py`, `reports/vong20.json`, `test_v20.py`. Thêm `scikit-learn` vào venv (GMM); `hmmlearn` không có → dùng GMM 3 thành phần (không có ma trận chuyển), Hurst không dùng.
