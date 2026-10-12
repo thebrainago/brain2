@@ -1,0 +1,746 @@
+{
+ "luc": "2026-10-13 00:26",
+ "so_nguon": 222,
+ "da_xet": 28,
+ "theo_trang_thai": {
+  "BỊ CHẶN — cần chạy máy nhà": 10,
+  "ĐỌC ĐƯỢC": 6,
+  "LỖI MẠNG / HẾT HẠN": 12
+ },
+ "ung_vien_tu_sinh": {
+  "feed": 0,
+  "telegram": 0,
+  "reddit": 0,
+  "youtube": 0,
+  "github": 0
+ },
+ "link_ma_github": 0,
+ "phan_trang": {},
+ "theo_phong_cach": {
+  "danh_muc_factor": {
+   "ĐỌC ĐƯỢC": 3
+  },
+  "hoc_may": {
+   "BỊ CHẶN — cần chạy máy nhà": 3,
+   "LỖI MẠNG / HẾT HẠN": 3,
+   "ĐỌC ĐƯỢC": 1
+  },
+  "hoi_quy": {
+   "BỊ CHẶN — cần chạy máy nhà": 2
+  },
+  "luoi_dca": {
+   "ĐỌC ĐƯỢC": 1
+  },
+  "pha_vo": {
+   "BỊ CHẶN — cần chạy máy nhà": 1
+  },
+  "tin_hieu_copy": {
+   "LỖI MẠNG / HẾT HẠN": 5
+  },
+  "tong_hop": {
+   "BỊ CHẶN — cần chạy máy nhà": 4,
+   "ĐỌC ĐƯỢC": 3,
+   "LỖI MẠNG / HẾT HẠN": 6
+  },
+  "vi_mo_carry": {
+   "BỊ CHẶN — cần chạy máy nhà": 1
+  },
+  "xu_huong": {
+   "LỖI MẠNG / HẾT HẠN": 1,
+   "BỊ CHẶN — cần chạy máy nhà": 1
+  }
+ },
+ "nguon": [
+  {
+   "ma": "arabictrader",
+   "ten": "arabictrader",
+   "cach": "http",
+   "can_dang_nhap": true,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "luc": "2026-10-13 00:26:25",
+   "url": "https://www.arabictrader.com/",
+   "trang_thai": "BỊ CHẶN — cần chạy máy nhà",
+   "ly_do": "HTTP 403 + dau hieu 'attention required'",
+   "http": 403,
+   "ky_tu": 4563
+  },
+  {
+   "ma": "babypips_forum",
+   "ten": "babypips_forum",
+   "cach": "http",
+   "can_dang_nhap": false,
+   "phong_cach": [
+    "hoc_may"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "luc": "2026-10-13 00:26:25",
+   "url": "https://forums.babypips.com/",
+   "trang_thai": "BỊ CHẶN — cần chạy máy nhà",
+   "ly_do": "HTTP 403 + dau hieu 'just a moment'",
+   "http": 403,
+   "ky_tu": 5634
+  },
+  {
+   "ma": "forex_nawigator",
+   "ten": "forex_nawigator",
+   "cach": "http",
+   "can_dang_nhap": false,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "luc": "2026-10-13 00:26:25",
+   "url": "https://www.forex-nawigator.biz/forum/",
+   "trang_thai": "BỊ CHẶN — cần chạy máy nhà",
+   "ly_do": "HTTP 403 + dau hieu 'just a moment'",
+   "http": 403,
+   "ky_tu": 5681
+  },
+  {
+   "ma": "quant",
+   "ten": "quant",
+   "cach": "http",
+   "can_dang_nhap": false,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "luc": "2026-10-13 00:26:32",
+   "url": "https://quant.stackexchange.com/questions",
+   "trang_thai": "BỊ CHẶN — cần chạy máy nhà",
+   "ly_do": "HTTP 403 + dau hieu 'just a moment'",
+   "http": 403,
+   "ky_tu": 5664
+  },
+  {
+   "ma": "quantifiedstrategies",
+   "ten": "quantifiedstrategies",
+   "cach": "http",
+   "can_dang_nhap": false,
+   "phong_cach": [
+    "hoi_quy"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "luc": "2026-10-13 00:26:33",
+   "url": "https://www.quantifiedstrategies.com/rsi-trading-strategy/",
+   "trang_thai": "BỊ CHẶN — cần chạy máy nhà",
+   "ly_do": "HTTP 200 + dau hieu 'captcha'",
+   "http": 200,
+   "ky_tu": 1980
+  },
+  {
+   "ma": "tradingview_ideas",
+   "ten": "tradingview_ideas",
+   "cach": "trinh_duyet",
+   "can_dang_nhap": false,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "luc": "2026-10-13 00:26:35",
+   "url": "https://www.tradingview.com/ideas/?q={k}",
+   "trang_thai": "BỊ CHẶN — cần chạy máy nhà",
+   "ly_do": "HTTP 403",
+   "http": 403,
+   "ky_tu": 919
+  },
+  {
+   "ma": "tradingview_pine",
+   "ten": "tradingview_pine",
+   "cach": "api",
+   "can_dang_nhap": false,
+   "phong_cach": [
+    "hoc_may"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "luc": "2026-10-13 00:26:40",
+   "url": "https://www.tradingview.com/pubscripts-suggest-json/?search=strategy",
+   "trang_thai": "BỊ CHẶN — cần chạy máy nhà",
+   "ly_do": "ten mien da chan luot nay: HTTP 403",
+   "http": null,
+   "ky_tu": 0
+  },
+  {
+   "ma": "tradingview_scripts",
+   "ten": "tradingview_scripts",
+   "cach": "trinh_duyet",
+   "can_dang_nhap": false,
+   "phong_cach": [
+    "xu_huong",
+    "hoi_quy",
+    "pha_vo"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "luc": "2026-10-13 00:26:40",
+   "url": "https://www.tradingview.com/scripts/meanreversion/",
+   "trang_thai": "BỊ CHẶN — cần chạy máy nhà",
+   "ly_do": "ten mien da chan luot nay: HTTP 403",
+   "http": null,
+   "ky_tu": 0
+  },
+  {
+   "ma": "tradingview_strategies",
+   "ten": "TradingView - Public strategies (Pine ma mo)",
+   "cach": "http",
+   "can_dang_nhap": false,
+   "phong_cach": [
+    "hoc_may"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "luc": "2026-10-13 00:26:40",
+   "url": "https://www.tradingview.com/scripts/?script_type=strategies",
+   "trang_thai": "BỊ CHẶN — cần chạy máy nhà",
+   "ly_do": "ten mien da chan luot nay: HTTP 403",
+   "http": null,
+   "ky_tu": 0
+  },
+  {
+   "ma": "tutim_fxmacrodata",
+   "ten": "fxmacrodata.com",
+   "cach": "rss",
+   "can_dang_nhap": false,
+   "phong_cach": [
+    "vi_mo_carry"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "luc": "2026-10-13 00:26:37",
+   "url": "https://www.fxmacrodata.com/rss.xml",
+   "trang_thai": "BỊ CHẶN — cần chạy máy nhà",
+   "ly_do": "HTTP 403 + dau hieu 'attention required'",
+   "http": 403,
+   "ky_tu": 4562
+  },
+  {
+   "ma": "etoro",
+   "ten": "etoro",
+   "cach": "api",
+   "can_dang_nhap": false,
+   "phong_cach": [
+    "hoc_may",
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx",
+    "crypto",
+    "co_phieu"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ],
+   "luc": "2026-10-13 00:26:25",
+   "url": "https://www.etoro.com/sapi/rankings/rankings/",
+   "trang_thai": "LỖI MẠNG / HẾT HẠN",
+   "ly_do": "HTTP 404",
+   "http": 404,
+   "ky_tu": 59
+  },
+  {
+   "ma": "forexforum_tr",
+   "ten": "forexforum_tr",
+   "cach": "http",
+   "can_dang_nhap": false,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "luc": "2026-10-13 00:26:25",
+   "url": "https://www.forexforum.com.tr/",
+   "trang_thai": "LỖI MẠNG / HẾT HẠN",
+   "ly_do": "ConnectionError: HTTPSConnectionPool(host='www.forexforum.com.tr', port=443): Max retries exceeded with url: / (Caused by NameResolutionE",
+   "http": null,
+   "ky_tu": 0
+  },
+  {
+   "ma": "futures_io",
+   "ten": "futures.io",
+   "cach": "http",
+   "can_dang_nhap": false,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "futures_hang_hoa"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "luc": "2026-10-13 00:26:25",
+   "url": "https://futures.io/forum",
+   "trang_thai": "LỖI MẠNG / HẾT HẠN",
+   "ly_do": "HTTP 404",
+   "http": 404,
+   "ky_tu": 67665
+  },
+  {
+   "ma": "fx168",
+   "ten": "fx168",
+   "cach": "http",
+   "can_dang_nhap": false,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "luc": "2026-10-13 00:26:29",
+   "url": "https://www.fx168.com/",
+   "trang_thai": "LỖI MẠNG / HẾT HẠN",
+   "ly_do": "ConnectionError: HTTPSConnectionPool(host='www.fx168.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HT",
+   "http": null,
+   "ky_tu": 0
+  },
+  {
+   "ma": "fxblue",
+   "ten": "fxblue",
+   "cach": "http",
+   "can_dang_nhap": false,
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "luc": "2026-10-13 00:26:29",
+   "url": "https://www.fxblue.com/users",
+   "trang_thai": "LỖI MẠNG / HẾT HẠN",
+   "ly_do": "HTTP 404",
+   "http": 404,
+   "ky_tu": 11098
+  },
+  {
+   "ma": "fxblue_com",
+   "ten": "fxblue_com",
+   "cach": "http",
+   "can_dang_nhap": false,
+   "phong_cach": [
+    "hoc_may",
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "luc": "2026-10-13 00:26:35",
+   "url": "https://www.fxblue.com/users",
+   "trang_thai": "LỖI MẠNG / HẾT HẠN",
+   "ly_do": "HTTP 404",
+   "http": 404,
+   "ky_tu": 11098
+  },
+  {
+   "ma": "fxblue_market",
+   "ten": "fxblue_market",
+   "cach": "http",
+   "can_dang_nhap": false,
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "luc": "2026-10-13 00:26:39",
+   "url": "https://www.fxblue.com/market",
+   "trang_thai": "LỖI MẠNG / HẾT HẠN",
+   "ly_do": "HTTP 404",
+   "http": 404,
+   "ky_tu": 11098
+  },
+  {
+   "ma": "fxstat",
+   "ten": "fxstat",
+   "cach": "http",
+   "can_dang_nhap": false,
+   "phong_cach": [
+    "hoc_may",
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "luc": "2026-10-13 00:26:30",
+   "url": "https://www.fxstat.com/",
+   "trang_thai": "LỖI MẠNG / HẾT HẠN",
+   "ly_do": "SSLError: HTTPSConnectionPool(host='www.fxstat.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerifi",
+   "http": null,
+   "ky_tu": 0
+  },
+  {
+   "ma": "gh_caveman",
+   "ten": "caveman",
+   "cach": "http",
+   "can_dang_nhap": false,
+   "phong_cach": [
+    "xu_huong"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "luc": "2026-10-13 00:26:30",
+   "url": "https://github.com/raphaelmansuy/caveman",
+   "trang_thai": "LỖI MẠNG / HẾT HẠN",
+   "ly_do": "HTTP 404",
+   "http": 404,
+   "ky_tu": 263605
+  },
+  {
+   "ma": "pantip_sinlapa",
+   "ten": "pantip_sinlapa",
+   "cach": "http",
+   "can_dang_nhap": false,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "luc": "2026-10-13 00:26:30",
+   "url": "https://pantip.com/tag/Forex",
+   "trang_thai": "LỖI MẠNG / HẾT HẠN",
+   "ly_do": "HTTP 404",
+   "http": 404,
+   "ky_tu": 24671
+  },
+  {
+   "ma": "traderslaboratory",
+   "ten": "traderslaboratory",
+   "cach": "http",
+   "can_dang_nhap": false,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "luc": "2026-10-13 00:26:35",
+   "url": "https://www.traderslaboratory.com/forums/",
+   "trang_thai": "LỖI MẠNG / HẾT HẠN",
+   "ly_do": "SSLError: HTTPSConnectionPool(host='www.traderslaboratory.com', port=443): Max retries exceeded with url: /forums/ (Caused by SSLE",
+   "http": null,
+   "ky_tu": 0
+  },
+  {
+   "ma": "wallstreet_online",
+   "ten": "wallstreet_online",
+   "cach": "http",
+   "can_dang_nhap": false,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "co_phieu"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "luc": "2026-10-13 00:26:38",
+   "url": "https://www.wallstreet-online.de/diskussion/",
+   "trang_thai": "LỖI MẠNG / HẾT HẠN",
+   "ly_do": "HTTP 410",
+   "http": 410,
+   "ky_tu": 258913
+  },
+  {
+   "ma": "bankier_forum",
+   "ten": "Bankier.pl - dien dan chung khoan (Ba Lan)",
+   "cach": "http",
+   "can_dang_nhap": false,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "co_phieu"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "luc": "2026-10-13 00:26:25",
+   "url": "https://www.bankier.pl/forum/",
+   "trang_thai": "ĐỌC ĐƯỢC",
+   "ly_do": "HTTP 200",
+   "http": 200,
+   "ky_tu": 161516,
+   "muc": 17
+  },
+  {
+   "ma": "forexfactory",
+   "ten": "forexfactory",
+   "cach": "http",
+   "can_dang_nhap": false,
+   "phong_cach": [
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "luc": "2026-10-13 00:26:25",
+   "url": "https://www.forexfactory.com/thread/post/1#p1",
+   "trang_thai": "ĐỌC ĐƯỢC",
+   "ly_do": "HTTP 200",
+   "http": 200,
+   "ky_tu": 144167,
+   "muc": 10
+  },
+  {
+   "ma": "forexfactory_ea_threads",
+   "ten": "forexfactory_ea_threads",
+   "cach": "http",
+   "can_dang_nhap": false,
+   "phong_cach": [
+    "hoc_may",
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "luc": "2026-10-13 00:26:30",
+   "url": "https://www.forexfactory.com/forum/71-trading-systems",
+   "trang_thai": "ĐỌC ĐƯỢC",
+   "ly_do": "HTTP 200",
+   "http": 200,
+   "ky_tu": 233651,
+   "muc": 27
+  },
+  {
+   "ma": "forexfactory_trade_explorer",
+   "ten": "forexfactory_trade_explorer",
+   "cach": "http",
+   "can_dang_nhap": false,
+   "phong_cach": [
+    "luoi_dca",
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "luoi_martingale"
+   ],
+   "luc": "2026-10-13 00:26:34",
+   "url": "https://www.forexfactory.com/trades",
+   "trang_thai": "ĐỌC ĐƯỢC",
+   "ly_do": "HTTP 200",
+   "http": 200,
+   "ky_tu": 205828,
+   "muc": 0
+  },
+  {
+   "ma": "gestaltu",
+   "ten": "gestaltu",
+   "cach": "rss",
+   "can_dang_nhap": false,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "luc": "2026-10-13 00:26:30",
+   "url": "https://gestaltu.com/feed",
+   "trang_thai": "ĐỌC ĐƯỢC",
+   "ly_do": "HTTP 200",
+   "http": 200,
+   "ky_tu": 8403,
+   "muc": 10
+  },
+  {
+   "ma": "tutim_quantforhire",
+   "ten": "quantforhire.com",
+   "cach": "rss",
+   "can_dang_nhap": false,
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "luc": "2026-10-13 00:26:37",
+   "url": "https://quantforhire.com/feed/",
+   "trang_thai": "ĐỌC ĐƯỢC",
+   "ly_do": "HTTP 200",
+   "http": 200,
+   "ky_tu": 16171,
+   "muc": 10
+  }
+ ]
+}

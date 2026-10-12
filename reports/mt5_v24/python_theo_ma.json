@@ -1,0 +1,402 @@
+{
+ "RSI|EURUSD#|2004|cu": {
+  "n": 89,
+  "tb_bps": -4.77,
+  "du_lieu_tu": "2003-12-01"
+ },
+ "RSI|EURUSD#|2016|cu": {
+  "n": 59,
+  "tb_bps": -13.36,
+  "du_lieu_tu": "2003-12-01"
+ },
+ "MRZ|EURUSD#|2004|cu": {
+  "n": 118,
+  "tb_bps": 11.02,
+  "du_lieu_tu": "2003-12-01"
+ },
+ "MRZ|EURUSD#|2016|cu": {
+  "n": 86,
+  "tb_bps": 4.46,
+  "du_lieu_tu": "2003-12-01"
+ },
+ "RSI|EURUSD#|2004|xm": {
+  "n": 89,
+  "tb_bps": -4.76,
+  "du_lieu_tu": "2003-12-01"
+ },
+ "RSI|EURUSD#|2016|xm": {
+  "n": 59,
+  "tb_bps": -13.34,
+  "du_lieu_tu": "2003-12-01"
+ },
+ "MRZ|EURUSD#|2004|xm": {
+  "n": 118,
+  "tb_bps": 11.04,
+  "du_lieu_tu": "2003-12-01"
+ },
+ "MRZ|EURUSD#|2016|xm": {
+  "n": 86,
+  "tb_bps": 4.48,
+  "du_lieu_tu": "2003-12-01"
+ },
+ "RSI|GBPUSD#|2004|cu": {
+  "n": 77,
+  "tb_bps": -23.49,
+  "du_lieu_tu": "2003-12-01"
+ },
+ "RSI|GBPUSD#|2016|cu": {
+  "n": 60,
+  "tb_bps": 8.19,
+  "du_lieu_tu": "2003-12-01"
+ },
+ "MRZ|GBPUSD#|2004|cu": {
+  "n": 107,
+  "tb_bps": 4.42,
+  "du_lieu_tu": "2003-12-01"
+ },
+ "MRZ|GBPUSD#|2016|cu": {
+  "n": 96,
+  "tb_bps": 16.66,
+  "du_lieu_tu": "2003-12-01"
+ },
+ "RSI|GBPUSD#|2004|xm": {
+  "n": 77,
+  "tb_bps": -23.72,
+  "du_lieu_tu": "2003-12-01"
+ },
+ "RSI|GBPUSD#|2016|xm": {
+  "n": 60,
+  "tb_bps": 7.92,
+  "du_lieu_tu": "2003-12-01"
+ },
+ "MRZ|GBPUSD#|2004|xm": {
+  "n": 108,
+  "tb_bps": 3.54,
+  "du_lieu_tu": "2003-12-01"
+ },
+ "MRZ|GBPUSD#|2016|xm": {
+  "n": 97,
+  "tb_bps": 16.44,
+  "du_lieu_tu": "2003-12-01"
+ },
+ "RSI|USDJPY#|2004|cu": {
+  "n": 90,
+  "tb_bps": -8.14,
+  "du_lieu_tu": "1996-10-30"
+ },
+ "RSI|USDJPY#|2016|cu": {
+  "n": 78,
+  "tb_bps": 8.05,
+  "du_lieu_tu": "1996-10-30"
+ },
+ "MRZ|USDJPY#|2004|cu": {
+  "n": 124,
+  "tb_bps": -18.43,
+  "du_lieu_tu": "1996-10-30"
+ },
+ "MRZ|USDJPY#|2016|cu": {
+  "n": 96,
+  "tb_bps": -12.64,
+  "du_lieu_tu": "1996-10-30"
+ },
+ "RSI|USDJPY#|2004|xm": {
+  "n": 90,
+  "tb_bps": -8.14,
+  "du_lieu_tu": "1996-10-30"
+ },
+ "RSI|USDJPY#|2016|xm": {
+  "n": 78,
+  "tb_bps": 8.05,
+  "du_lieu_tu": "1996-10-30"
+ },
+ "MRZ|USDJPY#|2004|xm": {
+  "n": 124,
+  "tb_bps": -18.43,
+  "du_lieu_tu": "1996-10-30"
+ },
+ "MRZ|USDJPY#|2016|xm": {
+  "n": 96,
+  "tb_bps": -12.64,
+  "du_lieu_tu": "1996-10-30"
+ },
+ "RSI|USDCHF#|2004|cu": {
+  "n": 90,
+  "tb_bps": 0.46,
+  "du_lieu_tu": "2003-09-16"
+ },
+ "RSI|USDCHF#|2016|cu": {
+  "n": 60,
+  "tb_bps": -8.54,
+  "du_lieu_tu": "2003-09-16"
+ },
+ "MRZ|USDCHF#|2004|cu": {
+  "n": 124,
+  "tb_bps": -8.38,
+  "du_lieu_tu": "2003-09-16"
+ },
+ "MRZ|USDCHF#|2016|cu": {
+  "n": 105,
+  "tb_bps": -27.45,
+  "du_lieu_tu": "2003-09-16"
+ },
+ "RSI|USDCHF#|2004|xm": {
+  "n": 89,
+  "tb_bps": 2.57,
+  "du_lieu_tu": "2003-09-16"
+ },
+ "RSI|USDCHF#|2016|xm": {
+  "n": 60,
+  "tb_bps": -7.98,
+  "du_lieu_tu": "2003-09-16"
+ },
+ "MRZ|USDCHF#|2004|xm": {
+  "n": 126,
+  "tb_bps": -7.29,
+  "du_lieu_tu": "2003-09-16"
+ },
+ "MRZ|USDCHF#|2016|xm": {
+  "n": 105,
+  "tb_bps": -28.94,
+  "du_lieu_tu": "2003-09-16"
+ },
+ "RSI|AUDUSD#|2004|cu": {
+  "n": 76,
+  "tb_bps": -51.79,
+  "du_lieu_tu": "2006-05-15"
+ },
+ "RSI|AUDUSD#|2016|cu": {
+  "n": 56,
+  "tb_bps": 69.35,
+  "du_lieu_tu": "2006-05-15"
+ },
+ "MRZ|AUDUSD#|2004|cu": {
+  "n": 83,
+  "tb_bps": 27.92,
+  "du_lieu_tu": "2006-05-15"
+ },
+ "MRZ|AUDUSD#|2016|cu": {
+  "n": 80,
+  "tb_bps": 74.09,
+  "du_lieu_tu": "2006-05-15"
+ },
+ "RSI|AUDUSD#|2004|xm": {
+  "n": 76,
+  "tb_bps": -52.92,
+  "du_lieu_tu": "2006-05-15"
+ },
+ "RSI|AUDUSD#|2016|xm": {
+  "n": 57,
+  "tb_bps": 65.56,
+  "du_lieu_tu": "2006-05-15"
+ },
+ "MRZ|AUDUSD#|2004|xm": {
+  "n": 83,
+  "tb_bps": 28.19,
+  "du_lieu_tu": "2006-05-15"
+ },
+ "MRZ|AUDUSD#|2016|xm": {
+  "n": 82,
+  "tb_bps": 69.6,
+  "du_lieu_tu": "2006-05-15"
+ },
+ "RSI|GOLD.i#|2004|cu": {
+  "n": 102,
+  "tb_bps": 67.69,
+  "du_lieu_tu": "2000-08-31"
+ },
+ "RSI|GOLD.i#|2016|cu": {
+  "n": 112,
+  "tb_bps": -34.71,
+  "du_lieu_tu": "2000-08-31"
+ },
+ "MRZ|GOLD.i#|2004|cu": {
+  "n": 119,
+  "tb_bps": 22.91,
+  "du_lieu_tu": "2000-08-31"
+ },
+ "MRZ|GOLD.i#|2016|cu": {
+  "n": 135,
+  "tb_bps": -27.83,
+  "du_lieu_tu": "2000-08-31"
+ },
+ "RSI|GOLD.i#|2004|xm": {
+  "n": 101,
+  "tb_bps": 69.8,
+  "du_lieu_tu": "2000-08-31"
+ },
+ "RSI|GOLD.i#|2016|xm": {
+  "n": 111,
+  "tb_bps": -34.74,
+  "du_lieu_tu": "2000-08-31"
+ },
+ "MRZ|GOLD.i#|2004|xm": {
+  "n": 119,
+  "tb_bps": 23.19,
+  "du_lieu_tu": "2000-08-31"
+ },
+ "MRZ|GOLD.i#|2016|xm": {
+  "n": 135,
+  "tb_bps": -27.56,
+  "du_lieu_tu": "2000-08-31"
+ },
+ "RSI|US500Cash#|2004|cu": {
+  "n": 71,
+  "tb_bps": 19.6,
+  "du_lieu_tu": "1970-01-02"
+ },
+ "RSI|US500Cash#|2016|cu": {
+  "n": 89,
+  "tb_bps": 28.61,
+  "du_lieu_tu": "1970-01-02"
+ },
+ "MRZ|US500Cash#|2004|cu": {
+  "n": 105,
+  "tb_bps": 15.39,
+  "du_lieu_tu": "1970-01-02"
+ },
+ "MRZ|US500Cash#|2016|cu": {
+  "n": 100,
+  "tb_bps": 50.29,
+  "du_lieu_tu": "1970-01-02"
+ },
+ "RSI|US500Cash#|2004|xm": {
+  "n": 71,
+  "tb_bps": 19.59,
+  "du_lieu_tu": "1970-01-02"
+ },
+ "RSI|US500Cash#|2016|xm": {
+  "n": 89,
+  "tb_bps": 28.61,
+  "du_lieu_tu": "1970-01-02"
+ },
+ "MRZ|US500Cash#|2004|xm": {
+  "n": 105,
+  "tb_bps": 15.38,
+  "du_lieu_tu": "1970-01-02"
+ },
+ "MRZ|US500Cash#|2016|xm": {
+  "n": 100,
+  "tb_bps": 50.29,
+  "du_lieu_tu": "1970-01-02"
+ },
+ "RSI|UK100Cash#|2004|cu": {
+  "n": 80,
+  "tb_bps": -0.71,
+  "du_lieu_tu": "1984-01-03"
+ },
+ "RSI|UK100Cash#|2016|cu": {
+  "n": 68,
+  "tb_bps": 48.47,
+  "du_lieu_tu": "1984-01-03"
+ },
+ "MRZ|UK100Cash#|2004|cu": {
+  "n": 126,
+  "tb_bps": 17.33,
+  "du_lieu_tu": "1984-01-03"
+ },
+ "MRZ|UK100Cash#|2016|cu": {
+  "n": 114,
+  "tb_bps": 49.22,
+  "du_lieu_tu": "1984-01-03"
+ },
+ "RSI|UK100Cash#|2004|xm": {
+  "n": 80,
+  "tb_bps": -2.75,
+  "du_lieu_tu": "1984-01-03"
+ },
+ "RSI|UK100Cash#|2016|xm": {
+  "n": 68,
+  "tb_bps": 46.86,
+  "du_lieu_tu": "1984-01-03"
+ },
+ "MRZ|UK100Cash#|2004|xm": {
+  "n": 128,
+  "tb_bps": 21.72,
+  "du_lieu_tu": "1984-01-03"
+ },
+ "MRZ|UK100Cash#|2016|xm": {
+  "n": 114,
+  "tb_bps": 47.36,
+  "du_lieu_tu": "1984-01-03"
+ },
+ "RSI|GER40Cash#|2004|cu": {
+  "n": 106,
+  "tb_bps": -29.46,
+  "du_lieu_tu": "1993-12-14"
+ },
+ "RSI|GER40Cash#|2016|cu": {
+  "n": 83,
+  "tb_bps": 22.7,
+  "du_lieu_tu": "1993-12-14"
+ },
+ "MRZ|GER40Cash#|2004|cu": {
+  "n": 115,
+  "tb_bps": -11.5,
+  "du_lieu_tu": "1993-12-14"
+ },
+ "MRZ|GER40Cash#|2016|cu": {
+  "n": 104,
+  "tb_bps": 81.02,
+  "du_lieu_tu": "1993-12-14"
+ },
+ "RSI|GER40Cash#|2004|xm": {
+  "n": 106,
+  "tb_bps": -30.85,
+  "du_lieu_tu": "1993-12-14"
+ },
+ "RSI|GER40Cash#|2016|xm": {
+  "n": 84,
+  "tb_bps": 20.52,
+  "du_lieu_tu": "1993-12-14"
+ },
+ "MRZ|GER40Cash#|2004|xm": {
+  "n": 115,
+  "tb_bps": -12.31,
+  "du_lieu_tu": "1993-12-14"
+ },
+ "MRZ|GER40Cash#|2016|xm": {
+  "n": 104,
+  "tb_bps": 80.16,
+  "du_lieu_tu": "1993-12-14"
+ },
+ "RSI|OILCash#|2004|cu": {
+  "n": 103,
+  "tb_bps": -144.24,
+  "du_lieu_tu": "2000-08-23"
+ },
+ "RSI|OILCash#|2016|cu": {
+  "n": 73,
+  "tb_bps": 268.75,
+  "du_lieu_tu": "2000-08-23"
+ },
+ "MRZ|OILCash#|2004|cu": {
+  "n": 126,
+  "tb_bps": -165.43,
+  "du_lieu_tu": "2000-08-23"
+ },
+ "MRZ|OILCash#|2016|cu": {
+  "n": 104,
+  "tb_bps": 17.93,
+  "du_lieu_tu": "2000-08-23"
+ },
+ "RSI|OILCash#|2004|xm": {
+  "n": 103,
+  "tb_bps": -144.17,
+  "du_lieu_tu": "2000-08-23"
+ },
+ "RSI|OILCash#|2016|xm": {
+  "n": 73,
+  "tb_bps": 268.82,
+  "du_lieu_tu": "2000-08-23"
+ },
+ "MRZ|OILCash#|2004|xm": {
+  "n": 126,
+  "tb_bps": -165.36,
+  "du_lieu_tu": "2000-08-23"
+ },
+ "MRZ|OILCash#|2016|xm": {
+  "n": 104,
+  "tb_bps": 18.02,
+  "du_lieu_tu": "2000-08-23"
+ }
+}
