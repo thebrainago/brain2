@@ -558,7 +558,7 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
     except AttributeError:
         ngay_thang = np.zeros(n, dtype=int)
     for c_ in chan:
-        for f in ("cho", "muc", "sl", "keo", "sl_kc", "tp_kc"):
+        for f in ("cho", "muc", "sl", "keo", "sl_kc", "tp_kc", "hoa_von_kc"):
             if c_.get(f) is not None and len(c_[f]) != n:
                 raise ValueError(f"chan.{f} phai dai bang du lieu")
         if c_.get("dong_mo") is not None and len(c_["dong_mo"][1]) != n:
@@ -640,6 +640,14 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
     def _keo(i: int, gia: float) -> None:
         if pos.get("ro") is not None:
             return
+        hv = chan[pos["k"]].get("hoa_von_kc")      # vong 9: manh B (hoa von, chi siet)
+        if hv is not None and pos["sl"] is not None and np.isfinite(hv[i]):
+            ch_, ref_ = pos["chieu"], pos.get("vao", pos["ref"])
+            bv = ref_ + ch_ * float(chan[pos["k"]].get("hoa_von_cong") or 0.0)
+            if ch_ > 0 and gia - ref_ >= hv[i] and pos["sl"] < bv < gia:
+                pos["sl"] = bv
+            elif ch_ < 0 and ref_ - gia >= hv[i] and gia < bv < pos["sl"]:
+                pos["sl"] = bv
         kk = chan[pos["k"]].get("keo")
         if kk is None or pos["sl"] is None:
             return
@@ -1086,6 +1094,7 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
         het = None if (sl is not None or tp is not None or c_.get("dong_pip") is not None) \
             else j + max(1, int(c_["giu"]))
         pos = {"k": k, "chieu": ch, "sl": sl, "tp": tp, "het": het, "ref": gia, "w": w,
+               "vao": gia,                    # vong 9: gia vao co dinh (ref doi theo bar)
                # gia KHOP (mua o ASK = BID + spread bar vao, ban o BID) - `dong_pip`
                "khop": gia + (sp[j] * gia if ch > 0 else 0.0)}
         if nhat_ky is not None:

@@ -12,7 +12,8 @@ xem `NGUON_THAM_SO`) - khong toi uu, khong chon theo ket qua.
   P  loc phien      chi vao khi gio server cua bar vao trong [7, 22)
   D  gioi han ngay  toi da 1 lenh / ngay cho CA he (moi chan chung mot bien ngay)
 
-To hop toi da 3 manh (`to_hop()`): 1 goc + 5 + 10 + 10 = 26. MOI to hop chay deu phai dem
+To hop toi da 3 manh (`to_hop()`): vong 7 (5 manh) 26; vong 9 them B (hoa von 1,5 ATR -> vao +10 point)
+va R (rui ro 1 %/lenh, chi khi SL theo khoang) -> 7 manh, 64. MOI to hop chay deu phai dem
 vao so phep thu khi hieu chinh nhieu phep thu (Holm).
 Chan RO (luoi / hedge) KHONG ap manh (khong co SL/TP don) -> `ap_duoc()` = False.
 """
@@ -23,14 +24,19 @@ import itertools
 import numpy as np
 import pandas as pd
 
-MANH = ("A", "T", "S", "P", "D")
+MANH = ("A", "T", "S", "P", "D", "B", "R")
 NGUON_THAM_SO = {
     "A": "mode input SL-ATR = 1.5 (58 file), TP-ATR = 3.0 (32 file), ATR period = 14 (397 file)",
     "T": "mode input trail-ATR khac 0 = 1.0 (39 file)",
     "S": "mode input MaxSpread = 30 point (99 file)",
     "P": "mode gio bat dau khac 0 = 7 (63 file), gio ket thuc = 22 (47 file)",
     "D": "mode MaxTradesPerDay = 1 (44 file)",
+    "B": "vong 9: mode InpBreakEvenATR = 1.5 (18 file), InpBEBufferPoints = 10 (15 file)",
+    "R": "vong 9: mode input *Risk* = 1.0 % (509 file)",
 }
+HOA_VON_ATR, HOA_VON_CONG_DIEM = 1.5, 10.0
+RUI_RO = 0.01
+#: vong 9: loc tin (InpNewsMinutesBefore = 30) CHUA DO DUOC - khong co lich tin lich su tren box
 ATR_N, SL_ATR, TP_ATR, KEO_ATR = 14, 1.5, 3.0, 1.0
 SPREAD_MAX_DIEM = 30.0
 GIO_TU, GIO_DEN = 7, 22
@@ -94,6 +100,11 @@ def ap_manh(chan: list[dict], df: pd.DataFrame, manh: tuple[str, ...],
             ok = np.zeros(n, dtype=bool)
             ok[:-1] = (gio[1:] >= GIO_TU) & (gio[1:] < GIO_DEN)
             c["cho"] = np.asarray(c["cho"], dtype=bool) & ok
+        if "B" in manh:
+            c["hoa_von_kc"] = HOA_VON_ATR * a
+            c["hoa_von_cong"] = HOA_VON_CONG_DIEM * diem
+        if "R" in manh and c.get("sl_kc") is not None:
+            c["rui_ro"] = RUI_RO
         if "D" in manh:
             c["chan_boi"] = list(c.get("chan_boi") or []) + [BIEN_NGAY]
             c["dat"] = list(c.get("dat") or []) + [BIEN_NGAY]
