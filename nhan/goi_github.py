@@ -43,7 +43,23 @@ TRUY_VAN_GH = (
     "grid EA language:MQL5",
     "breakout EA language:MQL5",
     "trend EA language:MQL4",
+    # vong 8 (12/10/2026): uu tien he TAN SUAT THAP / giu lau (phi it anh huong hon)
+    "daily timeframe expert advisor",
+    "swing trading EA language:MQL5",
+    "swing trading EA language:MQL4",
+    "D1 strategy expert advisor",
+    "H4 expert advisor",
+    "position trading EA mt4",
+    "weekly breakout EA",
+    "trend following EA language:MQL5",
+    "mean reversion EA language:MQL5",
+    "carry trade EA",
 )
+#: vong 8: chi cac truy van tan suat thap (de luot vong 8 chay chung truoc khi het han)
+TRUY_VAN_V8 = TRUY_VAN_GH[-10:]
+#: vong 8 luot 2: quet RONG theo ngon ngu (moi repo MQL5/MQL4 cong khai, nhieu trang)
+TRUY_VAN_V8_RONG = ("language:MQL5 EA", "language:MQL4 EA", "language:MQL5 expert",
+                    "language:MQL4 expert", "language:MQL5 strategy", "language:MQL4 strategy")
 TRAN_BYTE = 400_000
 TRAN_MQ5_MOI_REPO = 16
 TRAN_MQH_MOI_REPO = 40
@@ -94,7 +110,8 @@ def _giai(b: bytes) -> str | None:
 
 def tai_github_goi(thu_muc, han_giay: float = 120.0, so_repo: int = 20,
                    truy_van: list[dict] | None = None, nghi_giay: float = 1.0,
-                   get=None, in_ra=print, so_trang: int = 1) -> dict:
+                   get=None, in_ra=print, so_trang: int = 1,
+                   ds_truy_van: tuple | None = None) -> dict:
     """Mot luot nguon GitHub -> goi EA trong `thu_muc`. `get(url, params, json_)` thay duoc cho
     test. Manifest `NGUON_GH.json` (repo da xem -> khong ton luot lai; repo moi day -> xem lai
     khi `pushed_at` doi). Tra bang dem."""
@@ -112,7 +129,7 @@ def tai_github_goi(thu_muc, han_giay: float = 120.0, so_repo: int = 20,
            "ea_co_set": 0, "tep": 0, "loi": []}
     ung: dict[str, dict] = {}
     dung_search = False
-    for q in TRUY_VAN_GH:
+    for q in (ds_truy_van or TRUY_VAN_GH):
         for trang in range(1, max(1, so_trang) + 1):
             if time.time() - t0 > han_giay * 0.25:
                 dung_search = True

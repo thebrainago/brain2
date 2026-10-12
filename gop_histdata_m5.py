@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""HistData M1 (ASCII, gio EST co dinh UTC-5, khong DST) -> nen M5 gio server uoc luong (Helsinki).
+"""HistData M1 (ASCII) -> nen M5 gio server MT5 "NY close" (GMT+2/+3 theo DST My = gio NY + 7 h; vong 8).
+
+VONG 8 (12/10/2026): gio trong file HistData la gio NEW YORK CO DST (khong phai EST co dinh nhu tai lieu
+ghi) - kiem bang tick bid/ask: dinh spread qua dem va gio mo tuan = 00:00 server ca mua dong lan he chi khi
+doi theo NY. Ban cu (EST co dinh -> Helsinki) lech +1 h trong mua DST My; giu lai bang co `--gio-cu`.
 
     # tai (mien phi, $0): pip install histdata; trong thu muc DIR:
     #   python -c "from histdata import download_hist_data as d; from histdata.api import Platform as P, TimeFrame as T; d(year='2024',month=None,pair='eurusd',platform=P.GENERIC_ASCII,time_frame=T.ONE_MINUTE)"
@@ -30,9 +34,28 @@ def doc_zip(p: Path) -> pd.DataFrame:
         raw = z.read(ten[0]).decode("utf-8", "ignore")
     df = pd.read_csv(io.StringIO(raw), sep=";", header=None,
                      names=["t", "open", "high", "low", "close", "v"])
-    df.index = (pd.to_datetime(df["t"], format="%Y%m%d %H%M%S")
-                .dt.tz_localize("Etc/GMT+5").dt.tz_convert("UTC"))     # EST co dinh = UTC-5
+    t = pd.to_datetime(df["t"], format="%Y%m%d %H%M%S")
+    if GIO_CU:
+        df.index = t.dt.tz_localize("Etc/GMT+5").dt.tz_convert("UTC")     # EST co dinh = UTC-5
+    else:
+        # vong 8: gio HistData thuc te = gio dia phuong New York (CO DST) - kiem tren tick
+        # bid/ask: dinh spread qua dem (17:00 NY) va gio mo tuan roi vao 00:00 server ca dong
+        # lan he chi khi doi theo NY; cach cu (EST co dinh) lech +1 h trong mua DST My.
+        df.index = t.dt.tz_localize("America/New_York", ambiguous="NaT",
+                                    nonexistent="NaT").dt.tz_convert("UTC")
+        df = df[df.index.notna()]
     return df[["open", "high", "low", "close"]].astype(float)
+
+
+GIO_CU = False
+
+
+def ve_server(idx_utc: pd.DatetimeIndex) -> pd.DatetimeIndex:
+    """UTC -> gio server MT5 kieu 'NY close' (GMT+2/+3 theo DST My = gio New York + 7 h).
+    `--gio-cu`: Europe/Helsinki nhu truoc vong 8."""
+    if GIO_CU:
+        return idx_utc.tz_convert("Europe/Helsinki").tz_localize(None)
+    return idx_utc.tz_convert("America/New_York").tz_localize(None) + pd.Timedelta(hours=7)
 
 
 def gop_m5(m1: pd.DataFrame) -> pd.DataFrame:
@@ -55,7 +78,11 @@ def do_day_du(m1_utc: pd.DataFrame) -> pd.DataFrame:
 
 
 def main(argv=None) -> int:
+    global GIO_CU
     a = list(argv or sys.argv[1:])
+    if "--gio-cu" in a:
+        a.remove("--gio-cu")
+        GIO_CU = True
     thu_muc, ma, tu, den, ra = Path(a[0]), a[1].upper(), a[2], a[3], Path(a[4])
     phan = [doc_zip(p) for p in sorted(thu_muc.glob(f"DAT_ASCII_{ma}_M1_*.zip"))]
     m1 = pd.concat([p for p in phan if len(p)]).sort_index()
@@ -64,13 +91,13 @@ def main(argv=None) -> int:
             & (m1.index < pd.Timestamp(den, tz="Europe/Helsinki").tz_convert("UTC"))]
     dd = do_day_du(m1)
     df = gop_m5(m1)
-    df.index = df.index.tz_convert("Europe/Helsinki").tz_localize(None)
+    df.index = ve_server(df.index)
     df.index.name = "time"
     ra.parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(ra, float_format="%.6f")
     print(dd.to_string())
     print(f"{ma}: {len(m1)} phut M1 -> {len(df)} bar M5 {df.index[0]} -> {df.index[-1]} "
-          f"(gio Helsinki) -> {ra}; thang day du < 97%: "
+          f"(gio server NY+7) -> {ra}; thang day du < 97%: "
           f"{[str(k.date())[:7] for k, v in dd['ty_le'].items() if v < 0.97] or 'khong'}")
     return 0
 
