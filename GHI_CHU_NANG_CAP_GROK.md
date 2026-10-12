@@ -4,6 +4,37 @@
 
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
 
+## 12/10/2026 trưa — Vòng 7: Val(i,b,s) + lọc ngày switch + cổng bar tự tính; thư viện cơ chế nhỏ (A) (MÔ PHỎNG)
+
+**1. Bộ đọc** (`khung_ea_mql.py`: `mang_handle`, `noi_ham_gia`, `cong_bar_tu_tinh`; `ham_bool_mql.py`: lọc ngày `switch(day_of_week)`; `doc_ma.py`, `goi_ham_mql.py`):
+- Mảng handle `int H[N]; H[k] = iMA(..)` → biến đơn; hàm bọc theo CHỈ SỐ `Val(idx,b,s)` → `noi_ham_boc_buffer` sẵn có. Hàm giá một dòng `Price(k)` → `iClose(_Symbol,_Period,k)`.
+- `switch(t.day_of_week){case d: return(InpX); default: ..}` (TimeCurrent) → `thứ != d` cho ngày tắt. Nhiều `input` trên MỘT dòng nay đọc được (cả `.set`).
+- VÀ lồng ngoặc trong hàm bool được làm phẳng; lọc thoát `X` bỏ vế quản trị trước khi chứng minh mâu thuẫn (X' yếu hơn → đúng).
+- **Sửa lỗi an toàn (của vòng 6):** `OpenTrade(int dir)` gọi `OpenTrade(1)`/`OpenTrade(-1)` với `(dir > 0) ? Buy : Sell` từng bị HOẶC trộn cả hai chỗ gọi vào mỗi chiều. Nay so sánh số với tham số (`dir > 0`) giải được tại chỗ gọi; nhánh ba ngôi theo tham số KHÔNG giải được → từ chối. SL/TP `(dir>0) ? price - X*_Point : ..` chọn đúng nhánh.
+- Sửa `_tach_cong_tru1`: `price-X` bị coi là số mũ vì tên biến tận cùng `e` (giữ đường cũ khi tách mới không dịch được).
+- Cổng bar tự tính: `int bars=iBars(..); if(bars != totalBars){ totalBars = bars; ..}` và hàm `static datetime p; if(Time[0]==p) return false; p=Time[0]; return true;` → `IsNewBar()`. Đo: không thêm điểm vào nào (EA dùng nó còn vướng chỗ khác).
+- Không dịch (đúng): C01 dùng iADX của MT5 (làm mượt khác Wilder); E01 lọc giờ theo PHÚT (DSL chưa có phút).
+- Test: `test_vong7_truy_cap.py` (8), `test_thu_vien_co_che.py` (6).
+
+**2. Đo** (`cau_kho --khong-tai`, cùng kho 1.278 file):
+| | vòng 6 | vòng 7 |
+|---|---|---|
+| điểm vào dịch được | 34 | **48** |
+| EA ra cơ chế | 23 | **31** |
+| mau_thu do_moc | 13/22 | 13/22 |
+Bảng đếm toàn kho (doc_chien_luoc từng file): MQL5 59 → 73 điểm vào, 31 → 39 EA; MQL4 10/5 không đổi. 8 EA mới đều họ juanmql (A01, A03, B01, B03, B04, D01, F01, F03), không file nào giảm.
+
+**3. Vòng thử MÔ PHỎNG** (`vong_thu_nghiem --theo-hang`, EURUSD HistData, phí XM, cổng không đổi): M5 35 chạy/giữ 0; M15 37/0; H1 39/0; H4 40/0 (M15/H4 gộp từ M5 HistData).
+
+**4. Việc (A) — thư viện cơ chế nhỏ** (`nhan/thu_vien_co_che.py`, `tv_chay.py`, `tv_phan_tich.py`; tiêu chí ĐĂNG KÝ TRƯỚC ở `reports/vong7_tien_dang_ky_A.md`, commit trước khi chạy):
+- Mảnh A (SL 1,5×ATR14 / TP 3×ATR14), T (kéo SL 1×ATR14), S (spread > 30 point), P (giờ 7–22), D (1 lệnh/ngày). Tham số = MODE giá trị input mặc định của tác giả trong kho (không tối ưu). Trần 3 mảnh → 26 tổ hợp.
+- 44 EA × 7 cặp (EURUSD, GBPUSD, USDJPY, USDCHF, AUDUSD, NZDUSD, USDCAD) × khung của EA (không cố định → H1) × 26 = **8.008 ô, đếm hết**.
+- Kết quả: 106 ô đạt nhãn cổng ở ngoài mẫu (lãi sau phí, DD < 80 %, ≥ 20 lệnh), chỉ 4 ô lãi cả trong mẫu (cùng một hệ: EA05_MACD_Momentum NZDUSD H1 + lọc phiên P; NM +4,9 %, DD 6 %, 38 lệnh, t = 0,62). p nhỏ nhất 0,02; sau Holm = 1,0 → **0 ô sống**. Bước kiểm bền không ô nào đủ điều kiện để chạy.
+- Trung bình NM theo tổ hợp: gốc −24 %; D/P/A giảm lỗ (tốt nhất APD −7 %) chủ yếu vì vào ít lệnh hơn (ít phí), không tạo lãi.
+- S gần như không đổi gì: chuỗi không có spread lịch sử, mô hình phí spread theo giờ < 30 point → tác dụng thật của lọc spread CHƯA ĐO ĐƯỢC.
+- D dùng biến ngày-trong-tháng của `chay_he` (chặn nhầm nếu đúng một tháng không có lệnh — hiếm).
+→ Thư viện chạy được, đếm đủ phép thử; không có cơ chế nào được giữ. MÔ PHỎNG, không phải tiền thật.
+
 ## 12/10/2026 sáng (3) — Vòng 6: hàm bool F() + lọc trạng thái / HOẶC / else-if phủ định VÀ (MÔ PHỎNG)
 
 **1. Bộ đọc** (`nhan/ham_bool_mql.py` mới; `doc_ma.py`, `goi_ham_mql.py`):

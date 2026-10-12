@@ -1,0 +1,504 @@
+{
+ "so_o": 8008,
+ "loi": 0,
+ "bo_ro": 0,
+ "nhan_cong": 106,
+ "nhan_cong_va_tm_lai": 4,
+ "qua_buoc1": 0,
+ "p_min": 0.020279999698560987,
+ "p_holm_min": 1.0,
+ "theo_manh": {
+  "APD": {
+   "o": 308,
+   "nhan_cong": 5,
+   "nm_tb_pct": -7.038
+  },
+  "PD": {
+   "o": 308,
+   "nhan_cong": 8,
+   "nm_tb_pct": -7.338
+  },
+  "SPD": {
+   "o": 308,
+   "nhan_cong": 8,
+   "nm_tb_pct": -7.338
+  },
+  "TPD": {
+   "o": 308,
+   "nhan_cong": 1,
+   "nm_tb_pct": -8.241
+  },
+  "AD": {
+   "o": 308,
+   "nhan_cong": 5,
+   "nm_tb_pct": -8.413
+  },
+  "ASD": {
+   "o": 308,
+   "nhan_cong": 5,
+   "nm_tb_pct": -8.413
+  },
+  "D": {
+   "o": 308,
+   "nhan_cong": 6,
+   "nm_tb_pct": -8.666
+  },
+  "SD": {
+   "o": 308,
+   "nhan_cong": 6,
+   "nm_tb_pct": -8.666
+  },
+  "ATD": {
+   "o": 308,
+   "nhan_cong": 1,
+   "nm_tb_pct": -9.211
+  },
+  "TD": {
+   "o": 308,
+   "nhan_cong": 1,
+   "nm_tb_pct": -10.039
+  },
+  "TSD": {
+   "o": 308,
+   "nhan_cong": 1,
+   "nm_tb_pct": -10.039
+  },
+  "AP": {
+   "o": 308,
+   "nhan_cong": 3,
+   "nm_tb_pct": -10.436
+  },
+  "ASP": {
+   "o": 308,
+   "nhan_cong": 3,
+   "nm_tb_pct": -10.436
+  },
+  "A": {
+   "o": 308,
+   "nhan_cong": 6,
+   "nm_tb_pct": -12.523
+  },
+  "AS": {
+   "o": 308,
+   "nhan_cong": 6,
+   "nm_tb_pct": -12.523
+  },
+  "ATP": {
+   "o": 308,
+   "nhan_cong": 1,
+   "nm_tb_pct": -16.125
+  },
+  "TP": {
+   "o": 308,
+   "nhan_cong": 0,
+   "nm_tb_pct": -16.708
+  },
+  "TSP": {
+   "o": 308,
+   "nhan_cong": 0,
+   "nm_tb_pct": -16.708
+  },
+  "P": {
+   "o": 308,
+   "nhan_cong": 8,
+   "nm_tb_pct": -19.122
+  },
+  "SP": {
+   "o": 308,
+   "nhan_cong": 8,
+   "nm_tb_pct": -19.122
+  },
+  "AT": {
+   "o": 308,
+   "nhan_cong": 3,
+   "nm_tb_pct": -20.347
+  },
+  "ATS": {
+   "o": 308,
+   "nhan_cong": 3,
+   "nm_tb_pct": -20.347
+  },
+  "T": {
+   "o": 308,
+   "nhan_cong": 2,
+   "nm_tb_pct": -20.556
+  },
+  "TS": {
+   "o": 308,
+   "nhan_cong": 2,
+   "nm_tb_pct": -20.556
+  },
+  "goc": {
+   "o": 308,
+   "nhan_cong": 7,
+   "nm_tb_pct": -24.245
+  },
+  "S": {
+   "o": 308,
+   "nhan_cong": 7,
+   "nm_tb_pct": -24.245
+  }
+ },
+ "tot_nhat_p": [
+  {
+   "ea": "B03_Stoch_Lento_H4.mq5",
+   "cap": "GBPUSD",
+   "khung": "H4",
+   "manh": "AP",
+   "p": 0.020279999698560987,
+   "p_holm": 1.0,
+   "lenh_nm": 46,
+   "nhan_cong": true,
+   "nm": {
+    "loi_pct": 7.869,
+    "sharpe": 2.232,
+    "maxdd_pct": 3.21,
+    "nam": 0.842,
+    "t": 2.048
+   },
+   "tm": {
+    "loi_pct": -4.675,
+    "sharpe": -0.536,
+    "maxdd_pct": 9.35,
+    "nam": 1.963,
+    "t": -0.752
+   }
+  },
+  {
+   "ea": "B03_Stoch_Lento_H4.mq5",
+   "cap": "GBPUSD",
+   "khung": "H4",
+   "manh": "ASP",
+   "p": 0.020279999698560987,
+   "p_holm": 1.0,
+   "lenh_nm": 46,
+   "nhan_cong": true,
+   "nm": {
+    "loi_pct": 7.869,
+    "sharpe": 2.232,
+    "maxdd_pct": 3.21,
+    "nam": 0.842,
+    "t": 2.048
+   },
+   "tm": {
+    "loi_pct": -4.675,
+    "sharpe": -0.536,
+    "maxdd_pct": 9.35,
+    "nam": 1.963,
+    "t": -0.752
+   }
+  },
+  {
+   "ea": "B03_Stoch_Lento_H4.mq5",
+   "cap": "GBPUSD",
+   "khung": "H4",
+   "manh": "APD",
+   "p": 0.030190582543526703,
+   "p_holm": 1.0,
+   "lenh_nm": 45,
+   "nhan_cong": true,
+   "nm": {
+    "loi_pct": 7.124,
+    "sharpe": 2.047,
+    "maxdd_pct": 3.21,
+    "nam": 0.842,
+    "t": 1.878
+   },
+   "tm": {
+    "loi_pct": -5.894,
+    "sharpe": -0.686,
+    "maxdd_pct": 10.0,
+    "nam": 1.963,
+    "t": -0.962
+   }
+  },
+  {
+   "ea": "B03_Stoch_Lento_H4.mq5",
+   "cap": "GBPUSD",
+   "khung": "H4",
+   "manh": "A",
+   "p": 0.04181513761359497,
+   "p_holm": 1.0,
+   "lenh_nm": 61,
+   "nhan_cong": true,
+   "nm": {
+    "loi_pct": 7.694,
+    "sharpe": 1.885,
+    "maxdd_pct": 2.59,
+    "nam": 0.842,
+    "t": 1.73
+   },
+   "tm": {
+    "loi_pct": -3.441,
+    "sharpe": -0.347,
+    "maxdd_pct": 8.46,
+    "nam": 1.963,
+    "t": -0.486
+   }
+  },
+  {
+   "ea": "B03_Stoch_Lento_H4.mq5",
+   "cap": "GBPUSD",
+   "khung": "H4",
+   "manh": "AS",
+   "p": 0.04181513761359497,
+   "p_holm": 1.0,
+   "lenh_nm": 61,
+   "nhan_cong": true,
+   "nm": {
+    "loi_pct": 7.694,
+    "sharpe": 1.885,
+    "maxdd_pct": 2.59,
+    "nam": 0.842,
+    "t": 1.73
+   },
+   "tm": {
+    "loi_pct": -3.441,
+    "sharpe": -0.347,
+    "maxdd_pct": 8.46,
+    "nam": 1.963,
+    "t": -0.486
+   }
+  },
+  {
+   "ea": "F01_Conservador_H4.mq5",
+   "cap": "USDCAD",
+   "khung": "H4",
+   "manh": "AP",
+   "p": 0.06667778078440004,
+   "p_holm": 1.0,
+   "lenh_nm": 8,
+   "nhan_cong": false,
+   "nm": {
+    "loi_pct": 1.836,
+    "sharpe": 1.636,
+    "maxdd_pct": 0.6,
+    "nam": 0.842,
+    "t": 1.501
+   },
+   "tm": {
+    "loi_pct": -2.866,
+    "sharpe": -0.667,
+    "maxdd_pct": 3.64,
+    "nam": 1.963,
+    "t": -0.934
+   }
+  },
+  {
+   "ea": "F01_Conservador_H4.mq5",
+   "cap": "USDCAD",
+   "khung": "H4",
+   "manh": "ASP",
+   "p": 0.06667778078440004,
+   "p_holm": 1.0,
+   "lenh_nm": 8,
+   "nhan_cong": false,
+   "nm": {
+    "loi_pct": 1.836,
+    "sharpe": 1.636,
+    "maxdd_pct": 0.6,
+    "nam": 0.842,
+    "t": 1.501
+   },
+   "tm": {
+    "loi_pct": -2.866,
+    "sharpe": -0.667,
+    "maxdd_pct": 3.64,
+    "nam": 1.963,
+    "t": -0.934
+   }
+  },
+  {
+   "ea": "F01_Conservador_H4.mq5",
+   "cap": "USDCAD",
+   "khung": "H4",
+   "manh": "APD",
+   "p": 0.06667778078440004,
+   "p_holm": 1.0,
+   "lenh_nm": 8,
+   "nhan_cong": false,
+   "nm": {
+    "loi_pct": 1.836,
+    "sharpe": 1.636,
+    "maxdd_pct": 0.6,
+    "nam": 0.842,
+    "t": 1.501
+   },
+   "tm": {
+    "loi_pct": -1.832,
+    "sharpe": -0.46,
+    "maxdd_pct": 2.76,
+    "nam": 1.963,
+    "t": -0.645
+   }
+  },
+  {
+   "ea": "F03_TrailingPuro_H4.mq5",
+   "cap": "USDCAD",
+   "khung": "H4",
+   "manh": "AP",
+   "p": 0.06667778078440004,
+   "p_holm": 1.0,
+   "lenh_nm": 8,
+   "nhan_cong": false,
+   "nm": {
+    "loi_pct": 1.836,
+    "sharpe": 1.636,
+    "maxdd_pct": 0.6,
+    "nam": 0.842,
+    "t": 1.501
+   },
+   "tm": {
+    "loi_pct": -2.866,
+    "sharpe": -0.667,
+    "maxdd_pct": 3.64,
+    "nam": 1.963,
+    "t": -0.934
+   }
+  },
+  {
+   "ea": "F03_TrailingPuro_H4.mq5",
+   "cap": "USDCAD",
+   "khung": "H4",
+   "manh": "ASP",
+   "p": 0.06667778078440004,
+   "p_holm": 1.0,
+   "lenh_nm": 8,
+   "nhan_cong": false,
+   "nm": {
+    "loi_pct": 1.836,
+    "sharpe": 1.636,
+    "maxdd_pct": 0.6,
+    "nam": 0.842,
+    "t": 1.501
+   },
+   "tm": {
+    "loi_pct": -2.866,
+    "sharpe": -0.667,
+    "maxdd_pct": 3.64,
+    "nam": 1.963,
+    "t": -0.934
+   }
+  },
+  {
+   "ea": "F03_TrailingPuro_H4.mq5",
+   "cap": "USDCAD",
+   "khung": "H4",
+   "manh": "APD",
+   "p": 0.06667778078440004,
+   "p_holm": 1.0,
+   "lenh_nm": 8,
+   "nhan_cong": false,
+   "nm": {
+    "loi_pct": 1.836,
+    "sharpe": 1.636,
+    "maxdd_pct": 0.6,
+    "nam": 0.842,
+    "t": 1.501
+   },
+   "tm": {
+    "loi_pct": -1.832,
+    "sharpe": -0.46,
+    "maxdd_pct": 2.76,
+    "nam": 1.963,
+    "t": -0.645
+   }
+  },
+  {
+   "ea": "F01_Conservador_H4.mq5",
+   "cap": "USDCAD",
+   "khung": "H4",
+   "manh": "goc",
+   "p": 0.06784957266892752,
+   "p_holm": 1.0,
+   "lenh_nm": 7,
+   "nhan_cong": false,
+   "nm": {
+    "loi_pct": 4.416,
+    "sharpe": 1.627,
+    "maxdd_pct": 2.35,
+    "nam": 0.842,
+    "t": 1.492
+   },
+   "tm": {
+    "loi_pct": -12.092,
+    "sharpe": -1.872,
+    "maxdd_pct": 12.41,
+    "nam": 1.963,
+    "t": -2.623
+   }
+  },
+  {
+   "ea": "F01_Conservador_H4.mq5",
+   "cap": "USDCAD",
+   "khung": "H4",
+   "manh": "S",
+   "p": 0.06784957266892752,
+   "p_holm": 1.0,
+   "lenh_nm": 7,
+   "nhan_cong": false,
+   "nm": {
+    "loi_pct": 4.416,
+    "sharpe": 1.627,
+    "maxdd_pct": 2.35,
+    "nam": 0.842,
+    "t": 1.492
+   },
+   "tm": {
+    "loi_pct": -12.092,
+    "sharpe": -1.872,
+    "maxdd_pct": 12.41,
+    "nam": 1.963,
+    "t": -2.623
+   }
+  },
+  {
+   "ea": "F01_Conservador_H4.mq5",
+   "cap": "USDCAD",
+   "khung": "H4",
+   "manh": "D",
+   "p": 0.06784957266892752,
+   "p_holm": 1.0,
+   "lenh_nm": 7,
+   "nhan_cong": false,
+   "nm": {
+    "loi_pct": 4.416,
+    "sharpe": 1.627,
+    "maxdd_pct": 2.35,
+    "nam": 0.842,
+    "t": 1.492
+   },
+   "tm": {
+    "loi_pct": -12.092,
+    "sharpe": -1.872,
+    "maxdd_pct": 12.41,
+    "nam": 1.963,
+    "t": -2.623
+   }
+  },
+  {
+   "ea": "F01_Conservador_H4.mq5",
+   "cap": "USDCAD",
+   "khung": "H4",
+   "manh": "SD",
+   "p": 0.06784957266892752,
+   "p_holm": 1.0,
+   "lenh_nm": 7,
+   "nhan_cong": false,
+   "nm": {
+    "loi_pct": 4.416,
+    "sharpe": 1.627,
+    "maxdd_pct": 2.35,
+    "nam": 0.842,
+    "t": 1.492
+   },
+   "tm": {
+    "loi_pct": -12.092,
+    "sharpe": -1.872,
+    "maxdd_pct": 12.41,
+    "nam": 1.963,
+    "t": -2.623
+   }
+  }
+ ]
+}
