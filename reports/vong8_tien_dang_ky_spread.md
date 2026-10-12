@@ -22,3 +22,9 @@ Ghi 2026-10-12 ~10:15 (UTC+7), truoc khi chay bat ky o nao tren du lieu tick.
 
 ## Nhan / song (giong vong 7)
 - Nhan cong: NM lai sau phi > 0, maxDD < 80 %, >= 20 lenh NM. Song: nhan cong + TM lai + p Holm < 0,05.
+
+## Bo sung (ghi 10:40, van TRUOC khi chay o nao)
+- Phat hien khi doc mo hinh phi: mo phong tinh DU spread o CA chieu vao lan chieu ra (khu hoi = 2 x spread,
+  kiem bang mot lenh tren gia phang: 3,26 bps voi spread 1,63 bps). Them co `spread_mot_lan` (mac dinh TAT).
+- Luot nay chay them ban `spread_mot_lan=True` (khu hoi = 1 x spread) CHI DE CHAN DOAN anh huong; KHONG dung de
+  chon he, khong tinh vao ket luan S, khong doi cong. Ho Holm cua ban chan doan tinh rieng.

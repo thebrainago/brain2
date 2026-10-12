@@ -149,7 +149,7 @@ def chay(df: pd.DataFrame, tin_hieu, cp: CP.MoHinhChiPhi,
 
     doi = np.abs(np.diff(np.concatenate(([0.0], v))))
     sp = cp.spread_mang(idx)
-    phi_sp = doi * sp
+    phi_sp = doi * sp * cp.he_so_phi_spread()
     phi_tr = doi * cp.truot_gia_frac
     phi_gi = cp.phi_giu_mang(idx, v, lai_suat_nam)
 
@@ -1277,7 +1277,7 @@ def chay_he(df: pd.DataFrame, chan: list[dict], cp: CP.MoHinhChiPhi, ma: str = "
     loi_k = np.zeros((K, n))
     phi_sp = phi_tr = phi_gi = 0.0
     for k in range(K):
-        a = kl[k] * sp
+        a = kl[k] * sp * cp.he_so_phi_spread()
         t = kl[k] * cp.truot_gia_frac
         # tai khoan hedging: lenh mua tra phi mua, lenh ban tra phi ban - rieng tung lenh
         g = cp.phi_giu_mang(idx, vm[k], None) + cp.phi_giu_mang(idx, -vb[k], None)

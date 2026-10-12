@@ -235,6 +235,13 @@ class MoHinhChiPhi:
     markup_ban: float = 0.0
     #: {nam: spread frac} DO tu cot spread cua bar theo tung nam; rong -> spread chung moi nam
     spread_frac_theo_nam: dict = field(default_factory=dict)
+    #: vong 8: spread THAT tung bar (pd.Series frac, index = thoi diem bar; vd tu tick bid/ask).
+    #: None -> mo hinh gio/nam nhu cu. Bar thieu -> roi ve mo hinh cu.
+    spread_frac_bar: object = None
+    #: vong 8: True -> moi lenh KHU HOI tra spread MOT lan (nua spread moi chieu vao/ra) thay vi
+    #: tra du spread o CA chieu vao lan chieu ra (mac dinh cu = 2 x spread / khu hoi). Gia
+    #: ASK = BID + spread khong doi. Mac dinh False (hanh vi cu y het) - xem GHI_CHU vong 8.
+    spread_mot_lan: bool = False
 
     def phien_ban(self) -> str:
         """Nhan phien ban mo hinh phi cho bao cao (P3)."""
@@ -266,7 +273,14 @@ class MoHinhChiPhi:
             for y, v in self.spread_frac_theo_nam.items():
                 he[nam == int(y)] = float(v) / self.spread_frac_chung
             ra = ra * he
+        if self.spread_frac_bar is not None and len(index):
+            x = pd.Series(self.spread_frac_bar).reindex(index).to_numpy(dtype=float)
+            ra = np.where(np.isfinite(x), x, ra)
         return ra
+
+    def he_so_phi_spread(self) -> float:
+        """Phan spread tinh vao PHI moi chieu vao/ra (1.0 cu; 0.5 khi `spread_mot_lan`)."""
+        return 0.5 if self.spread_mot_lan else 1.0
 
     def phi_nam_theo_bar(self, index: pd.DatetimeIndex) -> tuple[np.ndarray, np.ndarray]:
         """(phi_mua, phi_ban) ti le/nam cho tung bar - theo THANG neu co `chenh_lai_suat`."""
@@ -338,6 +352,10 @@ class MoHinhChiPhi:
                 m.spread_frac_theo_gio = {g: x * (v / self.spread_frac_chung)
                                           for g, x in self.spread_frac_theo_gio.items()} \
                     if self.spread_frac_chung > 0 else {}
+                if self.spread_frac_bar is not None and self.spread_frac_chung > 0:
+                    m.spread_frac_bar = pd.Series(self.spread_frac_bar) * (v / self.spread_frac_chung)
+            elif k in ("spread_mot_lan", "spread_frac_bar"):
+                setattr(m, k, v)
             elif k == "truot_gia":
                 m.truot_gia_frac = v
             elif k == "phi_mua":
