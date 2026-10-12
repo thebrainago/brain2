@@ -4,6 +4,15 @@
 
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
 
+## 12/10/2026 chiều (14) — Vòng 22: nhóm chiến lược × khung M5…W1, trước/sau phí (MÔ PHỎNG)
+
+- Đăng ký trước `reports/vong22_tien_dang_ky.md`; `v22.py`, `test_v22.py`, `reports/vong22.json`.
+- 71 chuỗi×khung × 38 ô = 2.686 ô; 2.335 đủ lệnh. Holm cộng dồn 8.935 → 11.270: 0 SỐNG sau phí. p thô tốt nhất 0,00067 (NZDUSD H1 GAP_FILL, 47 lệnh).
+- Phí/lệnh (spread×1,2 + 2×0,5 pip + swap) ≈ 2,5–3 bps ở mọi khung; biên độ |lãi/lỗ thô| trung bình/lệnh: M5 ≈ 5–8 bps, M15 ≈ 10, M30 ≈ 14, H1 ≈ 21, H4 ≈ 44, D1 ≈ 140, W1 ≈ 300 → khung nhỏ phí ăn 35–50 % biên độ.
+- TRƯỚC PHÍ có lợi thế thô thật ở M5 cho MR/đảo chiều/EMA-MR (MRZ AUDCAD M5 +0,7 bps/lệnh, p 4e-21; NZDUSD 2018–23 M5 +0,9 bps) nhưng chỉ 0,5–1,6 bps/lệnh < phí ~2,7 bps → sau phí âm rất nặng. Cảnh báo: dữ liệu M5 chỉ có BID (HistData), một phần "hồi quy" ở M5 có thể là nhiễu dao động spread/bid-bounce → coi là giới hạn trên.
+- Khung lớn (D1/W1): đảo chiều/MR W1 trung vị kiểm +13 % nhưng ít lệnh (≤ 20 lệnh/nửa), không qua Holm.
+- Vàng/chỉ số khung M5–M30: chỉ có XAUUSD M5 (spread cố định); US500/UK100 M5–M30 CHƯA ĐO ĐƯỢC. NEWS_FADE/PHIÊN ở D1/W1 không định nghĩa được (CHƯA ĐO ĐƯỢC).
+
 ## 12/10/2026 chiều (13) — Vòng 21: "giá luôn gặp lại EMA" (MÔ PHỎNG)
 
 - Đăng ký trước `reports/vong21_tien_dang_ky.md`; `v21.py`, `reports/vong21.json`, `test_v21.py`. `scikit-learn` thêm vào `requirements.txt`.
