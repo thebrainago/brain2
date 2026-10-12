@@ -132,6 +132,38 @@ def phan_tich(ten: str):
     return ra
 
 
+def _loc_thu_switch(than: str, goc: int):
+    """Loc NGAY TRONG TUAN bang switch (vong 7):
+        MqlDateTime t; TimeToStruct(TimeCurrent(), t);
+        switch(t.day_of_week){ case 1: return(InpMon); ... default: return(InpSun); }
+    Moi nhanh tra hang/INPUT bool -> tinh bang gia tri input; F = VA cua `thu != d` voi moi
+    ngay d bi tat. Nguon gio khac TimeCurrent() (GMT/may) -> None (lech ngay luc nua dem)."""
+    m = re.fullmatch(r"\s*MqlDateTime\s+(\w+)\s*;\s*TimeToStruct\s*\(\s*TimeCurrent\s*\(\s*\)\s*,"
+                     r"\s*(\w+)\s*\)\s*;\s*switch\s*\(\s*(\w+)\.day_of_week\s*\)\s*\{(.*)\}\s*",
+                     than, re.S)
+    if not m or not (m.group(1) == m.group(2) == m.group(3)):
+        return None
+    nhanh = re.findall(r"(case\s+(\d+)|default)\s*:\s*return\s*\(?\s*(\w+)\s*\)?\s*;", m.group(4))
+    phan = re.sub(r"(case\s+\d+|default)\s*:\s*return\s*\(?\s*\w+\s*\)?\s*;", "", m.group(4))
+    if not nhanh or phan.strip():
+        return None
+    bat, mac_dinh = {}, None
+    for _, d, e in nhanh:
+        v = True if e == "true" else False if e == "false" else _gia_tri(e)
+        if not isinstance(v, bool):
+            return None
+        if d:
+            bat[int(d)] = v
+        else:
+            mac_dinh = v
+    ngay = {d: bat.get(d, mac_dinh) for d in range(7)}
+    if any(v is None for v in ngay.values()):
+        return None
+    if not any(ngay.values()):
+        return None
+    return [("pos", goc, f"_thu_ != {d}") for d in range(7) if not ngay[d]]
+
+
 def _phan_tich(ten: str):
     D = _D()
     vb, mn = _VB["vb"], _VB["mn"]
@@ -148,6 +180,9 @@ def _phan_tich(ten: str):
         return None
     mo, dong = h["mo"], h["dong"]
     than = mn[mo + 1:dong]
+    loc_thu = _loc_thu_switch(vb[mo + 1:dong], mo + 1)
+    if loc_thu is not None:
+        return loc_thu
     if _CAM.search(than):
         return None
     buoc = []                                     # ("if", c, cpos, x, xpos) / ("ret", x, xpos)

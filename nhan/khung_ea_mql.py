@@ -52,7 +52,7 @@ _HAM_TF = (r"i(?:RSI|ATR|MA|CCI|Momentum|Bands|MACD|Stochastic|ADX|ADXWilder|Std
            r"|SeriesInfoInteger")
 _RX_GOI_TF = re.compile(r"\b(" + _HAM_TF + r")[ \t]*\(")
 _RX_INPUT = re.compile(
-    r"^([ \t]*(?:static[ \t]+)?(?:input|sinput|extern)[ \t]+)([\w:]+)([ \t]+)([A-Za-z_]\w*)"
+    r"(?:^|(?<=;))([ \t]*(?:static[ \t]+)?(?:input|sinput|extern)[ \t]+)([\w:]+)([ \t]+)([A-Za-z_]\w*)"
     r"([ \t]*=[ \t]*)([^;\n]+?)([ \t]*;)", re.M)
 
 
@@ -369,14 +369,113 @@ def noi_ham_boc_buffer(vb: str) -> tuple[str, list[str]]:
     return ra, ghi
 
 
+
+# ------------------------------------------------------------ MANG HANDLE (vong 7, 12/10/2026)
+_RX_MANG_HANDLE = re.compile(r"^[ \t]*(?:static[ \t]+)?int[ \t]+([A-Za-z_]\w*)[ \t]*\[[ \t]*(\d+)[ \t]*\]"
+                             r"[ \t]*;", re.M)
+_RX_TAO_CB = re.compile(r"i(?:RSI|ATR|MA|CCI|Momentum|Bands|MACD|Stochastic|ADX|ADXWilder|StdDev"
+                        r"|Ichimoku|Envelopes|SAR|Force|DeMarker|WPR|RVI|AO|AC|OBV|MFI|OsMA|TEMA"
+                        r"|DEMA|FrAMA|AMA|VIDyA|TriX|BearsPower|BullsPower)[ \t]*\(")
+
+
+def mang_handle(vb: str) -> tuple[str, list[str]]:
+    """`int H[N];` + `H[k] = iMA(..);` (k SO, moi k gan DUNG MOT lan bang ham tao chi bao)
+    -> bien don `H__k` (viet lai cu phap, cung nghia). Ham boc nhan CHI SO
+    `double Val(int idx, int b, int s){ .. CopyBuffer(H[idx], b, s, 1, arr) .. }` -> tham
+    so idx thanh handle (`CopyBuffer(idx, ..)`), cho goi `Val(k, ..)` (k SO) -> `Val(H__k, ..)`
+    de `noi_ham_boc_buffer` noi tiep. Chi so khong phai SO ngoai `IndicatorRelease(..)` /
+    so voi `INVALID_HANDLE` -> khong doi gi (mo ho)."""
+    ghi = []
+    for m in list(_RX_MANG_HANDLE.finditer(vb)):
+        H, N = m.group(1), int(m.group(2))
+        gan = {}
+        hong = False
+        for g in re.finditer(rf"(?<![\w.]){H}[ \t]*\[[ \t]*(\d+)[ \t]*\][ \t]*=(?!=)[ \t]*([^;]*);", vb):
+            k = int(g.group(1))
+            if k in gan or not _RX_TAO_CB.match(g.group(2).strip()) or k >= N:
+                hong = True
+            gan[k] = g.group(2)
+        if hong or not gan:
+            continue
+        # chi so khong phai so: chi duoc trong IndicatorRelease / so voi INVALID_HANDLE / ham boc
+        ham_boc = {}
+        for f in _RX_HAM_DOUBLE.finditer(vb):
+            ts = _ten_tham_so(f.group(2))
+            t = _than(vb, f.end() - 1)
+            if not ts or t is None:
+                continue
+            than = t[0]
+            mm = re.search(rf"\bCopyBuffer[ \t]*\([ \t]*{H}[ \t]*\[[ \t]*([A-Za-z_]\w*)[ \t]*\]", than)
+            if mm and mm.group(1) in ts and len(re.findall(rf"(?<![\w.]){H}\b", than)) == 1 and \
+                    not re.search(rf"(?<![\w.]){mm.group(1)}\b(?![ \t]*\])", than.replace(mm.group(0), "")):
+                ham_boc[f.group(1)] = (ts.index(mm.group(1)), f.start(), f.end() - 1 + len(t[0]) + 2)
+        lo = False
+        for x in re.finditer(rf"(?<![\w.]){H}[ \t]*\[[ \t]*([^\]]*?)[ \t]*\]", vb):
+            if re.fullmatch(r"\d+", x.group(1)):
+                continue
+            truoc = vb[max(0, x.start() - 40):x.start()]
+            sau = vb[x.end():x.end() + 25]
+            if re.search(r"IndicatorRelease[ \t]*\([ \t]*$", truoc) or \
+                    re.match(r"[ \t]*(?:!=|==)[ \t]*INVALID_HANDLE", sau) or \
+                    any(a <= x.start() <= b for _, a, b in ham_boc.values()):
+                continue
+            lo = True
+        if lo:
+            continue
+        ra = re.sub(rf"(?<![\w.]){H}[ \t]*\[[ \t]*(\d+)[ \t]*\]", lambda q: f"{H}__{q.group(1)}", vb)
+        ra = ra.replace(m.group(0), m.group(0) + " int " + ", ".join(f"{H}__{k}" for k in sorted(gan)) + ";", 1)
+        for ten, (vi_idx, _, _) in ham_boc.items():
+            ra = re.sub(rf"\bCopyBuffer([ \t]*\([ \t]*){H}[ \t]*\[[ \t]*([A-Za-z_]\w*)[ \t]*\]",
+                        r"CopyBuffer\1\2", ra)
+
+            def _goi(q, vi_idx=vi_idx):
+                doi = [d.strip() for d in q.group(2).split(",")]
+                if vi_idx < len(doi) and re.fullmatch(r"\d+", doi[vi_idx]) and int(doi[vi_idx]) in gan:
+                    doi[vi_idx] = f"{H}__{doi[vi_idx]}"
+                    return f"{q.group(1)}({', '.join(doi)})"
+                return q.group(0)
+            ra = re.sub(rf"(?<![\w.])({re.escape(ten)})[ \t]*\(([^()]*)\)(?![ \t]*\{{)", _goi, ra)
+            ghi.append(f"mang handle {H}[{N}] -> bien don; ham boc chi so {ten}")
+        vb = ra
+    return vb, ghi
+
+
+_RX_HAM_GIA = re.compile(r"^[ \t]*(?:static[ \t]+)?(?:double|datetime|long)[ \t]+([A-Za-z_]\w*)[ \t]*"
+                         r"\([ \t]*(?:const[ \t]+)?int[ \t]+([A-Za-z_]\w*)[ \t]*\)\s*\{\s*return[ \t]*\(?[ \t]*"
+                         r"(i(?:Open|High|Low|Close|Time|Volume|TickVolume))[ \t]*\([ \t]*(_Symbol|Symbol\(\)|NULL)"
+                         r"[ \t]*,[ \t]*(_Period|PERIOD_CURRENT)[ \t]*,[ \t]*\2[ \t]*\)[ \t]*\)?[ \t]*;\s*\}", re.M)
+
+
+def noi_ham_gia(vb: str) -> tuple[str, list[str]]:
+    """Ham MOT dong `double Price(int s){ return iClose(_Symbol, _Period, s); }` (sau khi
+    khung co dinh da viet ve `_Period`) -> loi goi `Price(k)` (k SO) thay bang
+    `iClose(_Symbol,_Period,k)`. Chi chuoi gia chuan, cung nghia (vong 7)."""
+    ghi = []
+    for m in list(_RX_HAM_GIA.finditer(vb)):
+        ten, ham = m.group(1), m.group(3)
+        n0 = vb
+        dau, cuoi = vb[:m.end()], vb[m.end():]
+        cuoi = re.sub(rf"(?<![\w.]){ten}[ \t]*\([ \t]*(\d+)[ \t]*\)",
+                      lambda q: f"{ham}(_Symbol,_Period,{q.group(1)})", cuoi)
+        dau = dau[:m.start()] + re.sub(rf"(?<![\w.]){ten}[ \t]*\([ \t]*(\d+)[ \t]*\)",
+                                       lambda q: f"{ham}(_Symbol,_Period,{q.group(1)})",
+                                       dau[:m.start()]) + dau[m.start():]
+        vb = dau + cuoi
+        if vb != n0:
+            ghi.append(f"ham gia mot dong {ten}(k) -> {ham}(_Symbol,_Period,k)")
+    return vb, ghi
+
+
 def chuan_bi(vb: str, set_ea: str | dict | None = None) -> tuple[str, dict]:
     """.set -> khung co dinh -> ham boc buffer. Tra (van ban, ghi chu)."""
     gt = doc_set(set_ea) if isinstance(set_ea, str) else (set_ea or None)
     vb, g_set = ap_set(vb, gt)
+    vb, g_mang = mang_handle(vb)
     khung, vb, ly = khung_co_dinh(vb)
+    vb, g_gia = noi_ham_gia(vb)
     vb, g_boc = noi_ham_boc_buffer(vb)
     return vb, {"khung_ea": khung, "khung_ly_do": ly, "set": g_set if gt else None,
-                "boc_buffer": g_boc}
+                "boc_buffer": g_mang + g_gia + g_boc}
 
 
 # ------------------------------------------------------------ HET GIO THEO SO BAR

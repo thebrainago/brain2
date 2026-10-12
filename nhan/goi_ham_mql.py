@@ -300,6 +300,14 @@ def _dk_chi_tham_so(g: str, ten_ts: list[str]):
     m = re.match(rf"^(!\s*)?({_TEN})$", b)
     if m and m.group(2) in ten_ts:
         return m.group(2), "!=" if not m.group(1) else "==", "false"
+    # vong 7: so sanh SO voi tham so (`dir > 0`, `0 < dir`) - `OpenTrade(1)` / `OpenTrade(-1)`
+    lat = {"<": ">", ">": "<", "<=": ">=", ">=": "<="}
+    m = re.match(rf"^({_TEN})\s*(<=|>=|<|>)\s*(-?\d+(?:\.\d+)?)$", b)
+    if m and m.group(1) in ten_ts:
+        return m.group(1), m.group(2), m.group(3)
+    m = re.match(rf"^(-?\d+(?:\.\d+)?)\s*(<=|>=|<|>)\s*({_TEN})$", b)
+    if m and m.group(3) in ten_ts:
+        return m.group(3), lat[m.group(2)], m.group(1)
     return None
 
 
@@ -308,6 +316,12 @@ def _tinh(dk, gan: dict) -> bool | None:
     v = gan.get(p)
     if v is None or not re.fullmatch(_HANG, v):
         return None
+    if phep in ("<", ">", "<=", ">="):
+        try:
+            a, b = float(v), float(c)
+        except ValueError:
+            return None
+        return {"<": a < b, ">": a > b, "<=": a <= b, ">=": a >= b}[phep]
     bang = (v == c) or (v in ("0", "false") and c in ("0", "false"))
     return bang if phep == "==" else not bang
 
@@ -427,6 +441,12 @@ def nang_cho_goi(vb: str, vi_lenh: int, m=None) -> dict:
             tn_ = _HI()._chon_tam_nguyen(vb, m) if (m is not None and buoc == 0) else None
             dk_ts, ifs, loai, gap_else = _dk_tham_so_tang(vb, mn, ham, vi, ifs, khoi, loai, gap_else,
                                                           tn_)
+            if tn_ is not None and not dk_ts and any(
+                    re.search(rf"(?<![\w.]){re.escape(t)}\b", tn_[0])
+                    for t in _ten_tham_so(ham["tham_so"]) if t):
+                # vong 7: lenh la mot nhanh `C ? Buy : Sell` ma C KHONG giai duoc bang tham so
+                # hang -> chon lenh phu thuoc gia tri chua biet: tu choi (truoc day lot qua HOAC)
+                return {"loi": f"goi ham: nhanh ba ngoi chon lenh chua giai: {tn_[0][:40]}"}
             if "else" in loai or gap_else:
                 # 11/10/2026 dem: `if(A){..} else if(B){ F(); }` -> ghi cac A de doc_ma CHUNG MINH
                 # B loai tru A (`_mau_thuan`); `else` tran / khong doc duoc chuoi -> tu choi

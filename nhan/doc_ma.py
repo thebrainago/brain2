@@ -1083,6 +1083,12 @@ def _thoat_loai_tru(phan: str, vi: int, dk: list, bang_cb: list, bang_bl: list) 
     """Loc thoat `phan` (VA cac ve) MAU THUAN voi guard da dich `dk` -> khong bao gio chan."""
     if not dk or _mau_thuan(dk) is not None:
         return False
+    # bo ve QUAN TRI cua X (X yeu hon): X' = VA cac ve tin hieu; G mau thuan X' => G mau thuan X
+    ves = _tach_va(_boc_ngoac(phan)) if len(_tach_hoac(_boc_ngoac(phan))) == 1 else [phan]
+    ves = [v for v in ves if not _la_quan_tri(_boc_ngoac(v))]
+    if not ves:
+        return False
+    phan = " and ".join(ves)
     dX, hX = _no_dieu_kien(phan, vi, bang_cb, bang_bl)
     return (not hX and bool(dX) and _mau_thuan(dX) is None
             and _mau_thuan(list(dk) + dX) is not None)
@@ -1115,15 +1121,32 @@ def _dk_ham_bool(ve: str, vi_tri: int, bang_cb: list, bang_bl: list, sau: int = 
     for k, p, x in con:
         x = _boc_ngoac(x)
         if k == "pos":
-            d, h = _no_dieu_kien(x, p, bang_cb, bang_bl, sau + 1)
-            if h or not d:
-                return None
+            d = []
+            for v in _phang_va(x):                 # `(A && B) && (C)` -> A, B, C (vong 7)
+                d1, h = _no_dieu_kien(v, p, bang_cb, bang_bl, sau + 1)
+                if h or not d1:
+                    return None
+                d += d1
         else:
             d = _phu_dinh(x, p, bang_cb, bang_bl)
             if not d:
                 return None
         dk += d
     return dk
+
+
+def _phang_va(x: str) -> list[str]:
+    """Lam phang VA long ngoac: `(A and B) and (C)` -> [A, B, C]; co HOAC o cap tren -> [x]."""
+    x = _boc_ngoac(x.strip())
+    if len(_tach_hoac(x)) != 1:
+        return [x]
+    ves = _tach_va(x)
+    if len(ves) == 1:
+        return [x]
+    ra = []
+    for v in ves:
+        ra += _phang_va(v)
+    return ra
 
 
 def _no_dieu_kien(bt: str, vi_tri: int, bang_cb: list, bang_bl: list,
@@ -1249,7 +1272,8 @@ _HAM_CB_NHIEU = {"ibands": {0: "giua", 1: "tren", 2: "duoi"},
                  "imacd": {0: "chinh", 1: "tinhieu"},
                  "istochastic": {0: "chinh", 1: "tinhieu"}}
 _RX_INPUT_GT = re.compile(
-    r"^[ \t]*(?:static[ \t]+)?(?:input|sinput|extern)[ \t]+\w+[ \t]+([A-Za-z_]\w*)"
+    # vong 7: nhieu khai bao tren MOT dong (`input bool A=true; input bool B=false;`)
+    r"(?:^|(?<=;))[ \t]*(?:static[ \t]+)?(?:input|sinput|extern)[ \t]+\w+[ \t]+([A-Za-z_]\w*)"
     r"[ \t]*=[ \t]*([A-Za-z_]\w*|[-+]?\d+(?:\.\d+)?)[ \t]*;", re.M)
 
 
@@ -3488,7 +3512,7 @@ def _bo_ngoac_ngoai(bt: str) -> str:
     return bt
 
 
-def _tach_cong_tru1(bt: str) -> tuple[str, str, str] | None:
+def _tach_cong_tru1(bt: str, cu: bool = False) -> tuple[str, str, str] | None:
     """`A-B` / `A+B` o muc ngoac 0 (dau dau tien sau ky tu dau). A,B khong rong."""
     muc = 0
     for i, ch in enumerate(bt):
@@ -3496,7 +3520,9 @@ def _tach_cong_tru1(bt: str) -> tuple[str, str, str] | None:
             muc += 1
         elif ch in ")]":
             muc -= 1
-        elif ch in "+-" and muc == 0 and i > 0 and bt[i - 1] not in "*/eE(?:":
+        elif ch in "+-" and muc == 0 and i > 0 and bt[i - 1] not in "*/(?:" and not (
+                bt[i - 1] in "eE" and (cu or re.search(r"(?<![\w.])\d+(?:\.\d*)?[eE]$", bt[:i]))):
+            # vong 7: `price-X` - chu `e` cuoi TEN bien khong phai so mu (1e-5)
             a, b = bt[:i], bt[i + 1:]
             return (a, ch, b) if a and b else None
     return None
@@ -3522,6 +3548,11 @@ def _cat_muc0(bt: str, ky: str) -> list[str]:
             dau = i + 1
     ra.append(bt[dau:])
     return ra
+
+
+def _HI_mod():
+    from nhan import huong_int_mql as HI
+    return HI
 
 
 def _chon_tn(bt: str, lit: frozenset) -> str:
@@ -3781,13 +3812,17 @@ def _sltp_truc_tiep(vb2: str, m, chieu: int, vi: int | None, bang_cb: list,
         ct = _tach_cong_tru1(bt)
         if ct is not None:
             ref = _gia_ab(ct[0], vb2, goc, vi, pos, lit=lit)
-            if ref is not None:
+            # vong 7: tach moi (ten bien tan cung `e`) ma hong -> di tiep duong cu (khong tach)
+            moi_ = _tach_cong_tru1(bt, cu=True) is None
+            kc = None
+            if ref is not None and not (moi_ and ct[1] != dau_dung):
                 if ct[1] != dau_dung:
                     return None, ghi + [f"{f.upper()} `{bt[:40]}` sai phia - chua dich"]
                 kc = _khoang(ct[2], pos, bang_cb, bang_bl, hang)
                 if kc is None:
                     kc = _khoang_tich(_mo_khoang(ct[2], vb2, goc, vi, pos, hang, ghi),
                                       pos, bang_cb, bang_bl, hang)
+            if kc is not None or (ref is not None and not moi_):
                 if kc is None:
                     return None, ghi + [f"{f.upper()} khoang `{ct[2][:40]}` khong phai "
                                         "N*_Point hay ATR*k - chua dich"]
@@ -4200,6 +4235,16 @@ def _doc_chien_luoc_mql(vb: str, nguon: str, tien_to: str) -> dict:
             if tn is not None:
                 ifs = ifs + [tn]
                 lit_tn = {tn[1].replace(" ", "")}
+            if bo_tn and not lit_tn:
+                # vong 7: lenh la nhanh `C(tham so) ? Buy : Sell` da giai tai cho goi -> SL/TP
+                # `C ? a : b` trong CUNG ham chon dung nhanh (C la tham so hang moi cho goi)
+                try:
+                    tc = _HI_mod()._chon_tam_nguyen(vb, m)
+                except Exception:                   # noqa: BLE001
+                    tc = None
+                if tc is not None:
+                    c0 = _bo_ngoac_ngoai(re.sub(r"\s+", "", tc[0]))
+                    lit_tn = {c0 if tc[1] else "!" + c0}
             moi_tick_m = _kiem_moi_tick(vb, m.start())
             vi_the = any(_phu_thuoc_vi_the(g, p, bang_bl) for p, g in ifs)
             loai_hong = "quan_ly_vi_the" if vi_the else "chua_dich"
