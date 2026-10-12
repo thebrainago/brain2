@@ -4,6 +4,13 @@
 
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
 
+## 12/10/2026 chiều (8) — Vòng 16: kiểm sâu 2 hệ sống (MÔ PHỎNG)
+
+- Đăng ký trước `reports/vong16_tien_dang_ky.md`; `v16.py`, `reports/vong16.json`, `test_v16.py`. Phép kiểm vòng 15, Holm cộng dồn 4.363.
+- Lặp lại (p thô < 0,05 và vượt mua-giữ khớp phơi nhiễm > 0): danh mục 4 lặp lại ở 7/8 (DJI, RUT, DAX, FTSE, N225, HSI, S&P tổng lợi nhuận; S&P 1928–1949 p 0,052). Đầu/cuối tháng lặp lại ở 6/8 (không ở DJI, N225). Không ô nào qua Holm cộng dồn (tốt nhất HSI danh mục 0,195) — hai hệ gốc vẫn sống theo vòng 15.
+- Suy giảm theo thập kỷ (S&P, vượt mua-giữ khớp phơi nhiễm, %/năm sau phí): danh mục 4: 3,3 (1950s) → 2,1 (1990s) → 0,6 (2010s) → 0,2 (2020s); đầu/cuối tháng: 7,9 → 2,2 → 0,2 → 1,4. 30 % cuối dữ liệu âm ở RUT/N225 (danh mục) và RUT/DAX/N225 (đầu/cuối tháng).
+- Kết luận: hiệu ứng có thật về thống kê và lặp lại trên nhiều chỉ số, nhưng phần vượt sau phí những năm gần đây gần 0. Phí qua đêm trước 1960 dùng 4 % mặc định (không có T-bill) — thận trọng.
+
 ## 12/10/2026 chiều (7) — Vòng 15: kiểm đã trừ xu hướng (MÔ PHỎNG) — sửa thiên lệch phép thử
 
 - Phép thử cũ so với 0 nên lợi cho tài sản có xu hướng tăng. Đăng ký trước `reports/vong15_tien_dang_ky.md`; `v15.py`, `reports/vong15.json`, `test_v15.py`: hoán vị dịch vòng chuỗi phơi nhiễm trên cùng tài sản (2000 lần, giữ số ngày/độ dài lần giữ, phí tính lại), cộng điều kiện vượt mua-giữ khớp phơi nhiễm (toàn chuỗi + 30 % cuối, ×1/×1,5). Holm cộng dồn 4.347 (34 quy tắc + 4.258 ô vòng 14 + 7 hệ + 48 ô CPI).
