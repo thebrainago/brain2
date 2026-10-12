@@ -17,7 +17,7 @@
 - 7 mảnh, trần 3 → 64 tổ hợp; chạy 38 tổ hợp mới (có B hoặc R) × 47 EA H1 × 7 cặp = **12.502 ô, đếm hết**. Nhãn cổng 322, có TM lãi 48, p nhỏ nhất 0,061, Holm 1,0; ×1,5 còn 23 lãi hai đoạn → **sống 0**.
 - Tác dụng TB ngoài mẫu: gốc −19,8 % → B −20,2 %; A −7,9 % → AB −9,3 % (B không giúp); A → AR −33 % (R tăng đòn bẩy, khuếch đại lỗ).
 
-**4. Đo:** bộ đọc/kho không đổi → điểm vào 60, EA ra cơ chế 48, do_moc 13/22 (như vòng 8). Không push main (dịch/giữ không tăng).
+**4. Đo:** bộ đọc/kho không đổi → điểm vào 60, EA ra cơ chế 48, do_moc 13/22 (như vòng 8). Ban đầu giữ local (dịch/giữ không tăng); 12/10 13:00 người dùng duyệt gộp lên main vì đây là SỬA ĐÚNG mô hình phí (không phải đổi cổng, không phải tăng số).
 
 ## 12/10/2026 chiều — Vòng 8: spread THẬT (tick bid/ask), sửa giờ HistData, Seeker tần suất thấp, ứng viên EA05 (MÔ PHỎNG)
 
