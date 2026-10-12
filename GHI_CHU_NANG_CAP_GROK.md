@@ -4,6 +4,16 @@
 
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
 
+## 12/10/2026 chiều (11) — Vòng 19: nhóm chiến lược, trailing, ghép, phong cách khác, bộ dữ liệu 2 (MÔ PHỎNG)
+
+- Đăng ký trước `reports/vong19_tien_dang_ky.md` (+ phần BỔ SUNG trước khi chạy phong cách mới). `v19.py`, `v19b.py`, `test_v19.py`, `reports/vong19.json`, `reports/vong19b.json`.
+- Nhãn nhóm: kết quả cũ (v14–v18) theo bảng ánh xạ cố định; kho EA theo từ khóa (3.029 tệp: HEDGE_GRID 887, ĐẢO_CHIỀU 743, ĐỘNG_LƯỢNG 403, BREAKOUT 346, PHIÊN_GIỜ 280, NẾN 222, VĨ_MÔ 30, MR 28, KHÁC 89).
+- Phần 1 (FX H1 bid/ask thật 2024–26): 8 vào × 8 thoát × 7 cặp = 448 ô + 126 ô ghép (top 3 nhóm theo nửa phát hiện: MR, ĐẢO_CHIỀU, ĐỘNG_LƯỢNG). 0 sống; p thô nhỏ nhất 0,063. Trailing không cứu: trung vị nửa kiểm mọi kiểu thoát đều −5…−20 %; chandelier tốt nhất cho BREAKOUT/NẾN/PHIÊN (đỡ lỗ 2–9 điểm so với TP cố định), không thành lãi.
+- Phần 2: 13 phong cách mới (Donchian55, MA50/200, squeeze, SMC sweep/FVG, pivot, Ichimoku, Fib, opening range, gap fill, đa khung, news fade, logistic) × 3 thoát; bộ 1 (FX 2024–26) + bộ 2 (EURUSD 2018–23 HistData, NZDUSD 2018–23 Dukascopy bid/ask, AUDCAD 2008–23, vàng/US500/UK100 H1 Yahoo 730 ngày, spread cố định). 618 ô đủ lệnh; Holm cộng dồn 6.295: 0 sống; p thô nhỏ nhất 0,0025 (logistic UK100 H1 — chỉ số, phép thử so với 0 nên có lợi xu hướng). Độ bền: Spearman thứ hạng (vào, thoát) bộ 1 vs bộ 2 = 0,85 — thứ hạng nhóm ổn định (chủ yếu là "lỗ ít" ổn định). Ít lỗ nhất: ĐA_KHUNG, GAP, VĨ_MÔ (news fade), XU_HƯỚNG_DÀI; tệ nhất: PHIÊN_GIỜ, SMC, NẾN.
+- CARRY (AUDJPY p 0,067), STAT_ARB (AUD/NZD p 0,95) lấy từ vòng 11. VWAP: CHƯA ĐO ĐƯỢC (không có khối lượng thật).
+- MQL5 codebase qua `cau_kho_ma.tai_mql5_goi` (không đăng nhập) chạy được: thêm 107 gói (2 kèm `.set`, 111 tệp) lúc chốt ghi chú; bộ đọc (không sửa) dịch được 2 EA; mô phỏng 2 EA này CHƯA ĐO ĐƯỢC.
+- Bảng xếp hạng nhóm đầy đủ trong `reports/vong19.json` (`bang_nhom`) và `reports/vong19b.json`. Nhóm duy nhất có hệ sống vẫn là LỊCH_MÙA_VỤ (danh mục 4 S&P, đầu/cuối tháng).
+
 ## 12/10/2026 chiều (10) — Vòng 18: hệ "bắt cú chạy mạnh" (MÔ PHỎNG)
 
 - Đăng ký trước `reports/vong18_tien_dang_ky.md`. `v18.py`, `reports/vong18.json`, `test_v18.py`.
