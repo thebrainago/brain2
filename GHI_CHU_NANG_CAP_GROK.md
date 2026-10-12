@@ -4,6 +4,19 @@
 
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
 
+## 12/10/2026 chiều (2) — Vòng 10: hệ MÙA VỤ / CHU KỲ tần suất thấp trên dữ liệu ngày dài (MÔ PHỎNG)
+
+- Đăng ký trước 8 quy tắc (`reports/vong10_tien_dang_ky_mua_vu.md`, commit `1927af67` trước khi tải dữ liệu). Dữ liệu: Yahoo chart API — ^GSPC 1950→2026 (chỉ số GIÁ, không cổ tức), vàng GC=F 2000-08→2026 (chuỗi vàng dài hơn không lấy được miễn phí: Stooq/FRED trả trang thử thách chống bot), ^IRX cho phí qua đêm. Phí kiểu CFD XM: spread khứ hồi 1 bps (US500) / 2 bps (vàng) trả một lần, trượt 0,5 bps/chiều, qua đêm mua −(T-bill + 2,5 %)/365 mỗi ngày lịch. `mua_vu.py`, `test_mua_vu.py`, kết quả `reports/vong10_mua_vu.json`.
+- **SỐNG 4/8** (đủ mọi tiêu chí: lãi sau phí, DD < 80 %, ngoài mẫu 30 % cuối lãi ở spread ×1 và ×1,5, Sharpe sau năm công bố > 0, p Holm < 0,05):
+  | quy tắc | CAGR | maxDD | Sharpe | NM ×1 / ×1,5 | Sharpe trước → sau công bố | p Holm |
+  |---|---|---|---|---|---|---|
+  | Đầu/cuối tháng (SPX) | 3,59 % | 23,9 % | 0,56 | +36,9 / +35,0 % | 0,84 → 0,38 | <0,0001 |
+  | Santa (SPX) | 0,97 % | 7,8 % | 0,42 | +8,1 / +8,0 % | 0,78 → 0,34 | 0,0009 |
+  | Halloween (SPX) | 2,94 % | 45,4 % | 0,32 | +110,6 / +110,3 % | 0,37 → 0,27 | 0,015 |
+  | Năm 3 chu kỳ bầu cử (SPX) | 2,15 % | 35,1 % | 0,32 | +42,9 / +42,9 % | 0,44 → 0,30 | 0,015 |
+- Không sống: vàng trước Tết (p Holm 0,12), SPX 10 tháng (0,07), vàng 10 tháng (0,09), SPX sau 3 tuần giảm (0,12).
+- Thận trọng: lợi nhuận tuyệt đối NHỎ (CAGR 1–3,6 %/năm) vì phí tài trợ CFD ăn phần lớn; mua-giữ CFD cùng mô hình chỉ 1,2 %/năm, DD 79,5 %. Mọi hệ đều suy giảm sau công bố. Chỉ số giá không cổ tức (CFD mua thật được điều chỉnh cổ tức → thực tế có thể tốt hơn). Đây là KẾT QUẢ MÔ PHỎNG, không phải tiền thật; hệ không phải EA trong ống dịch nên số điểm vào/EA ra cơ chế không đổi.
+
 ## 12/10/2026 trưa (2) — Vòng 9: SỬA MÔ HÌNH PHÍ spread (1 lần / khứ hồi) + mảnh B/R (MÔ PHỎNG)
 
 **1. Sửa mô hình phí — KHÔNG phải đổi cổng.** Từ vòng 9, `MoHinhChiPhi.spread_mot_lan` mặc định **True**: mỗi lệnh khứ hồi trả spread MỘT lần (nửa ở chiều vào, nửa ở chiều ra), đúng thực tế mua ASK / bán BID. Trước đó mô phỏng trả đủ spread ở cả hai chiều (= 2× spread; kiểm: lệnh trên giá phẳng 3,26 bps với spread 1,63). Cổng (lãi sau phí, maxDD < 80 %) giữ nguyên. Bật lại 2× làm stress thận trọng: `spread_mot_lan=False` hoặc `BRAIN_SPREAD_HAI_LAN=1`; `tv_spread.py --hai-lan`. Mọi kết quả từ vòng 9 báo cả spread ×1 và ×1,5.
