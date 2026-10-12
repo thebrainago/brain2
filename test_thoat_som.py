@@ -116,12 +116,19 @@ class TestThoatSom(unittest.TestCase):
         self.assertIn("!NP(sl)", d["co_che"][0]["bo_qua_quan_tri"])
 
     def test_ham_loc_tin_hieu_khong_phai_kiem_loi(self):
+        # Vòng 6: hàm bool Ok() chứa tín hiệu → nhận vào điều kiện vào lệnh
+        # (không còn từ chối "loc thoat som"; cũng không đẩy !Ok() sang quản trị).
         ham = "bool Ok(){ if(r[1]>70) return false; return true; }"
         than = "   if(!Ok()){ Print(\"chan\"); return; }\n" + VAO
         d = _doc(than, ham)
-        self.assertEqual(d["so_vao_lenh_co_co_che"], 0)
-        self.assertTrue(any("loc thoat som" in x and "Ok()" in x
-                            for x in d["chua_dien_dat_duoc"]))
+        self.assertEqual(d["so_vao_lenh_co_co_che"], 1)
+        cc = d["co_che"][0]
+        # Ok đúng khi r[1]<=70 → tiếp tục khi rsi <= 70
+        self.assertTrue(any(
+            isinstance(x.get("trai"), dict) and x["trai"].get("chi_bao") == "rsi"
+            and x["phep"] == "<=" and x["phai"] == {"hang": 70.0}
+            for x in cc["vao"]))
+        self.assertNotIn("!Ok()", cc.get("bo_qua_quan_tri") or [])
 
 
 class TestTachLenh(unittest.TestCase):

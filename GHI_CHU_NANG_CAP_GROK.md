@@ -4,6 +4,31 @@
 
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
 
+## 12/10/2026 sáng (3) — Vòng 6: hàm bool F() + lọc trạng thái / HOẶC / else-if phủ định VÀ (MÔ PHỎNG)
+
+**1. Bộ đọc** (`nhan/ham_bool_mql.py` mới; `doc_ma.py`, `goi_ham_mql.py`):
+- Hàm bool `F()` của tác giả: nội tuyến điều kiện tín hiệu vào điểm vào; lọc trạng thái tài khoản / nhịp lệnh (`OrdersTotal`, daily loss…) giữ ở `bo_qua_quan_tri`.
+- HOẶC: cùng hướng gọi nhiều chỗ, else-if phủ định VÀ khi DSL diễn đạt được; điều kiện nhiều tầng; lọc thoát mâu thuẫn với guard.
+- Test: `test_vong6_trang_thai_hoac.py` 229 dòng; cập nhật `test_thoat_som` (Ok() chứa RSI → nhận `rsi <= 70`, không còn từ chối "loc thoat som"). 109 test liên quan xanh.
+
+**2. Đo** (`BRAIN_DIEU_TOC=tat cau_kho --khong-tai`, cùng kho 1.278 file):
+| | vòng 5 (8e4080b9) | vòng 6 |
+|---|---|---|
+| điểm vào dịch được | 22 | **34** |
+| EA ra cơ chế | 16 | **23** |
+| hạng A | 16 | **23** |
+| tỷ lệ dịch | 1,63 % | **2,52 %** |
+| mau_thu do_moc | 13/22 | 13/22 (không đổi) |
+
+EA mới ra cơ chế (7): Yerlesik-Bot, RsiLevel, RsiReversal, EA_Template, Moving_Average (3 bản MQL4). Suite đầy đủ: 102 fail → 101 fail (sau sửa test_thoat_som: hết fail mới), 2541 → 2556 passed.
+
+**3. Vòng thử MÔ PHỎNG** (EURUSD, phí XM mặc định, cổng GIỮ không đổi; tiêu chí kiểm bền đăng ký trước ở `/workspace/r6/TIEN_DANG_KY.md`):
+- M5: 35 chạy được, **giữ 0**. Nhãn 25/09 (chỉ NHÃN, ~19–22 lệnh): fusionPLUS bán sh +0,53; EA04_BB bán +0,58; EA05_MACD bán +0,72.
+- H1: 34 chạy được, **giữ 0**.
+→ Không ô nào đủ cổng giữ. MÔ PHỎNG, không phải tiền thật.
+
+**4. Vòng 5 (đi kèm trên nhánh, số không tăng nên trước đó CHƯA vào main):** kiểm bền BBRSI/3MACD H1 — cả hai **không sống** (xem mục sáng (2)). Đưa vào main cùng vòng 6 vì bộ đọc hướng/else của vòng 5 là nền của vòng 6.
+
 ## 12/10/2026 sáng (2) — Vòng 5: kiểm độ bền 2 ô GerEA + bộ đọc (MÔ PHỎNG) — CHƯA vào main (số không tăng)
 **Sửa số vòng 4:** số ô đã thử là **14** (3MAF 4, 2MACDSTO 4, BBRSI 3, 3MACD 3), không phải 16.
 **1. Kiểm độ bền** (`ger_ben.py` → `reports/GER_BEN.json`; .set tác giả KHÔNG đổi, EURUSD H1, khớp trên M5; cổng không đổi):
