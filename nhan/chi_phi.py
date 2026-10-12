@@ -238,10 +238,11 @@ class MoHinhChiPhi:
     #: vong 8: spread THAT tung bar (pd.Series frac, index = thoi diem bar; vd tu tick bid/ask).
     #: None -> mo hinh gio/nam nhu cu. Bar thieu -> roi ve mo hinh cu.
     spread_frac_bar: object = None
-    #: vong 8: True -> moi lenh KHU HOI tra spread MOT lan (nua spread moi chieu vao/ra) thay vi
-    #: tra du spread o CA chieu vao lan chieu ra (mac dinh cu = 2 x spread / khu hoi). Gia
-    #: ASK = BID + spread khong doi. Mac dinh False (hanh vi cu y het) - xem GHI_CHU vong 8.
-    spread_mot_lan: bool = False
+    #: VONG 9 (12/10/2026) - SUA MO HINH PHI (khong doi cong): moi lenh KHU HOI tra spread MOT lan
+    #: (nua spread o chieu vao, nua o chieu ra) - dung voi thuc te mua ASK / ban BID. Truoc vong 9
+    #: mo phong tra du spread o CA hai chieu (= 2 x spread khu hoi). Bat lai 2x (stress than trong):
+    #: `spread_mot_lan=False` hoac bien moi truong BRAIN_SPREAD_HAI_LAN=1.
+    spread_mot_lan: bool = field(default_factory=lambda: os.environ.get("BRAIN_SPREAD_HAI_LAN") != "1")
 
     def phien_ban(self) -> str:
         """Nhan phien ban mo hinh phi cho bao cao (P3)."""
