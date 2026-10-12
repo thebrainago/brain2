@@ -1,0 +1,750 @@
+{
+ "nhan": "MO PHONG",
+ "ho": 8554,
+ "ung_vien_x1": 37,
+ "p_holm_min": 1.0,
+ "x1_5_van_lai_nm_tm": 9,
+ "song": 0,
+ "o_x1_5": [
+  {
+   "ea": "Spoofiecus__MetaTrader5-ExpertAdvisors__EngulfingPattern_EA/EngulfingPattern_EA.mq5",
+   "cap": "EURUSD",
+   "manh": "AD",
+   "nm": {
+    "loi_pct": 0.874,
+    "sharpe": 0.264,
+    "maxdd_pct": 2.7,
+    "nam": 0.822,
+    "t": 0.239
+   },
+   "tm": {
+    "loi_pct": -5.79,
+    "sharpe": -0.68,
+    "maxdd_pct": 7.92,
+    "nam": 1.918,
+    "t": -0.942
+   },
+   "lenh_nm": 199
+  },
+  {
+   "ea": "aobathree__mt5-trading-bots__SimpleMA_EA/SimpleMA_EA.mq5",
+   "cap": "USDJPY",
+   "manh": "TD",
+   "nm": {
+    "loi_pct": -0.05,
+    "sharpe": -0.021,
+    "maxdd_pct": 2.84,
+    "nam": 0.822,
+    "t": -0.019
+   },
+   "tm": {
+    "loi_pct": -2.19,
+    "sharpe": -0.322,
+    "maxdd_pct": 8.52,
+    "nam": 1.917,
+    "t": -0.446
+   },
+   "lenh_nm": 141
+  },
+  {
+   "ea": "aobathree__mt5-trading-bots__SimpleMA_EA/SimpleMA_EA.mq5",
+   "cap": "USDJPY",
+   "manh": "ATD",
+   "nm": {
+    "loi_pct": -0.563,
+    "sharpe": -0.276,
+    "maxdd_pct": 2.5,
+    "nam": 0.822,
+    "t": -0.25
+   },
+   "tm": {
+    "loi_pct": -2.034,
+    "sharpe": -0.335,
+    "maxdd_pct": 7.69,
+    "nam": 1.917,
+    "t": -0.464
+   },
+   "lenh_nm": 141
+  },
+  {
+   "ea": "aobathree__mt5-trading-bots__SimpleMA_EA/SimpleMA_EA.mq5",
+   "cap": "USDJPY",
+   "manh": "TSD",
+   "nm": {
+    "loi_pct": 1.019,
+    "sharpe": 0.439,
+    "maxdd_pct": 2.39,
+    "nam": 0.822,
+    "t": 0.398
+   },
+   "tm": {
+    "loi_pct": -0.706,
+    "sharpe": -0.109,
+    "maxdd_pct": 7.36,
+    "nam": 1.917,
+    "t": -0.151
+   },
+   "lenh_nm": 129
+  },
+  {
+   "ea": "alexanderbang01__mt5-expert-advisors__TrendFollower_EA/TrendFollower_EA.mq5",
+   "cap": "USDJPY",
+   "manh": "AP",
+   "nm": {
+    "loi_pct": 1.098,
+    "sharpe": 0.51,
+    "maxdd_pct": 2.52,
+    "nam": 0.822,
+    "t": 0.462
+   },
+   "tm": {
+    "loi_pct": -1.025,
+    "sharpe": -0.138,
+    "maxdd_pct": 5.62,
+    "nam": 1.917,
+    "t": -0.192
+   },
+   "lenh_nm": 64
+  },
+  {
+   "ea": "alexanderbang01__mt5-expert-advisors__TrendFollower_EA/TrendFollower_EA.mq5",
+   "cap": "USDJPY",
+   "manh": "AD",
+   "nm": {
+    "loi_pct": 1.325,
+    "sharpe": 0.589,
+    "maxdd_pct": 3.12,
+    "nam": 0.822,
+    "t": 0.534
+   },
+   "tm": {
+    "loi_pct": -0.523,
+    "sharpe": -0.071,
+    "maxdd_pct": 3.8,
+    "nam": 1.917,
+    "t": -0.098
+   },
+   "lenh_nm": 76
+  },
+  {
+   "ea": "alexanderbang01__mt5-expert-advisors__TrendFollower_EA/TrendFollower_EA.mq5",
+   "cap": "USDJPY",
+   "manh": "ASP",
+   "nm": {
+    "loi_pct": 1.432,
+    "sharpe": 0.699,
+    "maxdd_pct": 2.2,
+    "nam": 0.822,
+    "t": 0.634
+   },
+   "tm": {
+    "loi_pct": 0.649,
+    "sharpe": 0.09,
+    "maxdd_pct": 5.62,
+    "nam": 1.917,
+    "t": 0.125
+   },
+   "lenh_nm": 61
+  },
+  {
+   "ea": "alexanderbang01__mt5-expert-advisors__TrendFollower_EA/TrendFollower_EA.mq5",
+   "cap": "USDJPY",
+   "manh": "ASD",
+   "nm": {
+    "loi_pct": 1.441,
+    "sharpe": 0.655,
+    "maxdd_pct": 2.5,
+    "nam": 0.822,
+    "t": 0.594
+   },
+   "tm": {
+    "loi_pct": 0.532,
+    "sharpe": 0.075,
+    "maxdd_pct": 3.8,
+    "nam": 1.917,
+    "t": 0.103
+   },
+   "lenh_nm": 73
+  },
+  {
+   "ea": "alexanderbang01__mt5-expert-advisors__TrendFollower_EA/TrendFollower_EA.mq5",
+   "cap": "USDJPY",
+   "manh": "APD",
+   "nm": {
+    "loi_pct": 1.467,
+    "sharpe": 0.724,
+    "maxdd_pct": 1.81,
+    "nam": 0.822,
+    "t": 0.657
+   },
+   "tm": {
+    "loi_pct": 1.167,
+    "sharpe": 0.162,
+    "maxdd_pct": 5.37,
+    "nam": 1.917,
+    "t": 0.225
+   },
+   "lenh_nm": 59
+  },
+  {
+   "ea": "diayuunr__ea-optimization-project__EA05_MACD_Momentum_EA05_MACD_Momentum/EA05_MACD_Momentum.mq5",
+   "cap": "USDCHF",
+   "manh": "goc",
+   "nm": {
+    "loi_pct": -1.122,
+    "sharpe": -0.199,
+    "maxdd_pct": 5.58,
+    "nam": 0.823,
+    "t": -0.18
+   },
+   "tm": {
+    "loi_pct": -0.987,
+    "sharpe": -0.071,
+    "maxdd_pct": 8.9,
+    "nam": 1.919,
+    "t": -0.099
+   },
+   "lenh_nm": 47
+  },
+  {
+   "ea": "diayuunr__ea-optimization-project__EA04_Bollinger_Bands_Reversal_EA04_Bollinger_Bands_Reversal/EA04_Bollinger_Bands_Reversal.mq5",
+   "cap": "USDCHF",
+   "manh": "goc",
+   "nm": {
+    "loi_pct": 1.549,
+    "sharpe": 0.264,
+    "maxdd_pct": 5.28,
+    "nam": 0.823,
+    "t": 0.239
+   },
+   "tm": {
+    "loi_pct": -2.627,
+    "sharpe": -0.184,
+    "maxdd_pct": 12.87,
+    "nam": 1.919,
+    "t": -0.255
+   },
+   "lenh_nm": 49
+  },
+  {
+   "ea": "diayuunr__ea-optimization-project__EA04_Bollinger_Bands_Reversal_EA04_Bollinger_Bands_Reversal/EA04_Bollinger_Bands_Reversal.mq5",
+   "cap": "USDCHF",
+   "manh": "PD",
+   "nm": {
+    "loi_pct": 1.327,
+    "sharpe": 0.236,
+    "maxdd_pct": 6.86,
+    "nam": 0.823,
+    "t": 0.214
+   },
+   "tm": {
+    "loi_pct": -2.516,
+    "sharpe": -0.185,
+    "maxdd_pct": 11.18,
+    "nam": 1.919,
+    "t": -0.256
+   },
+   "lenh_nm": 49
+  },
+  {
+   "ea": "forexstrategystudio__mql5-expert-advisors__EMA_Crossover_EMA_Crossover/EMA_Crossover.mq5",
+   "cap": "USDCHF",
+   "manh": "PD",
+   "nm": {
+    "loi_pct": -0.413,
+    "sharpe": -0.094,
+    "maxdd_pct": 3.78,
+    "nam": 0.823,
+    "t": -0.085
+   },
+   "tm": {
+    "loi_pct": 2.967,
+    "sharpe": 0.28,
+    "maxdd_pct": 6.31,
+    "nam": 1.919,
+    "t": 0.388
+   },
+   "lenh_nm": 52
+  },
+  {
+   "ea": "forexstrategystudio__mql5-expert-advisors__EMA_Crossover_EMA_Crossover/EMA_Crossover.mq5",
+   "cap": "USDCHF",
+   "manh": "SPD",
+   "nm": {
+    "loi_pct": -0.399,
+    "sharpe": -0.091,
+    "maxdd_pct": 3.78,
+    "nam": 0.823,
+    "t": -0.082
+   },
+   "tm": {
+    "loi_pct": 5.569,
+    "sharpe": 0.537,
+    "maxdd_pct": 5.44,
+    "nam": 1.919,
+    "t": 0.744
+   },
+   "lenh_nm": 52
+  },
+  {
+   "ea": "juanmql__expert-advisors__D01_Bollinger_Ruptura_H1/D01_Bollinger_Ruptura_H1.mq5",
+   "cap": "USDJPY",
+   "manh": "goc",
+   "nm": {
+    "loi_pct": 0.373,
+    "sharpe": 0.113,
+    "maxdd_pct": 2.74,
+    "nam": 0.822,
+    "t": 0.102
+   },
+   "tm": {
+    "loi_pct": 2.345,
+    "sharpe": 0.256,
+    "maxdd_pct": 6.57,
+    "nam": 1.917,
+    "t": 0.354
+   },
+   "lenh_nm": 72
+  },
+  {
+   "ea": "juanmql__expert-advisors__D01_Bollinger_Ruptura_H1/D01_Bollinger_Ruptura_H1.mq5",
+   "cap": "USDJPY",
+   "manh": "S",
+   "nm": {
+    "loi_pct": 0.367,
+    "sharpe": 0.111,
+    "maxdd_pct": 2.74,
+    "nam": 0.822,
+    "t": 0.101
+   },
+   "tm": {
+    "loi_pct": 1.499,
+    "sharpe": 0.168,
+    "maxdd_pct": 7.34,
+    "nam": 1.917,
+    "t": 0.233
+   },
+   "lenh_nm": 72
+  },
+  {
+   "ea": "juanmql__expert-advisors__D01_Bollinger_Ruptura_H1/D01_Bollinger_Ruptura_H1.mq5",
+   "cap": "USDJPY",
+   "manh": "SD",
+   "nm": {
+    "loi_pct": -0.062,
+    "sharpe": -0.019,
+    "maxdd_pct": 3.9,
+    "nam": 0.822,
+    "t": -0.018
+   },
+   "tm": {
+    "loi_pct": 1.172,
+    "sharpe": 0.139,
+    "maxdd_pct": 6.08,
+    "nam": 1.917,
+    "t": 0.192
+   },
+   "lenh_nm": 67
+  },
+  {
+   "ea": "diayuunr__ea-optimization-project__EA05_MACD_Momentum_EA05_MACD_Momentum/EA05_MACD_Momentum.mq5",
+   "cap": "NZDUSD",
+   "manh": "P",
+   "nm": {
+    "loi_pct": 7.419,
+    "sharpe": 1.024,
+    "maxdd_pct": 7.25,
+    "nam": 0.822,
+    "t": 0.928
+   },
+   "tm": {
+    "loi_pct": -0.19,
+    "sharpe": -0.011,
+    "maxdd_pct": 9.76,
+    "nam": 1.918,
+    "t": -0.016
+   },
+   "lenh_nm": 40
+  },
+  {
+   "ea": "diayuunr__ea-optimization-project__EA05_MACD_Momentum_EA05_MACD_Momentum/EA05_MACD_Momentum.mq5",
+   "cap": "NZDUSD",
+   "manh": "SP",
+   "nm": {
+    "loi_pct": -1.799,
+    "sharpe": -2.043,
+    "maxdd_pct": 1.8,
+    "nam": 0.822,
+    "t": -1.853
+   },
+   "tm": {
+    "loi_pct": 0.0,
+    "sharpe": 0.0,
+    "maxdd_pct": 0.0,
+    "nam": 1.918,
+    "t": 0.0
+   },
+   "lenh_nm": 2
+  },
+  {
+   "ea": "diayuunr__ea-optimization-project__EA05_MACD_Momentum_EA05_MACD_Momentum/EA05_MACD_Momentum.mq5",
+   "cap": "NZDUSD",
+   "manh": "PD",
+   "nm": {
+    "loi_pct": 7.419,
+    "sharpe": 1.024,
+    "maxdd_pct": 7.25,
+    "nam": 0.822,
+    "t": 0.928
+   },
+   "tm": {
+    "loi_pct": -2.712,
+    "sharpe": -0.165,
+    "maxdd_pct": 12.04,
+    "nam": 1.918,
+    "t": -0.228
+   },
+   "lenh_nm": 40
+  },
+  {
+   "ea": "diayuunr__ea-optimization-project__EA05_MACD_Momentum_EA05_MACD_Momentum/EA05_MACD_Momentum.mq5",
+   "cap": "NZDUSD",
+   "manh": "SPD",
+   "nm": {
+    "loi_pct": -1.799,
+    "sharpe": -2.043,
+    "maxdd_pct": 1.8,
+    "nam": 0.822,
+    "t": -1.853
+   },
+   "tm": {
+    "loi_pct": 0.0,
+    "sharpe": 0.0,
+    "maxdd_pct": 0.0,
+    "nam": 1.918,
+    "t": 0.0
+   },
+   "lenh_nm": 2
+  },
+  {
+   "ea": "keyneelvrt__mt5-expert-advisors__EA05_DualMovingAverage_DualMovingAverage/DualMovingAverage.mq5",
+   "cap": "USDJPY",
+   "manh": "A",
+   "nm": {
+    "loi_pct": 0.472,
+    "sharpe": 0.127,
+    "maxdd_pct": 5.98,
+    "nam": 0.822,
+    "t": 0.115
+   },
+   "tm": {
+    "loi_pct": -1.768,
+    "sharpe": -0.156,
+    "maxdd_pct": 12.98,
+    "nam": 1.917,
+    "t": -0.216
+   },
+   "lenh_nm": 169
+  },
+  {
+   "ea": "keyneelvrt__mt5-expert-advisors__EA05_DualMovingAverage_DualMovingAverage/DualMovingAverage.mq5",
+   "cap": "USDJPY",
+   "manh": "AS",
+   "nm": {
+    "loi_pct": -1.036,
+    "sharpe": -0.29,
+    "maxdd_pct": 5.81,
+    "nam": 0.822,
+    "t": -0.263
+   },
+   "tm": {
+    "loi_pct": 5.867,
+    "sharpe": 0.522,
+    "maxdd_pct": 9.64,
+    "nam": 1.917,
+    "t": 0.722
+   },
+   "lenh_nm": 157
+  },
+  {
+   "ea": "santiago-cruzlopez__MQL5__1_Expert_Advisors_EA_015_Triple_MA_EA/015_Triple_MA_EA.mq5",
+   "cap": "EURUSD",
+   "manh": "APD",
+   "nm": {
+    "loi_pct": 0.013,
+    "sharpe": 0.009,
+    "maxdd_pct": 1.05,
+    "nam": 0.822,
+    "t": 0.008
+   },
+   "tm": {
+    "loi_pct": -0.543,
+    "sharpe": -0.155,
+    "maxdd_pct": 4.32,
+    "nam": 1.918,
+    "t": -0.214
+   },
+   "lenh_nm": 46
+  },
+  {
+   "ea": "santiago-cruzlopez__MQL5__1_Expert_Advisors_EA_011_RSI_V2_EA/011_RSI_V2_EA.mq5",
+   "cap": "GBPUSD",
+   "manh": "APD",
+   "nm": {
+    "loi_pct": -0.08,
+    "sharpe": -0.054,
+    "maxdd_pct": 1.96,
+    "nam": 0.822,
+    "t": -0.049
+   },
+   "tm": {
+    "loi_pct": 0.072,
+    "sharpe": 0.015,
+    "maxdd_pct": 3.99,
+    "nam": 1.918,
+    "t": 0.02
+   },
+   "lenh_nm": 52
+  },
+  {
+   "ea": "juanmql__expert-advisors__D01_Bollinger_Ruptura_H1/D01_Bollinger_Ruptura_H1.mq5",
+   "cap": "USDCAD",
+   "manh": "goc",
+   "nm": {
+    "loi_pct": 1.887,
+    "sharpe": 0.693,
+    "maxdd_pct": 3.8,
+    "nam": 0.822,
+    "t": 0.629
+   },
+   "tm": {
+    "loi_pct": 1.231,
+    "sharpe": 0.16,
+    "maxdd_pct": 4.64,
+    "nam": 1.918,
+    "t": 0.222
+   },
+   "lenh_nm": 47
+  },
+  {
+   "ea": "juanmql__expert-advisors__D01_Bollinger_Ruptura_H1/D01_Bollinger_Ruptura_H1.mq5",
+   "cap": "USDCAD",
+   "manh": "S",
+   "nm": {
+    "loi_pct": 3.874,
+    "sharpe": 1.552,
+    "maxdd_pct": 2.92,
+    "nam": 0.822,
+    "t": 1.407
+   },
+   "tm": {
+    "loi_pct": -2.31,
+    "sharpe": -0.444,
+    "maxdd_pct": 4.03,
+    "nam": 1.918,
+    "t": -0.615
+   },
+   "lenh_nm": 37
+  },
+  {
+   "ea": "juanmql__expert-advisors__D01_Bollinger_Ruptura_H1/D01_Bollinger_Ruptura_H1.mq5",
+   "cap": "USDCAD",
+   "manh": "P",
+   "nm": {
+    "loi_pct": 2.484,
+    "sharpe": 0.924,
+    "maxdd_pct": 3.49,
+    "nam": 0.822,
+    "t": 0.838
+   },
+   "tm": {
+    "loi_pct": 0.458,
+    "sharpe": 0.064,
+    "maxdd_pct": 4.63,
+    "nam": 1.918,
+    "t": 0.089
+   },
+   "lenh_nm": 45
+  },
+  {
+   "ea": "juanmql__expert-advisors__D01_Bollinger_Ruptura_H1/D01_Bollinger_Ruptura_H1.mq5",
+   "cap": "USDCAD",
+   "manh": "D",
+   "nm": {
+    "loi_pct": 1.887,
+    "sharpe": 0.693,
+    "maxdd_pct": 3.8,
+    "nam": 0.822,
+    "t": 0.629
+   },
+   "tm": {
+    "loi_pct": 1.83,
+    "sharpe": 0.24,
+    "maxdd_pct": 4.36,
+    "nam": 1.918,
+    "t": 0.333
+   },
+   "lenh_nm": 47
+  },
+  {
+   "ea": "juanmql__expert-advisors__D01_Bollinger_Ruptura_H1/D01_Bollinger_Ruptura_H1.mq5",
+   "cap": "USDCAD",
+   "manh": "SP",
+   "nm": {
+    "loi_pct": 3.107,
+    "sharpe": 1.302,
+    "maxdd_pct": 2.84,
+    "nam": 0.822,
+    "t": 1.181
+   },
+   "tm": {
+    "loi_pct": -1.985,
+    "sharpe": -0.396,
+    "maxdd_pct": 4.35,
+    "nam": 1.918,
+    "t": -0.548
+   },
+   "lenh_nm": 36
+  },
+  {
+   "ea": "juanmql__expert-advisors__D01_Bollinger_Ruptura_H1/D01_Bollinger_Ruptura_H1.mq5",
+   "cap": "USDCAD",
+   "manh": "SD",
+   "nm": {
+    "loi_pct": 4.17,
+    "sharpe": 1.689,
+    "maxdd_pct": 2.84,
+    "nam": 0.822,
+    "t": 1.531
+   },
+   "tm": {
+    "loi_pct": -2.31,
+    "sharpe": -0.444,
+    "maxdd_pct": 4.03,
+    "nam": 1.918,
+    "t": -0.615
+   },
+   "lenh_nm": 36
+  },
+  {
+   "ea": "juanmql__expert-advisors__D01_Bollinger_Ruptura_H1/D01_Bollinger_Ruptura_H1.mq5",
+   "cap": "USDCAD",
+   "manh": "PD",
+   "nm": {
+    "loi_pct": 2.484,
+    "sharpe": 0.924,
+    "maxdd_pct": 3.49,
+    "nam": 0.822,
+    "t": 0.838
+   },
+   "tm": {
+    "loi_pct": 1.054,
+    "sharpe": 0.149,
+    "maxdd_pct": 4.06,
+    "nam": 1.918,
+    "t": 0.206
+   },
+   "lenh_nm": 45
+  },
+  {
+   "ea": "juanmql__expert-advisors__D01_Bollinger_Ruptura_H1/D01_Bollinger_Ruptura_H1.mq5",
+   "cap": "USDCAD",
+   "manh": "SPD",
+   "nm": {
+    "loi_pct": 3.107,
+    "sharpe": 1.302,
+    "maxdd_pct": 2.84,
+    "nam": 0.822,
+    "t": 1.181
+   },
+   "tm": {
+    "loi_pct": -1.985,
+    "sharpe": -0.396,
+    "maxdd_pct": 4.35,
+    "nam": 1.918,
+    "t": -0.548
+   },
+   "lenh_nm": 36
+  },
+  {
+   "ea": "smizxe__mt5-agent-toolkit__templates_EA_Template/EA_Template.mq5",
+   "cap": "USDJPY",
+   "manh": "TD",
+   "nm": {
+    "loi_pct": -0.05,
+    "sharpe": -0.021,
+    "maxdd_pct": 2.84,
+    "nam": 0.822,
+    "t": -0.019
+   },
+   "tm": {
+    "loi_pct": -2.19,
+    "sharpe": -0.322,
+    "maxdd_pct": 8.52,
+    "nam": 1.917,
+    "t": -0.446
+   },
+   "lenh_nm": 141
+  },
+  {
+   "ea": "smizxe__mt5-agent-toolkit__templates_EA_Template/EA_Template.mq5",
+   "cap": "USDJPY",
+   "manh": "ATD",
+   "nm": {
+    "loi_pct": -0.563,
+    "sharpe": -0.276,
+    "maxdd_pct": 2.5,
+    "nam": 0.822,
+    "t": -0.25
+   },
+   "tm": {
+    "loi_pct": -2.034,
+    "sharpe": -0.335,
+    "maxdd_pct": 7.69,
+    "nam": 1.917,
+    "t": -0.464
+   },
+   "lenh_nm": 141
+  },
+  {
+   "ea": "smizxe__mt5-agent-toolkit__templates_EA_Template/EA_Template.mq5",
+   "cap": "USDJPY",
+   "manh": "TSD",
+   "nm": {
+    "loi_pct": 1.019,
+    "sharpe": 0.439,
+    "maxdd_pct": 2.39,
+    "nam": 0.822,
+    "t": 0.398
+   },
+   "tm": {
+    "loi_pct": -0.706,
+    "sharpe": -0.109,
+    "maxdd_pct": 7.36,
+    "nam": 1.917,
+    "t": -0.151
+   },
+   "lenh_nm": 129
+  },
+  {
+   "ea": "tmpmosisili__forexeas__RsiEA/RsiEA.mq5",
+   "cap": "GBPUSD",
+   "manh": "APD",
+   "nm": {
+    "loi_pct": -0.08,
+    "sharpe": -0.054,
+    "maxdd_pct": 1.96,
+    "nam": 0.822,
+    "t": -0.049
+   },
+   "tm": {
+    "loi_pct": 0.072,
+    "sharpe": 0.015,
+    "maxdd_pct": 3.99,
+    "nam": 1.918,
+    "t": 0.02
+   },
+   "lenh_nm": 52
+  }
+ ]
+}

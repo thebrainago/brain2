@@ -44,20 +44,28 @@ def chi_phi_that(df: pd.DataFrame, cap: str, kieu: str = "cong", mot_lan: bool =
 
 
 def _viec(arg):
-    ea, cap, kieu, mot_lan, chi_s = arg
+    ea, cap, kieu, mot_lan, chi_s, he_so, chon, loc = arg
     out = []
     try:
         df = doc_tick_h1(cap)
         ohlc, cp, info = chi_phi_that(df, cap, kieu, mot_lan)
+        if he_so != 1.0:
+            cp = cp.bien_the(spread=cp.spread_frac_chung * he_so)
         diem = 1e-3 if cap.endswith("JPY") else 1e-5
     except Exception as e:                                  # noqa: BLE001
         return [{"ea": ea["ten"], "cap": cap, "loi": f"du lieu: {e}"[:200]}]
     th = TV.to_hop()
     if chi_s:
         th = [x for x in th if len(x) <= 1 and x in ((), ("S",))]
+    if chon == "moi":                                       # vong 9: chi to hop co B hoac R
+        th = [x for x in th if "B" in x or "R" in x]
+    elif chon == "cu":
+        th = [x for x in th if "B" not in x and "R" not in x]
+    if loc is not None:
+        th = [x for x in th if ("".join(x) or "goc") in loc.get((ea["ten"], cap), ())]
     for manh in th:
         o = {"ea": ea["ten"], "cap": cap, "khung": "H1", "manh": "".join(manh) or "goc",
-             "kieu_spread": kieu, "mot_lan": mot_lan}
+             "kieu_spread": kieu, "mot_lan": mot_lan, "he_so_spread": he_so}
         try:
             r = TC.chay_o(ohlc, ea["co_che"], manh, cp, "H1", diem)
             r.pop("loi_bar", None)
@@ -71,7 +79,11 @@ def _viec(arg):
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--ra", required=True)
-    ap.add_argument("--mot-lan", action="store_true")
+    ap.add_argument("--mot-lan", action="store_true", help="(vong 8) - tu vong 9 la mac dinh")
+    ap.add_argument("--hai-lan", action="store_true", help="stress: spread 2 lan / khu hoi (cu)")
+    ap.add_argument("--he-so-spread", type=float, default=1.0)
+    ap.add_argument("--to-hop", choices=("tat", "moi", "cu"), default="cu")
+    ap.add_argument("--loc", help="jsonl o (ea, cap, manh) - chi chay lai cac o nay")
     ap.add_argument("--nhan", action="store_true", help="mo hinh spread NHAN (do nhay, chi goc/S)")
     ap.add_argument("--tien-trinh", type=int, default=6)
     ap.add_argument("--gom", help="pickle danh sach EA da gom (tv_chay.gom_ea) - chay lai nhanh")
@@ -82,7 +94,13 @@ def main(argv=None):
     else:
         tat = TC.gom_ea()
     ds = [e for e in tat if (e.get("khung_ea") or "H1") == "H1"]
-    viec = [(e, c, "nhan" if a.nhan else "cong", a.mot_lan, a.nhan) for e in ds for c in TC.CAP]
+    loc = None
+    if a.loc:
+        loc = {}
+        for x in map(json.loads, open(a.loc)):
+            loc.setdefault((x["ea"], x["cap"]), set()).add(x["manh"])
+    viec = [(e, c, "nhan" if a.nhan else "cong", not a.hai_lan, a.nhan, a.he_so_spread, a.to_hop, loc)
+            for e in ds for c in TC.CAP if loc is None or (e["ten"], c) in loc]
     print(len(ds), "EA H1,", len(viec), "viec", flush=True)
     t0 = time.time()
     with open(a.ra, "w") as f, Pool(a.tien_trinh) as p:
