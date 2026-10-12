@@ -4,6 +4,16 @@
 
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
 
+## 12/10/2026 tối (15) — Vòng 23: 15 script TradingView (BẢN DỊCH THEO MÔ TẢ CÔNG KHAI) + ghép chéo (MÔ PHỎNG)
+
+- Đăng ký trước `reports/vong23_tien_dang_ky.md`; `v23.py`, `test_v23.py`, `reports/vong23.json`. 15 trang script trả HTTP 200; chỉ dùng mô tả (không đọc/chép mã Pine).
+  3 ID trong hàng chờ có tên khác trang thật (VW4M6aCA, CDhXq8DM, sf4Hf10r) → dịch theo trang thật. VW4M6aCA cần volume thật → CHƯA ĐO ĐƯỢC.
+- 14 bản dịch × khung (gốc tác giả + M15/H1/H4/D1) trên 7 FX + XAUUSD (M5 2024–26), US500/UK100 H1/H4, 6 chuỗi D1 = 448 ô; ghép 6 tín hiệu × 5 lọc × 2 quản lý × 8 chuỗi × M15/H1 = 960 ô.
+  1.175 đủ lệnh; Holm cộng dồn 11.270 → 12.445: 0 SỐNG. Lãi cả hai nửa: 106/1.175. p thô tốt nhất 0,014 (USDJPY H1 TRENDBREAKER + Supertrend).
+- Đơn lẻ: hầu hết âm sau phí ở M5/M15; tốt nhất là TRENDBREAKER H4 (8/10 chuỗi lãi nửa kiểm, trung vị +2,1 %) và PAXG_ST D1 (+6,6 %), đều không qua Holm.
+  GOLD_8PM trên vàng M5 (khung gốc): nửa kiểm +13,3 % nhưng nửa đầu −4,3 %, p 0,11; trên FX âm.
+- Ghép: lọc xu hướng giảm lỗ cho tín hiệu yếu (TRENDBREAKER M15 −23 % → −8 %, H1 −6,2 % → −1,8 %), nhưng không tạo ô dương ổn định; chandelier kém hơn quản lý gốc (−3,2 % vs −2,3 %).
+
 ## 12/10/2026 chiều (14) — Vòng 22: nhóm chiến lược × khung M5…W1, trước/sau phí (MÔ PHỎNG)
 
 - Đăng ký trước `reports/vong22_tien_dang_ky.md`; `v22.py`, `test_v22.py`, `reports/vong22.json`.
