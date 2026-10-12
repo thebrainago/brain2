@@ -208,10 +208,14 @@ def test_tham_so_hang_hai_cho_goi():
     assert vao[-1][0]["phai"]["hang"] == 70.0 and vao[-1][0]["phep"] == ">"
 
 
-def test_tham_so_hang_ca_hai_cho_cung_huong_tu_choi():
-    # hai cho goi cung ORDER_TYPE_BUY -> trade.Buy toi tu 2 cho = OR -> tu choi
+def test_tham_so_hang_ca_hai_cho_cung_huong_hoac():
+    # vong 6: hai cho goi cung ORDER_TYPE_BUY -> trade.Buy toi tu 2 cho = HOAC: hai chan mua
+    # chung nhom; trade.Sell khong cho goi nao toi -> khong dich (dung: ma khong bao gio chay)
     r = _doc(_TS.replace("OpenTrade(ORDER_TYPE_SELL)", "OpenTrade(ORDER_TYPE_BUY)"))
-    assert r["so_vao_lenh_co_co_che"] == 0
+    assert r["so_vao_lenh_co_co_che"] == 1
+    assert [c["chieu"] for c in r["co_che"]] == [1, 1]
+    assert len({c["nhom_he"] for c in r["co_che"]}) == 1
+    assert sorted(c["vao"][0]["phep"] for c in r["co_che"]) == ["<", ">"]
 
 
 def test_tham_so_khong_hang_tu_choi():

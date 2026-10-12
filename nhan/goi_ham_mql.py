@@ -45,6 +45,7 @@ _SU_KIEN = {"OnTick", "OnTimer", "OnInit", "OnDeinit", "OnChartEvent", "OnTrade"
             "OnTesterPass", "OnTesterDeinit", "OnStart", "OnCalculate"}
 _TU_KHOA = {"if", "for", "while", "switch", "return", "sizeof", "do", "else", "case",
             "new", "delete"}
+HOAC_TOI_DA = 4                                 # so nhanh HOAC toi da (vong 6)
 TANG_TOI_DA = 4
 
 
@@ -409,99 +410,130 @@ def nang_cho_goi(vb: str, vi_lenh: int, m=None) -> dict:
     bang = ham_tu_do(mn)
     if not bang:
         return {"loi": "goi ham: khong tach duoc than ham (ngoac lech)"}
-    vi, tang, qt = vi_lenh, [], []
-    guard = None
-    loai_tru: list[tuple[int, str]] = []
-    dung_ts: list[str] = []
-    for buoc in range(TANG_TOI_DA + 1):
-        hc = _ham_chua(bang, vi)
-        if hc is None:
-            return {"loi": "goi ham: lenh vao nam trong lop/struct (phuong thuc) - chua giai"}
-        ten, ham = hc
-        tang.append(ten)
-        if len(bang[ten]) > 1:
-            return {"loi": f"goi ham: {ten} dinh nghia {len(bang[ten])} lan (overload)"}
-        khoi = _khoi_bao(mn, ham["mo"], vi)
-        loai = [_loai_khoi(d) for _, d in khoi]
-        ifs, gap_else = D._cac_if_bao(vb, vi)
-        ten_ts = [t for t in _ten_tham_so(ham["tham_so"]) if t]
-        tn_ = _HI()._chon_tam_nguyen(vb, m) if (m is not None and buoc == 0) else None
-        dk_ts, ifs, loai, gap_else = _dk_tham_so_tang(vb, mn, ham, vi, ifs, khoi, loai, gap_else,
-                                                      tn_)
-        if "else" in loai or gap_else:
-            # 11/10/2026 dem: `if(A){..} else if(B){ F(); }` -> ghi cac A de doc_ma CHUNG MINH
-            # B loai tru A (`_mau_thuan`); `else` tran / khong doc duoc chuoi -> tu choi
-            try:
-                ce = D._chuoi_else_if(vb, vi)
-            except Exception:                       # noqa: BLE001
-                ce = None
-            if not ce:
-                return {"loi": f"goi ham: {'lenh vao' if buoc == 0 else 'loi goi'} trong nhanh else ({ten})"}
-            loai_tru += [(p_, a_) for p_, a_ in ce if ham["mo"] < p_ < ham["dong"]]
-            loai = [x for x in loai if x != "else"]
-        xau = [x for x in loai if x not in ("if", "khoi")]
-        if xau:
-            return {"loi": f"goi ham: {'lenh vao' if buoc == 0 else 'loi goi'} trong khoi "
-                           f"{xau[0]} ({ten}) - lap/re nhanh chua dich"}
-        ifs = [(p, g) for p, g in ifs if ham["mo"] < p < ham["dong"]
-               and not D._LA_KIEM_LOI.search(g)
-               and not (buoc > 0 and re.search(rf"\b{re.escape(tang[-2])}\s*\(", g))]
-        thoat = D._thoat_som(vb, ham["mo"], vi)
-        rl = D._return_long(vb, ham["mo"], vi)
-        if rl:
-            return {"loi": f"goi ham: return long co dieu kien trong {ten}: {rl[0][:40]}"}
-        q, con = _phan_quan_tri([g for _, g in ifs] + thoat)
-        if con:
-            if guard is not None:
-                return {"loi": f"goi ham: dieu kien vao o HAI tang ({guard['ham']} va {ten}) - "
-                               f"chua dich: {con[0][:40]}"}
-            # TANG DIEU KIEN: dich o day (if bao + thoat som tu dau ham toi `vi`)
-            guard = {"guards": ifs,
-                     "vi": min(p for p, _ in ifs) if ifs else vi, "den": vi, "ham": ten}
-        else:
-            qt += q
-        if ten == "OnTick":
-            break
-        if ten in _SU_KIEN:
-            return {"loi": f"goi ham: chuoi goi toi {ten}, khong toi OnTick "
-                           "(lenh tay/timer - khong mo phong theo bar)"}
-        if buoc == TANG_TOI_DA:
-            return {"loi": f"goi ham: chuoi goi qua {TANG_TOI_DA} tang"}
-        ds, ly = _cho_goi_don(mn, ten, ham)
-        if ly:
-            return {"loi": "goi ham: " + ly}
-        if not ds:
-            return {"loi": f"goi ham: {ten} khong duoc goi o dau"}
-        if dk_ts:
-            toi = []
-            for p_ in ds:
-                ds_ = _doi_so_cho_goi(mn, p_)
-                gan = dict(zip(ten_ts, ds_ or []))
-                kq_ = [_tinh(dk, gan) for dk, _ in dk_ts]
-                if any(v is None for v in kq_):
-                    return {"loi": f"goi ham: doi so cua {ten} khong phai hang tai mot cho goi "
-                                   "(khong tinh duoc dieu kien tham so)"}
-                if all(v == mu for v, (_, mu) in zip(kq_, dk_ts)):
-                    toi.append(p_)
-            if not toi:
-                return {"loi": f"goi ham: khong cho goi {ten} nao toi duoc lenh vao (tham so hang)"}
-            ds = toi
-            dung_ts.append(ten)
-        if len(ds) > 1:
-            return {"loi": f"goi ham: {ten} goi tu {len(ds)} cho (OR nhieu dieu kien - chua dich)"}
-        ly = _hop_le_cho_goi(mn, ds[0], ten)
-        if ly:
-            return {"loi": "goi ham: " + ly}
-        vi = ds[0]
-    if guard is None:
-        return {"loi": "goi ham: chuoi toi OnTick khong co dieu kien vao (chi quan tri)"}
-    guard["qt"] = qt
-    guard["tang"] = tang
-    if loai_tru:
-        guard["loai_tru_else"] = loai_tru
-    if dung_ts:
-        guard["tham_so_hang"] = dung_ts
-    return guard
+
+    def _leo(vi, buoc0, tang, qt, guard, loai_tru, dung_ts):
+        for buoc in range(buoc0, TANG_TOI_DA + 1):
+            hc = _ham_chua(bang, vi)
+            if hc is None:
+                return {"loi": "goi ham: lenh vao nam trong lop/struct (phuong thuc) - chua giai"}
+            ten, ham = hc
+            tang.append(ten)
+            if len(bang[ten]) > 1:
+                return {"loi": f"goi ham: {ten} dinh nghia {len(bang[ten])} lan (overload)"}
+            khoi = _khoi_bao(mn, ham["mo"], vi)
+            loai = [_loai_khoi(d) for _, d in khoi]
+            ifs, gap_else = D._cac_if_bao(vb, vi)
+            ten_ts = [t for t in _ten_tham_so(ham["tham_so"]) if t]
+            tn_ = _HI()._chon_tam_nguyen(vb, m) if (m is not None and buoc == 0) else None
+            dk_ts, ifs, loai, gap_else = _dk_tham_so_tang(vb, mn, ham, vi, ifs, khoi, loai, gap_else,
+                                                          tn_)
+            if "else" in loai or gap_else:
+                # 11/10/2026 dem: `if(A){..} else if(B){ F(); }` -> ghi cac A de doc_ma CHUNG MINH
+                # B loai tru A (`_mau_thuan`); `else` tran / khong doc duoc chuoi -> tu choi
+                try:
+                    ce = D._chuoi_else_if(vb, vi)
+                except Exception:                       # noqa: BLE001
+                    ce = None
+                if not ce:
+                    return {"loi": f"goi ham: {'lenh vao' if buoc == 0 else 'loi goi'} trong nhanh else ({ten})"}
+                loai_tru += [(p_, a_) for p_, a_ in ce if ham["mo"] < p_ < ham["dong"]]
+                loai = [x for x in loai if x != "else"]
+            xau = [x for x in loai if x not in ("if", "khoi")]
+            if xau:
+                return {"loi": f"goi ham: {'lenh vao' if buoc == 0 else 'loi goi'} trong khoi "
+                               f"{xau[0]} ({ten}) - lap/re nhanh chua dich"}
+            ifs = [(p, g) for p, g in ifs if ham["mo"] < p < ham["dong"]
+                   and not D._LA_KIEM_LOI.search(g)
+                   and not (buoc > 0 and re.search(rf"\b{re.escape(tang[-2])}\s*\(", g))]
+            vi_th: list = []
+            thoat = D._thoat_som(vb, ham["mo"], vi, vi_ra=vi_th)
+            rl = D._return_long(vb, ham["mo"], vi)
+            if rl:
+                return {"loi": f"goi ham: return long co dieu kien trong {ten}: {rl[0][:40]}"}
+            q, con = _phan_quan_tri([g for _, g in ifs] + thoat)
+            if con and guard is not None:
+                # vong 6: dieu kien o NHIEU tang = VA cua cac tang, moi ve dich tai VI TRI cua
+                # no (bien cuc bo dung ham). Ve tang duoi dung THAM SO cua ham no thi gia tri
+                # den tu cho goi (tang tren) - bo doc khong noi duoc -> tu choi.
+                if any(re.search(rf"(?<![\w.]){re.escape(t_)}\b", g_)
+                       for g_ in [g for _, g in guard["guards"]] + guard.get("thoat_duoi", [])
+                       for t_ in guard.get("ts_duoi", [])):
+                    return {"loi": f"goi ham: dieu kien vao o HAI tang ({guard['ham']} va {ten}) "
+                                   f"- tang duoi dung tham so ham: {con[0][:40]}"}
+                guard = dict(guard)
+                guard["them"] = list(guard.get("them", [])) + \
+                    [("g", p, g) for p, g in ifs if g.strip() in con] + \
+                    [("t", p, t) for p, t in zip(vi_th, thoat) if t.strip() in con]
+                guard["ham"] = guard["ham"] + "+" + ten
+                qt += q
+            elif con:
+                # TANG DIEU KIEN: dich o day (if bao + thoat som tu dau ham toi `vi`)
+                guard = {"guards": ifs,
+                         "vi": min(p for p, _ in ifs) if ifs else vi, "den": vi, "ham": ten,
+                         "ts_duoi": list(ten_ts), "thoat_duoi": list(thoat)}
+            else:
+                qt += q
+            if ten == "OnTick":
+                break
+            if ten in _SU_KIEN:
+                return {"loi": f"goi ham: chuoi goi toi {ten}, khong toi OnTick "
+                               "(lenh tay/timer - khong mo phong theo bar)"}
+            if buoc == TANG_TOI_DA:
+                return {"loi": f"goi ham: chuoi goi qua {TANG_TOI_DA} tang"}
+            ds, ly = _cho_goi_don(mn, ten, ham)
+            if ly:
+                return {"loi": "goi ham: " + ly}
+            if not ds:
+                return {"loi": f"goi ham: {ten} khong duoc goi o dau"}
+            if dk_ts:
+                toi = []
+                for p_ in ds:
+                    ds_ = _doi_so_cho_goi(mn, p_)
+                    gan = dict(zip(ten_ts, ds_ or []))
+                    kq_ = [_tinh(dk, gan) for dk, _ in dk_ts]
+                    if any(v is None for v in kq_):
+                        return {"loi": f"goi ham: doi so cua {ten} khong phai hang tai mot cho goi "
+                                       "(khong tinh duoc dieu kien tham so)"}
+                    if all(v == mu for v, (_, mu) in zip(kq_, dk_ts)):
+                        toi.append(p_)
+                if not toi:
+                    return {"loi": f"goi ham: khong cho goi {ten} nao toi duoc lenh vao (tham so hang)"}
+                ds = toi
+                dung_ts.append(ten)
+            if len(ds) > 1:
+                # vong 6: HOAC - moi cho goi la mot NHANH, leo tiep doc lap tu cho do.
+                # Moi nhanh phai giai tron ven (mot nhanh loi -> ca lenh vao tu choi).
+                if len(ds) > HOAC_TOI_DA:
+                    return {"loi": f"goi ham: {ten} goi tu {len(ds)} cho (OR qua "
+                                   f"{HOAC_TOI_DA} nhanh)"}
+                nhanh = []
+                for p_ in ds:
+                    ly = _hop_le_cho_goi(mn, p_, ten)
+                    if ly:
+                        return {"loi": "goi ham: " + ly}
+                    r_ = _leo(p_, buoc + 1, list(tang), list(qt),
+                              dict(guard) if guard else None, list(loai_tru), list(dung_ts))
+                    if r_.get("loi"):
+                        return r_
+                    nhanh += r_["hoac"] if "hoac" in r_ else [r_]
+                if len(nhanh) > HOAC_TOI_DA:
+                    return {"loi": f"goi ham: {ten} - OR qua {HOAC_TOI_DA} nhanh"}
+                return {"hoac": nhanh}
+            ly = _hop_le_cho_goi(mn, ds[0], ten)
+            if ly:
+                return {"loi": "goi ham: " + ly}
+            vi = ds[0]
+        if guard is None:
+            return {"loi": "goi ham: chuoi toi OnTick khong co dieu kien vao (chi quan tri)"}
+        guard["qt"] = qt
+        guard["tang"] = tang
+        if loai_tru:
+            guard["loai_tru_else"] = loai_tru
+        if dung_ts:
+            guard["tham_so_hang"] = dung_ts
+        return guard
+
+    return _leo(vi_lenh, 0, [], [], None, [], [])
 
 
 def goc_ham(vb: str, vi: int) -> int:

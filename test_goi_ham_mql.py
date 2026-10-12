@@ -153,14 +153,34 @@ class TuChoi(unittest.TestCase):
         return mau, ly
 
     def test_goi_tu_hai_cho(self):
-        self.assertIn(*self._tu_choi(DAU + OPEN_BUY + """
+        # vong 6 (12/10/2026): hai cho goi = HOAC -> hai chan CUNG chieu, CUNG nhom mo phong
+        # (mot vi the mot luc), moi chan dung dieu kien cua cho goi cua no
+        r = DM.doc_chien_luoc(DAU + OPEN_BUY + """
 void OnTick()
 {
    if(CopyBuffer(hRsi,0,0,3,rsi) != 3) return;
    if(rsi[1] < InpLevel) OpenBuy();
    if(rsi[2] < 20) OpenBuy();
 }
-""", "goi tu 2 cho"))
+""", nguon="t")
+        self.assertEqual(r["so_vao_lenh_co_co_che"], 1)
+        self.assertEqual(len(r["co_che"]), 2)
+        self.assertEqual({c["chieu"] for c in r["co_che"]}, {1})
+        self.assertEqual(len({c["nhom_he"] for c in r["co_che"]}), 1)
+        nguong = sorted(c["vao"][0]["phai"]["hang"] for c in r["co_che"])
+        self.assertEqual(nguong, [20.0, 30.0])
+
+    def test_goi_tu_hai_cho_mot_nhanh_hong_tu_choi_ca(self):
+        r = DM.doc_chien_luoc(DAU + OPEN_BUY + """
+void OnTick()
+{
+   if(CopyBuffer(hRsi,0,0,3,rsi) != 3) return;
+   if(rsi[1] < InpLevel) OpenBuy();
+   if(MathRand() % 2 == 0) OpenBuy();
+}
+""", nguon="t")
+        self.assertEqual(r["so_vao_lenh_co_co_che"], 0)
+        self.assertEqual(r["co_che"], [])
 
     def test_nhanh_else(self):
         self.assertIn(*self._tu_choi(DAU + OPEN_BUY + """
@@ -206,17 +226,41 @@ void OnTick()
 """, "lop/struct"))
 
     def test_dieu_kien_o_hai_tang(self):
-        self.assertIn(*self._tu_choi(DAU + """
+        # vong 6: dieu kien o hai tang = VA, moi ve dich tai vi tri cua no
+        r = DM.doc_chien_luoc(DAU + """
+void OnTick()
+{
+   if(CopyBuffer(hRsi,0,0,3,rsi) != 3) return;
+   if(rsi[1] < InpLevel) OpenBuy();
+}
 void OpenBuy()
 {
    if(rsi[2] > 50) return;
    trade.Buy(Lots,_Symbol);
 }
+""", nguon="t")
+        self.assertEqual(r["so_vao_lenh_co_co_che"], 1, r["chua_dien_dat_duoc"])
+        vao = r["co_che"][0]["vao"]
+        self.assertIn({"trai": {"chi_bao": "rsi", "n": 14}, "phep": "<", "phai": {"hang": 30.0}}, vao)
+        self.assertIn({"trai": {"chi_bao": "tre", "cua": {"chi_bao": "rsi", "n": 14}, "n": 1},
+                       "phep": "<=", "phai": {"hang": 50.0}}, vao)
+
+    def test_dieu_kien_o_hai_tang_dung_tham_so_tu_choi(self):
+        r = DM.doc_chien_luoc(DAU + """
+input double lv = 40;
 void OnTick()
 {
-   if(rsi[1] < InpLevel) OpenBuy();
+   if(CopyBuffer(hRsi,0,0,3,rsi) != 3) return;
+   if(rsi[1] < InpLevel) OpenBuy(50);
 }
-""", "HAI tang"))
+void OpenBuy(double lv)
+{
+   if(rsi[2] > lv) return;
+   trade.Buy(Lots,_Symbol);
+}
+""", nguon="t")
+        # `lv` la THAM SO (50 tai cho goi), KHONG phai input cung ten (40) -> khong dich
+        self.assertEqual(r["so_vao_lenh_co_co_che"], 0)
 
     def test_goi_trong_dieu_kien_ghep(self):
         self.assertIn(*self._tu_choi(DAU + """
