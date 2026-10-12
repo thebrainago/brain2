@@ -4,6 +4,14 @@
 
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
 
+## 12/10/2026 chiều (10) — Vòng 18: hệ "bắt cú chạy mạnh" (MÔ PHỎNG)
+
+- Đăng ký trước `reports/vong18_tien_dang_ky.md`. `v18.py`, `reports/vong18.json`, `test_v18.py`.
+- Seeker GitHub, 16 truy vấn có chủ đích (hedging, straddle/OCO, tin, range châu Á/London/phiên, breakout, kiệt sức-đảo chiều): 58 repo thấy, 33 xem, 14 có mã, 29 EA mới tải, 6 kèm `.set`. Bộ đọc KHÔNG sửa: dịch được 0/29 (12 "không tìm được guard", nhiều EA là hedging/martingale gọi hàm lồng). MQL5 codebase/forum: CHƯA ĐO ĐƯỢC (không làm vòng này).
+- Cơ chế chuẩn hóa, FX H1 bid/ask thật 2024–2026 (7 cặp), SL/TP cùng bar giả định xấu nhất, 3 biến thể (gốc / TP 0,5×ATR-SL 1×ATR / thoát 3 bar): straddle phiên Á (B1), straddle tin NFP+CPI (B2), breakout 24 bar (B3), kiệt sức-đảo chiều (B4). 84 ô, Holm cộng dồn 5.145: 0 sống; p thô nhỏ nhất 0,07. Trung vị nửa kiểm: B1 −7…−15 %, B3 TP nhỏ −18,5 %, B2/B4 ≈ −0,1…−2,7 %. Trượt 0,5→1 pip làm xấu thêm đều; TP nhỏ luôn tệ nhất (chi phí/lệnh lớn so với lời).
+- Hedging-recovery (B5, nhân đôi chân lỗ, tối đa 5 bước = martingale ẩn): 7/7 cặp lỗ 62–100 %, cháy 3/7 (USDJPY, NZDUSD, USDCHF); spread ×1,5 + 0,5 pip: cháy 7/7.
+- Vàng/chỉ số: CHƯA ĐO ĐƯỢC (không có bid/ask thật khung nhỏ). M15/M5: CHƯA ĐO ĐƯỢC vòng này.
+
 ## 12/10/2026 chiều (9) — Vòng 17: đòn bẩy, đảo chiều ghép, phá vỡ, hàng hóa (MÔ PHỎNG)
 
 - Đăng ký trước: `reports/vong17_tien_dang_ky.md`, `reports/vong17_hang_hoa_tien_dang_ky.md`. Họ Holm cộng dồn cuối: 5.061 (bản đăng ký hàng hóa ghi nhầm 5.323+351; số đúng 4.710+351 — họ nhỏ hơn nên KHÔNG khắt khe hơn, kết luận không đổi).
