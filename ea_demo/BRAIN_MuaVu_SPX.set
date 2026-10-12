@@ -1,0 +1,10 @@
+InpSymbol=US500Cash
+InpDauCuoiThang=true
+InpSanta=true
+InpHalloween=true
+InpNam3=true
+InpLotMoiQT=0.05
+InpGioKiem=22
+InpPhutKiem=55
+InpMagic=2026101302
+InpFileLog=brain2_muavu_log.csv

@@ -1,0 +1,9 @@
+InpSymbols=US500Cash,US100Cash
+InpIbsMax=0.2
+InpLots=0.10
+InpGioMoPhien=16
+InpPhutMoPhien=30
+InpGioKiem=22
+InpPhutKiem=55
+InpMagic=2026101301
+InpFileLog=brain2_ibs_log.csv

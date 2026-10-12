@@ -4,6 +4,12 @@
 
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
 
+## 12/10/2026 chiều (5) — Vòng 13: EA demo cho hệ sống + IBS tài sản khác (MÔ PHỎNG)
+
+- **EA demo (sản phẩm giao, CHỈ cho tài khoản DEMO XM):** `ea_demo/BRAIN_IBS_Demo.mq5` (+`.set`): IBS < 0,2 của phiên cash Mỹ (16:30→22:55 giờ server) trên US500Cash/US100Cash, giữ 1 ngày, khối lượng cố định 0,10. `ea_demo/BRAIN_MuaVu_SPX.mq5` (+`.set`): danh mục 4 quy tắc (đầu/cuối tháng, Santa, Halloween, năm 3) có công tắc từng quy tắc, khối lượng = số quy tắc bật × 0,05. Cả hai ghi CSV khớp lệnh/bid/ask/spread/swap/hoa hồng. Hướng dẫn `ea_demo/INSTALL_DEMO.md`. CHƯA biên dịch (không có MetaEditor trên box) — chỉ kiểm cú pháp thô (ngoặc cân, input khớp `.set`). Bản Python đối chiếu `ea_demo/ea_logic_py.py`; `test_ea_demo.py`: lịch thứ 2–6 khớp mô phỏng 100 %, lịch thật (ngày lễ) khớp > 97 %.
+- **IBS tài sản khác** (đăng ký trước `reports/vong13_tien_dang_ky.md`, `v13.py`, `reports/vong13.json`, Holm 34): GER40 −3,5 %/năm, UK100 −3,9 %/năm, HK50 −2,6 %/năm, JP225 +1,5 %/năm (p 0,13), vàng +3,8 %/năm (p 0,006 → Holm 0,15) → **không cái nào sống**. IBS S&P vẫn sống nhưng sát ngưỡng (Holm 0,048); V6 danh mục 0,029; danh mục 4 S&P, đầu/cuối tháng, Santa sống.
+- Gộp vòng 12 (V6 sống, AUDCAD rớt) vào main.
+
 ## 12/10/2026 chiều (4) — Vòng 12: tái hiện V6 và AUDCAD của the-brain (chỉ tham khảo) (MÔ PHỎNG)
 
 - Đọc the-brain (nhánh claude/autonomous-trading-system-rzzt7h = main = 3c982747), không lấy bí mật/mã. V6 = IBS < 0,2 trên chỉ số Mỹ (+ lớp bias vĩ mô, danh mục, bar phiên Mỹ); tuyên bố "8,6 %/năm trên XM cent" (HANDOFF) và 20,7 %/năm đòn bẩy 4×, DD −49 % (Python, báo cáo 03/09); bản gốc EA/.set đã mất. AUDCAD = danh mục 8 cụm hồi quy H4, tuyên bố 27 %/năm, DD 30 % (MT5 tester holdout + demo, lot chọn sau) nhưng 18/09 chính the-brain kết luận 668 cơ chế AUDCAD không có hệ nào vừa đủ tần suất vừa Sharpe > 0; rsi_dao_chieu Python 1,16 → tester 0,68.
