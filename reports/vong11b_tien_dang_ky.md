@@ -24,3 +24,9 @@ Kham pha: t hai phia cua TB loi suat ngay o (gia, chua phi); chon huong = dau TB
 tren nua sau. Holm VA BH-FDR (q 10 %) tren m = TOAN BO so o da quet (ke ca o khong qua kham pha, p = 1).
 O song quet: Holm < 0,05 (FDR chi bao cao). Sau do moi o song chay voi phi XM + swap (nhu vong 11), x1 va x1,5,
 tren nua xac nhan: phai lai sau phi o ca hai, maxDD < 80 %. Moi ket qua: MO PHONG.
+
+## Sua (a1) theo xac nhan cua nguoi dung (ghi ~13:17, van TRUOC khi nhin du lieu vang M30)
+- Dinh nghia CHINH: gio Viet Nam GMT+7 (khong DST): mo buoi sang 08:00 VN, nen M30 12:00 VN (05:00 UTC) nguoc huong,
+  nen 12:30 VN (05:30 UTC) cung huong -> vao o 13:00 VN, dong 17:00 VN. Doi gio: server NY+7 -> -7 h = gio New York
+  (co DST) -> UTC -> +7 h.
+- Hai bien the server va GMT o tren van chay va DEM: (a1) = 3 phep thu; ho Holm vong 11 = 22 + 3 + 1 (IBS) = 26.
