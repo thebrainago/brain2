@@ -1,0 +1,59 @@
+{
+ "_ghi_chu": "Nguon theo doi (Chrome may nha CDP 9224, dang nhap tay). Quet lai moi chu_ky_gio: python seeker_kham_pha_sau.py --quet-lai --ghi. Chua follow tai khoan nao.",
+ "nguon": [
+  {
+   "ma": "forexfactory_trading_systems",
+   "url": "https://www.forexfactory.com/forum/71-trading-systems",
+   "chu_ky_gio": 24,
+   "quet_cuoi": 1791900815.3537858
+  },
+  {
+   "ma": "myfxbook_systems",
+   "url": "https://www.myfxbook.com/systems",
+   "chu_ky_gio": 24,
+   "quet_cuoi": 1791900815.3537858
+  },
+  {
+   "ma": "collective2_grid",
+   "url": "https://collective2.com/grid",
+   "chu_ky_gio": 24,
+   "quet_cuoi": 1791900815.3537858
+  },
+  {
+   "ma": "darwinex_darwins",
+   "url": "https://www.darwinex.com/darwins",
+   "chu_ky_gio": 24,
+   "quet_cuoi": 1791900815.3537858
+  },
+  {
+   "ma": "zulutrade_leaders",
+   "url": "https://www.zulutrade.com/leaders",
+   "chu_ky_gio": 24,
+   "quet_cuoi": 1791900815.3537858
+  },
+  {
+   "ma": "fxblue_home",
+   "url": "https://www.fxblue.com/",
+   "chu_ky_gio": 24,
+   "quet_cuoi": 1791900815.3537858
+  },
+  {
+   "ma": "babypips_learn",
+   "url": "https://www.babypips.com/learn/forex",
+   "chu_ky_gio": 24,
+   "quet_cuoi": 1791900815.3537858
+  },
+  {
+   "ma": "x_search_backtest",
+   "url": "https://x.com/search?q=forex%20backtest%20strategy&f=live",
+   "chu_ky_gio": 24,
+   "quet_cuoi": 1791900815.3537858
+  },
+  {
+   "ma": "facebook_search_backtest",
+   "url": "https://www.facebook.com/search/posts?q=forex%20strategy%20backtest",
+   "chu_ky_gio": 24,
+   "quet_cuoi": 1791900815.3537858
+  }
+ ]
+}

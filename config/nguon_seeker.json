@@ -4,7 +4,7 @@
   "Nhan 4 chieu theo luat tu khoa chot truoc trong nhan/nguon_seeker.gan_nhan; 'tong_hop' = nguon nhieu phong cach.",
   "KHONG co khoa / mat khau / phien. Ket qua quet that o reports/SEEKER_QUET_NGUON.json."
  ],
- "tong": 246,
+ "tong": 294,
  "nguon": {
   "allocatesmartly": {
    "ten": "allocatesmartly",
@@ -6121,6 +6121,748 @@
    ],
    "can_dang_nhap": false,
    "ghi_chu": "box HTTP 403 13/10 -> HANG_CHO_MAY_NHA, khong vuot"
+  },
+  "tu_facebook_com_forexfactory": {
+   "phong_cach": [
+    "hoc_may",
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_faireconomy_com": {
+   "phong_cach": [
+    "hoc_may"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_x_com_forexfactory": {
+   "phong_cach": [
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_forexfactory_com_thread_1190104": {
+   "phong_cach": [
+    "hoc_may",
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_twitter_com_forexfactory": {
+   "phong_cach": [
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_forexfactory_com_thread_374228": {
+   "phong_cach": [
+    "luot_song",
+    "hoc_may",
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "ngan_M1_M15",
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_forexfactory_com_thread_1014708": {
+   "phong_cach": [
+    "luot_song",
+    "hoc_may",
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "ngan_M1_M15",
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_forexfactory_com_thread_655033": {
+   "phong_cach": [
+    "luot_song",
+    "hoc_may",
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "ngan_M1_M15",
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_myfxbook_com_members_johnmacknamara_r_factor_portfolio_mean_r": {
+   "phong_cach": [
+    "hoi_quy",
+    "danh_muc_factor",
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "danh_muc"
+   ]
+  },
+  "tu_myfxbook_com_members_midasalgo_midasalgo_11730585": {
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_forexfactory_com_thread_479597": {
+   "phong_cach": [
+    "xu_huong",
+    "hoc_may",
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_forexfactory_com_thread_9049": {
+   "phong_cach": [
+    "xu_huong",
+    "hoc_may",
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_myfxbook_com_members_alexander1x_multi_ea_trading_12055163": {
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_myfxbook_com_members_optin_trading_system_always_plus_1178727": {
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_forexfactory_com_thread_1254177": {
+   "phong_cach": [
+    "hoc_may",
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_paybackfx_com": {
+   "phong_cach": [
+    "hoc_may"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_myfxbook_com_members_midasalgo": {
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_x_com_elitescalpers": {
+   "phong_cach": [
+    "luot_song"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "ngan_M1_M15"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_x_com_center_forex": {
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_myfxbook_com_community_strategies_11_1": {
+   "phong_cach": [
+    "hoc_may",
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_forexfactory_com_thread_1390964": {
+   "phong_cach": [
+    "hoc_may",
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_forexfactory_com_thread_912456": {
+   "phong_cach": [
+    "hoc_may",
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_cryptocraft_com_thread_877901": {
+   "phong_cach": [
+    "pha_vo",
+    "hoc_may"
+   ],
+   "tai_san": [
+    "crypto"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_x_com_willyalgotrader": {
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_signalstart_com": {
+   "phong_cach": [
+    "hoc_may",
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "copy_theo_doi"
+   ]
+  },
+  "tu_forexfactory_com_thread_592890": {
+   "phong_cach": [
+    "hoc_may",
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_forexfactory_com_thread_1311538": {
+   "phong_cach": [
+    "hoc_may",
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_forexfactory_com_thread_127271": {
+   "phong_cach": [
+    "hoc_may",
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_forexfactory_com_thread_1428164": {
+   "phong_cach": [
+    "hoc_may",
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_forexfactory_com_thread_1349515": {
+   "phong_cach": [
+    "hoi_quy",
+    "hoc_may",
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_forexfactory_com_thread_1429797": {
+   "phong_cach": [
+    "luot_song",
+    "hoc_may",
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu",
+    "futures_hang_hoa"
+   ],
+   "khung": [
+    "ngan_M1_M15",
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_forexfactory_com_thread_1331012": {
+   "phong_cach": [
+    "hoc_may",
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_forexfactory_com_thread_26044": {
+   "phong_cach": [
+    "hoc_may",
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_forexfactory_com_thread_1190190": {
+   "phong_cach": [
+    "xu_huong",
+    "hoc_may",
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_forexfactory_com_thread_236210": {
+   "phong_cach": [
+    "hoc_may",
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_forexfactory_com_thread_1308721": {
+   "phong_cach": [
+    "hoc_may",
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_forexfactory_com_thread_669343": {
+   "phong_cach": [
+    "xu_huong",
+    "hoc_may",
+    "danh_muc_factor"
+   ],
+   "tai_san": [
+    "fx",
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_metalsmine_com_thread_922895": {
+   "phong_cach": [
+    "hoc_may"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_myfxbook_com_systems_2": {
+   "phong_cach": [
+    "hoc_may",
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_twitter_com_myfxbook": {
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_t_me_myfxbook_official": {
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_myfxbook_com_members_midasalgo_midasalgo_goldenfingers_116060": {
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx",
+    "futures_hang_hoa"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_myfxbook_com_members_midasalgo_midasalgo_lexo_ultimate_116199": {
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_myfxbook_com_members_fx_challenger_tashron_12245502": {
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_myfxbook_com_members_iminwarn_555_6426348": {
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_myfxbook_com_members_lovethepips_actual_forex_trading_samuel_": {
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_myfxbook_com_members_ferrari2009_ic_markets_3534905": {
+   "phong_cach": [
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
+  },
+  "tu_myfxbook_com_members_azkgroup_mt4_azk_gold_ai_1026f_11811889": {
+   "phong_cach": [
+    "hoc_may",
+    "tin_hieu_copy"
+   ],
+   "tai_san": [
+    "fx",
+    "futures_hang_hoa"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ]
   }
  }
 }

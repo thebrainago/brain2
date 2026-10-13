@@ -49,3 +49,14 @@ Tổng ≈ 7h30′. Nguồn cần đăng nhập (myfxbook, darwinex, collective2
 | 24 | Soi vì sao InpGioVao=2 trên AUDUSD#/NZDUSD#/AUDCAD# không vào lệnh trước 2018-04-24 (log tester) rồi chạy lại so g0/g2 | XONG 13/10 (XM AUD/NZD# không có M1 trước 2018-05; so lại 2018-05→: reports/mt5_v27/README.md) |
 | 25 | Stress spread ×1,5 bằng custom symbol (việc #10) | CHỜ |
 | 26 | RAM disk (ImDisk/AIM) — cần chủ dự án đồng ý cài phần mềm ngoài Python | CHỜ CHỦ DỰ ÁN |
+
+## SEEKER Chrome may nha CDP 9224 (13/10/2026 toi) - quet lai HANG NGAY
+Chrome AI: `D:\browser_thebrain`, `--remote-debugging-port=9224`, hien cua so (dang nhap tay, Google thebrainago). Khong luu mat khau/cookie vao repo.
+Da dang nhap: Forex Factory, FX Blue, Collective2, Darwinex, ZuluTrade, X, Facebook, Myfxbook, Babypips (trang chinh; forum SSO loi). Chua: SSRN (mien email khong hop le), TikTok (can ngay sinh), cTrader/QuantPedia (bo qua), TradingView/MQL5 (de sau, can mang khac).
+Follow: CHUA follow tai khoan nao. Chi doc: khong dang/like/nhan tin/tham gia nhom.
+
+| # | Viec hang ngay | Lenh | Trang thai |
+|---|---|---|---|
+| 11 | Quet lai nguon theo doi (`config/nguon_theo_doi.json`, chu_ky_gio=24: FF Trading Systems, Myfxbook Systems, C2 grid, Darwinex, ZuluTrade, FX Blue, Babypips, tim X/Facebook "forex backtest strategy") | `python seeker_kham_pha_sau.py --quet-lai --ghi` (Chrome 9224 phai mo) | MOI |
+| 12 | Kham pha sau tu nguon moi (do sau 2, ngan sach 25-60 trang, 600-900 s) -> ung vien vao `config/nguon_seeker.json` (tu_sinh, THU) + `data/nguon_seeker/HANG_DOI_KHAM_PHA.json` | `python seeker_kham_pha_sau.py --hat <url...> --ghi` | MOI (13/10: 25 trang, 827 ung vien, 50 nguon them) |
+| 13 | Tom tat luat + URL -> `reports/seeker_may_nha/` (khong ma ben thu ba) | thu cong / box | 13/10: SEEKER_MAY_NHA_9224_20261013.md |
