@@ -68,3 +68,13 @@ __pycache__/
 
 # dau backtest dang chay (nhan/dieu_toc.py) - trang thai runtime
 config/dang_backtest/
+
+# --- Chrome / mat khau da trich (KHONG BAO GIO commit) ---
+reports/chrome_extract/
+**/Login Data
+**/*LoginData
+**/Local_State
+**/chrome_saved_logins*
+_thu_dang_nhap*.sh
+_dang_nhap_mot_lan*.sh
+_thu_ini_server*.sh

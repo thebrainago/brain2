@@ -4,6 +4,7 @@ Ngày: 2026-10-11. Repo: thebrainago/brain2, nhánh main.
 
 ## 1. Đọc theo thứ tự
 - GHI_CHU_NANG_CAP_GROK.md (trạng thái + số đo mới nhất)
+- tai_lieu/VAN_HANH_MAY_NHA.md (máy nhà: luật, quy tắc thao tác tay, WARP, danh mục tài khoản — KHÔNG có giá trị mật khẩu; đọc mục 0 và 7 trước)
 - Luật user: gói the-brain ban_giao_brain2/01 (mâu thuẫn thì 01 thắng)
 - Repo thebrainago/brain2 nhánh main
 

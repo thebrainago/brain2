@@ -130,8 +130,8 @@ def test_khoi_common_ini_lay_server_dau_khi_chua_biet_cai_nao_chay_duoc(kho):
 
 # ------------------------------------------------ CHE KHOA KHI IN RA
 def test_che_giu_hai_ky_tu_dau_va_khong_lo_do_dai_that():
-    assert BM.che("Vietanh1234$") .startswith("Vi")
-    assert "etanh" not in BM.che("Vietanh1234$")
+    assert BM.che("Matkhau-gia-1234") .startswith("Ma")
+    assert "khau-gia" not in BM.che("Matkhau-gia-1234")
     assert BM.che("") == "(rong)"
     assert BM.che("ab") == "ab***"       # chuoi ngan van phai duoc che
 
