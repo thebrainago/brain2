@@ -80,6 +80,8 @@ def do_may(giay: float = 2.0) -> dict:
     time.sleep(giay)
     tong = cua_ta = 0.0; game = False
     for p in procs:
+        if p.pid == 0:   # "System Idle Process" (Windows) - khong phai tai
+            continue
         try:
             c = p.cpu_percent(None); ten = (p.info["name"] or "").lower(); cmd = " ".join(p.info["cmdline"] or []).lower()
         except Exception:
