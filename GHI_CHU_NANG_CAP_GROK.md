@@ -2006,3 +2006,21 @@ Do that (cung bo doc, cung kho; `cau_kho --khong-tai`, BRAIN_DIEU_TOC=tat):
 - Phần C (v26_seeker.py): EMA12/26 D1 và RSI_Exhaustion H1: trước phí ≈ 0 (≤ 2,5 bps), sau phí âm phần kiểm. 0 sống.
 - Holm cộng dồn 12.819 → 12.873 (sơ bộ, phí bảng) → 12.927 → 12.933. **0 sống.**
 **EA MRZ**: thêm `InpGioVao` (mặc định 02h server, RSI giữ 0h); tín hiệu vẫn từ nến D1 vừa đóng, lệnh vào chờ tới giờ đó (cùng nến). Đóng do hết 72 nến vẫn ở đầu nến (chưa dời). Cần chạy lại MT5 trên máy nhà để đo.
+
+## Vòng 27 (13/10/2026 sáng, Grok trên box) — chu kỳ 1 của vòng lặp liên tục — MÔ PHỎNG
+- Thiết kế vòng lặp: `tai_lieu/VONG_LAP.md` (5 việc xoay vòng), `tai_lieu/KINH_NGHIEM.md` (12 bài học vòng 1–26), `tai_lieu/HANG_CHO_MAY_NHA.md` (MT5 MRZ InpGioVao=2 GBPUSD#/AUDUSD# 2016–2026 + GBPUSD 2004–2015; nguồn bị chặn; dữ liệu tester ở D:/RAM disk, xoá sau).
+- **Bộ đọc**: `nhan/tien_xu_ly_ea.py` (kiểm ký quỹ→true, IsNewBar→true, tham số bool biểu thức→if/else, chuyên biệt hoá hàm ĐẶT LỆNH theo chỗ gọi hằng, gập so sánh hằng, OnTimer→OnTick khi không có OnTick). Đọc lại 78 tệp EA (`v27_seeker_doc.py`, `reports/seeker_v27/DOC_LAI.json`): **3 → 3 dịch được, 5 → 5 luật, không mất EA nào**. Lý do: phần lớn EA là công cụ (guard/panel/calculator, ~30 tệp không có lệnh vào); các EA chiến lược còn hỏng ở bước sau: hướng int qua biến cục bộ (`int dir = CheckBreakout(); OpenTrade(dir==1)` → giờ dừng ở `dir != 0`), lệnh trong for/while, so sánh chuỗi trạng thái, `else-if` không chứng minh loại trừ. Lần thử đầu chuyên biệt hoá cả hàm chỉ báo làm MẤT RSI_Exhaustion → đã giới hạn cho hàm có lệnh đặt (có test).
+- **Dữ liệu**: +7 chuỗi M5 HistData 2024–2026 (EURJPY, GBPJPY, EURGBP, XAGUSD, SPX, NSX, DAX); WTI chỉ từ 2026-06 → bỏ. Ngoài repo.
+- **Tốc độ** (cProfile): 64 % thời gian một ô là `v19.tin_hieu` tính lại cho mỗi chế độ phí → đệm theo chuỗi; ô chạy song song 8 tiến trình. 18 ô: chạy 2,99 s → 1,16 s (nạp dữ liệu 5,5 s giờ chiếm phần lớn). Chênh kết quả song song/tuần tự chỉ ở p_boot (RNG bootstrap), mọi trung bình/p giống hệt.
+- **Vòng 27** (`v27.py`, tiền đăng ký `reports/vong27_tien_dang_ky.md`, kết quả `reports/vong27.json`): 18 ô, lọc theo tầng; bps/lệnh phát hiện / kiểm:
+  | ô | trước phí | sau phí XM | ×1,5+1bps | p | DD |
+  |---|---|---|---|---|---|
+  | AUDUSD MRZ D1 + EMA12/26 ngược (02h) | 15,7 / 70,4 | 14,3 / 67,8 | 13,7 / 65,2 | 0,008 | 16 % |
+  | AUDUSD MRZ D1 + RSI cạn | 16,2 / 63,9 | 13,4 / 62,2 | 12,2 / 59,6 | 0,016 | 15 % |
+  | GBPUSD MRZ D1 + EMA ngược | 4,9 / 17,7 | 3,8 / 15,7 | 2,7 / 13,6 | 0,20 | 16 % |
+  | pool hàng hoá+chỉ số D1 | 1,5 / 39,2 | −2,8 / 30,5 | −5,5 / 26,8 | 0,02 | 27 % |
+  | pool FX chéo D1 | 3,5 / 4,7 | −0,4 / 0,4 | âm | 0,47 | 12 % |
+  | H4 AUDUSD / GBPUSD / FX7 | 8,3/1,5 · 2,5/0,0 · 2,7/0,4 | kiểm âm cả 3 | — | ≥ 0,56 | ≤ 9 % |
+  | H1 (4 ô), H4 tài sản mới, GBPUSD RSI cạn | dừng tầng 1 (một nửa ≤ 0) | — | — | — | — |
+  | EMA thuận (2 ô) | < 30 lệnh/nửa → CHƯA ĐO ĐƯỢC | | | | |
+  EMA ngược gần như = MRZ gốc (MRZ hầu hết ngược EMA) → không thêm thông tin. Holm cộng dồn 12.933 → **12.949**. **0 sống.**

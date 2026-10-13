@@ -3,5 +3,16 @@
   "sma_mau",
   "dk_mau"
  ],
- "ngay": "2026-08-12"
+ "ngay": "2026-08-12",
+ "chu_ky_v27": 1,
+ "hang": [
+  "nap_du_lieu",
+  "seeker_bo_doc",
+  "vong_thu",
+  "toc_do_kinh_nghiem",
+  "hang_cho_may_nha"
+ ],
+ "con_tro_tiep": 0,
+ "ho_holm": 12949,
+ "cap_nhat": "2026-10-13"
 }

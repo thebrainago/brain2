@@ -1,0 +1,1117 @@
+{
+ "nhan": "TOM TAT LUAT + URL",
+ "tong_ket": {
+  "tep": 78,
+  "dich_truoc": 3,
+  "dich_sau": 3,
+  "luat_truoc": 5,
+  "luat_sau": 5,
+  "mat": [],
+  "moi": []
+ },
+ "tep": [
+  {
+   "url": "https://www.mql5.com/en/code/78259",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [
+    "kiem_tai_nguyen->true x3 (gia dinh: du ky quy)",
+    "gap_hang so sanh hang"
+   ],
+   "ly_do_sau": [],
+   "tep": "Crabel_ORB_Gold.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78275",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [
+    "goi ham: doi so cua ExecuteTrade khong phai hang tai mot cho goi (khong tinh duoc dieu kien tham so)",
+    "nhanh else-if khong chung minh loai tru nhanh truoc (= B and not A): signal == 1"
+   ],
+   "tep": "APEX_VELOCITY_V1.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78243",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [
+    "goi ham: chuoi goi toi OnTimer, khong toi OnTick (lenh tay/timer - khong mo phong theo bar)"
+   ],
+   "tep": "PropFirmEquityGuard.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78235",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "BotGuard.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77180",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [
+    "IsNewBar()->true (gia dinh: mo phong theo bar)",
+    "gap_hang so sanh hang"
+   ],
+   "ly_do_sau": [
+    "cross > 0",
+    "lenh vao nam trong nhanh else"
+   ],
+   "tep": "EMA_Cross_Scalper_M15.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78206",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [
+    "CloseSide(bieu_thuc bool)->if/else x1"
+   ],
+   "ly_do_sau": [
+    "goi ham: doi so cua OpenOrder khong phai hang tai mot cho goi (khong tinh duoc dieu kien tham so)"
+   ],
+   "tep": "GridPro_Panel_v1.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78137",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "MarginRiskSimulator.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78138",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "AgentGuard.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78134",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [
+    "chuyen_biet OpenTrade x2"
+   ],
+   "ly_do_sau": [
+    "huong int: return long co dieu kien: margin > AccountInfoDouble(ACCOUNT_MARGI / OrderCa"
+   ],
+   "tep": "Manual_Trade_Pad_Tester_CodeBase_Documented.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78107",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "DailyLossGuard.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78123",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "BrokerClockAuditor.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78079",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "SessionRealityAuditor.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78078",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [
+    "chuyen_biet DoMarket x2"
+   ],
+   "ly_do_sau": [
+    "dir > 0",
+    "goi ham: DoMarket khong duoc goi o dau"
+   ],
+   "tep": "Advanced_PropFirm_Trade_Panel_SR_2d71.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78046",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "NewtonianMechanics.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78046",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "Deployment.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78027",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [
+    "loc thoat som: !PrepareOrder(price, lots, sl, tp)",
+    "loc thoat som: !SignalOk(1)"
+   ],
+   "tep": "Jpn225_quietdrift.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78008",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "TickIntegrityAuditor.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77967",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "ORB_RiskManaged.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/76895",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "BrokerProfiler.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77951",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "ANGuardLite.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77919",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "HistoryIntegrityAuditor.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77918",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [
+    "close < sarArray[0]",
+    "goi ham: nhanh else-if khong chung minh loai tru nhanh truoc (= B and not A): isQuantumDn"
+   ],
+   "tep": "WaveMaster_Oscilloscope.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77900",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [
+    "khong tim duoc guard cua lenh vao"
+   ],
+   "tep": "StochDailyBreakout.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77871",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "AlphaEngine.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77845",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [
+    "!buy",
+    "!ok"
+   ],
+   "tep": "MirrorHedgeEAz4s.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77842",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "RepaintInspector.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77738",
+   "truoc": 1,
+   "sau": 1,
+   "luat": [
+    {
+     "vao": [
+      {
+       "trai": {
+        "chi_bao": "gio"
+       },
+       "phep": ">=",
+       "phai": {
+        "hang": 14.0
+       }
+      },
+      {
+       "trai": {
+        "chi_bao": "gio"
+       },
+       "phep": "<",
+       "phai": {
+        "hang": 18.0
+       }
+      },
+      {
+       "trai": {
+        "chi_bao": "tre",
+        "cua": {
+         "chi_bao": "rsi",
+         "n": 14
+        },
+        "n": 1
+       },
+       "phep": "<",
+       "phai": {
+        "hang": 65.0
+       }
+      },
+      {
+       "trai": {
+        "chi_bao": "rsi",
+        "n": 14
+       },
+       "phep": ">=",
+       "phai": {
+        "hang": 65.0
+       }
+      }
+     ],
+     "chieu": -1,
+     "giu": 1,
+     "sltp": {
+      "mt5": true,
+      "sl": null,
+      "tp": null,
+      "keo": null,
+      "sl_diem": null,
+      "tp_diem": null,
+      "sl_kc": {
+       "chi_bao": "tuyen_tinh",
+       "toan_hang": [
+        {
+         "chi_bao": "atr",
+         "n": 14,
+         "kieu": "sma"
+        }
+       ],
+       "he_so": [
+        4.0
+       ]
+      },
+      "tp_kc": {
+       "chi_bao": "tuyen_tinh",
+       "toan_hang": [
+        {
+         "chi_bao": "atr",
+         "n": 14,
+         "kieu": "sma"
+        }
+       ],
+       "he_so": [
+        4.0
+       ]
+      },
+      "ref_sl": "BID",
+      "ref_tp": "BID",
+      "het_bar": 96
+     }
+    }
+   ],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "RSI_Exhaustion_Reversal.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77748",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [
+    "loc thoat som: !signal"
+   ],
+   "tep": "ZoneUS30.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77718",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [
+    "!is_long",
+    "is_long"
+   ],
+   "tep": "Stormbreaker_ADX.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77710",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [
+    "loc thoat som: ExtTesterTradeDone",
+    "loc thoat som: SymbolInfoInteger(_Symbol,SYMBOL_TRADE_MODE)!=SYMB"
+   ],
+   "tep": "PropGuard_CodeBase_1_02.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77697",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [
+    "goi ham: loi goi trong nhanh else (OnChartEvent)"
+   ],
+   "tep": "NeonDesk_v1.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77691",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [
+    "IsNewBar()->true (gia dinh: mo phong theo bar)",
+    "OpenTrade(bieu_thuc bool)->if/else x1",
+    "chuyen_biet OpenTrade x2",
+    "gap_hang so sanh hang"
+   ],
+   "ly_do_sau": [
+    "dir != 0",
+    "dir == 1"
+   ],
+   "tep": "GoldBreakoutEA.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77653",
+   "truoc": 2,
+   "sau": 2,
+   "luat": [
+    {
+     "vao": [
+      {
+       "trai": {
+        "chi_bao": "ema",
+        "n": 12
+       },
+       "phep": ">",
+       "phai": {
+        "chi_bao": "ema",
+        "n": 26
+       }
+      },
+      {
+       "trai": {
+        "chi_bao": "tre",
+        "cua": {
+         "chi_bao": "ema",
+         "n": 12
+        },
+        "n": 1
+       },
+       "phep": "<=",
+       "phai": {
+        "chi_bao": "tre",
+        "cua": {
+         "chi_bao": "ema",
+         "n": 26
+        },
+        "n": 1
+       }
+      }
+     ],
+     "chieu": 1,
+     "giu": 1
+    },
+    {
+     "vao": [
+      {
+       "trai": {
+        "chi_bao": "ema",
+        "n": 12
+       },
+       "phep": "<",
+       "phai": {
+        "chi_bao": "ema",
+        "n": 26
+       }
+      },
+      {
+       "trai": {
+        "chi_bao": "tre",
+        "cua": {
+         "chi_bao": "ema",
+         "n": 12
+        },
+        "n": 1
+       },
+       "phep": ">=",
+       "phai": {
+        "chi_bao": "tre",
+        "cua": {
+         "chi_bao": "ema",
+         "n": 26
+        },
+        "n": 1
+       }
+      }
+     ],
+     "chieu": -1,
+     "giu": 1
+    }
+   ],
+   "bien_doi": [
+    "IsNewBar()->true (gia dinh: mo phong theo bar)",
+    "gap_hang so sanh hang"
+   ],
+   "ly_do_sau": [],
+   "tep": "EMA_Cross_Demo_EA.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77391",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "PropSpread.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77639",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [
+    "IsNewBar()->true (gia dinh: mo phong theo bar)",
+    "gap_hang so sanh hang"
+   ],
+   "ly_do_sau": [
+    "goi ham: doi so cua OpenTrade khong phai hang tai mot cho goi (khong tinh duoc dieu kien tham so)"
+   ],
+   "tep": "SMC_Gold.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/76999",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [
+    "chuyen_biet OpenTrade x2",
+    "gap_hang so sanh hang"
+   ],
+   "ly_do_sau": [
+    "goi ham: OpenTrade khong duoc goi o dau",
+    "goi ham: chuoi goi toi OnChartEvent, khong toi OnTick (lenh tay/timer - khong mo phong theo bar)"
+   ],
+   "tep": "SafeRiskManagerEA.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77595",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [
+    "!InpUseDynamicVD  or  current_vd_points >= InpVD_MinVolPnts",
+    "!hasSell"
+   ],
+   "tep": "Trend_Follower.mq5"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78322",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [
+    "chuyen_biet OpenTrade x2"
+   ],
+   "ly_do_sau": [
+    "goi ham: OpenTrade khong duoc goi o dau",
+    "goi ham: return long co dieu kien trong HandleObject: !ObjectGetInteger(0, name, OBJPROP_STATE"
+   ],
+   "tep": "Manual_Trade_Pad_MT4.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78258",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [
+    "khong tim duoc guard cua lenh vao",
+    "lenh vao nam trong nhanh else"
+   ],
+   "tep": "MASTER1011.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78224",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [
+    "khong xac dinh duoc chieu lenh: PriceBuy<=SymbolInfoDouble(_Symbol,SYMBOL_ASK)-Sto",
+    "khong xac dinh duoc chieu lenh: PriceSell>=SymbolInfoDouble(_Symbol,SYMBOL_BID)+St"
+   ],
+   "tep": "FERA.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77921",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [
+    "khong tim duoc guard cua lenh vao"
+   ],
+   "tep": "Md_Scalper_v2.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77546",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [
+    "khong xac dinh duoc chieu lenh: !passed",
+    "lenh vao nam trong nhanh else"
+   ],
+   "tep": "SemiHFT_GridBot_n24.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77393",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [
+    "IsNewBar()->true (gia dinh: mo phong theo bar)",
+    "gap_hang so sanh hang"
+   ],
+   "ly_do_sau": [
+    "khong tim duoc guard cua lenh vao"
+   ],
+   "tep": "APB_Channel_XAUUSD_EA.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/75731",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "Quantora_Trade_Manager.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/75748",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "Quantora_Margin_Calculator_MT4.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/75746",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "Quantora_Risk_Calculator_MT4_v1_00.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/75744",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "Quantora_Position_Size_Calculator_MT4.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/75741",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "Quantora_Trailing_Stop_Manager.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/75736",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "Quantora_Break_Even_Manager.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/75732",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "Quantora_Trade_Manager.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/71077",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "Prop_ATR_Trail_Manager.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/70467",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [
+    "kiem_tai_nguyen->true x3 (gia dinh: du ky quy)"
+   ],
+   "ly_do_sau": [
+    "false"
+   ],
+   "tep": "VR_Rsi_Robot.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/69562",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [
+    "lt > 0",
+    "return trong khoi long truoc lenh vao (loc co dieu kien): ticket > 0 / lt > 0"
+   ],
+   "tep": "VR_Breakdown_level.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/26947",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [
+    "kiem_tai_nguyen->true x5 (gia dinh: du ky quy)"
+   ],
+   "ly_do_sau": [
+    "(BuyLowPrice - SymbolInfoDouble(_Symbol,SYMBOL_ASK)) >= iSte",
+    "(SymbolInfoDouble(_Symbol,SYMBOL_BID) - SelHigtPrice) >= iSt"
+   ],
+   "tep": "VR_Locker_Lite.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/68251",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [
+    "kiem_tai_nguyen->true x2 (gia dinh: du ky quy)"
+   ],
+   "ly_do_sau": [
+    "MathRand() % 2 == 0",
+    "lenh vao nam trong nhanh else"
+   ],
+   "tep": "VR_Heads_or_Tails.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/68617",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "TelegramTradeNotify.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/68530",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [
+    "goi ham: chuoi goi toi OnChartEvent, khong toi OnTick (lenh tay/timer - khong mo phong theo bar)"
+   ],
+   "tep": "RiskSizer_Panel_Lite.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/68215",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "FFC_Data_Feeder.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/68095",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [
+    "kiem_tai_nguyen->true x3 (gia dinh: du ky quy)",
+    "IsNewBar()->true (gia dinh: mo phong theo bar)"
+   ],
+   "ly_do_sau": [
+    "MathAbs(ask - SL) > stopLevel",
+    "MathAbs(ask - TP) > stopLevel"
+   ],
+   "tep": "DataTrader4HRange.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/62861",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "StrategyTesterInPips_sketch.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/65407",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [
+    "goi ham: loi goi OpenBuy sau toan tu dieu kien",
+    "goi ham: loi goi OpenSell sau toan tu dieu kien"
+   ],
+   "tep": "SAR_MACD_EA.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/64833",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [
+    "kiem_tai_nguyen->true x6 (gia dinh: du ky quy)",
+    "gap_hang so sanh hang"
+   ],
+   "ly_do_sau": [
+    "!HaveLongPosition",
+    "false"
+   ],
+   "tep": "TrendMap.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/64492",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [
+    "kiem_tai_nguyen->true x3 (gia dinh: du ky quy)",
+    "gap_hang so sanh hang"
+   ],
+   "ly_do_sau": [
+    "false",
+    "goi ham: nhanh else-if khong chung minh loai tru nhanh truoc (= B and not A): ChikouPriceBull"
+   ],
+   "tep": "Ichimoku_Edge.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/62627",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [
+    "IsNewBar()->true (gia dinh: mo phong theo bar)"
+   ],
+   "ly_do_sau": [],
+   "tep": "TradeBySentiment.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/64117",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [
+    "kiem_tai_nguyen->true x2 (gia dinh: du ky quy)",
+    "chuyen_biet OpenNew x2",
+    "gap_hang so sanh hang"
+   ],
+   "ly_do_sau": [
+    "goi ham: lenh vao trong khoi for (OpenNew__0) - lap/re nhanh chua dich",
+    "goi ham: lenh vao trong khoi for (OpenNew__1) - lap/re nhanh chua dich"
+   ],
+   "tep": "Stochastic_Eclipse.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/62249",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [
+    "chuyen_biet OpenOrders x2",
+    "gap_hang so sanh hang"
+   ],
+   "ly_do_sau": [
+    "goi ham: lenh vao trong khoi while (OpenOrders__0) - lap/re nhanh chua dich",
+    "goi ham: lenh vao trong khoi while (OpenOrders__1) - lap/re nhanh chua dich"
+   ],
+   "tep": "MT4-BuildYourGridEA_v1_8.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/62000",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [
+    "kiem_tai_nguyen->true x2 (gia dinh: du ky quy)",
+    "IsNewBar()->true (gia dinh: mo phong theo bar)",
+    "gap_hang so sanh hang"
+   ],
+   "ly_do_sau": [
+    "MACDDownSig == SignalValidity  or  SupportTouch == SignalVal",
+    "MACDUpSig == SignalValidity  or  SupportTouch == SignalValid"
+   ],
+   "tep": "TradingLab_Best_MACD_Strategy.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/25287",
+   "truoc": 2,
+   "sau": 2,
+   "luat": [
+    {
+     "vao": [
+      {
+       "trai": {
+        "chi_bao": "tre",
+        "cua": {
+         "chi_bao": "gia",
+         "cot": "low"
+        },
+        "n": 1
+       },
+       "phep": "<",
+       "phai": {
+        "chi_bao": "gia",
+        "cot": "high"
+       }
+      }
+     ],
+     "chieu": 1,
+     "giu": 1
+    },
+    {
+     "vao": [
+      {
+       "trai": {
+        "chi_bao": "tre",
+        "cua": {
+         "chi_bao": "gia",
+         "cot": "low"
+        },
+        "n": 1
+       },
+       "phep": "<",
+       "phai": {
+        "chi_bao": "gia",
+        "cot": "high"
+       }
+      }
+     ],
+     "chieu": 1,
+     "giu": 1
+    }
+   ],
+   "bien_doi": [
+    "kiem_tai_nguyen->true x10 (gia dinh: du ky quy)"
+   ],
+   "ly_do_sau": [
+    "return trong khoi long truoc lenh vao (loc co dieu kien): IsTesting()==false / low[1]<high",
+    "return trong khoi long truoc lenh vao (loc co dieu kien): IsTesting()==true / low[1]<high"
+   ],
+   "tep": "Eliot_Waves.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/60295",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [
+    "chuyen_biet MaintainPendingGrid x2"
+   ],
+   "ly_do_sau": [
+    "khong tim duoc guard cua lenh vao"
+   ],
+   "tep": "Pending_tread.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/60015",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [
+    "kiem_tai_nguyen->true x2 (gia dinh: du ky quy)",
+    "chuyen_biet PlaceNewOrder x2",
+    "gap_hang so sanh hang"
+   ],
+   "ly_do_sau": [
+    "goi ham: lenh vao trong khoi for (PlaceNewOrder__0) - lap/re nhanh chua dich",
+    "goi ham: lenh vao trong khoi for (PlaceNewOrder__1) - lap/re nhanh chua dich"
+   ],
+   "tep": "SniperJawEA.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/58746",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [
+    "goi ham: nhanh else-if khong chung minh loai tru nhanh truoc (= B and not A): stochK[0] < MinStochOv",
+    "loc thoat som: !CanTrade()"
+   ],
+   "tep": "EA_RM_Stochastic_Band.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/58462",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [
+    "kiem_tai_nguyen->true x3 (gia dinh: du ky quy)"
+   ],
+   "ly_do_sau": [
+    "iNewTrade == \"BUY\"",
+    "iNewTrade == \"SELL\""
+   ],
+   "tep": "RRS_Impulse_Plus_EA.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/58462",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [
+    "kiem_tai_nguyen->true x3 (gia dinh: du ky quy)"
+   ],
+   "ly_do_sau": [
+    "(TradeDirection == CounterTrend  and  (gSignalStatus == \"RSI",
+    "(TradeDirection == Trend  and  (gSignalStatus == \"RSI_UP\"  o"
+   ],
+   "tep": "RRS_Impulse_EA_-_V1.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/58462",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [
+    "kiem_tai_nguyen->true x3 (gia dinh: du ky quy)"
+   ],
+   "ly_do_sau": [
+    "(TradeDirection == CounterTrend  and  (gSingleTimeFrameSigna",
+    "(TradeDirection == Trend  and  (gSingleTimeFrameSignalStatus"
+   ],
+   "tep": "RRS_Impulse_EA_-_V2.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/58250",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [
+    "kiem_tai_nguyen->true x3 (gia dinh: du ky quy)",
+    "gap_hang so sanh hang"
+   ],
+   "ly_do_sau": [
+    "goi ham: loi goi OpenBuy sau toan tu dieu kien",
+    "goi ham: loi goi OpenSell sau toan tu dieu kien"
+   ],
+   "tep": "Adjustable_MA.mq4"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/57788",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "Average_Pip_Movement_based_on_Tick_l_Seconds.mq4"
+  },
+  {
+   "url": "https://github.com/manuwhs/Trapyng",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [],
+   "tep": "MQL5_Scripts_Server_socket.mq5"
+  },
+  {
+   "url": "https://github.com/VoxHash/ForexSmartBot",
+   "truoc": 0,
+   "sau": 0,
+   "luat": [],
+   "bien_doi": [],
+   "ly_do_sau": [
+    "khong tim duoc guard cua lenh vao",
+    "khong xac dinh duoc chieu lenh: ArraySize(param_parts) >= 3"
+   ],
+   "tep": "mt4_ForexSmartBotBridge.mq4"
+  }
+ ]
+}
