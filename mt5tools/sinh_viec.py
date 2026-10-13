@@ -114,6 +114,7 @@ def lay_viec(n: int = 1, so_cai: list[dict] | None = None, dang_chay: set[str] |
             for h in hang_xom(r):
                 h["diem"] = 10 + (r.get("pf") or 0)
                 hang.append(h)
+    hang += tu_python_box()
     hang += ung_vien(random.Random(hat + len(sc) // 500))
     hang.sort(key=lambda v: -v["diem"])
     out, thay = [], set()
@@ -124,6 +125,22 @@ def lay_viec(n: int = 1, so_cai: list[dict] | None = None, dang_chay: set[str] |
         thay.add(k); out.append(v)
         if len(out) >= n:
             break
+    return out
+
+
+BOX = GOC / "reports" / "mt5_lien_tuc" / "box_luoi_python.json"
+
+
+def tu_python_box(p: Path = BOX, toi_da: int = 300) -> list[dict]:
+    """Ung vien DAT ca IS va OOS trong mo phong Python tren box -> xac nhan bang MT5 real ticks (diem 50+)."""
+    try:
+        u = json.loads(p.read_text(encoding="utf-8"))["tong_ket"]["ung_vien_ca_hai"]
+    except Exception:
+        return []
+    out = []
+    for x in u[:toi_da]:
+        ts = _ts(x["ea"], {k: v for k, v in x["ts"].items()})
+        out.append({"ea": x["ea"], "ma": x["ma"], "tf": x["tf"], "ts": ts, "pha": "IS", "diem": 50 + min(x["IS"]["pf"], x["OOS"]["pf"])})
     return out
 
 

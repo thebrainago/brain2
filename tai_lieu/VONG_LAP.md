@@ -1,6 +1,6 @@
 # VÒNG LẶP NGHIÊN CỨU LIÊN TỤC (thiết kế, bắt đầu vòng 27 — 13/10/2026)
 Chạy trên BOX (không phải máy nhà). Mỗi chu kỳ lấy MỘT việc ở đầu hàng, làm xong → đẩy xuống cuối hàng (xoay vòng 5 việc).
-Trạng thái máy: `vong_lap_state.json` (con trỏ hàng) + `vong_lap_log.json` (nhật ký từng chu kỳ).
+Trạng thái máy: `vong_lap_state.json` (con trỏ hàng) + `reports/vong_lap_nhat_ky.json` (nhật ký từng chu kỳ; `vong_lap_log.json` ở gốc là dữ liệu cũ không liên quan, giữ nguyên).
 
 ## Luật cứng (mọi việc)
 - Chỉ số ĐO ĐƯỢC; mô phỏng ghi "mô phỏng"; không đo được ghi "CHƯA ĐO ĐƯỢC".
@@ -12,6 +12,9 @@ Trạng thái máy: `vong_lap_state.json` (con trỏ hàng) + `vong_lap_log.json
 - Không bí mật / mã EA bên thứ ba trong git (mã chỉ ở `data/cau_kho/`, git bỏ qua; repo giữ tóm tắt luật + URL).
 - Commit/push CHỈ khi test xanh; cập nhật `GHI_CHU_NANG_CAP_GROK.md` mỗi chu kỳ.
 - Không vượt Cloudflare/chặn bot, không đăng nhập mạng xã hội, không Telegram, không mua gì.
+
+## KHÔNG BAO GIỜ CẠN VIỆC (13/10/2026 tối, chủ dự án) — áp cho vòng lặp box
+Khi hàng việc P1–P3 trống hoặc đang chờ máy nhà: box chạy `python phan_tich_luoi_box.py <thư mục D1 XM> ` (lưới cùng `mt5tools/sinh_viec.py`, IS 2016–2022 / OOS 2023–2026-10, phí spread XM theo giờ) và `python mt5tools/sinh_viec.py tong-ket` trên `reports/mt5_lien_tuc/so_cai.jsonl` (sổ cái MT5 máy nhà) → so khớp MT5 ↔ Python, đẩy near-miss lên đầu. Mọi lần thử đều ghi sổ cái → đếm Holm.
 
 ## Hàng 5 việc xoay vòng
 1. **Nạp dữ liệu** — thêm tài sản/khung miễn phí tải được (HistData M1 qua thư viện `histdata`, Dukascopy datafeed
@@ -30,13 +33,13 @@ Nhãn: [phong cách | tài sản | khung | quản trị]. Mọi ô phải tiền
 Ngân sách Holm: mỗi việc ≤ 12 ô (bài học 10). Kết quả = MÔ PHỎNG cho tới khi MT5 máy nhà xác nhận.
 
 ### P1 — near-miss & ghép chéo (giá trị cao nhất)
-1. **MRZ AUDUSD 02h — xác nhận ngoài mẫu đa cặp gộp**: chạy đúng cấu hình đăng ký (z50 ±2, TR2) trên pool AUDUSD+NZDUSD+AUDCAD+GBPUSD gộp n, 1 ô duy nhất, không sửa tham số. [hồi quy | FX pool | D1 vào 02h | TR2 cố định] (KN 3,4,10)
-2. **MRZ × lọc chế độ ADX/biến động thấp**: chỉ vào khi ADX14 < 20 hoặc ATR% dưới trung vị 1 năm. [hồi quy × chế độ | AUDUSD,GBPUSD | D1 02h | TR2] (KN 4)
-3. **D1 RSI/MRZ trailing — chuẩn hoá thoát**: so TR2 vs trailing ATR×{1,5;2,5} vs thoát theo thời gian 5 nến; 6 ô. [hồi quy | GBPUSD,AUDUSD | D1 02h | trailing/thời gian]
-4. **MRZ × xu hướng W1 (ghép)**: chỉ mua hồi khi W1 trên EMA20 (và ngược lại). [hồi quy × xu hướng | FX pool | D1+W1 | TR2]
+1. ✅ [đã chạy vòng 28, chu kỳ 4, 0 qua — `reports/vong28.json`] **MRZ AUDUSD 02h — xác nhận ngoài mẫu đa cặp gộp**: chạy đúng cấu hình đăng ký (z50 ±2, TR2) trên pool AUDUSD+NZDUSD+AUDCAD+GBPUSD gộp n, 1 ô duy nhất, không sửa tham số. [hồi quy | FX pool | D1 vào 02h | TR2 cố định] (KN 3,4,10)
+2. ✅ [đã chạy vòng 28, chu kỳ 4, 0 qua — `reports/vong28.json`] **MRZ × lọc chế độ ADX/biến động thấp**: chỉ vào khi ADX14 < 20 hoặc ATR% dưới trung vị 1 năm. [hồi quy × chế độ | AUDUSD,GBPUSD | D1 02h | TR2] (KN 4)
+3. ✅ [đã chạy vòng 28 phần MRZ, chu kỳ 4, 0 qua — `reports/vong28.json`; RSI trailing chưa chạy] **D1 RSI/MRZ trailing — chuẩn hoá thoát**: so TR2 vs trailing ATR×{1,5;2,5} vs thoát theo thời gian 5 nến; 6 ô. [hồi quy | GBPUSD,AUDUSD | D1 02h | trailing/thời gian]
+4. ✅ [đã chạy vòng 28, chu kỳ 4, 0 qua — `reports/vong28.json`] **MRZ × xu hướng W1 (ghép)**: chỉ mua hồi khi W1 trên EMA20 (và ngược lại). [hồi quy × xu hướng | FX pool | D1+W1 | TR2]
 5. **M5 hồi quy cạnh thô 0,5–1,6 bps → nâng khung**: cùng tín hiệu tổng hợp lên M30/H1 để cạnh thô > 3× spread (KN 2); chỉ qua tầng 1 mới sang phí. [hồi quy | EURUSD,GBPUSD,USDJPY | M30/H1 | thoát thời gian]
 6. **M5 hồi quy chỉ giờ spread rẻ**: giới hạn 08–16h London, bỏ rollover 23–01h; so cạnh thô theo giờ với spread đo theo giờ. [hồi quy × giờ | EURUSD | M5 | SL/TP ATR]
-7. **Stress bắt buộc cho mọi near-miss**: spread ×1,5 + trượt 1 bps + swap 2,5 %/năm trên các ô 1–4 (không tính thêm ô Holm, là kiểm áp lực). [mọi | FX | D1 | —] (KN 11)
+7. ✅ [đã chạy vòng 28, chu kỳ 4, 0 qua — `reports/vong28.json`] **Stress bắt buộc cho mọi near-miss**: spread ×1,5 + trượt 1 bps + swap 2,5 %/năm trên các ô 1–4 (không tính thêm ô Holm, là kiểm áp lực). [mọi | FX | D1 | —] (KN 11)
 8. **Động lượng chéo tiền tệ (cross-sectional) × MRZ**: xếp hạng 12 cặp theo lợi suất 3 tháng, chỉ MRZ theo hướng động lượng. [động lượng × hồi quy | 12 cặp FX | D1/W1 | danh mục cân rủi ro]
 
 ### P2 — họ phong cách chưa thử

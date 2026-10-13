@@ -41,3 +41,12 @@ def test_holm_va_tong_ket():
 def test_file_set():
     s = SV.file_set(dict(_r(), tf="H4", ts=SV._ts("MRZ", {"InpNguongZ": 2.5})), "InpGioVao=2\nInpLogChung=true\nInpLots=0.01\n")
     assert "InpNguongZ=2.5" in s and "InpTF=16388" in s and "InpLogChung=false" in s and s.count("InpGioVao") == 1
+
+
+def test_python_box_uu_tien(tmp_path):
+    import json
+    p = tmp_path / "b.json"
+    p.write_text(json.dumps({"tong_ket": {"ung_vien_ca_hai": [{"ea": "RSI", "ma": "EURJPY#", "tf": "D1", "ts": {"InpRsiThap": 30, "InpRsiCao": 75, "InpSlATR": 1.0},
+                                                                "IS": {"pf": 2.2}, "OOS": {"pf": 2.3}}]}}))
+    v = SV.tu_python_box(p)
+    assert v[0]["diem"] > 50 and v[0]["ts"]["InpRsiCao"] == 75 and v[0]["ts"]["InpTrATR"] == 2.0

@@ -1,5 +1,11 @@
 # HÀNG CHỜ MÁY NHÀ (việc box không làm được). Cập nhật 13/10/2026 (vòng 27).
 **Luật**: dữ liệu tester MT5 đặt ở ổ **D:** hoặc RAM disk, KHÔNG BAO GIỜ ổ C:; xoá sau khi chạy xong (Bases/history + tester cache).
+
+## CA MÁY NHÀ KHÔNG BAO GIỜ DỪNG KHI HẾT HÀNG (13/10/2026 tối, chủ dự án) — áp cho ca 7h37 hằng ngày và mọi ca tối
+1. Làm các việc CHỜ trong bảng theo thứ tự.
+2. Hết việc trong bảng → `python mt5tools/chay_lien_tuc.py --den <giờ hết ca − 35 phút>` (vd ca 7h37–15h: `--den 14:25`). Script tự sinh việc (`mt5tools/sinh_viec.py`: lưới tham số, mã mới, khung H1/H4/D1, near-miss, IS→OOS), tự chọn số MT5 theo mức (`dieu_phoi_song_song.py`: MAX=4 khi không chơi game, THẤP=0 khi có game/toàn màn hình), ưu tiên Idle, slot ở D:/E:.
+3. Song song: box chạy `phan_tich_luoi_box.py` (Python) — xem VONG_LAP.md.
+4. Hết giờ: copy `reports/mt5_lien_tuc/so_cai.jsonl` + `sinh_viec.py tong-ket` về repo, xoá `p*\Tester`, `p*\bases\*\history|ticks`, `D:\mt5_lien_tuc\rep`, đóng MT5, KHÔNG tắt máy.
 Không đăng nhập mạng xã hội, không mua gì, không vượt Cloudflare bằng công cụ lách.
 
 | # | Việc | Trạng thái |
