@@ -13,6 +13,7 @@ import datetime as dt
 import html
 import json
 import re
+import shutil
 import subprocess
 import sys
 import time
@@ -104,7 +105,7 @@ def main():
             del chay[s]
             f = Path(s, ten + ".htm")
             if f.exists():
-                r = doc_htm(f); f.replace(REP / f.name); hong[s] = 0
+                r = doc_htm(f); shutil.move(str(f), str(REP / f.name)); hong[s] = 0
                 rec = {k: v[k] for k in ("ea", "ma", "tf", "ts", "pha")}; rec.update(r, file=f.name, giay=int(time.time() - t0), luc=now.isoformat(timespec="seconds"))
                 SV.ghi(rec)
                 log("XONG %s %s net=%s lenh=%s pf=%s %ss" % (ten, v["pha"], r["net"], r["lenh"], r["pf"], rec["giay"]))
