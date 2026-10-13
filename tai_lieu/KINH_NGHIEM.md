@@ -30,3 +30,10 @@
 - Path.replace không chuyển được giữa ổ (E:→D:) → dùng shutil.move.
 - Mỗi mã mới tải lịch sử ~0,3-0,6 GB/slot; chạy qua đêm cần dọn cache khi ổ < 6 GB (`don_neu_day`).
 - Hồ sơ Chrome thebrainago đăng nhập (.browser_thebrain) đã mất sau cài lại Windows; Chrome hồ sơ mới từ IP nhà vẫn bị 403 ở TradingView chi tiết/SSRN/StackExchange.
+
+## 13/10/2026 — khai thác X (vòng 29, MÔ PHỎNG)
+19. **X nhiều nhiễu**: ~380 bài đọc, chỉ ~2 tài khoản (QuantifiedStrat, EmpiricaLab) cho luật đủ chi tiết để code; phần lớn là quảng cáo EA/ML hộp đen, PF/win-rate không có điều kiện vào. Ưu tiên tài khoản tự chạy lại có phí + placebo.
+20. **Dữ liệu Yahoo FX OHLC không dùng cho luật dựa high/low**: IBS GBPUSD holdout 58 bps PF 4,3 trên Yahoo nhưng chỉ 6,9 bps PF 1,25 trên HistData 2024–26 → loại. Luật IBS/range phải đo trên OHLC broker.
+21. **Hồi quy ngắn hạn chỉ số Mỹ vẫn sống** sau spread XM: IBS<0,2 US500/US100 qua Holm cộng dồn 13.000 (p_holm 0,003 / 0,0015). Cảnh báo: khớp cùng close tín hiệu, giá cash Yahoo, swap #=0; chưa MT5. DAX không lặp lại → cạnh đặc thù Mỹ.
+22. **Hiệu ứng qua đêm**: chỉ số Mỹ qua đêm mọi đêm âm/≈0 sau spread ở phát hiện; vàng qua đêm dương cả hai nửa (4,7/4,5 bps) nhưng chưa qua Holm.
+23. Ngân sách X: tìm kiếm `from:A OR from:B` gom nhiều tài khoản/lệnh gọi tiết kiệm hơn get_users_posts; tên user sai làm hỏng cả truy vấn.

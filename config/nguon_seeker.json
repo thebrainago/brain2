@@ -4,7 +4,7 @@
   "Nhan 4 chieu theo luat tu khoa chot truoc trong nhan/nguon_seeker.gan_nhan; 'tong_hop' = nguon nhieu phong cach.",
   "KHONG co khoa / mat khau / phien. Ket qua quet that o reports/SEEKER_QUET_NGUON.json."
  ],
- "tong": 294,
+ "tong": 303,
  "nguon": {
   "allocatesmartly": {
    "ten": "allocatesmartly",
@@ -6863,6 +6863,284 @@
    "quan_tri": [
     "khong_ro"
    ]
+  },
+  "x_quantifiedstrat": {
+   "ten": "QuantifiedStrat",
+   "url": "https://x.com/QuantifiedStrat",
+   "loai": "social",
+   "cach": "x_mcp_get_users_posts",
+   "x_user_id": "1420014833664151557",
+   "khai_bao_tai": [
+    "vong29_x_13102026"
+   ],
+   "hang": "A",
+   "phong_cach": [
+    "hoi_quy",
+    "mua_vu",
+    "xu_huong",
+    "qua_dem"
+   ],
+   "tai_san": [
+    "chi_so",
+    "vang"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "thoat_dieu_kien",
+    "giu_co_dinh"
+   ],
+   "can_dang_nhap": false,
+   "quet_lai": {
+    "lich": "weekly",
+    "lan_cuoi": "2026-10-13",
+    "cach": "since_id moi nhat, exclude=retweets,replies, max 25/lan"
+   }
+  },
+  "x_empiricalab": {
+   "ten": "EmpiricaLab",
+   "url": "https://x.com/EmpiricaLab",
+   "loai": "social",
+   "cach": "x_mcp_get_users_posts",
+   "x_user_id": "1437022485078290434",
+   "khai_bao_tai": [
+    "vong29_x_13102026"
+   ],
+   "hang": "A",
+   "phong_cach": [
+    "tong_hop",
+    "kiem_dinh_placebo",
+    "hoi_quy",
+    "qua_dem"
+   ],
+   "tai_san": [
+    "chi_so",
+    "vang",
+    "crypto"
+   ],
+   "khung": [
+    "D1",
+    "M1_M5"
+   ],
+   "quan_tri": [
+    "danh_muc",
+    "thoat_dieu_kien"
+   ],
+   "can_dang_nhap": false,
+   "quet_lai": {
+    "lich": "weekly",
+    "lan_cuoi": "2026-10-13",
+    "cach": "since_id moi nhat, exclude=retweets,replies, max 25/lan"
+   }
+  },
+  "x_crowcaw": {
+   "ten": "crowcaw",
+   "url": "https://x.com/crowcaw",
+   "loai": "social",
+   "cach": "x_mcp_get_users_posts",
+   "x_user_id": "1790084715145244672",
+   "khai_bao_tai": [
+    "vong29_x_13102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "hoi_quy"
+   ],
+   "tai_san": [
+    "chi_so"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "thoat_dieu_kien"
+   ],
+   "can_dang_nhap": false,
+   "quet_lai": {
+    "lich": "monthly",
+    "lan_cuoi": "2026-10-13",
+    "cach": "since_id moi nhat, exclude=retweets,replies, max 25/lan"
+   }
+  },
+  "x_hellonhuga": {
+   "ten": "HelloNhuga",
+   "url": "https://x.com/HelloNhuga",
+   "loai": "social",
+   "cach": "x_mcp_get_users_posts",
+   "x_user_id": "1675011809508569088",
+   "khai_bao_tai": [
+    "vong29_x_13102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "xu_huong",
+    "kiem_dinh"
+   ],
+   "tai_san": [
+    "vang",
+    "chi_so"
+   ],
+   "khung": [
+    "H1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "quet_lai": {
+    "lich": "biweekly",
+    "lan_cuoi": "2026-10-13",
+    "cach": "since_id moi nhat, exclude=retweets,replies, max 25/lan"
+   }
+  },
+  "x_rb_tradingltd": {
+   "ten": "RB_Tradingltd",
+   "url": "https://x.com/RB_Tradingltd",
+   "loai": "social",
+   "cach": "x_mcp_get_users_posts",
+   "x_user_id": "991435086582173696",
+   "khai_bao_tai": [
+    "vong29_x_13102026"
+   ],
+   "hang": "C",
+   "phong_cach": [
+    "qua_dem",
+    "swing"
+   ],
+   "tai_san": [
+    "chi_so",
+    "fx"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "SL_TP_R"
+   ],
+   "can_dang_nhap": false,
+   "quet_lai": {
+    "lich": "monthly",
+    "lan_cuoi": "2026-10-13",
+    "cach": "since_id moi nhat, exclude=retweets,replies, max 25/lan"
+   }
+  },
+  "x_willyalgotrader": {
+   "ten": "WillyAlgoTrader",
+   "url": "https://x.com/WillyAlgoTrader",
+   "loai": "social",
+   "cach": "x_mcp_search_from",
+   "x_user_id": null,
+   "khai_bao_tai": [
+    "vong29_x_13102026"
+   ],
+   "hang": "C",
+   "phong_cach": [
+    "pha_vo"
+   ],
+   "tai_san": [
+    "vang"
+   ],
+   "khung": [
+    "M15"
+   ],
+   "quan_tri": [
+    "SL_TP"
+   ],
+   "can_dang_nhap": false,
+   "quet_lai": {
+    "lich": "monthly",
+    "lan_cuoi": "2026-10-13",
+    "cach": "since_id moi nhat, exclude=retweets,replies, max 25/lan"
+   }
+  },
+  "x_kranky_trades": {
+   "ten": "Kranky_Trades",
+   "url": "https://x.com/Kranky_Trades",
+   "loai": "social",
+   "cach": "x_mcp_search_from",
+   "x_user_id": null,
+   "khai_bao_tai": [
+    "vong29_x_13102026"
+   ],
+   "hang": "C",
+   "phong_cach": [
+    "pha_vo_phien_A"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "M5_H1"
+   ],
+   "quan_tri": [
+    "SL_TP"
+   ],
+   "can_dang_nhap": false,
+   "quet_lai": {
+    "lich": "monthly",
+    "lan_cuoi": "2026-10-13",
+    "cach": "since_id moi nhat, exclude=retweets,replies, max 25/lan"
+   }
+  },
+  "x_algojan": {
+   "ten": "algojan",
+   "url": "https://x.com/algojan",
+   "loai": "social",
+   "cach": "x_mcp_search_from",
+   "x_user_id": null,
+   "khai_bao_tai": [
+    "vong29_x_13102026"
+   ],
+   "hang": "C",
+   "phong_cach": [
+    "mua_vu_gio"
+   ],
+   "tai_san": [
+    "vang"
+   ],
+   "khung": [
+    "H1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "quet_lai": {
+    "lich": "monthly",
+    "lan_cuoi": "2026-10-13",
+    "cach": "since_id moi nhat, exclude=retweets,replies, max 25/lan"
+   }
+  },
+  "x_priceactionlab": {
+   "ten": "priceactionlab",
+   "url": "https://x.com/priceactionlab",
+   "loai": "social",
+   "cach": "x_mcp_search_from",
+   "x_user_id": null,
+   "khai_bao_tai": [
+    "vong29_x_13102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "mau_gia"
+   ],
+   "tai_san": [
+    "chi_so",
+    "ETF"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "quet_lai": {
+    "lich": "monthly",
+    "lan_cuoi": "2026-10-13",
+    "cach": "since_id moi nhat, exclude=retweets,replies, max 25/lan"
+   }
   }
  }
 }

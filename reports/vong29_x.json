@@ -1,0 +1,904 @@
+{
+ "nhan": "MO PHONG",
+ "nguon": "X (Twitter) 13/10/2026",
+ "ho_holm_truoc": 12960,
+ "ho_holm": 13000,
+ "so_o": 40,
+ "T1": 33,
+ "T2": 25,
+ "T3": 2,
+ "o": [
+  {
+   "luat": "R1_rsi5_sma200_EmpiricaLab",
+   "tai_san": "iGSPC",
+   "phi_bps_khu_hoi": 1.02,
+   "cat": "2019-01-15",
+   "phat_hien": {
+    "n": 100,
+    "tb_bps": 75.84,
+    "pf": 3.37,
+    "p": 2.6383142416293244e-06
+   },
+   "holdout": {
+    "n": 48,
+    "tb_bps": 69.98,
+    "pf": 2.77,
+    "p": 0.003036863453257175
+   },
+   "T1": true,
+   "T2": true,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R2_rsi4_ema100rising_crowcaw_noVWAP",
+   "tai_san": "iGSPC",
+   "phi_bps_khu_hoi": 1.02,
+   "cat": "2019-01-15",
+   "phat_hien": {
+    "n": 158,
+    "tb_bps": 45.58,
+    "pf": 2.15,
+    "p": 0.00028718055744317544
+   },
+   "holdout": {
+    "n": 74,
+    "tb_bps": 51.16,
+    "pf": 2.16,
+    "p": 0.00703196676009074
+   },
+   "T1": true,
+   "T2": true,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R3_triple_rsi_QuantifiedStrat",
+   "tai_san": "iGSPC",
+   "phi_bps_khu_hoi": 1.02,
+   "cat": "2019-01-15",
+   "phat_hien": {
+    "n": 40,
+    "tb_bps": 107.84,
+    "pf": 4.01,
+    "p": 0.00108759939553307
+   },
+   "holdout": {
+    "n": 23,
+    "tb_bps": 89.06,
+    "pf": 3.69,
+    "p": 0.012647757878030517
+   },
+   "T1": true,
+   "T2": true,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R4_turn_of_month_QuantifiedStrat",
+   "tai_san": "iGSPC",
+   "phi_bps_khu_hoi": 1.02,
+   "cat": "2019-01-15",
+   "phat_hien": {
+    "n": 216,
+    "tb_bps": 51.93,
+    "pf": 1.71,
+    "p": 0.002682340464757628
+   },
+   "holdout": {
+    "n": 93,
+    "tb_bps": 60.64,
+    "pf": 1.9,
+    "p": 0.008722152312987279
+   },
+   "T1": true,
+   "T2": true,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R5_3_down_overnight_QuantifiedStrat",
+   "tai_san": "iGSPC",
+   "phi_bps_khu_hoi": 1.02,
+   "cat": "2019-01-15",
+   "phat_hien": {
+    "n": 381,
+    "tb_bps": 1.08,
+    "pf": 1.21,
+    "p": 0.1938965400025756
+   },
+   "holdout": {
+    "n": 168,
+    "tb_bps": 10.78,
+    "pf": 1.58,
+    "p": 0.018187810413975443
+   },
+   "T1": true,
+   "T2": true,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R6_ibs_lt_0.2_exit_prevhigh",
+   "tai_san": "iGSPC",
+   "phi_bps_khu_hoi": 1.02,
+   "cat": "2019-01-15",
+   "phat_hien": {
+    "n": 511,
+    "tb_bps": 34.96,
+    "pf": 1.61,
+    "p": 0.00026588834079653415
+   },
+   "holdout": {
+    "n": 236,
+    "tb_bps": 56.23,
+    "pf": 2.49,
+    "p": 2.558527510307738e-07
+   },
+   "T1": true,
+   "T2": true,
+   "p_holm_cong_don": 0.003325574057897998,
+   "T3_song": true
+  },
+  {
+   "luat": "R7_range_band_weakclose_EmpiricaLab",
+   "tai_san": "iGSPC",
+   "phi_bps_khu_hoi": 1.02,
+   "cat": "2019-01-15",
+   "phat_hien": {
+    "n": 236,
+    "tb_bps": 55.7,
+    "pf": 1.95,
+    "p": 0.000594270761244071
+   },
+   "holdout": {
+    "n": 97,
+    "tb_bps": 61.11,
+    "pf": 2.25,
+    "p": 0.0006731893343821874
+   },
+   "T1": true,
+   "T2": true,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R8_overnight_every_night_RB_QS",
+   "tai_san": "iGSPC",
+   "phi_bps_khu_hoi": 1.02,
+   "cat": "2019-01-15",
+   "phat_hien": {
+    "n": 4536,
+    "tb_bps": -0.69,
+    "pf": 0.86,
+    "p": 0.9966226038106909
+   },
+   "holdout": {
+    "n": 1944,
+    "tb_bps": 2.59,
+    "pf": 1.15,
+    "p": 0.02823354914913832
+   },
+   "T1": false,
+   "T2": false,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R1_rsi5_sma200_EmpiricaLab",
+   "tai_san": "iNDX",
+   "phi_bps_khu_hoi": 1.39,
+   "cat": "2019-01-15",
+   "phat_hien": {
+    "n": 114,
+    "tb_bps": 86.63,
+    "pf": 2.92,
+    "p": 9.125946089890043e-06
+   },
+   "holdout": {
+    "n": 48,
+    "tb_bps": 80.82,
+    "pf": 2.82,
+    "p": 0.0037263072752767167
+   },
+   "T1": true,
+   "T2": true,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R2_rsi4_ema100rising_crowcaw_noVWAP",
+   "tai_san": "iNDX",
+   "phi_bps_khu_hoi": 1.39,
+   "cat": "2019-01-15",
+   "phat_hien": {
+    "n": 167,
+    "tb_bps": 70.44,
+    "pf": 2.53,
+    "p": 6.209761059362359e-06
+   },
+   "holdout": {
+    "n": 71,
+    "tb_bps": 72.81,
+    "pf": 2.42,
+    "p": 0.0023995508309269413
+   },
+   "T1": true,
+   "T2": true,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R3_triple_rsi_QuantifiedStrat",
+   "tai_san": "iNDX",
+   "phi_bps_khu_hoi": 1.39,
+   "cat": "2019-01-15",
+   "phat_hien": {
+    "n": 56,
+    "tb_bps": 133.21,
+    "pf": 4.96,
+    "p": 1.312934089873883e-06
+   },
+   "holdout": {
+    "n": 21,
+    "tb_bps": 97.41,
+    "pf": 3.68,
+    "p": 0.01449689270283161
+   },
+   "T1": true,
+   "T2": true,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R4_turn_of_month_QuantifiedStrat",
+   "tai_san": "iNDX",
+   "phi_bps_khu_hoi": 1.39,
+   "cat": "2019-01-15",
+   "phat_hien": {
+    "n": 216,
+    "tb_bps": 47.51,
+    "pf": 1.4,
+    "p": 0.03760549761975823
+   },
+   "holdout": {
+    "n": 93,
+    "tb_bps": 82.15,
+    "pf": 1.86,
+    "p": 0.010806727077334986
+   },
+   "T1": true,
+   "T2": true,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R5_3_down_overnight_QuantifiedStrat",
+   "tai_san": "iNDX",
+   "phi_bps_khu_hoi": 1.39,
+   "cat": "2019-01-15",
+   "phat_hien": {
+    "n": 399,
+    "tb_bps": 14.08,
+    "pf": 1.5,
+    "p": 0.00592250020172217
+   },
+   "holdout": {
+    "n": 140,
+    "tb_bps": 18.84,
+    "pf": 1.61,
+    "p": 0.01862271095952572
+   },
+   "T1": true,
+   "T2": true,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R6_ibs_lt_0.2_exit_prevhigh",
+   "tai_san": "iNDX",
+   "phi_bps_khu_hoi": 1.39,
+   "cat": "2019-01-15",
+   "phat_hien": {
+    "n": 512,
+    "tb_bps": 47.79,
+    "pf": 1.64,
+    "p": 7.13676441873771e-05
+   },
+   "holdout": {
+    "n": 241,
+    "tb_bps": 76.16,
+    "pf": 2.48,
+    "p": 1.129242634934545e-07
+   },
+   "T1": true,
+   "T2": true,
+   "p_holm_cong_don": 0.0014679025011514152,
+   "T3_song": true
+  },
+  {
+   "luat": "R7_range_band_weakclose_EmpiricaLab",
+   "tai_san": "iNDX",
+   "phi_bps_khu_hoi": 1.39,
+   "cat": "2019-01-15",
+   "phat_hien": {
+    "n": 256,
+    "tb_bps": 82.75,
+    "pf": 2.41,
+    "p": 5.682180573149793e-07
+   },
+   "holdout": {
+    "n": 95,
+    "tb_bps": 67.96,
+    "pf": 1.91,
+    "p": 0.009329774436443236
+   },
+   "T1": true,
+   "T2": true,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R8_overnight_every_night_RB_QS",
+   "tai_san": "iNDX",
+   "phi_bps_khu_hoi": 1.39,
+   "cat": "2019-01-15",
+   "phat_hien": {
+    "n": 4536,
+    "tb_bps": 1.39,
+    "pf": 1.05,
+    "p": 0.13176486438451535
+   },
+   "holdout": {
+    "n": 1944,
+    "tb_bps": 3.42,
+    "pf": 1.12,
+    "p": 0.05303618490811965
+   },
+   "T1": false,
+   "T2": false,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R1_rsi5_sma200_EmpiricaLab",
+   "tai_san": "iGDAXI",
+   "phi_bps_khu_hoi": 3.69,
+   "cat": "2019-01-21",
+   "phat_hien": {
+    "n": 97,
+    "tb_bps": 48.46,
+    "pf": 1.69,
+    "p": 0.0671815309932073
+   },
+   "holdout": {
+    "n": 54,
+    "tb_bps": 12.15,
+    "pf": 1.11,
+    "p": 0.43063468491173756
+   },
+   "T1": true,
+   "T2": false,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R2_rsi4_ema100rising_crowcaw_noVWAP",
+   "tai_san": "iGDAXI",
+   "phi_bps_khu_hoi": 3.69,
+   "cat": "2019-01-21",
+   "phat_hien": {
+    "n": 146,
+    "tb_bps": 21.87,
+    "pf": 1.3,
+    "p": 0.16743209604513837
+   },
+   "holdout": {
+    "n": 73,
+    "tb_bps": 6.11,
+    "pf": 1.07,
+    "p": 0.4523750513083287
+   },
+   "T1": true,
+   "T2": false,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R3_triple_rsi_QuantifiedStrat",
+   "tai_san": "iGDAXI",
+   "phi_bps_khu_hoi": 3.69,
+   "cat": "2019-01-21",
+   "phat_hien": {
+    "n": 53,
+    "tb_bps": 125.51,
+    "pf": 6.58,
+    "p": 7.513474868254275e-08
+   },
+   "holdout": {
+    "n": 20,
+    "tb_bps": -77.01,
+    "pf": 0.58,
+    "p": 0.7146432089800133
+   },
+   "T1": true,
+   "T2": false,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R4_turn_of_month_QuantifiedStrat",
+   "tai_san": "iGDAXI",
+   "phi_bps_khu_hoi": 3.69,
+   "cat": "2019-01-21",
+   "phat_hien": {
+    "n": 216,
+    "tb_bps": 65.01,
+    "pf": 1.62,
+    "p": 0.004623278533566069
+   },
+   "holdout": {
+    "n": 93,
+    "tb_bps": 42.85,
+    "pf": 1.49,
+    "p": 0.07083043036336564
+   },
+   "T1": true,
+   "T2": false,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R5_3_down_overnight_QuantifiedStrat",
+   "tai_san": "iGDAXI",
+   "phi_bps_khu_hoi": 3.69,
+   "cat": "2019-01-21",
+   "phat_hien": {
+    "n": 435,
+    "tb_bps": 1.95,
+    "pf": 1.08,
+    "p": 0.30188940644366064
+   },
+   "holdout": {
+    "n": 184,
+    "tb_bps": -7.67,
+    "pf": 0.8,
+    "p": 0.8031202059017232
+   },
+   "T1": true,
+   "T2": false,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R6_ibs_lt_0.2_exit_prevhigh",
+   "tai_san": "iGDAXI",
+   "phi_bps_khu_hoi": 3.69,
+   "cat": "2019-01-21",
+   "phat_hien": {
+    "n": 479,
+    "tb_bps": 7.99,
+    "pf": 1.08,
+    "p": 0.28126478569968244
+   },
+   "holdout": {
+    "n": 211,
+    "tb_bps": 3.02,
+    "pf": 1.04,
+    "p": 0.42355569209927413
+   },
+   "T1": true,
+   "T2": false,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R7_range_band_weakclose_EmpiricaLab",
+   "tai_san": "iGDAXI",
+   "phi_bps_khu_hoi": 3.69,
+   "cat": "2019-01-21",
+   "phat_hien": {
+    "n": 233,
+    "tb_bps": 21.69,
+    "pf": 1.22,
+    "p": 0.14880399961928978
+   },
+   "holdout": {
+    "n": 106,
+    "tb_bps": 20.44,
+    "pf": 1.27,
+    "p": 0.24744329796887266
+   },
+   "T1": true,
+   "T2": false,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R8_overnight_every_night_RB_QS",
+   "tai_san": "iGDAXI",
+   "phi_bps_khu_hoi": 3.69,
+   "cat": "2019-01-21",
+   "phat_hien": {
+    "n": 4581,
+    "tb_bps": -0.93,
+    "pf": 0.95,
+    "p": 0.8638408977866557
+   },
+   "holdout": {
+    "n": 1963,
+    "tb_bps": -0.08,
+    "pf": 1.0,
+    "p": 0.517359584775523
+   },
+   "T1": false,
+   "T2": false,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R1_rsi5_sma200_EmpiricaLab",
+   "tai_san": "GC_F",
+   "phi_bps_khu_hoi": 0.65,
+   "cat": "2019-11-19",
+   "phat_hien": {
+    "n": 88,
+    "tb_bps": 72.34,
+    "pf": 2.02,
+    "p": 0.011438441229181634
+   },
+   "holdout": {
+    "n": 36,
+    "tb_bps": 82.97,
+    "pf": 2.53,
+    "p": 0.01729918568871609
+   },
+   "T1": true,
+   "T2": true,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R2_rsi4_ema100rising_crowcaw_noVWAP",
+   "tai_san": "GC_F",
+   "phi_bps_khu_hoi": 0.65,
+   "cat": "2019-11-19",
+   "phat_hien": {
+    "n": 125,
+    "tb_bps": 37.68,
+    "pf": 1.56,
+    "p": 0.04939662621914655
+   },
+   "holdout": {
+    "n": 53,
+    "tb_bps": 55.75,
+    "pf": 2.0,
+    "p": 0.030916820908360326
+   },
+   "T1": true,
+   "T2": true,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R3_triple_rsi_QuantifiedStrat",
+   "tai_san": "GC_F",
+   "phi_bps_khu_hoi": 0.65,
+   "cat": "2019-11-19",
+   "phat_hien": {
+    "n": 42,
+    "tb_bps": 95.47,
+    "pf": 2.8,
+    "p": 0.013732313770066815
+   },
+   "holdout": {
+    "n": 21,
+    "tb_bps": 110.67,
+    "pf": 4.19,
+    "p": 0.004437569313611701
+   },
+   "T1": true,
+   "T2": true,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R4_turn_of_month_QuantifiedStrat",
+   "tai_san": "GC_F",
+   "phi_bps_khu_hoi": 0.65,
+   "cat": "2019-11-19",
+   "phat_hien": {
+    "n": 205,
+    "tb_bps": 40.81,
+    "pf": 1.42,
+    "p": 0.023558537239158427
+   },
+   "holdout": {
+    "n": 84,
+    "tb_bps": 49.17,
+    "pf": 1.63,
+    "p": 0.047347735714886215
+   },
+   "T1": true,
+   "T2": true,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R5_3_down_overnight_QuantifiedStrat",
+   "tai_san": "GC_F",
+   "phi_bps_khu_hoi": 0.65,
+   "cat": "2019-11-19",
+   "phat_hien": {
+    "n": 377,
+    "tb_bps": 11.87,
+    "pf": 1.67,
+    "p": 0.00261659431387306
+   },
+   "holdout": {
+    "n": 144,
+    "tb_bps": 1.31,
+    "pf": 1.09,
+    "p": 0.3944116287413087
+   },
+   "T1": true,
+   "T2": false,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R6_ibs_lt_0.2_exit_prevhigh",
+   "tai_san": "GC_F",
+   "phi_bps_khu_hoi": 0.65,
+   "cat": "2019-11-19",
+   "phat_hien": {
+    "n": 502,
+    "tb_bps": 18.79,
+    "pf": 1.28,
+    "p": 0.03484932228324278
+   },
+   "holdout": {
+    "n": 141,
+    "tb_bps": 42.4,
+    "pf": 1.71,
+    "p": 0.007621160613504336
+   },
+   "T1": true,
+   "T2": true,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R7_range_band_weakclose_EmpiricaLab",
+   "tai_san": "GC_F",
+   "phi_bps_khu_hoi": 0.65,
+   "cat": "2019-11-19",
+   "phat_hien": {
+    "n": 296,
+    "tb_bps": 17.12,
+    "pf": 1.24,
+    "p": 0.10199418659577786
+   },
+   "holdout": {
+    "n": 74,
+    "tb_bps": 70.84,
+    "pf": 2.78,
+    "p": 0.0004964626446472856
+   },
+   "T1": true,
+   "T2": true,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R8_overnight_every_night_RB_QS",
+   "tai_san": "GC_F",
+   "phi_bps_khu_hoi": 0.65,
+   "cat": "2019-11-19",
+   "phat_hien": {
+    "n": 4033,
+    "tb_bps": 4.75,
+    "pf": 1.26,
+    "p": 6.553700517398979e-06
+   },
+   "holdout": {
+    "n": 1728,
+    "tb_bps": 4.45,
+    "pf": 1.41,
+    "p": 1.2385618767392592e-05
+   },
+   "T1": true,
+   "T2": true,
+   "p_holm_cong_don": 0.16090157340719716,
+   "T3_song": false
+  },
+  {
+   "luat": "R1_rsi5_sma200_EmpiricaLab",
+   "tai_san": "GBPUSD_X",
+   "phi_bps_khu_hoi": 2.2,
+   "cat": "2019-12-11",
+   "phat_hien": {
+    "n": 67,
+    "tb_bps": 3.97,
+    "pf": 1.09,
+    "p": 0.3951743587165563
+   },
+   "holdout": {
+    "n": 36,
+    "tb_bps": 29.32,
+    "pf": 2.27,
+    "p": 0.026489955207817665
+   },
+   "T1": true,
+   "T2": true,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R2_rsi4_ema100rising_crowcaw_noVWAP",
+   "tai_san": "GBPUSD_X",
+   "phi_bps_khu_hoi": 2.2,
+   "cat": "2019-12-11",
+   "phat_hien": {
+    "n": 116,
+    "tb_bps": 8.71,
+    "pf": 1.24,
+    "p": 0.2266618377205391
+   },
+   "holdout": {
+    "n": 55,
+    "tb_bps": 31.77,
+    "pf": 2.95,
+    "p": 0.0010156226387305122
+   },
+   "T1": true,
+   "T2": true,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R3_triple_rsi_QuantifiedStrat",
+   "tai_san": "GBPUSD_X",
+   "phi_bps_khu_hoi": 2.2,
+   "cat": "2019-12-11",
+   "phat_hien": {
+    "n": 38,
+    "tb_bps": -5.92,
+    "pf": 0.87,
+    "p": 0.6127040940038256
+   },
+   "holdout": {
+    "n": 22,
+    "tb_bps": 21.45,
+    "pf": 1.82,
+    "p": 0.13422417519828928
+   },
+   "T1": false,
+   "T2": false,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R4_turn_of_month_QuantifiedStrat",
+   "tai_san": "GBPUSD_X",
+   "phi_bps_khu_hoi": 2.2,
+   "cat": "2019-12-11",
+   "phat_hien": {
+    "n": 192,
+    "tb_bps": -1.46,
+    "pf": 0.97,
+    "p": 0.5547943751355513
+   },
+   "holdout": {
+    "n": 82,
+    "tb_bps": 7.87,
+    "pf": 1.18,
+    "p": 0.29504276791207423
+   },
+   "T1": false,
+   "T2": false,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R5_3_down_overnight_QuantifiedStrat",
+   "tai_san": "GBPUSD_X",
+   "phi_bps_khu_hoi": 2.2,
+   "cat": "2019-12-11",
+   "phat_hien": {
+    "n": 520,
+    "tb_bps": -0.65,
+    "pf": 0.95,
+    "p": 0.649934582271527
+   },
+   "holdout": {
+    "n": 226,
+    "tb_bps": -2.17,
+    "pf": 0.9,
+    "p": 0.7045933841580145
+   },
+   "T1": false,
+   "T2": false,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  },
+  {
+   "luat": "R6_ibs_lt_0.2_exit_prevhigh",
+   "tai_san": "GBPUSD_X",
+   "phi_bps_khu_hoi": 2.2,
+   "cat": "2019-12-11",
+   "phat_hien": {
+    "n": 441,
+    "tb_bps": 22.85,
+    "pf": 1.64,
+    "p": 6.711103372435693e-05
+   },
+   "holdout": {
+    "n": 191,
+    "tb_bps": 58.31,
+    "pf": 4.26,
+    "p": 4.703914266297846e-14
+   },
+   "T1": true,
+   "T2": true,
+   "p_holm_cong_don": 6.1150885461872e-10,
+   "T3_song": false,
+   "loai_bo": "Yahoo FX OHLC loi: HistData 2024-26 cung luat chi 6,9 bps PF 1,25"
+  },
+  {
+   "luat": "R7_range_band_weakclose_EmpiricaLab",
+   "tai_san": "GBPUSD_X",
+   "phi_bps_khu_hoi": 2.2,
+   "cat": "2019-12-11",
+   "phat_hien": {
+    "n": 210,
+    "tb_bps": 22.76,
+    "pf": 1.58,
+    "p": 0.010042873790405724
+   },
+   "holdout": {
+    "n": 77,
+    "tb_bps": 55.3,
+    "pf": 4.05,
+    "p": 2.007044516863953e-06
+   },
+   "T1": true,
+   "T2": true,
+   "p_holm_cong_don": 0.026079536452130205,
+   "T3_song": false,
+   "loai_bo": "Yahoo FX OHLC loi: HistData 2024-26 cung luat chi 6,9 bps PF 1,25"
+  },
+  {
+   "luat": "R8_overnight_every_night_RB_QS",
+   "tai_san": "GBPUSD_X",
+   "phi_bps_khu_hoi": 2.2,
+   "cat": "2019-12-11",
+   "phat_hien": {
+    "n": 4148,
+    "tb_bps": -3.02,
+    "pf": 0.79,
+    "p": 0.9999966290134653
+   },
+   "holdout": {
+    "n": 1778,
+    "tb_bps": -2.09,
+    "pf": 0.9,
+    "p": 0.9461533480176075
+   },
+   "T1": false,
+   "T2": false,
+   "p_holm_cong_don": 1.0,
+   "T3_song": false
+  }
+ ],
+ "nguon_url": {
+  "R1": "https://x.com/EmpiricaLab/status/2109388610394870000",
+  "R2": "https://x.com/crowcaw/status/2106280698839769244",
+  "R3": "https://x.com/QuantifiedStrat/status/2101295243115000032",
+  "R4": "https://x.com/QuantifiedStrat/status/2101295244461371440",
+  "R5": "https://x.com/QuantifiedStrat/status/2107530074039705685",
+  "R6": "https://x.com/EmpiricaLab/status/2109585194638295144",
+  "R7": "https://x.com/EmpiricaLab/status/2107933995199533554",
+  "R8": "https://x.com/QuantifiedStrat/status/2109342013154029733"
+ }
+}

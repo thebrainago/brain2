@@ -74,3 +74,10 @@ Ngân sách Holm: mỗi việc ≤ 12 ô (bài học 10). Kết quả = MÔ PH�
 ### P3 — Seeker nguồn mới (thêm 13/10, 24 nguồn đọc được + SSRN bị chặn)
 28. Tải và bóc luật từ 11 repo GitHub mới (Pine/backtrader/MQL5, giấy phép MIT/Apache; chỉ lưu tóm tắt + URL) → đưa luật dịch được vào việc 3 của hàng xoay vòng.
 29. Đọc arXiv/OpenAlex mới (FX anomaly, intraday seasonality, carry/momentum) → trích giả thuyết có thể kiểm, tiền đăng ký.
+
+### P2 — luật từ X (thêm 13/10 vòng 29, chi tiết reports/vong29_x_nguon.md)
+30. **IBS<0,2 chỉ số (US500/US100) trên giá XM thật H1→D1, vào 23h server, ×1,5 spread** — 2 ô qua Holm cộng dồn ở MÔ PHỎNG Yahoo; xác nhận MT5 Tester. [hồi quy | US500,US100 | D1 | thoát close>high trước]
+31. **Vàng giữ qua đêm** (p_holm 0,16): đo trên XAUUSD M5 HistData theo giờ phiên XM, spread theo giờ. [qua đêm | vàng | H1 | thời gian]
+32. **EURUSD H1 BB+RSI+ADX hồi quy** (dữ liệu eurusd_h1_tick_ba). [hồi quy | EURUSD | H1 | thoát giữa BB]
+33. **Phạm vi Á → phá vỡ (KARMA) EURUSD M5** gộp với việc 11. [phá vỡ phiên | EURUSD | M5 | SL biên]
+34. **Pine Gold Breakout 15M (WillyAlgoTrader)** — tải mã mở, dịch sang Python. [phá vỡ | vàng | M15 | SL/TP]
