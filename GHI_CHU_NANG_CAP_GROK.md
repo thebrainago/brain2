@@ -1996,3 +1996,13 @@ Do that (cung bo doc, cung kho; `cau_kho --khong-tai`, BRAIN_DIEU_TOC=tat):
 - 396 ô (85+4 hệ × M15/H1/H4/D1 + 30 ghép lọc xu hướng ST/EMA200 + chandelier 22×3); 362 đo được; Holm cộng dồn 12.457 → 12.819. **0 hệ sống.**
 - Bài học: lần chạy đầu cho 27 "hệ sống" do lỗi lookahead trong mảng thoát (`ex` dùng s[i+1]). Đã sửa, thêm test_v25 kiểm cắt dữ liệu. Mọi kết quả quá đẹp phải coi là lỗi trước.
 - EarnForex RSI D1: holdout +202 bps/lệnh nhưng discovery âm, p 0.16 → không qua.
+
+## Vòng 26 (13/10/2026 sáng, Grok trên box) — MÔ PHỎNG
+**Seeker (seeker_v26.py)**: từ reports/seeker_may_nha (1655 tài liệu, tiêu đề+URL). Tải được: mql5 Code Base 141 mục → 81 gói mới + 40 đã có (23 không phải trang bài); GitHub 200 repo → 197 không có .mq4/.mq5/.pine, 3 repo có. TradingView/fxblue/quantpedia (234 mục) 403/Cloudflare trên box → CHƯA ĐO ĐƯỢC (không vượt). Bộ đọc (không tune): 78 tệp EA đọc, 3 dịch được → 5 luật (RSI_Exhaustion 77738, EMA_Cross 77653, Eliot_Waves 25287 = điều kiện luôn đúng, bỏ). Lý do hỏng chính: không tìm được guard lệnh vào (9), tham số hàm không hằng, OnTimer/OnChartEvent. Repo chỉ có tóm tắt luật + URL: reports/seeker_v26/LUAT_TRICH.json (mã nguồn chỉ ở data/cau_kho/, git bỏ qua).
+**v26.py** (tiền đăng ký reports/vong26_tien_dang_ky.md): MRZ/RSI TR2 D1 × {GBPUSD, AUDUSD, pool 7 FX} × ghép {gốc, EMA200, vol thấp, danh mục + DINH20}; spread ĐO theo giờ từ *_h1_tick_ba_ny7.csv (GBPUSD 00h 3,9 bps / 02h 0,74; AUDUSD 5,3 / 1,65). Phần B: nến D1 dịch giờ k=0..3 (2024–2026).
+- Tốt nhất: AUDUSD MRZ gốc (proxy 02h) sau phí 29,5 / 67,8 bps/lệnh (phát hiện/kiểm, 78/85 lệnh), p 0,008, DD 15 % → Holm 1,0, KHÔNG qua. (AUDUSD MT5 2004–2015 chất lượng 4 % → giai đoạn cũ chưa kiểm chứng trên MT5.) GBPUSD MRZ 3,8 / 15,7, p 0,20.
+- Phí 00h vs 02h: pool MRZ kiểm 3,6 → 7,2 bps; GBPUSD MRZ phát hiện −0,4 → 3,8. Phần B: cặp đơn < 30 lệnh/nửa → CHƯA ĐO ĐƯỢC; pool MRZ kiểm sau phí k0 8,3 / k1 18,4 / k2 17,0 / k3 12,3 bps (phát hiện âm/≈0).
+- Ghép danh mục với DINH20 làm XẤU đi mọi nhóm; lọc EMA200 còn < 30 lệnh.
+- Phần C (v26_seeker.py): EMA12/26 D1 và RSI_Exhaustion H1: trước phí ≈ 0 (≤ 2,5 bps), sau phí âm phần kiểm. 0 sống.
+- Holm cộng dồn 12.819 → 12.873 (sơ bộ, phí bảng) → 12.927 → 12.933. **0 sống.**
+**EA MRZ**: thêm `InpGioVao` (mặc định 02h server, RSI giữ 0h); tín hiệu vẫn từ nến D1 vừa đóng, lệnh vào chờ tới giờ đó (cùng nến). Đóng do hết 72 nến vẫn ở đầu nến (chưa dời). Cần chạy lại MT5 trên máy nhà để đo.

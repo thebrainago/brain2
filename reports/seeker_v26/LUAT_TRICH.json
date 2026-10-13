@@ -1,0 +1,3701 @@
+{
+ "nhan": "TOM TAT LUAT + URL (khong chua ma nguon ben thu ba)",
+ "tong_ket": {
+  "tai_lieu_vao": 1655,
+  "mql5_bai": 141,
+  "github_repo": 200,
+  "tep_ea_doc": 78,
+  "tep_dich_duoc": 3,
+  "so_luat": 5,
+  "khong_tai_tren_box_CHUA_DO_DUOC": {
+   "so": 234,
+   "ly_do": "TradingView/fxblue/quantpedia 403/Cloudflare tren box - khong vuot; Pine nguon dong/khong API cong khai"
+  },
+  "trang_thai_tai": {
+   "tai_moi": 81,
+   "da_co": 40,
+   "CHUA": 0,
+   "khong": 220
+  }
+ },
+ "tai": [
+  {
+   "url": "https://www.mql5.com/en/code/78259",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78275",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78243",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78235",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77180",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78206",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78137",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78141",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78138",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78134",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78107",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78123",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78079",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78078",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78046",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78027",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78008",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77967",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/76895",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77951",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77919",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77918",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77900",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77871",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77845",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77842",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77835",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77738",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77748",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77718",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77710",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77697",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77691",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77662",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77653",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77391",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77639",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77627",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/76999",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77595",
+   "tt": "da_co"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78322",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78258",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78224",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77921",
+   "tt": "tai_moi",
+   "so_tep": 2
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77546",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77393",
+   "tt": "tai_moi",
+   "so_tep": 2
+  },
+  {
+   "url": "https://www.mql5.com/en/code/75731",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/75748",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/75746",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/75744",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/75741",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/75736",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/75732",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/71077",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/70467",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/69562",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/26947",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/68251",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/68617",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/68530",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/68215",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/68095",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/62861",
+   "tt": "tai_moi",
+   "so_tep": 3
+  },
+  {
+   "url": "https://www.mql5.com/en/code/65407",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/64833",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/64492",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/62627",
+   "tt": "tai_moi",
+   "so_tep": 2
+  },
+  {
+   "url": "https://www.mql5.com/en/code/64117",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/62249",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/62000",
+   "tt": "tai_moi",
+   "so_tep": 3
+  },
+  {
+   "url": "https://www.mql5.com/en/code/25287",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/60295",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/60015",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/58746",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/58462",
+   "tt": "tai_moi",
+   "so_tep": 3
+  },
+  {
+   "url": "https://www.mql5.com/en/code/58250",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/57788",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/57675",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78274",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78241",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78262",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78237",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78254",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78247",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78245",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78239",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78233",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77929",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77836",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78194",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78115",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78108",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78045",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78091",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78062",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78041",
+   "tt": "tai_moi",
+   "so_tep": 2
+  },
+  {
+   "url": "https://www.mql5.com/en/code/75666",
+   "tt": "tai_moi",
+   "so_tep": 5
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78031",
+   "tt": "tai_moi",
+   "so_tep": 6
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78030",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78003",
+   "tt": "tai_moi",
+   "so_tep": 2
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77959",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77957",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77953",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77945",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77908",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77935",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77927",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77867",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77854",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77847",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77813",
+   "tt": "tai_moi",
+   "so_tep": 2
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77815",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77806",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77805",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77790",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77785",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77726",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77724",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://www.mql5.com/en/code/mt5/experts#",
+   "tt": "khong_phai_bai"
+  },
+  {
+   "url": "https://www.mql5.com/pt/code/mt5/experts",
+   "tt": "khong_phai_bai"
+  },
+  {
+   "url": "https://www.mql5.com/fr/code/mt5/experts",
+   "tt": "khong_phai_bai"
+  },
+  {
+   "url": "https://www.mql5.com/it/code/mt5/experts",
+   "tt": "khong_phai_bai"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/mt5",
+   "tt": "khong_phai_bai"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/mt5/indicators",
+   "tt": "khong_phai_bai"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/mt5/libraries",
+   "tt": "khong_phai_bai"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/mt4",
+   "tt": "khong_phai_bai"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/mt4/indicators",
+   "tt": "khong_phai_bai"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/mt4/libraries",
+   "tt": "khong_phai_bai"
+  },
+  {
+   "url": "https://youtu.be/rloNyFVtHuA?list=PLltlMLQ7OLeKwyQwC8FhiKwjl9syKhOCK",
+   "tt": "khong_phai_bai"
+  },
+  {
+   "url": "https://www.mql5.com/en/articles/100",
+   "tt": "khong_phai_bai"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/new",
+   "tt": "khong_phai_bai"
+  },
+  {
+   "url": "https://www.mql5.com/en/auth_oauth2?provider=Google&amp;return=popup&amp;reg=1",
+   "tt": "khong_phai_bai"
+  },
+  {
+   "url": "https://www.mql5.com/en/about/privacy",
+   "tt": "khong_phai_bai"
+  },
+  {
+   "url": "https://www.mql5.com/en/about/terms",
+   "tt": "khong_phai_bai"
+  },
+  {
+   "url": "https://www.mql5.com/en/auth_forgotten?return=popup",
+   "tt": "khong_phai_bai"
+  },
+  {
+   "url": "https://download.terminal.free/cdn/web/metaquotes.ltd/mt5/mt5setup.exe?utm_source=web.installer&utm_campaign=mql5.welcome.open",
+   "tt": "khong_phai_bai"
+  },
+  {
+   "url": "https://www.mql5.com/en/code/mt5/indicators#",
+   "tt": "khong_phai_bai"
+  },
+  {
+   "url": "https://www.mql5.com/pt/code/mt5/indicators",
+   "tt": "khong_phai_bai"
+  },
+  {
+   "url": "https://www.mql5.com/fr/code/mt5/indicators",
+   "tt": "khong_phai_bai"
+  },
+  {
+   "url": "https://www.mql5.com/it/code/mt5/indicators",
+   "tt": "khong_phai_bai"
+  },
+  {
+   "url": "https://www.mql5.com/en/auth_oauth2?provider=Google&amp;return=popup",
+   "tt": "khong_phai_bai"
+  },
+  {
+   "url": "https://github.com/mementum/backtrader",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/kernc/backtesting.py",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/cuemacro/finmarketpy",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/TreborNamor/TradingView-Machine-Learning-GUI",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/OpenByteInc/QuantDinger",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/constverum/Quantdom",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/idanya/algo-trader",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/Auquan/auquantoolbox",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/Auquan/auquan-toolbox-python",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/panpanpandas/ultrafinance",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/maihde/quant",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/Drakkar-Software/OctoBot",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/jianweiweng05/qsx-strategy-score",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/btrccts/btrccts",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/Erfaniaa/crypto-trading-strategy-backtester",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/s-brez/trading-server",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/AmpyFin/ampyfin",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/llazzaro/analyzer",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/marketcalls/vectorbt-backtesting-skills",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/CyberPunkMetalHead/backtesting-for-cryptocurrency-trading",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/lth-elm/Backtrading-Python-Binance",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/jordantete/grid_trading_bot",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/binance/ai-trading-prototype-backtester",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/3kwa/python-backtest",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/whchien/ai-trader",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/DmitryGubanov/portfolio-backtester",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/wynfred/presso",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/bottama/trading-strategy-backtest",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/51bitquant/howtrader",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/ml4t/backtest",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/WISEPLAT/backtrader_binance",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/IsaacCheng9/quant-trading-strategy-backtester",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/peerchemist/finta_backtest",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/braedonsaunders/homerun",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/edouardpoitras/NowTrade",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/slurpxbt/crypto-backtest-module",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/santiagocanepa/AutomationTrading-Strategy-Backtesting-Suite",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/paperswithbacktest/pwb-toolbox",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/MKTSTK/Runover",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/mrtoronto/stock_backtester",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/jasgin/backtrader-backtests",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/DavidCico/Enhanced-Event-Driven-Backtester",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/michaelhly/CryptoBacktester",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/ilahuerta-IA/trading-strategy-optimizer",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/manuwhs/Trapyng",
+   "tt": "tai_moi",
+   "so_tep": 10
+  },
+  {
+   "url": "https://github.com/s-kust/python-backtesting-template",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/cloudQuant/backtrader",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/faryhuo/backtrader",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/anirudhramanan/plutus-algo-backtesting",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/Novacer/alpharithmic-trading",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/yuba316/Alpha_Strategy_BackTest_System",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/xcycharles/Stock_Strategy",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/noterminusgit/statarb",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/xuanronaldo/positionbt",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/eigenquant53/VRP",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/sushant1827/Trading_Strategies",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/empenoso/backtrader-quickstart-template",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/pierreia/quantGPT",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/DorukKorkmaz/crypto-backtest",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/JamieWells1/quant_trading_backtester",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/WISEPLAT/backtrader_bybit",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/piyushdave6/algo-trading-backtesting-engine",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/VibeTradingLabs/vibetrading",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/0xrsydn/polymarket-crypto-toolkit",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/jerrylearnscoding/claude-enterprise-openclaw-trading",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/cutemarkets/cutebacktests",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/marekkolman/yt_backtest_trading_demo",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/Trade-With-Claude/cbt-framework",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/The-Swarm-Corporation/BackTesterAgent",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/ShabbirHasan1/backtest_optimizer",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/moss-site/moss-trade-bot-skills",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/jptsantossilva/BEC",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/Synpath-ai/prediction-market-arbitrage-trading-bot",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/TonyMa1/walk-forward-backtester",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/gawd-coder/Backtest-Indicator-Strategies",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/AlexLJC/xtraderbacktest",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/AnsonCHOWcm/PairTrading_Copula_Backtrader",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/zhong-us/backtesting",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/asier13/Python-Trading-Bot",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/rsandx/AlphaSuite",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/VoxHash/ForexSmartBot",
+   "tt": "tai_moi",
+   "so_tep": 1
+  },
+  {
+   "url": "https://github.com/0xRobWatson/Quant-Trading-Strategy-Backtesting-Framework",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/nieledran/backtesting-engine",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/billpwchan/strategy_powerbacktest",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/kknet/AlgorithmicTrading",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/esemi/backtester",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/Astolfu/trading-bot",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/Jero2760/BacktestZone",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/amdfad/dse-momentum",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/Coderixc/BankNifty_Algo_Strategy",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/ntungufhadzeni/MT5-Python-Trading",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/DoRmAmMu1997/My-Algo-Trading-Code",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/huangxjia/RSI-Strategy",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/boekenbox/gunbot-backtesting-archive",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/Optixal/CryptoInscriber",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/afanxia/MarketMaker",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/kay-ou/ptradeAPI",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/mphinance/alpha-skills",
+   "tt": "tai_moi",
+   "so_tep": 3
+  },
+  {
+   "url": "https://github.com/parrondo/finmarketpy",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/gaganchandan/StockPick",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/Achintya1311/fama-french-factor-model",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/Quanghoaai/Aether-Quant",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/dymfyx/market-pipeline",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/xSou1d/Quant_factor_research",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/yhan2002/momentum-factor-screener",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/Makkkelyie/factor-research-pipeline",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/faltusPetr/Python_projects",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/akshayaa-403/quantamental-screener",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/LeksZy/momentum_of_factor_portfolios_showcase",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/DhruvDevpura/india-factor-risk-dashboard",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/francklinegabs/equity-factor-research",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/Evan-Daruwalla/long-term-trading-momentum",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/rajapalagummi/Multi-Factor-Equity-Intelligence-Platform",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/Sammit81/sp500-factor-risk-analytics",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/SonChangGi/momentum-factor-lab",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/sletch1/alpaca-factor-momentum-trader",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/blaquebaux/boulevard",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/lixijack-cpu/momentum-portfolio",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/UBZapt/Currency-Market-Momentum",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/zzhengax/momentum-factor-backtest",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/amoiba42/Alpha-Factor-Engine",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/renee-jia/trading-bot",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/carsonchen0823-ship-it/ETF-Multi-Factor-Strategy",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/JiaxinLi0713/a-share-momentum-factors",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/robbasnet14/factor-backtester",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/VascoEsquivel/dfa-factor-backtest",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/sky040212/Institutional-Factor-Investing-Engine",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/karllennon/NBA-Outcome-Predictor",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/blaquebaux/bespoke",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/blaquebaux/brunt",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/adityagupta-research/Momentum-Factor-Research-Project",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/tanishhky/Equity-Factor-Volatility-Analysis",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/sakshamg251206/factor-neutrality-ff1993",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/olivierFer3/factor-investing-backtest",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/haribharadwaj/FamaFrench",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/Oppadie/fama-french-factor-analysis",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/Anyaverse/Momentum-lab",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/athenazcx1225-collab/momentum-factor-backtest",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/mcp-tool-shop-org/backprop-trace",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/adomlans/An-Econometric-Reasearch-Project-on-the-Momentum-Factor",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/ReelJT/equity-factor-research",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/jacobkorsgaard/volatility-managed-factors-and-momentum",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/FedeMora1/bolt",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/CHETAN-BABU/faang-stock-pca",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/kamikazedojapan/US-Quant-Factor-Dashboard",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/ByteB1itz420/equity-factor-model",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/landonfraser/Stock-Screener",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/peterLwk888/counterexample-quant",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/sky040212/Multi-Factor-Smart-Beta-Portfolio-Builder",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/alexhenworth-maker/Institutional-Style-Multi-Factor-Equity-Alpha-Model",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/gdb-mtx/jim",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/ronaldoexmachina13/quant-equity-research",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/ardabaranbaytar/equity-factor-research",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/Manojksen/quant-research-notes",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/Aahil0/nifty50-multi-factor-screener",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/ahish-avg/momentum-factor",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/baobenny/a-share-momentum-reversal",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/henryletourneux/quant-equity-factor-model",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/jessicahe17/equity-factor-research-platform",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/Krish-1717/alpha-factor-research",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/svr-L/cross-sectional-factor-momentum",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/asoracca/momentum-factor-backtest",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/roysoler/Momentum_Comomentum_Trading_Strategy",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/SirRolin/Factorio-momentum-turbo",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/SirRolin/Factorio-momentum-threshold",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/SirRolin/Factorio-momentum-modules",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/SirRolin/Factorio-momentum-catalytic",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/vkrishnamoorthy01/quant_risk_and_trading_portfolio",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/ilterka/sp500-factor-backtests",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/praddy133/systematic-equity-alpha-platform",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/alexandre-vllt/fx-factor-strategies",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/ptananpan-lab/momentum-factor-research",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/harishmuthyala21-droid/OI-Command-Center",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/NikosAvg/Quantitative-Equity-Portfolio-Optimization-Framework",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/mhsefidgar/Multi-Agent-Quantitative-Trading-Research",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/jbenthaus/europe-smallcap-factors",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/Rossod4/momentum-value-strategy",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/jennyrlin/factor-based-GTAA-portfolio-analysis",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/pennypenguinapp-beep/launchtower-factor-research",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/Laura-fei/momentum-factor-research",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/joeyyXuu/Market-Beating-Portfolio-Builder",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/pennypenguinapp-beep/launchtower-factor-screen",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/Armymech2000/Crystal_Ball",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/MinseoCho1113-bot/deep-factor-model",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/micyiucm/Dynamic-Factor-Arbitrage-Isolating-Residual-Momentum-in-Sector-ETFs",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/DanieleBrignani/momentum-has-its-moments-replication",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/bettuzzim/equity-factor-screener",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/dshan12/momentum-factor-study",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/jessieyang22/factor-model",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/natejamesgithub/wrds-factor-zoo-replication",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/Zeon7744/global-investment-mlp",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/AmanVyas77/AI_Trading_Agent",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/harshiniiyer/momentum-factor-audit",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/buyuyu-1/hs300-factor-research",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/Shaan-Rooprai/quantitative-factor-investing-backtest",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/kkolaro/quantitative-factor-investing-backtester",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/chaudharidhruv/factor-risk-model",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/jfrworlock/U.S.-Equities-Sector-Rotation-Model",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/jack-259/Extending-the-Fama-French-Three-Factor-Model-A-Fama-French-Carhart-Four-Factor-Study",
+   "tt": "khong_co_ma_mql_pine"
+  },
+  {
+   "url": "https://github.com/nivrutti1113/multi-factor-alpha-research",
+   "tt": "khong_co_ma_mql_pine"
+  }
+ ],
+ "luat": [
+  {
+   "url": "https://www.mql5.com/en/code/78259",
+   "tieu_de": "[MQL5 mt5/experts] Opening Range Breakout with NR4 / NR7 Contraction Filters",
+   "tep": "Crabel_ORB_Gold.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "pha_vo"
+    ],
+    "tai_san": [
+     "fx",
+     "futures_hang_hoa"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78275",
+   "tieu_de": "[MQL5 mt5/experts] APEX VELOCITY",
+   "tep": "APEX_VELOCITY_V1.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "goi ham: doi so cua ExecuteTrade khong phai hang tai mot cho goi (khong tinh duoc dieu kien tham so)",
+    "nhanh else-if khong chung minh loai tru nhanh truoc (= B and not A): signal == 1",
+    "signal == 1"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78243",
+   "tieu_de": "[MQL5 mt5/experts] Prop Firm Equity Guard - Daily Loss Limit and Max Drawdown Protection",
+   "tep": "PropFirmEquityGuard.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "goi ham: chuoi goi toi OnTimer, khong toi OnTick (lenh tay/timer - khong mo phong theo bar)"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "tin_hieu_copy"
+    ],
+    "tai_san": [
+     "fx",
+     "co_phieu"
+    ],
+    "khung": [
+     "dai_D1_W1"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78235",
+   "tieu_de": "[MQL5 mt5/experts] BotGuard - Terminal Health Heartbeat for VPS Monitoring",
+   "tep": "BotGuard.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77180",
+   "tieu_de": "[MQL5 mt5/experts] EMA Cross Scalper M15 (XAUUSD, WIB session filter)",
+   "tep": "EMA_Cross_Scalper_M15.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "cross > 0",
+    "lenh vao nam trong nhanh else",
+    "loc thoat som: !CheckStops(true, ask, bid, sl, tp)"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "xu_huong",
+     "pha_vo",
+     "luot_song"
+    ],
+    "tai_san": [
+     "fx",
+     "futures_hang_hoa"
+    ],
+    "khung": [
+     "ngan_M1_M15"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78206",
+   "tieu_de": "[MQL5 mt5/experts] GridPro Panel — open-source grid trading EA with on-chart control panel",
+   "tep": "GridPro_Panel_v1.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "goi ham: doi so cua OpenOrder khong phai hang tai mot cho goi (khong tinh duoc dieu kien tham so)"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "luoi_dca"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "luoi_martingale"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78137",
+   "tieu_de": "[MQL5 mt5/experts] Margin Risk Simulator",
+   "tep": "MarginRiskSimulator.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78138",
+   "tieu_de": "[MQL5 mt5/experts] AgentGuard — Independent Risk Guard for AI Agents in MetaTrader 5",
+   "tep": "AgentGuard.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "hoc_may"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "trailing_ATR"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78134",
+   "tieu_de": "[MQL5 mt5/experts] Manual Trade Pad for Strategy Tester",
+   "tep": "Manual_Trade_Pad_Tester_CodeBase_Documented.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "huong int: return long co dieu kien: margin > AccountInfoDouble(ACCOUNT_MARGI / OrderCa"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78107",
+   "tieu_de": "[MQL5 mt5/experts] DailyLossGuard — Hard Daily Loss Protection",
+   "tep": "DailyLossGuard.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "dai_D1_W1"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78123",
+   "tieu_de": "[MQL5 mt5/experts] Broker Clock Auditor",
+   "tep": "BrokerClockAuditor.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78079",
+   "tieu_de": "[MQL5 mt5/experts] Session Reality Auditor",
+   "tep": "SessionRealityAuditor.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "pha_vo"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78078",
+   "tieu_de": "[MQL5 mt5/experts] Advanced Prop-firm Trade Panel based on S-R",
+   "tep": "Advanced_PropFirm_Trade_Panel_SR_2d71.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "dir > 0",
+    "goi ham: dieu kien vao o HAI tang (DoMarket va HandleClick) - tang duoi dung tham so ham: k == \"B_bu",
+    "loc thoat som: !PreTradeChecks(buy, lot, e, sl, tp, false)"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "tin_hieu_copy"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78046",
+   "tieu_de": "[MQL5 mt5/experts] Newtonian Mechanics",
+   "tep": "NewtonianMechanics.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78046",
+   "tieu_de": "[MQL5 mt5/experts] Newtonian Mechanics",
+   "tep": "Deployment.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78027",
+   "tieu_de": "[MQL5 mt5/experts] 87.8 Percent from 2021 to YTD at 8.5 Percent MaxDD. The Nikkei EA That Only Buys When Volume Is Quiet",
+   "tep": "Jpn225_quietdrift.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "loc thoat som: !PrepareOrder(price, lots, sl, tp)",
+    "loc thoat som: !SignalOk(1)",
+    "loc thoat som: ((InpDayMask >> sigWd) & 1) == 0"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78008",
+   "tieu_de": "[MQL5 mt5/experts] Tick Integrity Auditor",
+   "tep": "TickIntegrityAuditor.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "luot_song"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "ngan_M1_M15"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77967",
+   "tieu_de": "[MQL5 mt5/experts] ORB Risk Managed - Opening Range Breakout with Account Protection",
+   "tep": "ORB_RiskManaged.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "pha_vo"
+    ],
+    "tai_san": [
+     "fx",
+     "futures_hang_hoa"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/76895",
+   "tieu_de": "[MQL5 mt5/experts] Broker Profiler",
+   "tep": "BrokerProfiler.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77951",
+   "tieu_de": "[MQL5 mt5/experts] AN Guard Lite - Trade Journal and Report for any EA",
+   "tep": "ANGuardLite.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77919",
+   "tieu_de": "[MQL5 mt5/experts] History Integrity Auditor",
+   "tep": "HistoryIntegrityAuditor.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77918",
+   "tieu_de": "[MQL5 mt5/experts] WaveMaster Pro EA",
+   "tep": "WaveMaster_Oscilloscope.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "close < sarArray[0]",
+    "goi ham: nhanh else-if khong chung minh loai tru nhanh truoc (= B and not A): isQuantumDn",
+    "loc thoat som: !CheckMarginForTrade(ORDER_TYPE_SELL, ExtLotSize, "
+   ],
+   "nhan": {
+    "phong_cach": [
+     "xu_huong"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77900",
+   "tieu_de": "[MQL5 mt5/experts] Stochastic Daily Breakout for Gold, +245 Percent in a 2021-2026 Backtest",
+   "tep": "StochDailyBreakout.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "khong tim duoc guard cua lenh vao"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "pha_vo"
+    ],
+    "tai_san": [
+     "fx",
+     "futures_hang_hoa"
+    ],
+    "khung": [
+     "dai_D1_W1"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77871",
+   "tieu_de": "[MQL5 mt5/experts] Alpha Engine: Intrinsic-Time Coastline Trader",
+   "tep": "AlphaEngine.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77845",
+   "tieu_de": "[MQL5 mt5/experts] Mirror Hedge EA (Same terminal and account only)",
+   "tep": "MirrorHedgeEAz4s.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "!buy",
+    "!ok",
+    "buy"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "luoi_dca"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77842",
+   "tieu_de": "[MQL5 mt5/experts] Repaint Inspector",
+   "tep": "RepaintInspector.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77738",
+   "tieu_de": "[MQL5 mt5/experts] RSI Exhaustion Reversal - EURUSD",
+   "tep": "RSI_Exhaustion_Reversal.mq5",
+   "mql4": false,
+   "so_luat": 1,
+   "luat": [
+    {
+     "vao": [
+      {
+       "trai": {
+        "chi_bao": "gio"
+       },
+       "phep": ">=",
+       "phai": {
+        "hang": 14.0
+       }
+      },
+      {
+       "trai": {
+        "chi_bao": "gio"
+       },
+       "phep": "<",
+       "phai": {
+        "hang": 18.0
+       }
+      },
+      {
+       "trai": {
+        "chi_bao": "tre",
+        "cua": {
+         "chi_bao": "rsi",
+         "n": 14
+        },
+        "n": 1
+       },
+       "phep": "<",
+       "phai": {
+        "hang": 65.0
+       }
+      },
+      {
+       "trai": {
+        "chi_bao": "rsi",
+        "n": 14
+       },
+       "phep": ">=",
+       "phai": {
+        "hang": 65.0
+       }
+      }
+     ],
+     "chieu": -1,
+     "giu": 1,
+     "sltp": {
+      "mt5": true,
+      "sl": null,
+      "tp": null,
+      "keo": null,
+      "sl_diem": null,
+      "tp_diem": null,
+      "sl_kc": {
+       "chi_bao": "tuyen_tinh",
+       "toan_hang": [
+        {
+         "chi_bao": "atr",
+         "n": 14,
+         "kieu": "sma"
+        }
+       ],
+       "he_so": [
+        4.0
+       ]
+      },
+      "tp_kc": {
+       "chi_bao": "tuyen_tinh",
+       "toan_hang": [
+        {
+         "chi_bao": "atr",
+         "n": 14,
+         "kieu": "sma"
+        }
+       ],
+       "he_so": [
+        4.0
+       ]
+      },
+      "ref_sl": "BID",
+      "ref_tp": "BID",
+      "het_bar": 96
+     }
+    }
+   ],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "hoi_quy",
+     "hoc_may"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "trailing_ATR"
+    ]
+   },
+   "xep_hang_doi": true
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77748",
+   "tieu_de": "[MQL5 mt5/experts] ZoneUS30 — Reversion and Positive Swap on Your Side in US30",
+   "tep": "ZoneUS30.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "loc thoat som: !signal"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "hoi_quy",
+     "vi_mo_carry"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77718",
+   "tieu_de": "[MQL5 mt5/experts] Stormbreaker ADX - Supertrend and DMI Trend EA",
+   "tep": "Stormbreaker_ADX.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "!is_long",
+    "is_long",
+    "loc thoat som: current!=0  and  !STClosePosition(magic)"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "xu_huong"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77710",
+   "tieu_de": "[MQL5 mt5/experts] PropGuard 1.02 - account risk manager for prop firm accounts",
+   "tep": "PropGuard_CodeBase_1_02.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "loc thoat som: ExtTesterTradeDone",
+    "loc thoat som: SymbolInfoInteger(_Symbol,SYMBOL_TRADE_MODE)!=SYMB"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "tin_hieu_copy"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77697",
+   "tieu_de": "[MQL5 mt5/experts] NeonDesk - Neon Manual Trading Panel with Multi-Timeframe Bias",
+   "tep": "NeonDesk_v1.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "goi ham: loi goi trong nhanh else (OnChartEvent)"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77691",
+   "tieu_de": "[MQL5 mt5/experts] Gold Breakout EA for XAUUSD H4 +90 Percent in a 2020 to 2026 Backtest",
+   "tep": "GoldBreakoutEA.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "goi ham: doi so cua OpenTrade khong phai hang tai mot cho goi (khong tinh duoc dieu kien tham so)"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "pha_vo"
+    ],
+    "tai_san": [
+     "fx",
+     "futures_hang_hoa"
+    ],
+    "khung": [
+     "trung_H1_H4"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77653",
+   "tieu_de": "[MQL5 mt5/experts] EMA Cross Demo EA with ATR Stops",
+   "tep": "EMA_Cross_Demo_EA.mq5",
+   "mql4": false,
+   "so_luat": 2,
+   "luat": [
+    {
+     "vao": [
+      {
+       "trai": {
+        "chi_bao": "ema",
+        "n": 12
+       },
+       "phep": ">",
+       "phai": {
+        "chi_bao": "ema",
+        "n": 26
+       }
+      },
+      {
+       "trai": {
+        "chi_bao": "tre",
+        "cua": {
+         "chi_bao": "ema",
+         "n": 12
+        },
+        "n": 1
+       },
+       "phep": "<=",
+       "phai": {
+        "chi_bao": "tre",
+        "cua": {
+         "chi_bao": "ema",
+         "n": 26
+        },
+        "n": 1
+       }
+      }
+     ],
+     "chieu": 1,
+     "giu": 1
+    },
+    {
+     "vao": [
+      {
+       "trai": {
+        "chi_bao": "ema",
+        "n": 12
+       },
+       "phep": "<",
+       "phai": {
+        "chi_bao": "ema",
+        "n": 26
+       }
+      },
+      {
+       "trai": {
+        "chi_bao": "tre",
+        "cua": {
+         "chi_bao": "ema",
+         "n": 12
+        },
+        "n": 1
+       },
+       "phep": ">=",
+       "phai": {
+        "chi_bao": "tre",
+        "cua": {
+         "chi_bao": "ema",
+         "n": 26
+        },
+        "n": 1
+       }
+      }
+     ],
+     "chieu": -1,
+     "giu": 1
+    }
+   ],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "xu_huong",
+     "hoc_may"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "trailing_ATR"
+    ]
+   },
+   "xep_hang_doi": true
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77391",
+   "tieu_de": "[MQL5 mt5/experts] PropSpread: time-weighted spread monitor with ATR context, alert and CSV log",
+   "tep": "PropSpread.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "tin_hieu_copy"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "trailing_ATR"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77639",
+   "tieu_de": "[MQL5 mt5/experts] SMC Gold: Liquidity Sweep and Order Block EA for XAUUSD M15",
+   "tep": "SMC_Gold.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "goi ham: doi so cua OpenTrade khong phai hang tai mot cho goi (khong tinh duoc dieu kien tham so)"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx",
+     "futures_hang_hoa"
+    ],
+    "khung": [
+     "ngan_M1_M15"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/76999",
+   "tieu_de": "[MQL5 mt5/experts] Safe Risk Manager EA - Daily Loss, Break-Even and Trailing Stop",
+   "tep": "SafeRiskManagerEA.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "goi ham: chuoi goi toi OnChartEvent, khong toi OnTick (lenh tay/timer - khong mo phong theo bar)"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "dai_D1_W1"
+    ],
+    "quan_tri": [
+     "trailing_ATR"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77595",
+   "tieu_de": "[MQL5 mt5/experts] EA Trend Follower",
+   "tep": "Trend_Follower.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "!InpUseDynamicVD  or  current_vd_points >= InpVD_MinVolPnts",
+    "!hasSell",
+    "InpUseMAFilter ? isLightAlignedDn : true"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "xu_huong"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "dai_D1_W1"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78322",
+   "tieu_de": "[MQL5 mt4/experts] Manual Trade Pad for Strategy Tester",
+   "tep": "Manual_Trade_Pad_MT4.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "goi ham: return long co dieu kien trong HandleObject: !ObjectGetInteger(0, name, OBJPROP_STATE"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78258",
+   "tieu_de": "[MQL5 mt4/experts] Scalper EA for End-of-Weeks on BTC",
+   "tep": "MASTER1011.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "khong tim duoc guard cua lenh vao",
+    "lenh vao nam trong nhanh else"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "luot_song"
+    ],
+    "tai_san": [
+     "fx",
+     "crypto"
+    ],
+    "khung": [
+     "ngan_M1_M15"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/78224",
+   "tieu_de": "[MQL5 mt4/experts] Trading on Weekends",
+   "tep": "FERA.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "khong xac dinh duoc chieu lenh: PriceBuy<=SymbolInfoDouble(_Symbol,SYMBOL_ASK)-Sto",
+    "khong xac dinh duoc chieu lenh: PriceSell>=SymbolInfoDouble(_Symbol,SYMBOL_BID)+St"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77921",
+   "tieu_de": "[MQL5 mt4/experts] MD Scalper HFT – Trend / Reversal pending-stop scalper with trailing stop",
+   "tep": "Md_Scalper_v2.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "khong tim duoc guard cua lenh vao"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "xu_huong",
+     "luot_song"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "ngan_M1_M15"
+    ],
+    "quan_tri": [
+     "trailing_ATR"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77546",
+   "tieu_de": "[MQL5 mt4/experts] Semi-HFT Grid Bot Two-sided seed-bump-martingale grid with basket take profit",
+   "tep": "SemiHFT_GridBot_n24.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "khong xac dinh duoc chieu lenh: !passed",
+    "lenh vao nam trong nhanh else"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "luoi_dca",
+     "luot_song"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "ngan_M1_M15"
+    ],
+    "quan_tri": [
+     "luoi_martingale"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/77393",
+   "tieu_de": "[MQL5 mt4/experts] APB Channel EA — Heikin-Ashi reversal with channel confirmation and swing-structure stops",
+   "tep": "APB_Channel_XAUUSD_EA.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "khong tim duoc guard cua lenh vao"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx",
+     "futures_hang_hoa"
+    ],
+    "khung": [
+     "trung_H1_H4"
+    ],
+    "quan_tri": [
+     "trailing_ATR"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/75731",
+   "tieu_de": "[MQL5 mt4/experts] Quantora Trade Manager MT4 - Professional Position Management Utility",
+   "tep": "Quantora_Trade_Manager.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "dai_D1_W1"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/75748",
+   "tieu_de": "[MQL5 mt4/experts] Quantora Margin Calculator MT4 - Professional Margin Requirement Calculator",
+   "tep": "Quantora_Margin_Calculator_MT4.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/75746",
+   "tieu_de": "[MQL5 mt4/experts] Quantora Risk Calculator MT4 - Professional Trade Risk and Reward Calculator",
+   "tep": "Quantora_Risk_Calculator_MT4_v1_00.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/75744",
+   "tieu_de": "[MQL5 mt4/experts] Quantora Position Size Calculator MT4",
+   "tep": "Quantora_Position_Size_Calculator_MT4.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "dai_D1_W1"
+    ],
+    "quan_tri": [
+     "rui_ro_co_dinh"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/75741",
+   "tieu_de": "[MQL5 mt4/experts] Quantora Trailing Stop Manager - Automatic Trailing Stop Utility for MetaTrader 4",
+   "tep": "Quantora_Trailing_Stop_Manager.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "trailing_ATR"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/75736",
+   "tieu_de": "[MQL5 mt4/experts] Quantora Break Even Manager MT4 - Professional Automatic Break Even Utility",
+   "tep": "Quantora_Break_Even_Manager.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/75732",
+   "tieu_de": "[MQL5 mt4/experts] Quantora Trade Manager MT4 - Professional Position Management Utility",
+   "tep": "Quantora_Trade_Manager.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "dai_D1_W1"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/71077",
+   "tieu_de": "[MQL5 mt4/experts] Institutional ATR Trailing Stop and Breakeven Manager",
+   "tep": "Prop_ATR_Trail_Manager.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "tin_hieu_copy"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "trailing_ATR"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/70467",
+   "tieu_de": "[MQL5 mt4/experts] VR Rsi Robot is a multi-timeframe trading strategy",
+   "tep": "VR_Rsi_Robot.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "CheckMargin(lt)",
+    "false"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "hoi_quy"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/69562",
+   "tieu_de": "[MQL5 mt4/experts] VR Breakdown level - Trading strategy based on a breakout of the previous High or Low",
+   "tep": "VR_Breakdown_level.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "lt > 0",
+    "return trong khoi long truoc lenh vao (loc co dieu kien): ticket > 0 / lt > 0"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "pha_vo"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/26947",
+   "tieu_de": "[MQL5 mt4/experts] VR Locker Lite - Trading strategy based on a positive lock",
+   "tep": "VR_Locker_Lite.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "CheckVolumeValue(BuyLowLots * iMultiplier)",
+    "CheckVolumeValue(SelHigtLots * iMultiplier)",
+    "CheckVolumeValue(lt)"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/68251",
+   "tieu_de": "[MQL5 mt4/experts] Trading strategy Heads or Tails",
+   "tep": "VR_Heads_or_Tails.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "MathRand() % 2 == 0",
+    "lenh vao nam trong nhanh else"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/68617",
+   "tieu_de": "[MQL5 mt4/experts] MT4 Telegram Trade Notifier (Bot API) — Deal Alerts",
+   "tep": "TelegramTradeNotify.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/68530",
+   "tieu_de": "[MQL5 mt4/experts] RiskSizer Panel Lite MT4 - Risk Percent Lot Calculator With One Click Buy Sell",
+   "tep": "RiskSizer_Panel_Lite.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "goi ham: chuoi goi toi OnChartEvent, khong toi OnTick (lenh tay/timer - khong mo phong theo bar)"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/68215",
+   "tieu_de": "[MQL5 mt4/experts] Expert Advisor required to fetch news data for the FFC Calendar indicator.",
+   "tep": "FFC_Data_Feeder.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/68095",
+   "tieu_de": "[MQL5 mt4/experts] Popular (1M views) 4 Hour Range Strategy coded and tested",
+   "tep": "DataTrader4HRange.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "CheckVolumeValue(Lots)",
+    "MathAbs(ask - SL) > stopLevel",
+    "MathAbs(ask - TP) > stopLevel"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "pha_vo"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "trung_H1_H4"
+    ],
+    "quan_tri": [
+     "trailing_ATR"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/62861",
+   "tieu_de": "[MQL5 mt4/experts] StrategyTester in pips",
+   "tep": "StrategyTesterInPips_sketch.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/65407",
+   "tieu_de": "[MQL5 mt4/experts] SAR_MACD_EA",
+   "tep": "SAR_MACD_EA.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "goi ham: loi goi OpenBuy sau toan tu dieu kien",
+    "goi ham: loi goi OpenSell sau toan tu dieu kien"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/64833",
+   "tieu_de": "[MQL5 mt4/experts] Heikin Ashi MT4 EA",
+   "tep": "TrendMap.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "!HaveLongPosition",
+    "false",
+    "goi ham: nhanh else-if khong chung minh loai tru nhanh truoc (= B and not A): Bullish"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "xu_huong"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/64492",
+   "tieu_de": "[MQL5 mt4/experts] Ichimoku Edge MT4 EA",
+   "tep": "Ichimoku_Edge.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "false",
+    "goi ham: nhanh else-if khong chung minh loai tru nhanh truoc (= B and not A): ChikouPriceBull",
+    "loc thoat som: !CheckVolumeValue(vol, vdesc)"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "xu_huong"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/62627",
+   "tieu_de": "[MQL5 mt4/experts] Trade By Retail Sentiment",
+   "tep": "TradeBySentiment.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "IsNewCandle()",
+    "loc thoat som: !APIOK",
+    "shortMA < longMA"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/64117",
+   "tieu_de": "[MQL5 mt4/experts] Stochastic Eclipse - MT4 EA",
+   "tep": "Stochastic_Eclipse.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "khong tim duoc guard cua lenh vao"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/62249",
+   "tieu_de": "[MQL5 mt4/experts] MT4-BuildYourGridEA",
+   "tep": "MT4-BuildYourGridEA_v1_8.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "khong tim duoc guard cua lenh vao"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "luoi_dca"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "luoi_martingale"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/62000",
+   "tieu_de": "[MQL5 mt4/experts] Viral MACD Strategy (3.5M+ Views) — Recreated and Automated",
+   "tep": "TradingLab_Best_MACD_Strategy.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "MACDDownSig == SignalValidity  or  SupportTouch == SignalVal",
+    "MACDUpSig == SignalValidity  or  SupportTouch == SignalValid",
+    "SignalValidity"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/25287",
+   "tieu_de": "[MQL5 mt4/experts] Eliot Waves",
+   "tep": "Eliot_Waves.mq4",
+   "mql4": true,
+   "so_luat": 2,
+   "luat": [
+    {
+     "vao": [
+      {
+       "trai": {
+        "chi_bao": "tre",
+        "cua": {
+         "chi_bao": "gia",
+         "cot": "low"
+        },
+        "n": 1
+       },
+       "phep": "<",
+       "phai": {
+        "chi_bao": "gia",
+        "cot": "high"
+       }
+      }
+     ],
+     "chieu": 1,
+     "giu": 1
+    },
+    {
+     "vao": [
+      {
+       "trai": {
+        "chi_bao": "tre",
+        "cua": {
+         "chi_bao": "gia",
+         "cot": "low"
+        },
+        "n": 1
+       },
+       "phep": "<",
+       "phai": {
+        "chi_bao": "gia",
+        "cot": "high"
+       }
+      }
+     ],
+     "chieu": 1,
+     "giu": 1
+    }
+   ],
+   "ly_do_chua_dich": [
+    "return trong khoi long truoc lenh vao (loc co dieu kien): IsTesting()==false / low[1]<high",
+    "return trong khoi long truoc lenh vao (loc co dieu kien): IsTesting()==true / low[1]<high"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "vi_mo_carry",
+     "hoc_may"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": true
+  },
+  {
+   "url": "https://www.mql5.com/en/code/60295",
+   "tieu_de": "[MQL5 mt4/experts] Pending tread EA.",
+   "tep": "Pending_tread.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "khong tim duoc guard cua lenh vao"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/60015",
+   "tieu_de": "[MQL5 mt4/experts] SniperJaw EA",
+   "tep": "SniperJawEA.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "khong tim duoc guard cua lenh vao"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/58746",
+   "tieu_de": "[MQL5 mt4/experts] EA Stochastic Bollinger Bands Multi - Timeframe",
+   "tep": "EA_RM_Stochastic_Band.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "goi ham: nhanh else-if khong chung minh loai tru nhanh truoc (= B and not A): stochK[0] < MinStochOv",
+    "loc thoat som: !CanTrade()",
+    "stochK[0] < MinStochOversold"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "hoi_quy"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/58462",
+   "tieu_de": "[MQL5 mt4/experts] RRS Impulse",
+   "tep": "RRS_Impulse_Plus_EA.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "CheckMoneyForTrade(gRandomSymbol, gRandomLotSize, ORDER_TYPE",
+    "iNewTrade == \"BUY\"",
+    "iNewTrade == \"SELL\""
+   ],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/58462",
+   "tieu_de": "[MQL5 mt4/experts] RRS Impulse",
+   "tep": "RRS_Impulse_EA_-_V1.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "goi ham: loi goi NewOrderSend sau toan tu dieu kien",
+    "khong tim duoc guard cua lenh vao",
+    "khong xac dinh duoc chieu lenh: (OrderCount_BuyMagicOPBUY + OrderCount_SellMagicOP"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/58462",
+   "tieu_de": "[MQL5 mt4/experts] RRS Impulse",
+   "tep": "RRS_Impulse_EA_-_V2.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "(TradeDirection == CounterTrend  and  (gSingleTimeFrameSigna",
+    "(TradeDirection == Trend  and  (gSingleTimeFrameSignalStatus",
+    "CheckMoneyForTrade(gRandomSymbol, gRandomLotSize, ORDER_TYPE"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/58250",
+   "tieu_de": "[MQL5 mt4/experts] Adjustable Moving Average EA",
+   "tep": "Adjustable_MA.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "goi ham: loi goi OpenBuy sau toan tu dieu kien",
+    "goi ham: loi goi OpenSell sau toan tu dieu kien"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "luoi_dca"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "luoi_martingale"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://www.mql5.com/en/code/57788",
+   "tieu_de": "[MQL5 mt4/experts] Average Pip Movement based on Tick And Seconds",
+   "tep": "Average_Pip_Movement_based_on_Tick_l_Seconds.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "luoi_dca",
+     "luot_song"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "ngan_M1_M15"
+    ],
+    "quan_tri": [
+     "luoi_martingale"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://github.com/manuwhs/Trapyng",
+   "tieu_de": "[42*] manuwhs/Trapyng",
+   "tep": "MQL5_Scripts_Server_socket.mq5",
+   "mql4": false,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  },
+  {
+   "url": "https://github.com/VoxHash/ForexSmartBot",
+   "tieu_de": "[23*] VoxHash/ForexSmartBot",
+   "tep": "mt4_ForexSmartBotBridge.mq4",
+   "mql4": true,
+   "so_luat": 0,
+   "luat": [],
+   "ly_do_chua_dich": [
+    "khong tim duoc guard cua lenh vao",
+    "khong xac dinh duoc chieu lenh: ArraySize(param_parts) >= 3"
+   ],
+   "nhan": {
+    "phong_cach": [
+     "tong_hop"
+    ],
+    "tai_san": [
+     "fx"
+    ],
+    "khung": [
+     "nhieu_khung"
+    ],
+    "quan_tri": [
+     "khong_ro"
+    ]
+   },
+   "xep_hang_doi": false
+  }
+ ]
+}
