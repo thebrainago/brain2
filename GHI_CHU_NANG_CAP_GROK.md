@@ -2,6 +2,8 @@
 
 > **Tài khoản Grok Bot mới:** đọc `START_HERE.md` → `BAN_GIAO_GROK.md` → `GHI_CHU_NANG_CAP_GROK.md`. Không secret trong git.
 
+**13/10/2026 tối — chu kỳ 4 (vòng 28, vòng thử P1-1..4): 11 ô, Holm 12.949 → 12.960, 0 qua cổng (MÔ PHỎNG). Chi tiết: mục "Vòng 28 — chu kỳ 4" cuối tệp.**
+
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
 
 ## 12/10/2026 tối (17) — EA MT5 cho RSI/MRZ trailing D1 (vòng 24) — CHƯA COMPILE
@@ -2047,3 +2049,30 @@ Do that (cung bo doc, cung kho; `cau_kho --khong-tai`, BRAIN_DIEU_TOC=tat):
 - **Tốc độ**: đo toàn kho 79 s → 109 s (bước else quét lùi có mặt nạ chú thích mỗi `if`) — ghi cho việc tốc độ (chu kỳ 5).
 - Test: `test_tx_chu_ky3.py` (4 test mới, gồm else treo và chú thích trước if) + 34 tệp test liên quan bộ đọc: 495 đạt; 2 hỏng có sẵn ở `test_ea_tu_dong.py::VanDia` (cần ổ `C:/` Windows, hỏng cả trước thay đổi). Holm giữ 12.949. **0 hệ qua cổng (không chạy hệ).**
 - Việc tiếp: chu kỳ 4 = vòng thử (hàng P1 việc 1–4 + luật mới XAUUSD_EA RSI×SMA, MultiStageTrailing EMA×giá, NewBeginnings giá×EMA) (tiền đăng ký, ghép chéo). Bộ đọc lần sau: "điều kiện chưa dịch" (so sánh chuỗi tín hiệu `ExtSignalOpen==SIGNAL_BUY` 15, nút bấm chart 15 → xếp công cụ), else-if loại trừ (81).
+
+## Vòng 28 — chu kỳ 4: vòng thử P1 (13/10/2026 18h29, Grok trên box) — MÔ PHỎNG
+- Tiền đăng ký `reports/vong28_tien_dang_ky.md` (commit riêng trước khi chạy); `v28.py`, `test_v28.py` (7 test: cắt dữ liệu cho lọc CHE_DO/W1, W1 chỉ dùng tuần đã đóng, động cơ thoát tổng quát khớp `v22.chay` TR2, GIO5 ≤ 5 nến, số ô khớp đăng ký, smoke chay_o); kết quả `reports/vong28.json`.
+- MRZ z50 ±2 D1 Yahoo 2004–2026, tách 2015-04-01, vào 02h (proxy spread đo 02h; AUDCAD = bảng 4 bps). bps/lệnh phát hiện / kiểm, n, p cụm tuần (nửa kiểm), DD:
+  | ô | trước phí | sau phí XM | áp lực ×1,5+1bps+swap | n | p | DD |
+  |---|---|---|---|---|---|---|
+  | P1-1 POOL4 (AUD,NZD,AUDCAD,GBP) TR2 | 9,3 / 29,3 | 6,0 / 26,2 | 3,4 / 23,6 | 400/377 | 0,025 | 13 % |
+  | P1-2 AUDUSD lọc ADX<20 hoặc ATR% thấp | 48,9 / 63,2 | 47,5 / 60,4 | 46,3 / 57,4 | 51/61 | 0,019 | 12 % |
+  | P1-2 GBPUSD lọc chế độ | 2,5 / 14,6 | 1,3 / 12,3 | 0,2 / 9,8 | 68/73 | 0,30 | 16 % |
+  | P1-3 AUDUSD TR1,5 | 2,6 / 42,4 | 1,0 / 39,5 | −0,3 / 37,4 | 98/108 | 0,017 | 16 % |
+  | P1-3 AUDUSD TR2,5 | 44,1 / 132,6 | 42,6 / 131,0 | 42,1 / 127,2 | 69/70 | 0,0004 | 19 % |
+  | P1-3 AUDUSD GIO5; GBPUSD TR1,5 / TR2,5 / GIO5 | dừng tầng 1 (phát hiện −8,8; −0,4; −9,6; −17,2) | — | — | — | — | — |
+  | P1-4 POOL4 lọc W1 EMA20 | 89,6 / 50,7 | 87,7 / 48,6 | 86,2 / 45,4 | 46/55 | 0,069 | 3 % |
+  | P1-4 FX7 lọc W1 EMA20 | 63,2 / 37,9 | 61,8 / 36,4 | 60,5 / 34,1 | 81/98 | 0,086 | 2 % |
+  Tham chiếu (không đếm Holm lại, khớp số vòng 26): AUDUSD TR2 29,5 / 67,8, p 0,008; GBPUSD TR2 3,8 / 15,7, p 0,20.
+- Phân rã POOL4 sau phí: AUDUSD 29,5 / 67,8; NZDUSD −2,9 / 1,1; AUDCAD 0,5 / 26,4; GBPUSD 3,8 / 15,7 → cặp mới không xác nhận (KN 16).
+- Holm cộng dồn 12.949 → **12.960** (Holm adj = 1,0 mọi ô; cần p ≲ 4e-6). **0 qua cổng.** Tốc độ: nạp 0,57 s, chạy 13 ô song song 0,72 s.
+- Nhật ký chu kỳ: `reports/vong_lap_nhat_ky.json` (mới; `vong_lap_log.json` ở gốc là dữ liệu cũ, giữ nguyên). Con trỏ → 3 (toc_do_kinh_nghiem).
+- Việc tiếp đề xuất cho vòng thử sau: P1-5/6 (M5 → M30/H1, giờ spread rẻ), P1-8 (động lượng chéo × MRZ); lọc W1 trên pool lớn hơn (28 FX D1) để tăng n; RSI trailing (phần còn lại của P1-3).
+
+
+## 13/10/2026 tối — máy nhà chạy liên tục (vòng 27)
+- Công cụ: `mt5tools/sinh_viec.py` (sinh việc, IS 2016-2022 → OOS 2023-2026-10, near-miss, ưu tiên ứng viên Python box, sổ cái + Holm), `mt5tools/chay_lien_tuc.py --den HH:MM` (qua đêm tự cộng 1 ngày; mức từ `dieu_phoi_song_song.py`: MAX 4 MT5 / THẤP 0 khi game; dọn cache khi ổ < 6 GB; hết hạn tự dọn + commit/push sổ cái), `phan_tich_luoi_box.py` (box).
+- Slot MT5: D:\mt5_tester\p1,p2, E:\mt5_tester\p3,p4 (p5 xuất dữ liệu). KHÔNG ở C:. Sổ cái: `reports/mt5_lien_tuc/so_cai.jsonl` (chỉ máy nhà ghi; box không commit tệp này để tránh xung đột pull).
+- 13/10 21:15 chủ dự án cho chạy suốt đêm tới 07:00 rồi giao ca 7h37; ca 7h37 chạy `chay_lien_tuc.py --den 14:25` khi hết việc bảng.
+- Kết quả tới 21:00: Python 38.736 lần thử (748 đạt IS+OOS, Holm 0); MT5 ~270 lần (Holm 0). Chưa có ứng viên qua Holm.
+- Chưa làm: H1/H4 trên Python box (box chỉ có dữ liệu 2024-2026), stress spread custom symbol, RAM disk (cần cài phần mềm), follow nguồn (cần hồ sơ đăng nhập).

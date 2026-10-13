@@ -77,6 +77,36 @@ def phong(slot: str, v: dict, ten: str) -> subprocess.Popen:
     return subprocess.Popen([slot + r"\terminal64.exe", "/portable", "/config:" + str(ini)], creationflags=0x00000040)  # IDLE_PRIORITY_CLASS
 
 
+def don_neu_day(slot: str, toi_thieu_gb: float = 6.0) -> None:
+    """O dia cua slot con < toi_thieu_gb -> xoa cache tester (Agent-*) + lich su bases cua slot NAY (slot dang ranh)."""
+    try:
+        if shutil.disk_usage(slot[:3]).free / 1024 ** 3 >= toi_thieu_gb:
+            return
+        for d in list(Path(slot, "Tester").glob("Agent-*")) + list(Path(slot, "bases").glob("*/history")) + list(Path(slot, "bases").glob("*/ticks")):
+            shutil.rmtree(d, ignore_errors=True)
+        log("DON %s (o %s con %.1f GB)" % (slot, slot[:2], shutil.disk_usage(slot[:3]).free / 1024 ** 3))
+    except Exception as e:
+        log("DON loi %s" % e)
+
+
+def ket_thuc():
+    """Het han: xoa cache tester cua moi slot, ghi tong ket, commit + push so cai (khong --force)."""
+    for s in SLOT:
+        for d in list(Path(s, "Tester").glob("Agent-*")) + list(Path(s, "bases").glob("*/history")) + list(Path(s, "bases").glob("*/ticks")):
+            shutil.rmtree(d, ignore_errors=True)
+    shutil.rmtree(REP, ignore_errors=True)
+    goc = Path(__file__).resolve().parent.parent
+    (goc / "reports/mt5_lien_tuc/tong_ket_mt5.json").write_text(json.dumps(SV.tong_ket(), ensure_ascii=False, indent=1), encoding="utf-8")
+    try:
+        g = lambda *x: subprocess.run(["git", "-C", str(goc)] + list(x), capture_output=True, text=True, timeout=300)
+        g("add", "reports/mt5_lien_tuc/so_cai.jsonl", "reports/mt5_lien_tuc/tong_ket_mt5.json")
+        g("commit", "-m", "May nha chay lien tuc: so cai MT5 (%d lan thu) + tong ket" % len(SV.doc_so_cai()))
+        g("pull", "--rebase"); r = g("push")
+        log("GIT push rc=%s %s" % (r.returncode, (r.stderr or "")[-200:]))
+    except Exception as e:
+        log("GIT loi %s" % e)
+
+
 def ha_uu_tien():
     try:
         import psutil
@@ -90,7 +120,9 @@ def ha_uu_tien():
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--den", default="22:10"); ap.add_argument("--muc"); a = ap.parse_args()
-    hh, mm = map(int, a.den.split(":")); han = dt.datetime.now().replace(hour=hh, minute=mm, second=0)
+    hh, mm = map(int, a.den.split(":")); han = dt.datetime.now().replace(hour=hh, minute=mm, second=0, microsecond=0)
+    if han <= dt.datetime.now():
+        han += dt.timedelta(days=1)   # chay qua dem (vd --den 07:00)
     REP.mkdir(parents=True, exist_ok=True)
     chay, hong, bo = {}, {}, set()
     log("BAT DAU, han %s" % han)
@@ -122,6 +154,8 @@ def main():
                 break
             time.sleep(15); continue
         trong = [s for s in SLOT[:n] if s not in chay and s not in bo and Path(s, "terminal64.exe").exists()]
+        for s in trong:
+            don_neu_day(s)
         if trong:
             dang = {SV.khoa(v) for _, v, _, _ in chay.values()}
             for s, v in zip(trong, SV.lay_viec(len(trong), dang_chay=dang)):
@@ -131,6 +165,7 @@ def main():
                 time.sleep(3)
         ha_uu_tien()
         time.sleep(15)
+    ket_thuc()
     log("HET HAN - DUNG. %s" % json.dumps(SV.tong_ket(), ensure_ascii=False)[:400])
 
 

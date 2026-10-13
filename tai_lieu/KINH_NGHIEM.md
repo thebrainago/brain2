@@ -14,3 +14,19 @@
 13. **(Chu kỳ 3, 13/10) Đo bộ đọc trên TOÀN KHO, không chỉ lô mới.** Kho 3.204 tệp duy nhất (md5): 726 công cụ không có lệnh đặt, 100 không phải EA, 2.378 EA có lệnh → dịch được 81 → 85 (3,41 % → 3,57 %). Tỷ lệ dịch thấp là đuôi dài: mỗi EA hỏng thường có 2–3 chỗ chặn nối nhau (sửa chỗ đầu chỉ lộ chỗ sau). Lý do hàng đầu còn lại: điều kiện chưa dịch được (881), gọi hàm phụ (465), không tìm được guard (356).
 14. **Ba ngôi `cond ? trade.Buy : trade.Sell` từng sinh luật NGƯỢC CHIỀU.** Sau chuyên biệt hoá, `(true) ? Buy : Sell` không được gập → bộ đọc nhận CẢ HAI chiều cho mỗi chỗ gọi: 3 EA (EA_Template, RsiLevel, RsiReversal) mỗi cái có 2 luật sai chiều (bán khi cắt lên). Đã gập hằng → còn 2 luật đúng. Luật từ bộ đọc phải được đối chiếu chiều với mã gốc trước khi tin.
 15. **Bộ đọc chặn nhầm `if(A && B) F();`** (lý do "sau toán tử điều kiện"): kiểm `and/or/?` trên cả câu lệnh thay vì phần còn lại sau `if(...)`. Test đơn vị nhỏ bắt được cả lỗi else treo (`if(a) if(b) x; else …`) trước khi đưa vào kho.
+16. **(Chu kỳ 4, vòng 28) Near-miss MRZ AUDUSD không lan sang cặp anh em.** Pool AUDUSD+NZDUSD+AUDCAD+GBPUSD (cấu hình cố định z50 ±2, TR2, 02h): sau phí 6,0 / 26,2 bps/lệnh, p 0,025 — nhưng NZDUSD ≈ 0 cả hai nửa (−2,9 / +1,1), AUDCAD phát hiện +0,5; AUDUSD gánh pool. Cạnh "AUDUSD" nhiều khả năng là may mắn một chuỗi (MÔ PHỎNG).
+17. **Chọn thoát theo tài sản = khớp nhiễu.** Trailing 2,5·ATR làm AUDUSD đẹp nhất từ trước (sau phí 42,6 / 131 bps, p 0,0004) nhưng GBPUSD cùng thoát rơi ở tầng 1 (phát hiện −9,6); thoát thời gian 5 nến và 1,5·ATR GBPUSD cũng âm nửa đầu. Không có thoát nào tốt trên cả hai cặp → không chọn thoát theo từng cặp.
+18. **Lọc W1 EMA20 (chỉ hồi quy thuận xu hướng tuần)** cho bps/lệnh cao, DD rất thấp (FX7: 61,8 / 36,4 bps, DD 1,9 %) nhưng chỉ 46–98 lệnh/nửa → p 0,07–0,09; lọc mạnh cắt n quá nhiều để qua Holm 12.960. Hướng có ích hơn: tăng n (nhiều cặp hơn, khung H4) với cùng lọc, không thêm lọc.
+
+## 13/10/2026 tối — ca máy nhà vòng 27 (MT5 liên tục)
+- MT5 portable mới chép KHÔNG có `config\accounts.dat` → "tester not started because the account is not specified", terminal tắt sau ~12 s; vòng lặp phóng job kế → MT5 nhấp nháy trước mặt chủ dự án. Luôn chép accounts.dat + common.ini, và có fail-fast (job < 90 s không báo cáo → dừng hàng).
+- `robocopy /XD Tester` bỏ qua CẢ `MQL5\Profiles\Tester` → thiếu .set → tester chạy tham số MẶC ĐỊNH mà không báo lỗi. Luôn kiểm input trong .htm (InpXxx=) sau khi chạy.
+- Một terminal portable chỉ chạy một phiên: gọi `MetaTrader5.initialize(path=slot)` trong khi slot đang test → job tester hỏng ngay. Dùng slot riêng (E:\mt5_tester\p5) cho xuất dữ liệu.
+- XM AUDUSD#/NZDUSD# (và AUDCAD#) KHÔNG có M1 trước ~2018-05 → tester chỉ có tick 00h → `InpGioVao>0` không vào lệnh trước 2018-05. So sánh giờ vào phải cùng giai đoạn có M1.
+- Real ticks XM chỉ có từ 2024-01 ("25% real ticks" cho 2016-2026; 0% cho IS 2016-2022).
+- Spread XM 00h server gấp 5-10 lần trung vị ngày (GBPUSD 11,4 vs 1,3 pip; GBPJPY 22 vs 2,7).
+- MT5 ↔ Python (phan_tich_luoi_box) trên 207 biến thể trùng: cùng số lệnh (trung vị tỉ lệ 1,0), PF tương quan 0,83, cùng dấu PF>1 194/207.
+- psutil trên Windows: "System Idle Process" (pid 0) báo ~100% → phải loại khi đo tải người dùng.
+- Path.replace không chuyển được giữa ổ (E:→D:) → dùng shutil.move.
+- Mỗi mã mới tải lịch sử ~0,3-0,6 GB/slot; chạy qua đêm cần dọn cache khi ổ < 6 GB (`don_neu_day`).
+- Hồ sơ Chrome thebrainago đăng nhập (.browser_thebrain) đã mất sau cài lại Windows; Chrome hồ sơ mới từ IP nhà vẫn bị 403 ở TradingView chi tiết/SSRN/StackExchange.
