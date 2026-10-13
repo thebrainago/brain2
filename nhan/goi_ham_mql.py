@@ -242,7 +242,9 @@ def _hop_le_cho_goi(mn: str, p: int, ten: str) -> str | None:
             return f"loi goi {ten} nam trong dieu kien ghep"
     elif not re.match(r"\s*\)?\s*;", sau):
         return f"loi goi {ten} nam trong bieu thuc phuc tap"
-    if re.search(r"\?|\band\b|\bor\b", mn[a:p]) and not tien.startswith("if"):
+    # chu ky 3 vong 27: chi xet PHAN CON LAI sau cac `if(dk)` da boc - `if(A and B) F();` la lenh don
+    # hop le (dk do `_cac_if_bao` doc); ban cu xet ca cau lenh nen tu choi nham moi guard co `and`.
+    if re.search(r"\?|\band\b|\bor\b", tien) and not tien.startswith("if"):
         return f"loi goi {ten} sau toan tu dieu kien"
     return None
 

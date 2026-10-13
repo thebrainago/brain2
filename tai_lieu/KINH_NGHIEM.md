@@ -11,3 +11,6 @@
 10. **Holm cộng dồn** đã > 12.900 phép thử: một hệ cần p một phía cỡ < 4e-6 mới qua. Ưu tiên ít ô, có chủ đích, đa tài sản (gộp tăng n), thay vì quét lưới rộng.
 11. **Spread ×1,5 + trượt 1 bps** là phép thử áp lực bắt buộc; nhiều hệ chết ở đây.
 12. Nguồn TradingView/fxblue/quantpedia bị 403/Cloudflare trên box → CHƯA ĐO ĐƯỢC, không vượt; chuyển sang máy nhà.
+13. **(Chu kỳ 3, 13/10) Đo bộ đọc trên TOÀN KHO, không chỉ lô mới.** Kho 3.204 tệp duy nhất (md5): 726 công cụ không có lệnh đặt, 100 không phải EA, 2.378 EA có lệnh → dịch được 81 → 85 (3,41 % → 3,57 %). Tỷ lệ dịch thấp là đuôi dài: mỗi EA hỏng thường có 2–3 chỗ chặn nối nhau (sửa chỗ đầu chỉ lộ chỗ sau). Lý do hàng đầu còn lại: điều kiện chưa dịch được (881), gọi hàm phụ (465), không tìm được guard (356).
+14. **Ba ngôi `cond ? trade.Buy : trade.Sell` từng sinh luật NGƯỢC CHIỀU.** Sau chuyên biệt hoá, `(true) ? Buy : Sell` không được gập → bộ đọc nhận CẢ HAI chiều cho mỗi chỗ gọi: 3 EA (EA_Template, RsiLevel, RsiReversal) mỗi cái có 2 luật sai chiều (bán khi cắt lên). Đã gập hằng → còn 2 luật đúng. Luật từ bộ đọc phải được đối chiếu chiều với mã gốc trước khi tin.
+15. **Bộ đọc chặn nhầm `if(A && B) F();`** (lý do "sau toán tử điều kiện"): kiểm `and/or/?` trên cả câu lệnh thay vì phần còn lại sau `if(...)`. Test đơn vị nhỏ bắt được cả lỗi else treo (`if(a) if(b) x; else …`) trước khi đưa vào kho.

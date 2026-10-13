@@ -1,0 +1,387 @@
+{
+ "nhan": "TOM TAT (khong ma EA): bo doc vong 27 chu ky 3, do tren toan kho data/cau_kho (md5 duy nhat)",
+ "truoc": {
+  "tep_duy_nhat": 3204,
+  "khong_ea": 100,
+  "cong_cu_khong_lenh": 726,
+  "ea_co_lenh": 2378,
+  "dich_duoc": 81,
+  "so_luat": 172,
+  "ty_le_tren_ea_co_lenh": 0.0341,
+  "ly_do_hong": {
+   "dieu_kien_khac": 792,
+   "goi_ham": 497,
+   "khong_guard": 407,
+   "huong_bien_cuc_bo": 191,
+   "khong_ly_do": 150,
+   "chieu_lenh": 139,
+   "loc_thoat_som": 75,
+   "huong_int": 43,
+   "loi TimeoutError": 3
+  },
+  "giay": 79.0
+ },
+ "sau": {
+  "tep_duy_nhat": 3204,
+  "khong_ea": 100,
+  "cong_cu_khong_lenh": 726,
+  "ea_co_lenh": 2378,
+  "dich_duoc": 85,
+  "so_luat": 175,
+  "ty_le_tren_ea_co_lenh": 0.0357,
+  "ly_do_hong": {
+   "dieu_kien_khac": 881,
+   "goi_ham": 465,
+   "khong_guard": 356,
+   "huong_bien_cuc_bo": 187,
+   "khong_ly_do": 150,
+   "chieu_lenh": 126,
+   "loc_thoat_som": 89,
+   "huong_int": 36,
+   "loi TimeoutError": 3
+  },
+  "giay": 108.6
+ },
+ "moi_dich_duoc": [
+  "MultiStageTrailingEA.mq5",
+  "XAUUSD_EA.mq5",
+  "NewBeginningsEA.mq5"
+ ],
+ "mat": [],
+ "doi_so_luat": [
+  [
+   "2c753c0fbc531b25_EA_Template.mq5",
+   4,
+   2
+  ],
+  [
+   "ad7d22b5b165a673_RsiLevel.mq5",
+   4,
+   2
+  ],
+  [
+   "aeaeda3cac07cb61_RsiReversal.mq5",
+   4,
+   2
+  ]
+ ],
+ "tai_github_moi": {
+  "repo": 73,
+  "tep_mq": 196,
+  "repo_hong": [],
+  "ds": [
+   {
+    "repo": "anas1412/orb-mt5",
+    "url": "https://github.com/anas1412/orb-mt5",
+    "giay_phep": "MIT",
+    "so_tep": 6
+   },
+   {
+    "repo": "n30dyn4m1c/gold-pro-scalper",
+    "url": "https://github.com/n30dyn4m1c/gold-pro-scalper",
+    "giay_phep": "MIT",
+    "so_tep": 4
+   },
+   {
+    "repo": "irana2514Rooz/NY-Tokyo-Range-Mean-Reversion-Trader-EA-MQL5-",
+    "url": "https://github.com/irana2514Rooz/NY-Tokyo-Range-Mean-Reversion-Trader-EA-MQL5-",
+    "giay_phep": null,
+    "so_tep": 1
+   },
+   {
+    "repo": "sbrakni/mean-reversion-mql5",
+    "url": "https://github.com/sbrakni/mean-reversion-mql5",
+    "giay_phep": null,
+    "so_tep": 1
+   },
+   {
+    "repo": "StateSpeed-Solutions/Swing-Reversion-MQL5-EA",
+    "url": "https://github.com/StateSpeed-Solutions/Swing-Reversion-MQL5-EA",
+    "giay_phep": null,
+    "so_tep": 1
+   },
+   {
+    "repo": "ianclemence/bb-strategy",
+    "url": "https://github.com/ianclemence/bb-strategy",
+    "giay_phep": "MIT",
+    "so_tep": 1
+   },
+   {
+    "repo": "ianclemence/bomawi-strategy",
+    "url": "https://github.com/ianclemence/bomawi-strategy",
+    "giay_phep": "MIT",
+    "so_tep": 1
+   },
+   {
+    "repo": "PatchOnTheEdge/Mean-Reversion-Trading-Algorithm",
+    "url": "https://github.com/PatchOnTheEdge/Mean-Reversion-Trading-Algorithm",
+    "giay_phep": "MIT",
+    "so_tep": 1
+   },
+   {
+    "repo": "judeNdagga/Mean-Reversion-in-MQL5",
+    "url": "https://github.com/judeNdagga/Mean-Reversion-in-MQL5",
+    "giay_phep": null,
+    "so_tep": 1
+   },
+   {
+    "repo": "auroracinditaa/EA-SAINS-MANAJEMEN-PROJECT",
+    "url": "https://github.com/auroracinditaa/EA-SAINS-MANAJEMEN-PROJECT",
+    "giay_phep": null,
+    "so_tep": 4
+   },
+   {
+    "repo": "paocwi-alt/GoldX9-Base-MT5-Fractal-Breakout-EA",
+    "url": "https://github.com/paocwi-alt/GoldX9-Base-MT5-Fractal-Breakout-EA",
+    "giay_phep": null,
+    "so_tep": 1
+   },
+   {
+    "repo": "ugritchaichana/gold-phase1-advisory",
+    "url": "https://github.com/ugritchaichana/gold-phase1-advisory",
+    "giay_phep": null,
+    "so_tep": 2
+   },
+   {
+    "repo": "Asanay-1/FractalAlert-EA",
+    "url": "https://github.com/Asanay-1/FractalAlert-EA",
+    "giay_phep": null,
+    "so_tep": 1
+   },
+   {
+    "repo": "abebr/awesome-mql5-expert-advisors",
+    "url": "https://github.com/abebr/awesome-mql5-expert-advisors",
+    "giay_phep": "NOASSERTION",
+    "so_tep": 15
+   },
+   {
+    "repo": "firyomaefx/synthetic-indices",
+    "url": "https://github.com/firyomaefx/synthetic-indices",
+    "giay_phep": null,
+    "so_tep": 4
+   },
+   {
+    "repo": "Yoshinarium/DE40SessionBreakout",
+    "url": "https://github.com/Yoshinarium/DE40SessionBreakout",
+    "giay_phep": null,
+    "so_tep": 1
+   },
+   {
+    "repo": "Desmath3/MT5-EA-Project",
+    "url": "https://github.com/Desmath3/MT5-EA-Project",
+    "giay_phep": "NOASSERTION",
+    "so_tep": 40
+   },
+   {
+    "repo": "bigthreeatone/gold-scalper-bot",
+    "url": "https://github.com/bigthreeatone/gold-scalper-bot",
+    "giay_phep": null,
+    "so_tep": 2
+   },
+   {
+    "repo": "Ayooluwa-trading-dev/Automatic-Breakout-Strategy-EA",
+    "url": "https://github.com/Ayooluwa-trading-dev/Automatic-Breakout-Strategy-EA",
+    "giay_phep": null,
+    "so_tep": 1
+   },
+   {
+    "repo": "BAKOME-Hub/BAKOME_BTC_Engine",
+    "url": "https://github.com/BAKOME-Hub/BAKOME_BTC_Engine",
+    "giay_phep": "MIT",
+    "so_tep": 1
+   },
+   {
+    "repo": "Angel1garcia/momentum-breakout-smc-ea",
+    "url": "https://github.com/Angel1garcia/momentum-breakout-smc-ea",
+    "giay_phep": null,
+    "so_tep": 2
+   },
+   {
+    "repo": "dryousufmesalm/daily-breakout-ea-mq5",
+    "url": "https://github.com/dryousufmesalm/daily-breakout-ea-mq5",
+    "giay_phep": null,
+    "so_tep": 1
+   },
+   {
+    "repo": "crazyrabbitheart/MutipleTimeRangeBreakout-mql5-ea",
+    "url": "https://github.com/crazyrabbitheart/MutipleTimeRangeBreakout-mql5-ea",
+    "giay_phep": null,
+    "so_tep": 2
+   },
+   {
+    "repo": "Anhbacong-Cole/mt5-dca-ma-system",
+    "url": "https://github.com/Anhbacong-Cole/mt5-dca-ma-system",
+    "giay_phep": null,
+    "so_tep": 1
+   },
+   {
+    "repo": "andanimukwevho28-oss/mt5-ea-strategy-suite",
+    "url": "https://github.com/andanimukwevho28-oss/mt5-ea-strategy-suite",
+    "giay_phep": null,
+    "so_tep": 1
+   },
+   {
+    "repo": "jvieranieves54-alt/j5-trading-strategy",
+    "url": "https://github.com/jvieranieves54-alt/j5-trading-strategy",
+    "giay_phep": null,
+    "so_tep": 5
+   },
+   {
+    "repo": "foeed/FvgGold-EA",
+    "url": "https://github.com/foeed/FvgGold-EA",
+    "giay_phep": "MIT",
+    "so_tep": 1
+   },
+   {
+    "repo": "kestrelquant/mt5-ea-framework",
+    "url": "https://github.com/kestrelquant/mt5-ea-framework",
+    "giay_phep": "MIT",
+    "so_tep": 1
+   },
+   {
+    "repo": "TLBSimon/Funded_EMA_RSI_ATR_EA",
+    "url": "https://github.com/TLBSimon/Funded_EMA_RSI_ATR_EA",
+    "giay_phep": null,
+    "so_tep": 2
+   },
+   {
+    "repo": "Dev-Art-Solutions/RiskGuard",
+    "url": "https://github.com/Dev-Art-Solutions/RiskGuard",
+    "giay_phep": "MIT",
+    "so_tep": 2
+   },
+   {
+    "repo": "navamirhossein/MQL5",
+    "url": "https://github.com/navamirhossein/MQL5",
+    "giay_phep": null,
+    "so_tep": 26
+   },
+   {
+    "repo": "MrAhmedTrader/MQL5-Advanced-Price-Action-EA",
+    "url": "https://github.com/MrAhmedTrader/MQL5-Advanced-Price-Action-EA",
+    "giay_phep": "MIT",
+    "so_tep": 1
+   },
+   {
+    "repo": "smizxe/mt5-agent-toolkit",
+    "url": "https://github.com/smizxe/mt5-agent-toolkit",
+    "giay_phep": "NOASSERTION",
+    "so_tep": 4
+   },
+   {
+    "repo": "pranay123-stack/forex-mt5-strategies",
+    "url": "https://github.com/pranay123-stack/forex-mt5-strategies",
+    "giay_phep": null,
+    "so_tep": 8
+   },
+   {
+    "repo": "thepm-cpu/mql5-null-test",
+    "url": "https://github.com/thepm-cpu/mql5-null-test",
+    "giay_phep": "MIT",
+    "so_tep": 1
+   },
+   {
+    "repo": "manthenamahendravarma-IO/mql5-automated-trading-ea",
+    "url": "https://github.com/manthenamahendravarma-IO/mql5-automated-trading-ea",
+    "giay_phep": null,
+    "so_tep": 1
+   },
+   {
+    "repo": "AbinashBalaraman/Algo-Trading-MT5",
+    "url": "https://github.com/AbinashBalaraman/Algo-Trading-MT5",
+    "giay_phep": null,
+    "so_tep": 1
+   },
+   {
+    "repo": "hamza-naveed10/buyselllimitEA",
+    "url": "https://github.com/hamza-naveed10/buyselllimitEA",
+    "giay_phep": null,
+    "so_tep": 6
+   },
+   {
+    "repo": "NadirAliOfficial/engulfing-zone-ea",
+    "url": "https://github.com/NadirAliOfficial/engulfing-zone-ea",
+    "giay_phep": "MIT",
+    "so_tep": 1
+   },
+   {
+    "repo": "Gabby-tech/bossfx-sma-pro-trend-ea",
+    "url": "https://github.com/Gabby-tech/bossfx-sma-pro-trend-ea",
+    "giay_phep": "MIT",
+    "so_tep": 1
+   },
+   {
+    "repo": "Zero1140/quant-factory",
+    "url": "https://github.com/Zero1140/quant-factory",
+    "giay_phep": null,
+    "so_tep": 2
+   },
+   {
+    "repo": "Giacomo-cb/mql4-expert-advisors-portfolio",
+    "url": "https://github.com/Giacomo-cb/mql4-expert-advisors-portfolio",
+    "giay_phep": null,
+    "so_tep": 4
+   },
+   {
+    "repo": "EarnForex/Spike-Trader",
+    "url": "https://github.com/EarnForex/Spike-Trader",
+    "giay_phep": "Apache-2.0",
+    "so_tep": 2
+   },
+   {
+    "repo": "EarnForex/Binario",
+    "url": "https://github.com/EarnForex/Binario",
+    "giay_phep": "Apache-2.0",
+    "so_tep": 2
+   },
+   {
+    "repo": "AnketKohak/AlgoTrading",
+    "url": "https://github.com/AnketKohak/AlgoTrading",
+    "giay_phep": null,
+    "so_tep": 18
+   },
+   {
+    "repo": "ariogunawan/POC-MetaTrader4-Trading-Robot-AVG",
+    "url": "https://github.com/ariogunawan/POC-MetaTrader4-Trading-Robot-AVG",
+    "giay_phep": null,
+    "so_tep": 1
+   },
+   {
+    "repo": "jaycee0610/MQL4-Martingale-Strategy",
+    "url": "https://github.com/jaycee0610/MQL4-Martingale-Strategy",
+    "giay_phep": null,
+    "so_tep": 1
+   },
+   {
+    "repo": "jblanked/Session-Sauce",
+    "url": "https://github.com/jblanked/Session-Sauce",
+    "giay_phep": null,
+    "so_tep": 1
+   },
+   {
+    "repo": "jblanked/Support-Resistance-EA",
+    "url": "https://github.com/jblanked/Support-Resistance-EA",
+    "giay_phep": null,
+    "so_tep": 1
+   },
+   {
+    "repo": "jblanked/Collinator",
+    "url": "https://github.com/jblanked/Collinator",
+    "giay_phep": null,
+    "so_tep": 1
+   },
+   {
+    "repo": "sonidelav/GridEA",
+    "url": "https://github.com/sonidelav/GridEA",
+    "giay_phep": "GPL-3.0",
+    "so_tep": 1
+   },
+   {
+    "repo": "omnisis/mt4-ea-obr",
+    "url": "https://github.com/omnisis/mt4-ea-obr",
+    "giay_phep": null,
+    "so_tep": 5
+   }
+  ]
+ }
+}

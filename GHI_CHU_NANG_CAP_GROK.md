@@ -2034,3 +2034,16 @@ Do that (cung bo doc, cung kho; `cau_kho --khong-tai`, BRAIN_DIEU_TOC=tat):
 - Kiểm chất lượng: OHLC sai 0; GBPCHF lỗ thật 2026-06-03/04; Brent nhảy giá thật ±13–14 % (03–04/2026) giữ nguyên.
 - Test: `test_gop_histdata_m5.py`, `test_chat_luong_du_lieu.py`, `test_chon_ban_du_lieu.py` → 20 đạt, 3 bỏ qua. Không chạy vòng chiến lược → Holm giữ 12.949. **0 hệ qua cổng (không áp dụng).**
 - Việc tiếp: chu kỳ 3 = seeker_bo_doc. Gợi ý cho vòng thử sau: thêm rổ JPY chéo/AUD-NZD-CAD chéo và FTSE/Brent/DXY vào pool D1/H4 (cùng phí bảng, chưa có spread đo).
+
+## Vòng 27 — chu kỳ 3: Seeker + bộ đọc (13/10/2026 14h23, Grok trên box) — ĐO TRÊN KHO, không chạy hệ
+- **Đo toàn kho** (`v27_bo_doc_toan_kho.py`, 8 tiến trình, chi tiết ở `data/bo_doc_do/` ngoài git; tóm tắt `reports/seeker_v27/BO_DOC_C3_TONG_KET.json`): 3.204 tệp .mq4/.mq5 duy nhất (md5) = 2.378 EA có lệnh đặt + 726 công cụ không lệnh + 100 không phải EA. Mẫu số = EA có lệnh (việc 19).
+- **Seeker**: GitHub API (đã đăng nhập gh, không vượt chặn) — 3 repo hàng chờ (orb-mt5, gold-pro-scalper, mt5-grid-precision-engine) + 4 truy vấn tìm repo MQL4/5 → 73 repo, **196 tệp .mq4/.mq5 mới** vào `data/cau_kho/goi_github_v27/` (git bỏ qua; repo chỉ giữ URL + giấy phép), 0 repo lỗi. Sau khử trùng: +101 tệp duy nhất, +34 EA có lệnh; **0/34 EA mới dịch được**. Không gặp nguồn bị chặn mới.
+- **Bộ đọc** (`nhan/tien_xu_ly_ea.py` bước 6–7, `nhan/goi_ham_mql.py`):
+  - gập ba ngôi hằng `(true) ? A : B` → A; biến cục bộ gán một lần bằng hằng chiều → thay vào đối số lệnh; `MqlTradeRequest r.type = ORDER_TYPE_X` gán một lần → đánh dấu chiều trên `OrderSend(r, res)`;
+  - lệnh vào trong nhánh `else` (không phải else-if) → `if(!(A))` (giả định ghi log: nhánh trước không đổi A cùng tick; bỏ qua khi A có gán/lệnh, khi if là thân của if/for không ngoặc — chống else treo);
+  - sửa lỗi `goi_ham_mql`: `if(A && B) F();` bị từ chối nhầm "sau toán tử điều kiện".
+- **Trước / sau trên cùng kho 3.204 tệp**: EA dịch được **81 → 85** (3,41 % → 3,57 % số EA có lệnh), luật 172 → 175; **mất 0 EA**. Mới dịch: MultiStageTrailingEA (1), XAUUSD_EA (2: RSI14<30 & close>SMA20 mua / ngược lại bán), NewBeginningsEA (4). **Sửa luật sai chiều**: EA_Template, RsiLevel, RsiReversal 4 → 2 luật (2 luật bán-khi-cắt-lên bị loại; KN 14).
+  Lý do hỏng còn lại (EA có lệnh): điều kiện chưa dịch 881, gọi hàm 465, không guard 356, biến hướng cục bộ 187, chiều lệnh 126, lọc thoát sớm 89, hướng int 36.
+- **Tốc độ**: đo toàn kho 79 s → 109 s (bước else quét lùi có mặt nạ chú thích mỗi `if`) — ghi cho việc tốc độ (chu kỳ 5).
+- Test: `test_tx_chu_ky3.py` (4 test mới, gồm else treo và chú thích trước if) + 34 tệp test liên quan bộ đọc: 495 đạt; 2 hỏng có sẵn ở `test_ea_tu_dong.py::VanDia` (cần ổ `C:/` Windows, hỏng cả trước thay đổi). Holm giữ 12.949. **0 hệ qua cổng (không chạy hệ).**
+- Việc tiếp: chu kỳ 4 = vòng thử (hàng P1 việc 1–4 + luật mới XAUUSD_EA RSI×SMA, MultiStageTrailing EMA×giá, NewBeginnings giá×EMA) (tiền đăng ký, ghép chéo). Bộ đọc lần sau: "điều kiện chưa dịch" (so sánh chuỗi tín hiệu `ExtSignalOpen==SIGNAL_BUY` 15, nút bấm chart 15 → xếp công cụ), else-if loại trừ (81).
