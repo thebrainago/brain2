@@ -31,8 +31,11 @@ input int    InpGioVao        = GIO_VAO_MAC_DINH; // gio server (0-23) bat dau d
 #define RSI_N      14
 #define MRZ_N      50
 #define SL_ATR     1.5
-#define TR_ATR     2.0
-#define GIU_TOI_DA 72
+// 13/10/2026 vong 27 (VONG_LAP 3): bien the thoat chi de backtest; mac dinh = hang so v24 cu (2,0 ATR / 72 nen)
+input double InpTrATR        = 2.0;    // khoang trailing (x ATR14)
+input int    InpGiuToiDa     = 72;     // giu toi da N nen D1
+#define TR_ATR     InpTrATR
+#define GIU_TOI_DA InpGiuToiDa
 
 CTrade trade;
 datetime g_nen_cuoi = 0;
