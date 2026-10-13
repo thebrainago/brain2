@@ -2024,3 +2024,13 @@ Do that (cung bo doc, cung kho; `cau_kho --khong-tai`, BRAIN_DIEU_TOC=tat):
   | H1 (4 ô), H4 tài sản mới, GBPUSD RSI cạn | dừng tầng 1 (một nửa ≤ 0) | — | — | — | — |
   | EMA thuận (2 ô) | < 30 lệnh/nửa → CHƯA ĐO ĐƯỢC | | | | |
   EMA ngược gần như = MRZ gốc (MRZ hầu hết ngược EMA) → không thêm thông tin. Holm cộng dồn 12.933 → **12.949**. **0 sống.**
+
+## Vòng 27 — chu kỳ 2: nạp dữ liệu (13/10/2026 10h23, Grok trên box) — DỮ LIỆU, không chạy hệ
+- **+18 chuỗi M5 mới** HistData M1 BID → M5 giờ server NY+7 (ngoài repo, `/workspace/du_lieu_fx/hd28/`), 2024-01-02 → 2026-10-09: CADJPY, AUDJPY, NZDJPY, CHFJPY, EURAUD, GBPAUD, EURCAD, GBPCAD, AUDNZD, EURCHF, GBPCHF, EURNZD, GBPNZD, USDMXN, USDSGD (205.202–207.073 bar mỗi cặp), UKXGBP/FTSE 189.566, BCOUSD/Brent 179.257, UDXUSD/chỉ số USD 179.613. 0 cặp hỏng.
+- **Nối dài 16 chuỗi cũ** tới 2026-10-09 (tháng 10 một phần, +1.791–2.016 bar mỗi chuỗi): 7 FX major + AUDCAD + XAUUSD + EURJPY, GBPJPY, EURGBP, XAGUSD, SPX, NSX, DAX. Tệp mới `*_den202610.csv`, tệp cũ không ghi đè.
+- **Yahoo D1**: ^GSPC 14.316 ngày (1970 → 2026-10-12), ^FTSE 10.806 ngày (1984 → 2026-10-12) — chỉ số tiền mặt, không phải CFD XM.
+- Dukascopy: 1 lần thử → HTTP 429 → ASK/spread lịch sử **CHƯA ĐO ĐƯỢC**. HistData chỉ có BID.
+- **Lỗi tìm được + sửa**: zip HistData có phút trùng mốc (giá khác; 119–986 phút/cặp 2024–2026). `gop_histdata_m5.py` dùng `sort_index()` không ổn định → bản giữ lại tuỳ tập file ghép (EURJPY 22 bar M5 khác nhau giữa hai lần gộp, close lệch tới 0,78 JPY). Sửa: `sort_index(kind="mergesort")` + giữ bản đầu theo thứ tự file + in số phút trùng; `test_gop_histdata_m5.py` (bắt được bản cũ: đổi về quicksort → test đỏ). Ảnh hưởng lên kết quả vòng trước: ≤ 0,05 % bar, chưa gộp lại chuỗi cũ — kết luận các vòng không đổi (CHƯA ĐO ĐƯỢC chính xác, ước lượng nhỏ).
+- Kiểm chất lượng: OHLC sai 0; GBPCHF lỗ thật 2026-06-03/04; Brent nhảy giá thật ±13–14 % (03–04/2026) giữ nguyên.
+- Test: `test_gop_histdata_m5.py`, `test_chat_luong_du_lieu.py`, `test_chon_ban_du_lieu.py` → 20 đạt, 3 bỏ qua. Không chạy vòng chiến lược → Holm giữ 12.949. **0 hệ qua cổng (không áp dụng).**
+- Việc tiếp: chu kỳ 3 = seeker_bo_doc. Gợi ý cho vòng thử sau: thêm rổ JPY chéo/AUD-NZD-CAD chéo và FTSE/Brent/DXY vào pool D1/H4 (cùng phí bảng, chưa có spread đo).

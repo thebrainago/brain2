@@ -85,8 +85,13 @@ def main(argv=None) -> int:
         GIO_CU = True
     thu_muc, ma, tu, den, ra = Path(a[0]), a[1].upper(), a[2], a[3], Path(a[4])
     phan = [doc_zip(p) for p in sorted(thu_muc.glob(f"DAT_ASCII_{ma}_M1_*.zip"))]
-    m1 = pd.concat([p for p in phan if len(p)]).sort_index()
-    m1 = m1[~m1.index.duplicated()]
+    # vong 27 ck2: file HistData co PHUT TRUNG (cung moc, gia khac, ~100 moc/thang EURJPY 2026-07).
+    # sort_index mac dinh (quicksort) KHONG on dinh -> ban giu lai tuy thu tu ghep file -> ket qua lech
+    # giua hai lan gop. Sap xep on dinh (mergesort) + giu ban DAU TIEN theo thu tu file (tat dinh).
+    m1 = pd.concat([p for p in phan if len(p)]).sort_index(kind="mergesort")
+    n_trung = int(m1.index.duplicated().sum())
+    m1 = m1[~m1.index.duplicated(keep="first")]
+    print(f"{ma}: {n_trung} phut M1 trung moc (giu ban dau tien theo thu tu file)")
     m1 = m1[(m1.index >= pd.Timestamp(tu, tz="Europe/Helsinki").tz_convert("UTC"))
             & (m1.index < pd.Timestamp(den, tz="Europe/Helsinki").tz_convert("UTC"))]
     dd = do_day_du(m1)
