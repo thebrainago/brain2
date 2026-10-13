@@ -60,10 +60,10 @@ Ngân sách Holm: mỗi việc ≤ 12 ô (bài học 10). Kết quả = MÔ PH�
 19. **Lọc công cụ trước dịch**: phân loại guard/panel/calculator ra khỏi mẫu số, báo tỷ lệ dịch trên "EA có điều kiện vào" (KN 8).
 
 ### P3 — dữ liệu (nguồn miễn phí không bị chặn)
-20. **HistData M1 → H1/H4** cho AUDCAD, EURGBP, NZDUSD, XAUUSD (thư viện `histdata`), ghi NGUON_DU_LIEU.md.
-21. **FRED lãi suất chính sách G10 + chỉ số USD** cho việc 10 (API công khai, không khoá khi dùng CSV `fredgraph.csv`).
-22. **Yahoo D1 chỉ số** (^GSPC, ^GDAXI, ^N225) dài 1990→ cho việc 9; đối chiếu với giá XM khi máy nhà xuất.
-23. **Dukascopy spread theo giờ** cho các cặp pool (thử lại khi hết 503) để thay spread ước lượng.
+20. ✅ [chu kỳ 7, 14/10 06h3x] **HistData M1 → H1/H4** AUDCAD/EURGBP/NZDUSD/XAUUSD — gộp từ M5 hd28 (`gop_m5_len_h1_h4.py`); H1 115.910/17.265/17.260/16.400 bar → `hd_ck7/`; NGUON_DU_LIEU.md.
+21. ✅ [chu kỳ 7] **FRED G10 + DTWEXBGS** — 15/15 seri `fredgraph.csv` (không UA); `du_lieu_ngay/fred/` + `fred_g10_policy_thang.csv` 334 tháng 1999-01→2026-10; DTWEXBGS 5.208 ngày.
+22. ✅ [chu kỳ 7] **Yahoo D1** ^GSPC 24.812 (1927→2026-10-12), ^GDAXI 9.808 (1987→), ^N225 13.958 (1970→; API cắt trước 1970). Đủ ≥1990; đối chiếu XM vẫn chờ máy nhà.
+23. ✅ [chu kỳ 7, một phần] **Dukascopy spread theo giờ** — thử BID OK / ASK 503 (không hammer); bảng theo giờ từ CSV `*_h1_duka_ba_*` sẵn có (8 cặp) → `hd_ck7/*_spread_theo_gio_*` (ECN, KHÔNG phải XM). Tải ASK mới: CHƯA ĐO ĐƯỢC.
 
 ### P3 — tốc độ
 24. ✅ [chu kỳ 5: `phan_tich_luoi_box.py` 49,7 s → 9,2 s tuần tự] **Đệm chỉ báo dùng chung** (z-score/ATR/RSI tính 1 lần mỗi chuỗi, cache theo băm dữ liệu) — đo cProfile trước/sau.

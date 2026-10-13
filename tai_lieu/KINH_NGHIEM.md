@@ -37,6 +37,8 @@
 21. **Hồi quy ngắn hạn chỉ số Mỹ vẫn sống** sau spread XM: IBS<0,2 US500/US100 qua Holm cộng dồn 13.000 (p_holm 0,003 / 0,0015). Cảnh báo: khớp cùng close tín hiệu, giá cash Yahoo, swap #=0; chưa MT5. DAX không lặp lại → cạnh đặc thù Mỹ.
 22. **Hiệu ứng qua đêm**: chỉ số Mỹ qua đêm mọi đêm âm/≈0 sau spread ở phát hiện; vàng qua đêm dương cả hai nửa (4,7/4,5 bps) nhưng chưa qua Holm.
 23. Ngân sách X: tìm kiếm `from:A OR from:B` gom nhiều tài khoản/lệnh gọi tiết kiệm hơn get_users_posts; tên user sai làm hỏng cả truy vấn.
+24. **(Chu kỳ 7) Yahoo chart API `period1=0` cắt lịch sử về 1970** (^GSPC/^N225). Luôn giữ bản dài (`gspc_dai_yahoo.csv`) và chỉ *nối* ngày mới; không ghi đè bằng kết quả API một phát. Yêu cầu P3-22 ≥1990 vẫn đạt với N225 từ 1970.
+25. **(Chu kỳ 7) Dukascopy datafeed không ổn định theo lần gọi**: cùng URL BID H1 có thể 200 rồi ASK 503 trong vài phút. Thử 1 lần; nếu 503 ghi CHƯA ĐO ĐƯỢC, không hammer. Ưu tiên khai thác CSV `*_h1_duka_ba_*` đã có để ra hình dạng spread theo giờ (ECN ≠ XM).
 
 ## 13/10/2026 22h44 — tốc độ hệ thống (chu kỳ 5 vòng lặp box)
 24. **Đo trước khi tối ưu**: cProfile `phan_tich_luoi_box.py` cho thấy ~60 % thời gian nằm ở `mask.iloc[j]` (pandas tra từng phần tử) chứ không ở mô phỏng; đổi mặt nạ IS/OOS sang mảng numpy là thắng lớn nhất. Đọc lại CSV spread cho mỗi ô lưới (thiếu cache) là lãng phí thứ hai.

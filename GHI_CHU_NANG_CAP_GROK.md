@@ -6,6 +6,16 @@
 
 **13/10/2026 tối — chu kỳ 4 (vòng 28, vòng thử P1-1..4): 11 ô, Holm 12.949 → 12.960, 0 qua cổng (MÔ PHỎNG). Chi tiết: mục "Vòng 28 — chu kỳ 4" cuối tệp.**
 
+## 14/10/2026 sáng (~06h32 VN) — chu kỳ 7: nạp dữ liệu (P3-20..23)
+
+- Con trỏ: `nap_du_lieu` → sau = `seeker_bo_doc` (`con_tro_tiep=1`, `chu_ky_v27=7`, `ho_holm=13000`, song=0).
+- **P3-20**: gộp M5 HistData (hd28) → H1/H4 AUDCAD/EURGBP/NZDUSD/XAUUSD (`gop_m5_len_h1_h4.py` + test khớp bit EURUSD H4 cũ). Đường dẫn `/workspace/du_lieu_fx/hd_ck7/` (+ symlink gốc `du_lieu_fx/`).
+- **P3-21**: FRED 15 seri (DFF/ECBDFR/SONIA/OECD G10 + DTWEXBGS) qua `fredgraph.csv` không UA; bảng tháng G10 334 tháng.
+- **P3-22**: Yahoo D1 GSPC/GDAXI/N225 làm mới; GSPC khôi phục từ `gspc_dai` (API `period1=0` cắt 1970). N225 từ 1970 (đủ ≥1990).
+- **P3-23**: thử Dukascopy 1 lần — BID 200, ASK 503; spread theo giờ từ CSV duka_ba sẵn có (8 cặp). Giá ECN ≠ XM.
+- Stash giữ local máy nhà: `config/ma_nguon_con_tro.json`, `ngan_sach_nhip.json`, `mt5tools/chay_lien_tuc.py` (slot p6 / D:16GB) — không discard.
+- Test: `test_gop_m5_len_h1_h4` + gop/chat_luong/chon_ban = xanh; `test_banker_fred` 2 fail sẵn (không đụng chu kỳ này).
+
 **Bàn giao Grok → model tiếp:** xem `BAN_GIAO_GROK.md` (2026-10-11).
 
 ## 12/10/2026 tối (17) — EA MT5 cho RSI/MRZ trailing D1 (vòng 24) — CHƯA COMPILE

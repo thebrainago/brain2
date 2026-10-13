@@ -91,6 +91,85 @@
    "ho_holm": 13000,
    "song": 0,
    "con_tro_tiep": 0
+  },
+  {
+   "chu_ky": 7,
+   "ngay": "2026-10-14",
+   "gio_vn": "06h32",
+   "viec": "nap_du_lieu",
+   "viec_hang": [
+    "P3-20",
+    "P3-21",
+    "P3-22",
+    "P3-23"
+   ],
+   "them": {
+    "h1_h4_histdata": {
+     "AUDCAD": {
+      "h1": 115910,
+      "h4": 29237,
+      "tu": "2008-01-02",
+      "den": "2026-10-09"
+     },
+     "EURGBP": {
+      "h1": 17265,
+      "h4": 4332,
+      "tu": "2024-01-02",
+      "den": "2026-10-09"
+     },
+     "NZDUSD": {
+      "h1": 17260,
+      "h4": 4330,
+      "tu": "2024-01-02",
+      "den": "2026-10-09"
+     },
+     "XAUUSD": {
+      "h1": 16400,
+      "h4": 4292,
+      "tu": "2024-01-02",
+      "den": "2026-10-09"
+     },
+     "path": "/workspace/du_lieu_fx/hd_ck7/"
+    },
+    "fred_g10": {
+     "seri_ok": 15,
+     "bang_thang": "/workspace/du_lieu_ngay/fred_g10_policy_thang.csv",
+     "thang": 334,
+     "dtwexbgs_ngay": 5208
+    },
+    "yahoo_d1": {
+     "GSPC": {
+      "n": 24812,
+      "tu": "1927-12-30",
+      "den": "2026-10-12"
+     },
+     "GDAXI": {
+      "n": 9808,
+      "tu": "1987-12-30",
+      "den": "2026-10-12"
+     },
+     "N225": {
+      "n": 13958,
+      "tu": "1970-01-05",
+      "den": "2026-10-09",
+      "ghi_chu": "Yahoo API cat truoc 1970"
+     }
+    },
+    "dukascopy": {
+     "thu_bid_eurusd_2024_01": "HTTP 200",
+     "thu_ask_cung_thang": "HTTP 503 — CHUA DO DUOC, khong hammer",
+     "spread_theo_gio_tu_csv_san_co": 8,
+     "path": "/workspace/du_lieu_fx/hd_ck7/*_spread_theo_gio_tu_duka_ba.csv",
+     "luu_y": "gia ECN Dukascopy, KHONG phai XM"
+    }
+   },
+   "ho_holm": 13000,
+   "song": 0,
+   "con_tro_tiep": 1,
+   "script_repo": [
+    "gop_m5_len_h1_h4.py",
+    "test_gop_m5_len_h1_h4.py"
+   ]
   }
  ]
 }
