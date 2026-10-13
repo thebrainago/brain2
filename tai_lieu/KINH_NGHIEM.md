@@ -37,3 +37,10 @@
 21. **Hồi quy ngắn hạn chỉ số Mỹ vẫn sống** sau spread XM: IBS<0,2 US500/US100 qua Holm cộng dồn 13.000 (p_holm 0,003 / 0,0015). Cảnh báo: khớp cùng close tín hiệu, giá cash Yahoo, swap #=0; chưa MT5. DAX không lặp lại → cạnh đặc thù Mỹ.
 22. **Hiệu ứng qua đêm**: chỉ số Mỹ qua đêm mọi đêm âm/≈0 sau spread ở phát hiện; vàng qua đêm dương cả hai nửa (4,7/4,5 bps) nhưng chưa qua Holm.
 23. Ngân sách X: tìm kiếm `from:A OR from:B` gom nhiều tài khoản/lệnh gọi tiết kiệm hơn get_users_posts; tên user sai làm hỏng cả truy vấn.
+
+## 13/10/2026 22h44 — tốc độ hệ thống (chu kỳ 5 vòng lặp box)
+24. **Đo trước khi tối ưu**: cProfile `phan_tich_luoi_box.py` cho thấy ~60 % thời gian nằm ở `mask.iloc[j]` (pandas tra từng phần tử) chứ không ở mô phỏng; đổi mặt nạ IS/OOS sang mảng numpy là thắng lớn nhất. Đọc lại CSV spread cho mỗi ô lưới (thiếu cache) là lãng phí thứ hai.
+25. **Tách phần không phụ thuộc tham số**: ATR/RSI tính 1 lần/chuỗi, z-score 1 lần/(chuỗi, N) dùng cho mọi ngưỡng z; mô phỏng không phụ thuộc giờ vào ngoài phí cố định → chạy 1 lần phí 0 rồi trừ phí (cùng phép trừ → trùng từng bit). Giữ nguyên công thức Python gốc thay vì numpy rolling để kết quả không lệch ở biên ngưỡng.
+26. **Kết quả đo (box 8 lõi)**: lưới 38.736 lần thử 27 mã D1 XM: 49,7 s → 9,2 s tuần tự (×5,4) → 2,6 s với 8 tiến trình (×19). Đầu ra chi tiết và tổng kết trùng tuyệt đối với bản cũ → không ảnh hưởng sổ Holm. Lưới lớn hơn (H1/H4, nhiều cặp) giờ rẻ: ưu tiên tăng n thay vì thêm lọc (KN 18).
+27. **Bộ test đầy đủ có tác dụng phụ**: chạy cả 227 tệp test (>11 phút) ghi đè `reports/BANG_HE.json`, `reports/EVO_SUC_KHOE.md`, `nhat_ky/kho_co_che_ghi.log` → luôn `git checkout` các tệp đó sau khi chạy, chỉ chạy test liên quan trong chu kỳ.
+

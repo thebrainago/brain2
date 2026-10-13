@@ -2081,3 +2081,11 @@ Do that (cung bo doc, cung kho; `cau_kho --khong-tai`, BRAIN_DIEU_TOC=tat):
 
 ## 13/10/2026 — tài liệu vận hành máy nhà + box
 - Thêm `tai_lieu/KINH_NGHIEM_VAN_HANH.md`: kinh nghiệm vận hành (DESKTOP-05PNLGF, ổ D/E/RAM không phình C:, Task TheBrain* Disabled, accounts.dat + fail-fast <90s, điều phối MAX/CAO/VUA/THẤP, XM demo Standard `#`, spread 00h vs 02h, thiếu M1 AUD/NZD trước 2018-05, GOLD agent treo, hàng không cạn `sinh_viec`/`chay_lien_tuc`, ca 7h30–15h, Chrome thebrainago CDP 9224, Seeker đọc+follow, box Cloudflare → máy nhà, PowerShell dùng file script, chỉ giết process của mình). Không mật khẩu trong tệp.
+
+## 13/10/2026 22h44 — vòng lặp box chu kỳ 5: tốc độ (P3-24, P3-25)
+- `phan_tich_luoi_box.py`: đệm chỉ báo dùng chung (ATR/RSI 1 lần/chuỗi, z-score 1 lần/(chuỗi, N)), `lru_cache` phí spread theo giờ, mặt nạ IS/OOS numpy, mô phỏng 1 lần phí 0 rồi trừ phí theo giờ vào, `ProcessPoolExecutor` theo mã (giữ thứ tự). Tham số mới `chay(..., tien_trinh=None)` (mặc định = số lõi).
+- Đo thật trên box 8 lõi, 27 mã D1 XM, 38.736 lần thử: 49,7 s → 9,2 s (tuần tự) → 2,6 s (8 tiến trình). Đầu ra trùng từng bit với bản cũ (`test_luoi_box_toc_do.py`: 3 test so với công thức gốc + song song = tuần tự).
+- Commit kèm phần còn sót của chu kỳ 4 (vòng 28: `v28.py`, `test_v28.py`, `reports/vong28.json`, `reports/vong_lap_nhat_ky.json`). Holm cộng dồn giữ 13.000 (chu kỳ này không thêm ô). 0 hệ mới qua cổng.
+- Chưa làm: Parquet cho M5/M1 (P3-26), Seeker tải song song (P3-27). Bộ test đầy đủ có 2 lỗi chưa xác định tên (chạy >11 phút, bị cắt) — test liên quan (sinh_viec, v28, luoi_box) xanh 17/17.
+- Con trỏ → 4 (hang_cho_may_nha).
+

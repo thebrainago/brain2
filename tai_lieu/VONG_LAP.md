@@ -66,8 +66,8 @@ Ngân sách Holm: mỗi việc ≤ 12 ô (bài học 10). Kết quả = MÔ PH�
 23. **Dukascopy spread theo giờ** cho các cặp pool (thử lại khi hết 503) để thay spread ước lượng.
 
 ### P3 — tốc độ
-24. **Đệm chỉ báo dùng chung** (z-score/ATR/RSI tính 1 lần mỗi chuỗi, cache theo băm dữ liệu) — đo cProfile trước/sau.
-25. **Song song theo ô** (ProcessPool, 1 tiến trình/ô) cho vòng thử; đo thời gian/ô.
+24. ✅ [chu kỳ 5: `phan_tich_luoi_box.py` 49,7 s → 9,2 s tuần tự] **Đệm chỉ báo dùng chung** (z-score/ATR/RSI tính 1 lần mỗi chuỗi, cache theo băm dữ liệu) — đo cProfile trước/sau.
+25. ✅ [chu kỳ 5: theo mã, 8 tiến trình → 2,6 s, đầu ra trùng bit] **Song song theo ô** (ProcessPool, 1 tiến trình/ô) cho vòng thử; đo thời gian/ô.
 26. **Parquet thay CSV** cho chuỗi M5/M1 (đọc nhanh hơn, ngoài repo).
 27. **Seeker tải song song có giới hạn** (≤ 4 kết nối/miền, tôn trọng 429/robots) cho nguồn mới ở `config/nguon_seeker.json` (khai_bao_tai = vong27_quet_box_13102026).
 

@@ -1,0 +1,780 @@
+{
+"nhan": "MO PHONG",
+"ho_holm_truoc": 12949,
+"ho_holm": 12960,
+"so_song": 0,
+"toc_do": {
+"nap_giay": 0.57,
+"chay_giay": 0.72,
+"so_o": 13
+},
+"o": [
+{
+"viec": "P1-1",
+"nhom": "POOL4",
+"loc": "KHONG",
+"thoat": "TR2",
+"so": 1,
+"tach": "2015-04-01 00:00:00",
+"phi": {
+"AUDUSD_X": "spread_do_theo_gio",
+"NZDUSD_X": "spread_do_theo_gio",
+"AUDCAD_X": "bang_phi_xm/v24",
+"GBPUSD_X": "spread_do_theo_gio"
+},
+"truoc": {
+"n_ph": 397,
+"n_kiem": 374,
+"cum_tuan": 240,
+"tb_ph_bps": 9.271152082875027,
+"tb_kiem_bps": 29.290464906377323,
+"p": 0.01443156720029981,
+"p_boot": 0.0185,
+"maxdd_pct": 12.070918977637623,
+"lai_nam_kiem_pct": 2.3850620069374795,
+"theo_tai_san_bps_ph_kiem_n": {
+"AUDUSD_X": [
+31.0,
+70.4,
+163
+],
+"NZDUSD_X": [
+-0.7,
+4.1,
+217
+],
+"AUDCAD_X": [
+8.6,
+30.8,
+189
+],
+"GBPUSD_X": [
+4.9,
+17.7,
+202
+]
+}
+},
+"sau": {
+"n_ph": 400,
+"n_kiem": 377,
+"cum_tuan": 240,
+"tb_ph_bps": 5.962778973823566,
+"tb_kiem_bps": 26.187458051864226,
+"p": 0.0246044388260096,
+"p_boot": 0.024,
+"maxdd_pct": 13.120504455221171,
+"lai_nam_kiem_pct": 2.1494953106510284,
+"theo_tai_san_bps_ph_kiem_n": {
+"AUDUSD_X": [
+29.5,
+67.8,
+163
+],
+"NZDUSD_X": [
+-2.9,
+1.1,
+219
+],
+"AUDCAD_X": [
+0.5,
+26.4,
+192
+],
+"GBPUSD_X": [
+3.8,
+15.7,
+203
+]
+}
+},
+"sau_x15_s1": {
+"n_ph": 403,
+"n_kiem": 380,
+"cum_tuan": 240,
+"tb_ph_bps": 3.4004162027111438,
+"tb_kiem_bps": 23.61369174673581,
+"p": 0.036201072323645,
+"p_boot": 0.034,
+"maxdd_pct": 13.523636071660206,
+"lai_nam_kiem_pct": 1.953661388881853,
+"theo_tai_san_bps_ph_kiem_n": {
+"AUDUSD_X": [
+29.0,
+65.2,
+164
+],
+"NZDUSD_X": [
+-4.3,
+-0.4,
+219
+],
+"AUDCAD_X": [
+-6.2,
+21.7,
+197
+],
+"GBPUSD_X": [
+2.7,
+13.6,
+203
+]
+}
+},
+"p_holm": 1.0,
+"song": false
+},
+{
+"viec": "P1-2",
+"nhom": "AUDUSD_X",
+"loc": "CHE_DO",
+"thoat": "TR2",
+"so": 2,
+"tach": "2015-04-01 00:00:00",
+"phi": {
+"AUDUSD_X": "spread_do_theo_gio"
+},
+"truoc": {
+"n_ph": 51,
+"n_kiem": 61,
+"cum_tuan": 60,
+"tb_ph_bps": 48.900409801570696,
+"tb_kiem_bps": 63.162355931138364,
+"p": 0.015038762863506583,
+"p_boot": 0.0205,
+"maxdd_pct": 12.024032982989619,
+"lai_nam_kiem_pct": 3.4306998555210764
+},
+"sau": {
+"n_ph": 51,
+"n_kiem": 61,
+"cum_tuan": 60,
+"tb_ph_bps": 47.50737857399346,
+"tb_kiem_bps": 60.352254029646446,
+"p": 0.019397232325456426,
+"p_boot": 0.0215,
+"maxdd_pct": 12.230621007163478,
+"lai_nam_kiem_pct": 3.278067547157558
+},
+"sau_x15_s1": {
+"n_ph": 51,
+"n_kiem": 62,
+"cum_tuan": 60,
+"tb_ph_bps": 46.31090825330053,
+"tb_kiem_bps": 57.396460852475975,
+"p": 0.021527199081682657,
+"p_boot": 0.0205,
+"maxdd_pct": 12.414722928662625,
+"lai_nam_kiem_pct": 3.1686288499140534
+},
+"p_holm": 1.0,
+"song": false
+},
+{
+"viec": "P1-2",
+"nhom": "GBPUSD_X",
+"loc": "CHE_DO",
+"thoat": "TR2",
+"so": 3,
+"tach": "2015-04-01 00:00:00",
+"phi": {
+"GBPUSD_X": "spread_do_theo_gio"
+},
+"truoc": {
+"n_ph": 68,
+"n_kiem": 72,
+"cum_tuan": 68,
+"tb_ph_bps": 2.515757701251409,
+"tb_kiem_bps": 14.577841247368642,
+"p": 0.26737620803966244,
+"p_boot": 0.2665,
+"maxdd_pct": 15.17670070529883,
+"lai_nam_kiem_pct": 0.9359572000080579
+},
+"sau": {
+"n_ph": 68,
+"n_kiem": 73,
+"cum_tuan": 68,
+"tb_ph_bps": 1.3195269520311907,
+"tb_kiem_bps": 12.292766090273822,
+"p": 0.29739065525671826,
+"p_boot": 0.257,
+"maxdd_pct": 16.397410010655566,
+"lai_nam_kiem_pct": 0.8002077525793297
+},
+"sau_x15_s1": {
+"n_ph": 68,
+"n_kiem": 73,
+"cum_tuan": 68,
+"tb_ph_bps": 0.22645823177847227,
+"tb_kiem_bps": 9.817087647681875,
+"p": 0.3310544795293351,
+"p_boot": 0.3215,
+"maxdd_pct": 17.15625445674268,
+"lai_nam_kiem_pct": 0.639051421440561
+},
+"p_holm": 1.0,
+"song": false
+},
+{
+"viec": "P1-3",
+"nhom": "AUDUSD_X",
+"loc": "KHONG",
+"thoat": "TR1.5",
+"so": 4,
+"tach": "2015-04-01 00:00:00",
+"phi": {
+"AUDUSD_X": "spread_do_theo_gio"
+},
+"truoc": {
+"n_ph": 98,
+"n_kiem": 107,
+"cum_tuan": 101,
+"tb_ph_bps": 2.5614059541128036,
+"tb_kiem_bps": 42.40706637649209,
+"p": 0.01130482908759578,
+"p_boot": 0.0135,
+"maxdd_pct": 16.05086911678695,
+"lai_nam_kiem_pct": 3.9782582005748197
+},
+"sau": {
+"n_ph": 98,
+"n_kiem": 108,
+"cum_tuan": 101,
+"tb_ph_bps": 1.0466218813278079,
+"tb_kiem_bps": 39.54422963402833,
+"p": 0.016778075140574167,
+"p_boot": 0.016,
+"maxdd_pct": 16.4448418021782,
+"lai_nam_kiem_pct": 3.744362041223033
+},
+"sau_x15_s1": {
+"n_ph": 98,
+"n_kiem": 109,
+"cum_tuan": 101,
+"tb_ph_bps": -0.2544021884095069,
+"tb_kiem_bps": 37.39796776505471,
+"p": 0.02121878085963491,
+"p_boot": 0.0225,
+"maxdd_pct": 16.94014630369429,
+"lai_nam_kiem_pct": 3.5739252092037916
+},
+"p_holm": 1.0,
+"song": false
+},
+{
+"viec": "P1-3",
+"nhom": "AUDUSD_X",
+"loc": "KHONG",
+"thoat": "TR2.5",
+"so": 5,
+"tach": "2015-04-01 00:00:00",
+"phi": {
+"AUDUSD_X": "spread_do_theo_gio"
+},
+"truoc": {
+"n_ph": 69,
+"n_kiem": 70,
+"cum_tuan": 66,
+"tb_ph_bps": 44.09215469845213,
+"tb_kiem_bps": 132.59968036208218,
+"p": 0.0003766524745658639,
+"p_boot": 0.0,
+"maxdd_pct": 18.383200261218434,
+"lai_nam_kiem_pct": 8.264852090827732
+},
+"sau": {
+"n_ph": 69,
+"n_kiem": 70,
+"cum_tuan": 66,
+"tb_ph_bps": 42.62875661437758,
+"tb_kiem_bps": 131.0133442496005,
+"p": 0.00043104040430996804,
+"p_boot": 0.0005,
+"maxdd_pct": 18.696461914185203,
+"lai_nam_kiem_pct": 8.16597678961887
+},
+"sau_x15_s1": {
+"n_ph": 69,
+"n_kiem": 71,
+"cum_tuan": 66,
+"tb_ph_bps": 42.05949927021067,
+"tb_kiem_bps": 127.16902457286778,
+"p": 0.00048712555619911946,
+"p_boot": 0.001,
+"maxdd_pct": 18.966262625592133,
+"lai_nam_kiem_pct": 8.039596591886976
+},
+"p_holm": 1.0,
+"song": false
+},
+{
+"viec": "P1-3",
+"nhom": "AUDUSD_X",
+"loc": "KHONG",
+"thoat": "GIO5",
+"so": 6,
+"tach": "2015-04-01 00:00:00",
+"phi": {
+"AUDUSD_X": "spread_do_theo_gio"
+},
+"truoc": {
+"n_ph": 109,
+"n_kiem": 129,
+"cum_tuan": 124,
+"tb_ph_bps": -8.784525546162795,
+"tb_kiem_bps": 29.68047773054223,
+"p": 0.0033567977340843713,
+"p_boot": 0.005,
+"maxdd_pct": 17.080301245028906,
+"lai_nam_kiem_pct": 3.3265044941707678
+},
+"dung_tang": 1,
+"p_holm": 1.0,
+"song": false
+},
+{
+"viec": "P1-3",
+"nhom": "GBPUSD_X",
+"loc": "KHONG",
+"thoat": "TR1.5",
+"so": 7,
+"tach": "2015-04-01 00:00:00",
+"phi": {
+"GBPUSD_X": "spread_do_theo_gio"
+},
+"truoc": {
+"n_ph": 114,
+"n_kiem": 116,
+"cum_tuan": 104,
+"tb_ph_bps": -0.40087209567272647,
+"tb_kiem_bps": 11.010929759533804,
+"p": 0.23255770478037285,
+"p_boot": 0.2165,
+"maxdd_pct": 16.208256021536616,
+"lai_nam_kiem_pct": 1.1389699291545108
+},
+"dung_tang": 1,
+"p_holm": 1.0,
+"song": false
+},
+{
+"viec": "P1-3",
+"nhom": "GBPUSD_X",
+"loc": "KHONG",
+"thoat": "TR2.5",
+"so": 8,
+"tach": "2015-04-01 00:00:00",
+"phi": {
+"GBPUSD_X": "spread_do_theo_gio"
+},
+"truoc": {
+"n_ph": 94,
+"n_kiem": 91,
+"cum_tuan": 81,
+"tb_ph_bps": -9.56977838831302,
+"tb_kiem_bps": 24.64109593330256,
+"p": 0.16231037936978154,
+"p_boot": 0.1535,
+"maxdd_pct": 25.255793891493884,
+"lai_nam_kiem_pct": 1.9995473299734552
+},
+"dung_tang": 1,
+"p_holm": 1.0,
+"song": false
+},
+{
+"viec": "P1-3",
+"nhom": "GBPUSD_X",
+"loc": "KHONG",
+"thoat": "GIO5",
+"so": 9,
+"tach": "2015-04-01 00:00:00",
+"phi": {
+"GBPUSD_X": "spread_do_theo_gio"
+},
+"truoc": {
+"n_ph": 127,
+"n_kiem": 131,
+"cum_tuan": 119,
+"tb_ph_bps": -17.244304539766826,
+"tb_kiem_bps": 15.653035638504905,
+"p": 0.11497147712935485,
+"p_boot": 0.1175,
+"maxdd_pct": 28.294373499020608,
+"lai_nam_kiem_pct": 1.7815474214373768
+},
+"dung_tang": 1,
+"p_holm": 1.0,
+"song": false
+},
+{
+"viec": "P1-4",
+"nhom": "POOL4",
+"loc": "W1_EMA20",
+"thoat": "TR2",
+"so": 10,
+"tach": "2015-04-01 00:00:00",
+"phi": {
+"AUDUSD_X": "spread_do_theo_gio",
+"NZDUSD_X": "spread_do_theo_gio",
+"AUDCAD_X": "bang_phi_xm/v24",
+"GBPUSD_X": "spread_do_theo_gio"
+},
+"truoc": {
+"n_ph": 46,
+"n_kiem": 55,
+"cum_tuan": 49,
+"tb_ph_bps": 89.61849732626679,
+"tb_kiem_bps": 50.717437904946244,
+"p": 0.06094729721684544,
+"p_boot": 0.066,
+"maxdd_pct": 2.8434048465897366,
+"lai_nam_kiem_pct": 0.6621067914693196,
+"theo_tai_san_bps_ph_kiem_n": {
+"AUDUSD_X": [
+142.5,
+49.5,
+29
+],
+"NZDUSD_X": [
+128.8,
+135.9,
+21
+],
+"AUDCAD_X": [
+15.5,
+1.2,
+27
+],
+"GBPUSD_X": [
+73.9,
+16.2,
+24
+]
+}
+},
+"sau": {
+"n_ph": 46,
+"n_kiem": 55,
+"cum_tuan": 49,
+"tb_ph_bps": 87.65547400325586,
+"tb_kiem_bps": 48.64609926698153,
+"p": 0.06908452761525541,
+"p_boot": 0.0755,
+"maxdd_pct": 2.964410347946611,
+"lai_nam_kiem_pct": 0.6350658478357,
+"theo_tai_san_bps_ph_kiem_n": {
+"AUDUSD_X": [
+140.7,
+47.4,
+29
+],
+"NZDUSD_X": [
+126.6,
+134.0,
+21
+],
+"AUDCAD_X": [
+12.9,
+-1.8,
+27
+],
+"GBPUSD_X": [
+72.6,
+14.9,
+24
+]
+}
+},
+"sau_x15_s1": {
+"n_ph": 46,
+"n_kiem": 55,
+"cum_tuan": 49,
+"tb_ph_bps": 86.18160322387722,
+"tb_kiem_bps": 45.38686278326153,
+"p": 0.07848290004297542,
+"p_boot": 0.0825,
+"maxdd_pct": 3.0541348455741413,
+"lai_nam_kiem_pct": 0.5925171170634553,
+"theo_tai_san_bps_ph_kiem_n": {
+"AUDUSD_X": [
+139.4,
+46.1,
+29
+],
+"NZDUSD_X": [
+125.0,
+132.5,
+21
+],
+"AUDCAD_X": [
+11.2,
+-3.7,
+27
+],
+"GBPUSD_X": [
+71.4,
+6.7,
+24
+]
+}
+},
+"p_holm": 1.0,
+"song": false
+},
+{
+"viec": "P1-4",
+"nhom": "FX7",
+"loc": "W1_EMA20",
+"thoat": "TR2",
+"so": 11,
+"tach": "2015-04-01 00:00:00",
+"phi": {
+"EURUSD_X": "spread_do_theo_gio",
+"GBPUSD_X": "spread_do_theo_gio",
+"JPY_X": "spread_do_theo_gio",
+"AUDUSD_X": "spread_do_theo_gio",
+"NZDUSD_X": "spread_do_theo_gio",
+"USDCAD_X": "spread_do_theo_gio",
+"USDCHF_X": "spread_do_theo_gio"
+},
+"truoc": {
+"n_ph": 81,
+"n_kiem": 98,
+"cum_tuan": 78,
+"tb_ph_bps": 63.233921843560005,
+"tb_kiem_bps": 37.87568451443856,
+"p": 0.07776579855764287,
+"p_boot": 0.086,
+"maxdd_pct": 1.8904364377304361,
+"lai_nam_kiem_pct": 0.4675937053707909,
+"theo_tai_san_bps_ph_kiem_n": {
+"EURUSD_X": [
+34.9,
+80.5,
+27
+],
+"GBPUSD_X": [
+73.9,
+16.2,
+24
+],
+"JPY_X": [
+-26.9,
+-56.0,
+34
+],
+"AUDUSD_X": [
+142.5,
+49.5,
+29
+],
+"NZDUSD_X": [
+128.8,
+135.9,
+21
+],
+"USDCAD_X": [
+108.8,
+87.7,
+24
+],
+"USDCHF_X": [
+-7.8,
+-18.5,
+20
+]
+}
+},
+"sau": {
+"n_ph": 81,
+"n_kiem": 98,
+"cum_tuan": 78,
+"tb_ph_bps": 61.771035085081806,
+"tb_kiem_bps": 36.366606937800825,
+"p": 0.08627930275769269,
+"p_boot": 0.082,
+"maxdd_pct": 1.9282059502533921,
+"lai_nam_kiem_pct": 0.4489634103728743,
+"theo_tai_san_bps_ph_kiem_n": {
+"EURUSD_X": [
+33.8,
+79.3,
+27
+],
+"GBPUSD_X": [
+72.6,
+14.9,
+24
+],
+"JPY_X": [
+-28.0,
+-57.1,
+34
+],
+"AUDUSD_X": [
+140.7,
+47.4,
+29
+],
+"NZDUSD_X": [
+126.6,
+134.0,
+21
+],
+"USDCAD_X": [
+107.4,
+86.1,
+24
+],
+"USDCHF_X": [
+-9.4,
+-19.9,
+20
+]
+}
+},
+"sau_x15_s1": {
+"n_ph": 81,
+"n_kiem": 98,
+"cum_tuan": 78,
+"tb_ph_bps": 60.53447119471931,
+"tb_kiem_bps": 34.13598316639552,
+"p": 0.09760761711707078,
+"p_boot": 0.1005,
+"maxdd_pct": 1.9602437114604632,
+"lai_nam_kiem_pct": 0.42142527745379876,
+"theo_tai_san_bps_ph_kiem_n": {
+"EURUSD_X": [
+32.7,
+78.2,
+27
+],
+"GBPUSD_X": [
+71.4,
+6.7,
+24
+],
+"JPY_X": [
+-29.1,
+-58.2,
+34
+],
+"AUDUSD_X": [
+139.4,
+46.1,
+29
+],
+"NZDUSD_X": [
+125.0,
+132.5,
+21
+],
+"USDCAD_X": [
+106.2,
+84.8,
+24
+],
+"USDCHF_X": [
+-10.8,
+-21.1,
+20
+]
+}
+},
+"p_holm": 1.0,
+"song": false
+}
+],
+"tham_chieu_khong_dem_holm": [
+{
+"viec": "tham_chieu_v26",
+"nhom": "AUDUSD_X",
+"loc": "KHONG",
+"thoat": "TR2",
+"tach": "2015-04-01 00:00:00",
+"so": 100,
+"phi": {
+"AUDUSD_X": "spread_do_theo_gio"
+},
+"truoc": {
+"n_ph": 78,
+"n_kiem": 85,
+"cum_tuan": 81,
+"tb_ph_bps": 30.992307593821266,
+"tb_kiem_bps": 70.39056094123035,
+"p": 0.005924509343357309,
+"p_boot": 0.006,
+"maxdd_pct": 14.669438989458817,
+"lai_nam_kiem_pct": 5.327554735791499
+},
+"sau": {
+"n_ph": 78,
+"n_kiem": 85,
+"cum_tuan": 81,
+"tb_ph_bps": 29.538916154867575,
+"tb_kiem_bps": 67.84579166334164,
+"p": 0.007730185257099786,
+"p_boot": 0.01,
+"maxdd_pct": 15.07767503409595,
+"lai_nam_kiem_pct": 5.134952241413996
+},
+"sau_x15_s1": {
+"n_ph": 78,
+"n_kiem": 86,
+"cum_tuan": 81,
+"tb_ph_bps": 28.965877208619762,
+"tb_kiem_bps": 65.23160916036211,
+"p": 0.008835843162366963,
+"p_boot": 0.0115,
+"maxdd_pct": 15.242670375184119,
+"lai_nam_kiem_pct": 4.995179646856934
+}
+},
+{
+"viec": "tham_chieu_v26",
+"nhom": "GBPUSD_X",
+"loc": "KHONG",
+"thoat": "TR2",
+"tach": "2015-04-01 00:00:00",
+"so": 101,
+"phi": {
+"GBPUSD_X": "spread_do_theo_gio"
+},
+"truoc": {
+"n_ph": 101,
+"n_kiem": 101,
+"cum_tuan": 90,
+"tb_ph_bps": 4.8933280273602096,
+"tb_kiem_bps": 17.746526815636823,
+"p": 0.1739956525586972,
+"p_boot": 0.173,
+"maxdd_pct": 14.232633004899942,
+"lai_nam_kiem_pct": 1.5983247335462556
+},
+"sau": {
+"n_ph": 101,
+"n_kiem": 102,
+"cum_tuan": 90,
+"tb_ph_bps": 3.7673102410636155,
+"tb_kiem_bps": 15.679580929833577,
+"p": 0.20068925239063307,
+"p_boot": 0.2105,
+"maxdd_pct": 15.559429409333458,
+"lai_nam_kiem_pct": 1.426148992508337
+},
+"sau_x15_s1": {
+"n_ph": 101,
+"n_kiem": 102,
+"cum_tuan": 90,
+"tb_ph_bps": 2.656792792065372,
+"tb_kiem_bps": 13.568736885876142,
+"p": 0.22889840524554272,
+"p_boot": 0.2265,
+"maxdd_pct": 16.431140964703772,
+"lai_nam_kiem_pct": 1.234155461552145
+}
+}
+]
+}

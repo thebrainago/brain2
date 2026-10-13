@@ -1,0 +1,66 @@
+{
+ "ghi_chu": "Nhat ky chu ky vong lap (vong_lap_log.json o goc la du lieu cu khong lien quan - giu nguyen).",
+ "chu_ky": [
+  {
+   "chu_ky": 1,
+   "ngay": "2026-10-13",
+   "viec": "vong_thu (thiet ke + vong 27)",
+   "ho_holm": 12949,
+   "song": 0
+  },
+  {
+   "chu_ky": 2,
+   "ngay": "2026-10-13",
+   "viec": "nap_du_lieu",
+   "ho_holm": 12949,
+   "song": 0
+  },
+  {
+   "chu_ky": 3,
+   "ngay": "2026-10-13",
+   "viec": "seeker_bo_doc",
+   "ho_holm": 12949,
+   "song": 0
+  },
+  {
+   "chu_ky": 4,
+   "ngay": "2026-10-13",
+   "gio_vn": "18h29",
+   "viec": "vong_thu",
+   "vong": 28,
+   "o": 11,
+   "viec_hang": [
+    "P1-1",
+    "P1-2",
+    "P1-3",
+    "P1-4",
+    "P1-7 ap luc"
+   ],
+   "ho_holm_truoc": 12949,
+   "ho_holm": 12960,
+   "song": 0,
+   "near_miss_tot": "AUDUSD MRZ TR2.5 D1 02h: sau phi 42,6/131,0 bps/lenh, p 0,0004, Holm 1,0 (MO PHONG)",
+   "dang_ky": "reports/vong28_tien_dang_ky.md",
+   "ket_qua": "reports/vong28.json",
+   "con_tro_tiep": 3
+  },
+  {
+   "chu_ky": 5,
+   "ngay": "2026-10-13",
+   "gio_vn": "22h44",
+   "viec": "toc_do_kinh_nghiem",
+   "viec_hang": [
+    "P3-24 (dem chi bao)",
+    "P3-25 (song song)"
+   ],
+   "doi_tuong": "phan_tich_luoi_box.py (luoi 38.736 lan thu, 27 ma D1 XM)",
+   "truoc_s": 49.7,
+   "sau_tuan_tu_s": 9.2,
+   "sau_song_song_8_s": 2.6,
+   "dau_ra_trung_tung_bit": true,
+   "ho_holm": 13000,
+   "song": 0,
+   "con_tro_tiep": 4
+  }
+ ]
+}
