@@ -29,8 +29,16 @@ input int    InpGioVao        = GIO_VAO_MAC_DINH; // gio server (0-23) bat dau d
 // hang so CO DINH (khong toi uu) - khop Python
 #define ATR_N      14
 #define RSI_N      14
-#define MRZ_N      50
-#define SL_ATR     1.5
+// 13/10/2026 toi (sinh_viec): tham so luoi cho tester; mac dinh = v24 (D1, z 2, RSI 30/70, SMA50, SL 1,5 ATR)
+input ENUM_TIMEFRAMES InpTF   = PERIOD_D1; // khung tin hieu (D1/H4/H1)
+input double InpNguongZ       = 2.0;    // MRZ: |z| vao lenh
+input double InpRsiThap       = 30;     // RSI: mua khi < 
+input double InpRsiCao        = 70;     // RSI: ban khi >
+input int    InpMrzN          = 50;     // MRZ: so nen SMA/STD
+input double InpSlATR         = 1.5;    // SL ban dau (x ATR14)
+#define MRZ_N      InpMrzN
+#define SL_ATR     InpSlATR
+#define TF_TIN     InpTF
 // 13/10/2026 vong 27 (VONG_LAP 3): bien the thoat chi de backtest; mac dinh = hang so v24 cu (2,0 ATR / 72 nen)
 input double InpTrATR        = 2.0;    // khoang trailing (x ATR14)
 input int    InpGiuToiDa     = 72;     // giu toi da N nen D1
@@ -62,7 +70,7 @@ bool ChiBao(double &atr1, double &gia_tri1, int &tin)
 {
    MqlRates r[];
    ArraySetAsSeries(r, false);
-   int n = CopyRates(_Symbol, PERIOD_D1, 1, InpSoNen, r);
+   int n = CopyRates(_Symbol, TF_TIN, 1, InpSoNen, r);
    if(n < MRZ_N + 2) return false;
    double atr = r[0].high - r[0].low;
    double eu = 0, ed = 0; bool co_ewm = false;
@@ -80,7 +88,7 @@ bool ChiBao(double &atr1, double &gia_tri1, int &tin)
    if(eu == 0 && ed == 0) { gia_tri1 = EMPTY_VALUE; return true; }
    double rsi = (ed == 0) ? 100.0 : 100.0 - 100.0 / (1.0 + eu / ed);
    gia_tri1 = rsi;
-   if(rsi < 30) tin = 1; else if(rsi > 70) tin = -1;
+   if(rsi < InpRsiThap) tin = 1; else if(rsi > InpRsiCao) tin = -1;
 #else
    double m = 0, s2 = 0;
    for(int i = n - MRZ_N; i < n; i++) m += r[i].close;
@@ -90,7 +98,7 @@ bool ChiBao(double &atr1, double &gia_tri1, int &tin)
    if(sd <= 0) { gia_tri1 = EMPTY_VALUE; return true; }
    double z = (r[n-1].close - m) / sd;
    gia_tri1 = z;
-   if(z < -2) tin = 1; else if(z > 2) tin = -1;
+   if(z < -InpNguongZ) tin = 1; else if(z > InpNguongZ) tin = -1;
 #endif
    return true;
 }
@@ -131,7 +139,7 @@ int OnInit()
 
 void OnTick()
 {
-   datetime t0 = iTime(_Symbol, PERIOD_D1, 0);
+   datetime t0 = iTime(_Symbol, TF_TIN, 0);
    if(t0 == 0) return;
    if(t0 == g_nen_cuoi) { ThuLaiLenhCho(); return; } // trong nen: chi thu lai lenh bi tu choi vi dong cua
    g_nen_cuoi = t0; g_cho_tin = 0; g_cho_dong = 0;
@@ -144,9 +152,9 @@ void OnTick()
    ulong tk; long loai; double sl; datetime tv;
    if(ViThe(tk, loai, sl, tv))
    {
-      int giu = iBarShift(_Symbol, PERIOD_D1, tv, false);   // so nen da dong tinh ca nen vao
+      int giu = iBarShift(_Symbol, TF_TIN, tv, false);   // so nen da dong tinh ca nen vao
       if(giu >= GIU_TOI_DA) { if(!trade.PositionClose(tk) && DongCua()) g_cho_dong = tk; GlobalVariableDel(g_gv_best); return; }  // nen nay khong vao moi
-      double c1 = iClose(_Symbol, PERIOD_D1, 1);
+      double c1 = iClose(_Symbol, TF_TIN, 1);
       double best = GlobalVariableCheck(g_gv_best) ? GlobalVariableGet(g_gv_best) : c1;
       double moi;
       if(loai == POSITION_TYPE_BUY) { best = MathMax(best, c1); moi = best - TR_ATR * atr1; if(moi > sl) trade.PositionModify(tk, NormalizeDouble(moi, dg), 0); }

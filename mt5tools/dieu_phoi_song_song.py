@@ -103,3 +103,15 @@ def main(argv=None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+
+# ---- noi voi sinh_viec (13/10 toi): hang doi khong bao gio can --------------------------------
+def so_slot_mt5(muc: str, toi_da: int = 4) -> int:
+    """So terminal MT5 duoc chay theo muc (MAX=4 ... THAP=0)."""
+    return min(toi_da, MUC[muc].mt5)
+
+
+def viec_tiep(n: int, dang_chay: set | None = None) -> list:
+    """Hang doi rong -> sinh viec moi tu sinh_viec.py (near-miss, luoi, ma moi, khung moi)."""
+    import sinh_viec as SV
+    return SV.lay_viec(n, dang_chay=dang_chay)
