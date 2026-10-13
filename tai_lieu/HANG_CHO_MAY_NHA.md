@@ -4,7 +4,7 @@ Không đăng nhập mạng xã hội, không mua gì, không vượt Cloudflare
 
 | # | Việc | Trạng thái |
 |---|---|---|
-| 1 | MT5 backtest EA MRZ mới (`ea_MeanRevZ5.mq5`/MRZ, `InpGioVao=2`) trên **GBPUSD#** và **AUDUSD#** 2016-01-01 → 2026-10, D1, "Every tick based on real ticks", tài khoản XM thật (Standard/Cash Ultra Low) | CHỜ |
+| 1 | MT5 backtest EA MRZ mới (`ea_demo/BRAIN_V24_MRZ_Trail_D1.mq5` (+ `.set`, `InpGioVao=2`; kèm `BRAIN_V24_Chung.mqh`) — không dùng `ea_MeanRevZ5.mq5` (hệ z5 US100 khác)) trên **GBPUSD#** và **AUDUSD#** 2016-01-01 → 2026-10, D1, "Every tick based on real ticks", tài khoản XM thật (Standard/Cash Ultra Low) | CHỜ |
 | 2 | Cùng EA trên **GBPUSD** 2004–2015 (lịch sử dài; ghi chất lượng mô hình %) | CHỜ |
 | 3 | So `InpGioVao=0` vs `2` cùng giai đoạn (đo chênh phí thật theo giờ) | CHỜ |
 | 4 | Nguồn bị chặn trên box: TradingView scripts/ideas, fxblue, quantpedia (234 mục vòng 26) — đọc bằng trình duyệt thường ở máy nhà, chỉ lưu tóm tắt + URL | CHỜ |
@@ -18,7 +18,7 @@ Nguồn bị chặn: chỉ đọc bằng trình duyệt thường như người 
 | # | Giờ | Việc | Ước tính | Trạng thái |
 |---|---|---|---|---|
 | 6 | 7:30 | Chuẩn bị: tạo RAM disk/`D:\mt5_tester`, trỏ tester, kiểm tài khoản XM thật, `git pull` | 15′ | CHỜ |
-| 7 | 7:45 | Việc 1+3 ở trên: MRZ `InpGioVao=2` vs `0`, GBPUSD#/AUDUSD#, 2016→2026-10, real ticks (4 lần chạy) | 60′ | CHỜ |
+| 7 | 7:45 | Việc 1+3 ở trên: MRZ `ea_demo/BRAIN_V24_MRZ_Trail_D1` `InpGioVao=2` vs `0`, GBPUSD#/AUDUSD#, 2016→2026-10, real ticks (4 lần chạy) | 60′ | CHỜ |
 | 8 | 8:45 | MRZ cấu hình đăng ký trên NZDUSD#, AUDCAD#, EURGBP#, USDCAD# (đa cặp, việc VONG_LAP 1) | 50′ | CHỜ |
 | 9 | 9:35 | MRZ thoát trailing ATR×1,5 / ×2,5 / thời gian 5 nến trên AUDUSD#, GBPUSD# (6 lần, việc VONG_LAP 3) | 45′ | CHỜ |
 | 10 | 10:20 | Stress: spread cố định ×1,5 (custom symbol hoặc "Random delay") trên cấu hình tốt nhất từ #7 | 25′ | CHỜ |
