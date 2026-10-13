@@ -4,7 +4,7 @@
   "Nhan 4 chieu theo luat tu khoa chot truoc trong nhan/nguon_seeker.gan_nhan; 'tong_hop' = nguon nhieu phong cach.",
   "KHONG co khoa / mat khau / phien. Ket qua quet that o reports/SEEKER_QUET_NGUON.json."
  ],
- "tong": 222,
+ "tong": 246,
  "nguon": {
   "allocatesmartly": {
    "ten": "allocatesmartly",
@@ -5544,6 +5544,583 @@
     "copy_theo_doi"
    ],
    "can_dang_nhap": true
+  },
+  "gh_pine_strategies_v6": {
+   "ten": "gh_pine_strategies_v6",
+   "url": "https://api.github.com/repos/JoelPasapera/Strategies-in-Pine-Script-v6",
+   "loai": "code",
+   "cach": "api",
+   "khai_bao_tai": [
+    "vong27_quet_box_13102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "Pine v6, Apache-2.0, box 200 13/10"
+  },
+  "gh_pine_lepotorico": {
+   "ten": "gh_pine_lepotorico",
+   "url": "https://api.github.com/repos/LePotoRico2105/pine-script-strategies",
+   "loai": "code",
+   "cach": "api",
+   "khai_bao_tai": [
+    "vong27_quet_box_13102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "Pine, MIT"
+  },
+  "gh_tv_dharaarpan": {
+   "ten": "gh_tv_dharaarpan",
+   "url": "https://api.github.com/repos/dharaarpan7/Tradingview-Stratagies",
+   "loai": "code",
+   "cach": "api",
+   "khai_bao_tai": [
+    "vong27_quet_box_13102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "Pine, MIT"
+  },
+  "gh_backtrader_jasgin": {
+   "ten": "gh_backtrader_jasgin",
+   "url": "https://api.github.com/repos/jasgin/backtrader-backtests",
+   "loai": "code",
+   "cach": "api",
+   "khai_bao_tai": [
+    "vong27_quet_box_13102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "co_phieu"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "backtrader, MIT"
+  },
+  "gh_nnfx_backtrader": {
+   "ten": "gh_nnfx_backtrader",
+   "url": "https://api.github.com/repos/ddm-j/NNFX-Backtrader",
+   "loai": "code",
+   "cach": "api",
+   "khai_bao_tai": [
+    "vong27_quet_box_13102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "xu_huong"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "atr_sltp"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "NNFX: ATR SL/TP, D1 FX"
+  },
+  "gh_bt_multi_asset": {
+   "ten": "gh_bt_multi_asset",
+   "url": "https://api.github.com/repos/ilahuerta-IA/backtrader-multi-asset-strategy",
+   "loai": "code",
+   "cach": "api",
+   "khai_bao_tai": [
+    "vong27_quet_box_13102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "backtrader da tai san"
+  },
+  "gh_orb_mt5": {
+   "ten": "gh_orb_mt5",
+   "url": "https://api.github.com/repos/anas1412/orb-mt5",
+   "loai": "code",
+   "cach": "api",
+   "khai_bao_tai": [
+    "vong27_quet_box_13102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "pha_vo"
+   ],
+   "tai_san": [
+    "chi_so"
+   ],
+   "khung": [
+    "nho_M5_H1"
+   ],
+   "quan_tri": [
+    "sltp_co_dinh"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "Opening Range Breakout MQL5, MIT"
+  },
+  "gh_gold_pro_scalper": {
+   "ten": "gh_gold_pro_scalper",
+   "url": "https://api.github.com/repos/n30dyn4m1c/gold-pro-scalper",
+   "loai": "code",
+   "cach": "api",
+   "khai_bao_tai": [
+    "vong27_quet_box_13102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "luot_song"
+   ],
+   "tai_san": [
+    "vang"
+   ],
+   "khung": [
+    "nho_M5_H1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "MQL5 XAUUSD, MIT; nghi ngo phi"
+  },
+  "gh_mt5_grid_precision": {
+   "ten": "gh_mt5_grid_precision",
+   "url": "https://api.github.com/repos/Storage1n1/mt5-grid-precision-engine",
+   "loai": "code",
+   "cach": "api",
+   "khai_bao_tai": [
+    "vong27_quet_box_13102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "luoi_dca"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nho_M5_H1"
+   ],
+   "quan_tri": [
+    "luoi"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "luoi MT5, MIT; phai mo phong stop-out"
+  },
+  "gh_gp_fx_strategy": {
+   "ten": "gh_gp_fx_strategy",
+   "url": "https://api.github.com/repos/Anwar-Projects/gp-fx-strategy",
+   "loai": "code",
+   "cach": "api",
+   "khai_bao_tai": [
+    "vong27_quet_box_13102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "hoc_may"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "genetic programming FX"
+  },
+  "gh_fxmacrodata_examples": {
+   "ten": "gh_fxmacrodata_examples",
+   "url": "https://api.github.com/repos/fxmacrodata/examples",
+   "loai": "code",
+   "cach": "api",
+   "khai_bao_tai": [
+    "vong27_quet_box_13102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "vi_mo_carry"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "vi mo FX, MIT"
+  },
+  "gh_search_pine_forex": {
+   "ten": "gh_search_pine_forex",
+   "url": "https://api.github.com/search/repositories?q=pine+script+strategy+forex&sort=updated&per_page=30",
+   "loai": "code",
+   "cach": "api",
+   "khai_bao_tai": [
+    "vong27_quet_box_13102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "tim dinh ky"
+  },
+  "gh_search_backtrader_fx": {
+   "ten": "gh_search_backtrader_fx",
+   "url": "https://api.github.com/search/repositories?q=backtrader+forex&sort=updated&per_page=30",
+   "loai": "code",
+   "cach": "api",
+   "khai_bao_tai": [
+    "vong27_quet_box_13102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "tim dinh ky"
+  },
+  "gh_search_mql5_meanrev": {
+   "ten": "gh_search_mql5_meanrev",
+   "url": "https://api.github.com/search/repositories?q=mql5+mean+reversion&sort=updated&per_page=30",
+   "loai": "code",
+   "cach": "api",
+   "khai_bao_tai": [
+    "vong27_quet_box_13102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "hoi_quy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "tim dinh ky"
+  },
+  "gh_search_mql5_breakout": {
+   "ten": "gh_search_mql5_breakout",
+   "url": "https://api.github.com/search/repositories?q=mql5+breakout+EA&sort=updated&per_page=30",
+   "loai": "code",
+   "cach": "api",
+   "khai_bao_tai": [
+    "vong27_quet_box_13102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "pha_vo"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "tim dinh ky"
+  },
+  "mql5_code_mt4_experts": {
+   "ten": "mql5_code_mt4_experts",
+   "url": "https://www.mql5.com/en/code/mt4/experts",
+   "loai": "code",
+   "cach": "http",
+   "khai_bao_tai": [
+    "vong27_quet_box_13102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "box 200; MQL4 -> bo doc mql4"
+  },
+  "mql5_code_mt5_indicators": {
+   "ten": "mql5_code_mt5_indicators",
+   "url": "https://www.mql5.com/en/code/mt5/indicators",
+   "loai": "code",
+   "cach": "http",
+   "khai_bao_tai": [
+    "vong27_quet_box_13102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "box 200; chi bao -> nguyen lieu ghep"
+  },
+  "mql5_articles_mt5_trading_systems": {
+   "ten": "mql5_articles_mt5_trading_systems",
+   "url": "https://www.mql5.com/en/articles/mt5/trading_systems",
+   "loai": "bai_viet",
+   "cach": "http",
+   "khai_bao_tai": [
+    "vong27_quet_box_13102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "box 200"
+  },
+  "arxiv_fx_trading_strategy": {
+   "ten": "arxiv_fx_trading_strategy",
+   "url": "https://export.arxiv.org/api/query?search_query=abs:%22foreign%20exchange%22+AND+abs:%22trading%20strategy%22&max_results=50&sortBy=submittedDate",
+   "loai": "bai_bao",
+   "cach": "api",
+   "khai_bao_tai": [
+    "vong27_quet_box_13102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "box 200; dung export.arxiv.org https, timeout 20s"
+  },
+  "arxiv_index_anomaly": {
+   "ten": "arxiv_index_anomaly",
+   "url": "https://export.arxiv.org/api/query?search_query=abs:%22stock%20index%22+AND+abs:anomaly&max_results=50&sortBy=submittedDate",
+   "loai": "bai_bao",
+   "cach": "api",
+   "khai_bao_tai": [
+    "vong27_quet_box_13102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "mua_vu"
+   ],
+   "tai_san": [
+    "chi_so"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "box 200"
+  },
+  "arxiv_intraday_seasonality": {
+   "ten": "arxiv_intraday_seasonality",
+   "url": "https://export.arxiv.org/api/query?search_query=abs:intraday+AND+abs:seasonality+AND+abs:returns&max_results=50",
+   "loai": "bai_bao",
+   "cach": "api",
+   "khai_bao_tai": [
+    "vong27_quet_box_13102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "mua_vu"
+   ],
+   "tai_san": [
+    "da_tai_san"
+   ],
+   "khung": [
+    "nho_M5_H1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "box 200"
+  },
+  "openalex_currency_momentum": {
+   "ten": "openalex_currency_momentum",
+   "url": "https://api.openalex.org/works?search=currency+momentum+carry&per-page=25",
+   "loai": "bai_bao",
+   "cach": "api",
+   "khai_bao_tai": [
+    "vong27_quet_box_13102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "vi_mo_carry"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "dai_D1_W1"
+   ],
+   "quan_tri": [
+    "danh_muc"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "box 200"
+  },
+  "openalex_fx_mean_reversion": {
+   "ten": "openalex_fx_mean_reversion",
+   "url": "https://api.openalex.org/works?search=exchange+rate+mean+reversion+intraday&per-page=25",
+   "loai": "bai_bao",
+   "cach": "api",
+   "khai_bao_tai": [
+    "vong27_quet_box_13102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "hoi_quy"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nho_M5_H1"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "box 200"
+  },
+  "ssrn_fx_anomaly": {
+   "ten": "ssrn_fx_anomaly",
+   "url": "https://papers.ssrn.com/sol3/results.cfm",
+   "loai": "bai_bao",
+   "cach": "trinh_duyet",
+   "khai_bao_tai": [
+    "vong27_quet_box_13102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx",
+    "chi_so"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "box HTTP 403 13/10 -> HANG_CHO_MAY_NHA, khong vuot"
   }
  }
 }

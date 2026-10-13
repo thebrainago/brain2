@@ -24,3 +24,48 @@ Trạng thái máy: `vong_lap_state.json` (con trỏ hàng) + `vong_lap_log.json
 
 ## Một chu kỳ
 `git pull` → đọc con trỏ → làm việc → `pytest` các test liên quan → cập nhật GHI_CHU + KINH_NGHIEM → commit/push nếu xanh → tăng con trỏ.
+
+## Hàng việc nghiên cứu xếp hạng (thêm 13/10/2026, vòng 27) — lấy theo thứ tự P1 → P3, mỗi chu kỳ ≥ 1 việc
+Nhãn: [phong cách | tài sản | khung | quản trị]. Mọi ô phải tiền đăng ký, cộng Holm dồn, ghép chéo ≥ 2 phong cách khi có thể.
+Ngân sách Holm: mỗi việc ≤ 12 ô (bài học 10). Kết quả = MÔ PHỎNG cho tới khi MT5 máy nhà xác nhận.
+
+### P1 — near-miss & ghép chéo (giá trị cao nhất)
+1. **MRZ AUDUSD 02h — xác nhận ngoài mẫu đa cặp gộp**: chạy đúng cấu hình đăng ký (z50 ±2, TR2) trên pool AUDUSD+NZDUSD+AUDCAD+GBPUSD gộp n, 1 ô duy nhất, không sửa tham số. [hồi quy | FX pool | D1 vào 02h | TR2 cố định] (KN 3,4,10)
+2. **MRZ × lọc chế độ ADX/biến động thấp**: chỉ vào khi ADX14 < 20 hoặc ATR% dưới trung vị 1 năm. [hồi quy × chế độ | AUDUSD,GBPUSD | D1 02h | TR2] (KN 4)
+3. **D1 RSI/MRZ trailing — chuẩn hoá thoát**: so TR2 vs trailing ATR×{1,5;2,5} vs thoát theo thời gian 5 nến; 6 ô. [hồi quy | GBPUSD,AUDUSD | D1 02h | trailing/thời gian]
+4. **MRZ × xu hướng W1 (ghép)**: chỉ mua hồi khi W1 trên EMA20 (và ngược lại). [hồi quy × xu hướng | FX pool | D1+W1 | TR2]
+5. **M5 hồi quy cạnh thô 0,5–1,6 bps → nâng khung**: cùng tín hiệu tổng hợp lên M30/H1 để cạnh thô > 3× spread (KN 2); chỉ qua tầng 1 mới sang phí. [hồi quy | EURUSD,GBPUSD,USDJPY | M30/H1 | thoát thời gian]
+6. **M5 hồi quy chỉ giờ spread rẻ**: giới hạn 08–16h London, bỏ rollover 23–01h; so cạnh thô theo giờ với spread đo theo giờ. [hồi quy × giờ | EURUSD | M5 | SL/TP ATR]
+7. **Stress bắt buộc cho mọi near-miss**: spread ×1,5 + trượt 1 bps + swap 2,5 %/năm trên các ô 1–4 (không tính thêm ô Holm, là kiểm áp lực). [mọi | FX | D1 | —] (KN 11)
+8. **Động lượng chéo tiền tệ (cross-sectional) × MRZ**: xếp hạng 12 cặp theo lợi suất 3 tháng, chỉ MRZ theo hướng động lượng. [động lượng × hồi quy | 12 cặp FX | D1/W1 | danh mục cân rủi ro]
+
+### P2 — họ phong cách chưa thử
+9. **Mùa vụ chỉ số (cuối tháng / trước nghỉ lễ)**: turn-of-month 4 ngày trên US500/GER40 Yahoo D1. [mùa vụ | chỉ số | D1 | giữ cố định N ngày]
+10. **Carry × xu hướng**: carry dương + giá trên SMA100; dữ liệu lãi suất FRED. [vĩ mô carry × xu hướng | FX G10 | D1/W1 | danh mục]
+11. **Phá vỡ phiên Á → London (ORB)**: biên phiên 00–07h server, vào phá vỡ 08–10h, SL đối biên. [phá vỡ × giờ | GBPUSD,EURUSD,GER40 | M5/H1 | SL biên, TP 1,5R] (nguồn gh_orb_mt5)
+12. **Hồi quy cặp/chênh (AUDCAD, EURGBP) z-score H4**: [hồi quy cặp | AUDCAD,EURGBP | H4 | thoát z=0]
+13. **Biến động co giãn (NR7/inside bar) × xu hướng D1**: [phá vỡ × xu hướng | FX pool, vàng | D1 | trailing ATR]
+14. **Vàng/chỉ số khoảng trống đầu tuần**: gap thứ Hai lấp trong tuần. [hồi quy gap | XAUUSD, US500 | H1 | thời gian]
+15. **Quản trị lệnh như biến độc lập**: trên 1 tín hiệu chuẩn (MRZ), so cố định-lot vs vol-target vs pyramid 2 bước; 3 ô. [quản trị | AUDUSD | D1 | sizing]
+
+### P2 — bộ đọc EA (Seeker), đo trước/sau trên toàn kho đã tải
+16. **Biến hướng cục bộ**: theo luồng `int dir = CheckX(); if(dir==1) Buy` → gán điều kiện của hàm vào luật; test đơn vị mới trong `test_huong_int_mql.py`.
+17. **Lệnh trong vòng for/while**: nhận diện `for(...) { if(cond) OrderSend/trade.Buy }` (thường lặp symbol/vị trí) → bóc điều kiện ngoài vòng.
+18. **Chuỗi trạng thái**: `state=="BUY_SETUP"` / enum trạng thái → máy trạng thái 2 bước (setup → trigger).
+19. **Lọc công cụ trước dịch**: phân loại guard/panel/calculator ra khỏi mẫu số, báo tỷ lệ dịch trên "EA có điều kiện vào" (KN 8).
+
+### P3 — dữ liệu (nguồn miễn phí không bị chặn)
+20. **HistData M1 → H1/H4** cho AUDCAD, EURGBP, NZDUSD, XAUUSD (thư viện `histdata`), ghi NGUON_DU_LIEU.md.
+21. **FRED lãi suất chính sách G10 + chỉ số USD** cho việc 10 (API công khai, không khoá khi dùng CSV `fredgraph.csv`).
+22. **Yahoo D1 chỉ số** (^GSPC, ^GDAXI, ^N225) dài 1990→ cho việc 9; đối chiếu với giá XM khi máy nhà xuất.
+23. **Dukascopy spread theo giờ** cho các cặp pool (thử lại khi hết 503) để thay spread ước lượng.
+
+### P3 — tốc độ
+24. **Đệm chỉ báo dùng chung** (z-score/ATR/RSI tính 1 lần mỗi chuỗi, cache theo băm dữ liệu) — đo cProfile trước/sau.
+25. **Song song theo ô** (ProcessPool, 1 tiến trình/ô) cho vòng thử; đo thời gian/ô.
+26. **Parquet thay CSV** cho chuỗi M5/M1 (đọc nhanh hơn, ngoài repo).
+27. **Seeker tải song song có giới hạn** (≤ 4 kết nối/miền, tôn trọng 429/robots) cho nguồn mới ở `config/nguon_seeker.json` (khai_bao_tai = vong27_quet_box_13102026).
+
+### P3 — Seeker nguồn mới (thêm 13/10, 24 nguồn đọc được + SSRN bị chặn)
+28. Tải và bóc luật từ 11 repo GitHub mới (Pine/backtrader/MQL5, giấy phép MIT/Apache; chỉ lưu tóm tắt + URL) → đưa luật dịch được vào việc 3 của hàng xoay vòng.
+29. Đọc arXiv/OpenAlex mới (FX anomaly, intraday seasonality, carry/momentum) → trích giả thuyết có thể kiểm, tiền đăng ký.
