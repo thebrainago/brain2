@@ -24,8 +24,15 @@ Terminal portable o D:\mt5_tester\p1,p2 va E:\mt5_tester\p3,p4 (khong o C:), uu 
 
 Ghi chu:
 - "25% real ticks": XM chi co tick that tu ~2024-01; 2016-2023 la tick sinh tu M1. 2004-2015: 0% real ticks (tick sinh tu M1).
-- **Nghi van**: voi InpGioVao=2, AUDUSD#/NZDUSD#/AUDCAD# deal dau 2018-04-24 (g0 AUDUSD bat dau 2016-01-08) -> g2 bo lo 2016-2018 tren cac ma nay
-  (lich su M1 thieu gio 02h? hoac ChuaToiGio() chan). So g0 vs g2 AUDUSD vi vay KHONG cung giai doan. GBPUSD# hai ban cung bat dau 2016-01-04 -> so sanh hop le.
+- **Da soi (#24)**: XM AUDUSD#/NZDUSD# KHONG co M1 truoc ~2018-05 (moi ngay chi 1 nen 00:00) -> tester chi co tick luc 00h -> InpGioVao=2 khong vao duoc lenh
+  truoc 2018-05. Vi vay so g0 vs g2 AUD/NZD phai tu 2018-05-01 (bang duoi). GBPUSD# co M1 day du -> so 2016 hop le.
+
+| cung giai doan 2018-05-01 -> 2026-10-01 | net USD | lenh | PF | DD equity |
+|---|---|---|---|---|
+| AUDUSD# g0 (00h) | +140.43 | 101 | 1.34 | 98.12 (0.98%) |
+| AUDUSD# g2 (02h) | +258.65 | 77 | 1.74 | 101.39 (1.01%) |
+| NZDUSD# g0 | -46.16 | 95 | 0.89 | 150.46 (1.50%) |
+| NZDUSD# g2 | -62.99 | 83 | 0.85 | 125.34 (1.25%) |
 - Stress spread x1,5 (#10) CHUA chay: tester real-ticks khong co he so spread; can custom symbol.
 - `spread_gio/*.csv`: spread theo gio server (point), tick XM 04-10/2026 (6 thang); `_tom_tat.csv` 00h vs trung vi ca ngay.
 - `gia_xm/*`: gia D1/H1 XM (US500Cash#, GER40Cash#, GOLD.i#) tu 2010/2011 (H1 nen gzip).

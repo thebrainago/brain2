@@ -40,6 +40,6 @@ Tổng ≈ 7h30′. Nguồn cần đăng nhập (myfxbook, darwinex, collective2
 |---|---|---|
 | 22 | Chủ dự án mở/đăng nhập lại hồ sơ Chrome AI (.browser_thebrain, CDP 9224, thebrainago) trên máy nhà — hiện KHÔNG có; cần cho Seeker đọc nguồn đăng nhập + follow (đã cho phép follow, chỉ follow) | CHỜ CHỦ DỰ ÁN |
 | 23 | Quét lại nguồn đã follow mỗi ca máy nhà (1 lần/ngày), ghi mục mới vào đây | CHỜ (#22) |
-| 24 | Soi vì sao InpGioVao=2 trên AUDUSD#/NZDUSD#/AUDCAD# không vào lệnh trước 2018-04-24 (log tester) rồi chạy lại so g0/g2 | CHỜ |
+| 24 | Soi vì sao InpGioVao=2 trên AUDUSD#/NZDUSD#/AUDCAD# không vào lệnh trước 2018-04-24 (log tester) rồi chạy lại so g0/g2 | XONG 13/10 (XM AUD/NZD# không có M1 trước 2018-05; so lại 2018-05→: reports/mt5_v27/README.md) |
 | 25 | Stress spread ×1,5 bằng custom symbol (việc #10) | CHỜ |
 | 26 | RAM disk (ImDisk/AIM) — cần chủ dự án đồng ý cài phần mềm ngoài Python | CHỜ CHỦ DỰ ÁN |
