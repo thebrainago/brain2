@@ -2076,3 +2076,6 @@ Do that (cung bo doc, cung kho; `cau_kho --khong-tai`, BRAIN_DIEU_TOC=tat):
 - 13/10 21:15 chủ dự án cho chạy suốt đêm tới 07:00 rồi giao ca 7h37; ca 7h37 chạy `chay_lien_tuc.py --den 14:25` khi hết việc bảng.
 - Kết quả tới 21:00: Python 38.736 lần thử (748 đạt IS+OOS, Holm 0); MT5 ~270 lần (Holm 0). Chưa có ứng viên qua Holm.
 - Chưa làm: H1/H4 trên Python box (box chỉ có dữ liệu 2024-2026), stress spread custom symbol, RAM disk (cần cài phần mềm), follow nguồn (cần hồ sơ đăng nhập).
+
+## 13/10/2026 — tài liệu vận hành máy nhà + box
+- Thêm `tai_lieu/KINH_NGHIEM_VAN_HANH.md`: kinh nghiệm vận hành (DESKTOP-05PNLGF, ổ D/E/RAM không phình C:, Task TheBrain* Disabled, accounts.dat + fail-fast <90s, điều phối MAX/CAO/VUA/THẤP, XM demo Standard `#`, spread 00h vs 02h, thiếu M1 AUD/NZD trước 2018-05, GOLD agent treo, hàng không cạn `sinh_viec`/`chay_lien_tuc`, ca 7h30–15h, Chrome thebrainago CDP 9224, Seeker đọc+follow, box Cloudflare → máy nhà, PowerShell dùng file script, chỉ giết process của mình). Không mật khẩu trong tệp.

@@ -2,6 +2,8 @@
 Chạy trên BOX (không phải máy nhà). Mỗi chu kỳ lấy MỘT việc ở đầu hàng, làm xong → đẩy xuống cuối hàng (xoay vòng 5 việc).
 Trạng thái máy: `vong_lap_state.json` (con trỏ hàng) + `reports/vong_lap_nhat_ky.json` (nhật ký từng chu kỳ; `vong_lap_log.json` ở gốc là dữ liệu cũ không liên quan, giữ nguyên).
 
+Vận hành máy nhà + box (ổ đĩa, slot MT5, điều phối, lịch ca, trình duyệt, Cloudflare): `tai_lieu/KINH_NGHIEM_VAN_HANH.md`.
+
 ## Luật cứng (mọi việc)
 - Chỉ số ĐO ĐƯỢC; mô phỏng ghi "mô phỏng"; không đo được ghi "CHƯA ĐO ĐƯỢC".
 - QUA = lãi sau phí XM thật (`phi_xm_that.py`, spread đo theo giờ khi có) VÀ maxDD < 80 %, dương cả hai nửa
@@ -26,7 +28,7 @@ Khi hàng việc P1–P3 trống hoặc đang chờ máy nhà: box chạy `pytho
 5. **Hàng chờ máy nhà** — cập nhật `tai_lieu/HANG_CHO_MAY_NHA.md` (việc chỉ máy nhà làm được: MT5 tester, nguồn bị chặn trên box).
 
 ## Một chu kỳ
-`git pull` → đọc con trỏ → làm việc → `pytest` các test liên quan → cập nhật GHI_CHU + KINH_NGHIEM → commit/push nếu xanh → tăng con trỏ.
+`git pull` → đọc con trỏ → làm việc → `pytest` các test liên quan → cập nhật GHI_CHU + KINH_NGHIEM (+ `tai_lieu/KINH_NGHIEM_VAN_HANH.md` nếu có bài học vận hành) → commit/push nếu xanh → tăng con trỏ.
 
 ## Hàng việc nghiên cứu xếp hạng (thêm 13/10/2026, vòng 27) — lấy theo thứ tự P1 → P3, mỗi chu kỳ ≥ 1 việc
 Nhãn: [phong cách | tài sản | khung | quản trị]. Mọi ô phải tiền đăng ký, cộng Holm dồn, ghép chéo ≥ 2 phong cách khi có thể.
