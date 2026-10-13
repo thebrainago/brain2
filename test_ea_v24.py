@@ -34,3 +34,13 @@ def test_ea_khop_python():
             for p, m in zip(P, M):
                 r_ea = (m[4] - m[2]) / m[2] * m[1]
                 assert d.index[m[0]] == p[0] and m[1] == p[2] and abs(r_ea - p[1]) < 1e-12 and m[3] - m[0] + 1 == p[3]
+
+
+def test_mrz_gio_vao_mac_dinh_02h():
+    mq = open("ea_demo/BRAIN_V24_MRZ_Trail_D1.mq5", encoding="utf-8").read()
+    ch = open("ea_demo/BRAIN_V24_Chung.mqh", encoding="utf-8").read()
+    assert "#define GIO_VAO_MAC_DINH 2" in mq and mq.index("GIO_VAO_MAC_DINH 2") < mq.index("#include")
+    assert "input int    InpGioVao        = GIO_VAO_MAC_DINH;" in ch and "#ifndef GIO_VAO_MAC_DINH" in ch
+    assert "GIO_VAO_MAC_DINH" not in open("ea_demo/BRAIN_V24_RSI_Trail_D1.mq5", encoding="utf-8").read()  # RSI giu 0h nhu cu
+    assert "if(ChuaToiGio()) { g_cho_tin = tin;" in ch and "if(ChuaToiGio()) return;" in ch
+    assert "InpGioVao=2" in open("ea_demo/BRAIN_V24_MRZ_Trail_D1.set", encoding="utf-8").read()

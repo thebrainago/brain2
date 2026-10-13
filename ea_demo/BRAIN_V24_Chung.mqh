@@ -5,6 +5,7 @@
 //|  - SL ban dau = gia vao -/+ 1,5*ATR14(nen tin hieu)                |
 //|  - Sau moi nen dong: best = max/min(best, close); SL = best -/+ 2*ATR14(nen do), chi keo theo huong co loi |
 //|  - Giu toi da 72 nen: dong o open nen thu 73, nen do KHONG xet vao moi |
+//|  - InpGioVao: lenh vao duoc hoan toi gio server nay (cung nen D1)  |
 //|  - Mot vi the moi chart; MO PHONG -> chi backtest/demo.            |
 //+------------------------------------------------------------------+
 #include <Trade/Trade.mqh>
@@ -18,6 +19,12 @@ input int    InpSoNen         = 1500;   // so nen D1 de tinh chi bao (EWM hoi tu
 input long   InpMagic         = 2026102401;
 input string InpFileLog       = "brain2_v24_log.csv";
 input bool   InpLogChung      = true;   // ghi vao thu muc Common\Files (de lay log ca khi chay Tester)
+#ifndef GIO_VAO_MAC_DINH
+#define GIO_VAO_MAC_DINH 0
+#endif
+// 13/10/2026: spread XM luc 00h server gap 3-5 lan (GBPUSD ~5,2 pip, AUDUSD ~3,5 pip; tu 02h ~1 pip) -> cho toi gio nay moi vao lenh moi.
+// Tin hieu van tinh tu nen D1 vua dong (khong nhin truoc). 0 = vao ngay tick dau nen (hanh vi v24 cu).
+input int    InpGioVao        = GIO_VAO_MAC_DINH; // gio server (0-23) bat dau duoc vao lenh moi
 
 // hang so CO DINH (khong toi uu) - khop Python
 #define ATR_N      14
@@ -147,7 +154,15 @@ void OnTick()
    GlobalVariableDel(g_gv_best);
    if(tin == 0) return;
    double kc = SL_ATR * atr1;
+   if(ChuaToiGio()) { g_cho_tin = tin; g_cho_kc = kc; return; }   // cho toi InpGioVao (ThuLaiLenhCho)
    if(!VaoLenh(tin, kc) && DongCua()) { g_cho_tin = tin; g_cho_kc = kc; }
+}
+
+bool ChuaToiGio()
+{
+   if(InpGioVao <= 0) return false;
+   MqlDateTime dt; TimeToStruct(TimeCurrent(), dt);
+   return dt.hour < MathMin(InpGioVao, 23);
 }
 
 bool DongCua() { uint rc = trade.ResultRetcode(); return rc == TRADE_RETCODE_MARKET_CLOSED || rc == TRADE_RETCODE_TRADE_DISABLED; }
@@ -164,6 +179,7 @@ void ThuLaiLenhCho()
 {
    if(g_cho_dong != 0) { if(!PositionSelectByTicket(g_cho_dong) || trade.PositionClose(g_cho_dong)) g_cho_dong = 0; return; }  // nen nay khong vao moi
    if(g_cho_tin == 0) return;
+   if(ChuaToiGio()) return;
    ulong tk; long loai; double sl; datetime tv;
    if(ViThe(tk, loai, sl, tv)) { g_cho_tin = 0; return; }
    if(VaoLenh(g_cho_tin, g_cho_kc) || !DongCua()) g_cho_tin = 0;
