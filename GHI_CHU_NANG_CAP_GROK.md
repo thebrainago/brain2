@@ -2089,3 +2089,12 @@ Do that (cung bo doc, cung kho; `cau_kho --khong-tai`, BRAIN_DIEU_TOC=tat):
 - Chưa làm: Parquet cho M5/M1 (P3-26), Seeker tải song song (P3-27). Bộ test đầy đủ có 2 lỗi chưa xác định tên (chạy >11 phút, bị cắt) — test liên quan (sinh_viec, v28, luoi_box) xanh 17/17.
 - Con trỏ → 4 (hang_cho_may_nha).
 
+## 14/10/2026 02h41 — vòng lặp box chu kỳ 6: hàng chờ máy nhà (hang_cho_may_nha) — TÀI LIỆU, không chạy hệ
+- `git pull` lấy 5fcec69a (máy nhà đẩy sổ cái MT5 `reports/mt5_lien_tuc/so_cai.jsonl`, 630 lần thử D1, 13/10 19:24–23:21 giờ VN). Box không sửa/commit sổ cái.
+- `python mt5tools/sinh_viec.py tong-ket` (BACKTEST MT5 tester XM demo, không phải tiền thật): 379 IS + 251 OOS; 252 đạt IS; **242 ứng viên đạt IS+OOS** (223 kết quả khác nhau); **Holm 0/379** (p nhỏ nhất 0,0158 ≫ 1,3·10⁻⁴). DD equity < 5 %, net sau phí tester > 0, nhưng chưa qua Holm cộng dồn → **0 hệ qua cổng**.
+- So khớp MT5 ↔ Python box (cùng khoá): 589/630 khớp, 553/589 (93,9 %) cùng dấu net, tương quan PF 0,84 → lọc trước bằng box đáng tin ở mức dấu.
+- Nổi bật: MRZ GER40Cash# D1 (27 ứng viên, OOS +607 USD/39 lệnh/PF 1,71), MRZ GBPJPY#, MRZ EURGBP# giữ 5, RSI GBPUSD#/EURJPY#; US500Cash# âm. Phát hiện cần soi: 17 nhóm chỉ khác `InpTrATR` cho net trùng hệt; 1 lần thử 0 lệnh.
+- `tai_lieu/HANG_CHO_MAY_NHA.md`: ghi rõ **ca 7h37 TẠM DỪNG** tới khi chủ dự án bảo resume; cập nhật #22 (hồ sơ Chrome D: XONG), #23/#10/#25; Seeker đổi mã S11–S13 + có dấu; thêm hàng resume #27–#36 (MỚI 8: mẫu ngoài 2004–2015, đa mã tham số cố định, OOS AUDCAD còn thiếu, soi InpTrATR, IBS US500/US100 v29 cần EA thoát mới, ô vòng 28 cần input lọc chế độ/W1, nguồn đọc được; CHỜ 1: stress ×1,5 custom symbol; BỊ CHẶN/BỎ QUA: TradingView, MQL5, SSRN, StackExchange, arabictrader, QuantPedia, cTrader).
+- Không đổi mã → không chạy pytest (chỉ markdown/state). Holm cộng dồn box giữ 13.000 (sổ MT5 379 IS đếm riêng trong sinh_viec).
+- Con trỏ → 0 (nap_du_lieu). Việc tiếp đề xuất cho box trước khi resume: viết EA IBS v29 (thoát close>high hôm trước) + input lọc ADX/W1 cho MRZ (#32/#33) để máy nhà chỉ cần biên dịch.
+

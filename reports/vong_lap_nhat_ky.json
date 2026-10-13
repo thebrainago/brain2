@@ -61,6 +61,36 @@
    "ho_holm": 13000,
    "song": 0,
    "con_tro_tiep": 4
+  },
+  {
+   "chu_ky": 6,
+   "ngay": "2026-10-14",
+   "gio_vn": "02h41",
+   "viec": "hang_cho_may_nha",
+   "doi_tuong": "tai_lieu/HANG_CHO_MAY_NHA.md",
+   "ca_may_nha_7h37": "TAM DUNG (cho chu du an resume)",
+   "so_cai_mt5": {
+    "commit": "5fcec69a",
+    "so_lan_thu": 630,
+    "IS": 379,
+    "OOS": 251,
+    "dat_IS": 252,
+    "ung_vien_IS_OOS": 242,
+    "ket_qua_khac_nhau": 223,
+    "holm_dat": 0,
+    "p_IS_min": 0.015848
+   },
+   "khop_mt5_python": {
+    "khop_khoa": 589,
+    "cung_dau_net": 553,
+    "tuong_quan_pf": 0.84
+   },
+   "hang_moi": 8,
+   "hang_cho": 1,
+   "hang_bi_chan": 1,
+   "ho_holm": 13000,
+   "song": 0,
+   "con_tro_tiep": 0
   }
  ]
 }
