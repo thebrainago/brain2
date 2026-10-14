@@ -1,0 +1,767 @@
+{
+ "nhan": "MO PHONG",
+ "ho_holm_truoc": 13029,
+ "ho_holm": 14453,
+ "o": [
+  {
+   "loai": "moc",
+   "ten": "MP BREAKOUT đệm 0.25 chốt 2.0",
+   "gd1": {
+    "n": 462,
+    "win": 39.8,
+    "pf": 1.139,
+    "tb_bps": 2.16,
+    "maxdd_pct": 7.21,
+    "mfe_bps": 75.6,
+    "t": 1.16,
+    "p": 0.12382201960566627
+   },
+   "gd2": {
+    "n": 681,
+    "win": 34.2,
+    "pf": 0.928,
+    "tb_bps": -1.28,
+    "maxdd_pct": 17.09,
+    "mfe_bps": 72.3,
+    "t": -0.71,
+    "p": 0.7604085056856114
+   },
+   "gd2_theo_tai_san": {
+    "AUDUSD": -3.34,
+    "DAU": 9.39,
+    "EURUSD": 2.24,
+    "GBPUSD": -1.68,
+    "GER40": -0.39,
+    "NZDUSD": -0.81,
+    "US100": -1.1,
+    "US500": -2.45,
+    "USDCAD": -3.49,
+    "USDCHF": -2.99,
+    "USDJPY": -0.2,
+    "XAUUSD": -7.31
+   },
+   "p_holm": 1.0,
+   "qua_holm": false
+  },
+  {
+   "loai": "moc",
+   "ten": "PQL RETEST đệm 0.25 chốt 1.0",
+   "gd1": {
+    "n": 123,
+    "win": 52.8,
+    "pf": 1.283,
+    "tb_bps": 3.58,
+    "maxdd_pct": 2.41,
+    "mfe_bps": 94.6,
+    "t": 0.98,
+    "p": 0.16472828281723542
+   },
+   "gd2": {
+    "n": 98,
+    "win": 48.0,
+    "pf": 0.815,
+    "tb_bps": -2.19,
+    "maxdd_pct": 3.56,
+    "mfe_bps": 78.8,
+    "t": -0.81,
+    "p": 0.7911005845775587
+   },
+   "gd2_theo_tai_san": {
+    "AUDUSD": null,
+    "DAU": -13.67,
+    "EURUSD": -2.64,
+    "GBPUSD": 1.45,
+    "GER40": -13.63,
+    "NZDUSD": -4.74,
+    "US100": null,
+    "US500": 20.39,
+    "USDCAD": -1.2,
+    "USDCHF": 3.51,
+    "USDJPY": -2.21,
+    "XAUUSD": null
+   },
+   "p_holm": 1.0,
+   "qua_holm": false
+  },
+  {
+   "loai": "moc",
+   "ten": "PQL RETEST đệm 0.25 chốt 2.0",
+   "gd1": {
+    "n": 123,
+    "win": 35.8,
+    "pf": 1.248,
+    "tb_bps": 4.37,
+    "maxdd_pct": 3.61,
+    "mfe_bps": 94.6,
+    "t": 0.8,
+    "p": 0.21383001795310527
+   },
+   "gd2": {
+    "n": 98,
+    "win": 31.6,
+    "pf": 1.04,
+    "tb_bps": 0.58,
+    "maxdd_pct": 4.19,
+    "mfe_bps": 78.8,
+    "t": 0.15,
+    "p": 0.4411455173782989
+   },
+   "gd2_theo_tai_san": {
+    "AUDUSD": null,
+    "DAU": 3.7,
+    "EURUSD": -4.85,
+    "GBPUSD": -1.52,
+    "GER40": -17.04,
+    "NZDUSD": -3.85,
+    "US100": null,
+    "US500": 50.05,
+    "USDCAD": 0.56,
+    "USDCHF": 0.46,
+    "USDJPY": -11.68,
+    "XAUUSD": null
+   },
+   "p_holm": 1.0,
+   "qua_holm": false
+  },
+  {
+   "loai": "moc",
+   "ten": "MP BREAKOUT đệm 0.1 chốt 2.0",
+   "gd1": {
+    "n": 493,
+    "win": 38.3,
+    "pf": 1.086,
+    "tb_bps": 1.36,
+    "maxdd_pct": 6.37,
+    "mfe_bps": 73.2,
+    "t": 0.76,
+    "p": 0.2252372822523197
+   },
+   "gd2": {
+    "n": 715,
+    "win": 34.1,
+    "pf": 0.893,
+    "tb_bps": -1.95,
+    "maxdd_pct": 20.0,
+    "mfe_bps": 71.9,
+    "t": -1.11,
+    "p": 0.8656527156509248
+   },
+   "gd2_theo_tai_san": {
+    "AUDUSD": -2.14,
+    "DAU": 2.32,
+    "EURUSD": 2.98,
+    "GBPUSD": -2.15,
+    "GER40": 1.82,
+    "NZDUSD": -2.45,
+    "US100": -4.31,
+    "US500": -2.73,
+    "USDCAD": -1.6,
+    "USDCHF": -5.25,
+    "USDJPY": -1.7,
+    "XAUUSD": -4.77
+   },
+   "p_holm": 1.0,
+   "qua_holm": false
+  },
+  {
+   "loai": "moc",
+   "ten": "PWL BREAKOUT đệm 0.5 chốt 1.0",
+   "gd1": {
+    "n": 709,
+    "win": 51.6,
+    "pf": 1.07,
+    "tb_bps": 0.85,
+    "maxdd_pct": 14.27,
+    "mfe_bps": 74.0,
+    "t": 0.67,
+    "p": 0.25083596548730686
+   },
+   "gd2": {
+    "n": 634,
+    "win": 46.1,
+    "pf": 0.743,
+    "tb_bps": -4.12,
+    "maxdd_pct": 30.63,
+    "mfe_bps": 72.1,
+    "t": -2.61,
+    "p": 0.9953483298995787
+   },
+   "gd2_theo_tai_san": {
+    "AUDUSD": -4.87,
+    "DAU": -16.01,
+    "EURUSD": -3.11,
+    "GBPUSD": -3.43,
+    "GER40": -2.89,
+    "NZDUSD": 0.35,
+    "US100": -6.14,
+    "US500": -1.94,
+    "USDCAD": -2.84,
+    "USDCHF": -4.6,
+    "USDJPY": -3.54,
+    "XAUUSD": -0.54
+   },
+   "p_holm": 1.0,
+   "qua_holm": false
+  },
+  {
+   "loai": "moc",
+   "ten": "WS2 BREAKOUT đệm 0.1 chốt 2.0",
+   "gd1": {
+    "n": 219,
+    "win": 37.4,
+    "pf": 1.117,
+    "tb_bps": 2.03,
+    "maxdd_pct": 9.73,
+    "mfe_bps": 95.5,
+    "t": 0.65,
+    "p": 0.25880382438062083
+   },
+   "gd2": {
+    "n": 239,
+    "win": 24.7,
+    "pf": 0.455,
+    "tb_bps": -12.69,
+    "maxdd_pct": 31.17,
+    "mfe_bps": 62.4,
+    "t": -4.43,
+    "p": 0.9999929003689301
+   },
+   "gd2_theo_tai_san": {
+    "AUDUSD": -13.59,
+    "DAU": -57.34,
+    "EURUSD": -5.87,
+    "GBPUSD": 0.43,
+    "GER40": -19.0,
+    "NZDUSD": -4.99,
+    "US100": -11.37,
+    "US500": -28.37,
+    "USDCAD": -3.03,
+    "USDCHF": 1.13,
+    "USDJPY": -3.93,
+    "XAUUSD": -9.16
+   },
+   "p_holm": 1.0,
+   "qua_holm": false
+  },
+  {
+   "loai": "moc",
+   "ten": "WS2 BREAKOUT đệm 0.1 chốt 1.0",
+   "gd1": {
+    "n": 219,
+    "win": 56.2,
+    "pf": 1.077,
+    "tb_bps": 0.96,
+    "maxdd_pct": 4.27,
+    "mfe_bps": 95.5,
+    "t": 0.46,
+    "p": 0.3227555683644001
+   },
+   "gd2": {
+    "n": 239,
+    "win": 41.8,
+    "pf": 0.518,
+    "tb_bps": -8.73,
+    "maxdd_pct": 21.38,
+    "mfe_bps": 62.4,
+    "t": -3.62,
+    "p": 0.9998200294351942
+   },
+   "gd2_theo_tai_san": {
+    "AUDUSD": -9.01,
+    "DAU": -45.9,
+    "EURUSD": -7.38,
+    "GBPUSD": -2.19,
+    "GER40": -16.25,
+    "NZDUSD": -4.72,
+    "US100": -10.92,
+    "US500": -13.95,
+    "USDCAD": -2.37,
+    "USDCHF": 1.47,
+    "USDJPY": 2.36,
+    "XAUUSD": 10.17
+   },
+   "p_holm": 1.0,
+   "qua_holm": false
+  },
+  {
+   "loai": "moc",
+   "ten": "MS1 RETEST đệm 0.5 chốt 1.0",
+   "gd1": {
+    "n": 173,
+    "win": 56.1,
+    "pf": 1.097,
+    "tb_bps": 1.27,
+    "maxdd_pct": 3.22,
+    "mfe_bps": 82.7,
+    "t": 0.45,
+    "p": 0.3265020891039012
+   },
+   "gd2": {
+    "n": 135,
+    "win": 40.0,
+    "pf": 0.574,
+    "tb_bps": -7.21,
+    "maxdd_pct": 9.89,
+    "mfe_bps": 72.1,
+    "t": -2.63,
+    "p": 0.9952698111973362
+   },
+   "gd2_theo_tai_san": {
+    "AUDUSD": -9.34,
+    "DAU": -18.59,
+    "EURUSD": -1.08,
+    "GBPUSD": 0.55,
+    "GER40": 4.32,
+    "NZDUSD": -9.55,
+    "US100": -6.8,
+    "US500": -9.56,
+    "USDCAD": -2.84,
+    "USDCHF": -5.22,
+    "USDJPY": -13.68,
+    "XAUUSD": -8.02
+   },
+   "p_holm": 1.0,
+   "qua_holm": false
+  },
+  {
+   "loai": "moc",
+   "ten": "PWH BREAKOUT đệm 0.1 chốt 2.0",
+   "gd1": {
+    "n": 967,
+    "win": 37.1,
+    "pf": 1.029,
+    "tb_bps": 0.41,
+    "maxdd_pct": 13.09,
+    "mfe_bps": 61.1,
+    "t": 0.37,
+    "p": 0.35635213161297097
+   },
+   "gd2": {
+    "n": 895,
+    "win": 32.4,
+    "pf": 0.858,
+    "tb_bps": -2.2,
+    "maxdd_pct": 25.25,
+    "mfe_bps": 64.5,
+    "t": -1.66,
+    "p": 0.9515665183555275
+   },
+   "gd2_theo_tai_san": {
+    "AUDUSD": -4.64,
+    "DAU": -14.27,
+    "EURUSD": -4.96,
+    "GBPUSD": -3.1,
+    "GER40": 4.59,
+    "NZDUSD": -8.29,
+    "US100": 2.34,
+    "US500": -2.76,
+    "USDCAD": -3.63,
+    "USDCHF": -4.5,
+    "USDJPY": -1.83,
+    "XAUUSD": 15.1
+   },
+   "p_holm": 1.0,
+   "qua_holm": false
+  },
+  {
+   "loai": "moc",
+   "ten": "PQH BREAKOUT đệm 0.25 chốt 2.0",
+   "gd1": {
+    "n": 268,
+    "win": 38.1,
+    "pf": 1.039,
+    "tb_bps": 0.55,
+    "maxdd_pct": 6.51,
+    "mfe_bps": 62.5,
+    "t": 0.27,
+    "p": 0.3955603465880805
+   },
+   "gd2": {
+    "n": 274,
+    "win": 32.8,
+    "pf": 0.82,
+    "tb_bps": -3.02,
+    "maxdd_pct": 11.15,
+    "mfe_bps": 62.1,
+    "t": -1.25,
+    "p": 0.8931465110067847
+   },
+   "gd2_theo_tai_san": {
+    "AUDUSD": -6.47,
+    "DAU": 68.99,
+    "EURUSD": -6.42,
+    "GBPUSD": 2.43,
+    "GER40": -9.28,
+    "NZDUSD": -1.71,
+    "US100": -9.92,
+    "US500": 10.83,
+    "USDCAD": -5.91,
+    "USDCHF": -3.96,
+    "USDJPY": 1.22,
+    "XAUUSD": -44.24
+   },
+   "p_holm": 1.0,
+   "qua_holm": false
+  },
+  {
+   "loai": "moc",
+   "ten": "PWH BREAKOUT đệm 0.25 chốt 2.0",
+   "gd1": {
+    "n": 928,
+    "win": 36.5,
+    "pf": 1.013,
+    "tb_bps": 0.19,
+    "maxdd_pct": 16.18,
+    "mfe_bps": 60.5,
+    "t": 0.17,
+    "p": 0.43409595179322663
+   },
+   "gd2": {
+    "n": 858,
+    "win": 32.4,
+    "pf": 0.871,
+    "tb_bps": -1.98,
+    "maxdd_pct": 23.04,
+    "mfe_bps": 65.0,
+    "t": -1.46,
+    "p": 0.9279316850616048
+   },
+   "gd2_theo_tai_san": {
+    "AUDUSD": -6.87,
+    "DAU": -11.91,
+    "EURUSD": -5.13,
+    "GBPUSD": -2.82,
+    "GER40": 4.55,
+    "NZDUSD": -5.72,
+    "US100": 0.45,
+    "US500": -2.17,
+    "USDCAD": -3.62,
+    "USDCHF": -3.3,
+    "USDJPY": -2.07,
+    "XAUUSD": 16.08
+   },
+   "p_holm": 1.0,
+   "qua_holm": false
+  },
+  {
+   "loai": "moc",
+   "ten": "MS1 BREAKOUT đệm 0.1 chốt 1.0",
+   "gd1": {
+    "n": 276,
+    "win": 52.5,
+    "pf": 1.023,
+    "tb_bps": 0.34,
+    "maxdd_pct": 6.1,
+    "mfe_bps": 93.4,
+    "t": 0.15,
+    "p": 0.4422436224933523
+   },
+   "gd2": {
+    "n": 232,
+    "win": 50.9,
+    "pf": 0.779,
+    "tb_bps": -3.32,
+    "maxdd_pct": 11.25,
+    "mfe_bps": 75.3,
+    "t": -1.51,
+    "p": 0.9343328754984124
+   },
+   "gd2_theo_tai_san": {
+    "AUDUSD": -4.06,
+    "DAU": 6.64,
+    "EURUSD": -3.72,
+    "GBPUSD": -0.91,
+    "GER40": 7.68,
+    "NZDUSD": -5.22,
+    "US100": -6.02,
+    "US500": -27.08,
+    "USDCAD": -0.11,
+    "USDCHF": 3.87,
+    "USDJPY": -11.54,
+    "XAUUSD": 6.83
+   },
+   "p_holm": 1.0,
+   "qua_holm": false
+  },
+  {
+   "loai": "moc",
+   "ten": "PQL BREAKOUT đệm 0.25 chốt 2.0",
+   "gd1": {
+    "n": 179,
+    "win": 37.4,
+    "pf": 1.017,
+    "tb_bps": 0.37,
+    "maxdd_pct": 6.73,
+    "mfe_bps": 88.4,
+    "t": 0.08,
+    "p": 0.4677136854525804
+   },
+   "gd2": {
+    "n": 135,
+    "win": 41.5,
+    "pf": 1.171,
+    "tb_bps": 2.79,
+    "maxdd_pct": 4.31,
+    "mfe_bps": 81.8,
+    "t": 0.71,
+    "p": 0.240973372207445
+   },
+   "gd2_theo_tai_san": {
+    "AUDUSD": null,
+    "DAU": -2.04,
+    "EURUSD": 1.04,
+    "GBPUSD": -4.5,
+    "GER40": -23.04,
+    "NZDUSD": 4.08,
+    "US100": 86.69,
+    "US500": 26.99,
+    "USDCAD": -0.99,
+    "USDCHF": -0.87,
+    "USDJPY": -12.48,
+    "XAUUSD": 99.5
+   },
+   "p_holm": 1.0,
+   "qua_holm": false
+  },
+  {
+   "loai": "moc",
+   "ten": "WS2 BREAKOUT đệm 0.25 chốt 1.0",
+   "gd1": {
+    "n": 211,
+    "win": 53.1,
+    "pf": 1.011,
+    "tb_bps": 0.14,
+    "maxdd_pct": 5.7,
+    "mfe_bps": 94.5,
+    "t": 0.06,
+    "p": 0.47458322941550113
+   },
+   "gd2": {
+    "n": 231,
+    "win": 39.0,
+    "pf": 0.446,
+    "tb_bps": -10.38,
+    "maxdd_pct": 25.08,
+    "mfe_bps": 60.4,
+    "t": -4.44,
+    "p": 0.999993005255154
+   },
+   "gd2_theo_tai_san": {
+    "AUDUSD": -14.17,
+    "DAU": -45.0,
+    "EURUSD": -5.03,
+    "GBPUSD": -1.41,
+    "GER40": -14.29,
+    "NZDUSD": -4.42,
+    "US100": -16.04,
+    "US500": -16.61,
+    "USDCAD": -4.11,
+    "USDCHF": -2.94,
+    "USDJPY": 3.15,
+    "XAUUSD": 0.27
+   },
+   "p_holm": 1.0,
+   "qua_holm": false
+  },
+  {
+   "loai": "moc",
+   "ten": "PQL RETEST đệm 0.1 chốt 2.0",
+   "gd1": {
+    "n": 136,
+    "win": 25.0,
+    "pf": 1.013,
+    "tb_bps": 0.21,
+    "maxdd_pct": 4.63,
+    "mfe_bps": 90.8,
+    "t": 0.05,
+    "p": 0.48171075586025097
+   },
+   "gd2": {
+    "n": 115,
+    "win": 28.7,
+    "pf": 1.08,
+    "tb_bps": 0.99,
+    "maxdd_pct": 2.83,
+    "mfe_bps": 79.0,
+    "t": 0.3,
+    "p": 0.3806837431454905
+   },
+   "gd2_theo_tai_san": {
+    "AUDUSD": null,
+    "DAU": 1.72,
+    "EURUSD": -1.41,
+    "GBPUSD": -1.71,
+    "GER40": -10.66,
+    "NZDUSD": -2.94,
+    "US100": null,
+    "US500": 55.99,
+    "USDCAD": -5.27,
+    "USDCHF": -0.34,
+    "USDJPY": -5.17,
+    "XAUUSD": null
+   },
+   "p_holm": 1.0,
+   "qua_holm": false
+  },
+  {
+   "loai": "moc",
+   "ten": "PWL BREAKOUT đệm 0.5 chốt 2.0",
+   "gd1": {
+    "n": 709,
+    "win": 36.4,
+    "pf": 1.004,
+    "tb_bps": 0.06,
+    "maxdd_pct": 14.35,
+    "mfe_bps": 74.0,
+    "t": 0.04,
+    "p": 0.4856353120713936
+   },
+   "gd2": {
+    "n": 634,
+    "win": 31.4,
+    "pf": 0.693,
+    "tb_bps": -6.54,
+    "maxdd_pct": 43.78,
+    "mfe_bps": 72.1,
+    "t": -3.24,
+    "p": 0.9993783151757425
+   },
+   "gd2_theo_tai_san": {
+    "AUDUSD": -5.51,
+    "DAU": -33.41,
+    "EURUSD": -2.33,
+    "GBPUSD": -5.33,
+    "GER40": 0.68,
+    "NZDUSD": -0.16,
+    "US100": -9.41,
+    "US500": 6.64,
+    "USDCAD": -1.41,
+    "USDCHF": -3.93,
+    "USDJPY": -5.22,
+    "XAUUSD": -16.51
+   },
+   "p_holm": 1.0,
+   "qua_holm": false
+  },
+  {
+   "loai": "confluence",
+   "ten": "thuan H1 moc+nen",
+   "gd1": {
+    "n": 30,
+    "win": 16.7,
+    "pf": 2.14,
+    "tb_bps": 12.69,
+    "maxdd_pct": 1.54,
+    "mfe_bps": 43.2,
+    "p": 0.17272082213649564
+   },
+   "gd2": {
+    "n": 26,
+    "win": 7.7,
+    "pf": 0.37,
+    "tb_bps": -13.94,
+    "maxdd_pct": 4.38,
+    "mfe_bps": 32.7,
+    "p": 0.9057610327583031
+   },
+   "p_holm": 1.0,
+   "qua_holm": false
+  },
+  {
+   "loai": "confluence",
+   "ten": "thuan H1 moc+macd",
+   "gd1": {
+    "n": 33,
+    "win": 18.2,
+    "pf": 1.87,
+    "tb_bps": 11.18,
+    "maxdd_pct": 1.33,
+    "mfe_bps": 46.8,
+    "p": 0.16436171271798963
+   },
+   "gd2": {
+    "n": 47,
+    "win": 14.9,
+    "pf": 0.68,
+    "tb_bps": -5.57,
+    "maxdd_pct": 3.52,
+    "mfe_bps": 34.6,
+    "p": 0.7952203659164712
+   },
+   "p_holm": 1.0,
+   "qua_holm": false
+  },
+  {
+   "loai": "confluence",
+   "ten": "nguoc H1 moc+gio",
+   "gd1": {
+    "n": 291,
+    "win": 46.0,
+    "pf": 1.05,
+    "tb_bps": 1.16,
+    "maxdd_pct": 10.7,
+    "mfe_bps": 48.6,
+    "p": 0.38264949481288973
+   },
+   "gd2": {
+    "n": 290,
+    "win": 41.4,
+    "pf": 1.1,
+    "tb_bps": 2.57,
+    "maxdd_pct": 9.16,
+    "mfe_bps": 54.1,
+    "p": 0.28350823791996727
+   },
+   "p_holm": 1.0,
+   "qua_holm": false
+  },
+  {
+   "loai": "confluence",
+   "ten": "nguoc H1 moc+pin",
+   "gd1": {
+    "n": 40,
+    "win": 50.0,
+    "pf": 1.14,
+    "tb_bps": 3.07,
+    "maxdd_pct": 2.4,
+    "mfe_bps": 54.4,
+    "p": 0.3746090080480035
+   },
+   "gd2": {
+    "n": 32,
+    "win": 31.2,
+    "pf": 0.45,
+    "tb_bps": -19.89,
+    "maxdd_pct": 6.65,
+    "mfe_bps": 35.7,
+    "p": 0.9433298681157499
+   },
+   "p_holm": 1.0,
+   "qua_holm": false
+  },
+  {
+   "loai": "confluence",
+   "ten": "nguoc H1 moc",
+   "gd1": {
+    "n": 292,
+    "win": 45.9,
+    "pf": 1.05,
+    "tb_bps": 1.12,
+    "maxdd_pct": 10.7,
+    "mfe_bps": 48.5,
+    "p": 0.3869793843707091
+   },
+   "gd2": {
+    "n": 291,
+    "win": 41.6,
+    "pf": 1.11,
+    "tb_bps": 2.69,
+    "maxdd_pct": 8.64,
+    "mfe_bps": 54.1,
+    "p": 0.27381177398192585
+   },
+   "p_holm": 1.0,
+   "qua_holm": false
+  }
+ ]
+}
