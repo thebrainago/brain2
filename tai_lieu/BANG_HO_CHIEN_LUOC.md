@@ -86,3 +86,123 @@ Nhận xét: luật càng hiếm (R3 ~20 lệnh/holdout) thì bps/lệnh càng c
 5. **IBS<0,2 trong cửa sổ cuối/đầu tháng** (ghép 2 họ duy nhất sống).
 Song song: viết **máy phát hiện 2 đáy** + xác nhận **MACD histogram chuyển dương**, lọc MA200 — để lấp lỗ hổng mục 4.1 (một ô duy nhất mỗi tài sản, không quét lưới).
 Mỗi hệ: tối đa 1 cấu hình cố định × 2–4 tài sản, ghi win rate + bps/lệnh + PF + n, áp lực spread ×1,5 + 1 bps, rồi MT5.
+
+---
+
+# 6. Hai EA chuyên biệt cho sự kiện hiếm (bổ sung 14/10/2026, theo yêu cầu của Anh)
+
+Bối cảnh: Anh từng x2 tài khoản vàng, x9 tài khoản dầu nhờ mua đuổi sóng lớn. Cần 2 EA: (1) bám trend mạnh có nhồi lệnh + trailing rộng; (2) đánh hồi sau cú quét cực mạnh, chốt nhanh.
+Toàn bộ số dưới đây là **MÔ PHỎNG** Python trên giá D1, không phải MT5 hay tiền thật.
+
+## 6.1 Repo đã thử gì gần giống (số đo thật)
+
+**Gần EA (1) – bám trend:**
+- v19b XU_HƯỚNG_DÀI (Donchian55, MA50/200): bộ 1 42 ô, 23,8 % ô lãi nửa kiểm, trung vị kiểm −2,4 %; bộ 2 33 ô, 27,3 %, −2,91 %, p tốt nhất 0,037. Holm 0.
+- v22 XU_HƯỚNG_DÀI: 284 ô, 4 ô lãi cả 2 nửa sau phí. v22 ĐỘNG_LƯỢNG 284 ô, 12 ô.
+- v23 TRENDBREAKER H4: 8/10 chuỗi lãi nửa kiểm, trung vị +2,1 %; D1 p 0,10; PAXG_ST D1 (Supertrend) +6,6 % nửa kiểm, p 0,26 (v24).
+- v18 “bắt cú chạy mạnh” (breakout 24 bar, straddle): 84 ô, 0 sống, trung vị kiểm −18,5 % với TP nhỏ.
+- v17 đòn bẩy US500 + lọc MA200: 2,5 %/năm (1×), DD 40 %.
+- **Nhồi lệnh (pyramid) thuận trend: CHƯA từng thử** trước lần đo này. Repo chỉ có nhồi khi LỖ (lưới/martingale): v18 B5 cháy 3/7 cặp; PMG grid.
+
+**Gần EA (2) – đánh hồi sau cú quét:**
+- v29 R3 Triple RSI, R5 3 ngày giảm, R1 RSI5<30+SMA200, R6 IBS (xem mục 3): IBS US500/US100 là hệ duy nhất qua Holm.
+- v18 B4 “kiệt sức-đảo chiều” FX H1: trung vị kiểm ≈ −0,1…−2,7 %, 0 sống.
+- v11 SPX_3TUAN_GIAM: p_holm 1,0. v21 lệch ≥k·ATR khỏi EMA: tỷ lệ chạm lại EMA20 D1 (k=2) 87 % vs 76 % ngẫu nhiên, nhưng giao dịch 0 qua Holm.
+- MRZ (z50 ±2) D1: gần nhất là AUDUSD (mục 1).
+
+## 6.2 Thiết kế EA (1) — BAM_TREND_MANH
+
+- **Phát hiện trend (cả 4 phải đúng tại nến D1 vừa đóng):**
+  1. Donchian: close > đỉnh 55 nến trước (mua) / < đáy 55 nến (bán).
+  2. ADX14 > 25.
+  3. Độ dốc MA: SMA50 hôm nay > SMA50 10 nến trước (mua), ngược lại cho bán.
+  4. (tuỳ chọn, chưa đo) ATR breakout: biên độ nến tín hiệu ≥ 1,5·ATR14 — để chỉ bắt “sóng lớn”.
+- **Bộ lọc:** spread hiện tại ≤ 2× trung vị; không vào ở 00h server (spread 00h đắt 3–5× — KN 3), vào 02h; tuỳ chọn lọc tuần W1 cùng chiều (EMA20 W1).
+- **Quản lý lệnh:** vào open nến kế; dừng đầu 3·ATR14; **trailing chandelier 3·ATR** từ giá đóng tốt nhất; **nhồi**: thêm 1 đơn vị mỗi khi giá đi thêm +1·ATR(lúc vào) so với đơn vị trước, tối đa 4 đơn vị; mọi đơn vị dùng chung stop trailing; không chốt lời cố định. Rủi ro mỗi đơn vị ≤ 0,5 % vốn để 4 đơn vị không quá 2 %.
+- Tài sản: vàng, dầu, chỉ số, FX (đề xuất ưu tiên dầu theo số đo dưới).
+
+## 6.3 Thiết kế EA (2) — DANH_HOI_SAU_QUET
+
+- **Phát hiện cú quét (một trong các máy, tại nến D1 đóng):**
+  - `atr3`: close − close[3 nến trước] ≤ −3·ATR14 (mua) / ≥ +3·ATR14 (bán).
+  - `z25`: z-score 20 nến ≤ −2,5 / ≥ +2,5.
+  - `dn4`: ≥ 4 nến đóng giảm liên tiếp / tăng liên tiếp.
+  - `gap`: gap mở cửa ≤ −1·ATR / ≥ +1·ATR.
+  - `atr3_ma200`: atr3 nhưng chỉ chiều mua khi close > MA200.
+- **Bộ lọc:** (đề xuất, mục 5) MA200, IBS<0,2, RSI2<10; spread ≤ 2× trung vị.
+- **Quản lý lệnh:** vào open nến kế, **chốt nhanh TP = +0,5·ATR14**, SL = 2·ATR14, giữ tối đa 5 nến (hết hạn đóng ở close). Nếu chạm SL và TP cùng nến: tính SL trước (giả định xấu nhất).
+
+## 6.4 Đo nhanh (MÔ PHỎNG, 14/10/2026)
+
+Dữ liệu: Yahoo D1 2004 → 10/2026 (`/workspace/du_lieu_ngay/v24`, ngoài git), 15 mã có trong bảng phí `phi_xm_that.BANG` (XM **Ultra Low**, hậu tố `#`):
+FX 7 cặp (EURUSD, GBPUSD, USDJPY, USDCHF, AUDUSD, NZDUSD, USDCAD); “vàng” = GC_F + **SI_F (bạc, spread 8,2 bps)**; dầu = CL_F; chỉ số = SPX, NDX, DJI, DAX, FTSE.
+Phí mỗi lệnh khứ hồi = spread trung vị H1 Ultra Low (bps, 0,52–8,19) + 1 bps trượt; swap = 0 (nhóm `#` DISABLED — chưa chắc khi chạy thật); hoa hồng CHƯA ĐO ĐƯỢC.
+Giai đoạn 1 = trước 2015-04-01, giai đoạn 2 = sau. Chưa đếm Holm; đây là đo khám phá, **không phải kết quả qua cổng**.
+Hạn chế: GC_F/CL_F là hợp đồng tương lai liên tục (có bước nhảy khi đáo hạn) — kết quả vàng/dầu có thể lệch; FX Yahoo OHLC đã biết là kém (KN 20). Script: `/workspace/scratch/do_2ea.py` (ngoài repo).
+“Tần suất” = số sự kiện / tài sản / năm. “Lãi TB” = bps/lệnh sau phí (EA 1 có nhồi: cộng bps của mọi đơn vị). “MFE” = mức hồi thuận lợi tối đa trung bình trong ≤ 5 nến (bps), trước phí.
+
+**EA (1) bám trend (Donchian55 + ADX>25 + dốc SMA50, trailing 3 ATR):**
+
+| Lớp | Bản | Lệnh (tần suất/năm) | Win % | Lãi TB bps | PF | GĐ1: win / TB / PF | GĐ2: win / TB / PF |
+|---|---|---|---|---|---|---|---|
+| Dầu | không nhồi | 56 (2,5) | 32,1 | +85,7 | 1,18 | 33,3 / +219 / 1,63 | 31,0 / −38 / 0,94 |
+| Dầu | **nhồi tối đa 4** | 56 (2,5) | 25,0 | **+405,6** | **1,42** | 29,6 / +540 / 1,60 | 20,7 / +280 / 1,28 |
+| Vàng+bạc | không nhồi | 128 (2,9) | 35,2 | −14,2 | 0,95 | 38,8 / +11 / 1,04 | 31,1 / −42 / 0,87 |
+| Vàng+bạc | nhồi | 128 (2,9) | 20,3 | −27,8 | 0,96 | 19,4 / −91 / 0,86 | 21,3 / +41 / 1,07 |
+| Chỉ số | không nhồi | 283 (2,6) | 34,6 | −60,8 | 0,72 | 34,0 / −70 / 0,69 | 35,3 / −51 / 0,76 |
+| Chỉ số | nhồi | 283 (2,6) | 16,6 | −261,9 | 0,54 | 16,7 / −242 / 0,56 | 16,5 / −285 / 0,52 |
+| FX | không nhồi | 307 (2,0) | 37,1 | −12,5 | 0,92 | 42,2 / +51 / 1,32 | 32,0 / −76 / 0,45 |
+| FX | nhồi | 307 (2,0) | 23,1 | +3,3 | 1,01 | 30,5 / +219 / 1,66 | 15,7 / −214 / 0,29 |
+
+→ Chỉ **dầu có nhồi** dương ở cả hai giai đoạn (PF 1,60 / 1,28), nhưng chỉ 56 lệnh (1 mã) — p, Holm: CHƯA ĐO ĐƯỢC. Nhồi khuếch đại: tốt ở dầu, rất xấu ở chỉ số (chỉ số tăng chậm, hay giật ngược). FX: trend tốt GĐ1, sập GĐ2. Khớp kinh nghiệm “x9 dầu” của Anh nhưng mẫu quá nhỏ để kết luận.
+
+**EA (2) đánh hồi (TP 0,5 ATR, SL 2 ATR, giữ ≤5 nến):**
+
+| Máy | Lớp | Lệnh (tần suất/năm) | Win % | Lãi TB bps | PF | MFE TB bps | GĐ1: win / TB / PF | GĐ2: win / TB / PF |
+|---|---|---|---|---|---|---|---|---|
+| atr3 | Chỉ số | 327 (3,0) | 73,1 | −5,1 | 0,91 | 133 | 69,7 / −21 / 0,70 | 75,4 / +5,7 / 1,11 |
+| **atr3_ma200** (chỉ mua) | **Chỉ số** | 132 (1,2) | **81,1** | **+9,1** | **1,22** | 120 | 75,9 / −1,2 / 0,97 | 85,1 / +17,2 / 1,46 |
+| atr3 | Dầu | 30 (1,4) | 73,3 | +42,7 | 1,35 | 419 | 64,3 / −19 / 0,86 | 81,2 / +96,5 / 1,85 |
+| atr3 | FX | 164 (1,1) | 72,0 | −4,6 | 0,90 | 95 | 70,6 / −8,3 / 0,83 | 76,3 / +7,7 / 1,23 |
+| atr3 | Vàng+bạc | 362 (8,2) | 61,6 | −58,5 | 0,46 | 130 | 65,5 / −48 / 0,51 | 56,8 / −71 / 0,40 |
+| z25 | Chỉ số | 450 (4,1) | 73,8 | −3,2 | 0,94 | 113 | 68,8 / −14,5 / 0,78 | 77,3 / +4,9 / 1,11 |
+| z25 | **Dầu** | 87 (4,0) | 74,7 | **+38,3** | **1,35** | 328 | 68,4 / +2,7 / 1,03 | 79,6 / +65,9 / 1,54 |
+| z25 | FX | 610 (4,0) | 70,7 | −0,8 | 0,98 | 74 | 66,9 / −7,0 / 0,84 | 73,6 / +4,1 / 1,14 |
+| z25 | Vàng+bạc | 204 (4,6) | 59,3 | −64,9 | 0,43 | 129 | 56,1 / −59 / 0,48 | 61,5 / −69 / 0,39 |
+| dn4 | Chỉ số | 1.752 (15,9) | 72,3 | −0,6 | 0,99 | 105 | 74,1 / +1,2 / 1,02 | 70,6 / −2,3 / 0,95 |
+| dn4 | Dầu | 331 (15,1) | 71,3 | −18,4 | 0,86 | 234 | 72,4 / −7,4 / 0,94 | 70,3 / −28 / 0,81 |
+| dn4 | FX | 2.442 (16,1) | 69,8 | −1,1 | 0,97 | 69 | 72,0 / −1,3 / 0,96 | 68,0 / −0,9 / 0,97 |
+| dn4 | Vàng+bạc | 658 (15,0) | 67,0 | −30,8 | 0,64 | 128 | 65,8 / −38 / 0,58 | 68,1 / −25 / 0,69 |
+| gap | Chỉ số | 360 (3,3) | 70,8 | −6,0 | 0,90 | 123 | 74,7 / +5,4 / 1,09 | 69,4 / −10,2 / 0,84 |
+| gap | Dầu | 22 (1,0) | 68,2 | +74,0 | 1,42 | 443 | 55,6 / −117 / 0,51 | 76,9 / +206 / 2,54 |
+| gap | FX | 2.145 (14,1) | 67,5 | −4,5 | 0,87 | 62 | 67,1 / −6,4 / 0,83 | 67,7 / −3,5 / 0,89 |
+| gap | Vàng+bạc | 662 (15,1) | 66,6 | −29,9 | 0,64 | 137 | 66,0 / −32 / 0,64 | 67,5 / −27 / 0,64 |
+
+→ **Win rate “hồi nhẹ” cao thật (67–85 %)**, nhưng TP 0,5 ATR / SL 2 ATR nên một lệnh thua ăn 4 lệnh thắng; phần lớn ô PF < 1 sau phí. Dương cả 2 giai đoạn chỉ có: **z25 trên dầu** (PF 1,03 / 1,54) — các ô khác GĐ1 âm. Ô gần nhất cho chỉ số: atr3 + MA200 (win 81 %, PF 1,22, GĐ1 hoà vốn). Vàng+bạc âm mọi máy (nghi do bạc spread 8 bps + bước nhảy đáo hạn GC_F → cần đo lại riêng GOLD trên dữ liệu MT5: CHƯA ĐO ĐƯỢC). MFE trung bình (dầu 328–443 bps, chỉ số 105–133 bps) lớn hơn nhiều TP 0,5 ATR → TP có thể nới (chưa đo, phải tiền đăng ký).
+Chưa đo: H1/H4, dữ liệu MT5 XM, p-value/Holm, win rate R3/IBS ghép với 2 EA.
+
+## 6.5 Việc tiếp cho 2 EA (đề xuất, tiền đăng ký trước)
+1. EA (1): dầu + Brent (BZ_F) + nhóm hàng hoá có xu hướng (HG, NG) với cùng cấu hình cố định để tăng n; đo GOLD.i# riêng (không trộn bạc) trên dữ liệu MT5.
+2. EA (2): z25 / atr3 + MA200 + IBS<0,2 trên US500/US100/OILCash; thử TP 1·ATR thay 0,5 (1 ô).
+3. Viết EA MQL5 chỉ sau khi ô Python qua tầng 2 giai đoạn + áp lực ×1,5 spread; chạy tester máy nhà.
+
+# 7. Đề xuất làm The Brain hiệu quả hơn
+
+**Nguồn đã cho kết quả tốt (theo số):**
+- **Luật công bố/học thuật có lâu đời** (lịch S&P: Halloween, đầu-cuối tháng, Santa — vòng 10–16): 2 hệ qua Holm.
+- **X — tài khoản tự chạy lại có phí** (@EmpiricaLab, @QuantifiedStrat, v29): ~380 bài → 8 luật → **2 hệ qua Holm** (IBS US500/US100) + nhiều ô lãi cả 2 nửa. Năng suất cao nhất trên mỗi lệnh gọi.
+- **Hệ đơn giản tự thiết kế D1** (MRZ, RSI trailing): near-miss tốt nhất (MRZ AUDUSD p 0,008; MT5 113/117 lãi IS+OOS).
+
+**Nguồn gần như vô ích (theo số):**
+- **Kho EA GitHub/MQL5 qua bộ đọc**: 3.204 tệp → 85 EA dịch được (3,57 %) → v25 396 ô **0 sống**; v18 29 EA → dịch 0. Phần lớn là công cụ/lưới.
+- **TradingView/fxblue/QuantPedia/SSRN**: 403/Cloudflare từ box → CHƯA ĐO ĐƯỢC; v23 bản dịch theo mô tả 1.175 ô, 0 sống.
+- **Tín hiệu MQL5 Signals** (`signal_ho_so.json`): nhiều là lưới/DCA (win 68–76 % nhưng nhồi khi lỗ).
+- **Quét lưới rộng khung nhỏ (M5–M30)**: phí 35–50 % biên độ nến → âm (v22); Holm cộng dồn đã > 13.000 nên quét rộng chỉ làm khó qua cổng hơn.
+- **Lọc trạng thái (v20), nến/phiên/SMC**: nhóm tệ nhất.
+
+**Đổi hướng đề xuất:**
+1. Dồn ngân sách vào **sự kiện hiếm D1 trên chỉ số Mỹ + dầu** (IBS, z, cú quét) và **trend dầu có nhồi**; mỗi vòng ≤ 10 ô tiền đăng ký.
+2. Nguồn: ưu tiên X tài khoản hạng A + sách/paper kinh điển (Connors RSI2, Turtle) — luật rõ, dịch nhanh; **dừng** đầu tư vào bộ đọc EA kho (năng suất 0 hệ sống).
+3. Gộp đa tài sản cùng cấu hình để tăng n thay vì thêm bộ lọc (KN 18); luôn có giai đoạn 2 + áp lực ×1,5 spread.
+4. Chuyển ứng viên sang **MT5 dữ liệu XM** sớm (IBS US500/US100 chưa có EA) — dữ liệu Yahoo FX/futures có lỗi OHLC/đáo hạn.
+5. Ghi **win rate + MFE** vào mọi json vòng sau (hiện thiếu, nên nhiều ô CHƯA ĐO ĐƯỢC).
