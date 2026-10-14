@@ -18,3 +18,40 @@ def bps_of_xm(ten, luc_mo_nen=True):
     if ten in BANG: return BANG[ten][2 if luc_mo_nen else 1] * 1e-4
     import v24
     return v24.bps_of(ten)
+
+
+# --- Bo sung 14/10/2026: kich ban swap day du + spread theo gio + truot gia (so_sanh_san.py) ---
+TRUOT_X_SPREAD = 0.5  # truot gia = 0,5 x spread moi chieu (gia dinh than trong, CHUA DO tren demo)
+CSV_XM = "reports/phi_xm_micro_that.csv"
+_SPEC = None
+
+
+def spec_xm():
+    """Doc symbol_info that tu CSV: {ma: dict(point, contract, swap_long, swap_short, swap_mode, swap3, gio_med, gio_p90, gia)}."""
+    global _SPEC
+    if _SPEC is None:
+        import csv, json, os
+        p = os.path.join(os.path.dirname(os.path.abspath(__file__)), CSV_XM); _SPEC = {}
+        for r in csv.DictReader(open(p, encoding="utf-8")):
+            _SPEC[r["symbol"]] = {"point": float(r["point"]), "contract": float(r["contract_size"]), "swap_long": float(r["swap_long"]),
+                                  "swap_short": float(r["swap_short"]), "swap_mode": r["swap_mode"], "swap3": r["swap3"],
+                                  "gia": (float(r["bid"]) + float(r["ask"])) / 2,
+                                  "gio_med": {int(k): v for k, v in json.loads(r["H1_spread_pts_med_by_hour"]).items()},
+                                  "gio_p90": {int(k): v for k, v in json.loads(r["H1_spread_pts_p90_by_hour"]).items()}}
+    return _SPEC
+
+
+def spread_gio_bps_xm(ma, gio_server, p90=False):
+    """Spread (bps) theo gio server tu bang H1 by-hour (gia quy doi bang gia luc do 13/10/2026)."""
+    s = spec_xm().get(ma)
+    if s is None: return None
+    return s["gio_p90" if p90 else "gio_med"][gio_server] * s["point"] / s["gia"] * 1e4
+
+
+def swap_dem_ty_le(ma, huong, gia, kich_ban):
+    """Swap mot dem (ty le tren danh nghia, am = mat tien). kich_ban 'nhu_tester': theo swap_mode (DISABLED -> 0);
+    'day_du': FX/vang dung muc swap_long/short trong CSV du DISABLED."""
+    s = spec_xm()[ma]; v = s["swap_long"] if huong > 0 else s["swap_short"]
+    if s["swap_mode"] == "DISABLED" and kich_ban == "nhu_tester": return 0.0
+    if s["swap_mode"] == "MARGIN_CCY": return v / (s["contract"] * s["gia"])  # tien/lot/dem theo gia hien tai -> ty le
+    return v * s["point"] / gia  # POINTS (va DISABLED o kich ban day du)
