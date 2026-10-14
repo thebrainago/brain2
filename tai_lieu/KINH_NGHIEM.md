@@ -46,3 +46,10 @@
 26. **Kết quả đo (box 8 lõi)**: lưới 38.736 lần thử 27 mã D1 XM: 49,7 s → 9,2 s tuần tự (×5,4) → 2,6 s với 8 tiến trình (×19). Đầu ra chi tiết và tổng kết trùng tuyệt đối với bản cũ → không ảnh hưởng sổ Holm. Lưới lớn hơn (H1/H4, nhiều cặp) giờ rẻ: ưu tiên tăng n thay vì thêm lọc (KN 18).
 27. **Bộ test đầy đủ có tác dụng phụ**: chạy cả 227 tệp test (>11 phút) ghi đè `reports/BANG_HE.json`, `reports/EVO_SUC_KHOE.md`, `nhat_ky/kho_co_che_ghi.log` → luôn `git checkout` các tệp đó sau khi chạy, chỉ chạy test liên quan trong chu kỳ.
 
+
+
+## Chuẩn phí (14/10/2026): XM STANDARD có bonus
+- Tài khoản chạy thật: **XM Standard (mã KHÔNG hậu tố, có bonus)**. Từ nay mọi kiểm tra mặc định dùng phí XM Standard: `phi_xm_that.TAI_KHOAN_MAC_DINH = "Standard"`, hàm `spread_gio_bps_tk`, `swap_dem_tk`, hoa hồng 0, trượt giá 0,5×spread mỗi chiều.
+- Swap Standard được tính thật (swap_mode POINTS), khác Ultra Low `#` (FX/vàng DISABLED trong tester) → backtest trên tài khoản `#` lạc quan hơn.
+- Spread chỉ số bản Standard CHƯA ĐO: đang ƯỚC = Ultra Low × tỉ lệ Standard/Ultra Low của FX cùng giờ. Phải đo khi máy nhà bật.
+- Bonus: cỡ lot và maxDD tính theo tiền gửi thật (Balance), không tính Credit; không rút tiền khi đang có lệnh. Chi tiết: `reports/so_sanh_san.md` mục 4.

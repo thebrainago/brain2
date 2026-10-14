@@ -82,6 +82,7 @@ def so_dem(t0, t1, ngay3):
 
 THU = {"Mon": 0, "Tue": 1, "Wed": 2, "Thu": 3, "Fri": 4}
 _EURUSD = None
+UOC = set()
 
 
 def danh_nghia_usd_1lot(ten_f, gia, t):
@@ -97,11 +98,13 @@ def danh_nghia_usd_1lot(ten_f, gia, t):
 def chi_phi(san, kb, he, d, L):
     ten, f, kieu, p, ma_xm, ma_ex, lop = he
     gio_xm = 23 if kieu == "IBS" else 0; gio_ex = [20] if kieu == "IBS" else [21, 22]
-    if san == "XM":
+    if san.startswith("XM"):
+        tk = "UltraLow" if san == "XM_UltraLow" else "Standard"
         if ma_xm is None: return None, "spread/swap XM cho ma nay CHUA DO DUOC (khong co trong phi_xm_micro_that.csv)"
-        sp = X.spread_gio_bps_xm(ma_xm, gio_xm) * 1e-4; hh = 0.0
-        ngay3 = THU[X.spec_xm()[ma_xm]["swap3"]]
-        sw = lambda hu, g: X.swap_dem_ty_le(ma_xm, hu, g, "nhu_tester" if kb == "mien_swap" else "day_du")
+        v, uoc = X.spread_gio_bps_tk(ma_xm, gio_xm, tk); sp = v * 1e-4; hh = 0.0
+        if uoc: UOC.add(f"{ma_xm}->{tk}")
+        ngay3 = THU[X.spec_xm()[X.ho_so_xm(ma_xm, tk)[0]]["swap3"]]
+        sw = lambda hu, g: X.swap_dem_tk(ma_xm, hu, g, "nhu_tester" if kb == "mien_swap" else "day_du", tk)
     else:
         loai = "Standard" if san == "Exness_Standard" else "Raw"
         v = [E.spread_bps(ma_ex, loai, g) for g in gio_ex]
@@ -131,7 +134,7 @@ def thong_ke(R):
 
 
 def main():
-    SAN = ["XM", "Exness_Standard", "Exness_Raw"]; KB = ["mien_swap", "swap_day_du"]; out = []
+    SAN = ["XM_Standard", "XM_UltraLow", "Exness_Standard", "Exness_Raw"]; KB = ["mien_swap", "swap_day_du"]; out = []
     for he in HE:
         d = doc(he[1]); L = lenh(d, he[2], he[3]); mid = d.index[0] + (d.index[-1] - d.index[0]) / 2
         r0 = {"he": he[0], "du_lieu": f"{d.index[0].date()}..{d.index[-1].date()}", "moc_chia": str(mid.date()),
@@ -142,7 +145,7 @@ def main():
                 R, ly_do = chi_phi(s, kb, he, d, L); key = f"{s}|{kb}"
                 r0["ket_qua"][key] = {"ghi_chu": ly_do} if R is None else {"nua1": thong_ke([x for x in R if x[0] < mid]), "nua2": thong_ke([x for x in R if x[0] >= mid])}
         out.append(r0); print(he[0], "xong", flush=True)
-    json.dump(out, open("reports/so_sanh_san.json", "w"), ensure_ascii=False, indent=1, default=str)
+    out.append({"ma_spread_uoc": sorted(UOC)}); json.dump(out, open("reports/so_sanh_san.json", "w"), ensure_ascii=False, indent=1, default=str)
     return out
 
 

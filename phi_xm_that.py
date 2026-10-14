@@ -55,3 +55,34 @@ def swap_dem_ty_le(ma, huong, gia, kich_ban):
     if s["swap_mode"] == "DISABLED" and kich_ban == "nhu_tester": return 0.0
     if s["swap_mode"] == "MARGIN_CCY": return v / (s["contract"] * s["gia"])  # tien/lot/dem theo gia hien tai -> ty le
     return v * s["point"] / gia  # POINTS (va DISABLED o kich ban day du)
+
+
+# --- Bo sung 14/10/2026 (2): XM STANDARD (ma khong hau to, tai khoan co bonus) = MAC DINH tu nay ---
+TAI_KHOAN_MAC_DINH = "Standard"   # "Standard" (khong hau to) | "UltraLow" (hau to #)
+HOA_HONG_STANDARD = 0.0
+_FX_DO = ("EURUSD", "GBPUSD", "USDCAD", "USDCHF", "USDJPY", "AUDUSD", "NZDUSD")
+
+
+def ti_le_std_ul(gio):
+    """Trung vi (qua 7 cap FX da do ca 2 nhom) cua spread Standard/UltraLow tai gio server - dung de UOC ma thieu."""
+    import statistics
+    s = spec_xm(); return statistics.median(s[m]["gio_med"][gio] / s[m + "#"]["gio_med"][gio] for m in _FX_DO)
+
+
+def ho_so_xm(ma_ul, tk=None):
+    """Tra ve (ma_dung, la_uoc). ma_ul la ma Ultra Low co '#'. Standard: bo '#'; neu CSV khong co -> uoc tu ma '#'."""
+    tk = tk or TAI_KHOAN_MAC_DINH
+    if tk == "UltraLow": return ma_ul, False
+    m = ma_ul.rstrip("#"); return (m, False) if m in spec_xm() else (ma_ul, True)
+
+
+def spread_gio_bps_tk(ma_ul, gio, tk=None, p90=False):
+    m, uoc = ho_so_xm(ma_ul, tk); v = spread_gio_bps_xm(m, gio, p90)
+    return (v * ti_le_std_ul(gio) if uoc else v), uoc
+
+
+def swap_dem_tk(ma_ul, huong, gia, kich_ban, tk=None):
+    """Standard: FX swap_mode POINTS (tinh that) nen ca 2 kich ban deu tru swap; ma uoc dung muc swap cua ma '#' (kich ban day du)."""
+    m, uoc = ho_so_xm(ma_ul, tk)
+    if (tk or TAI_KHOAN_MAC_DINH) == "Standard": return swap_dem_ty_le(m, huong, gia, "day_du")
+    return swap_dem_ty_le(m, huong, gia, kich_ban)

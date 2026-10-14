@@ -20,3 +20,12 @@ def test_so_dem_thu_tu_x3():
 def test_thong_ke():
     q = S.thong_ke([(pd.Timestamp("2020-01-01"), 0.01), (pd.Timestamp("2020-01-02"), -0.005)])
     assert q["so_lenh"] == 2 and q["pf"] == 2.0 and q["maxdd_usd"] == 50.0
+
+
+def test_mac_dinh_standard():
+    assert X.TAI_KHOAN_MAC_DINH == "Standard"
+    assert X.ho_so_xm("EURUSD#") == ("EURUSD", False)
+    assert X.ho_so_xm("US500Cash#")[1] is True
+    v, uoc = X.spread_gio_bps_tk("EURUSD#", 10)
+    assert not uoc and v > X.spread_gio_bps_xm("EURUSD#", 10)
+    assert X.swap_dem_tk("EURUSD#", 1, 1.1, "mien_swap") < 0

@@ -22,7 +22,43 @@
    }
   },
   "ket_qua": {
-   "XM|mien_swap": {
+   "XM_Standard|mien_swap": {
+    "nua1": {
+     "so_lenh": 568,
+     "lai_rong_usd": 11861.86,
+     "pf": 1.568,
+     "maxdd_usd": 1383.78,
+     "maxdd_pct_von": 13.84,
+     "tb_bps": 20.88
+    },
+    "nua2": {
+     "so_lenh": 552,
+     "lai_rong_usd": 4727.46,
+     "pf": 1.21,
+     "maxdd_usd": 1408.39,
+     "maxdd_pct_von": 14.08,
+     "tb_bps": 8.56
+    }
+   },
+   "XM_Standard|swap_day_du": {
+    "nua1": {
+     "so_lenh": 568,
+     "lai_rong_usd": 11861.86,
+     "pf": 1.568,
+     "maxdd_usd": 1383.78,
+     "maxdd_pct_von": 13.84,
+     "tb_bps": 20.88
+    },
+    "nua2": {
+     "so_lenh": 552,
+     "lai_rong_usd": 4727.46,
+     "pf": 1.21,
+     "maxdd_usd": 1408.39,
+     "maxdd_pct_von": 14.08,
+     "tb_bps": 8.56
+    }
+   },
+   "XM_UltraLow|mien_swap": {
     "nua1": {
      "so_lenh": 568,
      "lai_rong_usd": 12516.79,
@@ -40,7 +76,7 @@
      "tb_bps": 9.72
     }
    },
-   "XM|swap_day_du": {
+   "XM_UltraLow|swap_day_du": {
     "nua1": {
      "so_lenh": 568,
      "lai_rong_usd": 12516.79,
@@ -155,7 +191,43 @@
    }
   },
   "ket_qua": {
-   "XM|mien_swap": {
+   "XM_Standard|mien_swap": {
+    "nua1": {
+     "so_lenh": 555,
+     "lai_rong_usd": 10688.48,
+     "pf": 1.431,
+     "maxdd_usd": 1883.17,
+     "maxdd_pct_von": 18.83,
+     "tb_bps": 19.26
+    },
+    "nua2": {
+     "so_lenh": 545,
+     "lai_rong_usd": 12624.04,
+     "pf": 1.492,
+     "maxdd_usd": 1595.59,
+     "maxdd_pct_von": 15.96,
+     "tb_bps": 23.16
+    }
+   },
+   "XM_Standard|swap_day_du": {
+    "nua1": {
+     "so_lenh": 555,
+     "lai_rong_usd": 10688.48,
+     "pf": 1.431,
+     "maxdd_usd": 1883.17,
+     "maxdd_pct_von": 18.83,
+     "tb_bps": 19.26
+    },
+    "nua2": {
+     "so_lenh": 545,
+     "lai_rong_usd": 12624.04,
+     "pf": 1.492,
+     "maxdd_usd": 1595.59,
+     "maxdd_pct_von": 15.96,
+     "tb_bps": 23.16
+    }
+   },
+   "XM_UltraLow|mien_swap": {
     "nua1": {
      "so_lenh": 555,
      "lai_rong_usd": 11265.86,
@@ -173,7 +245,7 @@
      "tb_bps": 24.2
     }
    },
-   "XM|swap_day_du": {
+   "XM_UltraLow|swap_day_du": {
     "nua1": {
      "so_lenh": 555,
      "lai_rong_usd": 11265.86,
@@ -288,7 +360,43 @@
    }
   },
   "ket_qua": {
-   "XM|mien_swap": {
+   "XM_Standard|mien_swap": {
+    "nua1": {
+     "so_lenh": 112,
+     "lai_rong_usd": -4152.84,
+     "pf": 0.717,
+     "maxdd_usd": 4832.84,
+     "maxdd_pct_von": 48.33,
+     "tb_bps": -37.08
+    },
+    "nua2": {
+     "so_lenh": 100,
+     "lai_rong_usd": 3090.21,
+     "pf": 1.374,
+     "maxdd_usd": 1450.61,
+     "maxdd_pct_von": 14.51,
+     "tb_bps": 30.9
+    }
+   },
+   "XM_Standard|swap_day_du": {
+    "nua1": {
+     "so_lenh": 112,
+     "lai_rong_usd": -4152.84,
+     "pf": 0.717,
+     "maxdd_usd": 4832.84,
+     "maxdd_pct_von": 48.33,
+     "tb_bps": -37.08
+    },
+    "nua2": {
+     "so_lenh": 100,
+     "lai_rong_usd": 3090.21,
+     "pf": 1.374,
+     "maxdd_usd": 1450.61,
+     "maxdd_pct_von": 14.51,
+     "tb_bps": 30.9
+    }
+   },
+   "XM_UltraLow|mien_swap": {
     "nua1": {
      "so_lenh": 112,
      "lai_rong_usd": -3477.29,
@@ -306,7 +414,7 @@
      "tb_bps": 38.24
     }
    },
-   "XM|swap_day_du": {
+   "XM_UltraLow|swap_day_du": {
     "nua1": {
      "so_lenh": 112,
      "lai_rong_usd": -3863.12,
@@ -421,7 +529,43 @@
    }
   },
   "ket_qua": {
-   "XM|mien_swap": {
+   "XM_Standard|mien_swap": {
+    "nua1": {
+     "so_lenh": 145,
+     "lai_rong_usd": -2462.02,
+     "pf": 0.751,
+     "maxdd_usd": 2671.08,
+     "maxdd_pct_von": 26.71,
+     "tb_bps": -16.98
+    },
+    "nua2": {
+     "so_lenh": 158,
+     "lai_rong_usd": 1143.5,
+     "pf": 1.118,
+     "maxdd_usd": 1243.3,
+     "maxdd_pct_von": 12.43,
+     "tb_bps": 7.24
+    }
+   },
+   "XM_Standard|swap_day_du": {
+    "nua1": {
+     "so_lenh": 145,
+     "lai_rong_usd": -2462.02,
+     "pf": 0.751,
+     "maxdd_usd": 2671.08,
+     "maxdd_pct_von": 26.71,
+     "tb_bps": -16.98
+    },
+    "nua2": {
+     "so_lenh": 158,
+     "lai_rong_usd": 1143.5,
+     "pf": 1.118,
+     "maxdd_usd": 1243.3,
+     "maxdd_pct_von": 12.43,
+     "tb_bps": 7.24
+    }
+   },
+   "XM_UltraLow|mien_swap": {
     "nua1": {
      "so_lenh": 145,
      "lai_rong_usd": -1895.16,
@@ -439,7 +583,7 @@
      "tb_bps": 12.04
     }
    },
-   "XM|swap_day_du": {
+   "XM_UltraLow|swap_day_du": {
     "nua1": {
      "so_lenh": 145,
      "lai_rong_usd": -2220.49,
@@ -554,10 +698,16 @@
    }
   },
   "ket_qua": {
-   "XM|mien_swap": {
+   "XM_Standard|mien_swap": {
     "ghi_chu": "spread/swap XM cho ma nay CHUA DO DUOC (khong co trong phi_xm_micro_that.csv)"
    },
-   "XM|swap_day_du": {
+   "XM_Standard|swap_day_du": {
+    "ghi_chu": "spread/swap XM cho ma nay CHUA DO DUOC (khong co trong phi_xm_micro_that.csv)"
+   },
+   "XM_UltraLow|mien_swap": {
+    "ghi_chu": "spread/swap XM cho ma nay CHUA DO DUOC (khong co trong phi_xm_micro_that.csv)"
+   },
+   "XM_UltraLow|swap_day_du": {
     "ghi_chu": "spread/swap XM cho ma nay CHUA DO DUOC (khong co trong phi_xm_micro_that.csv)"
    },
    "Exness_Standard|mien_swap": {
@@ -627,7 +777,43 @@
    }
   },
   "ket_qua": {
-   "XM|mien_swap": {
+   "XM_Standard|mien_swap": {
+    "nua1": {
+     "so_lenh": 153,
+     "lai_rong_usd": -10059.16,
+     "pf": 0.607,
+     "maxdd_usd": 10914.95,
+     "maxdd_pct_von": 109.15,
+     "tb_bps": -65.75
+    },
+    "nua2": {
+     "so_lenh": 164,
+     "lai_rong_usd": 5414.95,
+     "pf": 1.31,
+     "maxdd_usd": 2955.28,
+     "maxdd_pct_von": 29.55,
+     "tb_bps": 33.02
+    }
+   },
+   "XM_Standard|swap_day_du": {
+    "nua1": {
+     "so_lenh": 153,
+     "lai_rong_usd": -10059.16,
+     "pf": 0.607,
+     "maxdd_usd": 10914.95,
+     "maxdd_pct_von": 109.15,
+     "tb_bps": -65.75
+    },
+    "nua2": {
+     "so_lenh": 164,
+     "lai_rong_usd": 5414.95,
+     "pf": 1.31,
+     "maxdd_usd": 2955.28,
+     "maxdd_pct_von": 29.55,
+     "tb_bps": 33.02
+    }
+   },
+   "XM_UltraLow|mien_swap": {
     "nua1": {
      "so_lenh": 153,
      "lai_rong_usd": -9678.44,
@@ -645,7 +831,7 @@
      "tb_bps": 35.51
     }
    },
-   "XM|swap_day_du": {
+   "XM_UltraLow|swap_day_du": {
     "nua1": {
      "so_lenh": 153,
      "lai_rong_usd": -9678.44,
@@ -760,10 +946,16 @@
    }
   },
   "ket_qua": {
-   "XM|mien_swap": {
+   "XM_Standard|mien_swap": {
     "ghi_chu": "spread/swap XM cho ma nay CHUA DO DUOC (khong co trong phi_xm_micro_that.csv)"
    },
-   "XM|swap_day_du": {
+   "XM_Standard|swap_day_du": {
+    "ghi_chu": "spread/swap XM cho ma nay CHUA DO DUOC (khong co trong phi_xm_micro_that.csv)"
+   },
+   "XM_UltraLow|mien_swap": {
+    "ghi_chu": "spread/swap XM cho ma nay CHUA DO DUOC (khong co trong phi_xm_micro_that.csv)"
+   },
+   "XM_UltraLow|swap_day_du": {
     "ghi_chu": "spread/swap XM cho ma nay CHUA DO DUOC (khong co trong phi_xm_micro_that.csv)"
    },
    "Exness_Standard|mien_swap": {
@@ -833,7 +1025,43 @@
    }
   },
   "ket_qua": {
-   "XM|mien_swap": {
+   "XM_Standard|mien_swap": {
+    "nua1": {
+     "so_lenh": 135,
+     "lai_rong_usd": -26.19,
+     "pf": 0.997,
+     "maxdd_usd": 1606.05,
+     "maxdd_pct_von": 16.06,
+     "tb_bps": -0.19
+    },
+    "nua2": {
+     "so_lenh": 160,
+     "lai_rong_usd": -3294.74,
+     "pf": 0.65,
+     "maxdd_usd": 3294.74,
+     "maxdd_pct_von": 32.95,
+     "tb_bps": -20.59
+    }
+   },
+   "XM_Standard|swap_day_du": {
+    "nua1": {
+     "so_lenh": 135,
+     "lai_rong_usd": -26.19,
+     "pf": 0.997,
+     "maxdd_usd": 1606.05,
+     "maxdd_pct_von": 16.06,
+     "tb_bps": -0.19
+    },
+    "nua2": {
+     "so_lenh": 160,
+     "lai_rong_usd": -3294.74,
+     "pf": 0.65,
+     "maxdd_usd": 3294.74,
+     "maxdd_pct_von": 32.95,
+     "tb_bps": -20.59
+    }
+   },
+   "XM_UltraLow|mien_swap": {
     "nua1": {
      "so_lenh": 135,
      "lai_rong_usd": 653.47,
@@ -851,7 +1079,7 @@
      "tb_bps": -15.94
     }
    },
-   "XM|swap_day_du": {
+   "XM_UltraLow|swap_day_du": {
     "nua1": {
      "so_lenh": 135,
      "lai_rong_usd": 143.94,
@@ -942,5 +1170,12 @@
     }
    }
   }
+ },
+ {
+  "ma_spread_uoc": [
+   "GER40Cash#->Standard",
+   "US100Cash#->Standard",
+   "US500Cash#->Standard"
+  ]
  }
 ]
