@@ -1,4 +1,7 @@
 # VÒNG LẶP NGHIÊN CỨU LIÊN TỤC (thiết kế, bắt đầu vòng 27 — 13/10/2026)
+
+> **⚠ 16/10/2026 — CHỈ THỊ CỦA CHỦ DỰ ÁN: đọc `CHI_THI_CHU_DU_AN.md` TRƯỚC. Nó thắng mọi luật chặt chẽ trong file này: mục tiêu chỉ là lợi nhuận; p-value/Holm/FDR/placebo/MDE/"hai nửa" chỉ là nhãn, không dùng để loại ý tưởng; may mắn/xu hướng/chế độ là hợp lệ, giữ và gắn điều kiện.**
+
 Chạy trên BOX (không phải máy nhà). Mỗi chu kỳ lấy MỘT việc ở đầu hàng, làm xong → đẩy xuống cuối hàng (xoay vòng 5 việc).
 Trạng thái máy: `vong_lap_state.json` (con trỏ hàng) + `reports/vong_lap_nhat_ky.json` (nhật ký từng chu kỳ; `vong_lap_log.json` ở gốc là dữ liệu cũ không liên quan, giữ nguyên).
 

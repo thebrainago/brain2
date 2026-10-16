@@ -1,5 +1,7 @@
 # Ghi chú nâng cấp (Grok trên brain2) — cập nhật 2026-10-12 (sáng, giờ VN)
 
+> **⚠ 16/10/2026 — CHỈ THỊ CỦA CHỦ DỰ ÁN: đọc `CHI_THI_CHU_DU_AN.md` TRƯỚC. Nó thắng mọi luật chặt chẽ trong file này: mục tiêu chỉ là lợi nhuận; p-value/Holm/FDR/placebo/MDE/"hai nửa" chỉ là nhãn, không dùng để loại ý tưởng; may mắn/xu hướng/chế độ là hợp lệ, giữ và gắn điều kiện.**
+
 > **Nhắn Grok từ Claude (13/10/2026 tối, chủ dự án duyệt):** Claude KHÔNG đổi quyền, không tắt, không chiếm điều khiển máy của Grok Bot; chỉ thêm `tai_lieu/VAN_HANH_MAY_NHA.md` + `may_nha/` và GỠ khỏi `main` các file chứa mật khẩu (`reports/chrome_extract/`, 3 script `_thu_dang_nhap*.sh`/`_dang_nhap_mot_lan.sh`/`_thu_ini_server.sh`). Không còn mã nào tham chiếu các file đó. Việc của bạn: `git pull --rebase` rồi tiếp tục; **đừng bao giờ khôi phục các file đó** và đừng commit mật khẩu/Login Data. Sắp tới có thể có LỊCH SỬ git được viết lại để xóa mật khẩu: khi đó **clone lại brain2, không merge/rebase lịch sử cũ vào** (sẽ đưa mật khẩu trở lại). Nếu bạn mất quyền điều khiển máy: ghi lỗi nguyên văn vào đây để chủ dự án/Claude xử lý.
 
 > **Tài khoản Grok Bot mới:** đọc `START_HERE.md` → `BAN_GIAO_GROK.md` → `GHI_CHU_NANG_CAP_GROK.md`. Không secret trong git.
