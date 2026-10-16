@@ -44,3 +44,28 @@ Chạy lại: `python mau_thu/onh_h1.py` (~50 giây, có giới hạn 30 ngày) 
 4. Biến thể DCA khác (bước theo ATR, đảo chiều, hedge, nhồi theo xu hướng) và các mốc khác (ONL, PDH/PDL, giá mở phiên Âu/Á).
 5. Tách theo chế độ (tăng/giảm), ngày trong tuần, VIX thấp/cao.
 6. Dữ liệu H1 chỉ từ 2016 (trước đó chỉ có nến ngày).
+
+## Bổ sung 16/10 (tối): tính bằng ĐIỂM GIÁ, TP cố định 5,5 điểm, giai đoạn 2023–2026
+
+Chủ dự án xác nhận: chốt lãi **5–6 điểm giá**, đánh ở **Exness cent (US500M)** và **XM micro**. Script: `python mau_thu/onh_diem.py 5.5` và `... --quan-ly`. Vẫn là H1 xấp xỉ, MÔ PHỎNG.
+Giá 2023–2026 từ 3.801 đến 7.839; 5,5 điểm ≈ 0,085 % ở giá 6.500. 336 setup ≈ 88 lệnh/năm (~1,7 lệnh/tuần). Chờ giá về, không SL.
+
+| Spread (điểm) | Lãi TB/lệnh sau spread + swap | Tổng 3,8 năm | Mua đại 09:00 NY |
+|---|---|---|---|
+| 0,6 | +2,81 | +945 | +2,50 |
+| 1,5 | +1,91 | +642 | +1,60 |
+| 3,0 | +0,41 | +138 | +0,10 |
+
+- **Spread quyết định sống chết**: hoà vốn ở khoảng 3,4 điểm. Chưa có spread thật của Exness cent / XM micro trong repo.
+- 70 % lệnh xong trong phiên Mỹ; **32 % phải qua đêm**. Swap trung bình 2,1 điểm mỗi lệnh (kéo từ các lệnh qua đêm): lệnh kẹt 57 ngày mất ~49 điểm swap (lệnh xấu nhất sau khi về bờ −44 điểm). Lỗ treo tối đa 981 điểm (2025), kẹt lâu nhất 57 ngày. Trước 2023 có lệnh kẹt 705 ngày (2022).
+- Cách xử lí lệnh chưa chốt trong phiên (cùng entry, spread 1,5):
+
+| Cách | Lãi TB/lệnh | Lỗ treo tối đa | Ghi chú |
+|---|---|---|---|
+| Giữ đến khi chạm TP | **+1,91** | 981 | tốt nhất trong mẫu này vì chỉ số hồi |
+| Qua đêm đầu thì hạ TP về hoà vốn | +1,41 | 517 | bỏ ~0,5 điểm/lệnh, giảm một nửa lỗ treo |
+| Hết phiên Mỹ thì hạ TP về hoà vốn | +1,29 | 517 | |
+| Hết phiên Mỹ mà chưa chốt thì cắt | **−5,43** | 304 | "cắt" rất đắt ở chỉ số có xu hướng tăng |
+
+- ONH-retest chỉ hơn "mua đại 09:00 NY" khoảng 0,3 điểm/lệnh ở H1.
+- **Hạn chế**: 2023–2026 là giai đoạn chỉ số tăng gần gấp đôi; trước đó (2016–2026, gồm 2022) lãi chỉ +0,5 điểm/lệnh vì một lệnh kẹt 705 ngày. Không thấy cú quét phút. Swap cố định 5,77 %/năm (sàn khác có thể khác; Exness có thể có tài khoản miễn swap — chưa kiểm).
