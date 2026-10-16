@@ -1,6 +1,6 @@
 # SP500: setup "quét về ONH rồi mua", KHÔNG SL, chờ giá quay lại / DCA — lần thử đầu trên H1 (16/10/2026)
 
-**MÔ PHỎNG xấp xỉ trên nến H1 của XM `US500Cash`, 2016 → 10/2026. Không phải tiền thật, không phải MT5, chưa thấy được cú quét ở mức phút.** Claude làm để có mốc cho Grok làm lại ở M1.
+**MÔ PHỎNG xấp xỉ trên nến H1 của XM `US500Cash`, 2016 → 10/2026. Không phải tiền thật, không phải MT5, chưa thấy được cú quét ở mức phút.** Claude làm chỉ để MINH HOẠ đường đi rủi ro của kiểu "kẹt thì giữ" (chủ dự án 16/10 tối: ONH chỉ là một ví dụ, không máy móc test). Grok KHÔNG cần làm lại ở M1 và không nhân thành quét.
 Chạy lại: `python mau_thu/onh_h1.py` (~50 giây, có giới hạn 30 ngày) và `python mau_thu/onh_dca.py` (~10 giây, chờ không giới hạn + DCA).
 
 ## Giả định (tất cả sửa được trong script)

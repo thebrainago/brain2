@@ -13,15 +13,48 @@
 > theo chiều giá chạy để cắt sai, hoặc tôi hedging... Cái tôi tìm kiếm là những phương pháp giao dịch, kĩ thuật xử lí hoặc những mốc giá/điểm/vùng trên chart nhiều giá trị
 > để khai thác. [...] Sao các cậu cứ đi tìm và test cái gì đó rất hàn lâm và bác học vậy nhỉ."
 
+> "Cậu vẫn cứ lạc đề như thế, cái tôi nói là 1 ví dụ cho 1 hệ thống giao dịch. Còn tôi muốn cậu và grok phải tư duy theo hướng đó chứ không phải máy móc test cái gì đó tốn thời gian mà lạc đề." (16/10 tối)
+
+## CÁCH TƯ DUY — ưu tiên hơn MỌI việc test (chủ dự án 16/10 tối)
+
+Ví dụ ONH/Judas bên dưới là **MỘT VÍ DỤ của một KIỂU hệ thống giao dịch**. Đừng biến nó thành bài test riêng (không quét tham số, không tối ưu TP/SL của ví dụ).
+Việc của Claude và Grok là **suy nghĩ như người thiết kế hệ thống giao dịch**: hiểu cấu trúc kiểu hệ này, tự nghĩ ra và ghép được nhiều hệ cùng kiểu, giải thích được vì sao nó có thể ra tiền và khi nào nó hỏng.
+
+### Giải phẫu một hệ thống kiểu này — 5 khối (bản hiểu của Claude từ lời chủ dự án; chủ dự án sửa)
+1. **Bối cảnh / thiên hướng**: xu hướng lớn (chỉ số Mỹ thiên tăng), mùa vụ, phiên giao dịch, độ biến động hôm nay.
+2. **Mốc / vùng tham chiếu** và *vì sao tại đó có lệnh chờ / thanh khoản*: ONH/ONL, PDH/PDL, giá mở phiên, mốc tròn, pivot, gap chưa lấp.
+3. **Sự kiện kích hoạt**: quét thanh khoản (Judas swing, false breakout), phá rồi retest, hấp thụ, đuổi theo.
+4. **Vào lệnh + mục tiêu nhỏ**: limit tại mốc; chốt vài điểm; kéo SL về hoà vốn / dương khi đã lãi.
+5. **Cây xử lí khi sai (không SL cứng)** — chỗ quyết định tiền: chờ giá quay lại · DCA ở vùng giá đẹp · nhồi lệnh theo chiều giá chạy để cắt sai · hedge. Mỗi nhánh dùng khi trạng thái thị trường nào, vốn/margin cần bao nhiêu, swap trong lúc kẹt.
+
+### Với mỗi kỹ thuật / mốc / hệ, phải trả lời bằng LỜI (không cần code trước)
+- a. **Ai ở phía bên kia** và vì sao giá hay quay lại / đi xuyên qua đây (lệnh chờ, stop, thanh khoản, hành vi phiên).
+- b. **Khi nào nó hỏng**, dấu hiệu sớm để phân biệt "nhịp lùi trong xu hướng" với "đổi xu hướng".
+- c. **Hỏng thì nhánh nào hợp**: hồi quy → chờ / DCA ở vùng đẹp; đổi xu hướng → nhồi theo chiều chạy để cắt sai / hedge.
+- d. **Cái giá**: kẹt bao lâu, lỗ treo bao nhiêu điểm, vốn/margin, swap qua đêm.
+- e. **Ghép**: hệ nào bù nhau (khác cơ chế), hệ nào xung đột.
+
+### Bẫy đã biết (từ chính ghi chú SP500 của chủ dự án)
+- **DCA (hồi quy) ghép vào setup breakout / continuation (động lượng) từng là thảm hoạ (−17.000 điểm)** — mà hệ ONH vào theo kiểu retest/continuation còn xử lí khi sai bằng chờ/DCA. Cây xử lí phải phân biệt hai trạng thái sau khi vào lệnh hỏng, không dùng một kiểu cho mọi trường hợp.
+- Kiểu "kẹt thì giữ": tỉ lệ thắng gần 100 % là bình thường và **không chứng minh gì**; cái quan trọng là lỗ treo, thời gian kẹt, vốn, swap.
+- Chỉ số Mỹ thiên tăng dài hạn nên "chờ giá về" thắng "cắt" trong mẫu 2016–2026, nhưng đã có lệnh kẹt 705 ngày (2022). Đó là rủi ro chấp nhận **có ý thức bằng vốn**, không phải bằng chứng an toàn.
+
+### Cách làm việc từ bây giờ
+- **LLM suy luận và thiết kế.** Mỗi hệ viết thành một "thẻ hệ thống" ngắn: 5 khối + cơ chế + nhánh hỏng + cái giá. Ít mà sâu.
+- **SEEKER thu kỹ thuật / mốc từ thị trường thành thẻ theo 5 khối** (ai ở bên kia, mốc, sự kiện, vào, xử lí khi sai), không cần biến mọi thứ thành code để test.
+- **Kiểm tra chỉ để NHÌN ĐƯỜNG ĐI RỦI RO** của một hệ chủ dự án đã chọn (lỗ treo, thời gian kẹt, vốn, swap): nhanh, ít, có chủ đích. Không để việc kiểm tra dẫn dắt hướng đi.
+- **TẠM DỪNG cho tới khi chủ dự án nói tiếp:** quét lưới / tham số hàng loạt, vòng lặp máy móc tự chạy (v33 trở đi), MT5 farm / chạy đêm, nhân ví dụ ONH thành nhiều biến thể.
+- **Không chắc ý chủ dự án thì hỏi một câu ngắn bằng lời thường**, đừng chạy thử cho chắc.
+
 ## Hiểu đúng chủ dự án là ai
 
-Một **trader giao dịch tay** trên MT5 điện thoại, lot nhỏ (0,01), có SL/TP. Hệ thống phục vụ người này, không phục vụ bài báo khoa học.
+Một **trader giao dịch tay** trên MT5 điện thoại, lot nhỏ (Exness cent, XM micro), thoát bằng TP/kéo SL dương, không SL cứng. Hệ thống phục vụ người này, không phục vụ bài báo khoa học.
 Thứ chủ dự án dùng được: **setup rõ ràng** (nhìn gì trên chart, vào đâu, SL/TP đâu, sai thì DCA/nhồi/hedge thế nào), **mốc giá/vùng giá**, **kỹ thuật xử lí lệnh**.
 Thứ chủ dự án không đọc được và không cần: p-value, Holm, FDR, MDE, ICC, placebo.
 
 ## Luật mới
 
-1. **Mục tiêu duy nhất: có lợi nhuận.** Đo bằng tiền (USD ở lot 0,01), không bằng mức ý nghĩa thống kê.
+1. **Mục tiêu duy nhất: có lợi nhuận.** Đo bằng tiền / điểm giá (tiền theo lot chủ dự án tự chọn), không bằng mức ý nghĩa thống kê.
 2. **Hạ xuống thành NHÃN THÔNG TIN, KHÔNG dùng để loại bất cứ ý tưởng nào:** p-value, Holm, FDR, LORD, placebo, MDE, "dương cả hai nửa", tiền đăng ký trước,
    "t_alpha > 5 nghi", "xác nhận là hàm ý nguyên", ngưỡng maxDD cứng, "phải thắng mua-giữ", cổng "đủ lệnh" theo thống kê. Ý tưởng vẫn được ghi kết quả; không ai bị gạt vì các nhãn này.
 3. **May mắn, xu hướng, chế độ thị trường là hợp lệ.** Một mảnh ghép lãi vì uptrend, vì một giai đoạn, vì một phiên, vì một tài sản **vẫn được GIỮ**.
@@ -46,11 +79,11 @@ Số thống kê (nếu có) để ở phần cuối, nhãn "tham khảo". Khôn
 SL/TP cố định; **kéo SL về hoà vốn / dương** sau khi lãi X; **DCA ở vùng giá đẹp** khi sai; **nhồi lệnh thuận chiều giá chạy để cắt sai**; **hedging**.
 Với mỗi kiểu: báo kết quả và **tình huống xấu nhất cần bao nhiêu vốn** (không phải điểm Sharpe).
 
-## VIỆC SỐ 1 — test setup của chính chủ dự án (nguyên văn rồi bản hiểu)
+## VÍ DỤ #1 — hệ ONH của chủ dự án (để HIỂU kiểu hệ thống; KHÔNG phải bài test cần quét biến thể)
 
 > "SP500 mở phiên tăng sau đó quét judas swing về ONH thì tôi buy với lot 0,01 lời 5-6 usd tôi chốt hoặc kéo sl dương."
 
-**Bản hiểu (Claude, CẦN chủ dự án xác nhận; thử nhiều biến thể, báo hết, đừng chọn riêng cái đẹp):**
+**Bản hiểu (Claude, CẦN chủ dự án xác nhận). Các gạch dưới đây để hiểu cấu trúc, không phải danh sách việc phải quét:**
 - Tài sản: SP500 (XM `US500Cash`). Phiên Mỹ mở 09:30 giờ New York = 16:30 giờ server XM (giờ server lệch 1 tiếng vài tuần quanh đổi giờ mùa hè Mỹ/châu Âu — dùng múi giờ New York để định phiên).
 - ONH = đỉnh của phiên đêm. **Repo không có định nghĩa ONH** (dự án SP500 phase 1 đã tách khỏi git 18/09 và nằm trên máy chủ dự án; Claude đã tìm trong cả hai repo và Google Drive: không thấy). Tạm dùng 18:00 NY hôm trước → 09:30 NY (Globex mở 18:00 NY);
   thử thêm 16:15 NY→09:30. **Chủ dự án / Grok: nếu thư mục SP500 phase 1 trên máy có chỗ ghi giờ tính ONH thì dùng giờ đó** và ghi vào đây. Thử cả ONL (đáy) cho kịch bản ngược.
@@ -62,9 +95,9 @@ Với mỗi kiểu: báo kết quả và **tình huống xấu nhất cần bao 
 - **KHÔNG SL** (chủ dự án 16/10: *"tôi đánh không sl"*, *"có thể chịu lỗ cho tới khi giá quay lại hoặc các mức dca hoàn vốn"*). Thoát bằng TP / kéo SL dương khi đã lãi; khi sai thì **chờ giá quay lại** hoặc **DCA ở các mức hoàn vốn**.
   Với kiểu này win-rate gần 100 %, nên **KHÔNG dùng win-rate / lãi trung bình làm thước**. Thước là: **lỗ treo tối đa** (% giá trị và USD), **thời gian kẹt tối đa**, **số đơn vị DCA tối đa và vốn/margin cần để ngồi qua**, **swap cộng dồn trong lúc kẹt**. Mô phỏng DCA: bước theo %/ATR/mốc giá, số tầng, TP theo giá trung bình.
 - Giá: M1 (HistData SPXUSD trên máy Grok; `reports/mt5_v27/gia_xm/US500Cash_H1.csv.gz` chỉ có H1, quá thô để thấy cú quét 5–15 phút đầu phiên). Phí: spread theo giờ XM thật (`reports/mt5_v27/spread_gio/US500Cash.csv`, trung vị ~0,55–0,6 điểm ở các giờ; bản Standard ước nhỉnh hơn).
-- Báo cáo: bảng mọi biến thể, theo năm và theo chế độ (tăng/giảm), theo ngày trong tuần, lãi ròng sau spread tính bằng điểm và USD. Ghi rõ biến thể nào "ăn", biến thể nào "lỗ", và **vì sao** (cú quét có thật không).
+- (Lược bỏ yêu cầu báo bảng mọi biến thể — chủ dự án 16/10 tối: không máy móc test tốn thời gian. Chỉ cần hiểu khối 1–5 của ví dụ này và nhìn đường đi rủi ro khi chủ dự án yêu cầu.)
 
-## Mốc đầu tiên của Claude (H1, xấp xỉ) — Grok làm lại ở M1
+## Số minh hoạ của Claude (H1, xấp xỉ) — chỉ để thấy ĐƯỜNG ĐI RỦI RO của kiểu "kẹt thì giữ"; KHÔNG làm lại ở M1, KHÔNG nhân thành quét
 
 Chi tiết: `reports/onh_h1_lan_dau.md`; script `mau_thu/onh_h1.py`, `mau_thu/onh_dca.py`. 852 setup (2016–2026), TP 0,07 % (~5,4 điểm), không SL, chờ đến cùng:
 - **100 % lệnh cuối cùng chạm TP** (chỉ số Mỹ hồi lại), 74 % ngay trong phiên, 94 % trong 5 ngày. Nhưng **lâu nhất 704 ngày** (vào 13/01/2022), **lỗ treo tệ nhất −30,9 %** (vào 26/02/2020, kẹt ~100 ngày).
@@ -72,12 +105,11 @@ Chi tiết: `reports/onh_h1_lan_dau.md`; script `mau_thu/onh_h1.py`, `mau_thu/on
 - **ONH-retest KHÔNG hơn mua đại lúc 09:00 NY mỗi ngày** (+1,8 bps) ở độ phân giải H1 — chưa kết luận về setup thật (vào bằng nến phút).
 - DCA −0,5 %/−1 % × 3: chờ ngắn hơn nhưng vốn phình tới 4 đơn vị, lỗ treo tệ nhất ~100–120 % giá trị một đơn vị.
 
-## Việc tiếp theo (theo thứ tự)
+## Việc tiếp theo (thay thế danh sách cũ)
 
-1. Việc số 1 ở trên. Báo cáo bằng tiếng thường như mục "Cách báo cáo".
-2. Mở rộng cùng họ: các **mốc/vùng** quen thuộc của trader (ONH/ONL, PDH/PDL, giá mở cửa phiên Á/Âu/Mỹ, mốc tròn, vùng DCA đẹp) × hành vi (quét rồi bật, phá rồi retest, đuổi theo) trên SP500, NAS100, vàng, vài cặp FX. Seeker gom thêm kỹ thuật dạng này (ICT/SMC, quét thanh khoản, phiên giao dịch...).
-3. **Danh mục mảnh ghép**: mỗi mảnh = điều kiện dùng + số tiền ở lot 0,01. Không loại mảnh nào vì "chỉ ăn trong một chế độ".
-4. Làm phần xử lí lệnh (hoà vốn, DCA, nhồi, hedge) thành module mô phỏng đúng như người làm tay.
+1. **Claude**: viết "thẻ hệ thống" cho ví dụ ONH theo 5 khối + cây xử lí khi sai; chủ dự án sửa cho đúng cách nghĩ của mình.
+2. **Grok**: đọc lại những gì SEEKER đã thu (mã EA đã tải, 79 mốc, kỹ thuật ICT/SMC / quét thanh khoản / phiên giao dịch...), **phân loại vào 5 khối**, chỉ ra khối nào còn thiếu (đặc biệt khối 5 — cây xử lí khi sai) và nhóm kỹ thuật theo *cơ chế* (ai ở phía bên kia). **Không chạy test.**
+3. Cùng chủ dự án chọn 2–3 hệ → **chỉ lúc đó** nhìn đường đi rủi ro (lỗ treo bằng điểm, thời gian kẹt, vốn, swap) và báo bằng lời thường.
 
 ## Ghi chú cho Grok
 
