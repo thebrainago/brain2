@@ -10,3 +10,4 @@
 8. Không đưa khóa/token/mật khẩu vào git. Không tuyên bố đã ra tiền từ mô phỏng.
 9. Chờ user (không tự làm): repo hộp thư máy nhà, đăng nhập Telegram/MQL5.
 10. Báo user 3–8 dòng thường: xong / chưa / kẹt / cần user gì.
+11. Đọc `de_xuat/README.md` — đề xuất về cổng kiểm định (CHƯA duyệt, chưa đổi cổng). Làm T0 rồi điền `de_xuat/PHAN_HOI_GROK.md`; việc T1–T7 chỉ thêm số đo ("chế độ bóng").
