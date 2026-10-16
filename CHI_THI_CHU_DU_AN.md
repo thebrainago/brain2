@@ -52,14 +52,25 @@ Với mỗi kiểu: báo kết quả và **tình huống xấu nhất cần bao 
 
 **Bản hiểu (Claude, CẦN chủ dự án xác nhận; thử nhiều biến thể, báo hết, đừng chọn riêng cái đẹp):**
 - Tài sản: SP500 (XM `US500Cash`). Phiên Mỹ mở 09:30 giờ New York = 16:30 giờ server XM (giờ server lệch 1 tiếng vài tuần quanh đổi giờ mùa hè Mỹ/châu Âu — dùng múi giờ New York để định phiên).
-- ONH = đỉnh của phiên đêm (gợi ý: từ 18:00 NY hôm trước đến 09:30 NY; thử thêm 16:15 NY→09:30). Thử cả ONL (đáy) cho kịch bản ngược.
+- ONH = đỉnh của phiên đêm. **Repo không có định nghĩa ONH** (dự án SP500 phase 1 đã tách khỏi git 18/09 và nằm trên máy chủ dự án; Claude đã tìm trong cả hai repo và Google Drive: không thấy). Tạm dùng 18:00 NY hôm trước → 09:30 NY (Globex mở 18:00 NY);
+  thử thêm 16:15 NY→09:30. **Chủ dự án / Grok: nếu thư mục SP500 phase 1 trên máy có chỗ ghi giờ tính ONH thì dùng giờ đó** và ghi vào đây. Thử cả ONL (đáy) cho kịch bản ngược.
+- **Giờ**: server XM = EET/EEST (UTC+2/+3), **không phải "NY+7" cố định** như comment ở `nhan/moc_nam_cham.py` — 3–4 tuần mỗi năm (Mỹ đổi giờ trước/sau châu Âu) mở cửa phiên Mỹ rơi vào 15:30 server thay vì 16:30 (đo bằng khối lượng H1, 16/10). Luôn đổi sang giờ New York thật (`tz_localize('Europe/Athens')` → `tz_convert('America/New_York')`, xem `mau_thu/onh_h1.py`) rồi mới định phiên/ONH.
 - "Mở phiên tăng": giá mở/đẩy lên trên hoặc quanh ONH sau 09:30. "Quét Judas swing về ONH": giá quay xuống chạm/xuyên ONH rồi bật lại (dạng quét thanh khoản).
 - Vào BUY: (a) lệnh limit tại ONH, (b) khi nến M1/M5 đóng lại trên ONH sau khi quét. Thử cả hai.
-- Chốt: lãi 5–6 USD ở lot 0,01. **Chưa rõ 5–6 USD bằng bao nhiêu điểm** — hợp đồng `US500Cash` XM trong `config/chi_phi_do.json` có `contract_size = 1` (1 điểm = 0,01 USD ở lot 0,01, nên 5–6 USD sẽ là 500–600 điểm,
+- Chốt: lãi 5–6 USD ở lot 0,01. **Chưa rõ 5–6 USD bằng bao nhiêu điểm** (giả thuyết của Claude, CHƯA xác nhận: 1 điểm = 1 USD ở lot của chủ dự án, tức hợp đồng ×100 kiểu Exness `US500_X100M`, nên TP ≈ 5–6 điểm ≈ 0,07 % giá) — hợp đồng `US500Cash` XM trong `config/chi_phi_do.json` có `contract_size = 1` (1 điểm = 0,01 USD ở lot 0,01, nên 5–6 USD sẽ là 500–600 điểm,
   không hợp lý). Chủ dự án chưa nói số điểm / ký hiệu / sàn. **Không đoán**: chạy theo điểm (thử TP 3, 5, 8, 12, 20, 30, 50 điểm) và quy ra USD khi chủ dự án trả lời.
-- SL: chưa nói. Thử SL 5, 8, 12, 20, 30, 50 điểm và "không SL, thoát cuối phiên". Kéo SL dương: sau khi lãi X điểm kéo về hoà vốn + vài điểm (thử X = nửa TP, 3, 5 điểm).
+- **KHÔNG SL** (chủ dự án 16/10: *"tôi đánh không sl"*, *"có thể chịu lỗ cho tới khi giá quay lại hoặc các mức dca hoàn vốn"*). Thoát bằng TP / kéo SL dương khi đã lãi; khi sai thì **chờ giá quay lại** hoặc **DCA ở các mức hoàn vốn**.
+  Với kiểu này win-rate gần 100 %, nên **KHÔNG dùng win-rate / lãi trung bình làm thước**. Thước là: **lỗ treo tối đa** (% giá trị và USD), **thời gian kẹt tối đa**, **số đơn vị DCA tối đa và vốn/margin cần để ngồi qua**, **swap cộng dồn trong lúc kẹt**. Mô phỏng DCA: bước theo %/ATR/mốc giá, số tầng, TP theo giá trung bình.
 - Giá: M1 (HistData SPXUSD trên máy Grok; `reports/mt5_v27/gia_xm/US500Cash_H1.csv.gz` chỉ có H1, quá thô để thấy cú quét 5–15 phút đầu phiên). Phí: spread theo giờ XM thật (`reports/mt5_v27/spread_gio/US500Cash.csv`, trung vị ~0,55–0,6 điểm ở các giờ; bản Standard ước nhỉnh hơn).
 - Báo cáo: bảng mọi biến thể, theo năm và theo chế độ (tăng/giảm), theo ngày trong tuần, lãi ròng sau spread tính bằng điểm và USD. Ghi rõ biến thể nào "ăn", biến thể nào "lỗ", và **vì sao** (cú quét có thật không).
+
+## Mốc đầu tiên của Claude (H1, xấp xỉ) — Grok làm lại ở M1
+
+Chi tiết: `reports/onh_h1_lan_dau.md`; script `mau_thu/onh_h1.py`, `mau_thu/onh_dca.py`. 852 setup (2016–2026), TP 0,07 % (~5,4 điểm), không SL, chờ đến cùng:
+- **100 % lệnh cuối cùng chạm TP** (chỉ số Mỹ hồi lại), 74 % ngay trong phiên, 94 % trong 5 ngày. Nhưng **lâu nhất 704 ngày** (vào 13/01/2022), **lỗ treo tệ nhất −30,9 %** (vào 26/02/2020, kẹt ~100 ngày).
+- Lãi/lệnh +6,0 bps trước swap, chỉ còn **+1,1 bps sau swap** (≈ 1,2 điểm mỗi đêm giữ, thứ Sáu ×3): vài lệnh kẹt lâu ăn gần hết lãi. Năm 2022 trung bình −20,9 bps/lệnh.
+- **ONH-retest KHÔNG hơn mua đại lúc 09:00 NY mỗi ngày** (+1,8 bps) ở độ phân giải H1 — chưa kết luận về setup thật (vào bằng nến phút).
+- DCA −0,5 %/−1 % × 3: chờ ngắn hơn nhưng vốn phình tới 4 đơn vị, lỗ treo tệ nhất ~100–120 % giá trị một đơn vị.
 
 ## Việc tiếp theo (theo thứ tự)
 
