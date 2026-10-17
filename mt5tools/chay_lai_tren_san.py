@@ -10,7 +10,7 @@ Can truoc (may nha):
 Chay:
   python mt5tools/chay_lai_tren_san.py danh-sach --ma-san reports/phi_san/<server>/ma_san.json          (in viec, khong chay)
   python mt5tools/chay_lai_tren_san.py chay --slot D:\\mt5_tester\\exness_cent --ma-san ... --von 10000 --tien USC
-  python mt5tools/chay_lai_tren_san.py tong-ket --ma-san ... [--dd-muc-tieu 20]
+  python mt5tools/chay_lai_tren_san.py tong-ket --ma-san ... [--dd-muc-tieu 80]
 Ra: reports/mt5_san_chu/<server>/so_cai.jsonl (moi lan chay: so lieu + tung deal dong lenh) va tong_ket.json.
 Tong ket la DUONG VON DONG LENH (khong tinh lo tha noi) -> sut giam that con lon hon; ghi ro trong file.
 """
@@ -98,7 +98,14 @@ def tong_ket_duong_von(deals: list[list], von: float, nam: float) -> dict:
             "lenh_thang": round(len(ds) / max(1, len(thang)), 2)}
 
 
-def ghep(so_cai: list[dict], von: float, dd_muc_tieu: float = 20.0) -> dict:
+def _cot_loi(x: dict, dd_muc_tieu: float) -> dict:
+    """Ba yeu to cot loi (17/10/2026): lai > 0, va o muc lot cho sut giam = dd_muc_tieu (mac dinh 80 %) thi lai >= 10 %/nam."""
+    o = x["lai_pct_nam"] * dd_muc_tieu / x["sut_giam_pct"] if x["sut_giam_pct"] else None
+    return {"lai_pct_nam_o_dd_muc_tieu": round(o, 1) if o is not None else None,
+            "dat_cot_loi": bool(x["net"] > 0 and (o is None or o >= 10.0))}
+
+
+def ghep(so_cai: list[dict], von: float, dd_muc_tieu: float = 80.0) -> dict:
     """Moi (EA, ten goc) lay MOT cau hinh co net cao nhat tren san nay, cong deals lai = mot tai khoan chay tat ca cung luc.
     Chon theo net tren chinh san nay la CHON TREN CUNG DU LIEU (nhan, khong chan) - demo moi la phan xu cuoi."""
     nam = (int(TOAN[1][:4]) - int(TOAN[0][:4])) + (int(TOAN[1][5:7]) - 1) / 12.0
@@ -113,11 +120,13 @@ def ghep(so_cai: list[dict], von: float, dd_muc_tieu: float = 20.0) -> dict:
         tmg = r.get("tien_moi_gia_1lot")
         # spread/truot THEM moi lenh (don vi gia) ma manh van hoa: lai rong moi lenh / tien moi 1 gia o lot dang chay
         x["chiu_them_gia_moi_lenh"] = round(x["net"] / x["lenh"] / (tmg * r["lot"]), 5) if tmg and x["lenh"] else None
+        x.update(_cot_loi(x, dd_muc_tieu))
         tung.append(x)
         k = (x["ea"], x["goc"])
         if x["net"] > 0 and (k not in tot or x["net"] > tot[k][0]["net"]):
             tot[k] = (x, r["deals"])
     bo = tong_ket_duong_von([d for _, ds in tot.values() for d in ds], von, nam)
+    bo.update(_cot_loi(bo, dd_muc_tieu))
     chon = [x for x, _ in tot.values()]
     dong_gop = []                             # bo tung manh ra: bo ghep mat bao nhieu lai, sut giam doi the nao
     for k in tot:
@@ -127,6 +136,7 @@ def ghep(so_cai: list[dict], von: float, dd_muc_tieu: float = 20.0) -> dict:
     k = dd_muc_tieu / bo["sut_giam_pct"] if bo["sut_giam_pct"] else None
     return {"ghi_chu": "duong von DONG LENH (khong tinh lo tha noi) - sut giam that lon hon; tang lot tuyen tinh la uoc luong THO",
             "von": von, "so_nam": round(nam, 2), "tung_manh": sorted(tung, key=lambda z: -z["net"]), "manh_trong_bo": len(chon),
+            "manh_dat_cot_loi": sum(x["dat_cot_loi"] for x in tung),
             "bo_ghep": bo, "dong_gop": sorted(dong_gop, key=lambda z: -z["lai_mat_khi_bo"]), "manh": sorted("%s %s %s" % (c["ea"], c["ma"], c["tf"]) for c in chon), "dd_muc_tieu_pct": dd_muc_tieu, "he_so_lot": round(k, 2) if k else None,
             "lai_pct_nam_o_dd_muc_tieu": round(bo["lai_pct_nam"] * k, 2) if k else None}
 
@@ -182,7 +192,7 @@ def main() -> None:
     ap.add_argument("lenh", choices=["danh-sach", "chay", "tong-ket"]); ap.add_argument("--ma-san", required=True)
     ap.add_argument("--slot"); ap.add_argument("--von", type=float, default=10000); ap.add_argument("--tien", default="USD")
     ap.add_argument("--don-bay", type=int, help="mac dinh: don bay that trong tai_khoan.json canh ma_san.json"); ap.add_argument("--top", type=int, default=2)
-    ap.add_argument("--cho-toi-da", type=int, default=2400); ap.add_argument("--dd-muc-tieu", type=float, default=20.0)
+    ap.add_argument("--cho-toi-da", type=int, default=2400); ap.add_argument("--dd-muc-tieu", type=float, default=80.0)
     a = ap.parse_args()
     ms = json.loads(Path(a.ma_san).read_text(encoding="utf-8"))
     if a.don_bay is None:
@@ -200,7 +210,7 @@ def main() -> None:
         ra.mkdir(parents=True, exist_ok=True)
         kq = ghep(_doc_jsonl(so), a.von, a.dd_muc_tieu)
         (ra / "tong_ket.json").write_text(json.dumps(kq, ensure_ascii=False, indent=1), encoding="utf-8")
-        print(json.dumps({k: kq[k] for k in ("manh_trong_bo", "bo_ghep", "he_so_lot", "lai_pct_nam_o_dd_muc_tieu")}, ensure_ascii=False, indent=1))
+        print(json.dumps({k: kq[k] for k in ("manh_trong_bo", "manh_dat_cot_loi", "bo_ghep", "he_so_lot", "lai_pct_nam_o_dd_muc_tieu")}, ensure_ascii=False, indent=1))
         return
     ra.mkdir(parents=True, exist_ok=True)
     slot = Path(a.slot); chuan_bi_ea(slot)

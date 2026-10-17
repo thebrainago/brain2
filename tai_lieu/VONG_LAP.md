@@ -9,7 +9,7 @@ Vận hành máy nhà + box (ổ đĩa, slot MT5, điều phối, lịch ca, tr�
 
 ## Luật cứng (mọi việc)
 - Chỉ số ĐO ĐƯỢC; mô phỏng ghi "mô phỏng"; không đo được ghi "CHƯA ĐO ĐƯỢC".
-- **QUA (17/10/2026, `BO_TIEU_CHI_MOI.md`) = lãi ròng sau phí THẬT > 0 VÀ không nhìn trước VÀ tài khoản không cháy.**
+- **QUA (17/10/2026, `BO_TIEU_CHI_MOI.md`) = BA YẾU TỐ CỐT LÕI của chủ dự án: lãi sau phí và giãn (không ăn khe đổi ngày, không nhìn trước), sụt giảm ≤ 80 %, lãi ≥ 10 %/năm. Lot co giãn ⇒ lãi %/năm ÷ sụt giảm % ≥ 0,125.**
   Phí thật = phí sàn của chủ dự án khi đã có `reports/phi_san/` (Exness cent, XM micro); trước đó dùng XM (`phi_xm_that.py`).
   Holm cộng dồn, p-value, "dương cả hai nửa", thắng mua-giữ, đủ lệnh: vẫn tính và ghi **làm nhãn**, KHÔNG dùng để loại.
   (Luật cũ trước 17/10: QUA còn đòi dương cả hai nửa + Holm CỘNG DỒN, xem `reports/vong27.json` → `ho_holm`. Chính luật này ghi "0 qua" cho 247/251 cấu hình MT5 lãi cả hai giai đoạn.)

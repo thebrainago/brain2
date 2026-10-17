@@ -105,9 +105,10 @@ Research SP500/          <- kho git chinh (mo 30/08)
 trong `ds/browser/*` va `lab/BROWSER_SCAN*.bat` da sua theo.
 
 ## Luat khong duoc pha (rut gon — ban day du: ../AGENTS.md muc 3)
-> **17/10/2026 (`BO_TIEU_CHI_MOI.md`): cong mac dinh la `che_do_cong = "loi_nhuan"`.** Chi CHAN khi: phi khai bao
-> (khong do duoc), an khe dao ngay / nhin truoc, hoac lai rong sau phi <= 0. p-value / placebo / FDR / Holm / MDE /
-> mua-giu / du lenh / rr / "hai nua" duoi day chi con la NHAN. Phi phai la phi san cua chu du an (`reports/phi_san/`).
+> **17/10/2026 (`BO_TIEU_CHI_MOI.md`): cong mac dinh la `che_do_cong = "loi_nhuan"` = BA YEU TO COT LOI cua chu du an:**
+> lai sau phi + gian (khong an khe dao ngay), sut giam <= 80 %, lai >= 10 %/nam - lot co gian nen hoi `cagr/|dd| >= 10/80`.
+> Phi khai bao / p-value / placebo / FDR / Holm / MDE / mua-giu / du lenh / rr / "hai nua" duoi day chi con la NHAN.
+> Danh sach he dat: `DANH_SACH_HE_DAT.md`. Phi phai la phi san cua chu du an (`reports/phi_san/`).
 - **Canary truoc, ket qua sau.** Canary hong -> dung tru, khong tinh p-value nao.
 - **Chi phi phai DO DUOC.** `cp.do_tin` la `KHAI` thi **khong bao gio PASS**.
 - **Pre-registration.** Phai co `plan_hash` truoc khi cham holdout. Doi ke hoach

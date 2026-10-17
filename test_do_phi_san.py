@@ -90,9 +90,13 @@ def test_doc_deals_va_ghep_duong_von():
           {"ea": "RSI", "goc": "GBPUSD", "ma": "GBPUSDc", "tf": "D1", "ts": {"b": 1}, "pha": "TOAN", "lot": 0.01, "deals": [["2016.03.01 00:00:00", 4.0]]},
           {"ea": "RSI", "goc": "EURGBP", "ma": "EURGBPc", "tf": "D1", "ts": {"b": 1}, "pha": "TOAN", "lot": 0.01, "deals": [["2016.03.01 00:00:00", -9.0]]},
           {"ea": "RSI", "goc": "EURJPY", "ma": "EURJPYc", "tf": "D1", "ts": {}, "pha": "TOAN", "lot": 0.01, "loi": "khong_bao_cao"}]
-    g = C.ghep(sc, 1000, 20)
+    g = C.ghep(sc, 1000, 80)
     assert g["manh_trong_bo"] == 2 and abs(g["bo_ghep"]["net"] - 5.7) < 1e-9     # manh lo (EURGBP) khong vao bo
     assert len(g["tung_manh"]) == 3                                               # lan hong khong tinh, khong mat
     m = [x for x in g["tung_manh"] if x["ea"] == "MRZ"][0]
     assert abs(m["chiu_them_gia_moi_lenh"] - 1.7 / 2 / (100000 * 0.01)) < 1e-9   # 0,00085 = 8,5 pip moi lenh
     assert {x["manh"] for x in g["dong_gop"]} == {"MRZ GBPUSD", "RSI GBPUSD"}
+    # MRZ: 1,7 / 1000 / 10,75 nam = 0,016 %/nam, DD 0,33 % -> ~3,8 %/nam o DD 80 % -> chua dat; RSI GBPUSD khong sut -> dat;
+    # EURGBP lo -> khong dat. Ca bo: 5,7 -> ~13 %/nam o DD 80 % -> DAT (ghep lam tot hon tung manh).
+    assert g["manh_dat_cot_loi"] == 1 and g["bo_ghep"]["dat_cot_loi"] is True
+    assert 10 <= g["bo_ghep"]["lai_pct_nam_o_dd_muc_tieu"] <= 16

@@ -1,6 +1,27 @@
 # BỘ TIÊU CHÍ MỚI: chỉ hỏi "có ra tiền không" (17/10/2026)
 
 > Chủ dự án: *"cái nó cần là giao dịch có lợi nhuận, chứ còn bây giờ cứ loại bỏ các yếu tố may mắn và so sánh với việc mua giữ thì nó không cần thiết, bởi vì chắc chắn là sẽ không thể nào mà chuẩn như thế được."*
+>
+> Chốt lần 2 (cùng ngày): *"tìm ra một hệ có lãi sau khi trừ đi phí và các mức giãn, chỉ cần mức sụt giảm không quá 80 % và lợi nhuận trên 10 % một năm … bỏ hết những cái đấy đi, chỉ cần đạt được những yếu tố cốt lõi."*
+
+## 0. BA YẾU TỐ CỐT LÕI: tiêu chí duy nhất, đã nằm trong code
+
+1. **Lãi sau phí và các mức giãn** (spread theo giờ, giãn lúc đổi ngày, swap, hoa hồng). Hệ ăn được nhờ "khe giá lúc đổi ngày" là lãi giả, vì lúc đó spread giãn gấp 5–9 lần.
+2. **Sụt giảm ≤ 80 %.**
+3. **Lãi ≥ 10 %/năm.**
+
+Lot co giãn (anh tự đi lot), nên câu hỏi đúng là: **có mức lot nào cho lãi ≥ 10 %/năm mà sụt giảm ≤ 80 % không?** Điều này tương đương **lãi %/năm ÷ sụt giảm % ≥ 10/80 = 0,125**, ước lượng tuyến tính theo lot. Ví dụ: một hệ lãi 0,5 %/năm với sụt giảm 1 % ở lot 0,01 thì tăng lot lên ×80 sẽ cho ~40 %/năm, sụt giảm 80 %.
+
+| Chỗ | Nay |
+|---|---|
+| `nhan/cong.py` (`che_do_cong = "loi_nhuan"`) | Chỉ CHẶN 3 điều kiện: (11) khe giá đổi ngày, (14) lãi ròng ≤ 0, (15 mới) `15_lai_10_sut_giam_80`. Phí chỉ khai báo, chuỗi nghiên cứu (chỉ số Yahoo) giờ chỉ là **nhãn**. Ngưỡng nằm ở `config/nguong.json`: `lai_nam_toi_thieu_pct = 10`, `sut_giam_toi_da_pct = 80`. |
+| `nhan/cham_diem.py` | `CHAY_DUOC` = lãi ≥ 10 %/năm ở mức lot cho sụt giảm 80 % (`lai_pct_nam_o_dd80`). `CHUA_DAT` = có lãi nhưng quá mỏng, giữ làm mảnh ghép. `BO` = lỗ hoặc cháy. |
+| `mt5tools/sinh_viec.py` `tong-ket` | Thêm `cot_loi` cho mỗi cấu hình: lãi %/năm, sụt giảm, hệ số lot, lãi ở DD 80 %, đạt/không. |
+| `mt5tools/chay_lai_tren_san.py tong-ket` | Mặc định `--dd-muc-tieu 80`. Thêm `dat_cot_loi` cho từng mảnh và cho cả bộ ghép. |
+
+**Kết quả áp ngay:** danh sách hệ đạt nằm trong **`DANH_SACH_HE_DAT.md`**.
+
+Các mục 1–6 dưới đây là bản thứ nhất cùng ngày, còn đúng cho phần GIỮ/BỎ/THÊM. Riêng điều kiện (7) "phí đo được" nay **chỉ là nhãn**.
 
 Tài liệu này là bản chốt cho mục 1 của `RA_SOAT_TOAN_BO.md`. Các thay đổi dưới đây **đã nằm trong code** và có hiệu lực ngay, không còn là đề xuất.
 

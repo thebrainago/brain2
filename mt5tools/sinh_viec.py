@@ -35,6 +35,27 @@ MAC_DINH = {"InpNguongZ": 2.0, "InpMrzN": 50, "InpRsiThap": 30, "InpRsiCao": 70,
 # He D1 chi 4-8 lenh/nam nen nguong 30 lenh IS tung chan nhieu cau hinh khong bao gio duoc chay OOS.
 NGUONG_IS = {"pf": 1.0, "lenh": 10, "net": 0.0}
 NGUONG_OOS = {"pf": 1.0, "lenh": 5, "net": 0.0}
+# Ba yeu to cot loi cua chu du an (17/10/2026): lai sau phi, sut giam <= 80 %, lai >= 10 %/nam. Lot co gian (EA chay
+# lot co dinh 0,01 tren von 10.000) -> quy tuyen tinh ve muc lot cho sut giam = 80 %.
+VON, LAI_TOI_THIEU, SUT_GIAM_TOI_DA = 10000.0, 10.0, 80.0
+
+
+def _nam(pha: str) -> float:
+    a, b = IS if pha == "IS" else OOS
+    return (int(b[:4]) - int(a[:4])) + (int(b[5:7]) - int(a[5:7])) / 12.0 + (int(b[8:10]) - int(a[8:10])) / 365.0
+
+
+def cot_loi(r: dict) -> dict | None:
+    """Lai %/nam (tren von), sut giam % (tu bao cao MT5), lai %/nam khi tang lot toi sut giam 80 %, dat hay khong."""
+    import re
+    m = re.search(r"\(([\d.]+)%\)", str(r.get("dd") or ""))
+    if m is None or r.get("net") is None or r.get("pha") not in ("IS", "OOS"):
+        return None
+    lai, dd = r["net"] / VON / _nam(r["pha"]) * 100.0, float(m.group(1))
+    o80 = lai * SUT_GIAM_TOI_DA / dd if dd > 0 else None
+    return {"lai_pct_nam": round(lai, 3), "sut_giam_pct": dd, "lai_pct_nam_o_dd80": round(o80, 1) if o80 is not None else None,
+            "he_so_lot_dd80": round(SUT_GIAM_TOI_DA / dd, 1) if dd > 0 else None,
+            "dat": bool(lai > 0 and (o80 is None or o80 >= LAI_TOI_THIEU))}
 
 
 def khoa(v: dict) -> str:
@@ -183,10 +204,14 @@ def tong_ket(so_cai: list[dict] | None = None) -> dict:
         if r.get("pha") == "IS" and dat(r, NGUONG_IS):
             o = oos.get(khoa(r))
             if o and dat(o, NGUONG_OOS):
+                ci, co = cot_loi(r), cot_loi(o)
                 ung.append({"ea": r["ea"], "ma": r["ma"], "tf": r["tf"], "ts": r["ts"], "IS": {k: r.get(k) for k in ("net", "lenh", "pf", "dd")},
-                            "OOS": {k: o.get(k) for k in ("net", "lenh", "pf", "dd")}, "holm": h.get(khoa(r), False)})
+                            "OOS": {k: o.get(k) for k in ("net", "lenh", "pf", "dd")}, "holm": h.get(khoa(r), False),
+                            "cot_loi_IS": ci, "cot_loi_OOS": co, "dat_cot_loi": bool(ci and co and ci["dat"] and co["dat"])})
     return {"so_lan_thu": len(sc), "so_IS": sum(r.get("pha") == "IS" for r in sc), "so_OOS": sum(r.get("pha") == "OOS" for r in sc),
-            "dat_IS": sum(1 for r in sc if r.get("pha") == "IS" and dat(r, NGUONG_IS)), "ung_vien_ca_hai": ung}
+            "dat_IS": sum(1 for r in sc if r.get("pha") == "IS" and dat(r, NGUONG_IS)),
+            "dat_cot_loi_ca_hai": sum(u["dat_cot_loi"] for u in ung),
+            "cap_ea_ma_dat_cot_loi": sorted({"%s %s" % (u["ea"], u["ma"]) for u in ung if u["dat_cot_loi"]}), "ung_vien_ca_hai": ung}
 
 
 if __name__ == "__main__":

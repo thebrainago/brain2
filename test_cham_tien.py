@@ -31,11 +31,17 @@ def test_he_tot_thi_chay_duoc():
     assert CD.tu_to_hop(_TOT)["muc"] == "CHAY_DUOC"
 
 
-def test_lai_thap_van_chay_duoc_kem_nhan():
-    """17/10/2026: lai nho van GIU (lot co gian duoc); nguong 20%/nam chi con la nhan."""
+def test_lai_10_nam_o_sut_giam_80_thi_chay_duoc():
+    """17/10/2026 chu du an: lai >= 10%/nam, sut giam <= 80%. cagr_dd20 = 2,5 -> o DD 80% von: 2,5 / 25 = 10%/nam."""
+    x = CD.tu_to_hop(dict(_TOT, cagr_dd20=2.5))
+    assert x["muc"] == "CHAY_DUOC" and abs(x["lai_pct_nam_o_dd80"] - 10.0) < 1e-9
+
+
+def test_lai_qua_mong_thi_chua_dat_nhung_khong_bo():
+    """Hieu chuan hai chieu: lai 6%/nam o DD 80% -> CHUA_DAT (giu lam manh ghep), khong phai BO."""
     x = CD.tu_to_hop(dict(_TOT, cagr_dd20=1.5))
-    assert x["muc"] == "CHAY_DUOC"
-    assert any("muc 20%" in l for l in x["ly_do"])
+    assert x["muc"] == "CHUA_DAT"
+    assert any("muc 10%" in l for l in x["ly_do"])
 
 
 def test_it_lenh_van_chay_duoc_kem_nhan():

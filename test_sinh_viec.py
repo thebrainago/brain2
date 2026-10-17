@@ -56,3 +56,14 @@ def test_python_box_uu_tien(tmp_path):
                                                                 "IS": {"pf": 2.2}, "OOS": {"pf": 2.3}}]}}))
     v = SV.tu_python_box(p)
     assert v[0]["diem"] > 50 and v[0]["ts"]["InpRsiCao"] == 75 and v[0]["ts"]["InpTrATR"] == 2.0
+
+
+def test_cot_loi_lai_10_o_sut_giam_80():
+    # IS 7 nam: +700 USD tren 10.000 = 1 %/nam, DD 4 % -> tang lot x20 -> 20 %/nam o DD 80 % -> DAT
+    c = SV.cot_loi(_r(net=700.0, dd="400 (4.00%)"))
+    assert abs(c["lai_pct_nam"] - 1.0) < 0.01 and c["he_so_lot_dd80"] == 20.0 and c["dat"]
+    # 0,1 %/nam voi DD 10 % -> 0,8 %/nam o DD 80 % -> KHONG dat; lo -> khong dat
+    assert not SV.cot_loi(_r(net=70.0, dd="1000 (10.00%)"))["dat"]
+    assert not SV.cot_loi(_r(net=-5.0, dd="10 (0.10%)"))["dat"]
+    assert SV.cot_loi(_r(dd=None)) is None
+
