@@ -49,10 +49,12 @@ Không viết mới từ số 0: bọc và mở rộng `mo_phong_v2` (cùng lu�
 3. Lấy top-K cặp/bộ ba theo điểm bù nhau → mô phỏng cấp tài khoản → giữ cái cho thu nhập/tháng cao nhất trong giới hạn vốn chủ dự án chấp nhận.
 4. Tách riêng việc chọn bộ quản lí: chạy từng bộ quản lí trên **dòng lệnh đơn giản** (mua mở phiên Mỹ mỗi ngày, ví dụ ONH của chủ dự án) để biết bộ nào hợp trạng thái nào, rồi mới cắm nguồn lệnh khác vào.
 
-### 2.4 Seeker đổi mục tiêu: thu cặp "nguồn lệnh + bộ quản lí", đừng bắt dịch cả điều kiện vào
-- Rút **phần quản lí** từ `input` / `.set` của EA bằng `quan_tri.boc_kho` (đã có), không cần dịch được điều kiện vào.
-- Mỗi EA / tín hiệu có lịch sử (MQL5 signal, myfxbook) → một **thẻ**: vai trò (nguồn lệnh / mốc / bộ quản lí / bộ gỡ lệnh), cơ chế (ai ở phía bên kia), nhánh hỏng, cái giá.
-- Hệ có lịch sử giao dịch thì suy ngược ra *cách quản lí* (khoảng DCA, lot nhân, thời gian giữ), đúng như sơ đồ gốc ("từ chiến lược có lịch sử suy ngược").
+### 2.4 Seeker: THU MỌI NGUỒN VÀO LỆNH ĐƯỢC, quy về "dòng lệnh vào" — bộ lọc chỉ hỏi "ra lệnh được không?" (sửa 17/10 theo lời chủ dự án)
+Chủ dự án: dùng bộ não + bộ lọc để **sưu tập tất cả hệ thống có thể vào lệnh**, rồi kết hợp; không tìm đơn hệ rồi lọc nặng học thuật. (Bản đầu của mục này ghi "thôi bắt dịch điều kiện vào" — sai ý; sửa lại như dưới.)
+- **Giao diện chung = DÒNG LỆNH VÀO** `LenhVao(nguon, chi_so, gia, chieu)` (xem `nhan/tai_khoan.py`). Mọi nguồn — EA, chỉ báo mũi tên, luật DSL, lịch sử giao dịch (MQL5 signal, myfxbook), sự kiện ở mốc (ONH/ONL/PDH...) — đều quy về dòng này. **Không cần dịch logic của nguồn**, chỉ cần biết nó mở lệnh lúc nào, chiều nào, giá nào.
+- Cách lấy dòng: (a) luật đã dịch được → chạy thẳng; (b) **EA chưa dịch được → CHẠY nó** một lần trên máy nhà (MT5 tester, không để chấm đạt/trượt, chỉ để xuất danh sách lệnh vào), thay vì cố dịch (tỉ lệ dịch chỉ 3,6 %); (c) lịch sử giao dịch → là dòng lệnh sẵn.
+- **Bộ lọc của Seeker chỉ còn một câu: nguồn này có ra lệnh vào đo được không** (có giá, có chiều, chạy lại được, phí đo được). Không hỏi có edge không — chất lượng chỉ xét ở **hệ ghép** (mục 2.5).
+- Song song vẫn rút **phần quản lí** từ `input`/`.set` (bộ quản lí cắm vào bất kỳ dòng lệnh nào).
 
 ### 2.5 Cổng duy nhất: `cham_diem` ở cấp tài khoản + một bài "ngày tận thế"
 Không còn Holm / FDR / placebo làm cổng. Thêm một kiểm tra theo ngôn ngữ trader: *đặt hệ ghép vào đúng các đợt 2008 / 2020 / 2022 / 2025 (nếu có dữ liệu) với vốn X, tài khoản có sống không, lỗ treo bao nhiêu điểm, kẹt bao lâu.*
@@ -76,3 +78,20 @@ Với vốn X và lot Y: thu nhập ước tính mỗi tháng · lỗ treo tối
 - "Ghép theo bù nhau" là giả thuyết của Claude; có thể phát hiện ra các mảnh kẹt *cùng lúc* nhiều hơn dự kiến (tương quan đuôi), khi đó lợi ích ghép nhỏ.
 - Dữ liệu phút (M1) chỉ có ở máy Grok; cloud chỉ có H1 của XM từ 2016.
 - Không hứa có lãi. Đề xuất làm cho **câu hỏi đúng** (hệ ghép sống được với vốn của anh không, thu bao nhiêu) trả lời được bằng số.
+
+## 6. Kết quả đầu tiên của engine tài khoản v1 (17/10, MÔ PHỎNG H1, 1 đơn vị/rổ, TP 5,5 điểm, spread 1,5, swap 5,77 %/năm)
+`nhan/tai_khoan.py` (5 test xanh) + `mau_thu/tai_khoan_demo.py`: ba nguồn LONG trên US500Cash XM — ONH-retest, ONL-touch, IBS<0,2 — chạy riêng, ghép, ghép + gỡ chéo, ghép + DCA. Giai đoạn 2023–2026:
+
+| Kịch bản | Số rổ | Tổng (điểm) | Lỗ treo xấu nhất của cả tài khoản (điểm) | Rổ mở cùng lúc tối đa | Rổ kẹt > 5 ngày |
+|---|---|---|---|---|---|
+| ONH riêng | 336 | 658 | 2.196 | 4 | 31 |
+| ONL riêng | 548 | 1.189 | 3.595 | 5 | 42 |
+| IBS riêng | 167 | 256 | 1.790 | 4 | 15 |
+| **Ghép 3 nguồn** | 1.051 | 2.103 | **7.295** | 11 | 88 |
+| Ghép 3 + gỡ chéo | 1.051 | 2.126 | 7.295 | 10 | 81 |
+
+Ba điều rút ra (trong mẫu này, chưa hiệu chuẩn MT5):
+1. **Nhìn từng lệnh đánh giá thấp rủi ro**: ONH riêng, lỗ treo của một lệnh tệ nhất 981 điểm, nhưng các rổ chồng lên nhau làm tài khoản treo tới 2.196 điểm.
+2. **Ghép nhiều nguồn cùng chiều, cùng chỉ số ≈ một cược**: tổng gấp 3 nhưng lỗ treo cũng gấp 3 (tổng/lỗ treo 0,29 so với 0,30–0,33 của từng nguồn). Chúng kẹt cùng lúc — đúng điều lo ở mục 2.3.
+3. **Gỡ chéo giữa các rổ cùng chiều không cứu được cú crash** (lúc đó không có rổ nào lãi để gỡ) và, trong 10 năm (2016–2026), làm giảm lãi 4.196 → 3.530 vì chốt lỗ những lệnh sau vẫn hồi. Chỉ giảm số rổ kẹt lâu (279 → 226).
+→ Ghép chỉ có ích khi các mảnh **bù nhau thật**: khác chiều (bán, hedge), khác tài sản, khác trạng thái. Engine v1 còn **một tài sản**; bước tiếp: nhiều tài sản (repo có H1 XM của GER40, vàng) và lệnh bán/hedge làm nguồn.
