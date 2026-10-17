@@ -129,3 +129,9 @@ Chủ dự án: *"phí giao dịch, tính điểm giá chạy, spread, các các
 | 42 | Chạy 27 kịch bản. MRZ D1 GBPUSD/AUDUSD/EURGBP × 5 cách xử lí (chỉ TP+trailing · DCA 5 tầng lot đều · DCA lot tăng · DCA + hedge/gỡ · nhồi thuận). XAUUSD/US500/GER40 H1 không tín hiệu × 4 cách. Chạy trên tài khoản của anh (sau #37) **và** trên slot XM Ultra Low để so | `python mt5tools/chay_xu_li_lenh.py chay --slot <slot> --ma-san reports/phi_san/<server>/ma_san.json --tien USC` (MRZ D1 trước: `--chi _D1_`) | D1 ~2′/lần · H1 ~15–30′/lần | MỚI |
 | 43 | Tổng kết: bảng lãi/năm, sụt giảm vốn (gồm lỗ thả nổi), lãi ở DD 80 %, đạt 3 yếu tố. Đẩy `reports/xu_li_lenh/` lên git | `python mt5tools/chay_xu_li_lenh.py tong-ket --ma-san ...` | 1′ | MỚI |
 
+## SEEKER SĂN KHO (thêm 17/10/2026) — việc gom, ưu tiên hơn #41–#43
+| # | Việc | Lệnh | Ước tính | Trạng thái |
+|---|---|---|---|---|
+| S14 | Săn kho cơ chế trên GitHub (chủ đề + từ khoá bộ sưu tập + awesome-* + repo con); chấm bằng cây file; ghi `reports/SAN_KHO.json` | `set GITHUB_TOKEN=...` (tuỳ chọn, không lưu vào git) rồi `python tru/seeker.py san-kho` | 20–60′ | MỚI |
+| S15 | Kho đạt điểm cao: clone shallow (chỉ đọc), đọc hết file chiến lược và xử lí lệnh, ghi `reports/SEEKER_<KHO>.md` + `.json` như EA31337. Thứ tự: passivbot (gỡ lệnh) → hummingbot (DCA/grid) → freqtrade-strategies / NostalgiaForInfinity | Claude/Grok đọc | 1–2 giờ/kho | MỚI |
+
