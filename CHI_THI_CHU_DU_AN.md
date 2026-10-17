@@ -15,6 +15,26 @@
 
 > "Cậu vẫn cứ lạc đề như thế, cái tôi nói là 1 ví dụ cho 1 hệ thống giao dịch. Còn tôi muốn cậu và grok phải tư duy theo hướng đó chứ không phải máy móc test cái gì đó tốn thời gian mà lạc đề." (16/10 tối)
 
+## MỤC ĐÍCH CỦA THE BRAIN (chủ dự án 17/10 — đọc trước khi làm bất cứ gì)
+
+> "Cậu đã giao dịch forex bao giờ chưa? Cái cậu làm là vẫn loanh quanh mớ lý thuyết và đi tìm đống hệ thống giao dịch học thuật và trong mơ, việc làm như thế tự chặt đứt hết mọi lợi thế mà cái game này có
+> như dca gồng lệnh, gỡ lệnh, việc kết hợp các phương pháp và hệ thay vì đánh đơn hệ… cái tôi tạo ra cái the brain này là để cậu tìm kiếm và kết hợp nó lại với nhau."
+
+**Sơ đồ gốc của chủ dự án (`SO_DO_HE_THONG.txt`) đã viết đúng điều này từ đầu** — các agent đọc nhưng làm ngược:
+- *"việc sử dụng kỹ thuật quản lí lệnh tốt còn hơn việc có 1 entry tốt"* — ATR, trailing, hedging, buy/sell stop hai đầu, DCA, DCA tính vốn, đánh nhanh chốt nhanh.
+- *"tìm kiếm và bóc tách các cơ chế, các loại chiến lược theo lối này để dựng thành các hệ thống TÍCH HỢP VÀ BỔ SUNG. Hệ quản lí lệnh này có thể quản trị độc lập hoặc làm 1 bộ quy tắc để tích hợp vào những hệ thống khác."*
+- *"nếu có thể hãy thử kết hợp đa chỉ báo đa hệ thống mà chúng ta tìm được."* / Hephaestus = *ghép nút, sinh tổ hợp* ("10 trader có 20 kiểu dùng Ichimoku: cái biến thiên nằm ở CÁCH GHÉP").
+
+**Chúng ta đã làm sai ở đâu (bản hiểu của Claude):** đánh giá từng mảnh ĐỨNG MỘT MÌNH như một hệ đơn-entry, qua cổng kiểu SL/rr/thống kê (cổng `rr ≥ 0,2` còn được viết để giết đúng DCA/không-SL), rồi vứt mảnh nào thua một mình.
+Làm vậy tự chặt đứt các lợi thế của cuộc chơi: **gồng lệnh, DCA, gỡ lệnh, hedge, ghép nhiều phương pháp và nhiều hệ**. Một mảnh thua một mình có thể là nửa còn thiếu của một hệ ghép.
+
+**Luật mới từ đây:**
+1. **Đơn vị công việc là HỆ GHÉP, không phải một chiến lược đơn.** Hệ ghép = nhiều nguồn lệnh/phương pháp chạy cùng nhau + một bản đồ vùng chung (mốc của nhiều phương pháp trùng nhau thành vùng DCA/chốt) + một bộ quản lí gắn lên tất cả (gồng, DCA, nhồi theo chiều, hedge, **gỡ lệnh**: lãi của hệ này đóng lệnh kẹt của hệ kia).
+2. **Cấm loại một mảnh chỉ vì nó thua khi đứng một mình hoặc vì nó không hợp cổng SL/rr.** Mảnh nào có cơ chế hiểu được thì GIỮ làm nguyên liệu ghép, gắn nhãn "vai trò": nguồn lệnh · mốc/vùng · bộ quản lí · bộ gỡ lệnh.
+3. **Đo ở cấp TÀI KHOẢN, không đo từng lệnh**: đường vốn thả nổi, margin, thời gian kẹt, lỗ treo tối đa, thu nhập mỗi tháng của cả hệ ghép.
+4. **Tìm tổ hợp bằng SUY LUẬN về sự bù nhau** (hệ A yếu ở trạng thái nào thì hệ B mạnh ở trạng thái đó; mốc của B làm vùng DCA cho A; lãi của B gỡ kẹt cho A), không bằng lưới tham số mù.
+5. Các luật 16/10 (hạ cổng thống kê thành nhãn, giữ phí thật + không nhìn trước + khớp MT5) vẫn giữ.
+
 ## CÁCH TƯ DUY — ưu tiên hơn MỌI việc test (chủ dự án 16/10 tối)
 
 Ví dụ ONH/Judas bên dưới là **MỘT VÍ DỤ của một KIỂU hệ thống giao dịch**. Đừng biến nó thành bài test riêng (không quét tham số, không tối ưu TP/SL của ví dụ).
@@ -105,11 +125,11 @@ Chi tiết: `reports/onh_h1_lan_dau.md`; script `mau_thu/onh_h1.py`, `mau_thu/on
 - **ONH-retest KHÔNG hơn mua đại lúc 09:00 NY mỗi ngày** (+1,8 bps) ở độ phân giải H1 — chưa kết luận về setup thật (vào bằng nến phút).
 - DCA −0,5 %/−1 % × 3: chờ ngắn hơn nhưng vốn phình tới 4 đơn vị, lỗ treo tệ nhất ~100–120 % giá trị một đơn vị.
 
-## Việc tiếp theo (thay thế danh sách cũ)
+## Việc tiếp theo (thay thế danh sách cũ, 17/10)
 
-1. **Claude**: viết "thẻ hệ thống" cho ví dụ ONH theo 5 khối + cây xử lí khi sai; chủ dự án sửa cho đúng cách nghĩ của mình.
-2. **Grok**: đọc lại những gì SEEKER đã thu (mã EA đã tải, 79 mốc, kỹ thuật ICT/SMC / quét thanh khoản / phiên giao dịch...), **phân loại vào 5 khối**, chỉ ra khối nào còn thiếu (đặc biệt khối 5 — cây xử lí khi sai) và nhóm kỹ thuật theo *cơ chế* (ai ở phía bên kia). **Không chạy test.**
-3. Cùng chủ dự án chọn 2–3 hệ → **chỉ lúc đó** nhìn đường đi rủi ro (lỗ treo bằng điểm, thời gian kẹt, vốn, swap) và báo bằng lời thường.
+1. **Claude**: viết một "thẻ hệ ghép" mẫu — ví dụ ONH (nguồn lệnh) + vài hệ khác + bộ quản lí (gồng, DCA, nhồi, hedge, gỡ lệnh) — để chủ dự án sửa cho đúng cách nghĩ của mình.
+2. **Grok**: đọc lại kho SEEKER đã thu (EA, 79 mốc, kỹ thuật ICT/SMC, quét thanh khoản, phiên...) và **gắn vai trò** cho từng mảnh: nguồn lệnh · mốc/vùng · bộ quản lí · bộ gỡ lệnh; liệt kê **các cặp mảnh bù nhau** và vì sao. Chưa chạy test.
+3. Sau khi chủ dự án chọn 2–3 hệ ghép: mô phỏng **cấp tài khoản** (vốn thả nổi, margin, thời gian kẹt, thu nhập/tháng) và báo bằng lời thường.
 
 ## Ghi chú cho Grok
 

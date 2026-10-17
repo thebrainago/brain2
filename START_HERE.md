@@ -2,7 +2,7 @@
 
 > **⚠ 16/10/2026 — CHỈ THỊ CỦA CHỦ DỰ ÁN: đọc `CHI_THI_CHU_DU_AN.md` TRƯỚC. Nó thắng mọi luật chặt chẽ trong file này: mục tiêu chỉ là lợi nhuận; p-value/Holm/FDR/placebo/MDE/"hai nửa" chỉ là nhãn, không dùng để loại ý tưởng; may mắn/xu hướng/chế độ là hợp lệ, giữ và gắn điều kiện.**
 
-0. Đọc `CHI_THI_CHU_DU_AN.md` (16/10/2026), đặc biệt mục **CÁCH TƯ DUY**: chủ dự án là trader giao dịch tay, chỉ cần lợi nhuận; ví dụ ONH chỉ là MỘT VÍ DỤ của kiểu hệ thống 5 khối; **tạm dừng quét tham số / vòng lặp máy móc**; việc của bạn là suy nghĩ, phân loại, thiết kế "thẻ hệ thống", không chạy test hàng loạt.
+0. Đọc `CHI_THI_CHU_DU_AN.md` (17/10/2026), mục đầu **MỤC ĐÍCH CỦA THE BRAIN**: tìm các mảnh (nguồn lệnh, mốc/vùng, bộ quản lí, bộ gỡ lệnh) và **KẾT HỢP chúng thành hệ ghép** để dùng lợi thế DCA/gồng/gỡ lệnh/hedge; đo ở cấp tài khoản; không đánh giá mảnh đứng một mình bằng cổng SL/rr. **Tạm dừng quét tham số / vòng lặp máy móc.**
 1. Đọc `BAN_GIAO_GROK.md` (toàn bộ), rồi phần đầu `GHI_CHU_NANG_CAP_GROK.md`.
 2. Luật vận hành: mục **3** trong `BAN_GIAO_GROK.md` (tiền, đo được, mô phỏng ghi rõ, không secret trong git).
 3. Việc đầu: **kho cơ chế** tách rời (AB/AC tối đa 2–3 mảnh) **HOẶC** SEEKER tìm thêm MQL5+`.set`.
