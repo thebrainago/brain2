@@ -119,3 +119,13 @@ Chuẩn bị: mỗi sàn **một terminal MT5 portable riêng** ở D:/E: (vd `D
 | 40 | Tổng kết + ghép: lãi/năm từng mảnh trên phí sàn anh, spread chịu thêm được mỗi lệnh, mảnh nào làm bộ ghép tốt hơn, đạt hay không 3 yếu tố cốt lõi (lãi ≥ 10 %/năm ở sụt giảm ≤ 80 %). Đẩy `reports/phi_san/` và `reports/mt5_san_chu/` lên git | `python mt5tools/chay_lai_tren_san.py tong-ket --ma-san ... --von 10000 --dd-muc-tieu 80` | 1′ | MỚI |
 Sau #37–#40: chạy `chay_lien_tuc.py` như cũ. `sinh_viec.py` (ngưỡng hạ 17/10) đã xếp sẵn **92 cấu hình mới được chạy OOS** (MRZ AUDCAD 42, GBPUSD 20, AUDUSD 13, RSI US500 9, …), tự lấy trước.
 `lenh_cua_anh.csv` là lịch sử giao dịch của anh: **anh quyết định có đẩy lên git hay không**. `lich_su_tom_tat.csv` chỉ có số tổng.
+
+## XỬ LÍ LỆNH TRÊN MT5 (thêm 17/10/2026 tối, Claude) — làm ngay sau #37
+Chủ dự án: *"phí giao dịch, tính điểm giá chạy, spread, các cách entry, DCA xử lí lệnh khi sai, trailing vị thế có lợi, hedging cân bằng lệnh"*. EA mới `ea_demo/BRAIN_XuLiLenh.mq5`: MỘT bộ máy rổ lệnh. MT5 tự tính điểm, spread, swap, hoa hồng theo sàn đang kết nối, không còn Python đoán point.
+
+| # | Việc | Lệnh | Ước tính | Trạng thái |
+|---|---|---|---|---|
+| 41 | Biên dịch EA trong MetaEditor của slot (script tự chép vào `MQL5\Experts\BRAIN\` và gọi `metaeditor64.exe /compile` nếu có). **Báo lỗi biên dịch nếu có**: EA viết trên cloud, chưa biên dịch lần nào | (tự động ở #42) | 5′ | MỚI |
+| 42 | Chạy 27 kịch bản. MRZ D1 GBPUSD/AUDUSD/EURGBP × 5 cách xử lí (chỉ TP+trailing · DCA 5 tầng lot đều · DCA lot tăng · DCA + hedge/gỡ · nhồi thuận). XAUUSD/US500/GER40 H1 không tín hiệu × 4 cách. Chạy trên tài khoản của anh (sau #37) **và** trên slot XM Ultra Low để so | `python mt5tools/chay_xu_li_lenh.py chay --slot <slot> --ma-san reports/phi_san/<server>/ma_san.json --tien USC` (MRZ D1 trước: `--chi _D1_`) | D1 ~2′/lần · H1 ~15–30′/lần | MỚI |
+| 43 | Tổng kết: bảng lãi/năm, sụt giảm vốn (gồm lỗ thả nổi), lãi ở DD 80 %, đạt 3 yếu tố. Đẩy `reports/xu_li_lenh/` lên git | `python mt5tools/chay_xu_li_lenh.py tong-ket --ma-san ...` | 1′ | MỚI |
+
