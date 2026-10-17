@@ -125,11 +125,12 @@ Chi tiết: `reports/onh_h1_lan_dau.md`; script `mau_thu/onh_h1.py`, `mau_thu/on
 - **ONH-retest KHÔNG hơn mua đại lúc 09:00 NY mỗi ngày** (+1,8 bps) ở độ phân giải H1 — chưa kết luận về setup thật (vào bằng nến phút).
 - DCA −0,5 %/−1 % × 3: chờ ngắn hơn nhưng vốn phình tới 4 đơn vị, lỗ treo tệ nhất ~100–120 % giá trị một đơn vị.
 
-## Việc tiếp theo (thay thế danh sách cũ, 17/10)
+## Việc tiếp theo (thay thế danh sách cũ, 17/10) — chi tiết ở `DE_XUAT_THAY_DOI_THE_BRAIN.md`
 
-1. **Claude**: viết một "thẻ hệ ghép" mẫu — ví dụ ONH (nguồn lệnh) + vài hệ khác + bộ quản lí (gồng, DCA, nhồi, hedge, gỡ lệnh) — để chủ dự án sửa cho đúng cách nghĩ của mình.
-2. **Grok**: đọc lại kho SEEKER đã thu (EA, 79 mốc, kỹ thuật ICT/SMC, quét thanh khoản, phiên...) và **gắn vai trò** cho từng mảnh: nguồn lệnh · mốc/vùng · bộ quản lí · bộ gỡ lệnh; liệt kê **các cặp mảnh bù nhau** và vì sao. Chưa chạy test.
-3. Sau khi chủ dự án chọn 2–3 hệ ghép: mô phỏng **cấp tài khoản** (vốn thả nổi, margin, thời gian kẹt, thu nhập/tháng) và báo bằng lời thường.
+Claude đã đọc code và đề xuất 6 thay đổi cụ thể (chờ chủ dự án duyệt). Chia việc:
+1. **Claude**: `nhan/he_ghep.py` (schema) + `nhan/tai_khoan.py` (nhiều rổ chung một tài khoản, margin chung, **gỡ chéo**, DCA theo vùng; bọc `mo_phong_v2`) + hiệu chuẩn với 15 ô MT5 sạch; rồi hồ sơ trạng thái + điểm "bù nhau" giữa các mảnh.
+2. **Grok** (chỉ sau khi chủ dự án duyệt): rút **phần quản lí** từ `input`/`.set` của kho EA đã thu bằng `quan_tri.boc_kho` → thư viện bộ quản lí; gắn vai trò (nguồn lệnh · mốc/vùng · bộ quản lí · bộ gỡ lệnh) cho 79 mốc và các EA; **không chạy test, không quét tham số**.
+3. Chọn 2–3 hệ ghép cùng chủ dự án → bài "ngày tận thế" (2008/2020/2022/2025) → hồ sơ một trang.
 
 ## Ghi chú cho Grok
 
