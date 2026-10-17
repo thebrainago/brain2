@@ -92,11 +92,32 @@ NHAN_MEM = {
 #: Cai VAN CHAN. Liet ke tuong minh de them mot dieu kien moi khong tu dong roi
 #: vao ben nao ma khong ai quyet dinh.
 CHAN_CUNG = ("1_loi_hon_mua_giu", "2_sharpe_hon_mua_giu", "3_calmar_hon_mua_giu",
-             "7_chi_phi_do_duoc", "8_du_lenh", "11_khong_an_khe_dao_ngay")
+             "7_chi_phi_do_duoc", "8_du_lenh", "11_khong_an_khe_dao_ngay",
+             # 17/10/2026: 12/13 (tang 2 kinh te, them 18/09) chua tung duoc xep loai -> moi lan goi
+             # xet() o che do "nhan" deu KeyError. Xep vao CHAN cho dung y dinh luc them; 14 suy ra tu 1.
+             "12_rr_thuc_te", "13_edge_vuot_spread", "14_lai_rong_duong")
+
+#: CHE DO "loi_nhuan" (chu du an 17/10/2026, mac dinh trong config/nguong.json):
+#:   "cai no can la giao dich co loi nhuan chu con bay gio cu loai bo cac yeu to may man va so sanh voi
+#:    viec mua giu thi no khong can thiet bởi vi chac chan la se khong the nao ma chuan nhu the duoc"
+#: Chi CHAN ba thu lam con so co THAT: phi do duoc, khong an khe gia dao ngay, lai rong sau phi > 0.
+#: Moi thu khac (so voi mua-giu, y nghia thong ke, placebo, FDR, dang ky truoc, du lenh, rr, edge/spread)
+#: chi la NHAN de chu du an doc - khong loai ung vien nao.
+CHAN_LOI_NHUAN = ("7_chi_phi_do_duoc", "11_khong_an_khe_dao_ngay", "14_lai_rong_duong")
+NHAN_LOI_NHUAN = {
+    "1_loi_hon_mua_giu": "lai chua hon mua-giu (chi tham khao)",
+    "2_sharpe_hon_mua_giu": "Sharpe chua hon mua-giu (chi tham khao)",
+    "3_calmar_hon_mua_giu": "Calmar chua hon mua-giu (chi tham khao)",
+    "8_du_lenh": "it lenh - hop lam MANH GHEP voi he khac",
+    "12_rr_thuc_te": "rr thap (TP nho / DCA / gong) - duoi rui ro, can quan li von",
+    "13_edge_vuot_spread": "lai/lenh mong so voi spread - nhay voi phi, kiem lai tren san cua chu du an",
+    **NHAN_MEM,
+}
 
 
 def che_do_cong() -> str:
-    """'nhan' (mac dinh) = cac tieu chi hoc thuat chi dan nhan. 'chan' = ban cu.
+    """'loi_nhuan' (17/10/2026) = chi chan phi do duoc + khong an khe gia + lai rong > 0; con lai la nhan.
+    'nhan' (12/09) = cac tieu chi hoc thuat chi dan nhan, van chan so voi mua-giu / du lenh / rr / edge. 'chan' = ban cu.
 
     Doi bang `"che_do_cong": "chan"` trong config/nguong.json. Ban cu duoc giu
     nguyen ven chu khong xoa: so `verdict_chan` van duoc tinh va ghi trong moi
@@ -735,6 +756,8 @@ def xet(df, kq_he, kq_bh, cp, gt_ma: str = "", ho: str = "chung",
     dk["1_loi_hon_mua_giu"] = _sanh(lai_khop, max(bh.get("tong_lai_pct") or 0, 0.0))
     dk["2_sharpe_hon_mua_giu"] = _sanh(he.get("sharpe"), max(bh.get("sharpe") or 0, 0.0))
     dk["3_calmar_hon_mua_giu"] = _sanh(he.get("calmar"), max(bh.get("calmar") or 0, 0.0))
+    # 17/10/2026: dieu kien TIEN duy nhat cua che do "loi_nhuan" - lai rong sau phi (so tho, khong khop rui ro).
+    dk["14_lai_rong_duong"] = (he.get("tong_lai_pct") or 0.0) > 0.0
 
     t_al = al.get("t_alpha")
     a_al = al.get("alpha_nam_pct")
@@ -846,7 +869,12 @@ def xet(df, kq_he, kq_bh, cp, gt_ma: str = "", ho: str = "chung",
     # ca hai deu do that tren so cai:
     #   - Toc do: 94% ngan sach CPU cua QUANTLAB do vao ung vien da chet.
     # Placebo la de PHAN XU thu con song, khong phai de kham nghiem tu thi.
-    da_truot_re = [k for k, v in dk.items() if not v]
+    if che_do_cong() == "loi_nhuan":
+        # 17/10/2026: chi dieu kien CHAN cua che do loi_nhuan moi lam bo qua placebo/FDR;
+        # dieu kien chi-la-nhan (so voi mua-giu, rr, edge, du lenh...) khong duoc chan viec ghi nhan.
+        da_truot_re = [k for k in CHAN_LOI_NHUAN if dk.get(k) is False]
+    else:
+        da_truot_re = [k for k, v in dk.items() if not v]
     pl, kq_fdr = None, None
     p_hop_thanh_fdr = 1.0
     if not chay_placebo:
@@ -952,14 +980,18 @@ def xet(df, kq_he, kq_bh, cp, gt_ma: str = "", ho: str = "chung",
     # --- CHAN CUNG hay NHAN CANH BAO (xem NHAN_MEM o dau file)
     cd_cong = che_do_cong()
     qua_het_chan = all(dk.values())
-    if cd_cong == "nhan":
-        thieu = [k for k in dk if k not in NHAN_MEM and k not in CHAN_CUNG]
-        if thieu:
-            raise KeyError("dieu kien chua phan loai chan/nhan: %s" % thieu)
-        qua_het = all(v for k, v in dk.items() if k not in NHAN_MEM)
+    if cd_cong == "loi_nhuan":
+        qua_het = all(dk.get(k, True) for k in CHAN_LOI_NHUAN)
+        nhan = [NHAN_LOI_NHUAN.get(k, k) for k, v in dk.items() if not v and k not in CHAN_LOI_NHUAN]
     else:
-        qua_het = qua_het_chan
-    nhan = [NHAN_MEM[k] for k, v in dk.items() if k in NHAN_MEM and not v]
+        if cd_cong == "nhan":
+            thieu = [k for k in dk if k not in NHAN_MEM and k not in CHAN_CUNG]
+            if thieu:
+                raise KeyError("dieu kien chua phan loai chan/nhan: %s" % thieu)
+            qua_het = all(v for k, v in dk.items() if k not in NHAN_MEM)
+        else:
+            qua_het = qua_het_chan
+        nhan = [NHAN_MEM[k] for k, v in dk.items() if k in NHAN_MEM and not v]
 
     if qua_het and che_do == "nghien_cuu":
         # Tran cua che do nghien cuu. Khong bao gio PASS: chua ai chung minh
@@ -967,7 +999,7 @@ def xet(df, kq_he, kq_bh, cp, gt_ma: str = "", ho: str = "chung",
         verdict = "CO_CO_CHE"
         ly_do.append("qua het cong o che do nghien cuu - moi noi duoc ve CO CHE, "
                      "can chuoi giao dich duoc + chi phi DO DUOC de chung nhan")
-    elif qua_het and not da_dang_ky and cd_cong != "nhan":
+    elif qua_het and not da_dang_ky and cd_cong not in ("nhan", "loi_nhuan"):
         verdict = "EXPLORATORY"
         ly_do.append("qua het cong nhung KHONG dang ky truoc -> khong bao gio PASS")
     elif qua_het and not tren_holdout:

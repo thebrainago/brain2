@@ -21,8 +21,14 @@ def test_oos_uu_tien_khi_dat_is():
 
 
 def test_near_miss_sinh_hang_xom():
-    v = SV.lay_viec(3, so_cai=[_r(pf=1.15, net=10)])
+    v = SV.lay_viec(3, so_cai=[_r(pf=0.95, net=-1)])
     assert all(x["pha"] == "IS" and x["diem"] >= 10 for x in v)
+
+
+def test_lai_mong_van_duoc_chay_oos():
+    # 17/10/2026: chi can co lai -> pf 1,15 / 12 lenh tung bi chan o IS, nay duoc chay OOS
+    v = SV.lay_viec(1, so_cai=[_r(pf=1.15, net=10, lenh=12)])[0]
+    assert v["pha"] == "OOS"
 
 
 def test_khung_ngan_khong_gio_vao():

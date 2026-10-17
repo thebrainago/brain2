@@ -18,11 +18,12 @@ tien lai bao nhieu, rui ro the nao, dung vong veo hoc thuat nua"*.
   `nguy_co_chay`  Ty le duong chay bi stop-out. Voi lop khong cat lo day la
                   con so DUY NHAT co nghia.
 
-## BA MUC PHAN QUYET - dat theo NGUONG CHU DU AN, khong theo thong ke
+## HAI MUC PHAN QUYET (17/10/2026, chu du an: "cai no can la giao dich co loi nhuan")
 
-  `CHAY_DUOC`  lai >= 20%/nam · sut giam <= 60% · >= 20 lenh/nam · khong chay
-  `MONG`       co lai nhung khong dat mot trong cac nguong tren
+  `CHAY_DUOC`  co lai sau phi va khong chay tai khoan
   `BO`         lo, hoac chay tai khoan
+  Cac nguong cu (lai >= 20%/nam, sut giam <= 60%, >= 20 lenh/nam) nay chi la NHAN trong `ly_do`:
+  he it lenh / lai nho van la MANH GHEP dung duoc, va lot co gian duoc. Muc `MONG` khong con duoc tra ve.
 
 ## KHONG CO O DAY, VA CO Y
 
@@ -35,7 +36,7 @@ from __future__ import annotations
 
 import numpy as np
 
-#: Nguong cua chu du an, dat 04-05/09. Doi o day, khong rai rac trong script.
+#: Nguong cua chu du an, dat 04-05/09. Tu 17/10 chi con dung de GHI NHAN (khong chan). Doi o day, khong rai rac trong script.
 MUC_LAI = 20.0          # %/nam tren von phai bo ra
 TRAN_SUT_GIAM = 60.0    # %
 MIN_LENH_NAM = 20.0
@@ -77,10 +78,8 @@ def cham(lai_nam: float, von_can: float, sut_giam_pct: float,
 
     if chay or lai_nam <= 0:
         muc = "BO"
-    elif not ly_do:
-        muc = "CHAY_DUOC"
     else:
-        muc = "MONG"
+        muc = "CHAY_DUOC"       # 17/10: chi can co lai + khong chay; cac dong ly_do khac la NHAN
 
     return {
         "ten": ten, "muc": muc, "ly_do": ly_do,
@@ -156,8 +155,8 @@ def bang(cac_diem: list[dict], in_ra=print, tran: int = 25) -> None:
                  ("%.0f th" % x["hoi_von_thang"]) if x["hoi_von_thang"] else "-"))
     n = sum(1 for x in d if x["muc"] == "CHAY_DUOC")
     in_ra("")
-    in_ra("CHAY_DUOC: %d | MONG: %d | BO: %d"
-          % (n, sum(1 for x in d if x["muc"] == "MONG"),
+    in_ra("CHAY_DUOC: %d (kem nhan: %d) | BO: %d"
+          % (n, sum(1 for x in d if x["muc"] == "CHAY_DUOC" and x["ly_do"]),
              sum(1 for x in d if x["muc"] == "BO")))
     chua = [x for x in d if x["muc"] == "CHAY_DUOC" and not x["da_qua_cong_that"]]
     if chua:

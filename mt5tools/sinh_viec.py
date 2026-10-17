@@ -31,8 +31,10 @@ LUOI = {
     "CHUNG": {"InpTrATR": [1.5, 2.0, 2.5, 3.0], "InpGiuToiDa": [5, 20, 72], "InpGioVao": [0, 1, 2, 3, 4], "InpSlATR": [1.0, 1.5, 2.0]},
 }
 MAC_DINH = {"InpNguongZ": 2.0, "InpMrzN": 50, "InpRsiThap": 30, "InpRsiCao": 70, "InpTrATR": 2.0, "InpGiuToiDa": 72, "InpGioVao": 2, "InpSlATR": 1.5}
-NGUONG_IS = {"pf": 1.25, "lenh": 30, "net": 0.0}
-NGUONG_OOS = {"pf": 1.15, "lenh": 15, "net": 0.0}
+# 17/10/2026 (chu du an: chi can giao dich co loi nhuan): ha tu pf 1,25 / 30 lenh (IS) va pf 1,15 / 15 lenh (OOS).
+# He D1 chi 4-8 lenh/nam nen nguong 30 lenh IS tung chan nhieu cau hinh khong bao gio duoc chay OOS.
+NGUONG_IS = {"pf": 1.0, "lenh": 10, "net": 0.0}
+NGUONG_OOS = {"pf": 1.0, "lenh": 5, "net": 0.0}
 
 
 def khoa(v: dict) -> str:
@@ -110,7 +112,8 @@ def lay_viec(n: int = 1, so_cai: list[dict] | None = None, dang_chay: set[str] |
         if r.get("pha") == "IS" and dat(r, NGUONG_IS):
             v = {k: r[k] for k in ("ea", "ma", "tf", "ts")}; v.update(pha="OOS", diem=100 + (r.get("pf") or 0))
             hang.append(v)
-        elif r.get("pha") == "IS" and (r.get("pf") or 0) >= 1.1 and (r.get("lenh") or 0) >= 20:   # 2) near-miss -> hang xom
+        # 2) near-miss -> hang xom. 17/10: nguong IS ha xuong pf 1,0 nen near-miss la vung SAT HOA (pf 0,9-1,0), khong con 1,1-1,25
+        elif r.get("pha") == "IS" and (r.get("pf") or 0) >= 0.9 and (r.get("lenh") or 0) >= NGUONG_IS["lenh"]:
             for h in hang_xom(r):
                 h["diem"] = 10 + (r.get("pf") or 0)
                 hang.append(h)

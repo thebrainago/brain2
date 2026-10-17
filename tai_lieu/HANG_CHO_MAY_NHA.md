@@ -1,4 +1,6 @@
-# HÀNG CHỜ MÁY NHÀ (việc box không làm được). Cập nhật 14/10/2026 02h41 (giờ VN) — vòng lặp box chu kỳ 6 (hang_cho_may_nha).
+# HÀNG CHỜ MÁY NHÀ (việc box không làm được).
+> 🔺 **17/10/2026: ưu tiên #37–#40 (đo phí + chạy lại trên TÀI KHOẢN CỦA ANH) trước mọi việc khác**, xem cuối tệp và `BO_TIEU_CHI_MOI.md`.
+ Cập nhật 14/10/2026 02h41 (giờ VN) — vòng lặp box chu kỳ 6 (hang_cho_may_nha).
 
 > ⏸ **CA MÁY NHÀ 7h37 ĐANG TẠM DỪNG** (13/10/2026, chủ dự án báo máy nhà không chạy sáng 14/10). KHÔNG giả định máy nhà chạy;
 > hàng dưới đây để sẵn cho lúc chủ dự án bảo **resume**. Khi resume: làm mục **MỚI/CHỜ** theo thứ tự ở phần "Hàng cho lần resume" (#27→), rồi mới tới `chay_lien_tuc.py`.
@@ -104,3 +106,16 @@ So khớp MT5 ↔ Python box (`box_luoi_python_chi_tiet.jsonl.gz`, cùng khoá):
 | 36 | Cuối ca: đẩy sổ cái + `sinh_viec.py tong-ket`, xoá `p*\Tester`, `bases\*\history|ticks`, ghi dung lượng đã xoá; kiểm C: không phình | 10′ | MỖI CA |
 Hết bảng → `chay_lien_tuc.py --den <giờ hết ca − 35′>` như luật đầu tệp (sinh_viec ưu tiên near-miss/hàng xóm của ứng viên trên).
 Vướng cần chủ dự án: (1) bảo **resume** ca 7h37; (2) RAM disk (#26, cài ImDisk/AIM — cần đồng ý); (3) follow tài khoản nguồn (#23, chỉ follow); (4) mạng khác hợp lệ cho TradingView/MQL5 (#35) nếu muốn.
+
+## PHÍ + CHẠY LẠI TRÊN TÀI KHOẢN CỦA ANH (thêm 17/10/2026, Claude). Ưu tiên CAO NHẤT, thứ tự = ưu tiên
+Lí do: mọi số phí đã đo đều là XM **Ultra Low `#`** (swap FX tắt), **không phải hai tài khoản anh đánh** (Exness cent, XM micro). Tiêu chí mới (`BO_TIEU_CHI_MOI.md`) chỉ hỏi "lãi ròng sau phí THẬT > 0", nên phí phải là phí sàn của anh.
+Chuẩn bị: mỗi sàn **một terminal MT5 portable riêng** ở D:/E: (vd `D:\mt5_tester\exness_cent`, `D:\mt5_tester\xm_micro`), **anh tự đăng nhập** tài khoản của mình. Claude/Grok không cần và không lưu mật khẩu. Không dùng slot p1–p4 (đang đăng nhập XM Ultra Low).
+
+| # | Việc | Lệnh | Ước tính | Trạng thái |
+|---|---|---|---|---|
+| 37 | **Đo phí** từng tài khoản: spread theo giờ (tick 14 ngày), giãn đổi ngày, spread đầu tuần, gap cuối tuần, swap ra tiền/đêm ở lot nhỏ nhất, margin + margin hedge, stop-out, hedging/netting, tiền của TP 5 giá. Kèm **lịch sử lệnh thật 365 ngày** (hoa hồng thật, giờ giữ, số lần nhồi, đóng bằng TP hay bằng tay) | `may_nha\DO_PHI_SAN.cmd "D:\mt5_tester\exness_cent\terminal64.exe"`, rồi chạy lại với `xm_micro` | 10′/sàn | MỚI |
+| 38 | Xem trước danh sách việc: 28 cấu hình (MRZ/RSI D1 đã lãi cả IS và OOS trên sổ cái 13/10, mỗi cặp EA × mã tối đa 2) gán sang tên mã của sàn | `python mt5tools/chay_lai_tren_san.py danh-sach --ma-san reports/phi_san/<server>/ma_san.json` | 1′ | MỚI |
+| 39 | **Chạy lại trên tài khoản của anh** (2016 → 10/2026, Model=4 tick thật, tham số CỐ ĐỊNH, không tối ưu). Script tự chép + biên dịch EA nếu slot có `metaeditor64.exe`. Cent: `--tien USC --von 10000` (tester không nhận USC thì dùng `--tien USD --von 100`; đòn bẩy tự lấy từ `tai_khoan.json`) | `python mt5tools/chay_lai_tren_san.py chay --slot D:\mt5_tester\exness_cent --ma-san reports/phi_san/<server>/ma_san.json --tien USC --von 10000` | ~2–3 giờ/sàn | MỚI |
+| 40 | Tổng kết + ghép: lãi/năm từng mảnh trên phí sàn anh, spread chịu thêm được mỗi lệnh, mảnh nào làm bộ ghép tốt hơn, %/năm ở DD 20 %. Đẩy `reports/phi_san/` và `reports/mt5_san_chu/` lên git | `python mt5tools/chay_lai_tren_san.py tong-ket --ma-san ... --von 10000 --dd-muc-tieu 20` | 1′ | MỚI |
+Sau #37–#40: chạy `chay_lien_tuc.py` như cũ. `sinh_viec.py` (ngưỡng hạ 17/10) đã xếp sẵn **92 cấu hình mới được chạy OOS** (MRZ AUDCAD 42, GBPUSD 20, AUDUSD 13, RSI US500 9, …), tự lấy trước.
+`lenh_cua_anh.csv` là lịch sử giao dịch của anh: **anh quyết định có đẩy lên git hay không**. `lich_su_tom_tat.csv` chỉ có số tổng.

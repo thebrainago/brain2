@@ -1,6 +1,8 @@
 {
  "bat_fdr": false,
  "_ghi_chu_bat_fdr": "TAT 04/09/2026 theo quyet dinh chu du an. Do truoc khi tat: 703 ket qua cham cong FDR, 0 cai truot CHI vi FDR. Doi thanh true de bat lai.",
- "che_do_cong": "nhan",
- "_ghi_chu_che_do_cong": "'nhan' (mac dinh tu 12/09/2026): alpha/placebo/dang-ky-truoc/FDR/siet-phoi-nhiem chi DAN NHAN, khong chan. Chan cung chi con: thang moc, phi do duoc, du lenh, khong an khe gia dao ngay. Doi thanh 'chan' de ve ban cu. Moi phan quyet van ghi `verdict_chan` de doi chieu."
+ "che_do_cong": "loi_nhuan",
+ "_ghi_chu_che_do_cong": "'nhan' (mac dinh tu 12/09/2026): alpha/placebo/dang-ky-truoc/FDR/siet-phoi-nhiem chi DAN NHAN, khong chan. Chan cung chi con: thang moc, phi do duoc, du lenh, khong an khe gia dao ngay. Doi thanh 'chan' de ve ban cu. Moi phan quyet van ghi `verdict_chan` de doi chieu.",
+ "_che_do_cong_truoc_17_10": "nhan",
+ "_ghi_chu_loi_nhuan": "17/10/2026 chu du an: 'cai no can la giao dich co loi nhuan chu con bay gio cu loai bo cac yeu to may man va so sanh voi viec mua giu thi no khong can thiet'. 'loi_nhuan': chi CHAN phi do duoc + khong an khe gia dao ngay + lai rong sau phi > 0; so voi mua-giu, y nghia thong ke, placebo, FDR, dang ky truoc, du lenh, rr, edge/spread deu chi la NHAN. Doi lai 'nhan' (ban 12/09) hoac 'chan' (ban cu) neu muon. Xem BO_TIEU_CHI_MOI.md."
 }

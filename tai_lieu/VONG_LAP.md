@@ -9,9 +9,10 @@ Vận hành máy nhà + box (ổ đĩa, slot MT5, điều phối, lịch ca, tr�
 
 ## Luật cứng (mọi việc)
 - Chỉ số ĐO ĐƯỢC; mô phỏng ghi "mô phỏng"; không đo được ghi "CHƯA ĐO ĐƯỢC".
-- QUA = lãi sau phí XM thật (`phi_xm_that.py`, spread đo theo giờ khi có) VÀ maxDD < 80 %, dương cả hai nửa
-  (phát hiện/kiểm), tiền đăng ký trước (`reports/vongNN_tien_dang_ky.md`), không nhìn trước (test cắt dữ liệu),
-  Holm CỘNG DỒN (mọi ô đã thử, kể cả ô dừng ở tầng 1 với p = 1). Sau vòng 27: xem `reports/vong27.json` → `ho_holm`.
+- **QUA (17/10/2026, `BO_TIEU_CHI_MOI.md`) = lãi ròng sau phí THẬT > 0 VÀ không nhìn trước VÀ tài khoản không cháy.**
+  Phí thật = phí sàn của chủ dự án khi đã có `reports/phi_san/` (Exness cent, XM micro); trước đó dùng XM (`phi_xm_that.py`).
+  Holm cộng dồn, p-value, "dương cả hai nửa", thắng mua-giữ, đủ lệnh: vẫn tính và ghi **làm nhãn**, KHÔNG dùng để loại.
+  (Luật cũ trước 17/10: QUA còn đòi dương cả hai nửa + Holm CỘNG DỒN, xem `reports/vong27.json` → `ho_holm`. Chính luật này ghi "0 qua" cho 247/251 cấu hình MT5 lãi cả hai giai đoạn.)
 - Lọc theo tầng: (1) cạnh thô TRƯỚC phí, cả hai nửa > 0 → (2) đa tài sản SAU phí XM thật → (3) quản trị/ghép.
 - Luôn ghép chéo phong cách (hồi quy × xu hướng × động lượng × giờ vào); thử cả khung nhỏ (M5/H1/H4) và lớn (D1/W1).
 - Không bí mật / mã EA bên thứ ba trong git (mã chỉ ở `data/cau_kho/`, git bỏ qua; repo giữ tóm tắt luật + URL).

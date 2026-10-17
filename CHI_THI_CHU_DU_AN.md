@@ -16,9 +16,10 @@
 > "Cậu vẫn cứ lạc đề như thế, cái tôi nói là 1 ví dụ cho 1 hệ thống giao dịch. Còn tôi muốn cậu và grok phải tư duy theo hướng đó chứ không phải máy móc test cái gì đó tốn thời gian mà lạc đề." (16/10 tối)
 
 ## ⚑ VIỆC HIỆN TẠI (17/10, chủ dự án: "xem xét lại toàn bộ") — đọc `RA_SOAT_TOAN_BO.md` TRƯỚC mọi mục dưới
-Xây hệ ĐƠN GIẢN từ mảnh đã có. Thứ tự: (1) đo phí + độ giãn trên **Exness cent và XM micro** bằng `mt5tools/phi_xm.py` + `xuat_spread_gia_xm.py`;
-(2) chạy lại các EA đã có (`ea_demo/BRAIN_V24_MRZ_Trail_D1`, `RSI_Trail_D1`, `BRAIN_IBS_Demo`) với cấu hình đã lãi trong sổ cái MT5, trên tài khoản của chủ dự án, ghi lệnh;
-(3) ghép bằng cộng đường vốn (`_bo_ba.py`), chia lot theo mức sụt giảm chủ dự án chọn; (4) chạy demo. **Không xây engine mới, không quét tham số.**
+Xây hệ ĐƠN GIẢN từ mảnh đã có. Thứ tự: (1) đo phí + độ giãn trên **Exness cent và XM micro** bằng `mt5tools/do_phi_san.py` (`may_nha/DO_PHI_SAN.cmd`);
+(2) chạy lại các EA đã có (`ea_demo/BRAIN_V24_MRZ_Trail_D1`, `RSI_Trail_D1`) với cấu hình đã lãi trong sổ cái MT5, trên tài khoản của chủ dự án: `mt5tools/chay_lai_tren_san.py chay` (`BRAIN_IBS_Demo` cần thêm luật thoát, hàng chờ #32);
+(3) ghép bằng cộng đường vốn: `chay_lai_tren_san.py tong-ket` (chia lot theo mức sụt giảm chủ dự án chọn); (4) chạy demo. **Không xây engine mới, không quét tham số.**
+**Tiêu chí (17/10, đã trong code): `BO_TIEU_CHI_MOI.md`** — chỉ chặn khi phí không đo được, nhìn trước, hoặc lãi ròng sau phí ≤ 0. Hàng chờ máy nhà #37–#40.
 
 ## MỤC ĐÍCH CỦA THE BRAIN (chủ dự án 17/10 — đọc trước khi làm bất cứ gì)
 

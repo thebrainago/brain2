@@ -1,5 +1,7 @@
 # RÀ SOÁT TOÀN BỘ THE BRAIN — 17/10/2026 (Claude, theo yêu cầu chủ dự án)
 
+> ✅ **17/10/2026: mục 1 đã làm xong trong code. Xem `BO_TIEU_CHI_MOI.md`** (cổng `loi_nhuan`, `cham_diem`, `sinh_viec`). Bước 1–2 của mục 4 đã có script: `mt5tools/do_phi_san.py` và `mt5tools/chay_lai_tren_san.py` (hàng chờ máy nhà #37–#40).
+
 > Chủ dự án: *"Góc độ bây giờ là xây dựng hệ thống ĐƠN GIẢN, tập hợp từ những hệ thống mã ghép nhỏ đã có sẵn. Lợi thế của người giao dịch nhỏ lẻ là có thể nhồi lại, gỡ lại, chờ thời gian để vị thế từ hoà thành lãi. Lọc chặt theo kinh tế học thuật thì không hệ nào bắt được. Phải đo lại tất cả các mức phí, mức giãn, tổng kết phương pháp/tín hiệu nào vào lệnh được và xử lí lệnh cho nó … xem xét lại toàn bộ."*
 
 **Một câu:** hệ thống đã từng tìm ra nhiều mảnh vào lệnh có lãi — kể cả trên **MT5 tester thật** — rồi tự gạt đi bằng bộ lọc học thuật. Không cần xây thêm máy; cần **nhặt lại, đo phí đúng tài khoản của anh, ghép đơn giản, chạy demo**.
@@ -21,7 +23,7 @@ Ghi nhãn bằng chứng: **[MT5]** = MT5 tester thật · **[MP]** = mô phỏn
 | "Dương cả hai nửa" | `VONG_LAP.md` | hệ ăn theo chế độ | **Nhãn chế độ**, không loại |
 | `CHAY_DUOC`: lãi ≥ 20 %/năm ở lot cố định | `nhan/cham_diem.py` | hệ lãi nhỏ ở lot thử | Vô nghĩa vì **lot co giãn được** → báo "%/năm ở mức sụt giảm anh chọn" |
 | Bộ đọc EA chỉ giữ EA **dịch được** (3,6 %) | `nhan/doc_ma.py`, Seeker | ~96 % kho EA | **Chạy EA** để lấy lệnh, không dịch |
-| `quan_tri.loc` (≥ 2 nút, có tham số số, ≥ 1 nút quản trị) | `nhan/quan_tri.py` | EA đơn giản | Đổi thành "ra lệnh đo được không" |
+| `quan_tri.loc` (≥ 2 nút, có tham số số, ≥ 1 nút quản trị) | `nhan/quan_tri.py` | — | **Giữ** (sửa 17/10: đọc lại code, nó chỉ phân loại họ 2 quản trị vị thế, không loại hệ có lãi) |
 | `TRAN_SPREAD_BPS = 8` | `nhan/ho_so_symbol.py` | cặp phí cao | Giữ, nhưng theo **phí đo trên sàn của anh** |
 | `NGUONG_PHAN_GIAI` (PMG) → CHƯA ĐO ĐƯỢC | `nhan/pmg_engine.py` | lưới bước hẹp hơn nến | **Giữ** (không đo được ≠ âm) |
 
