@@ -3,8 +3,9 @@
 """PHONG HOP - chu du an (chu toa), Claude va cac agent LLM khac hop bang VAN BAN. Chu toa chot cuoi cung.
 
   python phong_hop/hop.py mo <id> "<de bai>" [--tai-lieu a.md,b.md]   mo phien, ghi 00_DE_BAI.md (+ dinh kem tai lieu)
-  python phong_hop/hop.py vong1 <id>      moi thanh vien (loai api) viet Y KIEN DOC LAP, song song, khong thay nhau
-  python phong_hop/hop.py vong2 <id>      moi thanh vien doc het Y KIEN VONG 1 roi DONG Y / BAC BO / BO SUNG tung nguoi + de xuat cuoi
+  python phong_hop/hop.py vong1 <id> [--tu deepseek | --tu deepseek,qwen | --tat-ca]   cac agent viet Y KIEN DOC LAP, song song
+  python phong_hop/hop.py vong2 <id> [--tu ... | --tat-ca]     doc het Y KIEN VONG 1 roi DONG Y / BAC BO / BO SUNG tung nguoi + de xuat cuoi
+      (khong co --tu: chi goi `mac_dinh_goi` trong thanh_vien.json = deepseek + qwen; chu du an 17/10)
   python phong_hop/hop.py them <id> <vong> <ten> <file|->   nap van ban cua thanh vien khong goi duoc (Claude trong chat, Grok, chu toa)
   python phong_hop/hop.py bien-ban-tho <id>   gop thanh BIEN_BAN_THO.md (bang lap truong + ma tran phan bien) cho chu toa doc
   python phong_hop/hop.py chot <id> "<quyet dinh>"   ghi QUYET_DINH.md cua chu toa
@@ -137,9 +138,25 @@ def viet(p: Path, vong: int, tv: dict, van_ban: str, ghi: str = ""):
     (p / f"vong{vong}_{tv['ten']}.md").write_text(nd + (van_ban or "(KHÔNG CÓ VĂN BẢN — vắng mặt hoặc lỗi)") + "\n", encoding="utf-8")
 
 
-def chay_vong(id_: str, vong: int):
+def danh_sach_goi(chon: str | None, tat_ca: bool) -> list[dict]:
+    """Chon agent loai api se duoc goi: --tu a,b  >  --tat-ca  >  mac_dinh_goi trong thanh_vien.json."""
+    cac = json.loads((GOC / "thanh_vien.json").read_text(encoding="utf-8"))
+    api = {t["ten"]: t for t in cac["thanh_vien"] if t["loai"] == "api"}
+    if tat_ca:
+        ten = list(api)
+    elif chon:
+        ten = [x.strip() for x in chon.split(",") if x.strip()]
+    else:
+        ten = cac.get("mac_dinh_goi") or list(api)
+    xa_la = [x for x in ten if x not in api]
+    if xa_la:
+        sys.exit(f"khong co agent api ten: {', '.join(xa_la)}. Co: {', '.join(api)}")
+    return [api[x] for x in ten]
+
+
+def chay_vong(id_: str, vong: int, tvs: list[dict]):
     p = thu_muc(id_)
-    tvs = [t for t in thanh_vien() if t["loai"] == "api"]
+    print("  goi:", ", ".join(t["ten"] for t in tvs))
     boi_canh = ngu_canh(p)
     y1 = {}
     if vong == 2:
@@ -206,7 +223,11 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sp = ap.add_subparsers(dest="lenh", required=True)
     a = sp.add_parser("mo"); a.add_argument("id"); a.add_argument("de_bai"); a.add_argument("--tai-lieu", default="")
-    for k in ("vong1", "vong2", "bien-ban-tho", "trang-thai"):
+    for k in ("vong1", "vong2"):
+        a = sp.add_parser(k); a.add_argument("id")
+        a.add_argument("--tu", default="", help="chi goi cac agent nay, vd deepseek hoac deepseek,qwen")
+        a.add_argument("--tat-ca", action="store_true", help="goi het agent api (kimi, glm, deepseek, qwen)")
+    for k in ("bien-ban-tho", "trang-thai"):
         sp.add_parser(k).add_argument("id")
     a = sp.add_parser("them"); [a.add_argument(x) for x in ("id", "vong", "ten", "file")]
     a = sp.add_parser("chot"); a.add_argument("id"); a.add_argument("quyet_dinh")
@@ -219,10 +240,8 @@ def main():
             src = Path(f)
             (p / "tai_lieu" / src.name).write_text(doc(src), encoding="utf-8")
         print("da mo", p)
-    elif g.lenh == "vong1":
-        chay_vong(g.id, 1)
-    elif g.lenh == "vong2":
-        chay_vong(g.id, 2)
+    elif g.lenh in ("vong1", "vong2"):
+        chay_vong(g.id, int(g.lenh[-1]), danh_sach_goi(g.tu, g.tat_ca))
     elif g.lenh == "them":
         p = thu_muc(g.id)
         txt = sys.stdin.read() if g.file == "-" else doc(Path(g.file))

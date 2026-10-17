@@ -4,18 +4,51 @@
   "loai: api  = hop.py goi thang qua AI Box (api.ai-box.vn, OpenAI-compatible; khoa lay tu bien moi truong AIBOX_API_KEY neu co, trong phien cloud proxy tu chen)",
   "      file = thanh vien tu ghi van ban vao thu muc phien qua git (vd Grok); hop.py chi DOC file vong<N>_<ten>.md",
   "      tay  = Claude trong chat (Claude Code) viet bang tay va nap bang `hop.py them`",
-  "Doi model/vai bang cach sua file nay. KHONG dat khoa API o day."
+  "Doi model/vai bang cach sua file nay. KHONG dat khoa API o day.",
+  "mac_dinh_goi: nhung agent loai api ma `vong1`/`vong2` goi khi KHONG co --tu. Chu du an 17/10: chi goi deepseek + qwen (hoac chi deepseek). Goi rieng: --tu deepseek ; goi het: --tat-ca. kimi/glm van co san de moi khi can."
  ],
  "thanh_vien": [
-  {"ten": "claude", "loai": "tay", "vai": "Nguoi dan dat va thu ky. Giu cho cuoc hop bam muc dich cua chu du an; tong hop bien ban; cung la mot thanh vien co y kien rieng."},
-  {"ten": "grok", "loai": "file", "vai": "Thanh vien phan bien huong di; da lam nhieu vong nghien cuu tren brain2, biet ro cai gi da thu va that bai."},
-  {"ten": "kimi", "loai": "api", "model": "kimi-k3", "max_tokens": 8000,
-   "vai": "TRADER THUC CHIEN. Nghi nhu nguoi danh tay tren MT5: gong lenh, DCA, go lenh, hedge, nhoi lenh, tam ly khi ket lenh, thoi quen that cua trader ban le. Bac bo moi y tuong nghe hay nhung trader that khong lam duoc hoac se bo giua chung."},
-  {"ten": "glm", "loai": "api", "model": "glm-5.3", "max_tokens": 8000,
-   "vai": "QUAN LY RUI RO TAI KHOAN. Luon hoi: tai khoan song duoc khong khi nhieu lenh ket cung luc, margin, swap, crash. Tim cho he ghep se CHAY TAI KHOAN. Khong dung tieu chi hoc thuat de bac bo; chi dung tien, von, kich ban xau."},
-  {"ten": "deepseek", "loai": "api", "model": "ds/deepseek-v4-pro", "max_tokens": 8000,
-   "vai": "KY SU HE THONG. Nhin tinh kha thi: lam duoc trong code hien co khong, mat bao lau, phu thuoc gi (du lieu, MT5 may nha), cai gi lam truoc de co ket qua som, cai gi la viec thua."},
-  {"ten": "qwen", "loai": "api", "model": "qwen3.8-max", "max_tokens": 8000,
-   "vai": "NHA TIM NGUON VA GHEP HE. Nghi cach thu that nhieu nguon vao lenh (EA, chi bao, lich su giao dich, tin hieu) va cach ghep chung: nguon nao bu nhau, cach quy ve mot dong lenh vao chung, thu o dau, uu tien gi."}
+  {
+   "ten": "claude",
+   "loai": "tay",
+   "vai": "Nguoi dan dat va thu ky. Giu cho cuoc hop bam muc dich cua chu du an; tong hop bien ban; cung la mot thanh vien co y kien rieng."
+  },
+  {
+   "ten": "grok",
+   "loai": "file",
+   "vai": "Thanh vien phan bien huong di; da lam nhieu vong nghien cuu tren brain2, biet ro cai gi da thu va that bai."
+  },
+  {
+   "ten": "kimi",
+   "loai": "api",
+   "model": "kimi-k3",
+   "max_tokens": 8000,
+   "vai": "TRADER THUC CHIEN. Nghi nhu nguoi danh tay tren MT5: gong lenh, DCA, go lenh, hedge, nhoi lenh, tam ly khi ket lenh, thoi quen that cua trader ban le. Bac bo moi y tuong nghe hay nhung trader that khong lam duoc hoac se bo giua chung."
+  },
+  {
+   "ten": "glm",
+   "loai": "api",
+   "model": "glm-5.3",
+   "max_tokens": 8000,
+   "vai": "QUAN LY RUI RO TAI KHOAN. Luon hoi: tai khoan song duoc khong khi nhieu lenh ket cung luc, margin, swap, crash. Tim cho he ghep se CHAY TAI KHOAN. Khong dung tieu chi hoc thuat de bac bo; chi dung tien, von, kich ban xau."
+  },
+  {
+   "ten": "deepseek",
+   "loai": "api",
+   "model": "ds/deepseek-v4-pro",
+   "max_tokens": 12000,
+   "vai": "KY SU HE THONG. Nhin tinh kha thi: lam duoc trong code hien co khong, mat bao lau, phu thuoc gi (du lieu, MT5 may nha), cai gi lam truoc de co ket qua som, cai gi la viec thua."
+  },
+  {
+   "ten": "qwen",
+   "loai": "api",
+   "model": "qwen3.8-max",
+   "max_tokens": 12000,
+   "vai": "NHA TIM NGUON VA GHEP HE. Nghi cach thu that nhieu nguon vao lenh (EA, chi bao, lich su giao dich, tin hieu) va cach ghep chung: nguon nao bu nhau, cach quy ve mot dong lenh vao chung, thu o dau, uu tien gi."
+  }
+ ],
+ "mac_dinh_goi": [
+  "deepseek",
+  "qwen"
  ]
 }

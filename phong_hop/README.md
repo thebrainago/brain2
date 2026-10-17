@@ -2,7 +2,7 @@
 
 **Cách dùng với anh (chỉ cần nói với Claude trong chat):**
 1. "Họp về <chủ đề>" → Claude mở phiên, đính kèm tài liệu, viết ý kiến của mình **trước** (độc lập).
-2. Claude mời các agent (Kimi, GLM, DeepSeek, Qwen qua AI Box; Grok qua git) viết ý kiến **vòng 1** độc lập.
+2. Claude mời các agent viết ý kiến **vòng 1** độc lập. **Mặc định chỉ gọi DeepSeek + Qwen** (anh dặn 17/10); anh nói "chỉ deepseek" thì chỉ gọi DeepSeek; Kimi và GLM gọi thêm khi cần (`--tat-ca`). Grok tham gia qua git.
 3. **Vòng 2**: mỗi người đọc hết rồi `ĐỒNG Ý / BÁC BỎ / BỔ SUNG` từng người khác, nêu lỗi cụ thể, cập nhật đề xuất cuối. Bắt buộc phản biện, cấm khen xã giao.
 4. Claude (thư ký) viết `BIEN_BAN.md`: đồng ý, bất đồng, điều mới, các câu **cần anh chốt**.
 5. Anh nói "chốt: ..." → Claude ghi `QUYET_DINH.md`. Chỉ anh chốt; không agent nào tự quyết.
@@ -14,12 +14,12 @@
 |---|---|---|
 | claude | gõ tay trong chat, nạp bằng `hop.py them` | dẫn dắt, thư ký, có ý kiến riêng |
 | grok | **tự ghi file qua git** vào `phien/<id>/vong<N>_grok.md` (xem `MOI_GROK.md` mỗi phiên) | phản biện hướng đi |
-| kimi (`kimi-k3`) | `hop.py` gọi AI Box | trader thực chiến |
-| glm (`glm-5.3`) | `hop.py` gọi AI Box | quản lí rủi ro tài khoản |
-| deepseek (`ds/deepseek-v4-pro`) | `hop.py` gọi AI Box | kỹ sư hệ thống |
-| qwen (`qwen3.8-max`) | `hop.py` gọi AI Box | tìm nguồn & ghép hệ |
+| kimi (`kimi-k3`) | `hop.py` gọi AI Box — *dự bị, không gọi mặc định* | trader thực chiến |
+| glm (`glm-5.3`) | `hop.py` gọi AI Box — *dự bị, không gọi mặc định* | quản lí rủi ro tài khoản |
+| deepseek (`ds/deepseek-v4-pro`) | `hop.py` gọi AI Box — **mặc định** | kỹ sư hệ thống |
+| qwen (`qwen3.8-max`) | `hop.py` gọi AI Box — **mặc định** | tìm nguồn & ghép hệ |
 
-**Lệnh** (`python phong_hop/hop.py ...`): `mo <id> "<đề bài>" [--tai-lieu a.md,b.md]` · `vong1 <id>` · `vong2 <id>` · `them <id> <vòng> <tên> <file|->` · `bien-ban-tho <id>` · `chot <id> "<quyết định>"` · `trang-thai <id>`. Một phiên (4 agent × 2 vòng) mất ~5 phút.
+**Lệnh** (`python phong_hop/hop.py ...`): `mo <id> "<đề bài>" [--tai-lieu a.md,b.md]` · `vong1 <id> [--tu deepseek | --tat-ca]` · `vong2 <id> [--tu ...]` · `them <id> <vòng> <tên> <file|->` · `bien-ban-tho <id>` · `chot <id> "<quyết định>"` · `trang-thai <id>`. Một phiên 2 agent × 2 vòng mất ~5 phút; chỉ DeepSeek ~3 phút.
 
 **Ghi chú kỹ thuật đã gặp:**
 - Cổng AI Box cắt mọi yêu cầu **không-stream sau ~30 giây** (HTTP 502). `hop.py` đã dùng stream. Mô hình "suy nghĩ" (Kimi, GLM, DeepSeek, Qwen) tốn nhiều token cho suy nghĩ: để `max_tokens` ≥ 8000, nếu không ra văn bản rỗng hoặc bị cắt cuối.
