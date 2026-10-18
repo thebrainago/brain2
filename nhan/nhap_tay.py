@@ -104,8 +104,9 @@ def doc_lenh_html(vb: str) -> pd.DataFrame:
     sym_bc = ""
     for row in re.findall(r"<tr[^>]*>(.*?)</tr>", vb, re.S | re.I):
         c = _o(row)
-        if len(c) >= 2 and c[0].strip(":").lower() == "symbol" and not sym_bc:
-            sym_bc = (c[1].split() or [""])[0]
+        if len(c) >= 2 and not sym_bc and (c[0].strip(":").lower() in ("symbol", "símbolo", "символ", "交易品种") or
+                                           (len(c) == 2 and re.match(r"[A-Za-z0-9.#_]{3,}\s+\(", c[1]))):
+            sym_bc = (c[1].split() or [""])[0]          # dong 'Symbol' dau bao cao (ca khi nhan bi ma hoa sai, vd GBK)
             continue
         if len(c) < 6:
             continue

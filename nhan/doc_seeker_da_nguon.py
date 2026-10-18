@@ -137,14 +137,16 @@ def doc(da_co: set[str] | None = None, tran_ea: int = 12, tran_ea_top: int = 40,
         if stg:
             goc["so_tac_gia"] = stg
 
+        sinh = []                                                     # moi the sinh cho ung vien nay (ke ca da co)
+
         def _them(t: dict) -> None:
+            sinh.append(t["id"])
             if t["id"] not in da_co and t["id"] not in da_them:
                 da_them.add(t["id"])
                 x = dict(goc)
                 x.update(t)
                 the.append(x)
 
-        n_truoc = len(the)
         sets = [p for p in tep if p.suffix.lower() == ".set"]
         # 1) statement / bao cao co danh sach lenh
         for p in [q for q in tep if q.suffix.lower() in (".htm", ".html", ".csv")]:
@@ -195,14 +197,14 @@ def doc(da_co: set[str] | None = None, tran_ea: int = 12, tran_ea_top: int = 40,
                    "sets": [str(q.relative_to(GOC)) for q in sets if q.parent == p.parent][:tran_set],
                    "ma_goi_y": _ma_tu_ten(p.name) or sk["tai_san"], "ghi_chu": "chỉ có file biên dịch: chạy thẳng MT5"})
         # 4) chi bao / thu vien MQL (khong OnTick) -> boc co che
-        if len(the) == n_truoc and u.get("loai") in ("chi_bao", "tien_ich"):
+        if not sinh and u.get("loai") in ("chi_bao", "tien_ich"):
             mq = [p for p in tep if p.suffix.lower() in (".mq4", ".mq5", ".mqh")][:3]
             for p in mq:
                 _them({"id": "sk_cb_" + _id(u["id"], str(p)), "ten": "%s :: %s" % (u.get("ten"), p.name),
                        "nen_tang": "MQL4" if p.suffix.lower() == ".mq4" else "MQL5", "loai_kiem_ke": LOAI_KK[u["loai"]],
                        "nguon": {"kho": "seeker_da_nguon", "tep": str(p.relative_to(GOC)), "url": url}})
         # 5) Python / Pine
-        if len(the) == n_truoc:
+        if not sinh:
             dd = [".py"] if nt_u == "Python" else [".pine", ".txt"] if nt_u == "TradingView" else []
             ung = [p for p in tep if p.suffix.lower() in dd and p.stat().st_size < TRAN_MA]
             ung = [p for p in ung if re.search(r"IStrategy|populate_(entry|buy)_trend|strategy\.entry|def\s+on_(tick|bar|candle)|"
@@ -213,7 +215,7 @@ def doc(da_co: set[str] | None = None, tran_ea: int = 12, tran_ea_top: int = 40,
                        "loai_kiem_ke": LOAI_KK.get(u.get("loai"), "mo_ta"),
                        "nguon": {"kho": "seeker_da_nguon", "tep": str(p.relative_to(GOC)), "url": url}})
         # 6) khong co file dung duoc -> mot the cho ca ung vien
-        if len(the) == n_truoc:
+        if not sinh:
             _them({"id": "sk_uv_" + _id(u["id"]), "ten": u.get("ten") or u["id"], "nen_tang": nt_u,
                    "loai_kiem_ke": LOAI_KK.get(u.get("loai"), "mo_ta"),
                    "nguon": {"kho": "seeker_da_nguon", "tep": "", "url": url},

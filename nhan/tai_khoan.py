@@ -344,7 +344,9 @@ def ho_so_phi(ma: str, san: str = "XM", phi_san_dir: _Path | None = None) -> HoS
         if h not in tg:
             sg[h] = chung * gia * GIAN_DOI_NGAY_TAM
     sw_ok = int(luu.get("swap_mode") or 0) == 1
-    hs = HoSoPhi(ma=goc, symbol=str(luu.get("symbol_lay") or goc), san=san, point=pt, hop_dong=1000.0, spread_gio=sg,
+    # hop dong / lot: lay contract_size da do (config/chi_phi_do.json; vd GOLDmicro 1, SILVERmicro 50), khong co thi 1.000
+    hd = float(luu.get("contract_size") or 1000.0)
+    hs = HoSoPhi(ma=goc, symbol=str(luu.get("symbol_lay") or goc), san=san, point=pt, hop_dong=hd, spread_gio=sg,
                  swap_mua_diem=float(luu.get("swap_long") or 0.0) if sw_ok else 0.0,
                  swap_ban_diem=float(luu.get("swap_short") or 0.0) if sw_ok else 0.0,
                  ngay_x3=2 if CP._loai_tai_san(goc) == "fx" else 4,

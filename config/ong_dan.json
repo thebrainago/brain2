@@ -27,7 +27,9 @@
   "EURCHF": "/workspace/du_lieu_fx/hd28/eurchf_m5.csv",
   "GBPCHF": "/workspace/du_lieu_fx/hd28/gbpchf_m5.csv",
   "EURNZD": "/workspace/du_lieu_fx/hd28/eurnzd_m5.csv",
-  "GBPNZD": "/workspace/du_lieu_fx/hd28/gbpnzd_m5.csv"
+  "GBPNZD": "/workspace/du_lieu_fx/hd28/gbpnzd_m5.csv",
+  "XAUUSD": "/workspace/du_lieu_fx/hd28/xauusd_m5_histdata_ny7_den202610.csv",
+  "XAGUSD": "/workspace/du_lieu_fx/hd28/xagusd_m5_den202610.csv"
  },
  "tu_ngay": "2016-01-01",
  "khung": [
@@ -64,7 +66,7 @@
   "data/seeker_da_nguon/nhap_tay"
  ],
  "_ghi_chu_nhap_tay": "Thu muc chu du an tu luu EA/.set/statement/trang HTML (mo bang Chrome cua minh). Bien moi truong BRAIN_NHAP_TAY (cach nhau ;) thang cau hinh nay. Khong vuot Cloudflare/captcha.",
- "_ghi_chu_du_lieu": "19/10/2026: them 19 cap FX HistData M5 (hd28, 2024-01 -> 2026-10, BID, gio server NY+7) gop H1 khi doc (cache data/ong_dan/gia_h1/). AUDCAD tu 2016 (tu_ngay), NZDUSD noi 2018-2023 + 2024-2026. Kim loai (XAU/XAG) CHUA dua vao: hop dong micro XM chua xac minh -> de MT5 may nha do.",
+ "_ghi_chu_du_lieu": "19/10/2026: them 19 cap FX + XAUUSD + XAGUSD HistData M5 (hd28, 2024-01 -> 2026-10, BID, gio server NY+7) gop H1 khi doc (cache data/ong_dan/gia_h1/). AUDCAD tu 2016 (tu_ngay), NZDUSD noi 2018-2023 + 2024-2026. Hop dong / lot lay contract_size da do (GOLDmicro 1, SILVERmicro 50).",
  "nam_du_lieu_toi_thieu": 1.0,
  "seeker_da_nguon": {
   "bat": true,

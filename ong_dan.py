@@ -2,8 +2,8 @@
 """ong_dan.py - CLI cua ong dan mot lenh (nhan/ong_dan.py). Xem tai_lieu/ONG_DAN.md.
 
   python3 ong_dan.py chay                 # chay het cac buoc a..i (chay tiep duoc neu dung giua chung)
-  python3 ong_dan.py <buoc>               # nhan | phan_loai | quyet_dinh | toi_uu | loc | sinh_mt5 | boc | to_hop | doc_mt5
-  python3 ong_dan.py trang_thai | bao_cao
+  python3 ong_dan.py <buoc>               # nhan | phan_loai | quyet_dinh | toi_uu | loc | sinh_mt5 | goi | boc | to_hop | doc_mt5
+  python3 ong_dan.py trang_thai | bao_cao | do_nguoc
 Tuy chon: --toi-da N (so the toi uu moi lan), --ngan-sach N (phep thu / the), --ngan-sach-to-hop N, --db <sqlite>, --id <the_id>
 """
 import argparse
@@ -17,7 +17,7 @@ from nhan import ong_dan as OD  # noqa: E402
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="Ong dan BRAIN: kho -> Python -> loc 65/15 -> MT5 -> kho co che")
-    ap.add_argument("buoc", choices=OD.BUOC + ["chay", "trang_thai", "bao_cao"])
+    ap.add_argument("buoc", choices=OD.BUOC + ["chay", "trang_thai", "bao_cao", "do_nguoc"])
     ap.add_argument("--toi-da", type=int)
     ap.add_argument("--ngan-sach", type=int)
     ap.add_argument("--ngan-sach-to-hop", type=int)
@@ -33,6 +33,8 @@ def main(argv=None) -> int:
         print(json.dumps(OD.trang_thai(cn), ensure_ascii=False, indent=1))
     elif b == "bao_cao":
         print(OD.ghi_bao_cao(cn))
+    elif b == "do_nguoc":
+        print(OD.ghi_do_nguoc(cn))
     elif b == "toi_uu":
         OD.buoc_toi_uu(cn, a.toi_da, a.ngan_sach, chi_id=a.id)
     elif b == "to_hop":

@@ -1106,6 +1106,50 @@ def buoc_goi(cn, in_ra=print) -> dict:
     return r
 
 
+def ghi_do_nguoc(cn, tep: Path | None = None) -> str:
+    """reports/ong_dan/DO_NGUOC_STATEMENT.md: moi statement co tung lenh -> cach xu li lenh do nguoc (SUY TU STATEMENT),
+    so tac gia (rieng, chua do) va so Python (MÔ PHỎNG, PHÍ TẠM) neu box co gia cua ma do."""
+    tep = tep or (RA / "DO_NGUOC_STATEMENT.md")
+    hang = []
+    for t, buoc, tt, kq in cac_the(cn):
+        if t.get("nen_tang") != "STATEMENT" or not t.get("do_nguoc"):
+            continue
+        dn, tg = t["do_nguoc"], t.get("so_tac_gia") or {}
+        r = ((kq or {}).get("tot_nhat") or {}).get("kq") or {}
+        py = ("CHƯA ĐO ĐƯỢC" if not r or r.get("loi") else "%s%%/năm · DD %s%% · %s năm" % (
+            r.get("lai_pct_nam"), r.get("sut_giam_pct"), r.get("so_nam")))
+        if r and r.get("loi"):
+            py += " (%s)" % r["loi"][:60]
+        hang.append((dn.get("so_lenh", 0), t, dn, tg, py))
+    hang.sort(key=lambda z: -z[0])
+    def f(x, d=4):
+        return "—" if x is None else (("%." + str(d) + "g") % x if isinstance(x, float) else str(x))
+    d = ["# Dò ngược statement có từng lệnh (`python ong_dan.py nhan` → `nhan/nhap_tay.do_nguoc`)", "",
+         "Số trong bảng là **SUY TỪ STATEMENT** (trung vị trên các rổ lệnh), không phải số đo. Rổ = chuỗi lệnh cùng mã cùng "
+         "chiều chồng lên nhau. Bước DCA tính giữa hai lệnh liền nhau trong rổ; «ngược» = tỉ lệ bước đi ngược giá (nhồi khi lỗ). "
+         "TP rổ = (giá đóng bình quân − giá vốn bình quân) theo chiều, chỉ với rổ đóng gần như cùng lúc và có lãi. "
+         "Giờ = giờ server của tác giả. Cột «Tác giả» là SỐ TÁC GIẢ (chưa đo). Cột «Python» là MÔ PHỎNG, PHÍ TẠM "
+         "(lệnh vào của statement + quản lí dò ngược, chạy trong đúng khoảng thời gian statement).", "",
+         "| Statement | Mã | Kỳ | Lệnh | Rổ ≥2 tầng | Tầng max | Bước DCA pip (%) · ngược | Hệ số lot | TP rổ pip (%) | "
+         "Giờ mở chính | Tác giả (chưa đo) | Python |", "|---|---|---|---|---|---|---|---|---|---|---|---|"]
+    for _, t, dn, tg, py in hang:
+        ma = ",".join(list((dn.get("ma") or {}).keys())[:3])
+        gio = dn.get("gio_hoat_dong") or []
+        gio_s = ("%d–%d h" % (min(gio), max(gio))) if gio and len(gio) < 20 else ("cả ngày" if gio else "—")
+        tgs = "; ".join("%s %s" % (k, tg[k]) for k in ("von_dau", "lai_rong", "sut_giam", "khung") if tg.get(k)) or "—"
+        d.append("| %s | %s | %s → %s | %s | %s/%s | %s | %s (%s %%) · %s | %s (max %s) | %s (%s %%) | %s | %s | %s |" % (
+            t["ten"][:70].replace("|", "/"), ma, (dn.get("tu") or "")[:10], (dn.get("den") or "")[:10], dn.get("so_lenh"),
+            dn.get("so_ro_nhieu_tang"), dn.get("so_ro"), dn.get("tang_max"), f(dn.get("buoc_dca_pip")), f(dn.get("buoc_dca_pct")),
+            f(dn.get("ty_le_buoc_nguoc"), 2), f(dn.get("he_so_lot")), f(dn.get("he_so_lot_max")), f(dn.get("tp_ro_pip")),
+            f(dn.get("tp_ro_pct")), gio_s, tgs.replace("|", "/"), py))
+    d += ["", "Tệp gốc: cột `nguon.tep` của thẻ trong `data/ong_dan/trang_thai.sqlite` (nằm trong `data/seeker_da_nguon/`, "
+          "không vào git; có trong gói máy nhà nếu kèm EA)."]
+    vb = "\n".join(d) + "\n"
+    tep.parent.mkdir(parents=True, exist_ok=True)
+    tep.write_text(vb, encoding="utf-8")
+    return str(tep)
+
+
 def chay_het(cn, in_ra=print, **kw) -> dict:
     buoc_nhan(cn, in_ra)
     buoc_phan_loai(cn, in_ra)
@@ -1119,6 +1163,7 @@ def chay_het(cn, in_ra=print, **kw) -> dict:
         buoc_goi(cn, in_ra)
     buoc_doc_mt5(cn, in_ra)
     ghi_bao_cao(cn)
+    ghi_do_nguoc(cn)
     try:                                   # danh sach URL bi chan cho chu du an mo tay (khong vuot chan)
         import sys as _sys
         _sys.path.insert(0, str(GOC))

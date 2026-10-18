@@ -401,6 +401,7 @@ def test_doc_nguon_seeker(tmp_path, monkeypatch):
     st = ten["sk_st_"]
     assert st["nen_tang"] == "STATEMENT" and st["do_nguoc"]["tang_max"] == 3 and st["ql_goi_y"]
     assert ten["sk_uv_"]["chi_doi_chieu"] and OD.phan_loai_mot(ten["sk_uv_"])[0] == "mo_ta"
+    assert SKN.doc({t["id"] for t in ds}, nguon=tmp_path / "S.json") == []   # chay lai: khong sinh the thay the
     # viec MT5 cho EA ngoai: mot viec / .set, khung lay tu Timeframe=16388, ma tu ten file
     monkeypatch.setattr(OD, "GOC", tmp_path)
     v = OD.viec_ngoai(ea, {"mt5_tu": "2016.01.01", "mt5_den": "2026.10.01"})
