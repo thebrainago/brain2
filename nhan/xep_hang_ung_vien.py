@@ -13,8 +13,8 @@ DIEM (chot TRUOC khi do kho, KHONG chinh theo ket qua vong thu; chi la thu tu, k
                                                   diem vao -> gan nhu quan ly lenh
     thieu_tep (include ngoai khong co)      -30   dieu kien vao co the nam trong tep thieu
     loi_bo_doc                                0   (+ nhan, la viec sua bo doc)
-    khong_dat_lenh: lan quan_tri/tien_ich   -40   chi quan ly lenh / cong cu
-                    lan chi_bao             -50
+    khong_dat_lenh / quan_tri / tien_ich / chi_bao (18/10/2026): +30 neu ma co XU LI LENH (luoi, DCA,
+                    martingale, hedge, go, chot ro, trailing, hoa von, dong mot phan), 0 neu khong. (cu: -40 / -50)
   goi:   co `.set` cua tac gia +20 | co SL/TP trong ma +10 (chi khi co diem vao) | include du (khong co include
          ngoai, hoac co du tep trong goi) +10 | anh ket qua tester trong bai +5 (yeu: tac gia tu
          dang) | chi co .zip (khong lay, khong giai nen) -10
@@ -44,6 +44,11 @@ _RX_SLTP = re.compile(
     r"|\bSL\w*|\bTP\w*|_SL\b|_TP\b|Sl\b|Tp\b)\w*\s*=", re.M | re.I)
 _RX_SLTP_LENH = re.compile(r"\.(?:Buy|Sell|PositionOpen|PositionModify)\s*\([^;]*\b\w*(?:sl|tp)\w*\b",
                            re.I)
+
+
+#: Ky hieu XU LI LENH trong ma (18/10/2026) - EA co nhung thu nay duoc CONG diem, khong bi tru.
+_RX_XU_LI_LENH = re.compile(r"\bgrid|martingale|lot.?exponent|lot.?multipl|\bhedg|recover|basket|close_?all|"
+                            r"trail|break.?even|\bdca\b|averag(e|ing)[ _]?(down|in)\b|partial", re.I)
 
 
 def co_sltp(src: str) -> bool:
@@ -79,10 +84,12 @@ def cham(dong: dict, src: str) -> dict:
     lan = "mql4" if (kq == "mql4_bo_qua" or dong.get("lan_doc") == "mql4") else "mql5"
     d, ly = 0, []
     if kq != "mql4_bo_qua":
-        if dong.get("lan") in ("quan_tri", "tien_ich") and kq != "ra_co_che":
-            v = -40
-        elif kq == "khong_dat_lenh":
-            v = -50 if dong.get("lan") == "chi_bao" else -40
+        # 18/10/2026 chu du an: XU LI LENH (luoi / DCA / martingale / hedge / go / chot ro / trailing) la phan QUAN TRONG
+        # NHAT - truoc day EA quan tri bi -40, chi bao -50 nen xep cuoi hang tai (hoac khong bao gio toi luot).
+        if dong.get("lan") in ("quan_tri", "tien_ich", "chi_bao") or kq in ("khong_dat_lenh", "khong_thay_diem_vao"):
+            v = 30 if _RX_XU_LI_LENH.search(src or "") else 0
+            if kq == "ra_co_che":
+                v += DIEM_KQ["ra_co_che"]
         else:
             v = DIEM_KQ.get(kq, 0)
         d += v

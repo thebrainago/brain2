@@ -23,7 +23,7 @@ Ghi nhãn bằng chứng: **[MT5]** = MT5 tester thật · **[MP]** = mô phỏn
 | "Dương cả hai nửa" | `VONG_LAP.md` | hệ ăn theo chế độ | **Nhãn chế độ**, không loại |
 | `CHAY_DUOC`: lãi ≥ 20 %/năm ở lot cố định | `nhan/cham_diem.py` | hệ lãi nhỏ ở lot thử | Vô nghĩa vì **lot co giãn được** → báo "%/năm ở mức sụt giảm anh chọn" |
 | Bộ đọc EA chỉ giữ EA **dịch được** (3,6 %) | `nhan/doc_ma.py`, Seeker | ~96 % kho EA | **Chạy EA** để lấy lệnh, không dịch |
-| `quan_tri.loc` (≥ 2 nút, có tham số số, ≥ 1 nút quản trị) | `nhan/quan_tri.py` | — | **Giữ** (sửa 17/10: đọc lại code, nó chỉ phân loại họ 2 quản trị vị thế, không loại hệ có lãi) |
+| `quan_tri.loc` (≥ 2 nút, có tham số số, ≥ 1 nút quản trị) | `nhan/quan_tri.py` | — | **Đã sửa 18/10**: trước đó bỏ spec chỉ có lưới/DCA/martingale (không có nút SL/TP/trailing). Nay nhận cả nút lưới |
 | `TRAN_SPREAD_BPS = 8` | `nhan/ho_so_symbol.py` | cặp phí cao | Giữ, nhưng theo **phí đo trên sàn của anh** |
 | `NGUONG_PHAN_GIAI` (PMG) → CHƯA ĐO ĐƯỢC | `nhan/pmg_engine.py` | lưới bước hẹp hơn nến | **Giữ** (không đo được ≠ âm) |
 

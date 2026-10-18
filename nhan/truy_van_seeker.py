@@ -49,10 +49,12 @@ default test tester backtest copy demo live real optimized opt input inputs sett
 _BO_DAO = set("""trade trader trading risk guard prop demo sketch sample example lite bot robot system
 smart auto auto ultimate super best simple basic easy fast quick classic version custom based""".split())
 #: Tu ha diem tieu de (cong cu, khong phai chien luoc).
-TU_CONG_CU = ("panel", "auditor", "guard", "dashboard", "manager", "indicator", "utility",
+#: 18/10/2026: bo "manager", "indicator", "library", "class" - Grid/Trade Manager la XU LI LENH, chi bao la thu can gom.
+TU_CONG_CU = ("panel", "auditor", "guard", "dashboard", "utility",
               "simulator", "planner", "profiler", "inspector", "copier", "clock", "calculator",
-              "library", "class", "script", "screenshot", "alert", "notifier")
-TU_CHIEN_LUOC = ("strategy", "breakout", "grid", "martingale", "scalp", "trend", "reversal",
+              "script", "screenshot", "alert", "notifier")
+TU_CHIEN_LUOC = ("strategy", "breakout", "grid", "martingale", "scalp", "trend", "reversal", "recovery", "basket",
+                 "trailing", "manager", "averaging", "indicator",
                  "cross", "rsi", "macd", "bollinger", "ema", "sma", "atr", "hedge", "dca",
                  "mean", "momentum", "orb", "session", "stoch", "ichimoku", "zone", "range")
 #: Khoa input .set -> tu co che (doc nhieu .set thuc te; chi la nhan tim kiem).

@@ -107,7 +107,9 @@ class XepHang(unittest.TestCase):
             self.assertEqual(d["lan_doc"], "mql4")
             self.assertEqual(d["hang"], "B")
             c = next(x for x in h if Path(x["ten"]).stem == "c")
-            self.assertLess(c["diem"], 0)
+            # 18/10/2026: EA chi quan ly lenh (trailing) KHONG con bi tru diem - xu li lenh la phan quan trong nhat
+            self.assertGreater(c["diem"], 0)
+            self.assertTrue(any(l.endswith("+30") for l in c["ly_do"]), c["ly_do"])
             out = Path(td) / "ra"
             CK.xuat(r, out, h)
             hang = json.loads((out / "HANG.json").read_text())
