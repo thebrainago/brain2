@@ -31,8 +31,10 @@ import pandas as pd
 class LenhVao:
     nguon: str
     chi_so: int          # vi tri nen khop lenh
-    gia: float           # gia khop
+    gia: float           # gia khop (gia BID nhu bieu do MT5; lenh mua chiu them spread trong `chay_tk`)
     chieu: int = 1       # +1 mua, -1 ban
+    ma: str = ""         # 18/10/2026: ma giao dich (nhieu ma tren mot tai khoan, `chay_tk`); "" = ma duy nhat
+    lot: float | None = None   # lot tang dau rieng cua lenh nay; None = QuanLi.lot0
 
 
 @dataclass
@@ -45,6 +47,19 @@ class QuanLi:
     go_nguong_diem: float = 0.0
     spread_diem: float = 1.5
     swap_nam: float = 0.0577
+    # ---- 18/10/2026: cac truong duoi day CHI dung trong `chay_tk` (cap tai khoan that). `chay` cu bo qua.
+    lot0: float = 0.01                 # lot tang dau (lot THAT cua san, vd 0,01 micro / cent)
+    tp_pct: float | None = None        # TP ro tinh tu GIA VON binh quan, phan cua gia (0.003 = 0,3 %); None -> tp_gia
+    tp_gia: float | None = None        # TP ro theo DON VI GIA; None ca hai -> tp_diem * point
+    mot_ro_moi_chieu: bool = True      # nhu EA: dang co ro (nguon, ma, chieu) thi bo lenh vao moi cung chieu
+    trail_kich_pct: float = 0.0        # trailing ro: bat khi gia vuot gia von + X (phan cua gia); 0 = tat
+    trail_khoang_pct: float = 0.0      # tra lai X tu dinh thi dong ro
+    hedge_khi_lo_pct: float = 0.0      # ro lo tha noi >= X % so du -> mo lenh KHOA nguoc chieu (0 = tat)
+    hedge_ti_le: float = 1.0           # lot khoa = tong lot ro x ti le
+    mo_khoa_pct: float = 0.0           # mo khoa (dong lenh khoa) khi gia hoi X tu cuc tri sau khi khoa; 0 = khong tu mo
+    hedge_max_lan: int = 3
+    go_tien: float | None = None       # GO: ro + lenh khoa + lai da chot cua khoa >= X (tien) -> dong ca ro. None = tat
+    cat_lo_pct: float = 0.0            # cat ca ro khi lo >= X % so du (0 = KHONG SL, mac dinh phong cach chu du an)
 
 
 @dataclass
@@ -187,3 +202,582 @@ def rollover_tu_ny(t_ny: pd.DatetimeIndex) -> np.ndarray:
                 ra[i] += 3.0 if b.dayofweek == 4 else 1.0
             d += pd.Timedelta(days=1)
     return ra
+
+
+# =====================================================================================================================
+# 18/10/2026 - CAP TAI KHOAN THAT (`chay_tk`). Mo rong engine nay, KHONG phai engine moi:
+#   - cung mo hinh RO (TP tu gia von, DCA, go cheo) nhu `chay` o tren;
+#   - them phan KY QUY / STOP-OUT lay dung logic cua `mo_phong.chay_he(tai_khoan=)` (ky quy = hop_dong*gia/don_bay*
+#     max(lot mua, lot ban) moi ma; stop-out: von rong <= stop_out*ky quy -> san dong lenh LO NHAT truoc, tung lenh mot,
+#     den khi muc ky quy > stop_out; lenh moi bi TU CHOI khi thieu ky quy tu do; lot_max);
+#   - phi THEO SAN + THEO MA (`HoSoPhi`, lay tu `nhan/chi_phi` hoac reports/phi_san/ khi may nha da do): spread theo GIO
+#     server, swap MUA va BAN rieng (diem/lot/dem, ngay x3 theo san), hoa hong / lot, point dung;
+#   - nhieu ma, lenh ban, hedge chu dong (khoa - mo khoa - go), trailing ro, cat lo tuy chon (mac dinh KHONG SL).
+# Don vi tien = tien tai khoan quy ve USD (cent: 1 USD = 100 USC, nhap `von` theo USD tuong duong).
+# Gia trong DataFrame la BID (nhu bieu do MT5): mua vao o ASK = BID + spread, dong o BID; ban vao BID, dong o ASK.
+# Thu tu trong nen (khong biet tu H1): swap -> TP/trailing -> khop DCA -> hedge/go/go cheo (gia dong) -> stop-out o gia
+# BAT LOI NHAT cua nen cho MOI lenh cung luc (bao thu). Day la MO PHONG; phan xu cuoi la MT5.
+# =====================================================================================================================
+import json as _json
+import math as _math
+from pathlib import Path as _Path
+
+_GOC = _Path(__file__).resolve().parent.parent
+NHAN_PHI_TAM = "PHÍ TẠM"
+
+
+@dataclass
+class HoSoPhi:
+    """Phi va thong so MOT ma tren MOT san. Moi so tien tinh cho 1 lot."""
+    ma: str
+    symbol: str = ""
+    san: str = "XM"
+    point: float = 1e-5
+    hop_dong: float = 1000.0              # don vi co so / lot (XM micro va Exness cent deu ~1.000 USD-tuong-duong)
+    quy_doi_usd: float | None = None      # 1 don vi tien YET GIA = ? USD. None -> tu suy (xxxUSD = 1, USDxxx = 1/gia)
+    spread_gio: list = field(default_factory=lambda: [0.0] * 24)   # DON VI GIA, theo gio SERVER 0..23
+    swap_mua_diem: float = 0.0            # diem / lot / dem (swap_mode DIEM cua MT5); am = tra
+    swap_ban_diem: float = 0.0
+    ngay_x3: int = 2                      # thu (0 = thu Hai) cua phien bi tinh x3; FX = thu Tu, chi so thuong thu Sau
+    hoa_hong_lot: float = 0.0             # USD / lot / MOT chieu
+    lot_min: float = 0.01
+    buoc_lot: float = 0.01
+    lot_max: float = 100.0
+    nhan: str = NHAN_PHI_TAM
+    nguon: str = ""
+
+    def qd(self, gia: float) -> float:
+        if self.quy_doi_usd is not None:
+            return float(self.quy_doi_usd)
+        m = self.ma.upper()
+        if m.endswith("USD") or m.startswith(("XAU", "US500", "US30", "US100")):
+            return 1.0
+        if m.startswith("USD"):
+            return 1.0 / max(gia, 1e-12)
+        return 1.0
+
+    def lam_tron(self, lot: float) -> float:
+        b = self.buoc_lot or 0.01
+        return max(self.lot_min, round(_math.floor(lot / b + 1e-9) * b, 8))
+
+
+@dataclass
+class TaiKhoan:
+    von: float = 1000.0          # USD tuong duong (cent: 10 USD = 1.000 USC)
+    don_bay: float = 500.0
+    stop_out: float = 0.2        # muc ky quy (0.2 = 20 %)
+    ten: str = "XM_MICRO_TAM"
+    nhan: str = NHAN_PHI_TAM
+
+
+#: Ho so tai khoan TAM (CHUA DO tren tai khoan that cua chu du an; may nha do bang mt5tools/do_phi_san.py).
+TAI_KHOAN_TAM = {
+    "XM_MICRO_TAM": TaiKhoan(von=1000.0, don_bay=500.0, stop_out=0.2, ten="XM_MICRO_TAM"),
+    "EXNESS_CENT_TAM": TaiKhoan(von=1000.0, don_bay=500.0, stop_out=0.0, ten="EXNESS_CENT_TAM"),
+}
+
+#: He so gian spread gio doi ngay (23h, 0h server) khi bang da luu KHONG do gio do (loi A4). Rollover rong 5-9 lan.
+GIAN_DOI_NGAY_TAM = 5.0
+#: Quy doi tien yet gia -> USD TAM cho cap cheo (khi khong co chuoi quy doi). Ghi nhan "QUY DOI TAM".
+QUY_DOI_TAM = {"CAD": 0.73, "GBP": 1.27, "CHF": 1.12, "JPY": 0.0067, "AUD": 0.66, "NZD": 0.60, "EUR": 1.08}
+
+
+def _phi_san_moi_nhat(san: str) -> _Path | None:
+    """reports/phi_san/<server>/ (may nha do) cua san `san` (XM / Exness). Chon thu muc moi nhat."""
+    goc = _GOC / "reports" / "phi_san"
+    if not goc.exists():
+        return None
+    ds = [d for d in goc.iterdir() if d.is_dir() and san.lower() in d.name.lower() and (d / "ma.csv").exists()]
+    return max(ds, key=lambda d: (d / "ma.csv").stat().st_mtime) if ds else None
+
+
+def ho_so_phi(ma: str, san: str = "XM", phi_san_dir: _Path | None = None) -> HoSoPhi:
+    """Ho so phi cho ma `ma` (ten goc, vd AUDCAD) tren san `san`.
+
+    Uu tien: (1) reports/phi_san/<server>/ma.csv + spread_gio.csv (DO tren tai khoan that, may nha) -> nhan "ĐO";
+    (2) PHÍ TẠM: swap diem tu config/chi_phi_do.json (`chi_phi.phi_cua`, san XM truoc), spread theo gio tu bang da luu
+    (`chi_phi._spread_da_luu`, gio 23/0 thieu -> x GIAN_DOI_NGAY_TAM). Khi co (1) thi tu thay, khong can sua code.
+    """
+    import csv
+    goc = ma.upper()
+    d = phi_san_dir or _phi_san_moi_nhat(san)
+    if d is not None:
+        rows = list(csv.DictReader(open(d / "ma.csv", encoding="utf-8")))
+        r = next((x for x in rows if (x.get("goc") or "").upper() == goc), None)
+        if r is not None:
+            def f(k, md=0.0):
+                try:
+                    return float(r.get(k) or md)
+                except ValueError:
+                    return md
+            pt = f("point", 1e-5)
+            sg = [None] * 24
+            sp_f = d / "spread_gio.csv"
+            if sp_f.exists():
+                for x in csv.DictReader(open(sp_f, encoding="utf-8")):
+                    if (x.get("goc") or "").upper() == goc:
+                        sg[int(x["gio_server"]) % 24] = float(x.get("p50_gia") or 0.0)
+            co = [v for v in sg if v]
+            md = float(np.median(co)) if co else f("spread_gia_luc_do", 10 * pt)
+            sg = [v if v else md for v in sg]
+            thu = {"MON": 0, "TUE": 1, "WED": 2, "THU": 3, "FRI": 4, "T2": 0, "T3": 1, "T4": 2, "T5": 3, "T6": 4}
+            x3 = thu.get(str(r.get("ngay_x3") or "WED").upper()[:3], 2)
+            sw_mode = str(r.get("swap_mode") or "DIEM").upper()
+            hs = HoSoPhi(ma=goc, symbol=r.get("symbol", goc), san=san, point=pt, hop_dong=f("hop_dong", 1000.0),
+                         spread_gio=sg, swap_mua_diem=f("swap_mua"), swap_ban_diem=f("swap_ban"), ngay_x3=x3,
+                         hoa_hong_lot=f("hoa_hong_lot"), lot_min=f("lot_min", 0.01), buoc_lot=f("buoc_lot", 0.01),
+                         lot_max=f("lot_max", 100.0), nhan="ĐO (%s)" % d.name, nguon=str(d))
+            if sw_mode not in ("DIEM", "1", "POINTS"):
+                hs.nhan += " | swap_mode %s chua quy doi -> swap = 0, CHUA ĐO ĐƯỢC" % sw_mode
+                hs.swap_mua_diem = hs.swap_ban_diem = 0.0
+            return hs
+    # (2) PHI TAM
+    from nhan import chi_phi as CP
+    luu = CP.phi_cua(goc, [san, "XM", "Exness", "FXCE", "MetaQuotes"]) or {}
+    pt = float(luu.get("point") or (1e-3 if goc.endswith("JPY") else 1e-5))
+    gia = float(luu.get("gia_luc_do") or 1.0)
+    sp = CP._spread_da_luu(goc) or {}
+    chung = float(sp.get("chung") or 1.5e-4)
+    tg = {int(k): float(v) for k, v in (sp.get("theo_gio") or {}).items()}
+    sg = [tg.get(h, chung) * gia for h in range(24)]
+    for h in (23, 0):
+        if h not in tg:
+            sg[h] = chung * gia * GIAN_DOI_NGAY_TAM
+    sw_ok = int(luu.get("swap_mode") or 0) == 1
+    hs = HoSoPhi(ma=goc, symbol=str(luu.get("symbol_lay") or goc), san=san, point=pt, hop_dong=1000.0, spread_gio=sg,
+                 swap_mua_diem=float(luu.get("swap_long") or 0.0) if sw_ok else 0.0,
+                 swap_ban_diem=float(luu.get("swap_short") or 0.0) if sw_ok else 0.0,
+                 ngay_x3=2 if CP._loai_tai_san(goc) == "fx" else 4,
+                 nhan="%s (swap %s:%s %s; spread bang luu %s, gio 23/0 x%.0f)" % (
+                     NHAN_PHI_TAM, luu.get("san_lay", "?"), luu.get("symbol_lay", "?"), luu.get("do_luc", "?")[:10],
+                     sp.get("symbol", "khai bao 1,5 bps"), GIAN_DOI_NGAY_TAM),
+                 nguon="config/chi_phi_do.json")
+    ten_yet = goc[3:6]
+    if not (goc.endswith("USD") or goc.startswith("USD")) and ten_yet in QUY_DOI_TAM:
+        hs.quy_doi_usd = QUY_DOI_TAM[ten_yet]
+        hs.nhan += " | QUY ĐỔI TẠM %s->USD %.4f" % (ten_yet, hs.quy_doi_usd)
+    if not sw_ok:
+        hs.nhan += " | swap CHƯA ĐO ĐƯỢC (=0)"
+    return hs
+
+
+def ho_so_tai_khoan(ten: str = "XM_MICRO_TAM", von: float | None = None) -> TaiKhoan:
+    """Tai khoan TAM; neu may nha da do (reports/phi_san/<server>/san.json: don_bay, stop_out) thi tu thay."""
+    tk = TAI_KHOAN_TAM.get(ten, TAI_KHOAN_TAM["XM_MICRO_TAM"])
+    tk = TaiKhoan(von=tk.von if von is None else float(von), don_bay=tk.don_bay, stop_out=tk.stop_out, ten=tk.ten, nhan=tk.nhan)
+    d = _phi_san_moi_nhat("Exness" if "EXNESS" in ten.upper() else "XM")
+    for tep in ((d / "san.json"), (d / "tai_khoan.json")) if d else ():
+        if tep.exists():
+            try:
+                x = _json.loads(tep.read_text(encoding="utf-8"))
+                tk.don_bay = float(x.get("don_bay") or tk.don_bay)
+                if x.get("stop_out") is not None and str(x.get("so_mode", "PERCENT")).upper() == "PERCENT":
+                    tk.stop_out = float(x["stop_out"]) / 100.0
+                tk.nhan = "ĐO (%s)" % d.name
+                break
+            except Exception:
+                pass
+    return tk
+
+
+def nen_server(df: pd.DataFrame) -> pd.DataFrame:
+    """Chuan hoa bang gia: chi muc thoi gian (gio SERVER) + open/high/low/close float."""
+    x = df[["open", "high", "low", "close"]].astype(float)
+    x.index = pd.DatetimeIndex(x.index)
+    return x[~x.index.duplicated()].sort_index()
+
+
+def _dem_qua_dem(idx: pd.DatetimeIndex, ngay_x3: int) -> np.ndarray:
+    """So dem swap phai tra cho lenh giu qua dau nen t: moi moc 00:00 server nam giua nen t-1 va t, NGAY TRUOC moc la
+    thu Hai..thu Sau -> 1 dem (x3 neu ngay do == ngay_x3). Cuoi tuan khong tinh them (x3 da bu)."""
+    n = len(idx)
+    ra = np.zeros(n)
+    if n < 2:
+        return ra
+    d = idx.normalize()
+    for t in np.nonzero(d[1:] > d[:-1])[0] + 1:
+        k = d[t - 1] + pd.Timedelta(days=1)
+        while k <= d[t]:
+            truoc = (k - pd.Timedelta(days=1)).dayofweek
+            if truoc < 5:
+                ra[t] += 3.0 if truoc == ngay_x3 else 1.0
+            k += pd.Timedelta(days=1)
+    return ra
+
+
+@dataclass(eq=False)
+class _Chan:
+    ch: int
+    gia: float
+    lot: float
+    sinh: int
+    swap: float = 0.0     # USD da tich (am = tra) - nam trong vi the den khi dong, nhu MT5
+    khoa: bool = False    # lenh khoa (hedge)
+
+
+@dataclass(eq=False)
+class _RoTK:
+    id: int
+    nguon: str
+    ma: str
+    s: int
+    sinh: int
+    chan: list = field(default_factory=list)
+    muc: list = field(default_factory=list)      # (gia, lot) cac tang DCA con lai
+    lot_ke: float = 0.0
+    dinh: float | None = None                    # trailing: gia tot nhat tu khi kich
+    tich: float = 0.0                            # lai/lo da CHOT cua lenh khoa (USD)
+    so_khoa: int = 0
+    cuc: float | None = None                     # cuc tri bat loi tu khi khoa (mo khoa)
+    lo_max: float = 0.0
+    ql: object = None
+
+
+def chay_tk(du_lieu: dict | pd.DataFrame, luong: list[LenhVao], ql: QuanLi | dict, tk: TaiKhoan | None = None,
+            phi: dict | HoSoPhi | None = None, ghi_von: bool = True) -> dict:
+    """ENGINE CAP TAI KHOAN (lot that, ky quy, stop-out, phi theo san). Xem khoi chu thich phia tren.
+
+    du_lieu: {ma: DataFrame open/high/low/close, chi muc gio SERVER} hoac mot DataFrame (ma = "").
+    luong: LenhVao (chi_so = vi tri nen tren TRUC THOI GIAN CHUNG; gia = gia BID luc khop, thuong la open nen do).
+    ql: QuanLi chung, hoac {nguon: QuanLi}.  phi: {ma: HoSoPhi} hoac mot HoSoPhi (None -> ho_so_phi(ma)).
+    -> dict: von_cuoi, lai_tien, lai_pct_nam, sut_giam_pct (von rong o gia bat loi nhat / dinh von rong), so_stop_out,
+       so_lenh_stop_out, chay, muc_ky_quy_min, tu_choi_ky_quy, tu_choi_lot_max, phi (spread/swap/hoa_hong USD),
+       nhat_ky (DataFrame moi ro), duong_von, nhan_phi.
+    """
+    tk = tk or ho_so_tai_khoan()
+    if isinstance(du_lieu, pd.DataFrame):
+        du_lieu = {"": du_lieu}
+    ds_ma = list(du_lieu)
+    bang = {m: nen_server(du_lieu[m]) for m in ds_ma}
+    idx = bang[ds_ma[0]].index
+    for m in ds_ma[1:]:
+        idx = idx.union(bang[m].index)
+    n = len(idx)
+    if isinstance(phi, HoSoPhi):
+        phi = {ds_ma[0]: phi}
+    phi = dict(phi or {})
+    for m in ds_ma:
+        if m not in phi:
+            phi[m] = ho_so_phi(m or "EURUSD")
+    A = {}
+    for m in ds_ma:
+        b = bang[m].reindex(idx)
+        co = b["close"].notna().to_numpy()
+        b = b.ffill().bfill()
+        hs = phi[m]
+        gio = idx.hour.to_numpy()
+        A[m] = dict(o=b["open"].to_numpy(), h=b["high"].to_numpy(), l=b["low"].to_numpy(), c=b["close"].to_numpy(), co=co,
+                    sp=np.asarray(hs.spread_gio, float)[gio], dem=_dem_qua_dem(idx, hs.ngay_x3), hs=hs)
+    lay_ql = (lambda nguon: ql.get(nguon) or ql.get("*")) if isinstance(ql, dict) else (lambda nguon: ql)
+    su_kien: dict[int, list] = {}
+    for e in luong:
+        su_kien.setdefault(int(e.chi_so), []).append(e)
+
+    von = float(tk.von)
+    ro_mo: list[_RoTK] = []
+    nk: list[dict] = []
+    phi_tong = {"spread": 0.0, "swap": 0.0, "hoa_hong": 0.0}
+    dem = {"so_stop_out": 0, "so_lenh_stop_out": 0, "tu_choi_ky_quy": 0, "tu_choi_lot_max": 0, "so_ro": 0,
+           "so_lenh": 0, "so_khoa": 0, "so_go": 0, "so_go_cheo": 0, "so_tp": 0, "so_trail": 0, "so_cat_lo": 0}
+    eq_c = np.zeros(n) if ghi_von else None
+    eq_x = np.zeros(n) if ghi_von else None
+    dinh_eq, dd_max, kq_min, chay_tk_ = float(tk.von), 0.0, float("inf"), False
+    lot_mo_max, ro_mo_max, dem_id = 0.0, 0, [0]
+    EPS = 1e-9
+
+    def tien(m, ch, vao, ra, lot):
+        hs = phi[m]
+        return ch * (ra - vao) * lot * hs.hop_dong * hs.qd(ra)
+
+    def gia_dong(m, ch, bid, t):           # gia dong lenh: mua dong o BID, ban dong o ASK
+        return bid if ch > 0 else bid + A[m]["sp"][t]
+
+    def loi_chan(r, L, bid, t):
+        return tien(r.ma, L.ch, L.gia, gia_dong(r.ma, L.ch, bid, t), L.lot) + L.swap
+
+    def ky_quy(t, gia_theo_ma=None):
+        tong = 0.0
+        for m in ds_ma:
+            mua = sum(L.lot for r in ro_mo if r.ma == m for L in r.chan if L.ch > 0)
+            ban = sum(L.lot for r in ro_mo if r.ma == m for L in r.chan if L.ch < 0)
+            if mua or ban:
+                g = A[m]["c"][t] if gia_theo_ma is None else gia_theo_ma[m]
+                hs = phi[m]
+                tong += hs.hop_dong * g * hs.qd(g) / tk.don_bay * max(mua, ban)
+        return tong
+
+    def noi_tong(t, theo):                 # theo: "c" (dong cua) | "x" (bat loi nhat moi lenh)
+        s = 0.0
+        for r in ro_mo:
+            a = A[r.ma]
+            for L in r.chan:
+                bid = a["c"][t] if theo == "c" else (a["l"][t] if L.ch > 0 else a["h"][t])
+                s += loi_chan(r, L, bid, t)
+        return s
+
+    def mo_chan(r, ch, lot, gia_bid, t, khoa=False) -> bool:
+        nonlocal von
+        m = r.ma
+        hs = phi[m]
+        lot = hs.lam_tron(lot)
+        if lot > hs.lot_max + EPS:
+            # lot_max la tran MOI LENH: san cho mo nhieu lenh -> tach (nhu EA tach lenh); qua 50 lenh thi tu choi
+            n = int(_math.ceil(lot / hs.lot_max - 1e-9))
+            if n > 50:
+                dem["tu_choi_lot_max"] += 1
+                return False
+            con = lot
+            for _ in range(n):
+                p = min(con, hs.lot_max)
+                con = round(con - p, 8)
+                if p < hs.lot_min - EPS:
+                    break
+                if not mo_chan(r, ch, p, gia_bid, t, khoa):
+                    return False
+            return True
+        sp = A[m]["sp"][t]
+        gia = gia_bid + sp if ch > 0 else gia_bid
+        # ky quy tu do (nhu chay_he._du_ky_quy): von rong sau khi them >= ky quy moi
+        L = _Chan(ch=ch, gia=gia, lot=lot, sinh=t, khoa=khoa)
+        r.chan.append(L)
+        them = r not in ro_mo
+        if them:
+            ro_mo.append(r)
+        g = {mm: A[mm]["c"][t] for mm in ds_ma}
+        g[m] = gia_bid
+        eq = von + sum(loi_chan(rr, LL, g[rr.ma], t) for rr in ro_mo for LL in rr.chan) - lot * hs.hoa_hong_lot
+        if eq <= ky_quy(t, g) + EPS:
+            r.chan.pop()
+            if them:
+                ro_mo.remove(r)
+            dem["tu_choi_ky_quy"] += 1
+            return False
+        hh = lot * hs.hoa_hong_lot
+        von -= hh
+        phi_tong["hoa_hong"] += hh
+        phi_tong["spread"] += sp * lot * hs.hop_dong * hs.qd(gia_bid)
+        dem["so_lenh"] += 1
+        return True
+
+    def dong_chan(r, L, bid, t):
+        nonlocal von
+        hs = phi[r.ma]
+        x = loi_chan(r, L, bid, t) - L.lot * hs.hoa_hong_lot
+        von += x
+        phi_tong["hoa_hong"] += L.lot * hs.hoa_hong_lot
+        if ro_mo and r in ro_mo:
+            r.chan.remove(L)
+        return x
+
+    def dong_ro(r, bid, t, boi):
+        lai = r.tich
+        so_tang = sum(1 for L in r.chan if not L.khoa)
+        for L in list(r.chan):
+            lai += dong_chan(r, L, bid, t)
+        if r in ro_mo:
+            ro_mo.remove(r)
+        nk.append(dict(id=r.id, nguon=r.nguon, ma=r.ma, chieu=r.s, sinh=r.sinh, dong=t, boi=boi, lai_tien=round(lai, 4),
+                       lo_treo_max=round(r.lo_max, 4), so_khoa=r.so_khoa, ket_nen=t - r.sinh,
+                       so_tang=so_tang))
+
+    def gia_von(r):
+        ch = [L for L in r.chan if not L.khoa]
+        lot = sum(L.lot for L in ch)
+        return (sum(L.gia * L.lot for L in ch) / lot, lot) if lot else (None, 0.0)
+
+    for t in range(n):
+        # 1) swap cho lenh giu qua moc 00:00 server
+        for r in ro_mo:
+            a = A[r.ma]
+            if a["dem"][t] > 0:
+                hs = phi[r.ma]
+                for L in r.chan:
+                    if L.sinh < t:
+                        sw = (hs.swap_mua_diem if L.ch > 0 else hs.swap_ban_diem) * hs.point * L.lot * hs.hop_dong \
+                            * hs.qd(a["c"][t - 1]) * a["dem"][t]
+                        L.swap += sw
+                        phi_tong["swap"] -= sw
+        # 2) TP / trailing / cat lo / DCA cho ro sinh truoc t
+        for r in list(ro_mo):
+            a = A[r.ma]
+            if r.sinh >= t or not a["co"][t]:
+                continue
+            q = r.ql
+            gv, lot_ro = gia_von(r)
+            if gv is None:
+                continue
+            sp = a["sp"][t]
+            tp = q.tp_gia if q.tp_gia is not None else (q.tp_pct * gv if q.tp_pct else q.tp_diem * phi[r.ma].point)
+            if r.so_khoa == 0 or not any(L.khoa for L in r.chan):
+                tp_gia = gv + r.s * tp
+                cham = (a["h"][t] >= tp_gia) if r.s > 0 else (a["l"][t] + sp <= tp_gia)
+                if tp > 0 and cham:
+                    dong_ro(r, tp_gia if r.s > 0 else tp_gia - sp, t, "tp")
+                    dem["so_tp"] += 1
+                    continue
+                if q.trail_kich_pct > 0:
+                    if r.dinh is not None:
+                        stop = r.dinh * (1 - r.s * q.trail_khoang_pct)
+                        if (a["l"][t] <= stop) if r.s > 0 else (a["h"][t] + sp >= stop):
+                            dong_ro(r, stop if r.s > 0 else stop - sp, t, "trailing")
+                            dem["so_trail"] += 1
+                            continue
+                    tot = a["h"][t] if r.s > 0 else a["l"][t] + sp
+                    if r.s * (tot - gv) >= q.trail_kich_pct * gv:
+                        r.dinh = tot if r.dinh is None else (max(r.dinh, tot) if r.s > 0 else min(r.dinh, tot))
+            # DCA (sau TP, bao thu); khong nhoi khi dang khoa
+            if not any(L.khoa for L in r.chan):
+                while r.muc:
+                    g, lt = r.muc[0]
+                    hit = (a["l"][t] + sp <= g) if r.s > 0 else (a["h"][t] >= g)
+                    if not hit:
+                        break
+                    if not mo_chan(r, r.s, lt, g - sp if r.s > 0 else g, t):
+                        break                      # tu choi (ky quy / lot_max): thu lai nen sau
+                    r.muc.pop(0)
+        # 3) lenh vao moi o nen t
+        for e in su_kien.get(t, []):
+            m = e.ma if e.ma in A else ds_ma[0]
+            if not A[m]["co"][t]:
+                continue
+            q = lay_ql(e.nguon)
+            if q is None:
+                continue
+            ch = 1 if int(e.chieu) >= 0 else -1
+            if q.mot_ro_moi_chieu and any(r.nguon == e.nguon and r.ma == m and r.s == ch for r in ro_mo):
+                continue
+            dem_id[0] += 1
+            r = _RoTK(id=dem_id[0], nguon=e.nguon, ma=m, s=ch, sinh=t, ql=q)
+            lot0 = float(e.lot if e.lot is not None else q.lot0)
+            if not mo_chan(r, ch, lot0, float(e.gia), t):
+                continue
+            dem["so_ro"] += 1
+            if q.dca_buoc_pct and q.dca_toi_da > 0:
+                lt, gv0 = lot0, r.chan[0].gia
+                for k in range(1, q.dca_toi_da + 1):
+                    lt = lt * q.dca_he_so_lot
+                    r.muc.append((gv0 * (1 - ch * q.dca_buoc_pct * k), lt))
+        # 4) cuoi nen: hedge / mo khoa / go / cat lo (gia dong cua)
+        for r in list(ro_mo):
+            a = A[r.ma]
+            if not a["co"][t] or r not in ro_mo:
+                continue
+            q = r.ql
+            c = a["c"][t]
+            noi = sum(loi_chan(r, L, c, t) for L in r.chan)
+            khoa = [L for L in r.chan if L.khoa]
+            if q.cat_lo_pct > 0 and noi + r.tich <= -q.cat_lo_pct / 100.0 * von:
+                dong_ro(r, c, t, "cat_lo"); dem["so_cat_lo"] += 1
+                continue
+            if q.go_tien is not None and (khoa or r.tich) and noi + r.tich >= q.go_tien:
+                dong_ro(r, c, t, "go"); dem["so_go"] += 1
+                continue
+            if khoa:
+                r.cuc = c if r.cuc is None else (min(r.cuc, c) if r.s > 0 else max(r.cuc, c))
+                if q.mo_khoa_pct > 0 and r.s * (c - r.cuc) >= q.mo_khoa_pct * r.cuc:
+                    for L in khoa:
+                        r.tich += dong_chan(r, L, c, t)
+                    r.cuc = None
+            elif q.hedge_khi_lo_pct > 0 and r.so_khoa < q.hedge_max_lan and noi <= -q.hedge_khi_lo_pct / 100.0 * von:
+                lot_ro = sum(L.lot for L in r.chan)
+                if mo_chan(r, -r.s, lot_ro * q.hedge_ti_le, c, t, khoa=True):
+                    r.so_khoa += 1; dem["so_khoa"] += 1; r.cuc = c
+        # 5) go cheo giua cac ro (nguon khac / ma khac) - nhu `chay`, theo TIEN
+        nhom = {}
+        for r in ro_mo:
+            if r.ql is not None and r.ql.go_cheo:
+                nhom.setdefault(id(r.ql), []).append(r)
+        for ds in nhom.values():
+            if len(ds) < 2:
+                continue
+            q = ds[0].ql
+            val = {r.id: sum(loi_chan(r, L, A[r.ma]["c"][t], t) for L in r.chan) + r.tich for r in ds}
+            for b in sorted([r for r in ds if val[r.id] < 0], key=lambda r: r.sinh):
+                if b not in ro_mo:
+                    continue
+                can = -val[b.id] + q.go_nguong_diem
+                thang = sorted([w for w in ds if w is not b and w in ro_mo and val[w.id] > 0], key=lambda w: -val[w.id])
+                tich, chon = 0.0, []
+                for w in thang:
+                    chon.append(w); tich += val[w.id]
+                    if tich >= can:
+                        break
+                if chon and tich >= can:
+                    for r in [b] + chon:
+                        dong_ro(r, A[r.ma]["c"][t], t, "go_cheo")
+                    dem["so_go_cheo"] += 1
+        # 6) stop-out o gia BAT LOI NHAT cua nen (moi lenh cung luc - bao thu), dong lenh lo nhat truoc
+        if ro_mo:
+            gx = {}
+            for m in ds_ma:
+                gx[m] = A[m]["c"][t]
+            eq = von + noi_tong(t, "x")
+            kq = ky_quy(t)
+            if kq > 0:
+                kq_min = min(kq_min, eq / kq)
+                if eq <= tk.stop_out * kq + 1e-6:
+                    dem["so_stop_out"] += 1
+                    while ro_mo:
+                        cac = [(loi_chan(r, L, (A[r.ma]["l"][t] if L.ch > 0 else A[r.ma]["h"][t]), t), r, L)
+                               for r in ro_mo for L in r.chan]
+                        if not cac:
+                            break
+                        x, r, L = min(cac, key=lambda z: (z[0], z[2].sinh))
+                        bid = A[r.ma]["l"][t] if L.ch > 0 else A[r.ma]["h"][t]
+                        dong_chan(r, L, bid, t)
+                        dem["so_lenh_stop_out"] += 1
+                        if not [LL for LL in r.chan if not LL.khoa]:
+                            for LL in list(r.chan):
+                                dong_chan(r, LL, A[r.ma]["c"][t], t)
+                            if r in ro_mo:
+                                ro_mo.remove(r)
+                            nk.append(dict(id=r.id, nguon=r.nguon, ma=r.ma, chieu=r.s, sinh=r.sinh, dong=t, boi="stop_out",
+                                           lai_tien=None, lo_treo_max=round(r.lo_max, 4), so_khoa=r.so_khoa,
+                                           ket_nen=t - r.sinh, so_tang=0))
+                        eq = von + noi_tong(t, "x")
+                        kq = ky_quy(t)
+                        if kq <= 0 or eq > tk.stop_out * kq + 1e-6:
+                            break
+        # 7) so do
+        for r in ro_mo:
+            a = A[r.ma]
+            lx = sum(loi_chan(r, L, (a["l"][t] if L.ch > 0 else a["h"][t]), t) for L in r.chan) + r.tich
+            r.lo_max = max(r.lo_max, -lx)
+        e_c = von + noi_tong(t, "c") if ro_mo else von
+        e_x = von + noi_tong(t, "x") if ro_mo else von
+        if ghi_von:
+            eq_c[t], eq_x[t] = e_c, e_x
+        dinh_eq = max(dinh_eq, e_c)
+        if dinh_eq > 0:
+            dd_max = max(dd_max, (dinh_eq - e_x) / dinh_eq)
+        lot_mo_max = max(lot_mo_max, sum(L.lot for r in ro_mo for L in r.chan))
+        ro_mo_max = max(ro_mo_max, len(ro_mo))
+        if e_x <= 0.0 or von <= 0.0:
+            chay_tk_ = True
+            for r in list(ro_mo):
+                dong_ro(r, A[r.ma]["c"][t], t, "chay")
+            if ghi_von:
+                eq_c[t:], eq_x[t:] = min(e_c, 0.0), min(e_x, 0.0)
+            break
+    # ro con mo cuoi du lieu: tinh theo gia dong cuoi (khong dong)
+    t_cuoi = n - 1
+    noi_cuoi = noi_tong(t_cuoi, "c") if ro_mo else 0.0
+    for r in ro_mo:
+        nk.append(dict(id=r.id, nguon=r.nguon, ma=r.ma, chieu=r.s, sinh=r.sinh, dong=t_cuoi, boi="mo",
+                       lai_tien=round(sum(loi_chan(r, L, A[r.ma]["c"][t_cuoi], t_cuoi) for L in r.chan) + r.tich, 4),
+                       lo_treo_max=round(r.lo_max, 4), so_khoa=r.so_khoa, ket_nen=t_cuoi - r.sinh, so_tang=len(r.chan)))
+    von_cuoi = von + noi_cuoi
+    nam = max((idx[-1] - idx[0]).days / 365.25, 1e-9) if n > 1 else 1e-9
+    if chay_tk_ or von_cuoi <= 0:
+        lai_pct_nam = -100.0
+    else:
+        lai_pct_nam = ((von_cuoi / tk.von) ** (1.0 / nam) - 1.0) * 100.0
+    nk_df = pd.DataFrame(nk)
+    ket = nk_df["ket_nen"].max() if len(nk_df) else 0
+    return dict(von_dau=tk.von, von_cuoi=round(von_cuoi, 4), lai_tien=round(von_cuoi - tk.von, 4),
+                lai_pct_nam=round(lai_pct_nam, 3), sut_giam_pct=round(dd_max * 100.0, 3), so_nam=round(nam, 2),
+                chay=bool(chay_tk_), muc_ky_quy_min_pct=(round(kq_min * 100, 1) if kq_min < float("inf") else None),
+                lot_mo_max=round(lot_mo_max, 4), ro_mo_max=ro_mo_max, ket_nen_max=int(ket or 0),
+                phi={k: round(v, 4) for k, v in phi_tong.items()}, nhat_ky=nk_df, duong_von=eq_c, von_xau=eq_x,
+                chi_muc=idx, tai_khoan=dict(ten=tk.ten, von=tk.von, don_bay=tk.don_bay, stop_out=tk.stop_out, nhan=tk.nhan),
+                nhan_phi={m: phi[m].nhan for m in ds_ma}, nhan="MÔ PHỎNG", **dem)

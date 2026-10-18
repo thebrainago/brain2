@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 """mo_phong.py - ENGINE BACKTEST. Mot cua duy nhat de bien tin hieu thanh tien.
 
+CU (18/10/2026): engine CU. Do o LOT THAT (ky quy, stop-out, phi theo san/ma, nhieu ma, hedge) thi dung
+`nhan/tai_khoan.chay_tk` - engine chuan cua ong dan (`python3 ong_dan.py`). File nay giu lai vi con nhieu noi goi;
+khong viet them engine moi o day. (Logic ky quy / stop-out cua `chay_he` da duoc chep sang `chay_tk`.)
+
 Quy uoc THOI GIAN (quan trong nhat file nay):
   - Template chi duoc tra ve `tin_hieu[i]` = phoi nhiem MONG MUON, tinh tu
     thong tin BIET TAI CLOSE cua bar i.

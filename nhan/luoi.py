@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 """luoi.py - MO PHONG LUOI/DCA CO TRACH NHIEM, dung duoc lai cho moi cap.
 
+CU (18/10/2026): engine CU. Do o LOT THAT (ky quy, stop-out, phi theo san/ma, nhieu ma, hedge) thi dung
+`nhan/tai_khoan.chay_tk` - engine chuan cua ong dan (`python3 ong_dan.py`). File nay giu lai vi con nhieu noi goi;
+khong viet them engine moi o day.
+
 Chu du an 05/09/2026: *"Neu la audcad thi gio cau tim he thong, tinh chinh thong
 so cho ra cai tot nhat di. Day chinh la cai toi muon ve quantlab => phat hien ra
 tiem nang => backtest thi nghiem ra thong so => he thong"*.

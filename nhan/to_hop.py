@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 """to_hop.py - TO HOP DA CAP x DA KHUNG x DA QUAN LI x DA THONG SO.
 
+CU (18/10/2026): engine CU. Do o LOT THAT (ky quy, stop-out, phi theo san/ma, nhieu ma, hedge) thi dung
+`nhan/tai_khoan.chay_tk` - engine chuan cua ong dan (`python3 ong_dan.py`). File nay giu lai vi con nhieu noi goi;
+khong viet them engine moi o day.
+
 Muc Q6. Chu du an viet trong `SO_DO_HE_THONG.txt`:
 
     "tat ca moi chien luoc can test da cap/ da khung ... /da phuong phap quan li

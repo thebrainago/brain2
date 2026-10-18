@@ -2,6 +2,11 @@
 """
 mo_phong_v2.py - Bo mo phong luoi DCA v2, gom co che tu CAC HE THONG NGOAI
 ===========================================================================
+
+CU (18/10/2026): engine CU. Do o LOT THAT (ky quy, stop-out, phi theo san/ma, nhieu ma, hedge) thi dung
+`nhan/tai_khoan.chay_tk` - engine chuan cua ong dan (`python3 ong_dan.py`). File nay giu lai vi con nhieu noi goi;
+khong viet them engine moi o day.
+
 Nguon y tuong (nguoi dung nhac dung: phan lon core den tu he thong ngoai):
   - Ultima (do nguoc 537 ro)          : luoi buoc co dinh, lot phang, TP tu gia TB
   - DCA Am Duong (clip tac gia)       : loc Supertrend + loc KHOANG CACH gia-ST
