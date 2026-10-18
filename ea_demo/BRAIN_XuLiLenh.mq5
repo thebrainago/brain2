@@ -482,7 +482,7 @@ bool DocCsv()
       int c = (int)StringToInteger(o[2]);
       if(t <= 0 || (c != 1 && c != -1)) { sai++; continue; }
       double l = (k >= 6 && o[5] != "") ? StringToDouble(o[5]) : 0;
-      ArrayResize(g_csv_t, g_csv_n + 1); ArrayResize(g_csv_c, g_csv_n + 1); ArrayResize(g_csv_lot, g_csv_n + 1);
+      ArrayResize(g_csv_t, g_csv_n + 1, 4096); ArrayResize(g_csv_c, g_csv_n + 1, 4096); ArrayResize(g_csv_lot, g_csv_n + 1, 4096);
       g_csv_t[g_csv_n] = t; g_csv_c[g_csv_n] = c; g_csv_lot[g_csv_n] = l;
       g_csv_n++;
    }
