@@ -38,7 +38,11 @@ NGUONG_IS = {"pf": 1.0, "lenh": 10, "net": 0.0}
 NGUONG_OOS = {"pf": 1.0, "lenh": 5, "net": 0.0}
 # Ba yeu to cot loi cua chu du an (17/10/2026): lai sau phi, sut giam <= 80 %, lai >= 10 %/nam. Lot co gian (EA chay
 # lot co dinh 0,01 tren von 10.000) -> quy tuyen tinh ve muc lot cho sut giam = 80 %.
-VON, LAI_TOI_THIEU, SUT_GIAM_TOI_DA = 10000.0, 10.0, 80.0
+# 18/10/2026: nguong doc tu MOT cho (config/nguong.json, tang "cuoi"). Phep nhan lot tuyen tinh o day chi la NHAN tham khao.
+import sys as _sys  # noqa: E402
+_sys.path.insert(0, str(GOC))
+from nhan import nguong as _NG  # noqa: E402
+VON, LAI_TOI_THIEU, SUT_GIAM_TOI_DA = 10000.0, _NG.lai_toi_thieu("cuoi"), _NG.sut_giam_toi_da("cuoi")
 
 
 def _nam(pha: str) -> float:
@@ -56,7 +60,10 @@ def cot_loi(r: dict) -> dict | None:
     o80 = lai * SUT_GIAM_TOI_DA / dd if dd > 0 else None
     return {"lai_pct_nam": round(lai, 3), "sut_giam_pct": dd, "lai_pct_nam_o_dd80": round(o80, 1) if o80 is not None else None,
             "he_so_lot_dd80": round(SUT_GIAM_TOI_DA / dd, 1) if dd > 0 else None,
-            "dat": bool(lai > 0 and (o80 is None or o80 >= LAI_TOI_THIEU))}
+            "dat": bool(lai > 0 and (o80 is None or o80 >= LAI_TOI_THIEU)),
+            "kieu_dat": "nhan_lot_tuyen_tinh (tham khao)",
+            # lot THAT cua lan chay MT5 (0,01 tren von 10.000): tang cuoi 80/10 khong nhan lot
+            "dat_lot_that": _NG.dat(lai, dd, "cuoi")["dat"] and r["net"] > 0}
 
 
 def khoa(v: dict) -> str:
@@ -149,6 +156,7 @@ def lay_viec(n: int = 1, so_cai: list[dict] | None = None, dang_chay: set[str] |
                 h["diem"] = 10 + (r.get("pf") or 0)
                 hang.append(h)
     hang += tu_python_box()
+    hang += tu_ong_dan()
     hang += ung_vien(random.Random(hat + len(sc) // 500))
     hang.sort(key=lambda v: -v["diem"])
     out, thay = [], set()
@@ -176,6 +184,55 @@ def tu_python_box(p: Path = BOX, toi_da: int = 300) -> list[dict]:
         ts = _ts(x["ea"], {k: v for k, v in x["ts"].items()})
         out.append({"ea": x["ea"], "ma": x["ma"], "tf": x["tf"], "ts": ts, "pha": "IS", "diem": 50 + min(x["IS"]["pf"], x["OOS"]["pf"])})
     return out
+
+
+HANG_CHO_OD = GOC / "reports" / "ong_dan" / "hang_cho_mt5.jsonl"
+
+
+def tu_ong_dan(p: Path = HANG_CHO_OD) -> list[dict]:
+    """18/10/2026: viec MT5 do ong dan sinh (`python ong_dan.py sinh_mt5`). Chi lay viec `ea=XL` (BRAIN_XuLiLenh, .set
+    day du); viec `NGOAI` (EA nguoi khac) can tai ma theo url truoc nen KHONG tu chay o day."""
+    if not Path(p).exists():
+        return []
+    import os
+    san = os.environ.get("BRAIN_SAN_TESTER", "")     # vd "XM": slot tester dang nhap XM thi chi lay viec XM
+    out = []
+    for x in Path(p).read_text(encoding="utf-8").splitlines():
+        try:
+            v = json.loads(x)
+        except ValueError:
+            continue
+        if san and v.get("san", "").lower() != san.lower():
+            continue
+        if v.get("ea") == "XL" and v.get("ma") and v.get("tf") in TF:
+            out.append(v)
+    return out
+
+
+def file_set_ong_dan(v: dict) -> str:
+    """.set cho viec ong dan: moi input cua EA; input co khoang toi uu -> `ten=gt||dau||buoc||cuoi||Y`."""
+    ky = v.get("toi_uu") or {}
+    dong = []
+    for k, x in sorted(v["ts"].items()):
+        if k in ky:
+            a, b, c = ky[k]
+            dong.append("%s=%s||%s||%s||%s||Y" % (k, x, a, b, c))
+        else:
+            dong.append("%s=%s" % (k, x))
+    return "\n".join(dong) + "\n"
+
+
+def ini_ong_dan(v: dict, ten: str, don_bay_dong: str) -> str:
+    """ini tester cho viec ong dan. Toi uu: Optimization=1 (vet can) neu it to hop, 2 (di truyen) neu nhieu; bao cao .xml."""
+    n = 1
+    for a, b, c in (v.get("toi_uu") or {}).values():
+        n *= int(round((float(c) - float(a)) / float(b))) + 1 if float(b) else 1
+    opt = 0 if not v.get("toi_uu") else (1 if n <= 2000 else 2)
+    return ("[Tester]\nExpert=BRAIN\\%s.ex5\nExpertParameters=%s.set\nSymbol=%s\nPeriod=%s\nModel=4\nExecutionMode=0\n"
+            "Optimization=%d\nOptimizationCriterion=0\nFromDate=%s\nToDate=%s\nForwardMode=0\nDeposit=%d\nCurrency=%s\n%s"
+            "Report=%s\nReplaceReport=1\nShutdownTerminal=1\nVisual=0\n") % (
+        v.get("ea_file", "BRAIN_XuLiLenh"), ten, v["ma"], v["tf"], opt, v.get("tu") or IS[0], v.get("den") or OOS[1],
+        int(v.get("von") or 1000), v.get("tien") or "USD", don_bay_dong, ten)
 
 
 def file_set(v: dict, goc: str) -> str:

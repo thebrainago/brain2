@@ -1,0 +1,43 @@
+{
+ "_ghi_chu": "Cau hinh ong dan 18/10/2026 (python ong_dan.py). du_lieu: ma -> file CSV gia H1 gio SERVER (cot time,open,high,low,close). Tren box dung /workspace/du_lieu_fx; may nha sua duong dan (hoac dat bien moi truong BRAIN_ONG_DAN_DU_LIEU tro toi mot JSON cung dang). Moi so la MO PHONG; phi la PHI TAM cho toi khi co reports/phi_san/.",
+ "du_lieu": {
+  "AUDCAD": "/workspace/du_lieu_fx/audcad_h1_tu_histdata_m5_ny7.csv",
+  "EURGBP": "/workspace/du_lieu_fx/eurgbp_h1_tu_histdata_m5_ny7.csv",
+  "NZDUSD": "/workspace/du_lieu_fx/nzdusd_h1_tu_histdata_m5_ny7.csv"
+ },
+ "tu_ngay": "2016-01-01",
+ "khung": [
+  "H1",
+  "H4"
+ ],
+ "tai_khoan": "XM_MICRO_TAM",
+ "san_phi": "XM",
+ "von": 1000.0,
+ "ty_le_oos": 0.3,
+ "ngan_sach_moi_the": 16,
+ "toi_da_the_moi_lan": 6,
+ "ngan_sach_to_hop": 24,
+ "toi_da_viec_ea_ngoai": 10,
+ "san_mt5": {
+  "XM": {
+   "ky_hieu": "{ma}micro",
+   "tien": "USD",
+   "don_bay": 500,
+   "gio_server": "EET"
+  },
+  "Exness": {
+   "ky_hieu": "{ma}c",
+   "tien": "USC",
+   "don_bay": 500,
+   "gio_server": "GMT"
+  }
+ },
+ "mt5_tu": "2016.01.01",
+ "mt5_den": "2026.10.01",
+ "thu_muc_nhap_tay": [
+  "E:\\brain2_nhap",
+  "data/nhap_tay",
+  "data/seeker_da_nguon/nhap_tay"
+ ],
+ "_ghi_chu_nhap_tay": "Thu muc chu du an tu luu EA/.set/statement/trang HTML (mo bang Chrome cua minh). Bien moi truong BRAIN_NHAP_TAY (cach nhau ;) thang cau hinh nay. Khong vuot Cloudflare/captcha."
+}

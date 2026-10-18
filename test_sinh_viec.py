@@ -20,7 +20,9 @@ def test_oos_uu_tien_khi_dat_is():
     assert v["pha"] == "OOS" and v["ma"] == "GBPUSD#"
 
 
-def test_near_miss_sinh_hang_xom():
+def test_near_miss_sinh_hang_xom(monkeypatch):
+    # 18/10/2026: hang cho ong dan (diem 60+) dung truoc near-miss; tach ra de test nay chi xet near-miss
+    monkeypatch.setattr(SV, "tu_ong_dan", lambda *a, **k: [])
     v = SV.lay_viec(3, so_cai=[_r(pf=0.95, net=-1)])
     assert all(x["pha"] == "IS" and x["diem"] >= 10 for x in v)
 
@@ -67,3 +69,15 @@ def test_cot_loi_lai_10_o_sut_giam_80():
     assert not SV.cot_loi(_r(net=-5.0, dd="10 (0.10%)"))["dat"]
     assert SV.cot_loi(_r(dd=None)) is None
 
+
+
+def test_viec_ong_dan_vao_hang_cho(tmp_path, monkeypatch):
+    import json
+    p = tmp_path / "h.jsonl"
+    v = {"ten": "od_x", "ea": "XL", "ea_file": "BRAIN_XuLiLenh", "ma": "AUDCADmicro", "tf": "H4", "ts": {"InpVao": 1},
+         "pha": "KIEM", "nguon": "ong_dan", "san": "XM", "diem": 62}
+    p.write_text(json.dumps(v) + "\n" + json.dumps(dict(v, ten="od_y", ea="NGOAI")) + "\n", encoding="utf-8")
+    monkeypatch.delenv("BRAIN_SAN_TESTER", raising=False)
+    assert [x["ten"] for x in SV.tu_ong_dan(p)] == ["od_x"]          # viec NGOAI khong tu chay
+    monkeypatch.setenv("BRAIN_SAN_TESTER", "Exness")
+    assert SV.tu_ong_dan(p) == []

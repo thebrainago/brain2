@@ -41,4 +41,4 @@ Cac task Windows cu (`BrainThorn`, `BrainWatchdog`, `BrainAuto`, `BrainSweep`,
 
 ## 18/10/2026: `simulator_nguoi.py` — CẤM DÙNG
 
-`simulator_nguoi.py` giả chuột và phím để qua “Anubis, Cloudflare, bot-block”. Việc này trái luật của dự án: không vượt Cloudflare, không vượt chặn bot. File được chuyển vào đây để giữ lịch sử; chạy trực tiếp sẽ thoát ngay, và `nhan/may_nha_tuy_chon.mo_phong_nguoi` chỉ còn báo lỗi. Trang nào cần trình duyệt thật thì dùng Browser MCP trên máy nhà (`tai_lieu/BROWSER_MCP.md`): không giải CAPTCHA, không đăng nhập thay chủ dự án.
+`simulator_nguoi.py` giả chuột và phím để qua “Anubis, Cloudflare, bot-block”. Việc này trái luật của dự án: không vượt Cloudflare, không vượt chặn bot. File được chuyển vào đây để giữ lịch sử; chạy trực tiếp sẽ thoát ngay, và `nhan/may_nha_tuy_chon.mo_phong_nguoi` chỉ còn báo lỗi. Trang nào máy không đọc được thì nằm trong `reports/URL_BI_CHAN.md`. Chủ dự án tự mở bằng Chrome của mình rồi lưu file vào thư mục nhập tay (`nhan/nhap_tay.py`). Không dùng Browser MCP hay bất kỳ cách nào để vượt Cloudflare/captcha.

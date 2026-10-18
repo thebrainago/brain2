@@ -33,6 +33,7 @@ DON_BAY = 30
 # Mot viec chay qua so giay nay thi giet va ghi `qua_gio` (do 18/10: lau nhat 506 s / 630 lan). Truoc day khong co
 # han: terminal treo -> `poll()` tra None mai, `ket_thuc` (commit so cai) khong bao gio chay.
 HAN_VIEC_GIAY = 1800
+HAN_TOI_UU_GIAY = 6 * 3600     # viec Optimization cua ong dan chay lau hon nhieu
 
 
 def log(s: str) -> None:
@@ -70,7 +71,31 @@ def doc_htm(p: Path) -> dict:
     return r
 
 
+KQ_ONG_DAN = Path(__file__).resolve().parent.parent / "reports" / "ong_dan" / "ket_qua_mt5"
+
+
+def _ban_ghi(v: dict) -> dict:
+    """Khoa so cai + (viec ong dan) nguon/the_id/ten/von de `ong_dan.py doc_mt5` noi ket qua ve the."""
+    rec = {k: v[k] for k in ("ea", "ma", "tf", "ts", "pha")}
+    for k in ("nguon", "the_id", "ten", "san", "von", "toi_uu"):
+        if k in v:
+            rec[k] = v[k]
+    return rec
+
+
+def tep_bao_cao(slot: str, v: dict, ten: str) -> Path:
+    """Toi uu (Optimization>0) -> MT5 ghi <Report>.xml; chay don -> .htm."""
+    return Path(slot, ten + (".xml" if v.get("toi_uu") else ".htm"))
+
+
 def phong(slot: str, v: dict, ten: str) -> subprocess.Popen:
+    if v.get("nguon") == "ong_dan":     # 18/10/2026: viec tu ong dan (BRAIN_XuLiLenh, co the la toi uu)
+        Path(slot, "MQL5", "Profiles", "Tester").mkdir(parents=True, exist_ok=True)
+        Path(slot, "MQL5", "Profiles", "Tester", ten + ".set").write_text(SV.file_set_ong_dan(v), encoding="ascii")
+        AT.xoa_bao_cao_cu(Path(slot), ten)
+        ini = Path(slot, ten + ".ini")
+        ini.write_text(SV.ini_ong_dan(v, ten, AT.dong_don_bay(int(v.get("don_bay") or DON_BAY))), encoding="ascii")
+        return subprocess.Popen([slot + r"\terminal64.exe", "/portable", "/config:" + str(ini)], creationflags=0x00000040)
     ea = "BRAIN_V24_%s_Trail_D1" % v["ea"]
     goc = (GOC_SET / (ea + ".set")).read_text(encoding="utf-8")
     Path(slot, "MQL5", "Profiles", "Tester").mkdir(parents=True, exist_ok=True)
@@ -107,6 +132,8 @@ def ket_thuc():
     try:
         g = lambda *x: subprocess.run(["git", "-C", str(goc)] + list(x), capture_output=True, text=True, timeout=300)
         g("add", "reports/mt5_lien_tuc/so_cai.jsonl", "reports/mt5_lien_tuc/tong_ket_mt5.json")
+        if KQ_ONG_DAN.exists():
+            g("add", str(KQ_ONG_DAN))
         g("commit", "-m", "May nha chay lien tuc: so cai MT5 (%d lan thu) + tong ket" % len(SV.doc_so_cai()))
         g("pull", "--rebase"); r = g("push")
         log("GIT push rc=%s %s" % (r.returncode, (r.stderr or "")[-200:]))
@@ -140,22 +167,32 @@ def main():
         n = DP.so_slot_mt5(muc)
         for s, (pr, v, ten, t0) in list(chay.items()):
             if pr.poll() is None:
-                if time.time() - t0 <= HAN_VIEC_GIAY:
+                if time.time() - t0 <= (HAN_TOI_UU_GIAY if v.get("toi_uu") else HAN_VIEC_GIAY):
                     continue
                 try:
                     pr.kill()            # giet DUNG tien trinh cua minh, khong taskkill ca may
                 except Exception:
                     pass
                 del chay[s]
-                rec = {k: v[k] for k in ("ea", "ma", "tf", "ts", "pha")}; rec.update(loi="qua_gio", giay=int(time.time() - t0), luc=now.isoformat(timespec="seconds"))
+                rec = _ban_ghi(v); rec.update(loi="qua_gio", giay=int(time.time() - t0), luc=now.isoformat(timespec="seconds"))
                 SV.ghi(rec)
                 log("QUA GIO %s (%ss) - giet, ghi CHUA_DO_DUOC" % (ten, rec["giay"]))
                 continue
             del chay[s]
-            f = Path(s, ten + ".htm")
-            if AT.bao_cao_moi(f, t0):
-                r = doc_htm(f); shutil.move(str(f), str(REP / f.name)); hong[s] = 0
-                rec = {k: v[k] for k in ("ea", "ma", "tf", "ts", "pha")}; rec.update(r, file=f.name, giay=int(time.time() - t0), luc=now.isoformat(timespec="seconds"))
+            f = tep_bao_cao(s, v, ten)
+            if AT.bao_cao_moi(f, t0) and f.suffix == ".xml":
+                KQ_ONG_DAN.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(str(f), str(KQ_ONG_DAN / f.name)); shutil.move(str(f), str(REP / f.name)); hong[s] = 0
+                rec = _ban_ghi(v); rec.update(file=f.name, giay=int(time.time() - t0), luc=now.isoformat(timespec="seconds"))
+                SV.ghi(rec)
+                log("XONG TOI UU %s -> %s" % (ten, KQ_ONG_DAN / f.name))
+            elif AT.bao_cao_moi(f, t0):
+                r = doc_htm(f)
+                if v.get("nguon") == "ong_dan":
+                    KQ_ONG_DAN.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(str(f), str(KQ_ONG_DAN / f.name))
+                shutil.move(str(f), str(REP / f.name)); hong[s] = 0
+                rec = _ban_ghi(v); rec.update(r, file=f.name, giay=int(time.time() - t0), luc=now.isoformat(timespec="seconds"))
                 ly = AT.phan_xu_ket_qua(r, rec["giay"])
                 if ly:
                     rec["loi"] = ly       # CHUA_DO_DUOC: duoc thu lai (sinh_viec), khong tinh la "da thu, khong lai"
@@ -167,7 +204,7 @@ def main():
             else:
                 ngan = time.time() - t0 < 90
                 hong[s] = hong.get(s, 0) + 1
-                rec = {k: v[k] for k in ("ea", "ma", "tf", "ts", "pha")}; rec.update(loi="khong_bao_cao", giay=int(time.time() - t0), luc=now.isoformat(timespec="seconds"))
+                rec = _ban_ghi(v); rec.update(loi="khong_bao_cao", giay=int(time.time() - t0), luc=now.isoformat(timespec="seconds"))
                 SV.ghi(rec)
                 log("HONG %s (lan %d)" % (ten, hong[s]))
                 if ngan and hong[s] >= 2:
@@ -182,7 +219,7 @@ def main():
         if trong:
             dang = {SV.khoa(v) for _, v, _, _ in chay.values()}
             for s, v in zip(trong, SV.lay_viec(len(trong), dang_chay=dang)):
-                ten = "lt_%s_%s_%s_%s_%s" % (v["ea"], re.sub(r"[^A-Za-z0-9]", "", v["ma"]), v["tf"], v["pha"], format(abs(hash(SV.khoa(v))) % 10**8, "08d"))
+                ten = v["ten"] if v.get("nguon") == "ong_dan" and v.get("ten") else "lt_%s_%s_%s_%s_%s" % (v["ea"], re.sub(r"[^A-Za-z0-9]", "", v["ma"]), v["tf"], v["pha"], format(abs(hash(SV.khoa(v))) % 10**8, "08d"))
                 chay[s] = (phong(s, v, ten), v, ten, time.time())
                 log("PHONG %s %s muc=%s %s" % (ten, s, muc, json.dumps(v["ts"])))
                 time.sleep(3)

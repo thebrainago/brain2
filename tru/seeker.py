@@ -2946,7 +2946,109 @@ def kiem_ke_kho(thu_muc: str | Path, ten: str | None = None, ra_thu_muc: str = "
     return kq
 
 
+# =====================================================================================================================
+# 18/10/2026 - DANH SACH URL BI CHAN de chu du an MO TAY bang Chrome cua minh, roi luu file vao THU MUC NHAP TAY
+# (nhan/nhap_tay.py, vd E:\brain2_nhap\). KHONG vuot Cloudflare / captcha / chan bot, KHONG dung Browser MCP hay CDP de
+# lach: may chi liet ke, nguoi mo. Trang tra phi bi loai (khong mua gi).
+# =====================================================================================================================
+_NGUON_MO_TAY = ("mql5_codebase", "tradingview", "forexfactory", "gogojungle", "forex_station", "fxblue", "myfxbook")
+
+
+def ma_url(url: str) -> str:
+    """Ma ngan cua mot URL (U + 6 hex). Dat ten file nhap tay bat dau bang ma nay -> danh sach tu danh dau DA NHAP."""
+    import hashlib
+    return "U" + hashlib.sha1((url or "").strip().encode("utf-8")).hexdigest()[:6]
+
+
+def url_bi_chan(ra: str | Path = "reports/URL_BI_CHAN_THEM.md", toi_da_mo_tay: int = 200) -> dict:
+    """Gom URL may KHONG doc duoc (403/429/captcha/Cloudflare/SSL/can dang nhap/render JS) -> reports/URL_BI_CHAN_THEM.md.
+
+    `reports/URL_BI_CHAN.md` la file cua tac vu Seeker da nguon (danh sach chon tay theo nguon) - KHONG ghi de. File nay
+    bo sung phan may tu gom: ten mien bi chan (doc_nhieu_trang), ban `khong_doc_duoc` trong nao.db, ung vien chi co URL."""
+    goc = Path(__file__).resolve().parent.parent
+    chan = []                                       # (ma, url, nguon, ly do)
+    # 1) doc_nhieu_trang: ten mien bi chan / loi tai
+    p = goc / "data" / "doc_nhieu_trang" / "CON_TRO.json"
+    if p.exists():
+        try:
+            for k, v in json.loads(p.read_text(encoding="utf-8")).items():
+                if v.get("trang_thai") in ("BI_CHAN", "LOI_TAI") and v.get("url"):
+                    chan.append((ma_url(v["url"]), v["url"], "doc_nhieu_trang:" + k, v.get("loi") or v["trang_thai"]))
+        except Exception:
+            pass
+    # 2) so nao.db: ban `khong_doc_duoc` da co nguyen nhan
+    try:
+        for r in SO.nhieu("SELECT n.url, n.ket_boc, t.nguon FROM noi_dung n LEFT JOIN tai_lieu t ON t.id=n.tai_lieu_id "
+                          "WHERE n.kieu='khong_doc_duoc' AND n.url LIKE 'http%' ORDER BY n.id DESC LIMIT 500"):
+            ly = str(r.get("ket_boc") or "khong doc duoc")
+            if "paywall" in ly:
+                continue
+            chan.append((ma_url(r["url"]), r["url"], r.get("nguon") or "seeker", ly[:120]))
+    except Exception:
+        pass
+    # 3) nguon da biet can trinh duyet
+    for k, ly in NGUON_CAN_TRINH_DUYET.items():
+        chan.append(("-", k, "nguon_can_trinh_duyet", ly))
+    # 4) ung vien Seeker chi co URL tren trang khong tai tu dong duoc (JS / dinh kem / dang nhap)
+    mo_tay = []
+    p = goc / "data" / "seeker_da_nguon" / "ung_vien.jsonl"
+    if p.exists():
+        for x in p.read_text(encoding="utf-8").splitlines():
+            try:
+                u = json.loads(x)
+            except ValueError:
+                continue
+            if u.get("trang_thai_doc") != "chi_url" or u.get("tra_phi") or u.get("nguon") not in _NGUON_MO_TAY:
+                continue
+            mo_tay.append(u)
+    mo_tay.sort(key=lambda u: -(u.get("diem_uu_tien") or 0))
+    mo_tay = mo_tay[:toi_da_mo_tay]
+    # da nhap tay roi (ten file bat dau bang ma U......)
+    da_nhap = set()
+    db = goc / "data" / "ong_dan" / "trang_thai.sqlite"
+    if db.exists():
+        import sqlite3
+        try:
+            cn = sqlite3.connect(str(db))
+            for (j,) in cn.execute("SELECT json FROM the WHERE id LIKE 'nhap_%'"):
+                nt = json.loads(j).get("nhap_tay") or {}
+                for m in (nt.get("ma_url"), nt.get("ten_goc")):
+                    if m:
+                        da_nhap.add(m)
+            cn.close()
+        except Exception:
+            pass
+    dong = ["# URL bị chặn, phần máy tự gom (tự sinh bởi `python tru/seeker.py url-bi-chan`)", "",
+            "Danh sách chọn tay theo nguồn nằm ở `reports/URL_BI_CHAN.md` (tác vụ Seeker đa nguồn, lưu vào "
+            "`data/seeker_da_nguon/nhap_tay/<nguồn>/<id>.<đuôi>`). File này bổ sung phần máy tự gom. Cả hai thư mục đều được "
+            "ống dẫn đọc.", "",
+            "Máy **không** vượt Cloudflare, captcha hay chặn bot, và không dùng Browser MCP hay CDP để lách. Anh mở các trang "
+            "dưới đây bằng Chrome của mình (đăng nhập nếu cần), rồi lưu vào **thư mục nhập tay** (mặc định `E:\\brain2_nhap\\`, "
+            "đổi bằng biến `BRAIN_NHAP_TAY` hoặc `thu_muc_nhap_tay` trong `config/ong_dan.json`). Nhận: `.mq4` `.mq5` `.ex4` `.ex5` `.set` `.htm` `.csv` (xuất lịch sử lệnh) `.pine` `.py` `.zip`:", "",
+            "- EA / chỉ báo: file `.mq4` / `.mq5` (hoặc `.ex4` / `.ex5` nếu chỉ có bản biên dịch), kèm `.set` cùng tên nếu có;",
+            "- statement hoặc báo cáo tester: lưu trang `.htm`;",
+            "- trang có mã hiển thị trên web: Ctrl+S, chọn \"Webpage, HTML only\".", "",
+            "Đặt tên file **bắt đầu bằng mã ở cột Mã** (ví dụ `U1a2b3c_ten_ea.mq5`) để danh sách tự đánh dấu ĐÃ NHẬP. "
+            "Sau đó `python3 ong_dan.py chay` tự đọc, phân loại và đưa vào chuỗi. Trang trả phí đã bị loại (không mua gì).", "",
+            "## 1. Máy bị chặn khi đọc (%d)" % len(chan), "", "| Mã | URL | Nguồn | Lý do | Trạng thái |", "|---|---|---|---|---|"]
+    for m, u, n, ly in chan:
+        dong.append("| %s | %s | %s | %s | %s |" % (m, u, n, str(ly).replace("|", "/")[:100], "ĐÃ NHẬP" if m in da_nhap else "chờ mở tay"))
+    dong += ["", "## 2. Ứng viên chỉ có URL, cần mở tay để lấy mã / lệnh (%d, điểm ưu tiên cao trước)" % len(mo_tay), "",
+             "| Mã | Tên | Nguồn | Loại | Phong cách | URL | Trạng thái |", "|---|---|---|---|---|---|---|"]
+    for u in mo_tay:
+        m = ma_url(u["url"])
+        dong.append("| %s | %s | %s | %s | %s | %s | %s |" % (
+            m, str(u.get("ten", ""))[:50].replace("|", "/"), u.get("nguon"), u.get("loai"),
+            ",".join((u.get("phong_cach") or [])[:4]), u["url"], "ĐÃ NHẬP" if m in da_nhap else "chờ mở tay"))
+    Path(ra).parent.mkdir(parents=True, exist_ok=True)
+    Path(ra).write_text("\n".join(dong) + "\n", encoding="utf-8")
+    return {"bi_chan": len(chan), "mo_tay": len(mo_tay), "da_nhap": len(da_nhap), "tep": str(ra)}
+
+
 if __name__ == "__main__":
+    if len(sys.argv) > 1 and sys.argv[1] == "url-bi-chan":     # danh sach URL bi chan cho chu du an mo tay
+        print(json.dumps(url_bi_chan(), ensure_ascii=False))
+        raise SystemExit(0)
     if len(sys.argv) > 2 and sys.argv[1] == "tai-kho":          # tai-kho owner/repo [owner/repo ...]
         for r in sys.argv[2:]:
             d = tai_kho(r)

@@ -50,7 +50,7 @@ def tat_warp() -> bool:
 def mo_phong_nguoi(url: str, **kw):
     """NGHI HUU 18/10/2026: `simulator_nguoi.py` (gia chuot/phim de qua chong bot) TRAI LUAT, da chuyen vao nghi_huu/.
     Ham nay chi con bao loi - khong goi bat ky bo vuot chan nao."""
-    raise RuntimeError("mo_phong_nguoi da NGHI HUU (luat cam vuot Cloudflare / chong bot). Dung Browser MCP tren may nha.")
+    raise RuntimeError("mo_phong_nguoi da NGHI HUU (luat cam vuot Cloudflare / chong bot). Trang bi chan: chu du an mo tay roi luu vao thu muc nhap tay (reports/URL_BI_CHAN.md, nhan/nhap_tay.py).")
 
 
 def dns_vuot():
