@@ -93,6 +93,8 @@ def phong(slot: str, v: dict, ten: str) -> subprocess.Popen:
         Path(slot, "MQL5", "Profiles", "Tester").mkdir(parents=True, exist_ok=True)
         Path(slot, "MQL5", "Profiles", "Tester", ten + ".set").write_text(SV.file_set_ong_dan(v), encoding="ascii")
         AT.xoa_bao_cao_cu(Path(slot), ten)
+        if v.get("csv_vao"):           # 19/10/2026: VAO_CSV -> CSV lenh vao vao Common\Files (tester doc FILE_COMMON)
+            SV.dat_csv_vao(v, Path(__file__).resolve().parent.parent)
         ini = Path(slot, ten + ".ini")
         ini.write_text(SV.ini_ong_dan(v, ten, AT.dong_don_bay(int(v.get("don_bay") or DON_BAY))), encoding="ascii")
         return subprocess.Popen([slot + r"\terminal64.exe", "/portable", "/config:" + str(ini)], creationflags=0x00000040)
@@ -191,6 +193,10 @@ def main():
                 if v.get("nguon") == "ong_dan":
                     KQ_ONG_DAN.mkdir(parents=True, exist_ok=True)
                     shutil.copy2(str(f), str(KQ_ONG_DAN / f.name))
+                    try:
+                        SV.lay_csv_ra(v, KQ_ONG_DAN)      # lenh MT5 + nen -> doc_mt5 doi chieu voi Python
+                    except Exception as e:
+                        log("CSV ra loi %s %s" % (ten, e))
                 shutil.move(str(f), str(REP / f.name)); hong[s] = 0
                 rec = _ban_ghi(v); rec.update(r, file=f.name, giay=int(time.time() - t0), luc=now.isoformat(timespec="seconds"))
                 ly = AT.phan_xu_ket_qua(r, rec["giay"])

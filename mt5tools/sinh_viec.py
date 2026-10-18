@@ -222,6 +222,48 @@ def file_set_ong_dan(v: dict) -> str:
     return "\n".join(dong) + "\n"
 
 
+def thu_muc_common(common: Path | None = None) -> Path:
+    """Common\\Files cua MetaTrader 5 (chung moi terminal, ke ca /portable va tester agent)."""
+    import os
+    if common is not None:
+        return Path(common)
+    return Path(os.environ.get("APPDATA", ".")) / "MetaQuotes" / "Terminal" / "Common" / "Files"
+
+
+def dat_csv_vao(v: dict, goc: Path, common: Path | None = None) -> Path | None:
+    """19/10/2026: viec VAO_CSV -> chep CSV lenh vao (trong repo) vao Common\\Files, xoa file ra cu cua lan truoc."""
+    if not v.get("csv_vao"):
+        return None
+    import shutil
+    c = thu_muc_common(common)
+    c.mkdir(parents=True, exist_ok=True)
+    nguon = Path(goc) / v["csv_vao"]
+    dich = c / nguon.name
+    shutil.copy2(str(nguon), str(dich))
+    for duoi in ("_lenh_mt5.csv", "_gia.csv"):
+        cu = c / (nguon.name + duoi)
+        if cu.exists():
+            cu.unlink()
+    return dich
+
+
+def lay_csv_ra(v: dict, dich: Path, common: Path | None = None) -> list[str]:
+    """Sau khi tester xong: chep <csv>_lenh_mt5.csv va <csv>_gia.csv tu Common\\Files ve `dich` (de doc_mt5 doi chieu)."""
+    if not v.get("csv_vao"):
+        return []
+    import shutil
+    c = thu_muc_common(common)
+    ten = Path(v["csv_vao"]).name
+    ra = []
+    Path(dich).mkdir(parents=True, exist_ok=True)
+    for duoi in ("_lenh_mt5.csv", "_gia.csv"):
+        f = c / (ten + duoi)
+        if f.exists():
+            shutil.copy2(str(f), str(Path(dich) / f.name))
+            ra.append(f.name)
+    return ra
+
+
 def ini_ong_dan(v: dict, ten: str, don_bay_dong: str) -> str:
     """ini tester cho viec ong dan. Toi uu: Optimization=1 (vet can) neu it to hop, 2 (di truyen) neu nhieu; bao cao .xml."""
     n = 1
