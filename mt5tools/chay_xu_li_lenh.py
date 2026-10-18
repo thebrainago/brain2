@@ -24,6 +24,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import chay_lai_tren_san as CLS  # noqa: E402
 import an_toan_tester as AT  # noqa: E402
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 GOC = CLS.GOC
 EA = "BRAIN_XuLiLenh"
@@ -86,9 +87,12 @@ def cot_loi(r: dict, von: float) -> dict:
     nam = (int(DEN[:4]) - int(TU[:4])) + (int(DEN[5:7]) - int(TU[5:7])) / 12.0
     lai = (r.get("net") or 0.0) / von / nam * 100.0
     dd = dd_pct(r.get("dd"))
-    o80 = lai * 80.0 / dd if dd else None
+    from nhan import nguong as NG
+    tran, muc = NG.sut_giam_toi_da("cuoi"), NG.lai_toi_thieu("cuoi")
+    o80 = lai * tran / dd if dd else None
     return {"lai_pct_nam": round(lai, 3), "dd_von_pct": dd, "lai_pct_nam_o_dd80": round(o80, 1) if o80 is not None else None,
-            "he_so_lot": round(80.0 / dd, 1) if dd else None, "dat": bool(lai > 0 and (o80 is None or o80 >= 10.0))}
+            "he_so_lot": round(tran / dd, 1) if dd else None, "dat": bool(lai > 0 and (o80 is None or o80 >= muc)),
+            "dat_lot_that": bool(lai > 0 and NG.dat(lai, dd or 0.0, "cuoi")["dat"])}
 
 
 def chuan_bi(slot: Path) -> None:

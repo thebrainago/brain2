@@ -26,6 +26,9 @@ import sys
 import time
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from nhan import nguong as _NG  # noqa: E402  (18/10/2026: nguong doc tu config/nguong.json)
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import do_phi_san as DPS  # noqa: E402
 import sinh_viec as SV  # noqa: E402
@@ -103,10 +106,13 @@ def _cot_loi(x: dict, dd_muc_tieu: float) -> dict:
     """Ba yeu to cot loi (17/10/2026): lai > 0, va o muc lot cho sut giam = dd_muc_tieu (mac dinh 80 %) thi lai >= 10 %/nam."""
     o = x["lai_pct_nam"] * dd_muc_tieu / x["sut_giam_pct"] if x["sut_giam_pct"] else None
     return {"lai_pct_nam_o_dd_muc_tieu": round(o, 1) if o is not None else None,
-            "dat_cot_loi": bool(x["net"] > 0 and (o is None or o >= 10.0))}
+            "dat_cot_loi": bool(x["net"] > 0 and (o is None or o >= _NG.lai_toi_thieu("cuoi"))),
+            "kieu_dat": "nhan_lot_tuyen_tinh (tham khao, sai voi DCA / khong SL)",
+            "dat_lot_that": bool(x["net"] > 0 and _NG.dat(x["lai_pct_nam"], x["sut_giam_pct"] or 0.0, "cuoi")["dat"])}
 
 
-def ghep(so_cai: list[dict], von: float, dd_muc_tieu: float = 80.0) -> dict:
+def ghep(so_cai: list[dict], von: float, dd_muc_tieu: float | None = None) -> dict:
+    dd_muc_tieu = _NG.sut_giam_toi_da("cuoi") if dd_muc_tieu is None else dd_muc_tieu
     """Moi (EA, ten goc) lay MOT cau hinh co net cao nhat tren san nay, cong deals lai = mot tai khoan chay tat ca cung luc.
     Chon theo net tren chinh san nay la CHON TREN CUNG DU LIEU (nhan, khong chan) - demo moi la phan xu cuoi."""
     nam = (int(TOAN[1][:4]) - int(TOAN[0][:4])) + (int(TOAN[1][5:7]) - 1) / 12.0
@@ -204,7 +210,7 @@ def main() -> None:
     ap.add_argument("lenh", choices=["danh-sach", "chay", "tong-ket"]); ap.add_argument("--ma-san", required=True)
     ap.add_argument("--slot"); ap.add_argument("--von", type=float, default=10000); ap.add_argument("--tien", default="USD")
     ap.add_argument("--don-bay", type=int, help="mac dinh: don bay that trong tai_khoan.json canh ma_san.json"); ap.add_argument("--top", type=int, default=2)
-    ap.add_argument("--cho-toi-da", type=int, default=2400); ap.add_argument("--dd-muc-tieu", type=float, default=80.0)
+    ap.add_argument("--cho-toi-da", type=int, default=2400); ap.add_argument("--dd-muc-tieu", type=float, default=_NG.sut_giam_toi_da("cuoi"))
     a = ap.parse_args()
     ms = json.loads(Path(a.ma_san).read_text(encoding="utf-8"))
     if a.don_bay is None:

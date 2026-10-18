@@ -1,5 +1,11 @@
 ﻿# -*- coding: utf-8 -*-
-r"""simulator_nguoi.py - BO MO PHONG NGUOI DUNG TREN WEB.
+r"""simulator_nguoi.py - NGHI HUU 18/10/2026. CAM DUNG.
+
+CAM DUNG: luat du an cam vuot Cloudflare / chong bot (CHI_THI_CHU_DU_AN.md muc "Luat moi" 5). File nay gia chuot / phim
+de qua "Anubis, Cloudflare, bot-block" nen TRAI LUAT. Giu lai chi de doc lich su; khong goi, khong chay.
+Trang can trinh duyet that thi dung Browser MCP tren may nha (tai_lieu/BROWSER_MCP.md), khong giai CAPTCHA, khong dang nhap thay.
+
+(Ban cu) BO MO PHONG NGUOI DUNG TREN WEB.
 Dung cho trang chong AI co (Anubis, Cloudflare, bot-block...). Gia lap:
   - chuot: di chuyen theo duong Bezier + muy jitter, nhanh/cham tuy y.
   - cuon: tung doan nho, toc do + nghi ngau nhien.
@@ -10,6 +16,9 @@ Chay (python co playwright - AppData\Local\Python\bin\python.exe):
   python simulator_nguoi.py <url> [--can-chua a,b] [--scroll 3] [--anh reports/s.png]
 """
 import sys, time, random, re
+
+if __name__ == "__main__":
+    sys.exit("simulator_nguoi.py da NGHI HUU 18/10/2026: CAM DUNG (luat khong vuot chong bot / Cloudflare).")
 
 random.seed()
 

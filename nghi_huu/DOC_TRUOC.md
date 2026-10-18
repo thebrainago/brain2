@@ -38,3 +38,7 @@ van hanh ma EVO dang do.
 Cac task Windows cu (`BrainThorn`, `BrainWatchdog`, `BrainAuto`, `BrainSweep`,
 `BrainMT5`, `BrainNudge`, `BrainTheoDoi`, `THE_BRAIN_daily`, `BrainBaoCao`,
 `BrainDocForDs`) **da bi xoa** ngay 15/08 de chung khong tu thuc day.
+
+## 18/10/2026: `simulator_nguoi.py` — CẤM DÙNG
+
+`simulator_nguoi.py` giả chuột và phím để qua “Anubis, Cloudflare, bot-block”. Việc này trái luật của dự án: không vượt Cloudflare, không vượt chặn bot. File được chuyển vào đây để giữ lịch sử; chạy trực tiếp sẽ thoát ngay, và `nhan/may_nha_tuy_chon.mo_phong_nguoi` chỉ còn báo lỗi. Trang nào cần trình duyệt thật thì dùng Browser MCP trên máy nhà (`tai_lieu/BROWSER_MCP.md`): không giải CAPTCHA, không đăng nhập thay chủ dự án.

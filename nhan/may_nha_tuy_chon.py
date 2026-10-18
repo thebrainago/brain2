@@ -8,7 +8,7 @@ Thieu mot trong hai -> moi ham tra False / nem `ChuaBat`, khong lam gi.
 Thanh phan (giu nguyen ma cu, chi boc them cong tat):
   * WARP: `nhan/day_chuyen.bat_warp()` goi `warp-cli connect` (Cloudflare WARP da cai o may nha). Ghi chu the-brain:
     Myfxbook bi nha mang chan DNS -> can WARP; nhung WARP DOI IP co the huy phien MQL5 va mql5.com chan dai IP WARP.
-  * Mo phong nguoi: `simulator_nguoi.py` (Playwright, chuot Bezier, cuon, go phim) - cho trang chu du an DA dang nhap.
+  * (NGHI HUU 18/10/2026, CAM DUNG) Mo phong nguoi `nghi_huu/simulator_nguoi.py` - trai luat khong vuot chong bot.
   * DNS vuot: `nhan/dns_vuot.py` (DoH cho ten mien bi ISP dau doc DNS, giu SNI/TLS that).
 Luat brain2 (12/10/2026): box KHONG ne Cloudflare, KHONG VPN, KHONG trinh duyet an, KHONG gia nguoi. Nguon ghi
 "BI CHAN - can chay may nha" trong reports/SEEKER_QUET_NGUON.md la viec cho may nha; chu du an tu quyet dinh co
@@ -48,11 +48,9 @@ def tat_warp() -> bool:
 
 
 def mo_phong_nguoi(url: str, **kw):
-    _can()
-    import simulator_nguoi as SN          # noqa: F401 - chay theo CLI cu: python simulator_nguoi.py <url>
-    import subprocess
-    import sys
-    return subprocess.run([sys.executable, "simulator_nguoi.py", url], check=False)
+    """NGHI HUU 18/10/2026: `simulator_nguoi.py` (gia chuot/phim de qua chong bot) TRAI LUAT, da chuyen vao nghi_huu/.
+    Ham nay chi con bao loi - khong goi bat ky bo vuot chan nao."""
+    raise RuntimeError("mo_phong_nguoi da NGHI HUU (luat cam vuot Cloudflare / chong bot). Dung Browser MCP tren may nha.")
 
 
 def dns_vuot():
