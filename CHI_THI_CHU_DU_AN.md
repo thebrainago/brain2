@@ -21,6 +21,11 @@ Xây hệ ĐƠN GIẢN từ mảnh đã có. Thứ tự: (1) đo phí + độ gi
 (3) ghép bằng cộng đường vốn: `chay_lai_tren_san.py tong-ket` (chia lot theo mức sụt giảm chủ dự án chọn); (4) chạy demo. **Không xây engine mới, không quét tham số.**
 **Tiêu chí (17/10, đã trong code): BA YẾU TỐ CỐT LÕI** — lãi sau phí và giãn · sụt giảm ≤ 80 % · lãi ≥ 10 %/năm (lot co giãn ⇒ lãi/sụt giảm ≥ 0,125). Không gì khác được loại hệ. Xem `BO_TIEU_CHI_MOI.md`; **hệ đã đạt: `DANH_SACH_HE_DAT.md`**. Hàng chờ máy nhà #37–#40.
 
+## ⚑ SEEKER (18/10): tìm KHO EA / chỉ báo / chiến lược VẬN HÀNH ĐƯỢC. Đọc `tai_lieu/SEEKER_KHO_VAN_HANH.md`
+> *"Các cậu luôn đi tìm một cách mơ màng, đào ở những nơi không có giá trị… Tôi cần những hệ thống giao dịch, những kho EA và indicator, strategy mà vận hành được. Phải xem xét từ khoá, ký hiệu, đọc cả file để tìm những kho, nguồn như trên. Lấy của họ về, chúng ta nghiên cứu, biến tấu và kết hợp."*
+
+Ưu tiên: **kho mã** (như EA31337) → EA/bot xử lí lệnh (lưới, DCA, hedge, gỡ, chốt rổ) → chỉ báo và chiến lược có mã. Bài viết hay video chỉ khi có luật hoặc mã; bài báo học thuật để cuối. Nhận ra "chạy được" bằng **ký hiệu mã** (`OnTick`, `OrderSend`, `strategy.entry`, `IStrategy`…) và **đọc cả file**, không rút cả EA còn một luật vào lệnh. Lệnh: `python tru/seeker.py san-kho | tai-kho owner/repo | kiem-ke <thư mục>`.
+
 ## MỤC ĐÍCH CỦA THE BRAIN (chủ dự án 17/10 — đọc trước khi làm bất cứ gì)
 
 > "Cậu đã giao dịch forex bao giờ chưa? Cái cậu làm là vẫn loanh quanh mớ lý thuyết và đi tìm đống hệ thống giao dịch học thuật và trong mơ, việc làm như thế tự chặt đứt hết mọi lợi thế mà cái game này có

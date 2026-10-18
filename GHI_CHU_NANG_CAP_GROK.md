@@ -2110,3 +2110,9 @@ Do that (cung bo doc, cung kho; `cau_kho --khong-tai`, BRAIN_DIEU_TOC=tat):
 - Không đổi mã → không chạy pytest (chỉ markdown/state). Holm cộng dồn box giữ 13.000 (sổ MT5 379 IS đếm riêng trong sinh_viec).
 - Con trỏ → 0 (nap_du_lieu). Việc tiếp đề xuất cho box trước khi resume: viết EA IBS v29 (thoát close>high hôm trước) + input lọc ADX/W1 cho MRZ (#32/#33) để máy nhà chỉ cần biên dịch.
 
+## 18/10/2026 — CHỈ THỊ CHỦ DỰ ÁN CHO SEEKER (Claude ghi, Grok đọc trước khi chạy Seeker)
+- Tìm **kho mã chạy được** (EA, chỉ báo, chiến lược, bot xử lí lệnh), không đào bài báo hay diễn đàn chung chung. Chi tiết, số đo và ký hiệu nhận diện: `tai_lieu/SEEKER_KHO_VAN_HANH.md`.
+- `tru/seeker.py`: nguồn học thuật về 0 lượt (arXiv, OpenAlex, Crossref, Semantic Scholar, HackerNews); GitHub và MQL5 Code Base lên 6; từ khoá vận hành được lên đầu.
+- Lệnh mới: `san-kho [--tai N]`, `tai-kho owner/repo`, `kiem-ke <thư mục>`. Kho tải về nằm ở `data/cau_kho/` (git bỏ qua).
+- Việc kế tiếp (hàng chờ S14–S15): săn kho → đọc passivbot (gỡ lệnh kẹt) → hummingbot → freqtrade-strategies / NostalgiaForInfinity. Ghi `reports/SEEKER_<KHO>.md` như EA31337.
+

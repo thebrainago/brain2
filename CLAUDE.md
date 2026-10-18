@@ -1,5 +1,8 @@
 > **⚠ 16/10/2026 — CHỈ THỊ CỦA CHỦ DỰ ÁN: đọc `CHI_THI_CHU_DU_AN.md` TRƯỚC. Nó thắng mọi luật chặt chẽ trong file này: mục tiêu chỉ là lợi nhuận; p-value/Holm/FDR/placebo/MDE/"hai nửa" chỉ là nhãn, không dùng để loại ý tưởng; may mắn/xu hướng/chế độ là hợp lệ, giữ và gắn điều kiện.**
 
+> **⚠ 18/10/2026 — SEEKER: tim KHO EA / chi bao / chien luoc VAN HANH DUOC (ky hieu ma, doc CA file, lay ve
+> data/cau_kho, kiem ke, nghien cuu - bien tau - ket hop). Nguon hoc thuat ve cuoi. Doc `tai_lieu/SEEKER_KHO_VAN_HANH.md`.**
+
 # HUONG DAN CHO CLAUDE CODE — lab/ (THE BRAIN)
 
 ## LUAT SO 0 — DOI CHIEU SO DO TRUOC MOI PHIEN (chot 12/09/2026)
