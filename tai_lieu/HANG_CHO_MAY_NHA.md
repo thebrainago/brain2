@@ -134,4 +134,5 @@ Chủ dự án: *"phí giao dịch, tính điểm giá chạy, spread, các các
 |---|---|---|---|---|
 | S14 | Săn kho cơ chế trên GitHub (chủ đề + từ khoá bộ sưu tập + awesome-* + repo con); chấm bằng cây file; ghi `reports/SAN_KHO.json` | `set GITHUB_TOKEN=...` (tuỳ chọn, không lưu vào git) rồi `python tru/seeker.py san-kho` | 20–60′ | MỚI |
 | S15 | Kho đạt điểm cao: clone shallow (chỉ đọc), đọc hết file chiến lược và xử lí lệnh, ghi `reports/SEEKER_<KHO>.md` + `.json` như EA31337. Thứ tự: passivbot (gỡ lệnh) → hummingbot (DCA/grid) → freqtrade-strategies / NostalgiaForInfinity | Claude/Grok đọc | 1–2 giờ/kho | MỚI |
+| S16 | **Cài Browser MCP** (18/10): agent điều khiển Chrome riêng của AI qua MCP, đọc được trang sau Cloudflare / cần đăng nhập. Cần Node.js 18+. Bấm "Add to Chrome" một lần; mỗi phiên bấm Connect trên tab. Hướng dẫn: `tai_lieu/BROWSER_MCP.md` | `may_nha\CAI_BROWSER_MCP.cmd` | 5′ | MỚI |
 
