@@ -10,12 +10,12 @@ Thông số Python tốt nhất:
  "khung": "H1",
  "tham": {},
  "ql": {
-  "tp_pct": 0.003,
-  "dca_buoc_pct": 0.012,
+  "tp_pct": 0.005,
+  "dca_buoc_pct": 0.005,
   "dca_toi_da": 8,
   "dca_he_so_lot": 1.0,
-  "hedge_khi_lo_pct": 10.0,
-  "lot_tren_1000": 3.0
+  "hedge_khi_lo_pct": 20.0,
+  "lot_tren_1000": 10.0
  }
 }
 ```
