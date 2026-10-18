@@ -17,10 +17,11 @@ Trạng thái: **ĐÃ SỬA** (có test, đã commit cả brain2 và the-brain) 
 | A5 | **Phí qua đêm tính sai kiểu.** Lệnh trong ngày vẫn trả phí; lệnh H1 qua đêm chỉ trả 2/24 đêm, không có ngày x3 | `chi_phi.MoHinhChiPhi.kieu_qua_dem` | | ĐÃ SỬA: mặc định "nửa đêm" như MT5 (`BRAIN_QUA_DEM=lien_tuc` để về bản cũ) |
 | A6 | Swap hôm nay áp cho cả lịch sử | `chi_phi.tu_du_lieu` | Short US500 2011–21 được +0,67 %/năm, thật ra phải trả ~3 % | MÁY NHÀ: cần dữ liệu lãi suất lịch sử (trên cloud chỉ có EURUSD). `vong_thu_nghiem` đã có `ap_thoi_ky` |
 | A7 | **Bài stress "phí x2" không làm gì.** Sai tên khoá nên bản x2 giống hệt bản gốc; spread theo năm triệt tiêu hệ số | `nhan/sang_loc.py` `_nhan_doi_chi_phi`, `chi_phi.bien_the` | Stress x2 ra x1 | ĐÃ SỬA |
-| A8 | ATR nhìn trước (dùng `atr[i+1]`, gồm cả biên độ nến vào lệnh) để đặt SL/TP | `dap_quan_tri.py:113`, `vao_lenh.py:190` | ATR biết lúc tín hiệu 1,00, dùng 1,643 | CHỜ |
-| A9 | `mo_phong_v2.py` gắn cứng thông số EURCAD (pip, giá trị pip, swap) cho mọi mã | `nhan/mo_phong_v2.py:38-49` | Cặp JPY hoặc vàng ra lãi ảo ~100 lần | CHỜ |
+| A8 | ATR nhìn trước (dùng `atr[i+1]`, gồm cả biên độ nến vào lệnh) để đặt SL/TP | `dap_quan_tri.py:113`, `vao_lenh.py:190` | ATR biết lúc tín hiệu 1,00, dùng 1,643 | ĐÃ SỬA |
+| A9 | `mo_phong_v2.py` gắn cứng thông số EURCAD (pip, giá trị pip, swap) cho mọi mã | `mo_phong_v2.py:38-49` | Cặp JPY hoặc vàng ra lãi ảo ~100 lần | ĐÃ SỬA: `thong_so()` đọc point, hợp đồng, phí qua đêm hai chiều từ `config/chi_phi_do.json`, quy đổi sang USD; thiếu thì báo lỗi |
 | A10 | Thông số symbol còn đoán ở nhiều nơi (USDCNH point 1e-5 thay vì 1e-4; JP225 trong `_diem_tu_gia`; hợp đồng 100.000 cho mọi mã trong `ro_mql.py`) | nhiều file | | CHỜ: cần một bảng symbol chung |
 | A11 | 56 symbol đứng ở spread đúng 1,0 bps (giá trị dự phòng im lặng) | `chi_phi.py:837` | USDARS, TRYJPY, GBPTRY… | CHỜ |
+| A13 | `dap_quan_tri.dap` không kiểm SL/TP trong chính nến vào lệnh (bắt đầu từ nến sau) và cộng lãi kiểu log cho lệnh bán | `nhan/dap_quan_tri.py:150-190` | | CHỜ (tìm thấy khi viết test A8) |
 | A12 | Không mô phỏng ký quỹ / stop-out cho kiểu không SL, DCA, hedge (trừ `chay_he` có `tai_khoan`) | `mo_phong_v2`, `vao_lenh`, `dap` | | CHỜ, liên quan thiết kế (mục D) |
 
 ## B. Lỗi LOẠI NHẦM hệ có lãi (trái ba yếu tố cốt lõi)

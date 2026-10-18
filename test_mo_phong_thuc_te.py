@@ -86,3 +86,39 @@ def test_phi_qua_dem_theo_nua_dem_nhu_mt5():
     assert np.sum(cp.phi_giu_mang(trong_ngay, np.ones(6))) == 0.0
     qua_dem = pd.date_range("2024-03-05 22:00", periods=4, freq="h")      # 22h -> 01h: qua MOT nua dem
     assert abs(np.sum(cp.phi_giu_mang(qua_dem, np.ones(4))) - 0.01) < 1e-12
+
+
+def test_atr_dat_sl_khong_nhin_bien_do_nen_vao_lenh():
+    # 30 nen bien do 1,0; nen VAO LENH (bar 31) bien do 20; bar 32 xuong 98,5. SL 1 ATR tinh tu ATR BIET luc tin
+    # hieu (~1,0) -> SL ~99 -> bar 32 cham SL. Ban cu dung atr[31] (~2,4: gom ca nen 31 chua biet luc vao) ->
+    # SL ~97,6 -> khong cham.
+    from nhan import dap_quan_tri as DQ
+    n = 40
+    o = np.full(n, 100.0); h = o + 0.5; l = o - 0.5; c = o.copy()
+    h[31], l[31] = 110.0, 90.0
+    l[32] = 98.5
+    df = pd.DataFrame({"open": o, "high": h, "low": l, "close": c},
+                      index=pd.date_range("2024-01-01", periods=n, freq="D"))
+    th = np.zeros(n); th[30] = 1.0
+    atr = DQ._atr(df)
+    assert atr[31] > 2 * atr[30]
+    l0 = DQ.dap(df, th, {"sl_atr": 1.0})["lenh"][0]
+    assert l0["vao"] == 31 and l0["ly_do"] == "sl" and l0["ra"] == 32
+
+
+def test_mo_phong_v2_thong_so_theo_tung_ma_khong_ghim_eurcad():
+    import pytest
+    import mo_phong_v2 as V2
+    bang = {"EURCAD": {"point": 1e-5, "contract_size": 1e5, "phi_nam_mua": 0.01, "phi_nam_ban": 0.005},
+            "USDJPY": {"point": 1e-3, "contract_size": 1e5, "gia_luc_do": 150.0},
+            "USDCAD": {"gia_luc_do": 1.40},
+            "XAUUSD": {"point": 0.01, "contract_size": 100.0},
+            "JP225CASH": {"point": 1.0, "contract_size": 1.0}}
+    e = V2.thong_so("EURCAD", bang)
+    assert abs(e["pv"] - 0.1 / 1.40) < 1e-12 and e["pip"] == 1e-4          # ~0,0714 nhu hang so cu
+    j = V2.thong_so("USDJPY", bang)
+    assert abs(j["pip"] - 0.01) < 1e-15 and abs(j["pv"] - 10.0 / 150.0) < 1e-12   # cu: 0,0714 voi pip 0,0001
+    assert abs(V2.thong_so("XAUUSD", bang)["pv"] - 0.1) < 1e-12
+    assert abs(V2.thong_so("JP225CASH", bang)["pv"] - 0.01 * 10.0 / 150.0) < 1e-12   # yet JPY
+    with pytest.raises(ValueError):
+        V2.thong_so("GBPNOK", bang)                                       # chua do -> nem loi, khong doan
