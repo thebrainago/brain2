@@ -1,6 +1,6 @@
 # shahadatnovel__3SMA-EA-in-mql4__3sma_mq4/3sma.mq4
 
-Hệ này đạt lọc Python 65/15 (MÔ PHỎNG, PHÍ TẠM (swap XM:AUDCADMICRO 2026-09-13; spread bang luu AUDCAD_H1_dai, gio 23/0 x5) | QUY ĐỔI TẠM CAD->USD 0.7300) nhưng chưa có EA MT5 biểu đạt được đúng nó (nguồn lệnh ngoài, bộ lọc hoặc ghép nhiều nguồn). Cần chế độ `BRAIN_XuLiLenh` đọc CSV lệnh / iCustom (bước 7a của bản rà soát, việc của Claude).
+Hệ này đạt lọc Python 65/15 (MÔ PHỎNG, PHÍ TẠM (swap XM:AUDCADMICRO 2026-09-13; spread bang luu AUDCAD_H1_dai, gio 23/0 x5) | QUY ĐỔI TẠM CAD->USD 0.7300) nhưng tín hiệu không viết được bằng các chế độ vào có sẵn của EA (nguồn lệnh ngoài, bộ lọc hoặc ghép nhiều nguồn). Từ 19/10/2026 hệ chạy MT5 bằng `BRAIN_XuLiLenh` chế độ VAO_CSV: file `*_CSV_vao.csv` (lệnh vào Python xuất, giờ server sàn) + `*_CSV.set` (tham số quản lí theo % giá) trong thư mục này; `doc_mt5` đối chiếu danh sách lệnh MT5 với Python.
 
 Thông số Python tốt nhất:
 
