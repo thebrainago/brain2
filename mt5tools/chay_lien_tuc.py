@@ -22,11 +22,17 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import dieu_phoi_song_song as DP  # noqa: E402
 import sinh_viec as SV  # noqa: E402
+import an_toan_tester as AT  # noqa: E402
 
 SLOT = [r"D:\mt5_tester\p1", r"D:\mt5_tester\p2", r"E:\mt5_tester\p3", r"E:\mt5_tester\p4"]
 REP = Path(r"D:\mt5_lien_tuc\rep")
 LOG = Path(r"D:\mt5_lien_tuc\chay.log")
 GOC_SET = Path(__file__).resolve().parent.parent / "ea_demo"
+# Don bay dat cho tester. 18/10/2026: truoc day ghi "Leverage=30" -> tester bo qua, moi bao cao la 1:100.
+DON_BAY = 30
+# Mot viec chay qua so giay nay thi giet va ghi `qua_gio` (do 18/10: lau nhat 506 s / 630 lan). Truoc day khong co
+# han: terminal treo -> `poll()` tra None mai, `ket_thuc` (commit so cai) khong bao gio chay.
+HAN_VIEC_GIAY = 1800
 
 
 def log(s: str) -> None:
@@ -51,7 +57,7 @@ def doc_htm(p: Path) -> dict:
         except Exception:
             return None
     r = {"net": num(g("Total Net Profit:")), "pf": num(g("Profit Factor:")), "lenh": num(g("Total Trades:")),
-         "dd": g("Equity Drawdown Maximal:"), "chat_luong": g("History Quality:")}
+         "dd": g("Equity Drawdown Maximal:"), "chat_luong": g("History Quality:"), "don_bay_bc": g("Leverage:")}
     i = t.find(">Deals<"); loi = []
     for row in re.findall(r"<tr[^>]*>(.*?)</tr>", t[i:], re.S):
         c = [html.unescape(re.sub(r"<[^>]+>", "", x)).strip() for x in re.findall(r"<td[^>]*>(.*?)</td>", row, re.S)]
@@ -71,8 +77,9 @@ def phong(slot: str, v: dict, ten: str) -> subprocess.Popen:
     Path(slot, "MQL5", "Profiles", "Tester", ten + ".set").write_text(SV.file_set(v, goc), encoding="ascii")
     fr, to = SV.IS if v["pha"] == "IS" else SV.OOS
     ini = Path(slot, ten + ".ini")
+    AT.xoa_bao_cao_cu(Path(slot), ten)
     ini.write_text("[Tester]\nExpert=BRAIN\\%s.ex5\nExpertParameters=%s.set\nSymbol=%s\nPeriod=%s\nModel=4\nExecutionMode=0\n"
-                   "Optimization=0\nFromDate=%s\nToDate=%s\nForwardMode=0\nDeposit=10000\nCurrency=USD\nLeverage=30\n"
+                   "Optimization=0\nFromDate=%s\nToDate=%s\nForwardMode=0\nDeposit=10000\nCurrency=USD\n" + AT.dong_don_bay(DON_BAY) +
                    "Report=%s\nReplaceReport=1\nShutdownTerminal=1\nVisual=0\n" % (ea, ten, v["ma"], v["tf"], fr, to, ten), encoding="ascii")
     return subprocess.Popen([slot + r"\terminal64.exe", "/portable", "/config:" + str(ini)], creationflags=0x00000040)  # IDLE_PRIORITY_CLASS
 
@@ -133,14 +140,30 @@ def main():
         n = DP.so_slot_mt5(muc)
         for s, (pr, v, ten, t0) in list(chay.items()):
             if pr.poll() is None:
+                if time.time() - t0 <= HAN_VIEC_GIAY:
+                    continue
+                try:
+                    pr.kill()            # giet DUNG tien trinh cua minh, khong taskkill ca may
+                except Exception:
+                    pass
+                del chay[s]
+                rec = {k: v[k] for k in ("ea", "ma", "tf", "ts", "pha")}; rec.update(loi="qua_gio", giay=int(time.time() - t0), luc=now.isoformat(timespec="seconds"))
+                SV.ghi(rec)
+                log("QUA GIO %s (%ss) - giet, ghi CHUA_DO_DUOC" % (ten, rec["giay"]))
                 continue
             del chay[s]
             f = Path(s, ten + ".htm")
-            if f.exists():
+            if AT.bao_cao_moi(f, t0):
                 r = doc_htm(f); shutil.move(str(f), str(REP / f.name)); hong[s] = 0
                 rec = {k: v[k] for k in ("ea", "ma", "tf", "ts", "pha")}; rec.update(r, file=f.name, giay=int(time.time() - t0), luc=now.isoformat(timespec="seconds"))
+                ly = AT.phan_xu_ket_qua(r, rec["giay"])
+                if ly:
+                    rec["loi"] = ly       # CHUA_DO_DUOC: duoc thu lai (sinh_viec), khong tinh la "da thu, khong lai"
+                cb = AT.kiem_don_bay(r.get("don_bay_bc"), DON_BAY)
+                if cb:
+                    rec["canh_bao_don_bay"] = cb
                 SV.ghi(rec)
-                log("XONG %s %s net=%s lenh=%s pf=%s %ss" % (ten, v["pha"], r["net"], r["lenh"], r["pf"], rec["giay"]))
+                log("XONG %s %s net=%s lenh=%s pf=%s %ss%s" % (ten, v["pha"], r["net"], r["lenh"], r["pf"], rec["giay"], (" CHUA_DO_DUOC " + ly) if ly else ""))
             else:
                 ngan = time.time() - t0 < 90
                 hong[s] = hong.get(s, 0) + 1

@@ -174,8 +174,10 @@ class MoPhongRo(unittest.TestCase):
         self.assertEqual(nk[0]["ly_do"], "chot_dinh")
         self.assertAlmostEqual(nk[0]["gia_ra"], 1.0933, places=9)
         self.assertAlmostEqual(nk[0]["loi_tien"], 81.0, places=4)
-        # loi suat theo von danh nghia lenh dau: 1*log + 4*log(hedge)
-        ky_vong = np.log(1.0933 / 1.1) - 4 * np.log(1.0933 / 1.097)
+        # loi suat theo von danh nghia lenh dau, SO HOC tung bar (18/10/2026 - cong log cho chan BAN lai ao):
+        # bar 1: mua 1.1 -> 1.093, ban x4 tu 1.097 -> 1.093; bar 2: ca hai tu 1.093 -> dong 1.0933
+        ky_vong = (np.log(1 + (1.093 / 1.1 - 1) - 4 * (1.093 / 1.097 - 1))
+                   + np.log(1 + (1.0933 / 1.093 - 1) - 4 * (1.0933 / 1.093 - 1)))
         self.assertAlmostEqual(kq.loi.sum(), ky_vong, places=9)
         self.assertEqual(kq.chi_tiet["chan"][0]["so_hedge"], 1)
 

@@ -103,7 +103,8 @@ class MoPhongATR(unittest.TestCase):
         self.assertAlmostEqual(nk[0]["gia_ra"], 1.103, places=9)
         w = 0.01 * 1.1 / 0.002
         self.assertAlmostEqual(nk[0]["trong_so"], w, places=9)
-        self.assertAlmostEqual(kq.loi.sum(), w * np.log(1.103 / 1.1), places=9)
+        # 18/10/2026: SO HOC tung bar - log(1 + w * loi suat), khong phai w * log(gia ra / gia vao)
+        self.assertAlmostEqual(kq.loi.sum(), np.log(1 + w * (1.103 / 1.1 - 1)), places=9)
 
     def test_sl_ban_va_khoang_toi_thieu_spread(self):
         # spread 1e-3 (frac) -> 3*spread*gia = 0.0033 > 0.002 -> SL ban = 1.1033

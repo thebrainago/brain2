@@ -23,6 +23,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import chay_lai_tren_san as CLS  # noqa: E402
+import an_toan_tester as AT  # noqa: E402
 
 GOC = CLS.GOC
 EA = "BRAIN_XuLiLenh"
@@ -98,9 +99,9 @@ def chuan_bi(slot: Path) -> None:
         me = slot / "metaeditor64.exe"
         if not me.exists():
             raise SystemExit("Thieu metaeditor64.exe trong slot -> mo MetaEditor, bien dich %s" % mq)
-        subprocess.run([str(me), "/portable", "/compile:" + str(mq), "/log"], timeout=300)
-        if not mq.with_suffix(".ex5").exists():
-            raise SystemExit("Bien dich hong: xem %s" % mq.with_suffix(".log"))
+        loi = AT.bien_dich(me, mq)          # 18/10/2026: doi .ex5 MOI, khong tin "co .ex5" (ban cu van nam do)
+        if loi:
+            raise SystemExit("Bien dich hong: %s" % loi)
 
 
 def chay_mot(slot: Path, k: dict, von: int, tien: str, don_bay: int, cho: int) -> dict:
@@ -110,20 +111,27 @@ def chay_mot(slot: Path, k: dict, von: int, tien: str, don_bay: int, cho: int) -
     (slot / "MQL5" / "Profiles" / "Tester" / (ten + ".set")).write_text(file_set(k), encoding="ascii")
     ini = slot / (ten + ".ini")
     ini.write_text("[Tester]\nExpert=BRAIN\\%s.ex5\nExpertParameters=%s.set\nSymbol=%s\nPeriod=%s\nModel=4\nExecutionMode=0\n"
-                   "Optimization=0\nFromDate=%s\nToDate=%s\nForwardMode=0\nDeposit=%d\nCurrency=%s\nLeverage=%d\n"
+                   "Optimization=0\nFromDate=%s\nToDate=%s\nForwardMode=0\nDeposit=%d\nCurrency=%s\nLeverage=1:%d\n"
                    "Report=%s\nReplaceReport=1\nShutdownTerminal=1\nVisual=0\n" % (EA, ten, k["ma"], k["tf"], TU, DEN, von, tien, don_bay, ten),
                    encoding="ascii")
+    AT.xoa_bao_cao_cu(slot, ten)       # 18/10/2026: ten co dinh -> lan hong doc lai bao cao CU
     t0 = time.time()
     try:
         subprocess.run([str(slot / "terminal64.exe"), "/portable", "/config:" + str(ini)], timeout=cho)
     except subprocess.TimeoutExpired:
         return {"loi": "qua_gio", "giay": int(time.time() - t0)}
     f = slot / (ten + ".htm")
-    if not f.exists():
+    if not AT.bao_cao_moi(f, t0):
         return {"loi": "khong_bao_cao", "giay": int(time.time() - t0)}         # CHUA_DO_DUOC, khong phai AM
     r = CL.doc_htm(f)
     r["deals"] = CLS.doc_deals(f.read_bytes().decode("utf-16", errors="ignore"))
     r["giay"] = int(time.time() - t0)
+    ly = AT.phan_xu_ket_qua(r, r["giay"])
+    if ly:
+        r["loi"] = ly                       # CHUA_DO_DUOC, khong phai AM
+    cb = AT.kiem_don_bay(r.get("don_bay_bc"), don_bay)
+    if cb:
+        r["canh_bao_don_bay"] = cb
     return r
 
 

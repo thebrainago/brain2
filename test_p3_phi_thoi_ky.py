@@ -55,7 +55,7 @@ class PhiGiuNuaDem(unittest.TestCase):
         idx = pd.date_range("2026-10-06 00:00", periods=48, freq="h")
         h = np.zeros(48)
         h[10:16] = 1.0                       # mo 10:00, dong 16:00 cung ngay
-        cu = CP.MoHinhChiPhi(ma="EURUSD", phi_nam_mua=0.0365)
+        cu = CP.MoHinhChiPhi(ma="EURUSD", phi_nam_mua=0.0365, kieu_qua_dem="lien_tuc")   # mo hinh truoc P3
         moi = cu.bien_the()
         moi.kieu_qua_dem = "nua_dem"
         self.assertGreater(cu.phi_giu_mang(idx, h).sum(), 0)
@@ -67,7 +67,7 @@ class PhiGiuNuaDem(unittest.TestCase):
     def test_giu_dai_bang_lien_tuc(self):
         idx = pd.date_range("2026-01-05 00:00", "2026-03-30 00:00", freq="h")  # 12 tuan
         h = np.ones(len(idx))
-        cu = CP.MoHinhChiPhi(ma="EURUSD", phi_nam_mua=0.02)
+        cu = CP.MoHinhChiPhi(ma="EURUSD", phi_nam_mua=0.02, kieu_qua_dem="lien_tuc")
         moi = cu.bien_the()
         moi.kieu_qua_dem = "nua_dem"
         self.assertAlmostEqual(moi.phi_giu_mang(idx, h).sum(), cu.phi_giu_mang(idx, h).sum(),
@@ -86,7 +86,7 @@ class SwapTheoThang(unittest.TestCase):
     def test_ap_thoi_ky_giu_dung_phi_thang_do(self):
         idx = pd.date_range("2003-06-02", "2026-09-30", freq="D")
         df = pd.DataFrame({"open": 1.1, "high": 1.1, "low": 1.1, "close": 1.1}, index=idx)
-        cp = CP.MoHinhChiPhi(ma="EURUSD", phi_nam_mua=0.02477, phi_nam_ban=-0.0045)
+        cp = CP.MoHinhChiPhi(ma="EURUSD", phi_nam_mua=0.02477, phi_nam_ban=-0.0045, kieu_qua_dem="lien_tuc")
         m = CP.ap_thoi_ky(cp, df, ngay_do="2026-09")
         pm, pb = m.phi_nam_theo_bar(idx)
         k = idx.get_loc(pd.Timestamp("2026-09-15"))

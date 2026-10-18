@@ -176,8 +176,10 @@ class MoPhongLuoi(unittest.TestCase):
         self.assertAlmostEqual(x["gia_ra"], (9889 + 7.7) / 9000, places=9)
         self.assertAlmostEqual(x["loi_tien"], 7.7, places=6)
         # loi suat theo von danh nghia lenh dau (0.02): trong so 1, 1.5, 2
+        # 18/10/2026: SO HOC tung bar (tong trong so cac lenh dang mo x loi suat cua bar), roi moi lay log
         p = x["gia_ra"]
-        ky_vong = np.log(p / 1.1) + 1.5 * np.log(p / 1.099) + 2 * np.log(p / 1.098)
+        ky_vong = (np.log(1 + (1.099 / 1.1 - 1)) + np.log(1 + 2.5 * (1.098 / 1.099 - 1))
+                   + np.log(1 + 4.5 * (1.1 / 1.098 - 1)) + np.log(1 + 4.5 * (p / 1.1 - 1)))
         self.assertAlmostEqual(kq.loi.sum(), ky_vong, places=9)
         self.assertEqual(kq.chi_tiet["luoi"]["max_lenh"], 3)
 

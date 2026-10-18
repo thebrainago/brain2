@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import itertools
 import json
+from collections import Counter
 import math
 import random
 from pathlib import Path
@@ -125,9 +126,18 @@ def hang_xom(v: dict) -> list[dict]:
     return out
 
 
+#: Mot bien the hong (khong bao cao / qua gio / 0 lenh trong vai giay) duoc thu lai toi so lan nay roi moi bo.
+SO_LAN_THU_TOI_DA = 2
+
+
 def lay_viec(n: int = 1, so_cai: list[dict] | None = None, dang_chay: set[str] | None = None, hat: int = 27) -> list[dict]:
     sc = doc_so_cai() if so_cai is None else so_cai
-    xong = {khoa(r) for r in sc} | (dang_chay or set())
+    # 18/10/2026: dong `loi` la CHUA_DO_DUOC, khong phai "da thu". Truoc day moi dong deu vao `xong` nen mot lan
+    # chay hong (moi truong, slot treo) xoa bien the do vinh vien khoi hang viec.
+    hong = Counter(khoa(r) for r in sc if r.get("loi"))
+    xong = {khoa(r) for r in sc if not r.get("loi")} | {k for k, c in hong.items() if c >= SO_LAN_THU_TOI_DA} \
+        | (dang_chay or set())
+    sc = [r for r in sc if not r.get("loi")]
     hang = []
     for r in sc:   # 1) OOS cho bien the dat IS (cao nhat)
         if r.get("pha") == "IS" and dat(r, NGUONG_IS):
@@ -198,7 +208,7 @@ def holm(so_cai: list[dict], alpha: float = 0.05) -> dict:
 def tong_ket(so_cai: list[dict] | None = None) -> dict:
     sc = doc_so_cai() if so_cai is None else so_cai
     h = holm(sc)
-    oos = {khoa({**r, "pha": "IS"}): r for r in sc if r.get("pha") == "OOS"}
+    oos = {khoa({**r, "pha": "IS"}): r for r in sc if r.get("pha") == "OOS" and not r.get("loi")}
     ung = []
     for r in sc:
         if r.get("pha") == "IS" and dat(r, NGUONG_IS):

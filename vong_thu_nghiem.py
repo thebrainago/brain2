@@ -213,7 +213,10 @@ def mo_hinh_chi_phi(df: pd.DataFrame, ma: str = "EURUSD",
     if khong_phi:
         return CP.MoHinhChiPhi(ma=ma)
     cp = CP.tu_du_lieu(ma, df)
-    return cp if phi_cu else CP.ap_thoi_ky(cp, df, ma)
+    if phi_cu:
+        cp.kieu_qua_dem = "lien_tuc"      # 18/10/2026: mac dinh moi la "nua_dem"; "phi cu" = mo hinh truoc P3
+        return cp
+    return CP.ap_thoi_ky(cp, df, ma)
 
 
 def danh_gia(spec: dict, df: pd.DataFrame, khung: str, tick_dau: bool = False,

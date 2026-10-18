@@ -24,9 +24,15 @@ class TestHinhHocChiPhi(unittest.TestCase):
 
     def test_phi_cuoi_tuan_khong_roi_sang_bar_da_dong(self):
         idx = pd.DatetimeIndex(["2026-08-14 20:00:00", "2026-08-17 20:00:00"])
-        cp = CP.MoHinhChiPhi(ma="TEST", phi_nam_mua=0.365, do_tin="DO")
+        cp = CP.MoHinhChiPhi(ma="TEST", phi_nam_mua=0.365, do_tin="DO", kieu_qua_dem="lien_tuc")
         phi = cp.phi_giu_mang(idx, np.array([1.0, 0.0]))
         np.testing.assert_allclose(phi, [0.003, 0.0])
+        # 18/10/2026 mac dinh "nua_dem" nhu MT5: FX tra cuoi tuan vao THU TU (x3), nen giu qua cuoi tuan
+        # Sau -> Hai chi tra dem thu Sau; CFD chi so tra x3 dem thu Sau
+        fx = CP.MoHinhChiPhi(ma="TEST", phi_nam_mua=0.365, do_tin="DO")
+        np.testing.assert_allclose(fx.phi_giu_mang(idx, np.array([1.0, 0.0])), [0.001, 0.0])
+        cfd = CP.MoHinhChiPhi(ma="US500CASH", phi_nam_mua=0.365, do_tin="DO")
+        np.testing.assert_allclose(cfd.phi_giu_mang(idx, np.array([1.0, 0.0])), [0.003, 0.0])
 
 
 if __name__ == "__main__":

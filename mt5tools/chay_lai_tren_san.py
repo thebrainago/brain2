@@ -29,6 +29,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import do_phi_san as DPS  # noqa: E402
 import sinh_viec as SV  # noqa: E402
+import an_toan_tester as AT  # noqa: E402
 
 GOC = SV.GOC
 TOAN = ("2016.01.01", "2026.10.01")
@@ -149,12 +150,16 @@ def chuan_bi_ea(slot: Path) -> None:
     me = slot / "metaeditor64.exe"
     for ea in ("MRZ", "RSI"):
         mq = dich / ("BRAIN_V24_%s_Trail_D1.mq5" % ea)
-        if not mq.with_suffix(".ex5").exists():
+        ex5 = mq.with_suffix(".ex5")
+        # 18/10/2026: bien dich lai khi .mq5 HOAC .mqh chung moi hon .ex5 (truoc day chi khi thieu .ex5 ->
+        # sua BRAIN_V24_Chung.mqh khong bao gio toi slot).
+        moi_nhat = max(f.stat().st_mtime for f in dich.glob("BRAIN_V24_*.mq*"))
+        if not ex5.exists() or ex5.stat().st_mtime < moi_nhat:
             if not me.exists():
-                raise SystemExit("Thieu %s va khong co metaeditor64.exe trong slot -> bien dich tay bang MetaEditor" % mq.with_suffix(".ex5"))
-            subprocess.run([str(me), "/portable", "/compile:" + str(mq), "/log"], timeout=300)
-            if not mq.with_suffix(".ex5").exists():
-                raise SystemExit("Bien dich hong: xem %s" % mq.with_suffix(".log"))
+                raise SystemExit("Thieu/cu %s va khong co metaeditor64.exe trong slot -> bien dich tay bang MetaEditor" % ex5)
+            loi = AT.bien_dich(me, mq)
+            if loi:
+                raise SystemExit("Bien dich hong: %s" % loi)
 
 
 def chay_mot(slot: Path, v: dict, von: float, tien: str, don_bay: int, cho_toi_da: int) -> dict:
@@ -167,19 +172,26 @@ def chay_mot(slot: Path, v: dict, von: float, tien: str, don_bay: int, cho_toi_d
     (slot / "MQL5" / "Profiles" / "Tester" / (ten + ".set")).write_text("\n".join(st) + "\n", encoding="ascii")
     ini = slot / (ten + ".ini")
     ini.write_text("[Tester]\nExpert=BRAIN\\%s.ex5\nExpertParameters=%s.set\nSymbol=%s\nPeriod=%s\nModel=4\nExecutionMode=0\n"
-                   "Optimization=0\nFromDate=%s\nToDate=%s\nForwardMode=0\nDeposit=%d\nCurrency=%s\nLeverage=%d\n"
+                   "Optimization=0\nFromDate=%s\nToDate=%s\nForwardMode=0\nDeposit=%d\nCurrency=%s\nLeverage=1:%d\n"
                    "Report=%s\nReplaceReport=1\nShutdownTerminal=1\nVisual=0\n" % (ea, ten, v["ma"], v["tf"], TOAN[0], TOAN[1], von, tien, don_bay, ten),
                    encoding="ascii")
+    AT.xoa_bao_cao_cu(slot, ten)       # 18/10/2026: ten co dinh -> lan hong doc lai bao cao CU
     t0 = time.time()
     try:
         subprocess.run([str(slot / "terminal64.exe"), "/portable", "/config:" + str(ini)], timeout=cho_toi_da)
     except subprocess.TimeoutExpired:
         return {"loi": "qua_gio", "giay": int(time.time() - t0)}
     f = slot / (ten + ".htm")
-    if not f.exists():
+    if not AT.bao_cao_moi(f, t0):
         return {"loi": "khong_bao_cao", "giay": int(time.time() - t0)}     # CHUA_DO_DUOC, khong phai AM
     r = CL.doc_htm(f); r["deals"] = doc_deals(f.read_bytes().decode("utf-16", errors="ignore"))
     r["file"] = f.name; r["giay"] = int(time.time() - t0)
+    ly = AT.phan_xu_ket_qua(r, r["giay"])
+    if ly:
+        r["loi"] = ly                       # CHUA_DO_DUOC, khong phai AM
+    cb = AT.kiem_don_bay(r.get("don_bay_bc"), don_bay)
+    if cb:
+        r["canh_bao_don_bay"] = cb
     return r
 
 

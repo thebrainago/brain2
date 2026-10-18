@@ -183,6 +183,9 @@ class PhiGiuPhaiTheoDOLONKhongChiTheoCHIEU(unittest.TestCase):
         cu = (np.clip(v, 0, 1) * cp.phi_nam_mua
               + np.clip(-v, 0, 1) * cp.phi_nam_ban)
         from nhan.chi_phi import hinh_hoc
-        cu = cu * hinh_hoc(idx)[0] / 365.0
+        # 18/10/2026: mac dinh dem phi theo NUA DEM (nhu MT5); phep chong hoi quy o day la ve DO LON phoi nhiem
+        ngay = (CP2.dem_qua_dem(idx, 2 if CP2._loai_tai_san(cp.ma) == "fx" else 4)
+                if cp.kieu_qua_dem == "nua_dem" else hinh_hoc(idx)[0])
+        cu = cu * ngay / 365.0
         self.assertTrue(np.allclose(moi, cu, atol=1e-15),
                         "doi hanh vi o vung |v| <= 1 - day la hoi quy")

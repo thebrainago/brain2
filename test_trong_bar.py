@@ -146,7 +146,8 @@ class KhopLenh(unittest.TestCase):
                                     KHONG_PHI)
         # giu=1: dong o open bar sau, roi khop LAI o muc giua bar -> 3 lenh (bar 1..3)
         self.assertEqual(kq.so_lenh, 3)
-        self.assertAlmostEqual(kq.loi_tho[1], -np.log(1.0 / 0.995))
+        # 18/10/2026: lenh BAN tinh SO HOC: 1 - P1/P0, khong phai log(P0/P1) (lai ao ~ (P1/P0 - 1)^2)
+        self.assertAlmostEqual(kq.loi_tho[1], np.log(1 - (1.0 / 0.995 - 1)))
 
     def test_khong_nhin_truoc_phep_cat(self):
         sp = _doc("EA Snippets_Breakout_Breakout1.mq5")["co_che"][0]
