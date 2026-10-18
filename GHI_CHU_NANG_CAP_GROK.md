@@ -2173,3 +2173,30 @@ Do that (cung bo doc, cung kho; `cau_kho --khong-tai`, BRAIN_DIEU_TOC=tat):
   - Bộ dịch không cần LLM (`doc_ma.doc_chien_luoc`) chỉ ra chuỗi lệnh cho 28 trên 2.138 EA của Seeker. Phần còn lại thành việc MT5.
   - Đa số statement có trước 2024 hoặc ngắn dưới 1 năm, nên CHƯA ĐO ĐƯỢC trên box.
   - Hệ đạt lọc nhưng không phải BRAIN cần chế độ EA đọc CSV lệnh (`CAN_EA_GHEP.md`).
+
+## 19/10/2026: EA đọc lệnh vào từ CSV (VAO_CSV) và đối chiếu MT5 với Python
+
+- `ea_demo/BRAIN_XuLiLenh.mq5` lên bản 1.10, **CHƯA BIÊN DỊCH** (box không có MetaEditor hay công cụ kiểm tra cú pháp MQL5; chỉ kiểm được ngoặc cân).
+  - `InpVao=4` (VAO_CSV) đọc file `thoi_gian,ma,chieu,gia,nguon[,lot]`.
+  - Thêm tham số theo % giá: `InpTPPct`, `InpBuocPct`, `InpTrailKichPct`, `InpTrailKhoangPct`, `InpMoKhoaPct`, `InpKhoaLaiKhongMoc`.
+  - Tách lệnh vượt `SYMBOL_VOLUME_MAX`.
+  - Thêm tag tầng `#k`.
+  - Lãi đã chốt của lệnh khoá (GV `tich`) được tính khi gỡ.
+  - Xuất `_lenh_mt5.csv` và `_gia.csv`.
+  - Các chế độ MRZ / RSI / Donchian giữ nguyên hành vi.
+    - Ngoại lệ thứ nhất: lệnh mới mang tag `XL_B#k`. `DocRo` vẫn đọc được lệnh cũ không có tag.
+    - Ngoại lệ thứ hai: lot vượt tối đa giờ được tách lệnh, trước đây bị chặn ở mức tối đa.
+- `nhan/tai_khoan.chay_tk(..., ghi_lenh=True)` trả thêm bảng `lenh`, ghi từng lệnh.
+- `nhan/ong_dan.py`:
+  - Tách phần dựng lệnh vào ra hàm `chuan_bi` (dùng chung với `danh_gia`).
+  - Hàm mới: `xuat_csv_vao`, `set_csv`, `viec_csv`, `chay_python_csv`, `doc_lenh_mt5`, `doi_chieu`, `doi_chieu_viec`, `ghi_doi_chieu_md`.
+  - `sinh_mt5` bổ sung việc VAO_CSV cho cả các thẻ đã ở trạng thái `CHO_EA_GHEP` từ trước.
+  - `doc_mt5` ghi kết quả đối chiếu vào thẻ (`kq.mt5.ket_qua[].doi_chieu`) và vào `reports/ong_dan/DOI_CHIEU_MT5.md`.
+- `mt5tools/sinh_viec.py` có thêm `dat_csv_vao` và `lay_csv_ra`. `chay_lien_tuc.phong` chép CSV vào và lấy CSV ra qua Common\Files.
+- Thêm test vào `test_ong_dan.py`:
+  - định dạng CSV, giờ GMT của Exness (mùa hè / mùa đông), khớp tham số `.set` với input của EA;
+  - tách `lot_max` và ghi lệnh;
+  - đối chiếu: KHOP, lệch một nến vẫn KHOP, LECH khi thiếu lệnh, sai chiều;
+  - đối chiếu trên giá EA xuất, có quy đổi tài khoản cent;
+  - chép file qua Common.
+

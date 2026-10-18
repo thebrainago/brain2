@@ -69,7 +69,7 @@ Cấu hình nằm ở `config/ong_dan.json`: dữ liệu giá mỗi mã, khung, 
 - `reports/ong_dan/hang_cho_mt5.jsonl` có hai loại việc:
   - Việc `ea=XL` (EA `BRAIN_XuLiLenh`) được `mt5tools/sinh_viec.py` (`tu_ong_dan`) đưa vào hàng chờ của `mt5tools/chay_lien_tuc.py`. Điểm ưu tiên là 60+, sau OOS và trên bước tìm thông số.
   - Việc `ea=NGOAI` là EA của người khác: chạy một lần để xuất danh sách lệnh, phải tải mã theo URL trước. Loại này **không** tự chạy.
-- `reports/ong_dan/viec_mt5/<thẻ>/` có `.set` và `.ini` để chạy tay. Thẻ nào chưa có EA biểu đạt được (nguồn lệnh ngoài, có bộ lọc hoặc ghép hai nguồn) thì có `CAN_EA_GHEP.md`.
+- `reports/ong_dan/viec_mt5/<thẻ>/` có `.set` và `.ini` để chạy tay. Thẻ nào chưa có EA biểu đạt được (nguồn lệnh ngoài, có bộ lọc hoặc ghép hai nguồn) thì có `CAN_EA_GHEP.md`, kèm CSV lệnh vào cho chế độ VAO_CSV (xem mục dưới).
 - Các mức chuyển từ Python sang EA:
   - TP và bước DCA tính bằng % × giá tham chiếu (trung vị 2.000 nến cuối) → `InpTPGia` / `InpBuocGia`.
   - `InpMarginMin=0` để khớp với Python.
@@ -87,6 +87,47 @@ Cấu hình nằm ở `config/ong_dan.json`: dữ liệu giá mỗi mã, khung, 
   - Symbol thật lấy từ `ma_san.json`.
   - Xoá `data/ong_dan/trang_thai.sqlite` (hoặc dùng `--db` mới) rồi chạy lại `python3 ong_dan.py chay`, để mọi phép thử được tính lại với phí thật.
 
+## Chế độ VAO_CSV: EA đọc lệnh vào từ CSV (19/10/2026)
+
+Chế độ này dành cho các thẻ `CHO_EA_GHEP`: hệ đạt lọc Python nhưng tín hiệu không viết được bằng MRZ / RSI / Donchian của EA. Đó là nguồn lệnh ngoài, hệ có bộ lọc, hoặc tổ hợp.
+
+- **Python xuất** (`python3 ong_dan.py sinh_mt5`), mỗi thẻ và mỗi sàn có:
+  - `viec_mt5/<thẻ>/od_<thẻ>_<sàn>_CSV_vao.csv`, gồm các cột `thoi_gian,ma,chieu,gia,nguon,lot`.
+    - `thoi_gian` là giờ mở nến vào lệnh, tính theo giờ server của sàn. XM giữ nguyên giờ box (NY+7). Exness đổi sang GMT.
+    - `gia` là giá BID tham khảo (open nến). `lot` là lot tầng đầu.
+    - File ASCII, xuống dòng CRLF, sắp theo thời gian.
+  - `.set` và `.ini` cùng tên.
+    - `.set` dùng `InpVao=4` và tham số quản lí theo % giá, khớp `chay_tk`: `InpTPPct`, `InpBuocPct` (mức DCA cố định tính từ giá lệnh đầu), `InpTrailKichPct`, `InpTrailKhoangPct`, `InpMoKhoaPct`.
+    - Có thêm `InpKhoaLaiKhongMoc=true`, `InpMarginMin=0` và giờ cấm theo sàn.
+  - Một việc trong hàng chờ: `ea=XL`, `pha=KIEM_CSV`, có `csv_vao` và `python_ql`. Hàm `tu_ong_dan` của máy nhà tự nhận việc này.
+- **EA** (`ea_demo/BRAIN_XuLiLenh.mq5` 1.10):
+  - Đọc toàn bộ CSV lúc `OnInit`, từ `Common\Files` nếu `InpCsvChung=true` (cách tester đọc được), không thì từ `MQL5\Files`.
+  - Mở rổ ở tick đầu tiên có thời gian ≥ `thoi_gian`.
+    - Đang có rổ cùng chiều thì bỏ dòng, giống `mot_ro_moi_chieu`.
+    - Trễ quá `InpCsvTreGiay` (mặc định một nến) thì bỏ dòng.
+    - Gặp giờ cấm hoặc thị trường đóng thì thử lại ở tick sau.
+  - Quản lí lệnh giữ nguyên: DCA, nhồi, trailing, hedge khoá / gỡ, TP rổ.
+    - Mỗi lệnh mang tag tầng `XL_B#k`.
+    - Lãi / lỗ đã chốt của lệnh khoá được cộng vào khi tính gỡ, giống `r.tich` của Python.
+  - Lệnh vượt `SYMBOL_VOLUME_MAX` được tách thành nhiều lệnh, tối đa 50.
+  - Khi chạy, EA ghi `<csv>_lenh_mt5.csv` (từng deal, có position id). Lúc `OnDeinit`, EA ghi `<csv>_gia.csv` (nến InpTF trong kỳ test, có spread).
+- **Máy nhà** (`chay_lien_tuc.py`):
+  - Trước khi chạy, chép CSV lệnh vào sang `%APPDATA%\MetaQuotes\Terminal\Common\Files`.
+  - Chạy xong, chép `_lenh_mt5.csv` và `_gia.csv` về `reports/ong_dan/ket_qua_mt5/`, cùng chỗ với `.htm`.
+- **Đối chiếu** (`python3 ong_dan.py doc_mt5`, kết quả ở `reports/ong_dan/DOI_CHIEU_MT5.md`):
+  - Python chạy lại `chay_tk` trên **cùng CSV** và **cùng giá**, tức là nến EA xuất.
+    - Spread theo giờ lấy từ nến EA. Thiếu nến thì dùng giá box và ghi "GIÁ KHÁC NGUỒN".
+    - Phía Python dùng một nguồn chung và không gỡ chéo, giống EA.
+  - Ghép 1-1 lệnh Python với position MT5 khi đủ cả bốn điều kiện:
+    - cùng chiều và cùng loại (rổ hay khoá);
+    - giờ mở lệch ≤ 1 nến;
+    - giá mở lệch ≤ 3 × spread + 0,05 % giá;
+    - lot lệch ≤ 1 bước.
+  - Kết luận **KHOP** khi có ≥ 95 % lệnh ghép được và tổng lãi / lỗ lệch ≤ 10 %, hoặc ≤ 1 % vốn. Không đạt thì kết luận **LECH** và ghi lí do.
+  - Báo cáo có trung vị độ lệch của nến mở, giá mở, nến đóng và lãi từng lệnh.
+  - Tài khoản cent (USC) được chia 100 để quy về USD.
+  - Sai số đặt ở `SAI_SO` trong `nhan/ong_dan.py`.
+
 ## LLM
 
 `nhan/cau_llm.py` dùng chung kiểu gọi với `phong_hop`.
@@ -99,8 +140,9 @@ Cấu hình nằm ở `config/ong_dan.json`: dữ liệu giá mỗi mã, khung, 
 - Thư mục nhập tay `E:\brain2_nhap` nằm trên máy nhà. Box chỉ thấy `data/nhap_tay/` (git bỏ qua, vì mã của người khác không vào git). Muốn chạy trên box thì chép file sang, hoặc chạy `ong_dan.py` ngay trên máy nhà.
 
 - Box chỉ có giá AUDCAD 2016–2026. EURGBP và NZDUSD chỉ có từ 01/2024 (2,77 năm), nên số trên hai mã này dao động mạnh.
-- Engine Python tách lệnh vượt `lot_max` thành nhiều lệnh. EA hiện chặn ở `lot_max` (`ChuanLot`). Với rổ lớn, MT5 sẽ khoá ít hơn Python.
-- Tổ hợp có bộ lọc hoặc nguồn ngoài chưa có EA chạy được. Cần chế độ "đọc CSV lệnh" của `BRAIN_XuLiLenh` (bước 7a của bản rà soát).
+- Từ 19/10/2026, cả Python và EA đều tách lệnh vượt `lot_max` / `SYMBOL_VOLUME_MAX` thành nhiều lệnh, tối đa 50 lệnh.
+- Hệ ghép hai nguồn có gỡ chéo chỉ chạy được **gần đúng** ở VAO_CSV, vì EA gộp một rổ mỗi chiều và chưa gỡ chéo giữa các nguồn. Phần đối chiếu ghi chú "GẦN ĐÚNG" cho các hệ này.
+- EA ở chế độ VAO_CSV **CHƯA BIÊN DỊCH**. Box không có MetaEditor và không có công cụ kiểm tra cú pháp MQL5; chỉ kiểm được ngoặc cân.
 
 ## Nguồn Seeker đa nguồn (19/10/2026)
 
