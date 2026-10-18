@@ -1,33 +1,33 @@
 # SEEKER đa nguồn — EA, chiến lược, chỉ báo, lịch sử giao dịch
 
-Cập nhật: 2026-10-19 00:48 (giờ Bangkok, UTC+7). Chỉ mục máy đọc: `reports/SEEKER_DA_NGUON.json` (lược đồ `seeker_da_nguon/1`). Bản đầy đủ từng ứng viên: `data/seeker_da_nguon/ung_vien.jsonl` (git bỏ qua). Mã của người khác chỉ nằm trong `data/seeker_da_nguon/tai_ve/`, không vào repo.
+Cập nhật: 2026-10-19 00:52 (giờ Bangkok, UTC+7). Chỉ mục máy đọc: `reports/SEEKER_DA_NGUON.json` (lược đồ `seeker_da_nguon/1`). Bản đầy đủ từng ứng viên: `data/seeker_da_nguon/ung_vien.jsonl` (git bỏ qua). Mã của người khác chỉ nằm trong `data/seeker_da_nguon/tai_ve/`, không vào repo.
 
 **Mọi số lãi/DD dưới đây là theo tác giả hoặc công khai tại nguồn, CHƯA đo lại.** Chưa chạy bất kì mã tải về nào.
 
 ## Tổng quan
 
-- Tổng ứng viên: **2070**; có mã: 1675; đã tải file: 768; lịch sử có từng lệnh: 26.
-- Trạng thái đọc: da_tai_doc_ky_hieu 490, chi_url 1302, da_tai 278.
+- Tổng ứng viên: **2436**; có mã: 1822; đã tải file: 1247; lịch sử có từng lệnh: 26.
+- Trạng thái đọc: da_tai_doc_ky_hieu 748, chi_url 1189, da_tai 499.
 
 ### Theo loại
 
 | Nhóm | Số |
 |---|---|
-| ea_hoan_thien | 1586 |
-| lich_su_giao_dich | 316 |
-| chi_bao | 65 |
+| ea_hoan_thien | 1717 |
+| lich_su_giao_dich | 511 |
+| tien_ich | 84 |
 | mo_ta_phuong_phap | 63 |
-| tien_ich | 40 |
+| chi_bao | 61 |
 
 ### Theo nguồn
 
 | Nhóm | Số |
 |---|---|
-| github (qua chỉ mục ForexR, chỉ URL) | 763 |
+| github (qua chỉ mục ForexR, chỉ URL) | 858 |
 | mql5_codebase | 483 |
+| mql5_signals | 465 |
 | github | 301 |
-| mql5_signals | 271 |
-| forexfactory | 80 |
+| forexfactory | 157 |
 | tradingview | 80 |
 | gogojungle | 43 |
 | forex_station | 40 |
@@ -43,22 +43,22 @@ Cập nhật: 2026-10-19 00:48 (giờ Bangkok, UTC+7). Chỉ mục máy đọc: 
 
 | Nhóm | Số |
 |---|---|
-| en | 1798 |
-| ru | 136 |
+| en | 2147 |
+| ru | 138 |
 | ja | 63 |
-| zh | 41 |
+| zh | 55 |
 | pt | 20 |
-| es | 9 |
+| es | 10 |
 | vi | 3 |
 
 ### Theo nền tảng
 
 | Nhóm | Số |
 |---|---|
-| mt5 | 1003 |
-| mt4 | 763 |
+| mt5 | 1081 |
+| mt4 | 1037 |
 | pine | 106 |
-| mt4_mt5 | 86 |
+| mt4_mt5 | 100 |
 | thu_cong | 53 |
 | freqtrade | 39 |
 | python | 17 |
@@ -70,48 +70,48 @@ Cập nhật: 2026-10-19 00:48 (giờ Bangkok, UTC+7). Chỉ mục máy đọc: 
 
 | Nhóm | Số |
 |---|---|
-| trend | 1220 |
-| mean_reversion | 735 |
-| trailing | 713 |
-| prop_risk | 609 |
-| news | 514 |
-| martingale | 512 |
-| grid | 510 |
-| hedge | 368 |
-| session | 332 |
-| breakout | 329 |
-| scalp | 294 |
-| basket | 206 |
-| dca | 195 |
-| recovery | 185 |
-| smc_ict | 123 |
-| ml_ai | 84 |
+| trend | 1354 |
+| mean_reversion | 814 |
+| trailing | 805 |
+| prop_risk | 680 |
+| news | 604 |
+| martingale | 592 |
+| grid | 576 |
+| hedge | 421 |
+| breakout | 383 |
+| session | 377 |
+| scalp | 365 |
+| basket | 234 |
+| dca | 221 |
+| recovery | 206 |
+| smc_ict | 141 |
+| ml_ai | 99 |
 
 ### Loại × nguồn
 
 | Nguồn | Loại | Số |
 |---|---|---|
-| github | ea_hoan_thien | 1026 |
-| mql5_codebase | ea_hoan_thien | 465 |
-| mql5_signals | lich_su_giao_dich | 271 |
+| github | ea_hoan_thien | 1121 |
+| mql5_signals | lich_su_giao_dich | 465 |
+| mql5_codebase | ea_hoan_thien | 434 |
 | tradingview | ea_hoan_thien | 80 |
+| forexfactory | ea_hoan_thien | 75 |
+| mql5_codebase | tien_ich | 47 |
 | gogojungle | lich_su_giao_dich | 43 |
-| forexfactory | chi_bao | 38 |
+| forexfactory | chi_bao | 34 |
 | forexfactory | mo_ta_phuong_phap | 31 |
 | github | tien_ich | 22 |
 | forex_station | mo_ta_phuong_phap | 22 |
 | forex_station | chi_bao | 18 |
-| mql5_codebase | tien_ich | 16 |
+| forexfactory | tien_ich | 15 |
 | github | mo_ta_phuong_phap | 9 |
-| forexfactory | ea_hoan_thien | 8 |
 | github | chi_bao | 7 |
 | web_blog_ja | ea_hoan_thien | 3 |
-| forexfactory | tien_ich | 2 |
+| forexfactory | lich_su_giao_dich | 2 |
 | mql5_codebase | chi_bao | 2 |
 | web_blog_zh | ea_hoan_thien | 1 |
 | mql5_forum | ea_hoan_thien | 1 |
 | web_codebase_en | ea_hoan_thien | 1 |
-| forexfactory | lich_su_giao_dich | 1 |
 | web_blog_vi | ea_hoan_thien | 1 |
 | fxblue | lich_su_giao_dich | 1 |
 | gitee | mo_ta_phuong_phap | 1 |
@@ -180,6 +180,7 @@ Danh sách tự động theo `diem_uu_tien` (40 mục đầu, chỉ để tham k
 | 74 | mql5cb_19464 | Martin | ea_hoan_thien | mt5 | https://www.mql5.com/en/code/19464 |
 | 74 | mql5cb_19459 | Bollinger Bands RSI | ea_hoan_thien | mt5 | https://www.mql5.com/en/code/19459 |
 | 74 | mql5cb_17439 | SilverTrend v3 | ea_hoan_thien | mt5 | https://www.mql5.com/en/code/17439 |
+| 74 | mql5cb_17284 | RSI EA | ea_hoan_thien | mt5 | https://www.mql5.com/en/code/17284 |
 | 74 | mql5cb_17122 | Angry Bird (Scalping) | ea_hoan_thien | mt5 | https://www.mql5.com/en/code/17122 |
 | 74 | mql5cb_16994 | Bollinger Bands | ea_hoan_thien | mt5 | https://www.mql5.com/en/code/16994 |
 | 74 | mql5cb_26324 | Reversing Martingale EA | ea_hoan_thien | mt5 | https://www.mql5.com/en/code/26324 |
@@ -192,13 +193,12 @@ Danh sách tự động theo `diem_uu_tien` (40 mục đầu, chỉ để tham k
 | 74 | gh_GifariKemal__xaubot-ai | GifariKemal/xaubot-ai | ea_hoan_thien | mt5 | https://github.com/GifariKemal/xaubot-ai |
 | 74 | gh_sajidmahamud835__grid-master-pro-mt5-ea | sajidmahamud835/grid-master-pro-mt5-ea | ea_hoan_thien | mt5 | https://github.com/sajidmahamud835/grid-master-pro-mt5-ea |
 | 73.8 | mql5cb_30560 | Periodic Range Breakout (Martingale) | ea_hoan_thien | mt5 | https://www.mql5.com/en/code/30560 |
+| 73.7 | mql5cb_17849 | Trade on qualified RSI | ea_hoan_thien | mt5 | https://www.mql5.com/en/code/17849 |
 | 73.7 | gh_zhutoutoutousan__profitable-expert-advisor | zhutoutoutousan/profitable-expert-advisor | ea_hoan_thien | mt5 | https://github.com/zhutoutoutousan/profitable-expert-advisor |
-| 73.6 | mql5cb_73680 | MSNR v5.31Plus AEU EA | ea_hoan_thien | mt5 | https://www.mql5.com/en/code/73680 |
-| 73.6 | mql5cb_69545 | VR Breakdown level - Trading strategy based on a b | ea_hoan_thien | mt5 | https://www.mql5.com/en/code/69545 |
 
 ## Lịch sử giao dịch
 
-- Tổng 316 mục lịch sử (MQL5 Signals ≥26 tuần có lãi quy năm, statement đính kèm FF, FX Blue…). Có từng lệnh: 26 (statement .htm/.csv tải từ FF/forex-station/GitHub). MQL5 Signals chỉ có số tổng hợp + đường vốn; tab lịch sử lệnh cần đăng nhập → xem `reports/URL_BI_CHAN.md`.
+- Tổng 511 mục lịch sử (MQL5 Signals ≥26 tuần có lãi quy năm, statement đính kèm FF, FX Blue…). Có từng lệnh: 26 (statement .htm/.csv tải từ FF/forex-station/GitHub). MQL5 Signals chỉ có số tổng hợp + đường vốn; tab lịch sử lệnh cần đăng nhập → xem `reports/URL_BI_CHAN.md`.
 
 ## Nguồn bị chặn / không đọc được
 
