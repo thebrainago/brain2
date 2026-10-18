@@ -216,8 +216,13 @@ def doc_lenh_csv(vb: str) -> pd.DataFrame:
 
 def ma_goc(sym: str) -> str:
     """AUDCADmicro / EURUSDc / XAUUSD# -> AUDCAD / EURUSD / XAUUSD."""
+    u = (sym or "").upper()
+    if u.startswith("GOLD"):
+        return "XAUUSD"
+    if u.startswith("SILVER"):
+        return "XAGUSD"
     m = re.match(r"([A-Za-z]{6})", sym or "")
-    return m.group(1).upper() if m else (sym or "").upper()
+    return m.group(1).upper() if m else u
 
 
 def dau_hieu_lenh(df: pd.DataFrame) -> dict:
