@@ -1,23 +1,23 @@
 # SEEKER đa nguồn — EA, chiến lược, chỉ báo, lịch sử giao dịch
 
-Cập nhật: 2026-10-19 00:52 (giờ Bangkok, UTC+7). Chỉ mục máy đọc: `reports/SEEKER_DA_NGUON.json` (lược đồ `seeker_da_nguon/1`). Bản đầy đủ từng ứng viên: `data/seeker_da_nguon/ung_vien.jsonl` (git bỏ qua). Mã của người khác chỉ nằm trong `data/seeker_da_nguon/tai_ve/`, không vào repo.
+Cập nhật: 2026-10-19 01:27 (giờ Bangkok, UTC+7). Chỉ mục máy đọc: `reports/SEEKER_DA_NGUON.json` (lược đồ `seeker_da_nguon/1`). Bản đầy đủ từng ứng viên: `data/seeker_da_nguon/ung_vien.jsonl` (git bỏ qua). Mã của người khác chỉ nằm trong `data/seeker_da_nguon/tai_ve/`, không vào repo.
 
 **Mọi số lãi/DD dưới đây là theo tác giả hoặc công khai tại nguồn, CHƯA đo lại.** Chưa chạy bất kì mã tải về nào.
 
 ## Tổng quan
 
-- Tổng ứng viên: **2436**; có mã: 1822; đã tải file: 1247; lịch sử có từng lệnh: 26.
-- Trạng thái đọc: da_tai_doc_ky_hieu 748, chi_url 1189, da_tai 499.
+- Tổng ứng viên: **2580**; có mã: 1919; đã tải file: 1497; lịch sử có từng lệnh: 26.
+- Trạng thái đọc: da_tai_doc_ky_hieu 950, da_tai 547, chi_url 1083.
 
 ### Theo loại
 
 | Nhóm | Số |
 |---|---|
-| ea_hoan_thien | 1717 |
-| lich_su_giao_dich | 511 |
-| tien_ich | 84 |
+| ea_hoan_thien | 1815 |
+| lich_su_giao_dich | 514 |
+| tien_ich | 126 |
 | mo_ta_phuong_phap | 63 |
-| chi_bao | 61 |
+| chi_bao | 62 |
 
 ### Theo nguồn
 
@@ -27,7 +27,7 @@ Cập nhật: 2026-10-19 00:52 (giờ Bangkok, UTC+7). Chỉ mục máy đọc: 
 | mql5_codebase | 483 |
 | mql5_signals | 465 |
 | github | 301 |
-| forexfactory | 157 |
+| forexfactory | 300 |
 | tradingview | 80 |
 | gogojungle | 43 |
 | forex_station | 40 |
@@ -37,13 +37,14 @@ Cập nhật: 2026-10-19 00:52 (giờ Bangkok, UTC+7). Chỉ mục máy đọc: 
 | web_codebase_en | 1 |
 | web_blog_vi | 1 |
 | fxblue | 1 |
+| myfxbook | 1 |
 | gitee | 1 |
 
 ### Theo ngôn ngữ
 
 | Nhóm | Số |
 |---|---|
-| en | 2147 |
+| en | 2291 |
 | ru | 138 |
 | ja | 63 |
 | zh | 55 |
@@ -55,36 +56,36 @@ Cập nhật: 2026-10-19 00:52 (giờ Bangkok, UTC+7). Chỉ mục máy đọc: 
 
 | Nhóm | Số |
 |---|---|
-| mt5 | 1081 |
-| mt4 | 1037 |
+| mt4 | 1150 |
+| mt5 | 1092 |
+| mt4_mt5 | 119 |
 | pine | 106 |
-| mt4_mt5 | 100 |
 | thu_cong | 53 |
 | freqtrade | 39 |
 | python | 17 |
+| khac | 2 |
 | backtrader | 1 |
 | jesse | 1 |
-| khac | 1 |
 
 ### Theo phong cách (một ứng viên có thể nhiều nhãn)
 
 | Nhóm | Số |
 |---|---|
-| trend | 1354 |
-| mean_reversion | 814 |
-| trailing | 805 |
-| prop_risk | 680 |
-| news | 604 |
-| martingale | 592 |
-| grid | 576 |
-| hedge | 421 |
-| breakout | 383 |
-| session | 377 |
-| scalp | 365 |
-| basket | 234 |
-| dca | 221 |
-| recovery | 206 |
-| smc_ict | 141 |
+| trend | 1431 |
+| trailing | 865 |
+| mean_reversion | 852 |
+| news | 747 |
+| prop_risk | 700 |
+| martingale | 625 |
+| grid | 604 |
+| hedge | 445 |
+| scalp | 399 |
+| breakout | 396 |
+| session | 396 |
+| basket | 265 |
+| dca | 229 |
+| recovery | 217 |
+| smc_ict | 145 |
 | ml_ai | 99 |
 
 ### Loại × nguồn
@@ -93,27 +94,28 @@ Cập nhật: 2026-10-19 00:52 (giờ Bangkok, UTC+7). Chỉ mục máy đọc: 
 |---|---|---|
 | github | ea_hoan_thien | 1121 |
 | mql5_signals | lich_su_giao_dich | 465 |
-| mql5_codebase | ea_hoan_thien | 434 |
+| mql5_codebase | ea_hoan_thien | 427 |
+| forexfactory | ea_hoan_thien | 180 |
 | tradingview | ea_hoan_thien | 80 |
-| forexfactory | ea_hoan_thien | 75 |
-| mql5_codebase | tien_ich | 47 |
+| mql5_codebase | tien_ich | 54 |
+| forexfactory | tien_ich | 50 |
 | gogojungle | lich_su_giao_dich | 43 |
-| forexfactory | chi_bao | 34 |
+| forexfactory | chi_bao | 35 |
 | forexfactory | mo_ta_phuong_phap | 31 |
 | github | tien_ich | 22 |
 | forex_station | mo_ta_phuong_phap | 22 |
 | forex_station | chi_bao | 18 |
-| forexfactory | tien_ich | 15 |
 | github | mo_ta_phuong_phap | 9 |
 | github | chi_bao | 7 |
+| forexfactory | lich_su_giao_dich | 4 |
 | web_blog_ja | ea_hoan_thien | 3 |
-| forexfactory | lich_su_giao_dich | 2 |
 | mql5_codebase | chi_bao | 2 |
 | web_blog_zh | ea_hoan_thien | 1 |
 | mql5_forum | ea_hoan_thien | 1 |
 | web_codebase_en | ea_hoan_thien | 1 |
 | web_blog_vi | ea_hoan_thien | 1 |
 | fxblue | lich_su_giao_dich | 1 |
+| myfxbook | lich_su_giao_dich | 1 |
 | gitee | mo_ta_phuong_phap | 1 |
 
 ## Xếp hạng ứng viên hoàn thiện đáng test nhất
@@ -128,22 +130,22 @@ Chọn tay từ điểm `diem_uu_tien` và đọc mô tả nguồn. "MT5 thẳng
 | 4 | ExMachina SafeScalping | mql5_codebase | https://www.mql5.com/en/code/70052 | MT5 thẳng | Scalp có lưới/DCA, tự dừng khi DD vượt ngưỡng, lọc phiên; tác giả ghi DD 0,86%, PF 1,24 |
 | 5 | GridPro Panel — open-source grid trading EA with on-chart co | mql5_codebase | https://www.mql5.com/en/code/78206 | MT5 thẳng | GridPro Panel: lưới mã mở đủ lớp quản lí rủi ro (SL rổ theo tiền, giới hạn từng lớp) — mẫu tốt cho xử lí lệnh |
 | 6 | XANDER Grid XAUUSD | mql5_codebase | https://www.mql5.com/en/code/71776 | MT5 thẳng | XANDER Grid XAUUSD: lưới + martingale + gỡ lệnh cho vàng, đúng trọng tâm xử lí lệnh |
-| 7 | XANDER Gold Recovery | mql5_codebase | https://www.mql5.com/en/code/72278 | MT5 thẳng | XANDER Gold Recovery: rổ gỡ lệnh vàng cùng tác giả, so cặp với Grid |
-| 8 | BlueMoon | mql5_codebase | https://www.mql5.com/en/code/75264 | MT5 thẳng | BlueMoon: lưới rổ có hedge và recovery, nhiều kí hiệu vận hành |
-| 9 | Free Grid EA Ikarus - From zero to hero | forexfactory | https://www.forexfactory.com/thread/1070898-free-grid-ea-ikarus-from-zero-to | MT4/MT5 thẳng | Ikarus: EA lưới miễn phí, thread FF dài có người dùng đăng kết quả; đã tải 4 file |
-| 10 | Most Famous Blessing 3.9.6 EA and Setfiles | forexfactory | https://www.forexfactory.com/thread/792598-most-famous-blessing-396-ea-and-setfiles | MT4 thẳng (lấy file trong thread) | Blessing 3.9.6: lưới/martingale kinh điển, nhiều bộ .set; thread FF công khai |
-| 11 | Kashi Recovery Grid (KRG) | forexfactory | https://www.forexfactory.com/thread/1413269-kashi-recovery-grid-krg | MT4/MT5 thẳng | Kashi Recovery Grid: lưới gỡ lệnh XAUUSD, đã tải 1 file |
-| 12 | Range breakout EA, ORB EA, Opening range breakout EA | forexfactory | https://www.forexfactory.com/thread/1407952-range-breakout-ea-orb-ea-opening-range-breakout | MT5 thẳng | Range Breakout/ORB EA: luật phiên rõ, đã tải 7 file |
-| 13 | EA Friday Gold Rush | forexfactory | https://www.forexfactory.com/thread/1060592-ea-friday-gold-rush | MT4/MT5 thẳng | Friday Gold Rush: EA theo phiên XAUUSD/US30, đã tải 7 file |
-| 14 | Three Pairs Hedging | forexfactory | https://www.forexfactory.com/thread/279648-three-pairs-hedging | MT4 thẳng | Three Pairs Hedging: hedge 3 cặp tương quan, đã tải 5 file |
-| 15 | geraked/metatrader5 | github | https://github.com/geraked/metatrader5 | MT5 thẳng | 149 file MQL5, MIT; nhiều EA chiến lược kèm kết quả backtest trong README |
-| 16 | zhutoutoutousan/profitable-expert-advisor | github | https://github.com/zhutoutoutousan/profitable-expert-advisor | MT5 thẳng | 952 file, ~691 file .set; EA vàng/bạc/NZDUSD H1 kèm thiết lập tối ưu |
-| 17 | EA31337/EA31337 | github | https://github.com/EA31337/EA31337 | MT4/MT5 thẳng | Khung EA đa chiến lược GPL-3.0, CI backtest công khai |
-| 18 | GeneralTradingSarl/expert-mt5 | github | https://github.com/GeneralTradingSarl/expert-mt5 | MT5 thẳng | ~2372 file EA MT5 mã mở (lưới, martingale, hedge, recovery) — kho lớn để lọc hàng loạt |
-| 19 | GeneralTradingSarl/mql4_experts | github | https://github.com/GeneralTradingSarl/mql4_experts | MT4 (dịch MT5 hoặc chạy MT4) | ~2218 file EA MT4 mã mở |
-| 20 | sajidmahamud835/grid-master-pro-mt5-ea | github | https://github.com/sajidmahamud835/grid-master-pro-mt5-ea | MT5 thẳng | Lưới hai chiều theo ATR, lot động, chặn DD; MIT |
-| 21 | matthewkastor/Metatrader | github | https://github.com/matthewkastor/Metatrader | MT4 thẳng | Bộ EA MT4 có rổ/DCA/hedge/martingale |
-| 22 | peterthomet/MetaTrader-5-and-4-Tools | github | https://github.com/peterthomet/MetaTrader-5-and-4-Tools | MT4/MT5 thẳng | Công cụ và EA sức mạnh tiền tệ, có rổ và hedge |
+| 7 | BlueMoon | mql5_codebase | https://www.mql5.com/en/code/75264 | MT5 thẳng | BlueMoon: lưới rổ có hedge và recovery, nhiều kí hiệu vận hành |
+| 8 | Free Grid EA Ikarus - From zero to hero | forexfactory | https://www.forexfactory.com/thread/1070898-free-grid-ea-ikarus-from-zero-to | MT4/MT5 thẳng | Ikarus: EA lưới miễn phí, thread FF dài có người dùng đăng kết quả; đã tải 4 file |
+| 9 | Most Famous Blessing 3.9.6 EA and Setfiles | forexfactory | https://www.forexfactory.com/thread/792598-most-famous-blessing-396-ea-and-setfiles | MT4 thẳng | Blessing 3.9.6: lưới/martingale kinh điển, nhiều bộ .set; đã tải file đính kèm từ thread FF |
+| 10 | MT5 Grid and Recovery EA | forexfactory | https://www.forexfactory.com/thread/1408891-mt5-grid-and-recovery-ea | MT5 thẳng | MT5 Grid and Recovery EA: lưới + gỡ lệnh, tác giả đăng statement live trong thread |
+| 11 | Trio Orchestra EA: A free - no expiry - little grid rider | forexfactory | https://www.forexfactory.com/thread/736275-trio-orchestra-ea-a-free-no-expiry | MT4 thẳng | Trio Orchestra: lưới nhỏ miễn phí không hết hạn, thread dài có kết quả người dùng |
+| 12 | Flexy Grid EA (Grid Trading) | forexfactory | https://www.forexfactory.com/thread/682126-flexy-grid-ea-grid-trading | MT4 thẳng | Flexy Grid EA: lưới cấu hình linh hoạt, file đã tải |
+| 13 | Kashi Recovery Grid (KRG) | forexfactory | https://www.forexfactory.com/thread/1413269-kashi-recovery-grid-krg | MT4/MT5 thẳng | Kashi Recovery Grid: lưới gỡ lệnh XAUUSD, đã tải 1 file |
+| 14 | Range breakout EA, ORB EA, Opening range breakout EA | forexfactory | https://www.forexfactory.com/thread/1407952-range-breakout-ea-orb-ea-opening-range-breakout | MT5 thẳng | Range Breakout/ORB EA: luật phiên rõ, đã tải 7 file |
+| 15 | EA Friday Gold Rush | forexfactory | https://www.forexfactory.com/thread/1060592-ea-friday-gold-rush | MT4/MT5 thẳng | Friday Gold Rush: EA theo phiên XAUUSD/US30, đã tải 7 file |
+| 16 | Three Pairs Hedging | forexfactory | https://www.forexfactory.com/thread/279648-three-pairs-hedging | MT4 thẳng | Three Pairs Hedging: hedge 3 cặp tương quan, đã tải 5 file |
+| 17 | geraked/metatrader5 | github | https://github.com/geraked/metatrader5 | MT5 thẳng | 149 file MQL5, MIT; nhiều EA chiến lược kèm kết quả backtest trong README |
+| 18 | zhutoutoutousan/profitable-expert-advisor | github | https://github.com/zhutoutoutousan/profitable-expert-advisor | MT5 thẳng | 952 file, ~691 file .set; EA vàng/bạc/NZDUSD H1 kèm thiết lập tối ưu |
+| 19 | EA31337/EA31337 | github | https://github.com/EA31337/EA31337 | MT4/MT5 thẳng | Khung EA đa chiến lược GPL-3.0, CI backtest công khai |
+| 20 | GeneralTradingSarl/expert-mt5 | github | https://github.com/GeneralTradingSarl/expert-mt5 | MT5 thẳng | ~2372 file EA MT5 mã mở (lưới, martingale, hedge, recovery) — kho lớn để lọc hàng loạt |
+| 21 | GeneralTradingSarl/mql4_experts | github | https://github.com/GeneralTradingSarl/mql4_experts | MT4 (dịch MT5 hoặc chạy MT4) | ~2218 file EA MT4 mã mở |
+| 22 | sajidmahamud835/grid-master-pro-mt5-ea | github | https://github.com/sajidmahamud835/grid-master-pro-mt5-ea | MT5 thẳng | Lưới hai chiều theo ATR, lot động, chặn DD; MIT |
 | 23 | Drakkar-Software/OctoBot | github | https://github.com/Drakkar-Software/OctoBot | Python (crypto) | Bot Python GPL-3.0 có grid/DCA, backtest sẵn — tham chiếu luật dịch Python |
 | 24 | ICTrading Signal 2 | mql5_signals | https://www.mql5.com/en/signals/926651 | Chỉ lịch sử (đối chiếu) | Signal 477 tuần, +491,9% (≈21,4%/năm), DD vốn 18,9%, PF 3,85 — công khai MQL5, chưa đo |
 | 25 | Scalp IC Markets MT5 | mql5_signals | https://www.mql5.com/en/signals/1560883 | Chỉ lịch sử (đối chiếu) | Scalp đa cặp 253 tuần, ≈56,7%/năm, DD vốn 32,9% — công khai MQL5 |
@@ -198,7 +200,7 @@ Danh sách tự động theo `diem_uu_tien` (40 mục đầu, chỉ để tham k
 
 ## Lịch sử giao dịch
 
-- Tổng 511 mục lịch sử (MQL5 Signals ≥26 tuần có lãi quy năm, statement đính kèm FF, FX Blue…). Có từng lệnh: 26 (statement .htm/.csv tải từ FF/forex-station/GitHub). MQL5 Signals chỉ có số tổng hợp + đường vốn; tab lịch sử lệnh cần đăng nhập → xem `reports/URL_BI_CHAN.md`.
+- Tổng 514 mục lịch sử (MQL5 Signals ≥26 tuần có lãi quy năm, statement đính kèm FF, FX Blue…). Có từng lệnh: 26 (statement .htm/.csv tải từ FF/forex-station/GitHub). MQL5 Signals chỉ có số tổng hợp + đường vốn; tab lịch sử lệnh cần đăng nhập → xem `reports/URL_BI_CHAN.md`.
 
 ## Nguồn bị chặn / không đọc được
 

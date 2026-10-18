@@ -1,6 +1,6 @@
 # URL bị chặn — chủ dự án tự mở bằng Chrome và lưu tay
 
-Cập nhật: 2026-10-19 00:52 (giờ Bangkok, UTC+7). Agent KHÔNG vượt Cloudflare/captcha/đăng nhập. Lưu file vào `data/seeker_da_nguon/nhap_tay/<nguon>/` (git bỏ qua), tên file = id ở cột đầu, ví dụ `nhap_tay/mql5_signals/926651.csv`.
+Cập nhật: 2026-10-19 01:27 (giờ Bangkok, UTC+7). Agent KHÔNG vượt Cloudflare/captcha/đăng nhập. Lưu file vào `data/seeker_da_nguon/nhap_tay/<nguon>/` (git bỏ qua), tên file = id ở cột đầu, ví dụ `nhap_tay/mql5_signals/926651.csv`.
 
 | Nguồn | URL | Thứ cần lấy | Định dạng nên lưu | Lí do chặn |
 |---|---|---|---|---|
