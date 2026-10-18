@@ -6,6 +6,45 @@
 
 > **Tài khoản Grok Bot mới:** đọc `START_HERE.md` → `BAN_GIAO_GROK.md` → `GHI_CHU_NANG_CAP_GROK.md`. Không secret trong git.
 
+
+## 18/10/2026 tối — Ống dẫn một lệnh (Grok, việc 20 giờ của chủ dự án)
+
+**Chuỗi đã chạy thông trên box:** từ nhận kho, qua tối ưu Python ở lot thật, lọc 65/15, sinh file việc MT5 (`.set`/`.ini`, có cả Optimization) và kho cơ chế, tới tổ hợp. Bước đọc kết quả MT5 đã có mã và có test, nhưng chưa có kết quả MT5 thật. Xem `tai_lieu/ONG_DAN.md`.
+
+- **Ngưỡng một chỗ:** `config/nguong.json` → `nguong_chuoi` {`loc_python` 65/15 chặt, `cuoi` 80/10}. Bộ đọc là `nhan/nguong.py`. `cham_diem`, `sinh_viec`, `chay_lai_tren_san` và `chay_xu_li_lenh` đều đọc từ đây, và thêm cột `dat_lot_that`. Nhân lot tuyến tính chỉ còn là nhãn.
+- **Engine chuẩn:** `nhan/tai_khoan.chay_tk` (mở rộng file cũ, không viết engine mới).
+  - Ký quỹ và stop-out theo `mo_phong.chay_he`.
+  - `HoSoPhi` cho từng sàn và từng mã: spread theo giờ, swap mua và bán riêng, ×3, hoa hồng, point, lot_min/bước/max. Lệnh vượt lot_max được tách thành nhiều lệnh.
+  - Nhiều mã, lệnh bán, khoá / mở khoá / gỡ, gỡ chéo, trailing. Mặc định không SL.
+  - Có `reports/phi_san/` thì tự dùng phí đo, nhãn "ĐO"; không có thì dùng "PHÍ TẠM".
+  - Các engine cũ (mo_phong, luoi, pmg_engine, mo_phong_v2, vao_lenh, dap_quan_tri, to_hop) đã được ghi chú "CU" trong docstring.
+- **Module mới:**
+  - `nhan/nguon_lenh.py`: tín hiệu BRAIN và spec, bộ lọc, LenhVao ở open[i+1].
+  - `nhan/kho_co_che.py`: 5 vai trò, lưu sqlite trong `data/kho_co_che/`, tóm tắt ở `reports/KHO_CO_CHE_TICH_LUY.md`.
+  - `nhan/cau_llm.py`: khoá lấy từ biến môi trường; không có khoá thì ghi CHƯA CHẠY ĐƯỢC.
+  - `nhan/gio_san.py` (D8: Exness GMT+0, cấm 20 → 0).
+  - `nhan/ong_dan.py` và `ong_dan.py`.
+- **Hàng chờ:** `sinh_viec.tu_ong_dan` đọc `reports/ong_dan/hang_cho_mt5.jsonl`. `chay_lien_tuc.phong` chạy được việc `XL` có tối ưu (báo cáo `.xml`, hạn 6 giờ) và chép kết quả về `reports/ong_dan/ket_qua_mt5/`.
+- **D7:** `khoa_tester.dong_terminal` chỉ giết theo PID những terminal tester (`la_terminal_tester`: có `/config:` hoặc nằm dưới `mt5_tester`, không bao giờ giết terminal trong `BRAIN_TERMINAL_GIAO_DICH`). Lấy khoá bằng O_EXCL.
+- **D8:** `do_phi_san` ghi `san.json` (không có login) và giờ đổi ngày theo sàn.
+- `simulator_nguoi.py` đã chuyển vào `nghi_huu/` và **CẤM DÙNG** (luật không vượt chặn bot).
+- **Thư mục nhập tay** (`nhan/nhap_tay.py`; mặc định `E:\brain2_nhap`, `data/nhap_tay`, `data/seeker_da_nguon/nhap_tay`; biến `BRAIN_NHAP_TAY`): EA / .set / .ex / statement htm / CSV lịch sử lệnh / trang HTML / .zip → thẻ trong ống dẫn. Statement và CSV thành nguồn lệnh thật, chạy qua `chay_tk`. `python tru/seeker.py url-bi-chan` → `reports/URL_BI_CHAN_THEM.md` (không ghi đè `reports/URL_BI_CHAN.md` của tác vụ Seeker đa nguồn). Không vượt chặn, không dùng Browser MCP.
+- **Thử khói trên box** (3 lần `chay` cộng một lần `to_hop`, tổng khoảng 4 phút; MÔ PHỎNG, PHÍ TẠM, XM micro tạm 1:500, stop-out 20 %, vốn 1.000 USD):
+  - Nhận 1.568 thẻ, gồm 2 thẻ từ `data/nhap_tay/` (một EA đặt tên theo mã URL, được đánh dấu ĐÃ NHẬP, và một trang HTML có mã được tách ra).
+  - Tối ưu 22 thẻ (592 phép thử). Đạt 65/15: 9 hệ.
+    - BRAIN MRZ AUDCAD H4, lot 10: 22,9 %/năm, sụt giảm 44,8 %, 10,8 năm, nhãn OOS −8,7 %/năm.
+    - BRAIN RSI AUDCAD H4, lot 3: 22,3 %/năm, sụt giảm 58,2 %.
+    - 7 EA ngoài, phần lớn trên NZDUSD/EURGBP mà box chỉ có 2,77 năm dữ liệu.
+  - 148 tổ hợp, 5 tổ hợp đạt.
+  - Kho cơ chế có 137 cơ chế: 27 nguồn lệnh, 56 bộ lọc, 1 mốc/vùng, 38 quản lí, 15 gỡ lệnh.
+  - 38 việc MT5: 8 việc BRAIN_XuLiLenh (MRZ và RSI × XM/Exness × KIỂM/TỐI ƯU) và 30 việc xuất lệnh EA ngoài. Có 12 thẻ cần EA ghép.
+- **Test:** `test_ong_dan.py` 23 passed (ngưỡng; chay_tk với TP, từ chối ký quỹ, stop-out, swap ×3, spread lệnh bán, hedge; nguồn lệnh; kho; LLM không khoá; giờ sàn; lọc terminal; ống dẫn với chạy tiếp, sinh `.set`/`.ini`, đọc XML tối ưu; nhập tay mq5/set/htm/csv/zip/html; URL bị chặn). `test_sinh_viec.py` 10 passed. Bộ test liên quan không có lỗi mới so với HEAD gốc (3 lỗi cũ: khoa_tester thiếu psutil, kien_truc, to_hop cache).
+- **Chưa làm:**
+  - EA chế độ "đọc CSV lệnh" để chạy tổ hợp và nguồn ngoài.
+  - EA tách lệnh vượt lot_max.
+  - Dịch freqtrade bằng LLM (cần khoá).
+  - Đo phí Exness cent và XM micro (máy nhà).
+
 **13/10/2026 tối — chu kỳ 4 (vòng 28, vòng thử P1-1..4): 11 ô, Holm 12.949 → 12.960, 0 qua cổng (MÔ PHỎNG). Chi tiết: mục "Vòng 28 — chu kỳ 4" cuối tệp.**
 
 ## 14/10/2026 sáng (~06h32 VN) — chu kỳ 7: nạp dữ liệu (P3-20..23)
