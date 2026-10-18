@@ -427,3 +427,149 @@ def test_goi_may_nha_kem_include(tmp_path, monkeypatch):
     with zipfile.ZipFile(r["zip"]) as z:
         n = set(z.namelist())
     assert {"data/x/ea.mq5", "data/x/Include/a.mqh", "data/x/Include/b.mqh", "data/x/ea.set", "MANIFEST.json", "HUONG_DAN.md"} <= n
+
+
+# ------------------------------------------------------------------ 19/10/2026: VAO_CSV (EA doc lenh vao) + doi chieu
+def _song(n=600, tu="2024-01-01 00:00"):
+    x = 1.10 + 0.004 * np.sin(np.arange(n) / 9.0) + 0.0005 * np.sin(np.arange(n) / 2.3)
+    i = pd.date_range(tu, periods=n, freq="h")
+    return pd.DataFrame({"open": x, "high": x + 0.0004, "low": x - 0.0004, "close": x + 0.0001}, index=i)
+
+
+QL_CSV = {"lot_tren_1000": 1.0, "tp_pct": 0.002, "dca_buoc_pct": 0.003, "dca_toi_da": 3, "dca_he_so_lot": 1.3,
+          "hedge_khi_lo_pct": 0.0}
+
+
+def test_xuat_csv_vao_dinh_dang_va_gio_san(tmp_path):
+    df = _song(200, "2024-07-01 00:00")
+    ev = [TK.LenhVao("a", 10, float(df["open"].iloc[10]), 1, "EURUSD"),
+          TK.LenhVao("a", 5, float(df["open"].iloc[5]), -1, "EURUSD", 0.05)]
+    b = OD.xuat_csv_vao(ev, df, "EURUSDmicro", 0.01, {"gio_server": "EET"})
+    assert list(b.columns) == OD.COT_CSV and len(b) == 2
+    assert b["thoi_gian"].iloc[0] == "2024.07.01 05:00:00"          # sap xep theo thoi gian
+    assert b["chieu"].tolist() == [-1, 1] and b["lot"].tolist() == [0.05, 0.01]
+    assert b["ma"].iloc[0] == "EURUSDmicro" and b["nguon"].iloc[0] == "a"
+    # Exness GMT: NY+7 mua he (EDT, UTC-4) -> server box = UTC+3 -> GMT = -3h
+    g = OD.xuat_csv_vao(ev, df, "EURUSDc", 0.01, {"gio_server": "GMT"})
+    assert g["thoi_gian"].iloc[0] == "2024.07.01 02:00:00"
+    w = OD.xuat_csv_vao([TK.LenhVao("a", 0, 1.1, 1)], _song(5, "2024-01-10 10:00"), "X", 0.01, {"gio_server": "GMT"})
+    assert w["thoi_gian"].iloc[0] == "2024.01.10 08:00:00"            # mua dong: UTC+2 -> -2h
+    t = tmp_path / "od_x_CSV_vao.csv"
+    OD.ghi_csv_vao(b, t)
+    raw = t.read_bytes()
+    assert raw.startswith(b"thoi_gian,ma,chieu,gia,nguon,lot\r\n")     # dong dau tieu de, CRLF, ASCII cho FileReadString
+    d = OD.doc_csv_vao(t)
+    assert d["thoi_gian"].iloc[1] == pd.Timestamp("2024-07-01 10:00") and d["chieu"].tolist() == [-1, 1]
+
+
+def test_set_csv_khop_quan_li_python():
+    v = OD.set_csv(dict(QL_CSV, hedge_khi_lo_pct=10.0, trail_kich_pct=0.004, trail_khoang_pct=0.001), 1000.0, "XM", "H1",
+                   "od_x_CSV_vao.csv")
+    assert v["InpVao"] == 4 and v["InpFileCsv"] == "od_x_CSV_vao.csv" and v["InpCsvChung"] == "true"
+    assert v["InpTPPct"] == 0.002 and v["InpBuocPct"] == 0.003 and v["InpMaxTang"] == 4 and v["InpNhoi"] == 1
+    assert v["InpKieuLot"] == 2 and v["InpHeSoLot"] == 1.3 and v["InpLot0"] == 1.0
+    assert v["InpTPGia"] == 0 and v["InpBuocATR"] == 0 and v["InpTrailKichPct"] == 0.004 and v["InpTrailKhoangPct"] == 0.001
+    assert v["InpHedgeKhiLoPct"] == 10.0 and v["InpMoKhoaPct"] == 0.005 and v["InpKhoaLaiKhongMoc"] == "true"
+    assert v["InpGoTien"] == 0.0 and v["InpCsvTreGiay"] == 3600
+    # moi input trong .set phai co trong EA
+    ea = Path("ea_demo/BRAIN_XuLiLenh.mq5").read_text(encoding="utf-8")
+    for k in v:
+        assert ("input" in ea and " %s " % k in ea) or (" %s=" % k in ea) or (k in ea), k
+
+
+def test_chay_tk_ghi_lenh_va_tach_lot_max():
+    df = _song(300)
+    i = int(df["open"].iloc[:150].to_numpy().argmin())               # vao o day song -> TP cham
+    ev = [TK.LenhVao("a", i, float(df["open"].iloc[i]), 1, "", 2.5)]
+    kq = TK.chay_tk({"": df}, ev, TK.QuanLi(lot0=2.5, tp_pct=0.002), TK.ho_so_tai_khoan("XM_MICRO_TAM", 100000.0),
+                    {"": _phi(lot_max=1.0)}, ghi_lenh=True)
+    l = kq["lenh"]
+    assert len(l) == 3 and sorted(l["lot"].round(2).tolist()) == [0.5, 1.0, 1.0]       # 2,5 lot / tran 1 lot -> 3 lenh
+    assert (l["mo"] == i).all() and kq["so_tp"] == 1
+    assert l["dong"].notna().all() and abs(l["lai_tien"].sum() - kq["lai_tien"]) < 1e-6
+
+
+def _deal_tu_python(l, idx, lech_giay=30):
+    """Gia lap file _lenh_mt5.csv cua EA tu bang lenh Python (EA lam dung nhu Python)."""
+    dong = ["thoi_gian;deal;position;vao_ra;chieu;khoi_luong;gia;loi;swap;hoa_hong;phu"]
+    for k, r in enumerate(l.itertuples(index=False)):
+        tg = lambda i: (idx[int(i)] + pd.Timedelta(seconds=lech_giay)).strftime("%Y.%m.%d %H:%M:%S")
+        tag = ("XL_HB" if r.chieu < 0 else "XL_HS") if r.khoa else ("XL_B#0" if r.chieu > 0 else "XL_S#0")
+        dong.append("%s;%d;%d;in;%d;%.2f;%.6f;0;0;0;%s" % (tg(r.mo), 2 * k, 1000 + k, r.chieu, r.lot, r.gia_mo, tag))
+        if pd.notna(r.dong):
+            dong.append("%s;%d;%d;out;%d;%.2f;%.6f;%.2f;0;0;" % (tg(r.dong), 2 * k + 1, 1000 + k, -r.chieu, r.lot, r.gia_dong,
+                                                                r.lai_tien))
+    return "\n".join(dong) + "\n"
+
+
+def test_doi_chieu_khop_va_lech(tmp_path):
+    df = _song(600)
+    s = np.zeros(len(df), int)
+    s[[30, 120, 260, 400]] = [1, -1, 1, -1]
+    ev = NL.lenh_vao(df, s, "the_x", "EURUSD")
+    b = OD.xuat_csv_vao(ev, df, "EURUSDmicro", 0.01, {"gio_server": "EET"})
+    OD.ghi_csv_vao(b, tmp_path / "v_vao.csv")
+    b = OD.doc_csv_vao(tmp_path / "v_vao.csv")
+    hs = _phi(spread_gio=[0.00002] * 24)
+    kq = OD.chay_python_csv(b, df, QL_CSV, 1000.0, hs)
+    l = kq["lenh"]
+    assert len(l) >= 4 and kq["so_ro"] == 4
+    f = tmp_path / "v_vao.csv_lenh_mt5.csv"
+    f.write_text(_deal_tu_python(l, kq["chi_muc"]), encoding="ascii")
+    mt = OD.doc_lenh_mt5(f)
+    assert len(mt) == len(l) and abs(mt["lai_tien"].sum() - l["lai_tien"].fillna(0).sum()) < 0.05
+    r = OD.doi_chieu(l, mt, kq["chi_muc"], 0.00002, 0.01, kq["lai_tien"], mt["lai_tien"].sum(), 1000.0)
+    assert r["ket_luan"] == "KHOP" and r["ti_le_khop_pct"] == 100.0 and r["so_khop"] == len(l)
+    # lech 1 nen van trong sai so
+    f.write_text(_deal_tu_python(l, kq["chi_muc"], lech_giay=3600 + 30), encoding="ascii")
+    r1 = OD.doi_chieu(l, OD.doc_lenh_mt5(f), kq["chi_muc"], 0.00002, 0.01, kq["lai_tien"], kq["lai_tien"], 1000.0)
+    assert r1["ket_luan"] == "KHOP" and r1["trung_vi_lech_nen_mo"] == 1
+    # MT5 mat mot nua lenh + lai khac xa -> LECH, co ly do
+    nua = mt.iloc[: len(mt) // 2]
+    r2 = OD.doi_chieu(l, nua, kq["chi_muc"], 0.00002, 0.01, kq["lai_tien"], kq["lai_tien"] + 50.0, 1000.0)
+    assert r2["ket_luan"] == "LECH" and len(r2["ly_do"]) == 2 and r2["chi_python"] == len(l) - len(nua)
+    # sai chieu -> khong ghep
+    sai = mt.copy(); sai["chieu"] = -sai["chieu"]
+    assert OD.doi_chieu(l, sai, kq["chi_muc"], 0.00002, 0.01, 0, 0, 1000.0)["so_khop"] == 0
+
+
+def test_doi_chieu_viec_dung_gia_ea_va_cent(tmp_path, monkeypatch):
+    df = _song(400)
+    s = np.zeros(len(df), int); s[[40, 200]] = [1, -1]
+    b = OD.xuat_csv_vao(NL.lenh_vao(df, s, "t", "EURUSD"), df, "EURUSDc", 0.01, {"gio_server": "EET"})
+    OD.ghi_csv_vao(b, tmp_path / "od_t_Exness_CSV_vao.csv")
+    g = df.copy(); g.insert(0, "time", g.index.strftime("%Y.%m.%d %H:%M:%S")); g["spread_point"] = 2
+    kq_dir = tmp_path / "kq"; kq_dir.mkdir()
+    g.to_csv(kq_dir / "od_t_Exness_CSV_vao.csv_gia.csv", index=False)
+    hs = _phi(spread_gio=[0.00002] * 24, buoc_lot=0.01)
+    monkeypatch.setattr(OD.TK, "ho_so_phi", lambda *a, **k: hs)
+    py = OD.chay_python_csv(OD.doc_csv_vao(tmp_path / "od_t_Exness_CSV_vao.csv"), df, QL_CSV, 1000.0, hs)
+    txt = _deal_tu_python(py["lenh"], py["chi_muc"])
+    # tai khoan cent: tien x100
+    dong = txt.splitlines()
+    ra = [dong[0]]
+    for x in dong[1:]:
+        c = x.split(";"); c[7] = "%.2f" % (float(c[7]) * 100); ra.append(";".join(c))
+    (kq_dir / "od_t_Exness_CSV_vao.csv_lenh_mt5.csv").write_text("\n".join(ra) + "\n", encoding="ascii")
+    v = {"csv_vao": str(tmp_path / "od_t_Exness_CSV_vao.csv"), "ma": "EURUSDc", "ma_box": "EURUSD", "tf": "H1",
+         "san": "Exness", "tien": "USC", "python_ql": QL_CSV, "gan_dung": ""}
+    r = OD.doi_chieu_viec(v, kq_dir, {"von": 1000.0, "san_mt5": {"Exness": {"gio_server": "GMT"}}})
+    assert r["ket_luan"] == "KHOP" and r["nguon_gia"].startswith("GIÁ EA") and abs(r["lech_lai"]) < 0.1
+    assert OD.doi_chieu_viec(dict(v, csv_vao=str(tmp_path / "khong.csv")), kq_dir, {})["ket_luan"] == "CHUA_DO_DUOC"
+    md = OD.ghi_doi_chieu_md([dict(r, ten="od_t_Exness_CSV")], tmp_path / "DC.md")
+    assert "KHOP" in Path(md).read_text(encoding="utf-8")
+
+
+def test_may_nha_chep_csv_common(tmp_path):
+    import sys
+    sys.path.insert(0, str(Path("mt5tools").resolve()))
+    import sinh_viec as SV
+    goc = tmp_path / "repo"; (goc / "reports").mkdir(parents=True)
+    (goc / "reports" / "a_vao.csv").write_text("thoi_gian,ma,chieu,gia,nguon,lot\r\n", encoding="ascii")
+    common = tmp_path / "Common" / "Files"
+    v = {"csv_vao": "reports/a_vao.csv"}
+    common.mkdir(parents=True); (common / "a_vao.csv_gia.csv").write_text("cu")
+    assert SV.dat_csv_vao(v, goc, common).exists() and not (common / "a_vao.csv_gia.csv").exists()
+    (common / "a_vao.csv_lenh_mt5.csv").write_text("x"); (common / "a_vao.csv_gia.csv").write_text("y")
+    assert sorted(SV.lay_csv_ra(v, tmp_path / "kq", common)) == ["a_vao.csv_gia.csv", "a_vao.csv_lenh_mt5.csv"]
+    assert SV.dat_csv_vao({}, goc, common) is None and SV.lay_csv_ra({}, tmp_path, common) == []

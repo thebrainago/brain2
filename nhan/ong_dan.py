@@ -421,9 +421,9 @@ def mau_thu(t: dict, rng: random.Random, cfg: dict) -> dict | None:
     return {"ma": ma, "khung": kh, "tham": tham, "ql": ql}
 
 
-def danh_gia(t: dict, thu: dict, cfg: dict) -> dict:
-    """MOT phep thu o LOT THAT: tin hieu -> LenhVao -> chay_tk (ky quy, stop-out, phi theo san). OOS chi la NHAN."""
-    t0 = time.time()
+def chuan_bi(t: dict, thu: dict, cfg: dict) -> dict:
+    """Phan dung chung cua danh_gia va xuat CSV: gia -> tin hieu -> loc gio doi ngay -> LenhVao + QuanLi.
+    -> {"df", "ev", "ql", "tk", "hs", "ghep": bool (to hop co nguon_b -> go_cheo)} hoac {"loi": ...}."""
     df = gia(thu["ma"], thu["khung"], cfg)
     if df is None or len(df) < 300:
         return {"loi": "CHUA_DO_DUOC: thieu du lieu %s %s" % (thu["ma"], thu["khung"])}
@@ -439,10 +439,22 @@ def danh_gia(t: dict, thu: dict, cfg: dict) -> dict:
     tk = TK.ho_so_tai_khoan(cfg.get("tai_khoan", "XM_MICRO_TAM"), von)
     hs = TK.ho_so_phi(thu["ma"], cfg.get("san_phi", "XM"))
     ql = quan_li_tu(thu["ql"], von)
+    ghep = False
     if t.get("tin_hieu", {}).get("kieu") == "to_hop" and t["tin_hieu"].get("nguon_b"):
         sb = tin_hieu({"tin_hieu": t["tin_hieu"]["nguon_b"]}, df, {}, thu["ma"])
         ev += NL.lenh_vao(df, NL.ap_loc(sb, cho_ca=NL.bo_loc_gio(df, den, tu)), t["id"] + "_b", thu["ma"])
         ql.go_cheo = True
+        ghep = True
+    return {"df": df, "ev": ev, "ql": ql, "tk": tk, "hs": hs, "ghep": ghep}
+
+
+def danh_gia(t: dict, thu: dict, cfg: dict) -> dict:
+    """MOT phep thu o LOT THAT: tin hieu -> LenhVao -> chay_tk (ky quy, stop-out, phi theo san). OOS chi la NHAN."""
+    t0 = time.time()
+    cb = chuan_bi(t, thu, cfg)
+    if "loi" in cb:
+        return cb
+    df, ev, ql, tk, hs = cb["df"], cb["ev"], cb["ql"], cb["tk"], cb["hs"]
     kq = TK.chay_tk({thu["ma"]: df}, ev, ql, tk, {thu["ma"]: hs})
     eq, ex = kq["duong_von"], kq["von_xau"]
     n = len(eq)
@@ -647,6 +659,265 @@ def file_viec_xl(ten: str, ma_san: str, khung: str, v: dict, k: dict, san_cfg: d
     return set_txt, ini
 
 
+# ---------------------------------------------------------------------------------------------------- VAO_CSV (EA doc lenh vao)
+#: 19/10/2026: he CHO_EA_GHEP (nguon lenh ngoai / bo loc / to hop) -> CSV lenh vao + .set quan li cho BRAIN_XuLiLenh
+#: (InpVao=4 VAO_CSV). Dinh dang CSV chung voi LenhVao: thoi_gian (gio SERVER cua san, mo nen vao), ma, chieu, gia (BID
+#: tham khao = open nen), nguon, lot. Doi chieu: tren CUNG CSV va CUNG gia (nen EA xuat ra), danh sach lenh MT5 phai
+#: khop Python trong SAI_SO duoi day.
+COT_CSV = ["thoi_gian", "ma", "chieu", "gia", "nguon", "lot"]
+SAI_SO = {"lech_nen_mo": 1,          # gio mo lenh lech toi da 1 nen (EA khop o tick dau >= moc, Python o open nen)
+          "lech_gia_spread": 3.0,     # gia mo lech <= 3 x spread (+ 0,05 % gia: muc DCA cham trong nen)
+          "lech_gia_pct": 0.0005,
+          "lech_lot_buoc": 1,         # lot lech <= 1 buoc lot
+          "ti_le_khop_min": 0.95,     # >= 95 % lenh ghep duoc 1-1
+          "lech_lai_pct": 10.0,       # tong lai/lo lech <= 10 % ...
+          "lech_lai_von_pct": 1.0}    # ... hoac <= 1 % von dau
+
+
+def doi_gio_san(idx: pd.DatetimeIndex, san_cfg: dict) -> pd.DatetimeIndex:
+    """Gio box (NY+7, nhu XM) -> gio server cua san. GMT (Exness): NY+7 - 7h = gio New York -> UTC."""
+    idx = pd.DatetimeIndex(idx)
+    if (san_cfg or {}).get("gio_server", "EET").upper() != "GMT":
+        return idx
+    ny = (idx - pd.Timedelta(hours=7)).tz_localize("America/New_York", ambiguous=False, nonexistent="shift_forward")
+    return ny.tz_convert("UTC").tz_localize(None)
+
+
+def xuat_csv_vao(ev: list, df: pd.DataFrame, ma_san: str, lot0: float, san_cfg: dict | None = None) -> pd.DataFrame:
+    """LenhVao (chi_so tren df) -> bang CSV cho EA, sap xep theo thoi_gian. Gio doi sang gio server cua san."""
+    if not ev:
+        return pd.DataFrame(columns=COT_CSV)
+    ev = sorted(ev, key=lambda e: (int(e.chi_so), e.nguon))
+    tg = doi_gio_san(df.index[[int(e.chi_so) for e in ev]], san_cfg or {})
+    b = pd.DataFrame({"thoi_gian": tg.strftime("%Y.%m.%d %H:%M:%S"), "ma": ma_san,
+                      "chieu": [1 if int(e.chieu) >= 0 else -1 for e in ev],
+                      "gia": [round(float(e.gia), 6) for e in ev], "nguon": [e.nguon for e in ev],
+                      "lot": [round(float(e.lot if e.lot is not None else lot0), 2) for e in ev]})
+    return b[COT_CSV]
+
+
+def ghi_csv_vao(b: pd.DataFrame, tep: Path) -> None:
+    tep.parent.mkdir(parents=True, exist_ok=True)
+    b.to_csv(tep, index=False, lineterminator="\r\n", encoding="ascii")
+
+
+def doc_csv_vao(tep: Path) -> pd.DataFrame:
+    b = pd.read_csv(tep, dtype={"ma": str, "nguon": str})
+    b["thoi_gian"] = pd.to_datetime(b["thoi_gian"], format="%Y.%m.%d %H:%M:%S")
+    return b
+
+
+def set_csv(ql: dict, von: float, san: str, khung: str, tep_csv: str) -> dict:
+    """Input BRAIN_XuLiLenh cho VAO_CSV: tham so quan li theo PHAN CUA GIA, khop nhan/tai_khoan.chay_tk."""
+    q = quan_li_tu(ql, von)
+    v = {"InpVao": 4, "InpTF": TF_MT5[khung], "InpFileCsv": tep_csv, "InpCsvChung": "true", "InpCsvMa": "",
+         "InpCsvTreGiay": int(NL.KHUNG_PHUT.get(khung, 60) * 60), "InpXuatGia": "true",
+         "InpChieuKhongTin": 0, "InpChoNen": 0, "InpLot0": q.lot0,
+         "InpNhoi": 1 if (q.dca_toi_da > 0 and q.dca_buoc_pct) else 0, "InpBuocGia": 0.0, "InpBuocATR": 0.0,
+         "InpBuocPct": float(q.dca_buoc_pct or 0.0), "InpGianBuoc": 1.0,
+         "InpKieuLot": 0 if q.dca_he_so_lot == 1.0 else 2, "InpHeSoLot": q.dca_he_so_lot, "InpMaxTang": q.dca_toi_da + 1,
+         "InpTPGia": 0.0, "InpTPATR": 0.0, "InpTPPct": float(q.tp_pct or 0.0),
+         "InpTrailKichGia": 0.0, "InpTrailKichATR": 0.0, "InpTrailKhoangGia": 0.0, "InpTrailKhoangATR": 0.0,
+         "InpTrailKichPct": float(q.trail_kich_pct), "InpTrailKhoangPct": float(q.trail_khoang_pct), "InpGiuToiDaNen": 0,
+         "InpHedgeKhiLoPct": q.hedge_khi_lo_pct, "InpHedgeTiLe": q.hedge_ti_le, "InpMoKhoaGia": 0.0, "InpMoKhoaATR": 0.0,
+         "InpMoKhoaPct": float(q.mo_khoa_pct), "InpKhoaLaiKhongMoc": "true", "InpGoTien": float(q.go_tien or 0.0),
+         "InpHedgeMaxLan": q.hedge_max_lan, "InpMarginMin": 0.0, "InpCatLoPct": float(q.cat_lo_pct or 0.0),
+         "InpSpreadMaxGia": 0.0, "InpLogChung": "false"}
+    tu, den = GS.cam_doi_ngay(san)
+    v["InpGioCamTu"], v["InpGioCamDen"] = tu, den
+    return v
+
+
+def ql_doi_chieu(ql: dict, von: float) -> TK.QuanLi:
+    """QuanLi Python cho doi chieu: EA mot ro moi chieu cho MOI nguon va khong go cheo -> tat go_cheo."""
+    q = quan_li_tu(ql, von)
+    q.go_cheo = False
+    q.mot_ro_moi_chieu = True
+    return q
+
+
+def chay_python_csv(b: pd.DataFrame, df: pd.DataFrame, ql: dict, von: float, hs: TK.HoSoPhi, tk=None) -> dict:
+    """Chay chay_tk tren CUNG CSV (moi dong -> LenhVao o nen dau tien >= thoi_gian, nguon chung "csv") va gia `df`."""
+    df = df.sort_index()
+    vt = df.index.searchsorted(pd.DatetimeIndex(b["thoi_gian"]), side="left")
+    ev = [NL.LenhVao("csv", int(i), float(df["open"].iloc[i]), int(c), "", float(l) if pd.notna(l) else None)
+          for i, c, l in zip(vt, b["chieu"], b["lot"] if "lot" in b.columns else [None] * len(b)) if i < len(df)]
+    tk = tk or TK.ho_so_tai_khoan("XM_MICRO_TAM", von)
+    return TK.chay_tk({"": df}, ev, ql_doi_chieu(ql, von), tk, {"": hs}, ghi_lenh=True)
+
+
+def doc_lenh_mt5(tep: Path, chia: float = 1.0) -> pd.DataFrame:
+    """<csv>_lenh_mt5.csv cua EA (tung deal) -> moi POSITION mot dong: chieu, khoa, lot, mo, gia_mo, dong, gia_dong, lai_tien.
+    chia: 100 voi tai khoan cent (USC) de ve USD nhu Python."""
+    d = pd.read_csv(tep, sep=";", dtype={"phu": str})
+    if not len(d):
+        return pd.DataFrame(columns=["position", "chieu", "khoa", "lot", "mo", "gia_mo", "dong", "gia_dong", "lai_tien"])
+    d["thoi_gian"] = pd.to_datetime(d["thoi_gian"], format="%Y.%m.%d %H:%M:%S", errors="coerce")
+    d["tien"] = (d["loi"].astype(float) + d["swap"].astype(float) + d["hoa_hong"].astype(float)) / chia
+    ra = []
+    for pos, g in d.groupby("position", sort=False):
+        vao = g[g["vao_ra"] == "in"]
+        thoat = g[g["vao_ra"] != "in"]
+        if not len(vao):
+            continue
+        v0 = vao.iloc[0]
+        lot_r = thoat["khoi_luong"].astype(float).sum()
+        ra.append(dict(position=pos, chieu=int(v0["chieu"]), khoa=str(v0.get("phu") or "").startswith("XL_H"),
+                       lot=float(v0["khoi_luong"]), mo=v0["thoi_gian"], gia_mo=float(v0["gia"]),
+                       dong=thoat["thoi_gian"].max() if len(thoat) else pd.NaT,
+                       gia_dong=(float((thoat["gia"].astype(float) * thoat["khoi_luong"].astype(float)).sum() / lot_r)
+                                 if lot_r > 0 else None),
+                       lai_tien=float(g["tien"].sum())))
+    return pd.DataFrame(ra).sort_values("mo").reset_index(drop=True)
+
+
+def doi_chieu(py: pd.DataFrame, mt: pd.DataFrame, idx: pd.DatetimeIndex, spread_gia: float, buoc_lot: float,
+              lai_py: float, lai_mt5: float, von: float, sai_so: dict | None = None) -> dict:
+    """Ghep 1-1 lenh Python (bang `lenh` cua chay_tk, mo/dong = chi so nen tren idx) voi position MT5 (doc_lenh_mt5):
+    cung chieu, cung loai (khoa / ro), lech nen mo <= lech_nen_mo, lech gia <= lech_gia_spread x spread + lech_gia_pct x gia,
+    lech lot <= lech_lot_buoc x buoc_lot; chon cap gan gio nhat. -> so khop, ti le, do lech, KHOP | LECH (sai so ghi kem)."""
+    ss = dict(SAI_SO, **(sai_so or {}))
+    idx = pd.DatetimeIndex(idx)
+    n_py, n_mt = len(py), len(mt)
+    if n_mt:
+        nen_mt = np.clip(idx.searchsorted(pd.DatetimeIndex(mt["mo"]), side="right") - 1, 0, max(len(idx) - 1, 0))
+        nen_dong_mt = [int(np.clip(idx.searchsorted(x, side="right") - 1, 0, len(idx) - 1)) if pd.notna(x) else None
+                       for x in mt["dong"]]
+    else:
+        nen_mt, nen_dong_mt = np.array([], int), []
+    theo_nen: dict[int, list[int]] = {}
+    for j, k in enumerate(nen_mt):
+        theo_nen.setdefault(int(k), []).append(j)
+    dung = set()
+    cap = []
+    for i, r in enumerate(py.itertuples(index=False)) if n_py else []:
+        tot, tot_d = None, None
+        for k in range(int(r.mo) - ss["lech_nen_mo"], int(r.mo) + ss["lech_nen_mo"] + 1):
+            for j in theo_nen.get(k, []):
+                if j in dung:
+                    continue
+                m = mt.iloc[j]
+                if int(m["chieu"]) != int(r.chieu) or bool(m["khoa"]) != bool(r.khoa):
+                    continue
+                if abs(float(m["gia_mo"]) - float(r.gia_mo)) > ss["lech_gia_spread"] * spread_gia + ss["lech_gia_pct"] * float(r.gia_mo):
+                    continue
+                if abs(float(m["lot"]) - float(r.lot)) > ss["lech_lot_buoc"] * buoc_lot + 1e-9:
+                    continue
+                d_ = (abs(k - int(r.mo)), abs(float(m["gia_mo"]) - float(r.gia_mo)))
+                if tot is None or d_ < tot_d:
+                    tot, tot_d = j, d_
+        if tot is not None:
+            dung.add(tot)
+            m = mt.iloc[tot]
+            cap.append(dict(py=i, mt=tot, lech_nen_mo=int(nen_mt[tot]) - int(r.mo),
+                            lech_gia_mo=float(m["gia_mo"]) - float(r.gia_mo),
+                            lech_nen_dong=(nen_dong_mt[tot] - int(r.dong)) if (nen_dong_mt[tot] is not None and pd.notna(r.dong)) else None,
+                            lech_lai=(float(m["lai_tien"]) - float(r.lai_tien)) if pd.notna(r.lai_tien) else None))
+    so_khop = len(cap)
+    ti_le = so_khop / max(n_py, n_mt) if max(n_py, n_mt) else 1.0
+    lech_lai = float(lai_mt5) - float(lai_py)
+    nguong_lai = max(ss["lech_lai_pct"] / 100.0 * abs(float(lai_py)), ss["lech_lai_von_pct"] / 100.0 * float(von))
+    ld = []
+    if ti_le < ss["ti_le_khop_min"]:
+        ld.append("ti le khop %.1f%% < %.0f%%" % (ti_le * 100, ss["ti_le_khop_min"] * 100))
+    if abs(lech_lai) > nguong_lai:
+        ld.append("lech lai %.2f > %.2f USD" % (abs(lech_lai), nguong_lai))
+
+    def tv(k):
+        x = [abs(c[k]) for c in cap if c[k] is not None]
+        return round(float(np.median(x)), 6) if x else None
+    return {"ket_luan": "KHOP" if not ld else "LECH", "ly_do": ld, "so_lenh_python": n_py, "so_lenh_mt5": n_mt,
+            "so_khop": so_khop, "ti_le_khop_pct": round(ti_le * 100, 2), "lai_python": round(float(lai_py), 2),
+            "lai_mt5": round(float(lai_mt5), 2), "lech_lai": round(lech_lai, 2), "nguong_lech_lai": round(nguong_lai, 2),
+            "trung_vi_lech_nen_mo": tv("lech_nen_mo"), "trung_vi_lech_gia_mo": tv("lech_gia_mo"),
+            "trung_vi_lech_nen_dong": tv("lech_nen_dong"), "trung_vi_lech_lai_lenh": tv("lech_lai"),
+            "chi_python": n_py - so_khop, "chi_mt5": n_mt - so_khop,
+            "sai_so": {**ss, "spread_gia": spread_gia, "buoc_lot": buoc_lot}, "nhan": "MÔ PHỎNG, PHÍ TẠM (phía Python)"}
+
+
+def doc_gia_ea(tep: Path) -> pd.DataFrame:
+    g = pd.read_csv(tep)
+    g.index = pd.to_datetime(g["time"], format="%Y.%m.%d %H:%M:%S")
+    return g[["open", "high", "low", "close"] + (["spread_point"] if "spread_point" in g.columns else [])].sort_index()
+
+
+def doi_chieu_viec(v: dict, thu_muc: Path, cfg: dict | None = None) -> dict:
+    """Mot viec VAO_CSV da chay: doc <ten>_vao.csv_lenh_mt5.csv (+ _gia.csv) trong thu_muc, chay Python tren CUNG CSV va
+    gia nen EA xuat (khong co -> gia box, nhan "GIÁ KHÁC NGUỒN"), roi doi_chieu."""
+    cfg = cfg or cau_hinh()
+    ten_csv = Path(v["csv_vao"]).name
+    t_lenh, t_gia = thu_muc / (ten_csv + "_lenh_mt5.csv"), thu_muc / (ten_csv + "_gia.csv")
+    if not t_lenh.exists():
+        return {"ket_luan": "CHUA_DO_DUOC", "ly_do": ["chua co %s" % t_lenh.name]}
+    tep_vao = GOC / v["csv_vao"]
+    if not tep_vao.exists():
+        return {"ket_luan": "CHUA_DO_DUOC", "ly_do": ["mat CSV lenh vao %s" % v["csv_vao"]]}
+    b = doc_csv_vao(tep_vao)
+    sc = (cfg.get("san_mt5") or {}).get(v.get("san"), {})
+    hs = TK.ho_so_phi(v.get("ma_box") or v["ma"], v.get("san") or "XM")
+    nguon_gia = "GIÁ EA XUẤT (cùng giá MT5)"
+    if t_gia.exists():
+        df = doc_gia_ea(t_gia)
+        if "spread_point" in df.columns and df["spread_point"].notna().any():
+            sg = (df["spread_point"].groupby(df.index.hour).median() * hs.point).reindex(range(24)).ffill().bfill()
+            hs = __import__("dataclasses").replace(hs, spread_gio=[float(x) for x in sg])
+        df = df[["open", "high", "low", "close"]]
+    else:
+        df = gia(v.get("ma_box") or v["ma"], v["tf"], cfg)
+        if df is None:
+            return {"ket_luan": "CHUA_DO_DUOC", "ly_do": ["khong co gia EA xuat va khong co gia box"]}
+        df = df.copy()
+        df.index = doi_gio_san(df.index, sc)
+        a, z = b["thoi_gian"].min() - pd.Timedelta(days=3), b["thoi_gian"].max() + pd.Timedelta(days=60)
+        df = df[(df.index >= a) & (df.index <= z)]
+        nguon_gia = "GIÁ KHÁC NGUỒN (box, không phải giá MT5)"
+    von = float(cfg.get("von", 1000.0))
+    kq = chay_python_csv(b, df, v.get("python_ql") or {}, von, hs)
+    chia = 100.0 if v.get("tien") == "USC" else 1.0
+    mt = doc_lenh_mt5(t_lenh, chia)
+    lai_mt5 = float(mt["lai_tien"].sum()) if len(mt) else 0.0
+    sp = float(np.median(hs.spread_gio)) if len(hs.spread_gio) else 0.0
+    r = doi_chieu(kq["lenh"], mt, kq["chi_muc"], sp, float(hs.buoc_lot), kq["lai_tien"], lai_mt5, von)
+    r["nguon_gia"] = nguon_gia
+    if v.get("gan_dung"):
+        r["ghi_chu"] = v["gan_dung"]
+    return r
+
+
+def viec_csv(t: dict, thu: dict, r: dict, cfg: dict, d: Path) -> list[dict]:
+    """The CHO_EA_GHEP -> moi san: CSV lenh vao + .set + .ini; tra ve cac viec hang cho (ea=XL, pha KIEM_CSV)."""
+    cb = chuan_bi(t, thu, cfg)
+    if "loi" in cb or not cb["ev"]:
+        return []
+    df, ev, ql = cb["df"], cb["ev"], cb["ql"]
+    von = float(cfg.get("von", 1000.0))
+    ra = []
+    for san, sc in (cfg.get("san_mt5") or {}).items():
+        ma_san = _ky_hieu(thu["ma"], san, sc)
+        ten = "od_%s_%s_CSV" % (re.sub(r"[^A-Za-z0-9]", "", t["id"])[:24], san)
+        b = xuat_csv_vao(ev, df, ma_san, ql.lot0, sc)
+        tep = d / (ten + "_vao.csv")
+        ghi_csv_vao(b, tep)
+        v = set_csv(thu["ql"], von, san, thu["khung"], tep.name)
+        tu_ = max(pd.Timestamp(cfg.get("mt5_tu", "2016.01.01").replace(".", "-")), b["thoi_gian"].pipe(pd.to_datetime, format="%Y.%m.%d %H:%M:%S").min() - pd.Timedelta(days=7))
+        den_ = min(pd.Timestamp(cfg.get("mt5_den", "2026.10.01").replace(".", "-")), doi_gio_san(df.index[-1:], sc)[0] + pd.Timedelta(days=1))
+        cfg_v = dict(cfg, mt5_tu=tu_.strftime("%Y.%m.%d"), mt5_den=den_.strftime("%Y.%m.%d"))
+        s_txt, ini = file_viec_xl(ten, ma_san, thu["khung"], v, {}, sc, cfg_v, False)
+        (d / (ten + ".set")).write_text(s_txt, encoding="ascii")
+        (d / (ten + ".ini")).write_text(ini, encoding="ascii")
+        ra.append({"ten": ten, "ea": "XL", "ea_file": "BRAIN_XuLiLenh", "ma": ma_san, "ma_box": thu["ma"], "tf": thu["khung"],
+                   "ts": {x: v[x] for x in sorted(v)}, "toi_uu": {}, "pha": "KIEM_CSV", "nguon": "ong_dan", "the_id": t["id"],
+                   "san": san, "tu": cfg_v["mt5_tu"], "den": cfg_v["mt5_den"],
+                   "von": von * (100 if sc.get("tien") == "USC" else 1), "tien": sc.get("tien", "USD"),
+                   "don_bay": int(sc.get("don_bay", 500)), "csv_vao": _td(tep), "so_lenh_csv": len(b),
+                   "python_ql": thu["ql"],
+                   "gan_dung": ("GẦN ĐÚNG: hệ ghép 2 nguồn có gỡ chéo, EA chưa gỡ chéo giữa nguồn và gộp một rổ mỗi chiều"
+                                if cb["ghep"] else ""),
+                   "python": {k_: r.get(k_) for k_ in ("lai_pct_nam", "sut_giam_pct", "so_stop_out", "lot0")},
+                   "diem": 60 + min(r.get("lai_pct_nam", 0), 40) / 10.0})
+    return ra
+
+
 def _ky_hieu(ma: str, san: str, san_cfg: dict) -> str:
     """Ten symbol tren san: uu tien reports/phi_san/<server>/ma_san.json (may nha do), khong co thi theo mau config."""
     d = TK._phi_san_moi_nhat(san)
@@ -667,9 +938,10 @@ def buoc_sinh_mt5(cn, in_ra=print, toi_da_ngoai: int | None = None) -> int:
     da = set()
     if HANG_CHO.exists():
         da = {json.loads(x).get("ten") for x in HANG_CHO.read_text(encoding="utf-8").splitlines() if x.strip()}
-    moi, n_ngoai = [], 0
+    moi, n_ngoai, n_csv = [], 0, 0
     for t, buoc, tt, kq in cac_the(cn):
-        if buoc != "loc" or tt != "DAT_LOC":
+        cu_ghep = buoc == "sinh_mt5" and tt == "CHO_EA_GHEP"     # the da cho EA ghep tu truoc 19/10 -> bo sung viec CSV
+        if not cu_ghep and (buoc != "loc" or tt != "DAT_LOC"):
             continue
         tot = kq["tot_nhat"]
         thu, r = tot["thu"], tot["kq"]
@@ -701,10 +973,15 @@ def buoc_sinh_mt5(cn, in_ra=print, toi_da_ngoai: int | None = None) -> int:
                                 "python": {k_: r.get(k_) for k_ in ("lai_pct_nam", "sut_giam_pct", "so_stop_out", "lot0")},
                                 "diem": 60 + min(r.get("lai_pct_nam", 0), 40) / 10.0})
         else:
+            for v in viec_csv(t, thu, r, cfg, d):
+                if v["ten"] not in da:
+                    moi.append(v); da.add(v["ten"]); n_csv += 1
             (d / "CAN_EA_GHEP.md").write_text(
-                "# %s\n\nHệ này đạt lọc Python 65/15 (MÔ PHỎNG, %s) nhưng chưa có EA MT5 biểu đạt được đúng nó "
-                "(nguồn lệnh ngoài, bộ lọc hoặc ghép nhiều nguồn). Cần chế độ `BRAIN_XuLiLenh` đọc CSV lệnh / iCustom "
-                "(bước 7a của bản rà soát, việc của Claude).\n\nThông số Python tốt nhất:\n\n```json\n%s\n```\n" % (
+                "# %s\n\nHệ này đạt lọc Python 65/15 (MÔ PHỎNG, %s) nhưng tín hiệu không viết được bằng các chế độ "
+                "vào có sẵn của EA (nguồn lệnh ngoài, bộ lọc hoặc ghép nhiều nguồn). Từ 19/10/2026 hệ chạy MT5 bằng "
+                "`BRAIN_XuLiLenh` chế độ VAO_CSV: file `*_CSV_vao.csv` (lệnh vào Python xuất, giờ server sàn) + `*_CSV.set` "
+                "(tham số quản lí theo %% giá) trong thư mục này; `doc_mt5` đối chiếu danh sách lệnh MT5 với Python.\n\n"
+                "Thông số Python tốt nhất:\n\n```json\n%s\n```\n" % (
                     t.get("ten", t["id"]), r.get("nhan_phi", ""), json.dumps(thu, ensure_ascii=False, indent=1)),
                 encoding="utf-8")
         with cn:
@@ -729,7 +1006,7 @@ def buoc_sinh_mt5(cn, in_ra=print, toi_da_ngoai: int | None = None) -> int:
             for v in moi:
                 f.write(json.dumps(v, ensure_ascii=False, sort_keys=True) + "\n")
     ghi_viec_md(cn)
-    in_ra("sinh_mt5: %d viec moi -> %s" % (len(moi), _td(HANG_CHO)))
+    in_ra("sinh_mt5: %d viec moi (%d viec VAO_CSV) -> %s" % (len(moi), n_csv, _td(HANG_CHO)))
     return len(moi)
 
 
@@ -1044,6 +1321,26 @@ def buoc_doc_mt5(cn, in_ra=print) -> dict:
                     if ph["dat"] and (tot is None or p["Profit"] > tot["Profit"]):
                         tot = dict(p, _ph=ph)
             ket.setdefault(tid, []).append({"ten": f.stem, "pha": "TOI_UU", "so_pass": len(ps), "pass_dat_tot_nhat": tot})
+    # VAO_CSV: doi chieu danh sach lenh MT5 voi Python tren cung CSV + cung gia
+    dc_ds = []
+    for ten, v in hang.items():
+        if v.get("pha") != "KIEM_CSV" or not v.get("csv_vao"):
+            continue
+        if not (KET_QUA_MT5 / (Path(v["csv_vao"]).name + "_lenh_mt5.csv")).exists():
+            continue
+        try:
+            dc = doi_chieu_viec(v, KET_QUA_MT5, cfg)
+        except Exception as e:                      # file hong / thieu cot: ghi lai, khong dung ca buoc
+            dc = {"ket_luan": "CHUA_DO_DUOC", "ly_do": ["loi doc: %s" % e]}
+        dc_ds.append(dict(dc, ten=ten, the_id=v.get("the_id")))
+        da_co = [r for r in ket.get(v.get("the_id", ""), []) if r.get("ten") == ten]
+        if da_co:
+            for r in da_co:
+                r["doi_chieu"] = dc
+        else:
+            ket.setdefault(v.get("the_id", ""), []).append({"ten": ten, "pha": "KIEM_CSV", "loi": "chua co bao cao htm",
+                                                             "doi_chieu": dc})
+    ghi_doi_chieu_md(dc_ds)
     dem = {"DAT_CUOI": 0, "TRUOT_CUOI": 0, "CHUA_DO_DUOC": 0}
     with cn:
         for t, buoc, tt, kq in cac_the(cn):
@@ -1070,6 +1367,31 @@ def buoc_doc_mt5(cn, in_ra=print) -> dict:
             dem[moi] += 1
     in_ra("doc_mt5: %s (the co ket qua MT5: %d)" % (dem, len(ket)))
     return dem
+
+
+def ghi_doi_chieu_md(ds: list[dict], tep: Path | None = None) -> str:
+    """reports/ong_dan/DOI_CHIEU_MT5.md: do lech MT5 - Python tung viec VAO_CSV."""
+    tep = Path(tep or RA / "DOI_CHIEU_MT5.md")
+    ss = SAI_SO
+    d = ["# Đối chiếu lệnh MT5 với Python (chế độ VAO_CSV)", "",
+         "Cùng một CSV lệnh vào, cùng giá (nến EA xuất ra từ tester). Sai số cho phép: giờ mở lệch ≤ %d nến; giá mở lệch ≤ %.0f × spread "
+         "+ %.2f %% giá; lot lệch ≤ %d bước; ≥ %.0f %% lệnh ghép được 1-1; tổng lãi/lỗ lệch ≤ %.0f %% hoặc ≤ %.0f %% vốn. "
+         "Phía Python là MÔ PHỎNG, PHÍ TẠM; spread theo giờ lấy từ nến EA nếu có." % (
+             ss["lech_nen_mo"], ss["lech_gia_spread"], ss["lech_gia_pct"] * 100, ss["lech_lot_buoc"], ss["ti_le_khop_min"] * 100,
+             ss["lech_lai_pct"], ss["lech_lai_von_pct"]), "",
+         "| Việc | Kết luận | Lệnh Py / MT5 / khớp | Tỉ lệ khớp | Lãi Py / MT5 (USD) | Lệch nến mở (trung vị) | Nguồn giá | Ghi chú |",
+         "|---|---|---|---|---|---|---|---|"]
+    for r in ds:
+        d.append("| %s | %s | %s / %s / %s | %s | %s / %s | %s | %s | %s |" % (
+            r.get("ten"), r.get("ket_luan"), r.get("so_lenh_python", "–"), r.get("so_lenh_mt5", "–"), r.get("so_khop", "–"),
+            ("%s %%" % r["ti_le_khop_pct"]) if r.get("ti_le_khop_pct") is not None else "–",
+            r.get("lai_python", "–"), r.get("lai_mt5", "–"), r.get("trung_vi_lech_nen_mo", "–"), r.get("nguon_gia", "–"),
+            "; ".join(r.get("ly_do") or []) + ((" " + r["ghi_chu"]) if r.get("ghi_chu") else "")))
+    if not ds:
+        d.append("| – | CHƯA ĐO ĐƯỢC: chưa có kết quả MT5 nào của việc VAO_CSV | | | | | | |")
+    tep.parent.mkdir(parents=True, exist_ok=True)
+    tep.write_text("\n".join(d) + "\n", encoding="utf-8")
+    return str(tep)
 
 
 # ---------------------------------------------------------------------------------------------------- TRANG THAI / BAO CAO

@@ -436,7 +436,7 @@ class _RoTK:
 
 
 def chay_tk(du_lieu: dict | pd.DataFrame, luong: list[LenhVao], ql: QuanLi | dict, tk: TaiKhoan | None = None,
-            phi: dict | HoSoPhi | None = None, ghi_von: bool = True) -> dict:
+            phi: dict | HoSoPhi | None = None, ghi_von: bool = True, ghi_lenh: bool = False) -> dict:
     """ENGINE CAP TAI KHOAN (lot that, ky quy, stop-out, phi theo san). Xem khoi chu thich phia tren.
 
     du_lieu: {ma: DataFrame open/high/low/close, chi muc gio SERVER} hoac mot DataFrame (ma = "").
@@ -445,6 +445,8 @@ def chay_tk(du_lieu: dict | pd.DataFrame, luong: list[LenhVao], ql: QuanLi | dic
     -> dict: von_cuoi, lai_tien, lai_pct_nam, sut_giam_pct (von rong o gia bat loi nhat / dinh von rong), so_stop_out,
        so_lenh_stop_out, chay, muc_ky_quy_min, tu_choi_ky_quy, tu_choi_lot_max, phi (spread/swap/hoa_hong USD),
        nhat_ky (DataFrame moi ro), duong_von, nhan_phi.
+       ghi_lenh=True: them "lenh" = DataFrame TUNG LENH (moi chan; lenh tach vi lot_max la nhieu dong) voi
+       ro, ma, chieu, khoa, lot, mo (chi so nen), gia_mo, dong (None = con mo), gia_dong, lai_tien - de doi chieu MT5.
     """
     tk = tk or ho_so_tai_khoan()
     if isinstance(du_lieu, pd.DataFrame):
@@ -486,6 +488,8 @@ def chay_tk(du_lieu: dict | pd.DataFrame, luong: list[LenhVao], ql: QuanLi | dic
     dinh_eq, dd_max, kq_min, chay_tk_ = float(tk.von), 0.0, float("inf"), False
     lot_mo_max, ro_mo_max, dem_id = 0.0, 0, [0]
     EPS = 1e-9
+    so_lenh: dict = {}                      # _Chan -> ban ghi (ghi_lenh)
+    ds_lenh: list[dict] = []
 
     def tien(m, ch, vao, ra, lot):
         hs = phi[m]
@@ -559,6 +563,11 @@ def chay_tk(du_lieu: dict | pd.DataFrame, luong: list[LenhVao], ql: QuanLi | dic
         phi_tong["hoa_hong"] += hh
         phi_tong["spread"] += sp * lot * hs.hop_dong * hs.qd(gia_bid)
         dem["so_lenh"] += 1
+        if ghi_lenh:
+            bg = dict(ro=r.id, nguon=r.nguon, ma=m, chieu=ch, khoa=bool(khoa), lot=lot, mo=t, gia_mo=gia,
+                      dong=None, gia_dong=None, lai_tien=None)
+            so_lenh[L] = bg
+            ds_lenh.append(bg)
         return True
 
     def dong_chan(r, L, bid, t):
@@ -569,6 +578,9 @@ def chay_tk(du_lieu: dict | pd.DataFrame, luong: list[LenhVao], ql: QuanLi | dic
         phi_tong["hoa_hong"] += L.lot * hs.hoa_hong_lot
         if ro_mo and r in ro_mo:
             r.chan.remove(L)
+        if ghi_lenh and L in so_lenh:
+            bg = so_lenh.pop(L)
+            bg.update(dong=t, gia_dong=gia_dong(r.ma, L.ch, bid, t), lai_tien=round(x, 4))
         return x
 
     def dong_ro(r, bid, t, boi):
@@ -782,4 +794,5 @@ def chay_tk(du_lieu: dict | pd.DataFrame, luong: list[LenhVao], ql: QuanLi | dic
                 lot_mo_max=round(lot_mo_max, 4), ro_mo_max=ro_mo_max, ket_nen_max=int(ket or 0),
                 phi={k: round(v, 4) for k, v in phi_tong.items()}, nhat_ky=nk_df, duong_von=eq_c, von_xau=eq_x,
                 chi_muc=idx, tai_khoan=dict(ten=tk.ten, von=tk.von, don_bay=tk.don_bay, stop_out=tk.stop_out, nhan=tk.nhan),
-                nhan_phi={m: phi[m].nhan for m in ds_ma}, nhan="MÔ PHỎNG", **dem)
+                nhan_phi={m: phi[m].nhan for m in ds_ma}, nhan="MÔ PHỎNG",
+                **({"lenh": pd.DataFrame(ds_lenh)} if ghi_lenh else {}), **dem)
