@@ -90,21 +90,29 @@ def _tg(x: str):
     return pd.to_datetime(str(x).replace(".", "-", 2), errors="coerce")
 
 
+_COT = ["luc", "het", "ma", "chieu", "lot", "gia", "gia_dong"]
+_DONG_MT4 = ("close", "t/p", "s/l", "close at stop", "so", "stop out")
+
+
 def doc_lenh_html(vb: str) -> pd.DataFrame:
-    """Statement / report -> lenh VAO [luc, het, ma, chieu, lot] (het = luc dong neu biet). Ho tro:
-    MT5 report (Deals: Time | Deal | Symbol | Type | Direction | Volume ...; out khop FIFO theo chieu, kieu hedging),
-    MT4 statement (Ticket | Open Time | Type | Size | Item | Price | S/L | T/P | Close Time ...). Khong nhan ra -> rong."""
-    hang, mo = [], {}
+    """Statement / report -> lenh VAO [luc, het, ma, chieu, lot, gia, gia_dong] (het/gia_dong neu biet). Ho tro:
+    MT5 report (Deals: Time | Deal | Symbol | Type | Direction | Volume | Price ...; out khop FIFO theo chieu, kieu hedging),
+    MT4 statement (Ticket | Open Time | Type | Size | Item | Price | S/L | T/P | Close Time | Price ...),
+    MT4 tester report (# | Time | Type | Order | Size | Price | S/L | T/P | Profit | Balance; symbol o dau bao cao).
+    Khong nhan ra -> rong."""
+    hang, mo, ve = [], {}, {}
+    sym_bc = ""
     for row in re.findall(r"<tr[^>]*>(.*?)</tr>", vb, re.S | re.I):
         c = _o(row)
+        if len(c) >= 2 and c[0].strip(":").lower() == "symbol" and not sym_bc:
+            sym_bc = (c[1].split() or [""])[0]
+            continue
         if len(c) < 6:
             continue
         if re.fullmatch(_TG, c[0]) and len(c) >= 7 and c[3].lower() in ("buy", "sell") and c[4].lower() in ("in", "out", "inout"):
             ch = 1 if c[3].lower() == "buy" else -1
             lot = _so(c[5]) or 0.0
-            if c[4].lower() in ("in", "inout"):
-                hang.append({"luc": _tg(c[0]), "het": pd.NaT, "ma": c[2], "chieu": ch, "lot": lot})
-                mo.setdefault((c[2], ch), []).append([len(hang) - 1, lot])
+            g = _so(c[6]) if len(c) > 6 else None
             if c[4].lower() in ("out", "inout"):
                 con = lot                       # deal out chieu `ch` dong vi the chieu nguoc lai, FIFO
                 q = mo.get((c[2], -ch), [])
@@ -115,16 +123,61 @@ def doc_lenh_html(vb: str) -> pd.DataFrame:
                     q[0][1] -= d
                     if q[0][1] <= 1e-9:
                         hang[k]["het"] = _tg(c[0])
+                        hang[k]["gia_dong"] = g
                         q.pop(0)
+            if c[4].lower() in ("in", "inout"):
+                hang.append({"luc": _tg(c[0]), "het": pd.NaT, "ma": c[2], "chieu": ch, "lot": lot, "gia": g, "gia_dong": None})
+                mo.setdefault((c[2], ch), []).append([len(hang) - 1, lot])
+            continue
+        if re.fullmatch(r"\d+", c[0]) and re.fullmatch(_TG, c[1]) and len(c) >= 6 and _so(c[4]) is not None \
+                and re.fullmatch(r"\d+", c[3] or "x"):
+            k = c[2].lower()                    # MT4 tester report
+            if k in ("buy", "sell"):
+                ve[c[3]] = len(hang)
+                hang.append({"luc": _tg(c[1]), "het": pd.NaT, "ma": sym_bc or "?", "chieu": 1 if k == "buy" else -1,
+                             "lot": _so(c[4]), "gia": _so(c[5]), "gia_dong": None})
+            elif k in _DONG_MT4 and c[3] in ve and pd.isna(hang[ve[c[3]]]["het"]):
+                hang[ve[c[3]]]["het"] = _tg(c[1])
+                hang[ve[c[3]]]["gia_dong"] = _so(c[5])
             continue
         if re.fullmatch(r"\d+", c[0]) and re.fullmatch(_TG, c[1]) and c[2].lower() in ("buy", "sell"):
             het = _tg(c[8]) if len(c) > 8 and re.fullmatch(_TG, c[8]) else pd.NaT
             hang.append({"luc": _tg(c[1]), "het": het, "ma": c[4], "chieu": 1 if c[2].lower() == "buy" else -1,
-                         "lot": _so(c[3])})
+                         "lot": _so(c[3]), "gia": _so(c[5]) if len(c) > 5 else None,
+                         "gia_dong": _so(c[9]) if len(c) > 9 else None})
     if not hang:
-        return pd.DataFrame(columns=["luc", "het", "ma", "chieu", "lot"])
+        return pd.DataFrame(columns=_COT)
     df = pd.DataFrame(hang)
     return df.dropna(subset=["luc"]).sort_values("luc").reset_index(drop=True)
+
+
+def so_tac_gia_bao_cao(vb: str) -> dict:
+    """So TONG HOP tac gia ghi trong bao cao (von dau, lai rong, sut giam, ky, khung) - SO TAC GIA, chua do."""
+    o = []
+    for row in re.findall(r"<tr[^>]*>(.*?)</tr>", vb[:400000], re.S | re.I):
+        o += [x for x in _o(row) if x]
+    ra = {}
+    nhan = {"von_dau": ("initial deposit", "depósito inicial", "начальный депозит"),
+            "lai_rong": ("total net profit", "beneficio neto", "чистая прибыль"),
+            "sut_giam": ("maximal drawdown", "equity drawdown maximal", "reducción máxima de la equidad",
+                         "максимальная просадка средств", "balance drawdown maximal"),
+            "ky": ("period", "período", "период"), "pf": ("profit factor", "factor de beneficio", "прибыльность"),
+            "so_lenh": ("total trades", "total de operaciones ejecutadas", "всего трейдов"),
+            "ma": ("symbol", "símbolo", "символ")}
+    for i, x in enumerate(o[:-1]):
+        l = x.strip(":").strip().lower()
+        for k, ds in nhan.items():
+            if k not in ra and l in ds:
+                ra[k] = o[i + 1]
+    m = re.search(r"\((M\d+|H\d+|D1|W1|MN1?)\)|^(M\d+|H\d+|D1)\b", ra.get("ky", ""))
+    if m:
+        ra["khung"] = m.group(1) or m.group(2)
+    m = re.findall(r"(\d{4}\.\d{2}\.\d{2})", ra.get("ky", ""))
+    if len(m) >= 2:
+        ra["tu"], ra["den"] = m[0], m[1]
+    if ra:
+        ra["nhan"] = "SỐ TÁC GIẢ (chưa đo)"
+    return ra
 
 
 def doc_lenh_csv(vb: str) -> pd.DataFrame:
@@ -133,7 +186,7 @@ def doc_lenh_csv(vb: str) -> pd.DataFrame:
     try:
         df = pd.read_csv(io.StringIO(vb), sep=None, engine="python")
     except Exception:
-        return pd.DataFrame(columns=["luc", "het", "ma", "chieu", "lot"])
+        return pd.DataFrame(columns=_COT)
     cot = {c: str(c).strip().lower() for c in df.columns}
     tg = [c for c, l in cot.items() if ("time" in l or "date" in l) and "duration" not in l]
     kieu = None
@@ -145,7 +198,7 @@ def doc_lenh_csv(vb: str) -> pd.DataFrame:
     ma = next((c for c, l in cot.items() if any(k in l for k in ("symbol", "item", "instrument"))), None)
     lot = next((c for c, l in cot.items() if any(k in l for k in ("volume", "lot", "size", "units"))), None)
     if not tg or kieu is None or ma is None:
-        return pd.DataFrame(columns=["luc", "het", "ma", "chieu", "lot"])
+        return pd.DataFrame(columns=_COT)
     v = df[kieu].astype(str).str.strip().str.lower()
     df = df[v.str.startswith("buy") | v.str.startswith("sell")]
     v = v.loc[df.index]
@@ -154,6 +207,9 @@ def doc_lenh_csv(vb: str) -> pd.DataFrame:
                        if len(tg) > 1 else pd.NaT,
                        "ma": df[ma].astype(str), "chieu": v.map(lambda x: 1 if x.startswith("buy") else -1),
                        "lot": pd.to_numeric(df[lot], errors="coerce") if lot else None})
+    gc = [c for c, l in cot.items() if "price" in l or l in ("gia", "open price", "close price")]
+    ra["gia"] = pd.to_numeric(df[gc[0]], errors="coerce") if gc else None
+    ra["gia_dong"] = pd.to_numeric(df[gc[1]], errors="coerce") if len(gc) > 1 else None
     return ra.dropna(subset=["luc"]).sort_values("luc").reset_index(drop=True)
 
 
@@ -195,6 +251,107 @@ def dau_hieu_lenh(df: pd.DataFrame) -> dict:
     return ra
 
 
+def _pip(ma: str, gia: float) -> float:
+    m = ma_goc(ma)
+    if m.startswith(("XAU", "GOLD")):
+        return 0.1
+    if m.startswith(("XAG", "SILVER")):
+        return 0.01
+    if m.endswith("JPY") or gia > 50:
+        return 0.01
+    return 0.0001
+
+
+def _tv(x: list[float], q: float = 0.5) -> float | None:
+    x = [float(v) for v in x if v is not None and v == v]
+    return round(float(pd.Series(x).quantile(q)), 6) if x else None
+
+
+def do_nguoc(df: pd.DataFrame) -> dict:
+    """DO NGUOC cach xu li lenh tu danh sach lenh (SUY TU STATEMENT, khong phai so do). Ro = chuoi lenh cung ma cung chieu
+    chong len nhau (lenh sau mo khi lenh truoc con mo). Moi ro co >= 2 lenh cho:
+      - buoc DCA: khoang gia giua hai lenh lien tiep (% gia va pip), ty le lan buoc di NGUOC (gia xau hon -> nhoi);
+      - he so lot: lot lenh sau / lot lenh truoc;
+      - TP ro: (gia dong binh quan - gia von binh quan) * chieu / gia von (%), chi tinh ro dong gan nhu cung luc;
+      - so tang: so lenh trong ro.
+    Them: gio mo lenh dau ro (gio SERVER cua tac gia), ma, thoi gian giu. Moi so la trung vi."""
+    ra = {"nhan": "SUY TỪ STATEMENT (dò ngược, không phải số đo)", "so_lenh": int(len(df))}
+    if not len(df):
+        return ra
+    df = df.copy()
+    for c in ("gia", "gia_dong", "het"):
+        if c not in df.columns:
+            df[c] = None
+    df["ma_g"] = df["ma"].map(ma_goc)
+    df["het_tinh"] = pd.to_datetime(df["het"]).where(pd.to_datetime(df["het"]).notna(), df["luc"] + pd.Timedelta(hours=24))
+    ra["ma"] = df["ma_g"].value_counts().head(8).to_dict()
+    ro = []
+    for (m, ch), g in df.groupby(["ma_g", "chieu"]):
+        g = g.sort_values("luc")
+        cur, het_max = [], None
+        for r in g.itertuples():
+            if cur and r.luc < het_max:
+                cur.append(r)
+                het_max = max(het_max, r.het_tinh)
+            else:
+                if cur:
+                    ro.append((m, ch, cur))
+                cur, het_max = [r], r.het_tinh
+        if cur:
+            ro.append((m, ch, cur))
+    buoc_pct, buoc_pip, nguoc, he_so, tp_pct, tp_pip, tang, gio, giu = [], [], [], [], [], [], [], [], []
+    for m, ch, rs in ro:
+        tang.append(len(rs))
+        gio.append(rs[0].luc.hour)
+        giu.append((max(x.het_tinh for x in rs) - rs[0].luc).total_seconds() / 3600.0)
+        for a, b in zip(rs, rs[1:]):
+            if a.gia and b.gia:
+                d = (b.gia - a.gia) * ch
+                buoc_pct.append(abs(d) / a.gia * 100)
+                buoc_pip.append(abs(d) / _pip(m, a.gia))
+                nguoc.append(1.0 if d < 0 else 0.0)
+            if a.lot and b.lot:
+                he_so.append(b.lot / a.lot)
+        dong = [x for x in rs if x.gia_dong and x.gia and x.lot]
+        if dong and len(dong) == len(rs):
+            t_het = [pd.Timestamp(x.het_tinh) for x in rs]
+            if (max(t_het) - min(t_het)) <= pd.Timedelta(minutes=5) or len(rs) == 1:
+                L = sum(x.lot for x in rs)
+                von = sum(x.lot * x.gia for x in rs) / L
+                dg = sum(x.lot * x.gia_dong for x in rs) / L
+                tp_pct.append((dg - von) * ch / von * 100)
+                tp_pip.append((dg - von) * ch / _pip(m, von))
+    nhieu = [t for t in tang if t >= 2]
+    ra.update({
+        "so_ro": len(ro), "so_ro_nhieu_tang": len(nhieu), "tang_trung_vi": _tv(tang), "tang_max": max(tang) if tang else None,
+        "tang_p90": _tv(tang, 0.9),
+        "buoc_dca_pct": _tv(buoc_pct), "buoc_dca_pip": _tv(buoc_pip),
+        "ty_le_buoc_nguoc": round(sum(nguoc) / len(nguoc), 3) if nguoc else None,
+        "he_so_lot": _tv(he_so), "he_so_lot_max": round(max(he_so), 3) if he_so else None,
+        "tp_ro_pct": _tv([x for x in tp_pct if x > 0]), "tp_ro_pip": _tv([x for x in tp_pip if x > 0]),
+        "ty_le_ro_dong_lai": round(sum(1 for x in tp_pct if x > 0) / len(tp_pct), 3) if tp_pct else None,
+        "lot_dau_trung_vi": _tv([rs[0].lot for _, _, rs in ro if rs[0].lot]),
+        "giu_gio_trung_vi": _tv(giu),
+    })
+    if gio:
+        h = pd.Series(gio).value_counts().sort_index()
+        ra["gio_mo"] = {int(k): int(v) for k, v in h.items()}
+        ra["gio_hoat_dong"] = [int(k) for k, v in h.items() if v >= max(1, 0.03 * len(gio))]
+    if len(df) >= 2:
+        ra["tu"], ra["den"] = str(df["luc"].min())[:16], str(df["het_tinh"].max())[:16]
+    # goi y quan li cho Python (gan nhat voi KHONG_GIAN_QL), CHI de lam phep thu dau tien
+    q = {}
+    if ra["tp_ro_pct"]:
+        q["tp_pct"] = round(ra["tp_ro_pct"] / 100, 5)
+    if ra["buoc_dca_pct"] and (ra["ty_le_buoc_nguoc"] or 0) >= 0.5 and nhieu:
+        q["dca_buoc_pct"] = round(ra["buoc_dca_pct"] / 100, 5)
+        q["dca_toi_da"] = int(max(1, (ra["tang_p90"] or 2) - 1))
+        q["dca_he_so_lot"] = round(min(max(ra["he_so_lot"] or 1.0, 1.0), 3.0), 3)
+    if q:
+        ra["ql_goi_y"] = q
+    return ra
+
+
 def tach_ma_html(vb: str) -> str:
     """Khoi ma MQL trong trang HTML luu tay (<pre>, <code>, <textarea>) co OnTick/OnInit/OnCalculate -> van ban ma."""
     khoi = re.findall(r"<(pre|code|textarea)[^>]*>(.*?)</\1>", vb, re.S | re.I)
@@ -206,14 +363,32 @@ def tach_ma_html(vb: str) -> str:
     return tot
 
 
+def the_statement(df: pd.DataFrame, sha: str, so_tg: dict) -> dict:
+    """Phan chung cua the STATEMENT: luu lenh ra _tach/<sha>_lenh.csv, dau hieu + do nguoc + so tac gia (rieng)."""
+    TACH.mkdir(parents=True, exist_ok=True)
+    dh = dau_hieu_lenh(df)
+    f = TACH / ("%s_lenh.csv" % sha)
+    df.reindex(columns=_COT).to_csv(f, index=False)
+    dn = do_nguoc(df)
+    ra = {"nen_tang": "STATEMENT", "loai_kiem_ke": "lich_su_lenh", "dau_hieu": dh, "do_nguoc": dn,
+          "quan_tri_goc": dh["ky_thuat"], "tin_hieu": {"kieu": "lenh_ngoai", "tep": str(f), "ma": dh["ma"], "khoang": {}}}
+    if so_tg:
+        ra["so_tac_gia"] = so_tg
+    if dn.get("ql_goi_y"):
+        ra["ql_goi_y"] = dn["ql_goi_y"]
+    return ra
+
+
 def _sha(b: bytes) -> str:
     return hashlib.sha1(b).hexdigest()[:16]
 
 
 def la_bao_cao(vb: str) -> bool:
     v = vb[:200000]
-    return bool(re.search(r"Strategy Tester Report|Closed Transactions|Statement|Báo cáo|Deals", v)) and \
-        bool(re.search(r"Profit|Lợi nhuận", v))
+    if re.search(r'content="strategy tester"', v, re.I):
+        return True                                       # MT5 ReportTester-*.html (moi ngon ngu)
+    return bool(re.search(r"Strategy Tester Report|Closed Transactions|Statement|Báo cáo|Deals|Probador|Тестер|测试报告", v)) and \
+        bool(re.search(r"Profit|Lợi nhuận|Beneficio|Прибыль|利润|盈利", v))
 
 
 def quet(cac_thu_muc: list[Path], da_co: set[str] | None = None) -> list[dict]:
@@ -278,12 +453,7 @@ def quet(cac_thu_muc: list[Path], da_co: set[str] | None = None) -> list[dict]:
         elif loai_tep == "HTML":
             vb = doc_vb(b)
             if la_bao_cao(vb):
-                df = doc_lenh_html(vb)
-                dh = dau_hieu_lenh(df)
-                f = TACH / ("%s_lenh.csv" % sha)
-                df[["luc", "ma", "chieu", "lot"]].to_csv(f, index=False)
-                goc.update(nen_tang="STATEMENT", loai_kiem_ke="lich_su_lenh", dau_hieu=dh,
-                           quan_tri_goc=dh["ky_thuat"], tin_hieu={"kieu": "lenh_ngoai", "tep": str(f), "ma": dh["ma"], "khoang": {}})
+                goc.update(the_statement(doc_lenh_html(vb), sha, so_tac_gia_bao_cao(vb)))
             else:
                 ma = tach_ma_html(vb)
                 if ma:
@@ -296,11 +466,7 @@ def quet(cac_thu_muc: list[Path], da_co: set[str] | None = None) -> list[dict]:
         elif loai_tep == "CSV":
             df = doc_lenh_csv(doc_vb(b))
             if len(df):
-                dh = dau_hieu_lenh(df)
-                f = TACH / ("%s_lenh.csv" % sha)
-                df[["luc", "ma", "chieu", "lot"]].to_csv(f, index=False)
-                goc.update(nen_tang="STATEMENT", loai_kiem_ke="lich_su_lenh", dau_hieu=dh, quan_tri_goc=dh["ky_thuat"],
-                           tin_hieu={"kieu": "lenh_ngoai", "tep": str(f), "ma": dh["ma"], "khoang": {}})
+                goc.update(the_statement(df, sha, {}))
             else:
                 goc.update(nen_tang="CSV", loai_kiem_ke="mo_ta")
         elif loai_tep == "Python":

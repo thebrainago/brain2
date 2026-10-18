@@ -340,3 +340,89 @@ def test_nhap_tay_csv_tin_hieu_va_zip(tmp_path, monkeypatch):
     df = _df([1.0] * 48, "2016-01-04 00:00")
     s = NT.tin_hieu_lenh_ngoai(csv["tin_hieu"], df, "AUDCAD")
     assert s[9] == 1 and s[11] == -1 and s.sum() == 0
+
+
+# ------------------------------------------------------------------ nguon Seeker da nguon + do nguoc statement (19/10/2026)
+_MT4_TESTER = ("<html><title>Strategy Tester: X</title><table><tr><td>Symbol</td><td>EURJPY (Euro vs Yen)</td></tr>"
+               "<tr><td>Period</td><td>1 Hour (H1)  2016.01.04 00:00 - 2016.03.01 00:00</td></tr>"
+               "<tr><td>Initial deposit</td><td>1000.00</td><td>Total net profit</td><td>55.10</td></tr>"
+               "<tr><td>#</td><td>Time</td><td>Type</td><td>Order</td><td>Size</td><td>Price</td></tr>"
+               "<tr><td>1</td><td>2016.01.04 08:00</td><td>buy</td><td>1</td><td>0.01</td><td>130.00</td><td>0</td><td>0</td><td></td></tr>"
+               "<tr><td>2</td><td>2016.01.05 08:00</td><td>buy</td><td>2</td><td>0.02</td><td>129.00</td><td>0</td><td>0</td><td></td></tr>"
+               "<tr><td>3</td><td>2016.01.06 08:00</td><td>buy</td><td>3</td><td>0.04</td><td>128.00</td><td>0</td><td>0</td><td></td></tr>"
+               "<tr><td>4</td><td>2016.01.07 09:00</td><td>close</td><td>1</td><td>0.01</td><td>128.90</td><td>0</td><td>0</td><td>1</td><td>1001</td></tr>"
+               "<tr><td>5</td><td>2016.01.07 09:00</td><td>close</td><td>2</td><td>0.02</td><td>128.90</td><td>0</td><td>0</td><td>1</td><td>1002</td></tr>"
+               "<tr><td>6</td><td>2016.01.07 09:00</td><td>t/p</td><td>3</td><td>0.04</td><td>128.90</td><td>0</td><td>0</td><td>1</td><td>1003</td></tr>"
+               "<tr><td>7</td><td>2016.01.08 08:00</td><td>sell</td><td>4</td><td>0.01</td><td>129.00</td><td>0</td><td>0</td><td></td></tr>"
+               "<tr><td>8</td><td>2016.01.08 12:00</td><td>t/p</td><td>4</td><td>0.01</td><td>128.50</td><td>0</td><td>0</td><td>1</td><td>1004</td></tr>"
+               "</table>Profit</html>")
+
+
+def test_mt4_tester_va_do_nguoc():
+    from nhan import nhap_tay as NT
+    df = NT.doc_lenh_html(_MT4_TESTER)
+    assert len(df) == 4 and set(df["ma"]) == {"EURJPY"} and df["gia_dong"].notna().all()
+    dn = NT.do_nguoc(df)
+    assert dn["tang_max"] == 3 and dn["he_so_lot"] == 2.0 and dn["ty_le_buoc_nguoc"] == 1.0
+    assert abs(dn["buoc_dca_pip"] - 100) < 1 and dn["gio_hoat_dong"] == [8]
+    q = dn["ql_goi_y"]
+    assert q["dca_toi_da"] >= 1 and q["dca_he_so_lot"] == 2.0 and 0.003 < q["tp_pct"] < 0.005
+    tg = NT.so_tac_gia_bao_cao(_MT4_TESTER)
+    assert tg["nhan"].startswith("SỐ TÁC GIẢ") and tg["lai_rong"] == "55.10" and tg["khung"] == "H1"
+
+
+def test_doc_nguon_seeker(tmp_path, monkeypatch):
+    from nhan import doc_seeker_da_nguon as SKN
+    from nhan import nhap_tay as NT
+    monkeypatch.setattr(NT, "TACH", tmp_path / "_tach")
+    monkeypatch.setattr(SKN, "GOC", tmp_path)
+    r = tmp_path / "data" / "seeker_da_nguon" / "tai_ve" / "github" / "a__b"
+    (r / "EA").mkdir(parents=True)
+    (r / "EA" / "GridEURJPY.mq5").write_text("input double Lot=0.01;\nvoid OnTick(){ /* grid martingale */ }\n", encoding="utf-8")
+    (r / "EA" / "GridEURJPY_v1.set").write_text("Lot=0.02||0.01||0.01||0.1||Y\nTimeframe=16388\n", encoding="utf-8")
+    (r / "EA" / "lib.mqh").write_text("int f(){return 1;}", encoding="utf-8")
+    (r / "EA" / "StrategyTester.htm").write_text(_MT4_TESTER, encoding="utf-8")
+    js = {"ung_vien": [
+        {"id": "gh_a__b", "ten": "a/b", "nguon": "github", "url": "https://github.com/a/b", "loai": "ea_hoan_thien",
+         "nen_tang": "mt5", "tai_san": [], "khung": ["H1"], "duong_dan_tai": ["data/seeker_da_nguon/tai_ve/github/a__b"],
+         "bang_chung_lai": {"co": True, "nguon": "theo tác giả", "so": {"lai": 10}}, "tra_phi": False, "diem_uu_tien": 70},
+        {"id": "sig_1", "ten": "Sig", "nguon": "mql5_signals", "url": "https://x/s/1", "loai": "lich_su_giao_dich",
+         "nen_tang": "mt5", "duong_dan_tai": [], "bang_chung_lai": {"co": True, "so": {"lai_nam_quy_doi_pct": 20}}},
+        {"id": "tra", "ten": "T", "url": "u", "loai": "ea_hoan_thien", "tra_phi": True, "duong_dan_tai": []}]}
+    (tmp_path / "S.json").write_text(json.dumps(js), encoding="utf-8")
+    (tmp_path / "S.md").write_text("## Xếp hạng ứng viên hoàn thiện đáng test nhất\n\n| # | Tên | Nguồn | URL | Chạy | Vì sao |\n"
+                                   "|---|---|---|---|---|---|\n| 1 | a/b | github | https://github.com/a/b | MT5 | x |\n", encoding="utf-8")
+    ds = SKN.doc(nguon=tmp_path / "S.json")
+    ten = {t["id"][:6]: t for t in ds}
+    assert set(ten) == {"sk_st_", "sk_ea_", "sk_uv_"}                       # tra_phi bi bo
+    ea = ten["sk_ea_"]
+    assert ea["seeker"]["top28"] == 1 and ea["ma_goi_y"] == ["EURJPY"] and ea["set_goc"]["Lot"] == "0.02"
+    assert ea["so_tac_gia"]["nhan"].startswith("SỐ TÁC GIẢ") and ea["sets"]
+    st = ten["sk_st_"]
+    assert st["nen_tang"] == "STATEMENT" and st["do_nguoc"]["tang_max"] == 3 and st["ql_goi_y"]
+    assert ten["sk_uv_"]["chi_doi_chieu"] and OD.phan_loai_mot(ten["sk_uv_"])[0] == "mo_ta"
+    # viec MT5 cho EA ngoai: mot viec / .set, khung lay tu Timeframe=16388, ma tu ten file
+    monkeypatch.setattr(OD, "GOC", tmp_path)
+    v = OD.viec_ngoai(ea, {"mt5_tu": "2016.01.01", "mt5_den": "2026.10.01"})
+    assert len(v) == 1 and v[0]["pha"] == "TOI_UU_SET" and v[0]["tf"] == "H4" and v[0]["ma"] == "EURJPY"
+    assert v[0]["tep_box"].endswith("GridEURJPY.mq5") and v[0]["so_tac_gia"]
+
+
+def test_goi_may_nha_kem_include(tmp_path, monkeypatch):
+    import zipfile
+    from nhan import goi_may_nha as GM
+    monkeypatch.setattr(GM, "GOC", tmp_path)
+    d = tmp_path / "data" / "x"
+    (d / "Include").mkdir(parents=True)
+    (d / "ea.mq5").write_text('#include "Include/a.mqh"\nvoid OnTick(){}\n', encoding="utf-8")
+    (d / "Include" / "a.mqh").write_text('#include "b.mqh"\n', encoding="utf-8")
+    (d / "Include" / "b.mqh").write_text('int b;\n', encoding="utf-8")
+    (d / "ea.set").write_text("Lot=0.1\n", encoding="utf-8")
+    h = tmp_path / "hang.jsonl"
+    h.write_text(json.dumps({"ten": "v1", "ea": "NGOAI", "tep_box": "data/x/ea.mq5", "set_box": "data/x/ea.set"}) + "\n"
+                 + json.dumps({"ten": "v2", "ea": "XL"}) + "\n", encoding="utf-8")
+    r = GM.dong_goi(tmp_path / "goi", h)
+    assert r["so_viec"] == 1 and r["so_file"] == 4
+    with zipfile.ZipFile(r["zip"]) as z:
+        n = set(z.namelist())
+    assert {"data/x/ea.mq5", "data/x/Include/a.mqh", "data/x/Include/b.mqh", "data/x/ea.set", "MANIFEST.json", "HUONG_DAN.md"} <= n

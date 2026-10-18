@@ -30,6 +30,7 @@ from nhan import nguong as NG
 from nhan import tai_khoan as TK
 from nhan import gio_san as GS
 from nhan import nhap_tay as NT
+from nhan import doc_seeker_da_nguon as SK
 
 GOC = Path(__file__).resolve().parent.parent
 CAU_HINH = GOC / "config" / "ong_dan.json"
@@ -38,7 +39,7 @@ RA = GOC / "reports" / "ong_dan"
 HANG_CHO = RA / "hang_cho_mt5.jsonl"
 VIEC = RA / "viec_mt5"
 KET_QUA_MT5 = RA / "ket_qua_mt5"
-BUOC = ["nhan", "phan_loai", "quyet_dinh", "toi_uu", "loc", "sinh_mt5", "boc", "to_hop", "doc_mt5"]
+BUOC = ["nhan", "phan_loai", "quyet_dinh", "toi_uu", "loc", "sinh_mt5", "goi", "boc", "to_hop", "doc_mt5"]
 TF_MT5 = {"M15": 15, "M30": 30, "H1": 16385, "H4": 16388, "D1": 16408}
 
 #: Khong gian QUAN LI theo phong cach chu du an: khong SL cung, TP nho (chot non), DCA am/duong, hedge, go lenh.
@@ -124,16 +125,41 @@ def gia(ma: str, khung: str = "H1", cfg: dict | None = None) -> pd.DataFrame | N
     if k in _GIA:
         return _GIA[k]
     p = (cfg.get("du_lieu") or {}).get(ma)
-    if not p or not Path(p).exists():
+    ds = [p] if isinstance(p, str) else list(p or [])
+    if not ds or not all(Path(x).exists() for x in ds):
         return None
-    df = pd.read_csv(p)
-    cot = "time" if "time" in df.columns else df.columns[0]
-    df.index = pd.to_datetime(df[cot])
-    df = TK.nen_server(df)
+    df = _doc_h1(ds)
     if cfg.get("tu_ngay"):
         df = df[df.index >= pd.Timestamp(cfg["tu_ngay"])]
     df = NL.doi_khung(df, khung)
     _GIA[k] = df
+    return df
+
+
+def _doc_h1(ds: list[str]) -> pd.DataFrame:
+    """Doc 1..n CSV gia (H1 hoac M5, gio SERVER) -> H1, noi theo thoi gian (file sau thang file truoc o moc trung).
+    Ban H1 gop tu M5 cache o data/ong_dan/gia_h1/ (git bo qua), tu lam lai khi file nguon doi."""
+    import hashlib
+    k = hashlib.sha1("|".join("%s:%d:%d" % (x, Path(x).stat().st_size, int(Path(x).stat().st_mtime)) for x in ds).encode()).hexdigest()[:16]
+    c = GOC / "data" / "ong_dan" / "gia_h1" / (k + ".pkl")
+    if c.exists():
+        return pd.read_pickle(c)
+    phan = []
+    for x in ds:
+        df = pd.read_csv(x)
+        cot = "time" if "time" in df.columns else df.columns[0]
+        df.index = pd.to_datetime(df[cot])
+        df = df[["open", "high", "low", "close"]].astype(float)
+        if len(df) > 10 and df.index.to_series().diff().median() < pd.Timedelta(minutes=60):
+            g = df.resample("1h", label="left", closed="left")
+            df = pd.DataFrame({"open": g["open"].first(), "high": g["high"].max(), "low": g["low"].min(),
+                               "close": g["close"].last()}).dropna()
+        phan.append(df)
+    df = pd.concat(phan)
+    df = df[~df.index.duplicated(keep="last")].sort_index()
+    df = TK.nen_server(df)
+    c.parent.mkdir(parents=True, exist_ok=True)
+    df.to_pickle(c)
     return df
 
 
@@ -146,7 +172,8 @@ def _td(p: Path) -> str:
 
 def ma_co_du_lieu(cfg: dict | None = None) -> list[str]:
     cfg = cfg or cau_hinh()
-    return [m for m, p in (cfg.get("du_lieu") or {}).items() if Path(p).exists()]
+    return [m for m, p in (cfg.get("du_lieu") or {}).items()
+            if all(Path(x).exists() for x in ([p] if isinstance(p, str) else p))]
 
 
 # ---------------------------------------------------------------------------------------------------- (a) NHAN
@@ -188,6 +215,10 @@ def buoc_nhan(cn, in_ra=print) -> int:
                         "co_ma_tren_box": tep.exists()})
     # thu muc NHAP TAY: chu du an tu mo trang bi chan bang Chrome cua minh roi luu file vao day (nhan/nhap_tay.py)
     moi += NT.quet(NT.thu_muc(cau_hinh()), da)
+    # nguon Seeker da nguon (reports/SEEKER_DA_NGUON.json + data/seeker_da_nguon/tai_ve/), nhan/doc_seeker_da_nguon.py
+    c = cau_hinh().get("seeker_da_nguon") or {}
+    if c.get("bat", True):
+        moi += SK.doc(da, tran_ea=int(c.get("tran_ea", 12)), tran_ea_top=int(c.get("tran_ea_top", 40)))
     n = 0
     with cn:
         for t in moi:
@@ -219,12 +250,14 @@ def phan_loai_mot(t: dict) -> tuple[str, int, str]:
     if nt == "SET":
         return "co_che", 4, "bo thong so .set nhap tay (khong co EA cung ten)"
     tep = GOC / (t.get("nguon") or {}).get("tep", "") if (t.get("nguon") or {}).get("tep") else None
+    if t.get("chi_doi_chieu"):
+        return "mo_ta", 7, "chỉ lịch sử / số tác giả để đối chiếu (không có mã, không có từng lệnh)"
     if lk in ("mo_ta",):
         return "mo_ta", 8, "trang / van ban mo ta (nhap tay), khong co ma"
     vb = ""
     if tep and tep.exists() and tep.is_file():
         try:
-            vb = tep.read_text(encoding="utf-8", errors="ignore")[:400000]
+            vb = NT.doc_vb(tep.read_bytes()[:800000])
         except Exception:
             vb = ""
     if lk == "chi_bao":
@@ -249,6 +282,10 @@ def buoc_phan_loai(cn, in_ra=print) -> int:
             t["loai"], t["uu_tien"], t["ly_do_loai"] = phan_loai_mot(t)
             if t.get("nhap_tay") and t["loai"] == "he_hoan_thien":
                 t["uu_tien"] = 0          # chu du an tu chon va mo tay -> uu tien ngang EA BRAIN
+            sk = t.get("seeker") or {}
+            if t["loai"] == "he_hoan_thien" and (sk.get("top28") or t.get("nen_tang") == "STATEMENT"):
+                t["uu_tien"] = 0          # 28 he top cua SEEKER_DA_NGUON.md + statement co tung lenh
+                t["ly_do_loai"] += "; Seeker top %s" % sk["top28"] if sk.get("top28") else "; statement co tung lenh"
             _luu(cn, t, "phan_loai", "DA_PHAN_LOAI")
             n += 1
     in_ra("phan_loai: %d the" % n)
@@ -280,7 +317,7 @@ def quyet_dinh_mot(t: dict) -> dict:
         t["ly_do_duong"] = "ma chua co tren box -> may nha tai theo url roi chay thang MT5" if t["duong_dich"] != "bo_qua" \
             else "ma chua co tren box, khong phai MQL"
         return t
-    vb = tep.read_text(encoding="utf-8", errors="ignore")
+    vb = NT.doc_vb(tep.read_bytes())
     nt = t.get("nen_tang", "")
     if nt.startswith("MQL") or "MT" in nt:
         from nhan import doc_ma as DM
@@ -371,8 +408,13 @@ def mau_thu(t: dict, rng: random.Random, cfg: dict) -> dict | None:
         co = [m for m in co if m in set(rieng)]
         if not co:
             return None
+    goi_y = [m for m in co if m in set(t.get("ma_goi_y") or [])]
+    if goi_y and rng.random() < 0.7:                    # EA ghi ro ma (ten file / tai_san Seeker) -> uu tien ma do
+        co = goi_y
     ma = rng.choice(co)
     kh = rng.choice(cfg.get("khung") or ["H1"])
+    if (t.get("tin_hieu") or {}).get("kieu") == "lenh_ngoai":
+        kh = "H1"                                       # lenh ngoai: khung chi dung de dat lenh, giu H1
     kg = (t.get("tin_hieu") or {}).get("khoang") or {}
     tham = {k: rng.choice(v) for k, v in kg.items()}
     ql = {k: rng.choice(v) for k, v in KHONG_GIAN_QL.items()}
@@ -385,6 +427,10 @@ def danh_gia(t: dict, thu: dict, cfg: dict) -> dict:
     df = gia(thu["ma"], thu["khung"], cfg)
     if df is None or len(df) < 300:
         return {"loi": "CHUA_DO_DUOC: thieu du lieu %s %s" % (thu["ma"], thu["khung"])}
+    if (t.get("tin_hieu") or {}).get("kieu") == "lenh_ngoai":
+        df = _cua_so_lenh(t, df)                        # chi chay trong khoang thoi gian cua statement
+        if df is None or len(df) < 48:
+            return {"loi": "CHUA_DO_DUOC: statement khong trung khoang du lieu gia %s tren box" % thu["ma"]}
     s = tin_hieu(t, df, thu.get("tham") or {}, thu["ma"])
     tu, den = GS.cam_doi_ngay(cfg.get("san_phi", "XM"))
     s = NL.ap_loc(s, cho_ca=NL.bo_loc_gio(df, den, tu))       # nhu EA: khong mo ro moi trong gio doi ngay
@@ -423,6 +469,19 @@ def danh_gia(t: dict, thu: dict, cfg: dict) -> dict:
     return r
 
 
+def _cua_so_lenh(t: dict, df: pd.DataFrame) -> pd.DataFrame | None:
+    try:
+        l = pd.read_csv(t["tin_hieu"]["tep"], parse_dates=["luc"])
+    except Exception:
+        return None
+    if not len(l):
+        return None
+    a = l["luc"].min() - pd.Timedelta(days=2)
+    b = pd.to_datetime(l["het"], errors="coerce").max() if "het" in l.columns else pd.NaT
+    b = (b if pd.notna(b) else l["luc"].max()) + pd.Timedelta(days=5)
+    return df[(df.index >= a) & (df.index <= b)]
+
+
 def diem(r: dict) -> float:
     if r.get("loi"):
         return -1e9
@@ -450,10 +509,17 @@ def buoc_toi_uu(cn, toi_da: int | None = None, ngan_sach: int | None = None, in_
         cu = {r[0]: json.loads(r[1]) for r in cn.execute("SELECT khoa, json FROM thu WHERE the_id=?", (t["id"],))}
         lam = 0
         thay = set()
+        hat = []
+        if t.get("ql_goi_y"):                           # phep thu dau: quan li DO NGUOC tu statement
+            for ma in [m for m in ((t.get("tin_hieu") or {}).get("ma") or []) if m in ma_co_du_lieu(cfg)][:2]:
+                q = {k: v[0] for k, v in KHONG_GIAN_QL.items()}
+                q.update(dca_toi_da=0, hedge_khi_lo_pct=0.0, lot_tren_1000=1.0)
+                q.update(t["ql_goi_y"])
+                hat.append({"ma": ma, "khung": "H1", "tham": {}, "ql": q})
         for _ in range(ngan_sach * 4):
             if len(cu) >= ngan_sach:
                 break
-            thu = mau_thu(t, rng, cfg)
+            thu = hat.pop(0) if hat else mau_thu(t, rng, cfg)
             if thu is None:
                 break
             khoa = json.dumps(thu, sort_keys=True)
@@ -492,6 +558,9 @@ def buoc_loc(cn, in_ra=print) -> dict:
             r = tot.get("kq") or {}
             if not r or r.get("loi"):
                 tt, ph = "CHUA_DO_DUOC", {"dat": False, "ly_do": [r.get("loi", "khong co phep thu")]}
+            elif float(r.get("so_nam") or 0) < float(cau_hinh().get("nam_du_lieu_toi_thieu", 1.0)):
+                tt, ph = "CHUA_DO_DUOC", {"dat": False, "ly_do": ["CHUA_DO_DUOC: chi %.2f nam du lieu (< %.1f)" % (
+                    float(r.get("so_nam") or 0), float(cau_hinh().get("nam_du_lieu_toi_thieu", 1.0)))]}
             else:
                 ph = NG.dat(r["lai_pct_nam"], r["sut_giam_pct"], "loc_python", r["so_stop_out"], r["chay"])
                 tt = "DAT_LOC" if ph["dat"] else "TRUOT_LOC"
@@ -624,21 +693,20 @@ def buoc_sinh_mt5(cn, in_ra=print, toi_da_ngoai: int | None = None) -> int:
                 encoding="utf-8")
         with cn:
             _luu(cn, t, "sinh_mt5", "CHO_MT5" if bieu_dat else "CHO_EA_GHEP")
-    # EA ngoai chay thang MT5 (xuat danh sach lenh) - uu tien thap, co tran
+    # EA ngoai chay thang MT5: (a) moi .set co san -> mot viec (co ||Y -> optimizer), (b) khong co .set -> chay 1 lan xuat lenh
     for t, buoc, tt, kq in cac_the(cn, "quyet_dinh"):
-        if t.get("duong_dich") != "mt5_truc_tiep" or n_ngoai >= toi_da_ngoai:
+        if n_ngoai >= toi_da_ngoai:
+            break
+        if t.get("duong_dich") != "mt5_truc_tiep" and not (t.get("duong_dich") == "spec_dsl" and not _co_gia_box(t, cfg)):
             continue
-        ten = "od_%s_XUAT_LENH" % re.sub(r"[^A-Za-z0-9]", "", t["id"])[:24]
-        if ten not in da:
-            moi.append({"ten": ten, "ea": "NGOAI", "ea_file": Path((t.get("nguon") or {}).get("tep") or t["ten"]).stem,
-                        "url": (t.get("nguon") or {}).get("url", ""), "tep_box": (t.get("nguon") or {}).get("tep", ""),
-                        "ma": "EURUSD", "tf": t.get("khung_ea") or "H1", "ts": {}, "pha": "XUAT_LENH", "nguon": "ong_dan",
-                        "the_id": t["id"], "can_tai_ma": True, "diem": 5,
-                        "ghi_chu": "May nha: tai ma theo url (data/ khong vao git), bien dich, chay tester 1 lan, "
-                                   "doc danh sach lenh bang nhan/doc_lenh_tester.py -> Python gan quan li (DCA/hedge)."})
+        viec = viec_ngoai(t, cfg, 100 if (t.get("seeker") or {}).get("top28") else 40)
+        for v in viec:
+            if v["ten"] not in da:
+                moi.append(v)
+                da.add(v["ten"])
         n_ngoai += 1
         with cn:
-            _luu(cn, t, "sinh_mt5", "CHO_MT5_NGOAI")
+            _luu(cn, t, "sinh_mt5", "CHO_MT5_NGOAI", {"viec": [v["ten"] for v in viec]})
     if moi:
         HANG_CHO.parent.mkdir(parents=True, exist_ok=True)
         with open(HANG_CHO, "a", encoding="utf-8") as f:
@@ -647,6 +715,56 @@ def buoc_sinh_mt5(cn, in_ra=print, toi_da_ngoai: int | None = None) -> int:
     ghi_viec_md(cn)
     in_ra("sinh_mt5: %d viec moi -> %s" % (len(moi), _td(HANG_CHO)))
     return len(moi)
+
+
+def _co_gia_box(t: dict, cfg: dict) -> bool:
+    g = t.get("ma_goi_y") or []
+    co = set(ma_co_du_lieu(cfg))
+    return not g or bool(co & set(g))
+
+
+_TF_SET = {v: k for k, v in TF_MT5.items()}
+_TF_SET.update({1: "M1", 5: "M5", 15: "M15", 30: "M30", 60: "H1", 240: "H4", 1440: "D1", 16386: "H2", 16408: "D1"})
+
+
+def viec_ngoai(t: dict, cfg: dict, tran_set: int = 40) -> list[dict]:
+    """Viec MT5 cho EA NGOAI (ma trong data/ tren box, khong vao git -> goi zip /workspace/goi_may_nha/)."""
+    tep = (t.get("nguon") or {}).get("tep", "")
+    sk = t.get("seeker") or {}
+    goc_ma = (t.get("ma_goi_y") or ["EURUSD"])[0]
+    tf0 = t.get("khung_ea") or "H1"
+    co_ban = {"ea": "NGOAI", "ea_file": Path(tep or t["ten"]).stem, "url": (t.get("nguon") or {}).get("url", ""),
+              "tep_box": tep, "nguon": "ong_dan", "the_id": t["id"], "can_tai_ma": not bool(tep),
+              "chi_bien_dich": bool(t.get("chi_bien_dich")), "nen_tang": t.get("nen_tang"),
+              "seeker": {k: sk.get(k) for k in ("id", "top28", "diem_uu_tien")} if sk else None,
+              "so_tac_gia": t.get("so_tac_gia"), "tu": cfg.get("mt5_tu"), "den": cfg.get("mt5_den"),
+              "diem": (30 if sk.get("top28") else 5) + float(sk.get("diem_uu_tien") or 0) / 10.0}
+    goc_id = re.sub(r"[^A-Za-z0-9]", "", t["id"])[:24]
+    ra = []
+    for f in (t.get("sets") or [])[:tran_set]:
+        p = GOC / f
+        vb = NT.doc_vb(p.read_bytes()) if p.exists() else ""
+        st = NT.doc_set(vb)
+        ma = (SK._ma_tu_ten(p.stem) or t.get("ma_goi_y") or [goc_ma])[0]
+        tf = tf0
+        for k in ("Timeframe", "TimeFrame", "InpTimeframe", "TF"):
+            if str(st.get(k, "")).isdigit():
+                tf = _TF_SET.get(int(st[k]), tf)
+        toi_uu = bool(re.search(r"\|\|Y\s*$", vb, re.M))
+        v = dict(co_ban)
+        v.update(ten="od_%s_%s" % (goc_id, re.sub(r"[^A-Za-z0-9]", "", p.stem)[:28]), ma=ma, tf=tf, set_box=f,
+                 pha="TOI_UU_SET" if toi_uu else "CHAY_SET", ts={},
+                 ghi_chu="Máy nhà: lấy mã + .set từ gói zip (/workspace/goi_may_nha/), biên dịch, nạp .set này, chạy tester "
+                         "%s; xuất báo cáo .htm (có danh sách lệnh) vào reports/ong_dan/ket_qua_mt5/." % (
+                             "Optimization=1 theo cờ ||Y trong .set" if toi_uu else "1 lần"))
+        ra.append(v)
+    if not ra:
+        v = dict(co_ban)
+        v.update(ten="od_%s_XUAT_LENH" % goc_id, ma=goc_ma, tf=tf0, ts={}, pha="XUAT_LENH",
+                 ghi_chu="Máy nhà: lấy mã từ gói zip (hoặc tải theo url nếu can_tai_ma), biên dịch, chạy tester 1 lần thông số "
+                         "mặc định, xuất báo cáo .htm vào reports/ong_dan/ket_qua_mt5/ -> nhan/nhap_tay đọc lệnh, dò ngược.")
+        ra.append(v)
+    return ra
 
 
 def ghi_viec_md(cn) -> None:
@@ -975,6 +1093,19 @@ def ghi_bao_cao(cn) -> str:
     return s
 
 
+def buoc_goi(cn, in_ra=print) -> dict:
+    """Goi zip ma EA ngoai cho may nha (/workspace/goi_may_nha/, ngoai git) - nhan/goi_may_nha.py."""
+    from nhan import goi_may_nha as GM
+    try:
+        r = GM.dong_goi()
+    except Exception as e:  # noqa: BLE001
+        r = {"loi": str(e)[:200]}
+    with cn:
+        _ghi_nk(cn, "goi", "*", json.dumps(r, ensure_ascii=False))
+    in_ra("goi_may_nha: %s" % r)
+    return r
+
+
 def chay_het(cn, in_ra=print, **kw) -> dict:
     buoc_nhan(cn, in_ra)
     buoc_phan_loai(cn, in_ra)
@@ -984,6 +1115,8 @@ def chay_het(cn, in_ra=print, **kw) -> dict:
     buoc_boc(cn, in_ra)
     buoc_to_hop(cn, kw.get("ngan_sach_to_hop"), in_ra)
     buoc_sinh_mt5(cn, in_ra)
+    if kw.get("goi", True):
+        buoc_goi(cn, in_ra)
     buoc_doc_mt5(cn, in_ra)
     ghi_bao_cao(cn)
     try:                                   # danh sach URL bi chan cho chu du an mo tay (khong vuot chan)

@@ -2,8 +2,32 @@
  "_ghi_chu": "Cau hinh ong dan 18/10/2026 (python ong_dan.py). du_lieu: ma -> file CSV gia H1 gio SERVER (cot time,open,high,low,close). Tren box dung /workspace/du_lieu_fx; may nha sua duong dan (hoac dat bien moi truong BRAIN_ONG_DAN_DU_LIEU tro toi mot JSON cung dang). Moi so la MO PHONG; phi la PHI TAM cho toi khi co reports/phi_san/.",
  "du_lieu": {
   "AUDCAD": "/workspace/du_lieu_fx/audcad_h1_tu_histdata_m5_ny7.csv",
-  "EURGBP": "/workspace/du_lieu_fx/eurgbp_h1_tu_histdata_m5_ny7.csv",
-  "NZDUSD": "/workspace/du_lieu_fx/nzdusd_h1_tu_histdata_m5_ny7.csv"
+  "EURGBP": "/workspace/du_lieu_fx/hd28/eurgbp_m5_den202610.csv",
+  "NZDUSD": [
+   "/workspace/du_lieu_fx/nzdusd_m5_histdata_2018_2023_ny7.csv",
+   "/workspace/du_lieu_fx/hd28/nzdusd_m5_histdata_ny7_den202610.csv"
+  ],
+  "EURUSD": "/workspace/du_lieu_fx/hd28/eurusd_m5_histdata_ny7_den202610.csv",
+  "GBPUSD": "/workspace/du_lieu_fx/hd28/gbpusd_m5_histdata_ny7_den202610.csv",
+  "AUDUSD": "/workspace/du_lieu_fx/hd28/audusd_m5_histdata_ny7_den202610.csv",
+  "USDCAD": "/workspace/du_lieu_fx/hd28/usdcad_m5_histdata_ny7_den202610.csv",
+  "USDCHF": "/workspace/du_lieu_fx/hd28/usdchf_m5_histdata_ny7_den202610.csv",
+  "USDJPY": "/workspace/du_lieu_fx/hd28/usdjpy_m5_histdata_ny7_den202610.csv",
+  "EURJPY": "/workspace/du_lieu_fx/hd28/eurjpy_m5_den202610.csv",
+  "GBPJPY": "/workspace/du_lieu_fx/hd28/gbpjpy_m5_den202610.csv",
+  "AUDJPY": "/workspace/du_lieu_fx/hd28/audjpy_m5.csv",
+  "CADJPY": "/workspace/du_lieu_fx/hd28/cadjpy_m5.csv",
+  "CHFJPY": "/workspace/du_lieu_fx/hd28/chfjpy_m5.csv",
+  "NZDJPY": "/workspace/du_lieu_fx/hd28/nzdjpy_m5.csv",
+  "EURAUD": "/workspace/du_lieu_fx/hd28/euraud_m5.csv",
+  "GBPAUD": "/workspace/du_lieu_fx/hd28/gbpaud_m5.csv",
+  "EURCAD": "/workspace/du_lieu_fx/hd28/eurcad_m5.csv",
+  "GBPCAD": "/workspace/du_lieu_fx/hd28/gbpcad_m5.csv",
+  "AUDNZD": "/workspace/du_lieu_fx/hd28/audnzd_m5.csv",
+  "EURCHF": "/workspace/du_lieu_fx/hd28/eurchf_m5.csv",
+  "GBPCHF": "/workspace/du_lieu_fx/hd28/gbpchf_m5.csv",
+  "EURNZD": "/workspace/du_lieu_fx/hd28/eurnzd_m5.csv",
+  "GBPNZD": "/workspace/du_lieu_fx/hd28/gbpnzd_m5.csv"
  },
  "tu_ngay": "2016-01-01",
  "khung": [
@@ -17,7 +41,7 @@
  "ngan_sach_moi_the": 16,
  "toi_da_the_moi_lan": 6,
  "ngan_sach_to_hop": 24,
- "toi_da_viec_ea_ngoai": 10,
+ "toi_da_viec_ea_ngoai": 400,
  "san_mt5": {
   "XM": {
    "ky_hieu": "{ma}micro",
@@ -39,5 +63,13 @@
   "data/nhap_tay",
   "data/seeker_da_nguon/nhap_tay"
  ],
- "_ghi_chu_nhap_tay": "Thu muc chu du an tu luu EA/.set/statement/trang HTML (mo bang Chrome cua minh). Bien moi truong BRAIN_NHAP_TAY (cach nhau ;) thang cau hinh nay. Khong vuot Cloudflare/captcha."
+ "_ghi_chu_nhap_tay": "Thu muc chu du an tu luu EA/.set/statement/trang HTML (mo bang Chrome cua minh). Bien moi truong BRAIN_NHAP_TAY (cach nhau ;) thang cau hinh nay. Khong vuot Cloudflare/captcha.",
+ "_ghi_chu_du_lieu": "19/10/2026: them 19 cap FX HistData M5 (hd28, 2024-01 -> 2026-10, BID, gio server NY+7) gop H1 khi doc (cache data/ong_dan/gia_h1/). AUDCAD tu 2016 (tu_ngay), NZDUSD noi 2018-2023 + 2024-2026. Kim loai (XAU/XAG) CHUA dua vao: hop dong micro XM chua xac minh -> de MT5 may nha do.",
+ "nam_du_lieu_toi_thieu": 1.0,
+ "seeker_da_nguon": {
+  "bat": true,
+  "tran_ea": 12,
+  "tran_ea_top": 40,
+  "_ghi_chu": "doc reports/SEEKER_DA_NGUON.json + data/seeker_da_nguon/tai_ve (nhan/doc_seeker_da_nguon.py); bo ung vien tra_phi"
+ }
 }
