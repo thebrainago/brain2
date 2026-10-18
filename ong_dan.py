@@ -4,7 +4,7 @@
   python3 ong_dan.py chay                 # chay het cac buoc a..i (chay tiep duoc neu dung giua chung)
   python3 ong_dan.py <buoc>               # nhan | phan_loai | quyet_dinh | toi_uu | loc | sinh_mt5 | goi | boc | to_hop | doc_mt5
   python3 ong_dan.py trang_thai | bao_cao | do_nguoc
-Tuy chon: --toi-da N (so the toi uu moi lan), --ngan-sach N (phep thu / the), --ngan-sach-to-hop N, --db <sqlite>, --id <the_id>
+Tuy chon: --lam-lai (toi_uu theo dot), --toi-da N (so the toi uu moi lan), --ngan-sach N (phep thu / the), --ngan-sach-to-hop N, --db <sqlite>, --id <the_id>
 """
 import argparse
 import json
@@ -23,6 +23,7 @@ def main(argv=None) -> int:
     ap.add_argument("--ngan-sach-to-hop", type=int)
     ap.add_argument("--db")
     ap.add_argument("--id")
+    ap.add_argument("--lam-lai", action="store_true", help="toi_uu: mo lai the da toi uu con thieu phep thu (chia dot)")
     a = ap.parse_args(argv)
     cn = OD._db(Path(a.db) if a.db else None)
     b = a.buoc
@@ -36,7 +37,7 @@ def main(argv=None) -> int:
     elif b == "do_nguoc":
         print(OD.ghi_do_nguoc(cn))
     elif b == "toi_uu":
-        OD.buoc_toi_uu(cn, a.toi_da, a.ngan_sach, chi_id=a.id)
+        OD.buoc_toi_uu(cn, a.toi_da, a.ngan_sach, chi_id=a.id, lam_lai=a.lam_lai)
     elif b == "to_hop":
         OD.buoc_to_hop(cn, a.ngan_sach_to_hop)
     else:

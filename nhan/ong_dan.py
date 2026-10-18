@@ -494,11 +494,27 @@ def diem(r: dict) -> float:
     return float(r["lai_pct_nam"]) - pen
 
 
-def buoc_toi_uu(cn, toi_da: int | None = None, ngan_sach: int | None = None, in_ra=print, chi_id: str | None = None) -> int:
+def _vo_ich(kq: dict) -> bool:
+    """The them phep thu cung vo ich: khong co gia tren box / statement ngoai khoang gia / it hon 1 nam du lieu."""
+    loi = str(((kq or {}).get("tot_nhat") or {}).get("kq", {}).get("loi", ""))
+    ly = " ".join((kq or {}).get("loc", {}).get("ly_do") or [])
+    return loi.startswith(("CHUA_DO_DUOC: statement khong trung", "CHUA_DO_DUOC: box khong co")) or "nam du lieu (<" in ly
+
+
+def buoc_toi_uu(cn, toi_da: int | None = None, ngan_sach: int | None = None, in_ra=print, chi_id: str | None = None,
+                lam_lai: bool = False) -> int:
+    """`lam_lai`: mo lai ca the DA toi uu (buoc toi_uu/loc/sinh_mt5) con it phep thu hon `ngan_sach` -> chia ngan sach
+    thanh nhieu dot ngan (12 -> 16 -> 20 ...), dot nao dung giua chung cung khong mat phep thu da luu."""
     cfg = cau_hinh()
     toi_da = int(toi_da or cfg.get("toi_da_the_moi_lan", 6))
     ngan_sach = int(ngan_sach or cfg.get("ngan_sach_moi_the", 16))
-    ds = [x for x in cac_the(cn, "quyet_dinh") if x[0].get("duong_dich") in ("noi_bo", "spec_dsl")
+    cac = cac_the(cn, "quyet_dinh")
+    if lam_lai:
+        dem = dict(cn.execute("SELECT the_id, COUNT(*) FROM thu GROUP BY the_id").fetchall())
+        cac += [x for b in ("toi_uu", "loc", "sinh_mt5") for x in cac_the(cn, b)
+                if dem.get(x[0]["id"], 0) < ngan_sach and not _vo_ich(x[3])]
+        cac.sort(key=lambda x: (int(x[0].get("uu_tien", 9)), x[0]["id"]))
+    ds = [x for x in cac if x[0].get("duong_dich") in ("noi_bo", "spec_dsl")
           and x[0].get("loai") == "he_hoan_thien" and (not chi_id or x[0]["id"] == chi_id)]
     if not ma_co_du_lieu(cfg):
         in_ra("toi_uu: KHONG co du lieu gia nao trong config/ong_dan.json -> CHUA_DO_DUOC")

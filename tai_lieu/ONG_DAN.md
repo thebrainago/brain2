@@ -101,3 +101,36 @@ Cấu hình nằm ở `config/ong_dan.json`: dữ liệu giá mỗi mã, khung, 
 - Box chỉ có giá AUDCAD 2016–2026. EURGBP và NZDUSD chỉ có từ 01/2024 (2,77 năm), nên số trên hai mã này dao động mạnh.
 - Engine Python tách lệnh vượt `lot_max` thành nhiều lệnh. EA hiện chặn ở `lot_max` (`ChuanLot`). Với rổ lớn, MT5 sẽ khoá ít hơn Python.
 - Tổ hợp có bộ lọc hoặc nguồn ngoài chưa có EA chạy được. Cần chế độ "đọc CSV lệnh" của `BRAIN_XuLiLenh` (bước 7a của bản rà soát).
+
+## Nguồn Seeker đa nguồn (19/10/2026)
+
+- `python3 ong_dan.py nhan` đọc thêm `reports/SEEKER_DA_NGUON.json` cùng mã đã tải trong `data/seeker_da_nguon/tai_ve/`, qua bộ đọc `nhan/doc_seeker_da_nguon.py` (chỉ đọc, không chạy mã). Với mỗi ứng viên:
+  - mỗi EA `.mq4`/`.mq5` có OnTick thành một thẻ (tối đa 12 EA, riêng 28 hệ top là 40), kèm các `.set` cùng tên hoặc cùng thư mục;
+  - mỗi `.ex4`/`.ex5` không có mã thành một thẻ chạy thẳng MT5;
+  - mỗi statement hoặc báo cáo tester (`.htm`, `.html`, `.csv`) có danh sách lệnh thành một thẻ STATEMENT, kèm kết quả dò ngược;
+  - mã Python hoặc Pine sang đường LLM;
+  - ứng viên không có file thành một thẻ ứng viên.
+  - Bỏ các ứng viên trả phí.
+  - `bang_chung_lai` của Seeker được giữ trong `so_tac_gia` (SỐ TÁC GIẢ, chưa đo), không trộn với số mô phỏng.
+- Ưu tiên 0: 28 hệ top trong `SEEKER_DA_NGUON.md` và mọi statement có từng lệnh.
+- Đọc được báo cáo tester MT4, statement MT4 và báo cáo MT5 (`ReportTester-*.html`, kể cả bản tiếng Tây Ban Nha, Nga, Trung). Dò ngược (`nhan/nhap_tay.do_nguoc`) cho ra:
+  - bước DCA (pip và %), kèm tỉ lệ bước đi ngược giá;
+  - hệ số lot;
+  - TP rổ;
+  - số tầng;
+  - giờ mở lệnh;
+  - mã.
+
+  Kết quả có nhãn SUY TỪ STATEMENT. Kết quả nằm ở `reports/ong_dan/DO_NGUOC_STATEMENT.md` (`python3 ong_dan.py do_nguoc`). Quản lí dò ngược được dùng làm phép thử Python đầu tiên, chạy trong đúng khoảng thời gian của statement.
+- Lọc 65/15 cần ít nhất 1 năm dữ liệu (`nam_du_lieu_toi_thieu`). Nếu ít hơn thì ghi CHƯA ĐO ĐƯỢC.
+- Giá trên box gồm 26 mã:
+  - AUDCAD từ 2016;
+  - NZDUSD từ 2018;
+  - còn lại từ 2024-01 (HistData M5, gộp H1, cache trong `data/ong_dan/gia_h1/`).
+- Hợp đồng mỗi lot lấy theo `contract_size` đã đo (GOLDmicro là 1, SILVERmicro là 50).
+- Việc MT5 cho EA ngoài (`ea=NGOAI`):
+  - mỗi `.set` có sẵn thành một việc: `CHAY_SET`, hoặc `TOI_UU_SET` nếu `.set` có cờ `||Y`; mã và khung lấy từ tên `.set` và `Timeframe=`;
+  - EA không có `.set` thành một việc `XUAT_LENH`.
+  - Trường `tep_box` và `set_box` ghi đường dẫn trong `data/` trên box.
+- Gói cho máy nhà: `python3 ong_dan.py goi` tạo `/workspace/goi_may_nha/goi_ea_ngoai_<ngày>.zip`, nằm ngoài git. Gói giữ nguyên cấu trúc `data/...`, kèm các `.mqh` được `#include`, `MANIFEST.json` và `HUONG_DAN.md`. Giải nén vào gốc repo trên máy nhà.
+- Chạy nền theo đợt ngắn, chạy tiếp được: `nohup bash chay_nen_ong_dan.sh "12 16 20" 30 > /dev/null 2>&1 &`, log ghi vào `data/ong_dan/nen.log`. `toi_uu --lam-lai` mở lại các thẻ còn thiếu phép thử. Bị ngắt thì chạy lại đúng lệnh đó.

@@ -53,3 +53,12 @@
 - Mọi thay đổi vào **cả hai repo** (brain2 và the-brain).
 - Phân biệt `CHUA_DO_DUOC` với kết quả âm. Lần chạy hỏng không phải "đã thử, không lãi".
 - MT5 tester là thẩm phán cuối. Chỉ một phiên được dùng tester tại một thời điểm.
+
+## Bổ sung 19/10/2026 (lô Seeker)
+
+Máy nhà làm như sau:
+
+1. Chép `/workspace/goi_may_nha/goi_ea_ngoai_20261019.zip` từ box, giải nén vào gốc brain2.
+2. `git pull`.
+3. Chạy các việc `ea=NGOAI` trong `reports/ong_dan/hang_cho_mt5.jsonl` theo `HUONG_DAN.md` trong zip. Các việc `ea=XL` vẫn chạy tự động bằng `mt5tools/chay_lien_tuc.py`.
+4. Báo cáo `.htm` lưu vào `reports/ong_dan/ket_qua_mt5/`.

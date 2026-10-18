@@ -2155,3 +2155,21 @@ Do that (cung bo doc, cung kho; `cau_kho --khong-tai`, BRAIN_DIEU_TOC=tat):
 - Lệnh mới: `san-kho [--tai N]`, `tai-kho owner/repo`, `kiem-ke <thư mục>`. Kho tải về nằm ở `data/cau_kho/` (git bỏ qua).
 - Việc kế tiếp (hàng chờ S14–S15): săn kho → đọc passivbot (gỡ lệnh kẹt) → hummingbot → freqtrade-strategies / NostalgiaForInfinity. Ghi `reports/SEEKER_<KHO>.md` như EA31337.
 
+
+## 19/10/2026: nhận lô Seeker đa nguồn
+
+- Mô-đun mới:
+  - `nhan/doc_seeker_da_nguon.py`: bộ đọc SEEKER_DA_NGUON;
+  - `nhan/goi_may_nha.py`: tạo gói zip cho máy nhà;
+  - `chay_nen_ong_dan.sh`: chạy nền theo đợt.
+- `nhan/nhap_tay.py` có thêm:
+  - đọc báo cáo tester MT4;
+  - giá vào và giá ra của từng lệnh;
+  - nhận báo cáo MT5 đa ngôn ngữ;
+  - `so_tac_gia_bao_cao`, `do_nguoc`;
+  - quy GOLD/SILVER về XAUUSD/XAGUSD.
+- Sửa `nhan/tai_khoan.ho_so_phi` (PHÍ TẠM): `hop_dong` lấy theo `contract_size` đã đo. Trước đây cố định 1.000, sai với kim loại. Ví dụ GOLDmicro là 1.
+- Giới hạn còn lại:
+  - Bộ dịch không cần LLM (`doc_ma.doc_chien_luoc`) chỉ ra chuỗi lệnh cho 28 trên 2.138 EA của Seeker. Phần còn lại thành việc MT5.
+  - Đa số statement có trước 2024 hoặc ngắn dưới 1 năm, nên CHƯA ĐO ĐƯỢC trên box.
+  - Hệ đạt lọc nhưng không phải BRAIN cần chế độ EA đọc CSV lệnh (`CAN_EA_GHEP.md`).
