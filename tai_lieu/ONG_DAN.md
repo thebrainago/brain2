@@ -128,12 +128,42 @@ Chế độ này dành cho các thẻ `CHO_EA_GHEP`: hệ đạt lọc Python nh
   - Tài khoản cent (USC) được chia 100 để quy về USD.
   - Sai số đặt ở `SAI_SO` trong `nhan/ong_dan.py`.
 
-## LLM
+## LLM: bước dịch chạy trên máy nhà (19/10/2026)
 
-`nhan/cau_llm.py` dùng chung kiểu gọi với `phong_hop`.
-- Khoá lấy từ biến môi trường: `AIBOX_API_KEY`, `AIBOX_BASE_URL` và `BRAIN_LLM_MODEL` (tuỳ chọn).
-- Không có khoá thì thẻ Python / Pine ở trạng thái `LLM` và được ghi **CHƯA CHẠY ĐƯỢC**, không gọi mạng.
-- Mã MQL đơn giản đi đường không cần LLM (`doc_ma.doc_chien_luoc`).
+Khoá ai-box chỉ có trên máy nhà. Box **không** giữ khoá, không đọc và không chép khoá; trên box, bước dịch báo CHƯA CHẠY ĐƯỢC và không gọi mạng.
+
+- **Lấy khoá** (`nhan/cau_llm.py`, làm theo `qwen/cau_hinh.py` và `qwen/mo_hinh.py`), theo thứ tự:
+  1. biến môi trường `AIBOX_API_KEY`;
+  2. `~/.cc-switch/cc-switch.db`, provider có tên chứa `aibox`, mở chỉ đọc;
+  3. proxy cloud `BRAIN_LLM_PROXY`.
+
+  Khoá chỉ nằm trong bộ nhớ. Khoá không được in ra, và bị che (`***`) trong mọi thông báo lỗi.
+- **Tham số** lấy từ `config/qwen.json`, thiếu thì lấy từ `config/tri_tue.json`:
+  - model chính `qwen3.7-flash`, model dự phòng `qwen3.6-flash`;
+  - `temperature` 0, `max_tokens`, `timeout_giay`, `so_lan_thu_lai`.
+
+  Gặp lỗi 403, 402, hoặc 429 do hết quota thì chuyển sang model dự phòng. Lỗi tạm thời (5xx, mạng) thì thử lại.
+- **`python ong_dan.py dich_llm [--gioi_han N] [--luong K]`** (`nhan/dich_llm.py`):
+  - Hàng chờ gồm thẻ đường `llm` (Python, freqtrade, Pine) và EA MQL mà bộ dịch không-LLM bỏ qua ("bo dich khong ra chan"). Thứ tự: 28 hệ top của Seeker trước, rồi thẻ LLM, rồi EA.
+  - Mỗi mã nguồn chỉ gọi LLM một lần. Cache theo sha256 của mã lưu ở `data/ong_dan/dich_llm/<hash>.json`. Nhiều thẻ cùng mã dùng chung một lần gọi.
+  - LLM trả về spec DSL, hoặc khi spec không diễn đạt được thì trả hàm Python `tin_hieu(df)`. Kết quả được kiểm tự động trên giá mẫu (3.000 nến H1 cuối của mã đầu tiên có giá):
+    - dạng đúng, giá trị trong {-1, 0, 1};
+    - **không nhìn trước**: tín hiệu tính trên df[:k] với k = 50 %, 70 %, 90 % phải trùng tín hiệu tính trên toàn bộ;
+    - ra ít nhất 3 lệnh.
+  - Mã Python chạy trong hộp cát (`nhan/hop_cat_llm.py`):
+    - kiểm AST trước: cấm import, cấm tên hay thuộc tính bắt đầu bằng `_`, cấm open/exec/eval/getattr, cấm đọc/ghi file của pandas, cấm shift âm;
+    - chạy trong tiến trình con với biến môi trường rỗng (không có khoá), giới hạn thời gian và bộ nhớ, builtins rút gọn.
+  - Thẻ đạt kiểm được đưa về bước `quyet_dinh` với đường `spec_dsl` hoặc `python_llm`, để `toi_uu` và `loc` chạy tiếp. Hệ đạt lọc sau đó chạy MT5 bằng VAO_CSV.
+  - Thẻ không đạt được ghi lí do vào thẻ (`dich_llm`). Lỗi LLM thì lần sau gọi lại.
+  - Số lần gọi, token vào/ra và số lần chuyển sang model dự phòng được ghi ở `reports/ong_dan/DICH_LLM.md` và `data/ong_dan/dich_llm/nhat_ky.jsonl`.
+- Bước `quyet_dinh` không gọi LLM nữa: thẻ Python/Pine chỉ được đánh dấu chờ `dich_llm`.
+- **Máy nhà chạy theo thứ tự**:
+  1. `git pull`;
+  2. giải nén `goi_ea_ngoai_<ngày>.zip` vào gốc repo. Gói có mã nguồn các thẻ chờ dịch, bản chụp `data/ong_dan/trang_thai.sqlite`, cache dịch và giá H1 ở `data/ong_dan/gia_goi/`;
+  3. `python ong_dan.py dich_llm` (chạy thử trước bằng `--gioi_han 50`);
+  4. `python ong_dan.py chay`;
+  5. commit `reports/` rồi push. `data/` không vào git.
+- Khi không có file giá gốc của box, `gia()` tự đọc `data/ong_dan/gia_goi/<MA>_H1.csv.gz`. Bước `goi` chỉ chạy trên box.
 
 ## Giới hạn hiện tại
 

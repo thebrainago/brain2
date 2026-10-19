@@ -2200,3 +2200,17 @@ Do that (cung bo doc, cung kho; `cau_kho --khong-tai`, BRAIN_DIEU_TOC=tat):
   - đối chiếu trên giá EA xuất, có quy đổi tài khoản cent;
   - chép file qua Common.
 
+## 19/10/2026: bước dịch bằng LLM chuyển sang máy nhà
+
+Khoá ai-box chỉ có trên máy nhà, nên việc dịch mã người khác sang tín hiệu Python được tách thành lệnh riêng là `python ong_dan.py dich_llm`, chạy ở máy nhà. Trên box, lệnh này chỉ báo "CHƯA CHẠY ĐƯỢC" và không gọi mạng. Box không giữ, không đọc và không chép khoá.
+
+Cách lấy khoá giống hệ qwen. Chương trình thử lần lượt biến môi trường `AIBOX_API_KEY`, rồi cc-switch (provider 'aibox'), rồi proxy. Model chính là qwen3.7-flash. Bị từ chối hoặc hết quota thì chuyển sang qwen3.6-flash. Khoá không bao giờ được in ra log.
+
+Mỗi đoạn mã chỉ gửi cho LLM một lần, vì kết quả được nhớ theo dấu vân tay (hash) của mã. Bản dịch phải qua kiểm tra tự động trước khi được dùng: chạy được trên giá mẫu, không nhìn trước tương lai, và có ra lệnh. Mã Python do LLM viết chỉ chạy trong một tiến trình con bị rào chắn: không có khoá, không được mở file, không được import. Bản dịch đạt thì thẻ đi tiếp sang tối ưu và lọc như các thẻ khác.
+
+Hàng chờ hiện có 2.306 thẻ: 204 thẻ cần LLM (184 Python/freqtrade, 20 Pine) và 2.102 EA MQL mà bộ dịch không-LLM bỏ qua. 149 thẻ thuộc 28 hệ top và được dịch trước. Các thẻ này có 2.214 mã nguồn khác nhau, tổng 118 MB.
+
+Gói zip cho máy nhà giờ có thêm mã nguồn các thẻ chờ dịch, bản chụp trạng thái ống dẫn, cache dịch và giá H1, đủ để máy nhà chạy `dich_llm` rồi `chay` mà không cần dữ liệu riêng của box.
+
+Test dùng client giả, không gọi mạng thật.
+
