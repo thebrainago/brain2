@@ -1,0 +1,33 @@
+{
+ "kho": "EarnForex/PersistentAnti",
+ "luc": "2026-10-19T16:25:43+00:00",
+ "tong": {
+  "so_tep": 2,
+  "ea": 2,
+  "chien_luoc": 0,
+  "chi_bao": 0,
+  "thu_vien": 0,
+  "nen_tang": {
+   "MT4/MT5": 2
+  },
+  "ky_thuat_quan_tri": {}
+ },
+ "tep": [
+  {
+   "tep": "PersistentAnti.mq4",
+   "nen_tang": "MT4/MT5",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 225
+  },
+  {
+   "tep": "PersistentAnti.mq5",
+   "nen_tang": "MT4/MT5",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 214
+  }
+ ]
+}

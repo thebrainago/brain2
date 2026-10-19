@@ -1,0 +1,35 @@
+{
+ "kho": "NadirAliOfficial/engulfing-zone-ea",
+ "luc": "2026-10-19T16:25:52+00:00",
+ "tong": {
+  "so_tep": 1,
+  "ea": 1,
+  "chien_luoc": 0,
+  "chi_bao": 0,
+  "thu_vien": 0,
+  "nen_tang": {
+   "MT4/MT5": 1
+  },
+  "ky_thuat_quan_tri": {
+   "hedge": 1,
+   "loc_spread": 1,
+   "luoi": 1,
+   "martingale": 1
+  }
+ },
+ "tep": [
+  {
+   "tep": "MQL5\\Experts\\PriceAction_EngulfingZone_EA.mq5",
+   "nen_tang": "MT4/MT5",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "hedge",
+    "loc_spread",
+    "luoi",
+    "martingale"
+   ],
+   "dong": 1007
+  }
+ ]
+}

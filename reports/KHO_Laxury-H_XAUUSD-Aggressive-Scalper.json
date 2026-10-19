@@ -1,0 +1,64 @@
+{
+ "kho": "Laxury-H/XAUUSD-Aggressive-Scalper",
+ "luc": "2026-10-19T16:26:01+00:00",
+ "tong": {
+  "so_tep": 3,
+  "ea": 3,
+  "chien_luoc": 0,
+  "chi_bao": 0,
+  "thu_vien": 0,
+  "nen_tang": {
+   "MT4/MT5": 3
+  },
+  "ky_thuat_quan_tri": {
+   "loc_spread": 3,
+   "sua_sl_tp": 3,
+   "trailing": 3,
+   "hoa_von": 2,
+   "dong_mot_phan": 1,
+   "loc_tin": 1
+  }
+ },
+ "tep": [
+  {
+   "tep": "AggressiveScalper\\AggressiveScalper.mq5",
+   "nen_tang": "MT4/MT5",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "hoa_von",
+    "loc_spread",
+    "sua_sl_tp",
+    "trailing"
+   ],
+   "dong": 215
+  },
+  {
+   "tep": "AggressiveScalper_NonStop\\Aggressive_Scalper_NonStop.mq5",
+   "nen_tang": "MT4/MT5",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "loc_spread",
+    "sua_sl_tp",
+    "trailing"
+   ],
+   "dong": 204
+  },
+  {
+   "tep": "QuantumMathAI_V6_Guardian\\QuantumMathAI_V6_Guardian.mq5",
+   "nen_tang": "MT4/MT5",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "dong_mot_phan",
+    "hoa_von",
+    "loc_spread",
+    "loc_tin",
+    "sua_sl_tp",
+    "trailing"
+   ],
+   "dong": 475
+  }
+ ]
+}

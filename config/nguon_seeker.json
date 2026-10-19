@@ -4,7 +4,7 @@
   "Nhan 4 chieu theo luat tu khoa chot truoc trong nhan/nguon_seeker.gan_nhan; 'tong_hop' = nguon nhieu phong cach.",
   "KHONG co khoa / mat khau / phien. Ket qua quet that o reports/SEEKER_QUET_NGUON.json."
  ],
- "tong": 303,
+ "tong": 311,
  "nguon": {
   "allocatesmartly": {
    "ten": "allocatesmartly",
@@ -7141,6 +7141,199 @@
     "lan_cuoi": "2026-10-13",
     "cach": "since_id moi nhat, exclude=retweets,replies, max 25/lan"
    }
+  },
+  "gh_topic_expert_advisor": {
+   "ten": "gh_topic_expert_advisor",
+   "url": "https://api.github.com/search/repositories?q=topic:expert-advisor&sort=stars&order=desc&per_page=50",
+   "loai": "code",
+   "cach": "api",
+   "khai_bao_tai": [
+    "grok_may_nha_19102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "EA hoan chinh theo topic GitHub; loc repo HTML/quang cao (mo ta '2026', khong co .mq5)"
+  },
+  "gh_topic_mt5_ea": {
+   "ten": "gh_topic_mt5_ea",
+   "url": "https://api.github.com/search/repositories?q=topic:mt5-ea&sort=stars&order=desc&per_page=50",
+   "loai": "code",
+   "cach": "api",
+   "khai_bao_tai": [
+    "grok_may_nha_19102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "EA MT5 theo topic"
+  },
+  "gh_search_mql4_ea_backtest": {
+   "ten": "gh_search_mql4_ea_backtest",
+   "url": "https://api.github.com/search/repositories?q=expert+advisor+backtest+language:MQL4&sort=stars&per_page=50",
+   "loai": "code",
+   "cach": "api",
+   "khai_bao_tai": [
+    "grok_may_nha_19102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "EA MQL4 co nhac backtest"
+  },
+  "gh_search_mql5_ea_backtest": {
+   "ten": "gh_search_mql5_ea_backtest",
+   "url": "https://api.github.com/search/repositories?q=expert+advisor+backtest+language:MQL5&sort=stars&per_page=50",
+   "loai": "code",
+   "cach": "api",
+   "khai_bao_tai": [
+    "grok_may_nha_19102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "EA MQL5 co nhac backtest"
+  },
+  "gh_search_gold_ea": {
+   "ten": "gh_search_gold_ea",
+   "url": "https://api.github.com/search/repositories?q=gold+xauusd+expert+advisor&sort=stars&order=desc&per_page=50",
+   "loai": "code",
+   "cach": "api",
+   "khai_bao_tai": [
+    "grok_may_nha_19102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "vang"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "EA vang XAUUSD"
+  },
+  "gh_search_pine_backtest_fx": {
+   "ten": "gh_search_pine_backtest_fx",
+   "url": "https://api.github.com/search/repositories?q=pine+script+strategy+backtest+forex&sort=stars&per_page=50",
+   "loai": "code",
+   "cach": "api",
+   "khai_bao_tai": [
+    "grok_may_nha_19102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "chien luoc Pine co backtest"
+  },
+  "gh_earnforex_repos": {
+   "ten": "gh_earnforex_repos",
+   "url": "https://api.github.com/users/EarnForex/repos?per_page=100&sort=pushed",
+   "loai": "code",
+   "cach": "api",
+   "khai_bao_tai": [
+    "grok_may_nha_19102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "ghi_chu": "EarnForex: EA mien phi ma mo (Spike Trader, News Trader, PersistentAnti, Binario...) + cong cu quan tri lenh"
+  },
+  "earnforex_ea": {
+   "ten": "earnforex_ea",
+   "url": "https://www.earnforex.com/metatrader-expert-advisors/",
+   "loai": "code",
+   "cach": "http",
+   "khai_bao_tai": [
+    "grok_may_nha_19102026"
+   ],
+   "hang": "B",
+   "phong_cach": [
+    "tong_hop"
+   ],
+   "tai_san": [
+    "fx"
+   ],
+   "khung": [
+    "nhieu_khung"
+   ],
+   "quan_tri": [
+    "khong_ro"
+   ],
+   "can_dang_nhap": false,
+   "loc_lien_ket": "earnforex\\.com/metatrader-expert-advisors/[A-Za-z0-9-]+/?$",
+   "ghi_chu": "robots cho phep (Crawl-delay 10), khong Cloudflare; danh sach EA mien phi kem ma + backtest"
   }
  }
 }

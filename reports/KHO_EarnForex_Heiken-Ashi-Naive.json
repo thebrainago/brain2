@@ -1,0 +1,49 @@
+{
+ "kho": "EarnForex/Heiken-Ashi-Naive",
+ "luc": "2026-10-19T16:25:46+00:00",
+ "tong": {
+  "so_tep": 4,
+  "ea": 4,
+  "chien_luoc": 0,
+  "chi_bao": 0,
+  "thu_vien": 0,
+  "nen_tang": {
+   "MT4/MT5": 4
+  },
+  "ky_thuat_quan_tri": {}
+ },
+ "tep": [
+  {
+   "tep": "HAN.mq4",
+   "nen_tang": "MT4/MT5",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 284
+  },
+  {
+   "tep": "HAN.mq5",
+   "nen_tang": "MT4/MT5",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 282
+  },
+  {
+   "tep": "HAN_Z-Score.mq4",
+   "nen_tang": "MT4/MT5",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 476
+  },
+  {
+   "tep": "HAN_Z-Score.mq5",
+   "nen_tang": "MT4/MT5",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 423
+  }
+ ]
+}

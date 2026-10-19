@@ -1,0 +1,76 @@
+{
+ "kho": "Kla1524/GoldScalperM15",
+ "luc": "2026-10-19T16:26:15+00:00",
+ "tong": {
+  "so_tep": 4,
+  "ea": 1,
+  "chien_luoc": 0,
+  "chi_bao": 0,
+  "thu_vien": 3,
+  "nen_tang": {
+   "MT4/MT5": 3,
+   "Python": 1
+  },
+  "ky_thuat_quan_tri": {
+   "loc_spread": 2,
+   "loc_tin": 2,
+   "chot_ro": 1,
+   "dong_mot_phan": 1,
+   "go_lenh": 1,
+   "hoa_von": 1,
+   "lenh_cho": 1,
+   "loc_phien": 1,
+   "sua_sl_tp": 1,
+   "trailing": 1
+  }
+ },
+ "tep": [
+  {
+   "tep": "GoldScalperM15.mq5",
+   "nen_tang": "MT4/MT5",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "chot_ro",
+    "dong_mot_phan",
+    "go_lenh",
+    "hoa_von",
+    "lenh_cho",
+    "loc_phien",
+    "loc_spread",
+    "loc_tin",
+    "sua_sl_tp",
+    "trailing"
+   ],
+   "dong": 2910
+  },
+  {
+   "tep": "tools\\analyze_journal.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 68
+  },
+  {
+   "tep": "tools\\CreateGoldMicro.mq5",
+   "nen_tang": "MT4/MT5",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_spread"
+   ],
+   "dong": 127
+  },
+  {
+   "tep": "tools\\ExportNews.mq5",
+   "nen_tang": "MT4/MT5",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_tin"
+   ],
+   "dong": 52
+  }
+ ]
+}

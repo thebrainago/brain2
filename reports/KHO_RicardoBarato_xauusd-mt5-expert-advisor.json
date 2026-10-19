@@ -1,0 +1,39 @@
+{
+ "kho": "RicardoBarato/xauusd-mt5-expert-advisor",
+ "luc": "2026-10-19T16:26:03+00:00",
+ "tong": {
+  "so_tep": 1,
+  "ea": 1,
+  "chien_luoc": 0,
+  "chi_bao": 0,
+  "thu_vien": 0,
+  "nen_tang": {
+   "MT4/MT5": 1
+  },
+  "ky_thuat_quan_tri": {
+   "hoa_von": 1,
+   "lenh_cho": 1,
+   "loc_phien": 1,
+   "loc_spread": 1,
+   "sua_sl_tp": 1,
+   "trailing": 1
+  }
+ },
+ "tep": [
+  {
+   "tep": "src\\RB_XAUUSD_MT5.mq5",
+   "nen_tang": "MT4/MT5",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "hoa_von",
+    "lenh_cho",
+    "loc_phien",
+    "loc_spread",
+    "sua_sl_tp",
+    "trailing"
+   ],
+   "dong": 1141
+  }
+ ]
+}

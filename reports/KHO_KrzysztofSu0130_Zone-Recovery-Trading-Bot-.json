@@ -1,0 +1,88 @@
+{
+ "kho": "KrzysztofSu0130/Zone-Recovery-Trading-Bot-",
+ "luc": "2026-10-19T16:26:12+00:00",
+ "tong": {
+  "so_tep": 5,
+  "ea": 5,
+  "chien_luoc": 0,
+  "chi_bao": 0,
+  "thu_vien": 0,
+  "nen_tang": {
+   "MT4/MT5": 5
+  },
+  "ky_thuat_quan_tri": {
+   "chot_ro": 5,
+   "go_lenh": 5,
+   "loc_spread": 4,
+   "martingale": 3,
+   "dong_mot_phan": 1,
+   "loc_phien": 1
+  }
+ },
+ "tep": [
+  {
+   "tep": "zone recovery trading strategy\\zone recovery trading strategy 1.1.mq4",
+   "nen_tang": "MT4/MT5",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "chot_ro",
+    "go_lenh"
+   ],
+   "dong": 111
+  },
+  {
+   "tep": "zone recovery trading strategy\\zone recovery trading strategy 1.2.mq4",
+   "nen_tang": "MT4/MT5",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "chot_ro",
+    "go_lenh",
+    "loc_spread",
+    "martingale"
+   ],
+   "dong": 207
+  },
+  {
+   "tep": "zone recovery trading strategy\\zone recovery trading strategy 1.3.mq4",
+   "nen_tang": "MT4/MT5",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "chot_ro",
+    "go_lenh",
+    "loc_spread",
+    "martingale"
+   ],
+   "dong": 207
+  },
+  {
+   "tep": "zone recovery trading strategy\\zone recovery trading strategy 1.4.mq4",
+   "nen_tang": "MT4/MT5",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "chot_ro",
+    "go_lenh",
+    "loc_spread",
+    "martingale"
+   ],
+   "dong": 236
+  },
+  {
+   "tep": "zone recovery trading strategy\\zone recovery trading strategy 1.5.mq4",
+   "nen_tang": "MT4/MT5",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "chot_ro",
+    "dong_mot_phan",
+    "go_lenh",
+    "loc_phien",
+    "loc_spread"
+   ],
+   "dong": 336
+  }
+ ]
+}

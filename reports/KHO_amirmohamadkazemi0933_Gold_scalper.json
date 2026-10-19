@@ -1,0 +1,33 @@
+{
+ "kho": "amirmohamadkazemi0933/Gold_scalper",
+ "luc": "2026-10-19T16:26:06+00:00",
+ "tong": {
+  "so_tep": 1,
+  "ea": 1,
+  "chien_luoc": 0,
+  "chi_bao": 0,
+  "thu_vien": 0,
+  "nen_tang": {
+   "MT4/MT5": 1
+  },
+  "ky_thuat_quan_tri": {
+   "loc_spread": 1,
+   "sua_sl_tp": 1,
+   "trailing": 1
+  }
+ },
+ "tep": [
+  {
+   "tep": "LiquiditySweep_SuperScalp(new ver 0.1).mq4",
+   "nen_tang": "MT4/MT5",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "loc_spread",
+    "sua_sl_tp",
+    "trailing"
+   ],
+   "dong": 463
+  }
+ ]
+}

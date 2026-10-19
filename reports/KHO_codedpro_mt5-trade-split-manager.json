@@ -1,0 +1,78 @@
+{
+ "kho": "codedpro/mt5-trade-split-manager",
+ "luc": "2026-10-19T16:26:18+00:00",
+ "tong": {
+  "so_tep": 5,
+  "ea": 3,
+  "chien_luoc": 0,
+  "chi_bao": 0,
+  "thu_vien": 1,
+  "nen_tang": {
+   "MT4/MT5": 1,
+   "Python": 4
+  },
+  "ky_thuat_quan_tri": {
+   "lenh_cho": 3,
+   "go_lenh": 1,
+   "hoa_von": 1,
+   "loc_spread": 1,
+   "sua_sl_tp": 1,
+   "trailing": 1,
+   "loc_phien": 1
+  }
+ },
+ "tep": [
+  {
+   "tep": "bulk-add-signals.mq5",
+   "nen_tang": "MT4/MT5",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "go_lenh",
+    "hoa_von",
+    "lenh_cho",
+    "loc_spread",
+    "sua_sl_tp",
+    "trailing"
+   ],
+   "dong": 1660
+  },
+  {
+   "tep": "mcp_server.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 209
+  },
+  {
+   "tep": "server.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 296
+  },
+  {
+   "tep": "tests\\__init__.py",
+   "nen_tang": "Python",
+   "loai": "khac",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 0
+  },
+  {
+   "tep": "tests\\test_bridge.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "lenh_cho",
+    "loc_phien"
+   ],
+   "dong": 300
+  }
+ ]
+}

@@ -7,6 +7,14 @@
 > **Tài khoản Grok Bot mới:** đọc `START_HERE.md` → `BAN_GIAO_GROK.md` → `GHI_CHU_NANG_CAP_GROK.md`. Không secret trong git.
 
 
+## 19/10/2026 23:30 (gio VN) - Seeker may nha: nguon EA hoan chinh moi (Grok Bot)
+
+- config/nguon_seeker.json: +8 nguon (303 -> 311): gh_topic_expert_advisor, gh_topic_mt5_ea, gh_search_mql4_ea_backtest, gh_search_mql5_ea_backtest, gh_search_gold_ea, gh_search_pine_backtest_fx (GitHub search API cong khai, khong token), gh_earnforex_repos (api.github.com/users/EarnForex/repos), earnforex_ea (https://www.earnforex.com/metatrader-expert-advisors/).
+- Quet: 7/8 DOC DUOC; earnforex_ea bi ghi ROBOTS CAM vi urllib.robotparser doi 'Disallow: /?' thanh '/' (loi bo doc, robots that cho phep) - khong sua bo doc, da ghi vao E:\brain2_nhap\CAN_LUU_TAY.txt. forex-station.com: Cloudflare challenge -> CAN_LUU_TAY.
+- Lay ve 14 kho EA moi (tru/seeker.py tai-kho -> data/cau_kho, git bo qua; khong chay ma) + reports/KHO_<kho>.json: EarnForex Spike-Trader/PersistentAnti/Heiken-Ashi-Naive, NadirAliOfficial engulfing-zone-ea/STAR-EA-v11.20 (0 tep doc duoc), BAKOME-Hub BAKOMEGoldScalper, SiyabongaDlamini SmartMoney.MQ5, Laxury-H XAUUSD-Aggressive-Scalper, RicardoBarato xauusd-mt5-expert-advisor, amirmohamadkazemi0933 Gold_scalper, uglysaint21 EUROUSD-EMA-Cross-MQL5-EA (duoi .mql5 -> 0 tep), KrzysztofSu0130 Zone-Recovery-Trading-Bot-, Kla1524 GoldScalperM15, codedpro mt5-trade-split-manager. Bo qua repo 'HTML' quang cao/stealth-service (nghi malware).
+- ong_dan nhan: 29 the moi (tong 8508); phan_loai/quyet_dinh 29.
+- Tren Windows can PYTHONUTF8=1 cho seeker_quet_nguon.py (read_text khong encoding). pytest tren may nha: dung --basetemp=E:\... (Temp cu bi khoa quyen).
+
 ## 18/10/2026 tối — Ống dẫn một lệnh (Grok, việc 20 giờ của chủ dự án)
 
 **Chuỗi đã chạy thông trên box:** từ nhận kho, qua tối ưu Python ở lot thật, lọc 65/15, sinh file việc MT5 (`.set`/`.ini`, có cả Optimization) và kho cơ chế, tới tổ hợp. Bước đọc kết quả MT5 đã có mã và có test, nhưng chưa có kết quả MT5 thật. Xem `tai_lieu/ONG_DAN.md`.
