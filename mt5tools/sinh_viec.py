@@ -205,6 +205,8 @@ def tu_ong_dan(p: Path = HANG_CHO_OD) -> list[dict]:
         if san and v.get("san", "").lower() != san.lower():
             continue
         if v.get("ea") == "XL" and v.get("ma") and v.get("tf") in TF:
+            if os.environ.get("BRAIN_UU_TIEN_CSV") and v.get("pha") == "KIEM_CSV":
+                v["diem"] = float(v.get("diem") or 60) + 200     # may_nha_toi_nay: viec VAO_CSV cua he dat chay truoc
             out.append(v)
     return out
 

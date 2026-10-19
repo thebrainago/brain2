@@ -81,3 +81,17 @@ def test_viec_ong_dan_vao_hang_cho(tmp_path, monkeypatch):
     assert [x["ten"] for x in SV.tu_ong_dan(p)] == ["od_x"]          # viec NGOAI khong tu chay
     monkeypatch.setenv("BRAIN_SAN_TESTER", "Exness")
     assert SV.tu_ong_dan(p) == []
+
+
+def test_uu_tien_csv_theo_bien_moi_truong(tmp_path, monkeypatch):
+    import json as _json
+    import sinh_viec as _SV
+    h = tmp_path / "hang.jsonl"
+    h.write_text("\n".join(_json.dumps(x) for x in [
+        {"ten": "a", "ea": "XL", "ma": "AUDCADmicro", "tf": "H1", "pha": "KIEM", "diem": 64, "san": "XM"},
+        {"ten": "b", "ea": "XL", "ma": "AUDCADmicro", "tf": "H1", "pha": "KIEM_CSV", "diem": 62, "san": "XM"}]) + "\n")
+    monkeypatch.delenv("BRAIN_SAN_TESTER", raising=False)
+    monkeypatch.delenv("BRAIN_UU_TIEN_CSV", raising=False)
+    assert [v["diem"] for v in _SV.tu_ong_dan(h)] == [64, 62]
+    monkeypatch.setenv("BRAIN_UU_TIEN_CSV", "1")
+    assert [v["diem"] for v in _SV.tu_ong_dan(h)] == [64, 262]
