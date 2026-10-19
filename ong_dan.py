@@ -2,9 +2,9 @@
 """ong_dan.py - CLI cua ong dan mot lenh (nhan/ong_dan.py). Xem tai_lieu/ONG_DAN.md.
 
   python3 ong_dan.py chay                 # chay het cac buoc a..i (chay tiep duoc neu dung giua chung)
-  python3 ong_dan.py <buoc>               # nhan | phan_loai | quyet_dinh | toi_uu | loc | sinh_mt5 | goi | boc | to_hop | doc_mt5
+  python3 ong_dan.py <buoc>               # nhan | phan_loai | quyet_dinh | dich_llm (may nha) | toi_uu | loc | sinh_mt5 | goi | boc | to_hop | doc_mt5
   python3 ong_dan.py trang_thai | bao_cao | do_nguoc
-Tuy chon: --lam-lai (toi_uu theo dot), --toi-da N (so the toi uu moi lan), --ngan-sach N (phep thu / the), --ngan-sach-to-hop N, --db <sqlite>, --id <the_id>
+Tuy chon: --lam-lai (toi_uu theo dot), --toi-da N (so the toi uu moi lan), --ngan-sach N (phep thu / the), --ngan-sach-to-hop N, --db <sqlite>, --id <the_id>, --gioi_han N + --luong K (dich_llm)
 """
 import argparse
 import json
@@ -24,6 +24,8 @@ def main(argv=None) -> int:
     ap.add_argument("--db")
     ap.add_argument("--id")
     ap.add_argument("--lam-lai", action="store_true", help="toi_uu: mo lai the da toi uu con thieu phep thu (chia dot)")
+    ap.add_argument("--gioi_han", "--gioi-han", dest="gioi_han", type=int, help="dich_llm: so the toi da lan nay")
+    ap.add_argument("--luong", type=int, default=4, help="dich_llm: so loi goi LLM song song")
     a = ap.parse_args(argv)
     cn = OD._db(Path(a.db) if a.db else None)
     b = a.buoc
@@ -38,6 +40,8 @@ def main(argv=None) -> int:
         print(OD.ghi_do_nguoc(cn))
     elif b == "toi_uu":
         OD.buoc_toi_uu(cn, a.toi_da, a.ngan_sach, chi_id=a.id, lam_lai=a.lam_lai)
+    elif b == "dich_llm":
+        print(json.dumps(OD.buoc_dich_llm(cn, gioi_han=a.gioi_han, luong=a.luong), ensure_ascii=False, indent=1))
     elif b == "to_hop":
         OD.buoc_to_hop(cn, a.ngan_sach_to_hop)
     else:

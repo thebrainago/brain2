@@ -39,7 +39,8 @@ RA = GOC / "reports" / "ong_dan"
 HANG_CHO = RA / "hang_cho_mt5.jsonl"
 VIEC = RA / "viec_mt5"
 KET_QUA_MT5 = RA / "ket_qua_mt5"
-BUOC = ["nhan", "phan_loai", "quyet_dinh", "toi_uu", "loc", "sinh_mt5", "goi", "boc", "to_hop", "doc_mt5"]
+GIA_GOI = GOC / "data" / "ong_dan" / "gia_goi"
+BUOC = ["nhan", "phan_loai", "quyet_dinh", "dich_llm", "toi_uu", "loc", "sinh_mt5", "goi", "boc", "to_hop", "doc_mt5"]
 TF_MT5 = {"M15": 15, "M30": 30, "H1": 16385, "H4": 16388, "D1": 16408}
 
 #: Khong gian QUAN LI theo phong cach chu du an: khong SL cung, TP nho (chot non), DCA am/duong, hedge, go lenh.
@@ -127,8 +128,12 @@ def gia(ma: str, khung: str = "H1", cfg: dict | None = None) -> pd.DataFrame | N
     p = (cfg.get("du_lieu") or {}).get(ma)
     ds = [p] if isinstance(p, str) else list(p or [])
     if not ds or not all(Path(x).exists() for x in ds):
-        return None
-    df = _doc_h1(ds)
+        g = GIA_GOI / ("%s_H1.csv.gz" % ma)            # may nha: gia H1 di kem goi zip (khong co file goc cua box)
+        if not g.exists():
+            return None
+        df = pd.read_csv(g, index_col=0, parse_dates=True)[["open", "high", "low", "close"]].astype(float)
+    else:
+        df = _doc_h1(ds)
     if cfg.get("tu_ngay"):
         df = df[df.index >= pd.Timestamp(cfg["tu_ngay"])]
     df = NL.doi_khung(df, khung)
@@ -173,7 +178,23 @@ def _td(p: Path) -> str:
 def ma_co_du_lieu(cfg: dict | None = None) -> list[str]:
     cfg = cfg or cau_hinh()
     return [m for m, p in (cfg.get("du_lieu") or {}).items()
-            if all(Path(x).exists() for x in ([p] if isinstance(p, str) else p))]
+            if all(Path(x).exists() for x in ([p] if isinstance(p, str) else p)) or (GIA_GOI / ("%s_H1.csv.gz" % m)).exists()]
+
+
+def xuat_gia_goi(cfg: dict | None = None, thu_muc: Path | None = None) -> list[Path]:
+    """Gia H1 (gio server NY+7) moi ma co du lieu -> data/ong_dan/gia_goi/<MA>_H1.csv.gz de dong goi cho may nha."""
+    cfg = cfg or cau_hinh()
+    d = Path(thu_muc or GIA_GOI)
+    d.mkdir(parents=True, exist_ok=True)
+    ra = []
+    for m, p in (cfg.get("du_lieu") or {}).items():
+        ds = [p] if isinstance(p, str) else list(p or [])
+        if not ds or not all(Path(x).exists() for x in ds):
+            continue
+        f = d / ("%s_H1.csv.gz" % m)
+        _doc_h1(ds).to_csv(f, float_format="%.6f", index_label="time", compression="gzip")
+        ra.append(f)
+    return ra
 
 
 # ---------------------------------------------------------------------------------------------------- (a) NHAN
@@ -295,7 +316,6 @@ def buoc_phan_loai(cn, in_ra=print) -> int:
 # ---------------------------------------------------------------------------------------------------- (c) QUYET DINH
 def quyet_dinh_mot(t: dict) -> dict:
     """Chon duong: noi_bo (BRAIN) | spec_dsl (bo dich MQL khong LLM) | llm | mt5_truc_tiep | bo_qua."""
-    from nhan import cau_llm as LLM
     if t.get("nen_tang") == "BRAIN":
         t["duong_dich"], t["ly_do_duong"] = "noi_bo", "tin hieu BRAIN viet lai trong nhan/nguon_lenh.py"
         return t
@@ -337,16 +357,9 @@ def quyet_dinh_mot(t: dict) -> dict:
             t["ly_do_duong"] = "bo dich khong ra chan (%s) -> chay thang EA goc tren MT5 re hon dich" % \
                 "; ".join((cl.get("chua_dien_dat_duoc") or ["?"])[:2])[:160]
         return t
-    # Python / Pine: chua co bo dich khong LLM -> LLM (neu co khoa)
-    r = LLM.boc_tach(vb, nt or "Python") if LLM.co_khoa() else {"trang_thai": "CHUA_CHAY_DUOC"}
-    if r.get("trang_thai") == "OK" and r.get("spec"):
-        t["duong_dich"] = "spec_dsl"
-        t["tin_hieu"] = {"kieu": "spec", "specs": r["spec"], "khoang": {}}
-        t["ly_do_duong"] = "LLM boc tach (%s)" % r.get("nhan", "")
-        t["co_che_llm"] = r.get("co_che") or []
-    else:
-        t["duong_dich"] = "llm"
-        t["ly_do_duong"] = "can LLM de dich %s; CHƯA CHẠY ĐƯỢC (%s)" % (nt or "Python", r.get("ghi_chu") or r.get("trang_thai"))
+    # Python / Pine: chua co bo dich khong LLM -> cho buoc `dich_llm` (chay tren may nha, co khoa, co cache theo hash ma)
+    t["duong_dich"] = "llm"
+    t["ly_do_duong"] = "can LLM de dich %s; cho `python ong_dan.py dich_llm` tren may nha" % (nt or "Python")
     return t
 
 
@@ -374,6 +387,9 @@ def tin_hieu(t: dict, df: pd.DataFrame, tham: dict, ma: str = "") -> np.ndarray:
         return tin_hieu_to_hop(th, df, ma)
     if th["kieu"] == "lenh_ngoai":
         return NT.tin_hieu_lenh_ngoai(th, df, ma)
+    if th["kieu"] == "python_llm":                   # ma LLM dich: chay trong hop cat (nhan/hop_cat_llm.py), cache
+        from nhan import dich_llm as DL
+        return DL.tin_hieu_python(th["ma"], df)
     raise ValueError(th["kieu"])
 
 
@@ -526,7 +542,7 @@ def buoc_toi_uu(cn, toi_da: int | None = None, ngan_sach: int | None = None, in_
         cac += [x for b in ("toi_uu", "loc", "sinh_mt5") for x in cac_the(cn, b)
                 if dem.get(x[0]["id"], 0) < ngan_sach and not _vo_ich(x[3])]
         cac.sort(key=lambda x: (int(x[0].get("uu_tien", 9)), x[0]["id"]))
-    ds = [x for x in cac if x[0].get("duong_dich") in ("noi_bo", "spec_dsl")
+    ds = [x for x in cac if x[0].get("duong_dich") in ("noi_bo", "spec_dsl", "python_llm")
           and x[0].get("loai") == "he_hoan_thien" and (not chi_id or x[0]["id"] == chi_id)]
     if not ma_co_du_lieu(cfg):
         in_ra("toi_uu: KHONG co du lieu gia nao trong config/ong_dan.json -> CHUA_DO_DUOC")
@@ -1434,8 +1450,11 @@ def ghi_bao_cao(cn) -> str:
 def buoc_goi(cn, in_ra=print) -> dict:
     """Goi zip ma EA ngoai cho may nha (/workspace/goi_may_nha/, ngoai git) - nhan/goi_may_nha.py."""
     from nhan import goi_may_nha as GM
+    if not GM.RA.parent.exists():                   # may nha (khong co /workspace): goi chi lam tren box
+        in_ra("goi_may_nha: bo qua (khong phai box)")
+        return {"bo_qua": "khong phai box"}
     try:
-        r = GM.dong_goi()
+        r = GM.dong_goi(cn=cn)
     except Exception as e:  # noqa: BLE001
         r = {"loi": str(e)[:200]}
     with cn:
@@ -1486,6 +1505,12 @@ def ghi_do_nguoc(cn, tep: Path | None = None) -> str:
     tep.parent.mkdir(parents=True, exist_ok=True)
     tep.write_text(vb, encoding="utf-8")
     return str(tep)
+
+
+def buoc_dich_llm(cn, in_ra=print, gioi_han: int | None = None, luong: int = 4, **kw) -> dict:
+    """Buoc dich bang LLM (may nha). Xem nhan/dich_llm.py. Box khong co khoa -> CHUA CHAY DUOC, khong goi mang."""
+    from nhan import dich_llm as DL
+    return DL.buoc_dich_llm(cn, gioi_han=gioi_han, luong=luong, in_ra=in_ra, **kw)
 
 
 def chay_het(cn, in_ra=print, **kw) -> dict:
