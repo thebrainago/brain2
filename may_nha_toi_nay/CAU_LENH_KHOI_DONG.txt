@@ -1,0 +1,13 @@
+Câu lệnh khởi động — dán vào Claude Code (hoặc Cursor) mở tại gốc repo brain2 trên máy nhà:
+
+Đọc may_nha_toi_nay/GIAO_VIEC_CLAUDE.md và làm theo từng bước 0 đến 11. Chạy may_nha_toi_nay\chay_toi_nay.bat theo từng bước (-Buoc "0", "1", "2"...), đọc log sau mỗi bước, sửa lỗi nếu sửa được, bước nào lỗi thì ghi vào may_nha_toi_nay/NHAT_KY.md rồi sang bước sau. Không in khoá, không đọc E:\api.txt, không vượt chặn bot, không mua gì, không tắt máy. Sáng ra viết tóm tắt vào may_nha_toi_nay/KET_QUA_SANG.md, commit và push.
+
+Lệnh dòng lệnh tương ứng (Claude Code, tự duyệt công cụ do chủ dự án quyết định):
+
+cd /d %USERPROFILE%\brain2
+claude "Đọc may_nha_toi_nay/GIAO_VIEC_CLAUDE.md và làm theo từng bước 0 đến 11; bước nào lỗi thì ghi NHAT_KY.md rồi sang bước sau."
+
+Chạy không cần tác tử (chỉ script):
+
+cd /d %USERPROFILE%\brain2
+may_nha_toi_nay\chay_toi_nay.bat

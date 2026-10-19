@@ -1,3 +1,5 @@
+> **⚠ 19/10/2026 — MÁY NHÀ TỐI NAY: nếu bạn đang chạy trên máy nhà DESKTOP-05PNLGF, đọc `may_nha_toi_nay/GIAO_VIEC_CLAUDE.md` và làm theo từng bước 0 → 11.**
+
 > **⚠ 16/10/2026 — CHỈ THỊ CỦA CHỦ DỰ ÁN: đọc `CHI_THI_CHU_DU_AN.md` TRƯỚC. Nó thắng mọi luật chặt chẽ trong file này: mục tiêu chỉ là lợi nhuận; p-value/Holm/FDR/placebo/MDE/"hai nửa" chỉ là nhãn, không dùng để loại ý tưởng; may mắn/xu hướng/chế độ là hợp lệ, giữ và gắn điều kiện.**
 
 > **⚠ 18/10/2026 — SEEKER: tim KHO EA / chi bao / chien luoc VAN HANH DUOC (ky hieu ma, doc CA file, lay ve

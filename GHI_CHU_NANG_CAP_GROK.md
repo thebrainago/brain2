@@ -2214,3 +2214,18 @@ Gói zip cho máy nhà giờ có thêm mã nguồn các thẻ chờ dịch, bả
 
 Test dùng client giả, không gọi mạng thật.
 
+
+
+## 19/10/2026 — `may_nha_toi_nay/`: giao việc chạy máy nhà qua đêm
+
+- `may_nha_toi_nay/GIAO_VIEC_CLAUDE.md`: giao việc đủ cho tác tử không ngữ cảnh (bối cảnh, luật, bước 0–11, xử lý sự cố).
+  `CLAUDE.md`, `.cursorrules`, `.cursor/rules/may_nha_toi_nay.mdc` trong thư mục trỏ tới nó; `CLAUDE.md` gốc thêm một dòng trỏ.
+- `chay_toi_nay.ps1` (+ `.bat`): bước 0–11, `-Buoc "0,3-6"`, tự dò repo / Python / MT5 / MetaEditor / slot (ghi đè bằng
+  tham số hoặc biến `BRAIN_*`), mỗi bước try/catch rồi chạy tiếp, log ở `D:\brain2_log\toi_nay_<ngày>`, TEMP sang D:,
+  dừng tiến trình chỉ theo PID, không tắt máy. Biên dịch EA bằng đường dẫn tương đối (cwd = MQL5) + `/log`.
+- `dich_llm_nen.ps1`: dịch nền lặp `dich_llm --gioi_han 200` tới hết hàng, chờ khi chơi game.
+- `kiem_may.py`: bước 0, khoá chỉ báo CÓ/KHÔNG, slot chỉ đọc dòng `Server=`.
+- `mt5tools/sinh_viec.tu_ong_dan`: `BRAIN_UU_TIEN_CSV=1` cộng 200 điểm cho việc `KIEM_CSV` (test `test_uu_tien_csv_theo_bien_moi_truong`).
+- Kiểm: `pwsh 7.6.7` (bản chính thức, đã so sha256) phân tích cú pháp 2 script: 0 lỗi; chạy thử bước 2/5/6/8/11 trên repo giả
+  với python giả: giải nén + sao lưu DB, vòng dịch nền, commit chạy đúng. Chưa chạy được trên Windows thật: CHƯA ĐO ĐƯỢC.
+- Gói zip: tải lên Drive không được (kết nối Drive chỉ đọc). Thư mục Drive `brain2_may_nha` đã tạo nhưng trống. Grok Bot chép gói vào `D:\brain2_goi\` khi máy nhà kết nối.

@@ -1,0 +1,192 @@
+# Giao việc tối nay cho máy nhà (DESKTOP-05PNLGF) — đọc hết trước khi làm
+
+Bạn là tác tử (Claude Code, hoặc Cursor) chạy **một mình qua đêm** trên máy nhà Windows của chủ dự án.
+Bạn không có ngữ cảnh nào khác ngoài tệp này và các tệp nó chỉ tới. Mọi chữ cho người đọc viết **tiếng Việt có dấu**;
+chú thích trong mã viết không dấu. Làm **lần lượt bước 0 → 11**. **Bước nào lỗi thì ghi lại và chuyển sang bước sau**, không dừng cả đêm vì một bước.
+
+Script làm sẵn gần hết việc: `may_nha_toi_nay\chay_toi_nay.ps1` (gọi qua `chay_toi_nay.bat`). Việc của bạn là
+chạy nó theo từng bước, đọc log, **sửa chỗ hỏng** (nhất là lỗi biên dịch EA ở bước 4), và viết tóm tắt sáng.
+
+---
+
+## 1. Bối cảnh — đọc trước
+
+1. `CHI_THI_CHU_DU_AN.md` (gốc repo) — chỉ thị của chủ dự án, thắng mọi luật khác. Mục tiêu chỉ là **lợi nhuận**.
+   Phong cách chủ dự án: không cắt lỗ cứng, chốt lời nhỏ, DCA, hedge, gỡ.
+2. `tai_lieu/ONG_DAN.md` — ống dẫn: kho → phân loại → dịch → tối ưu Python → lọc → hàng MT5 → kho cơ chế.
+3. `tai_lieu/SLOT_TESTER.md`, `tai_lieu/CHAY_MAY_NHA.md`, `tai_lieu/VAN_HANH_MAY_NHA.md` — slot tester và cách chạy máy nhà.
+4. `GHI_CHU_NANG_CAP_GROK.md` — nhật ký nâng cấp gần nhất (tác vụ VAO_CSV + dịch LLM 19/10/2026).
+
+**Tiêu chí lọc:**
+- Lọc Python (MÔ PHỎNG): sụt vốn tối đa (DD) **< 65%** và lãi **> 15%/năm**.
+- Kết quả cuối (MT5, sau phí thật): DD **≤ 80%** và lãi **≥ 10%/năm**.
+- p-value, Holm, FDR, placebo… **chỉ là nhãn**, không dùng để loại ý tưởng.
+
+**Nhãn số liệu:** số từ Python ghi **MÔ PHỎNG**; phí chưa đo ghi **PHÍ TẠM**; thứ chưa đo ghi **CHƯA ĐO ĐƯỢC**.
+
+---
+
+## 2. Luật — không ngoại lệ
+
+1. **Ổ C không được phình.** Dữ liệu, log, tạm, tải về đều để **D:** hoặc **E:** (script tự đặt TEMP sang `D:\brain2_tmp`).
+   **CPU tối đa 90%** (`mt5tools/dieu_phoi_song_song.py` tự giảm tải; tiến trình Python để ưu tiên BelowNormal/Idle).
+2. **Không đưa khoá hay mật khẩu vào git, không bao giờ in khoá** ra màn hình, log hay tệp. Không mở, không đọc `E:\api.txt`.
+   Khoá chỉ lấy từ biến môi trường / cc-switch (mã đã làm sẵn trong `nhan/cau_llm.py`, tự che khoá trong log).
+   Bước 0 chỉ báo **CÓ / KHÔNG**.
+3. **Không vượt chặn bot**: không WARP, VPN, stealth, giải captcha, vượt Cloudflare. **Không đăng nhập** mạng xã hội
+   hay Telegram. **Không mua gì.** Trang bị chặn thì ghi lại là bị chặn rồi đi tiếp.
+4. **Đọc mã tải về trước khi chạy.** Mã của người khác **chỉ để trong `data/`** (git bỏ qua). Gói zip tối nay có mã người
+   khác nên **KHÔNG được vào git**.
+5. **Chỉ một phiên dùng MT5 tester tại một thời điểm.** Muốn dừng terminal thì chỉ `taskkill /PID <pid> /F` **theo PID của
+   terminal tester** do chính bạn mở — không bao giờ `taskkill /IM terminal64.exe`, không đụng terminal giao dịch của chủ.
+6. **Chỉ báo số đo được thật.** Chưa đo thì ghi `CHƯA ĐO ĐƯỢC`. Không ước lượng, không bịa.
+7. **Commit khi test qua** (`python -m pytest -q test_ong_dan.py test_dich_llm.py test_sinh_viec.py`), `git pull --rebase`
+   trước khi push, không `--force`. Ghi mọi việc vào `GHI_CHU_NANG_CAP_GROK.md` (hoặc `GHI_CHU_NANG_CAP_CLAUDE.md` nếu bạn
+   muốn ghi chú riêng) **và** `may_nha_toi_nay/NHAT_KY.md` (script tự ghi một dòng cho mỗi việc; bạn ghi thêm nhận xét).
+8. **Không tắt máy, không khởi động lại, không đăng xuất**, không cài driver, không đổi cài đặt Windows.
+9. Thư mục `data/`, `reports/SEEKER_*`, `reports/URL_BI_CHAN.md` thuộc tác vụ Seeker: chỉ để các script Seeker ghi, không sửa tay.
+10. Không `git stash` khi còn tiến trình nền đang ghi vào repo.
+
+**Điều kiện dừng / giảm tải:** khi chủ dự án **đang chơi game** (danh sách trong `mt5tools/dieu_phoi_song_song.py`, ví dụ
+Valorant, LoL, CS2) thì giảm tải: script tự chờ trước các bước nặng, hàng MT5 tự hạ số slot, dịch nền chờ hết game.
+Bạn không mở thêm việc nặng nào trong lúc đó.
+
+---
+
+## 3. Cách chạy
+
+Mở PowerShell tại gốc repo brain2 (thường là `%USERPROFILE%\brain2`):
+
+```powershell
+may_nha_toi_nay\chay_toi_nay.bat                        # tất cả bước theo thứ tự 0,1,2,3,4,5,6,9,10,7,8,11
+may_nha_toi_nay\chay_toi_nay.bat -Buoc "0"              # chỉ một bước
+may_nha_toi_nay\chay_toi_nay.bat -Buoc "3-6" -Den "06:30"
+```
+
+Nên chạy **từng bước hoặc từng cụm** (`-Buoc "0-2"`, rồi `"3"`, `"4"`…) để kịp đọc log và sửa. Bước 9 và 10 chạy
+trước bước 7 vì bước 7 giữ máy tới giờ `-Den` (mặc định 07:00).
+
+**Tham số / biến môi trường ghi đè** (khi tự dò sai):
+
+| Tham số | Biến môi trường | Mặc định dò |
+|---|---|---|
+| `-Repo` | `BRAIN_REPO` | thư mục cha của `may_nha_toi_nay` |
+| `-TheBrain` | `THE_BRAIN_DIR` | `C:\Research SP500\lab` |
+| `-Python` | `BRAIN_PY` | `.venv` của repo → `%LOCALAPPDATA%\Python\pythoncore-3.14-64\python.exe` → `python` trên PATH |
+| `-Mt5Exness` | `BRAIN_MT5_EXNESS` | `D:\mt5_tester\exness_cent\terminal64.exe` (dò thư mục tên có "exness") |
+| `-Mt5Xm` | `BRAIN_MT5_XM` | `D:\mt5_tester\xm_micro\terminal64.exe` (dò thư mục tên có "xm") |
+| `-MetaEditor` | `BRAIN_METAEDITOR` | `metaeditor64.exe` trong từng slot |
+| `-Slots` | `BRAIN_SLOTS` | `D:\mt5_tester\p1;D:\mt5_tester\p2;E:\mt5_tester\p3;E:\mt5_tester\p4` |
+| `-GoiZip` | `BRAIN_GOI_ZIP` | `goi_ea_ngoai_*.zip` mới nhất trong `D:\brain2_goi`, `E:\brain2_goi`, `Downloads` |
+| `-ThuMucLog` | `BRAIN_LOG_DIR` | `D:\brain2_log\toi_nay_<ngày>` (hoặc E:) |
+
+Khác: `-GioiHanThu 50` (bước 5), `-LuongLlm 4`, `-ToiDa 30` (bước 6), `-ChoDichXong`, `-KhongPush`.
+
+Log chi tiết từng lệnh: `<ThuMucLog>\<bước>.out.txt` / `.err.txt`. Tiến trình nền ghi PID ở `<ThuMucLog>\pid_<tên>.txt`;
+muốn dừng thì `Stop-Process -Id <pid>` đúng PID đó.
+
+---
+
+## 4. Các bước
+
+### Bước 0 — Kiểm máy
+`python may_nha_toi_nay/kiem_may.py --mt5 --terminal <XM> --terminal <Exness>` (script gọi sẵn). Ghi vào NHAT_KY:
+- dung lượng trống C:, D:, E: (C: dưới 15 GB thì không ghi thêm gì vào C);
+- phiên bản Python, các gói `numpy pandas MetaTrader5 psutil pyarrow requests` có/không (thiếu thì `pip install` gói đó, chỉ gói chuẩn từ PyPI);
+- MT5 Exness và XM: tìm thấy không, đã đăng nhập không, **tài khoản có phải hedging không** (tester cần hedging cho DCA/hedge);
+- mỗi slot tester `p1..p4` đang đăng nhập server nào (chỉ đọc dòng `Server=` trong `config\common.ini`);
+- `AIBOX_API_KEY` có/không, cc-switch provider `aibox` có/không — **chỉ CÓ/KHÔNG**.
+
+### Bước 1 — git pull
+`git -C <brain2> pull --rebase` và `git -C "C:\Research SP500\lab" pull --rebase` (the-brain, nhánh `claude/autonomous-trading-system-rzzt7h`).
+Pull lỗi vì có thay đổi chưa commit: xem `git status`, commit thay đổi của chính máy nhà nếu hợp lệ, rồi pull lại. Không `reset --hard`.
+
+### Bước 2 — Gói zip
+Gói: **`goi_ea_ngoai_20261019.zip`** (29,5 MB, 3.073 tệp: mã 2.306 thẻ chờ dịch, ảnh chụp `trang_thai.sqlite`,
+cache dịch, giá gói `data/ong_dan/gia_goi/`).
+
+**Gói ở đâu:** tải lên Google Drive **không làm được** (kết nối Drive của Grok Bot chỉ đọc, không nhận tệp). Đã tạo sẵn
+thư mục Drive `brain2_may_nha` (https://drive.google.com/drive/folders/1Wj-pbjBdb4kqpJay2p8WxMVbiBKFNQNB) nhưng **thư mục
+đang trống**. **Grok Bot sẽ chép gói vào `D:\brain2_goi\` khi máy nhà kết nối với Grok Bot.** Nếu chủ dự án tự tải gói về
+chỗ khác thì truyền `-GoiZip <đường dẫn>`.
+
+Script: sao lưu `data\ong_dan\trang_thai.sqlite` sang `D:\brain2_backup\trang_thai_<giờ>.sqlite` **trước**, giải nén ra thư
+mục tạm trên D:, rồi chỉ chép cây `data\` vào repo (không đè mã nguồn). Không thấy gói → bước này ghi `CHƯA CHẠY ĐƯỢC`,
+các bước sau vẫn chạy trên dữ liệu đang có (bước 5 khi đó có ít thẻ có mã).
+
+### Bước 3 — Đo phí sàn thật
+`python mt5tools/do_phi_san.py <terminal> --ngay-tick 14 --tp-gia 5 --ngay-lich-su 365` cho **Exness cent** rồi **XM micro**
+(như `may_nha/DO_PHI_SAN.cmd`). Terminal phải đang đăng nhập (đăng nhập là việc của chủ; bạn không nhập mật khẩu).
+Kết quả vào `reports/phi_san/<server>/` (`ma.csv`: spread, swap, hoa hồng, contract_size, lot min/max/step; `spread_gio.csv`).
+`nhan/tai_khoan.ho_so_phi` **tự** dùng tệp này và đổi nhãn `PHÍ TẠM` → `ĐO (<server>)` — không cần sửa code.
+Kiểm: mở `ma.csv`, xem cột `hop_dong`, `lot_min`, `swap_mua/ban` có giá trị thật. Ghi vào NHAT_KY.
+Kết quả tối ưu đã có trong `trang_thai.sqlite` vẫn tính bằng PHÍ TẠM — **không xoá DB**; ghi vào KET_QUA_SANG đề xuất tính lại.
+Một sàn không đo được → ghi `CHƯA ĐO ĐƯỢC` cho sàn đó.
+
+### Bước 4 — Biên dịch EA
+`ea_demo\BRAIN_XuLiLenh.mq5` (bản 1.10 có chế độ VAO_CSV, **chưa biên dịch lần nào**). Script chép vào
+`<slot>\MQL5\Experts\BRAIN\` rồi chạy trong thư mục `<slot>\MQL5`:
+
+```
+metaeditor64.exe /compile:Experts\BRAIN\BRAIN_XuLiLenh.mq5 /log:Experts\BRAIN\BRAIN_XuLiLenh.log
+```
+
+**Bẫy:** đường dẫn tuyệt đối trong `/compile:` trả rc=0 mà không làm gì. Phải dùng đường dẫn **tương đối**, cwd = `MQL5`
+(xem `ea_tu_dong.py` dòng ~140). Đọc log (UTF-16) — dòng `N errors, M warnings`. Có lỗi: **sửa `ea_demo\BRAIN_XuLiLenh.mq5`
+trong repo** (không sửa bản trong slot), chạy lại `-Buoc 4` tới khi 0 lỗi và `.ex5` mới xuất hiện ở mọi slot. Commit bản sửa
+(`git add ea_demo/BRAIN_XuLiLenh.mq5`), ghi nguyên nhân từng lỗi vào GHI_CHU.
+
+### Bước 5 — Dịch bằng LLM
+Thử trước: `python ong_dan.py dich_llm --gioi_han 50 --luong 4`. Kiểm `reports/ong_dan/DICH_LLM.md`:
+tỉ lệ `DAT` / `HONG` / `LOI_LLM`, số token, model dùng (qwen3.7-flash, tự lùi qwen3.6-flash khi 403/402/hết quota).
+Thẻ đạt phải qua kiểm tự động (không nhìn trước ở cắt 50/70/90%, ≥ 3 lệnh). Nếu `LOI_LLM` chiếm gần hết → dừng, ghi lý do.
+Ổn thì script mở **nền** `may_nha_toi_nay\dich_llm_nen.ps1` (lặp `dich_llm --gioi_han 200`, chạy lại được nhờ cache theo
+sha256; dừng khi hết hàng hoặc 3 lượt liền không làm được thẻ nào). Không có khoá → `CHƯA CHẠY ĐƯỢC`, sang bước 6.
+
+### Bước 6 — Ống dẫn
+`python ong_dan.py chay --toi-da 30` (tối ưu Python các thẻ mới dịch + lọc 65/15 ở lot thật + sinh việc MT5 + kho cơ chế).
+Có thể chạy lại sau khi dịch nền làm thêm được nhiều thẻ.
+
+### Bước 7 — Hàng MT5
+Chỉ khi **không có phiên nào khác đang dùng tester**. Script đọc server của từng slot, rồi chạy lần lượt
+`BRAIN_SAN_TESTER=XM` rồi `BRAIN_SAN_TESTER=Exness`: `python mt5tools/chay_lien_tuc.py --den <giờ>` (chia đôi thời gian tới
+`-Den`). `BRAIN_UU_TIEN_CSV=1` đẩy việc `KIEM_CSV` (đối chiếu lệnh Python ↔ MT5 của các hệ đạt) lên đầu; việc của
+28 hệ top đã có điểm cao sẵn. Slot đăng nhập lẫn sàn → việc sàn kia trên slot sai sẽ lỗi; ghi cảnh báo để chủ đăng nhập lại.
+Sàn không có slot nào đăng nhập → `CHƯA ĐO ĐƯỢC`.
+
+### Bước 8 — Đọc kết quả MT5
+`python ong_dan.py doc_mt5` rồi `python ong_dan.py bao_cao`. Xem `reports/ong_dan/DOI_CHIEU_MT5.md` (sai số cho phép:
+±1 nến, 3×spread + 0,05% giá, 1 bước lot, ≥ 95% lệnh khớp, chênh lãi/lỗ ≤ 10% hoặc ≤ 1% vốn).
+
+### Bước 9 — Tải Dukascopy (nền)
+`python tai_dukascopy_tick_m1.py --luong 4` với `DU_LIEU_CHUAN=D:\du_lieu_chuan`, ưu tiên Idle. Script tự dừng khi ổ
+còn dưới 15 GB. Đây là trang công khai, không cần đăng nhập.
+
+### Bước 10 — Seeker từ máy nhà
+Box bị chặn IP ở vài nguồn (`reports/SEEKER_BOX_DO.json`, mục `ok: false`: arxiv, quantconnect, RSS Financial Hacker,
+RSS reddit quant, gestaltu). Chạy lại **chỉ các nguồn đó** từ máy nhà: `python seeker_quet_nguon.py --chi <ds> --ep`
+(tôn trọng robots.txt, ≥ 4 giây/yêu cầu). Chỉ đọc trang công khai bình thường; bị chặn thì ghi lại, không vượt.
+Rồi đọc thêm tệp tay trong `E:\brain2_nhap` qua `python ong_dan.py nhan` → `phan_loai` → `quyet_dinh`.
+
+### Bước 11 — Commit + tóm tắt sáng
+Script sinh khung `may_nha_toi_nay/KET_QUA_SANG.md` (bảng trạng thái từng bước + trích báo cáo), quét diff tìm chuỗi giống
+khoá, rồi `git add reports/ may_nha_toi_nay/NHAT_KY.md may_nha_toi_nay/KET_QUA_SANG.md GHI_CHU_*.md`, commit,
+`git pull --rebase`, push. **Không bao giờ add `data/` hay tệp zip.**
+Sau đó **bạn viết thêm phần tóm tắt cho người** ở đầu KET_QUA_SANG.md (tiếng Việt có dấu, ngắn):
+đã đo phí chưa (số thật), EA biên dịch được chưa, dịch được bao nhiêu thẻ / đạt bao nhiêu, bao nhiêu việc MT5 chạy xong,
+hệ nào qua lọc cuối (DD ≤ 80%, ≥ 10%/năm sau phí) — **chỉ số đo được**, còn lại `CHƯA ĐO ĐƯỢC`; việc chủ cần làm
+(đăng nhập slot nào, cấp khoá…). Commit + push lần nữa.
+
+---
+
+## 5. Khi gặp sự cố
+
+| Sự cố | Làm gì |
+|---|---|
+| Bước lỗi | Ghi NHAT_KY (lệnh, mã lỗi, 5 dòng cuối log), sang bước sau. |
+| Thiếu gói Python | `pip install <gói>` (PyPI chính thức), ghi lại. |
+| Terminal chưa đăng nhập | Không tự nhập mật khẩu. Ghi `CHƯA ĐO ĐƯỢC`, để chủ đăng nhập. |
+| Tester treo > 2 giờ một việc | Dừng **đúng PID** terminal tester đó, ghi lại; `chay_lien_tuc.py` tự làm việc kế. |
+| Ổ D/E còn < 15 GB | Dừng Dukascopy (Stop-Process PID trong `pid_dukascopy.txt`). |
+| Push bị từ chối | `git pull --rebase` rồi push lại; xung đột thì giữ bản của cả hai, không `--force`. |
+| Trang web chặn / captcha | Ghi bị chặn, bỏ qua. |
