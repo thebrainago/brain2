@@ -1,0 +1,754 @@
+{
+ "server": "XMGlobal-MT5 10",
+ "tien_te": "USD",
+ "ma": {
+  "AUDCAD": {
+   "symbol": "AUDCADmicro",
+   "cac_ten": [
+    "AUDCADmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 710.1919648881093
+  },
+  "AUDCHF": {
+   "symbol": "AUDCHFmicro",
+   "cac_ten": [
+    "AUDCHFmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 1212.018374198553
+  },
+  "AUDJPY": {
+   "symbol": "AUDJPYmicro",
+   "cac_ten": [
+    "AUDJPYmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 3,
+   "tien_moi_gia_1lot": 6.319035462427014
+  },
+  "AUDNZD": {
+   "symbol": "AUDNZDmicro",
+   "cac_ten": [
+    "AUDNZDmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 566.91
+  },
+  "AUDUSD": {
+   "symbol": "AUDUSDmicro",
+   "cac_ten": [
+    "AUDUSDmicro",
+    "AUDUSD"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 999.9999999999999
+  },
+  "BTCUSD": {
+   "symbol": "BTCUSD",
+   "cac_ten": [
+    "BTCUSD"
+   ],
+   "lot_min": 0.01,
+   "buoc_lot": 0.01,
+   "chu_so": 2,
+   "tien_moi_gia_1lot": 1.0
+  },
+  "CADCHF": {
+   "symbol": "CADCHFmicro",
+   "cac_ten": [
+    "CADCHFmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 1212.018374198553
+  },
+  "CADJPY": {
+   "symbol": "CADJPYmicro",
+   "cac_ten": [
+    "CADJPYmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 3,
+   "tien_moi_gia_1lot": 6.318955603017933
+  },
+  "CHFJPY": {
+   "symbol": "CHFJPYmicro",
+   "cac_ten": [
+    "CHFJPYmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 3,
+   "tien_moi_gia_1lot": 6.318995532470159
+  },
+  "CHFSGD": {
+   "symbol": "CHFSGDmicro",
+   "cac_ten": [
+    "CHFSGDmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 781.1401521661015
+  },
+  "EU50": {
+   "symbol": "EU50Cash",
+   "cac_ten": [
+    "EU50Cash"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.1,
+   "chu_so": 2,
+   "tien_moi_gia_1lot": 1.0
+  },
+  "EURAUD": {
+   "symbol": "EURAUDmicro",
+   "cac_ten": [
+    "EURAUDmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 698.35
+  },
+  "EURCAD": {
+   "symbol": "EURCADmicro",
+   "cac_ten": [
+    "EURCADmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 710.4190051292252
+  },
+  "EURCHF": {
+   "symbol": "EURCHFmicro",
+   "cac_ten": [
+    "EURCHFmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 1211.9449292224162
+  },
+  "EURDKK": {
+   "symbol": "EURDKKmicro",
+   "cac_ten": [
+    "EURDKKmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 150.10439760853674
+  },
+  "EURGBP": {
+   "symbol": "EURGBPmicro",
+   "cac_ten": [
+    "EURGBPmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 1332.61
+  },
+  "EURHKD": {
+   "symbol": "EURHKDmicro",
+   "cac_ten": [
+    "EURHKDmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 127.38204422704572
+  },
+  "EURHUF": {
+   "symbol": "EURHUFmicro",
+   "cac_ten": [
+    "EURHUFmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 3,
+   "tien_moi_gia_1lot": 3.086724614776768
+  },
+  "EURJPY": {
+   "symbol": "EURJPYmicro",
+   "cac_ten": [
+    "EURJPYmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 3,
+   "tien_moi_gia_1lot": 6.317558390033421
+  },
+  "EURNOK": {
+   "symbol": "EURNOKmicro",
+   "cac_ten": [
+    "EURNOKmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 106.20705915839402
+  },
+  "EURNZD": {
+   "symbol": "EURNZDmicro",
+   "cac_ten": [
+    "EURNZDmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 567.0699999999999
+  },
+  "EURPLN": {
+   "symbol": "EURPLNmicro",
+   "cac_ten": [
+    "EURPLNmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 256.56880277299564
+  },
+  "EURSEK": {
+   "symbol": "EURSEKmicro",
+   "cac_ten": [
+    "EURSEKmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 101.02918430046887
+  },
+  "EURSGD": {
+   "symbol": "EURSGDmicro",
+   "cac_ten": [
+    "EURSGDmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 781.03033521822
+  },
+  "EURTRY": {
+   "symbol": "EURTRYmicro",
+   "cac_ten": [
+    "EURTRYmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 20.170607028367336
+  },
+  "EURUSD": {
+   "symbol": "EURUSDmicro",
+   "cac_ten": [
+    "EURUSDmicro",
+    "EURUSD"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 999.9999999999999
+  },
+  "EURZAR": {
+   "symbol": "EURZARmicro",
+   "cac_ten": [
+    "EURZARmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 60.783622460764185
+  },
+  "FRA40": {
+   "symbol": "FRA40Cash",
+   "cac_ten": [
+    "FRA40Cash"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.1,
+   "chu_so": 2,
+   "tien_moi_gia_1lot": 1.0
+  },
+  "GBPAUD": {
+   "symbol": "GBPAUDmicro",
+   "cac_ten": [
+    "GBPAUDmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 698.2600000000001
+  },
+  "GBPCAD": {
+   "symbol": "GBPCADmicro",
+   "cac_ten": [
+    "GBPCADmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 710.2928537435985
+  },
+  "GBPCHF": {
+   "symbol": "GBPCHFmicro",
+   "cac_ten": [
+    "GBPCHFmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 1211.7833816027046
+  },
+  "GBPDKK": {
+   "symbol": "GBPDKKmicro",
+   "cac_ten": [
+    "GBPDKKmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 150.07511259385322
+  },
+  "GBPJPY": {
+   "symbol": "GBPJPYmicro",
+   "cac_ten": [
+    "GBPJPYmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 3,
+   "tien_moi_gia_1lot": 6.318396643667703
+  },
+  "GBPNOK": {
+   "symbol": "GBPNOKmicro",
+   "cac_ten": [
+    "GBPNOKmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 106.17311739136898
+  },
+  "GBPNZD": {
+   "symbol": "GBPNZDmicro",
+   "cac_ten": [
+    "GBPNZDmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 567.02
+  },
+  "GBPSEK": {
+   "symbol": "GBPSEKmicro",
+   "cac_ten": [
+    "GBPSEKmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 100.99204485662666
+  },
+  "GBPSGD": {
+   "symbol": "GBPSGDmicro",
+   "cac_ten": [
+    "GBPSGDmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 781.0425355764875
+  },
+  "GBPUSD": {
+   "symbol": "GBPUSDmicro",
+   "cac_ten": [
+    "GBPUSDmicro",
+    "GBPUSD"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 999.9999999999999
+  },
+  "GER40": {
+   "symbol": "GER40Cash",
+   "cac_ten": [
+    "GER40Cash"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.1,
+   "chu_so": 2,
+   "tien_moi_gia_1lot": 1.0
+  },
+  "JP225": {
+   "symbol": "JP225Cash",
+   "cac_ten": [
+    "JP225Cash"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.1,
+   "chu_so": 0,
+   "tien_moi_gia_1lot": 1.0
+  },
+  "NZDCAD": {
+   "symbol": "NZDCADmicro",
+   "cac_ten": [
+    "NZDCADmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 708.576611303214
+  },
+  "NZDCHF": {
+   "symbol": "NZDCHFmicro",
+   "cac_ten": [
+    "NZDCHFmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 1211.4604155309225
+  },
+  "NZDJPY": {
+   "symbol": "NZDJPYmicro",
+   "cac_ten": [
+    "NZDJPYmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 3,
+   "tien_moi_gia_1lot": 6.3171193935565375
+  },
+  "NZDSGD": {
+   "symbol": "NZDSGDmicro",
+   "cac_ten": [
+    "NZDSGDmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 780.9327460719081
+  },
+  "NZDUSD": {
+   "symbol": "NZDUSDmicro",
+   "cac_ten": [
+    "NZDUSDmicro",
+    "NZDUSD"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 999.9999999999999
+  },
+  "SGDJPY": {
+   "symbol": "SGDJPYmicro",
+   "cac_ten": [
+    "SGDJPYmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 3,
+   "tien_moi_gia_1lot": 6.316999677833016
+  },
+  "UK100": {
+   "symbol": "UK100Cash",
+   "cac_ten": [
+    "UK100Cash"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.1,
+   "chu_so": 2,
+   "tien_moi_gia_1lot": 1.0
+  },
+  "UKOIL": {
+   "symbol": "BRENTCash",
+   "cac_ten": [
+    "BRENTCash"
+   ],
+   "lot_min": 0.01,
+   "buoc_lot": 0.01,
+   "chu_so": 2,
+   "tien_moi_gia_1lot": 100.0
+  },
+  "US100": {
+   "symbol": "US100Cash",
+   "cac_ten": [
+    "US100Cash"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.1,
+   "chu_so": 2,
+   "tien_moi_gia_1lot": 1.0
+  },
+  "US30": {
+   "symbol": "US30Cash",
+   "cac_ten": [
+    "US30Cash"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.1,
+   "chu_so": 2,
+   "tien_moi_gia_1lot": 1.0
+  },
+  "US500": {
+   "symbol": "US500Cash",
+   "cac_ten": [
+    "US500Cash"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.1,
+   "chu_so": 2,
+   "tien_moi_gia_1lot": 1.0
+  },
+  "USDCAD": {
+   "symbol": "USDCADmicro",
+   "cac_ten": [
+    "USDCADmicro",
+    "USDCAD"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 709.084076098903
+  },
+  "USDCHF": {
+   "symbol": "USDCHFmicro",
+   "cac_ten": [
+    "USDCHFmicro",
+    "USDCHF"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 1210.6977250989746
+  },
+  "USDCNH": {
+   "symbol": "USDCNHmicro",
+   "cac_ten": [
+    "USDCNHmicro",
+    "USDCNH"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 4,
+   "tien_moi_gia_1lot": 149.63339817447255
+  },
+  "USDDKK": {
+   "symbol": "USDDKKmicro",
+   "cac_ten": [
+    "USDDKKmicro",
+    "USDDKK"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 149.97922787693904
+  },
+  "USDHKD": {
+   "symbol": "USDHKDmicro",
+   "cac_ten": [
+    "USDHKDmicro",
+    "USDHKD"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 4,
+   "tien_moi_gia_1lot": 127.38204422704574
+  },
+  "USDHUF": {
+   "symbol": "USDHUFmicro",
+   "cac_ten": [
+    "USDHUFmicro",
+    "USDHUF"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 3,
+   "tien_moi_gia_1lot": 3.0889175815010907
+  },
+  "USDJPY": {
+   "symbol": "USDJPYmicro",
+   "cac_ten": [
+    "USDJPYmicro",
+    "USDJPY"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 3,
+   "tien_moi_gia_1lot": 6.314367079415795
+  },
+  "USDMXN": {
+   "symbol": "USDMXNmicro",
+   "cac_ten": [
+    "USDMXNmicro",
+    "USDMXN"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 54.08565761939814
+  },
+  "USDNOK": {
+   "symbol": "USDNOKmicro",
+   "cac_ten": [
+    "USDNOKmicro",
+    "USDNOK"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 106.09550505173746
+  },
+  "USDPLN": {
+   "symbol": "USDPLNmicro",
+   "cac_ten": [
+    "USDPLNmicro",
+    "USDPLN"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 256.349127003048
+  },
+  "USDSEK": {
+   "symbol": "USDSEKmicro",
+   "cac_ten": [
+    "USDSEKmicro",
+    "USDSEK"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 100.90664621625305
+  },
+  "USDSGD": {
+   "symbol": "USDSGDmicro",
+   "cac_ten": [
+    "USDSGDmicro",
+    "USDSGD"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 780.8717652387127
+  },
+  "USDTRY": {
+   "symbol": "USDTRYmicro",
+   "cac_ten": [
+    "USDTRYmicro",
+    "USDTRY"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 5,
+   "tien_moi_gia_1lot": 20.17048090460573
+  },
+  "USDZAR": {
+   "symbol": "USDZARmicro",
+   "cac_ten": [
+    "USDZARmicro",
+    "USDZAR"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 4,
+   "tien_moi_gia_1lot": 60.79988326422413
+  },
+  "USOIL": {
+   "symbol": "OILCash",
+   "cac_ten": [
+    "OILCash"
+   ],
+   "lot_min": 0.01,
+   "buoc_lot": 0.01,
+   "chu_so": 2,
+   "tien_moi_gia_1lot": 100.0
+  },
+  "XAGUSD": {
+   "symbol": "SILVERmicro",
+   "cac_ten": [
+    "SILVERmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 3,
+   "tien_moi_gia_1lot": 50.0
+  },
+  "XAUCNH": {
+   "symbol": "XAUCNHmicro",
+   "cac_ten": [
+    "XAUCNHmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 2,
+   "tien_moi_gia_1lot": 1.0
+  },
+  "XAUEUR": {
+   "symbol": "XAUEURmicro",
+   "cac_ten": [
+    "XAUEURmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 2,
+   "tien_moi_gia_1lot": 1.0
+  },
+  "XAUJPY": {
+   "symbol": "XAUJPYmicro",
+   "cac_ten": [
+    "XAUJPYmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 0,
+   "tien_moi_gia_1lot": 1.0
+  },
+  "XAUUSD": {
+   "symbol": "GOLDmicro",
+   "cac_ten": [
+    "GOLDmicro"
+   ],
+   "lot_min": 0.1,
+   "buoc_lot": 0.01,
+   "chu_so": 2,
+   "tien_moi_gia_1lot": 1.0
+  },
+  "XPDUSD": {
+   "symbol": "XPDUSDmicro",
+   "cac_ten": [
+    "XPDUSDmicro"
+   ],
+   "lot_min": 1.0,
+   "buoc_lot": 1.0,
+   "chu_so": 2,
+   "tien_moi_gia_1lot": 1.0
+  },
+  "XPTUSD": {
+   "symbol": "XPTUSDmicro",
+   "cac_ten": [
+    "XPTUSDmicro"
+   ],
+   "lot_min": 1.0,
+   "buoc_lot": 1.0,
+   "chu_so": 2,
+   "tien_moi_gia_1lot": 1.0
+  }
+ }
+}

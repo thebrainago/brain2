@@ -1,0 +1,21 @@
+{
+ "server": "XMGlobal-MT5 10",
+ "company": "XM Global Limited",
+ "tien_te": "USD",
+ "don_bay": 1000,
+ "trade_mode": "REAL",
+ "margin_mode": "RETAIL_HEDGING",
+ "so_mode": "PERCENT",
+ "margin_call": 50.0,
+ "stop_out": 20.0,
+ "do_luc": "2026-10-19T19:05:46",
+ "gio_doi_ngay": [
+  23,
+  0,
+  1
+ ],
+ "cam_doi_ngay": [
+  23,
+  2
+ ]
+}
