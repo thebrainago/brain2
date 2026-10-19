@@ -1302,6 +1302,21 @@ def _cot_loi_mt5(net: float | None, dd_chuoi: str | None, von: float, nam: float
     return ph
 
 
+def _nam_viec(v: dict | None, cfg: dict) -> float:
+    """So NAM that cua mot viec MT5 (tu -> den cua CHINH viec do). 19/10/2026: truoc day moi viec chia cho
+    mt5_den.year - mt5_tu.year (~10 nam) -> viec KIEM_CSV 1,3-2,8 nam bi ha lai/nam 3,5-7,5 lan, he dat bi TRUOT_CUOI."""
+    import datetime as _dt
+
+    def _d(x):
+        return _dt.datetime.strptime(str(x)[:10].replace("-", "."), "%Y.%m.%d")
+    v = v or {}
+    try:
+        return max((_d(v.get("den") or cfg.get("mt5_den", "2026.10.01")) -
+                    _d(v.get("tu") or cfg.get("mt5_tu", "2016.01.01"))).days / 365.25, 1.0 / 12)
+    except (ValueError, TypeError):
+        return float(int(cfg.get("mt5_den", "2026.10.01")[:4]) - int(cfg.get("mt5_tu", "2016.01.01")[:4]))
+
+
 def buoc_doc_mt5(cn, in_ra=print) -> dict:
     """Doc ket qua MT5 tra ve: so cai chay_lien_tuc (dong nguon=ong_dan) + reports/ong_dan/ket_qua_mt5/*.htm|*.xml."""
     cfg = cau_hinh()
@@ -1333,7 +1348,7 @@ def buoc_doc_mt5(cn, in_ra=print) -> dict:
             for p in ps:
                 dd = p.get("Equity DD %")
                 if isinstance(dd, float) and isinstance(p.get("Profit"), float):
-                    ph = _cot_loi_mt5(p["Profit"], "(%s%%)" % dd, von, nam)
+                    ph = _cot_loi_mt5(p["Profit"], "(%s%%)" % dd, von, _nam_viec(v, cfg))
                     if ph["dat"] and (tot is None or p["Profit"] > tot["Profit"]):
                         tot = dict(p, _ph=ph)
             ket.setdefault(tid, []).append({"ten": f.stem, "pha": "TOI_UU", "so_pass": len(ps), "pass_dat_tot_nhat": tot})
@@ -1371,7 +1386,8 @@ def buoc_doc_mt5(cn, in_ra=print) -> dict:
                 elif r.get("loi"):
                     ph_ds.append({"dat": False, "ly_do": ["CHUA_DO_DUOC: %s" % r["loi"]]})
                 else:
-                    ph_ds.append(_cot_loi_mt5(r.get("net"), r.get("dd"), float(r.get("von") or cfg.get("von", 1000.0)), nam))
+                    ph_ds.append(_cot_loi_mt5(r.get("net"), r.get("dd"), float(r.get("von") or cfg.get("von", 1000.0)),
+                                              _nam_viec(hang.get(r.get("ten") or "") or r, cfg)))
             if any(p["dat"] for p in ph_ds):
                 moi = "DAT_CUOI"
             elif all("CHUA_DO_DUOC" in " ".join(p.get("ly_do", [])) for p in ph_ds):

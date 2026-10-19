@@ -223,7 +223,7 @@ def main():
                 ly = AT.phan_xu_ket_qua(r, rec["giay"])
                 if ly:
                     rec["loi"] = ly       # CHUA_DO_DUOC: duoc thu lai (sinh_viec), khong tinh la "da thu, khong lai"
-                cb = AT.kiem_don_bay(r.get("don_bay_bc"), DON_BAY)
+                cb = AT.kiem_don_bay(r.get("don_bay_bc"), int(v.get("don_bay") or DON_BAY))
                 if cb:
                     rec["canh_bao_don_bay"] = cb
                 SV.ghi(rec)
@@ -268,7 +268,13 @@ def main():
                 cap += list(zip(ds, vs))
             for s, v in cap:
                 ten = v["ten"] if v.get("nguon") == "ong_dan" and v.get("ten") else "lt_%s_%s_%s_%s_%s" % (v["ea"], re.sub(r"[^A-Za-z0-9]", "", v["ma"]), v["tf"], v["pha"], format(abs(hash(SV.khoa(v))) % 10**8, "08d"))
-                chay[s] = (phong(s, v, ten), v, ten, time.time())
+                try:
+                    chay[s] = (phong(s, v, ten), v, ten, time.time())
+                except Exception as e:      # 19/10/2026: CSV thieu / file Common bi khoa -> ghi loi, KHONG dung ca hang
+                    rec = _ban_ghi(v); rec.update(loi="khong_phong_duoc: %s" % str(e)[:200], giay=0, luc=now.isoformat(timespec="seconds"))
+                    SV.ghi(rec)
+                    log("KHONG PHONG DUOC %s: %s" % (ten, e))
+                    continue
                 log("PHONG %s %s muc=%s %s" % (ten, s, muc, json.dumps(v["ts"])))
                 time.sleep(3)
         ha_uu_tien()

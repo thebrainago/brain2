@@ -265,6 +265,8 @@ def main() -> None:
             sb = [float(x) * i.point for x in b["spread"][-24 * 250:] if x > 0]
             r["H1_spread_bar_p50_gia_1nam"] = phan_vi(sb, .5)
         rows.append(r); print("ok", g, i.name, r.get("spread_p50_gia"), r.get("gian_doi_ngay_x"), r.get("swap_mode"), flush=True)
+        if len(rows) % 10 == 0:          # 19/10/2026: ghi dan - bi dung giua chung (han gio) van con ma.csv phan da do
+            _ghi_csv(ra / "ma.csv", rows); _ghi_csv(ra / "spread_gio.csv", gio_rows)
     _ghi_csv(ra / "ma.csv", rows); _ghi_csv(ra / "spread_gio.csv", gio_rows)
     (ra / "ma_san.json").write_text(json.dumps({"server": ai.server, "tien_te": ai.currency, "ma": chon}, ensure_ascii=False, indent=1), encoding="utf-8")
     ds = mt5.history_deals_get(datetime.now() - timedelta(days=a.ngay_lich_su), datetime.now() + timedelta(days=1))

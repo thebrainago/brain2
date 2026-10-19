@@ -27,7 +27,7 @@ param(
     [string]$ThuMucLog = $env:BRAIN_LOG_DIR,
     [string]$Slots = $env:BRAIN_SLOTS,          # "D:\mt5_tester\p1;D:\mt5_tester\p2;..." - mặc định giống mt5tools/chay_lien_tuc.py
     [string]$Den = "07:00",                     # giờ dừng hàng MT5 (bước 7)
-    [int]$GioiHanThu = 50,                      # bước 5: số thẻ dịch thử
+    [int]$GioiHanThu = 20,                      # bước 5: số thẻ dịch thử
     [int]$LuongLlm = 4,
     [int]$ToiDa = 30,                           # bước 6: số thẻ tối ưu mỗi lần
     [switch]$ChoDichXong,                       # bước 5: chờ dịch nền xong rồi mới sang bước 6
@@ -325,7 +325,7 @@ Buoc 3 "Đo phí sàn thật (Exness cent, XM micro)" {
     $r = @()
     foreach ($cap in @(@("Exness", $Mt5Exness), @("XM", $Mt5Xm))) {
         if (-not $cap[1]) { $r += "$($cap[0]): CHƯA ĐO ĐƯỢC (không thấy terminal)"; continue }
-        $rc = ChayPy @("mt5tools/do_phi_san.py", $cap[1], "--ngay-tick", "14", "--tp-gia", "5", "--ngay-lich-su", "365") "b3_phi_$($cap[0])" 60
+        $rc = ChayPy @("mt5tools/do_phi_san.py", $cap[1], "--ngay-tick", "14", "--tp-gia", "5", "--ngay-lich-su", "365") "b3_phi_$($cap[0])" 120
         if ($rc -eq 0) { $r += "$($cap[0]): ĐO xong" } else { $r += "$($cap[0]): CHƯA ĐO ĐƯỢC (rc=$rc - terminal chưa đăng nhập?)" }
     }
     Get-ChildItem (Join-Path $Repo "reports\phi_san") -Directory -ErrorAction SilentlyContinue | ForEach-Object { Ghi "  reports\phi_san\$($_.Name)" }
@@ -403,7 +403,9 @@ Buoc 5 "dich_llm thử $GioiHanThu thẻ rồi chạy nền hết" {
     $rc = ChayPy @("ong_dan.py", "dich_llm", "--gioi_han", "$GioiHanThu", "--luong", "$LuongLlm") "b5_dich_thu" 120
     $out = Get-Content (Join-Path $ThuMucLog "b5_dich_thu.out.txt") -Raw -Encoding UTF8
     if ($out -match "CHUA CHAY DUOC") { return "CHƯA CHẠY ĐƯỢC: máy này không có khoá (AIBOX_API_KEY / cc-switch)" }
-    if ($rc -ne 0) { throw "dich_llm thử lỗi rc=$rc" }
+    # 19/10/2026: lượt thử quá giờ / lỗi vẫn mở dịch nền (cache theo sha256 nên không mất công đã gọi); chỉ dừng khi
+    # chắc chắn LLM hỏng hết (bên dưới) hoặc không có khoá (bên trên)
+    if ($rc -ne 0) { Ghi "  dịch thử rc=$rc - vẫn mở dịch nền (xem b5_dich_thu.err.txt)" }
     $dem = $null
     $m = [regex]::Matches($out, '(?ms)^\{\s*$.*?^\}\s*$')
     if ($m.Count -gt 0) { try { $dem = $m[$m.Count - 1].Value | ConvertFrom-Json } catch { } }

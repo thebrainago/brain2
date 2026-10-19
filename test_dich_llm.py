@@ -276,3 +276,27 @@ def test_gia_goi_cho_may_nha(tmp_path, monkeypatch):
     assert OD.ma_co_du_lieu(cfg) == ["ZZZUSD"]
     g = OD.gia("ZZZUSD", "H1", cfg)
     assert len(g) == 400 and abs(g["close"].iloc[-1] - df["close"].iloc[-1]) < 1e-9
+
+
+def test_ra_soat_19_10_hop_cat_va_nhin_truoc_va_tra_loi_la():
+    # H2: goi phuong thuc theo TEN CHUOI tung ghi duoc file tuy y
+    assert HC.kiem_ast("def tin_hieu(df):\n    df['close'].apply('to_csv', args=('x.csv',))\n    return 0")
+    assert HC.kiem_ast("def tin_hieu(df):\n    return df.agg('read_csv')")
+    # H3: rolling(center=True) tung DAT voi 18 lenh
+    assert any("NHIN TRUOC" in x for x in HC.kiem_ast(
+        "def tin_hieu(df):\n    m = df['close'].rolling(9, center=True).mean()\n    return np.where(df['close'] > m, 1, -1)\n"))
+    assert any("NHIN TRUOC" in x for x in HC.kiem_ast("def tin_hieu(df):\n    return df['close'].diff(-2)"))
+    ok = "def tin_hieu(df):\n    m = df['close'].rolling(30, center=False).mean()\n    return np.where(df['close'] > m, 1, -1)\n"
+    assert not HC.kiem_ast(ok)
+    # H1: chua_dich null / chuoi / list dict khong lam sap boc_tach
+    from nhan import cau_llm as L
+    for cd in (None, "x", [{"a": 1}], 5):
+        d = {"chua_dich": cd, "spec": [{"sai": 1}, "chuoi"], "python": None}
+        import json
+        orig = L.goi
+        L.goi = lambda *a, **k: {"trang_thai": "OK", "van_ban": json.dumps(d), "model": "gia"}
+        try:
+            out = L.boc_tach("void OnTick(){}")
+        finally:
+            L.goi = orig
+        assert out["trang_thai"] == "OK" and all(isinstance(x, str) for x in out["chua_dich"]) and out["spec"] == []

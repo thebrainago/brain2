@@ -84,8 +84,8 @@ def danh_sach_cho(cn) -> list[dict]:
             continue                                    # da dich (cache) - lan sau chi lam lai khi ma doi
         ra.append({"the": t, "buoc": b, "tt": tt, "kq": kq, "nhom": nh, "tep": _tep(t),
                    "top28": bool((t.get("seeker") or {}).get("top28"))})
-    ra.sort(key=lambda x: (not x["top28"], x["nhom"] != "llm", x["tep"] is None, int(x["the"].get("uu_tien", 9)),
-                           x["the"]["id"]))
+    ra.sort(key=lambda x: (int(x["the"].get("dich_llm_loi_lan") or 0) >= 2, not x["top28"], x["nhom"] != "llm",
+                           x["tep"] is None, int(x["the"].get("uu_tien", 9)), x["the"]["id"]))
     return ra
 
 
@@ -112,7 +112,9 @@ def gia_mau(cfg: dict | None = None, n: int = 3000) -> tuple[pd.DataFrame, str]:
 def kiem_tra(d: dict, df: pd.DataFrame) -> dict:
     """Kiem ket qua LLM (spec hoac python) tren gia mau. -> {dat, kieu, ly_do[], so_lenh}."""
     n = len(df)
-    cat = [int(n * 0.5), int(n * 0.7), int(n * 0.9)]
+    # 19/10/2026: 3 diem cat chi kiem ~3 nen cuoi cua moi doan -> rolling(center=True) lot qua (18 lenh, DAT).
+    # Nay 24 diem cat rai 30-99 % + mot diem lech (khong trung nhip 24 nen).
+    cat = sorted({int(n * f) for f in np.linspace(0.30, 0.99, 24)} | {int(n * 0.8) + 7})
     if d.get("spec"):
         kieu = "spec"
         try:
@@ -226,7 +228,10 @@ def buoc_dich_llm(cn, gioi_han: int | None = None, luong: int = 4, in_ra=print, 
 
     def _lam(h):
         v = viec[h]
-        d, tu_c = dich_mot(v["vb"], v["nn"], h, client=client, c=c)
+        try:
+            d, tu_c = dich_mot(v["vb"], v["nn"], h, client=client, c=c)
+        except Exception as e:  # noqa: BLE001 - mot the loi khong duoc lam sap ca luot (19/10/2026)
+            d, tu_c = {"trang_thai": "LOI", "ghi_chu": "%s: %s" % (type(e).__name__, str(e)[:200])}, False
         with _KHOA:
             kq_h[h] = (d, tu_c)
 
@@ -241,8 +246,17 @@ def buoc_dich_llm(cn, gioi_han: int | None = None, luong: int = 4, in_ra=print, 
             dem["loi_llm"] += len(v["the"])
             for x in v["the"]:
                 nk.append({"the": x["the"]["id"], "bam": h, "ket_qua": "LOI_LLM", "ghi_chu": d.get("ghi_chu")})
+                # 19/10/2026: dem so lan LOI_LLM; the loi mai xep CUOI hang (truoc day dung dau hang moi luot,
+                # tra tien goi lai, 200 the loi = vong dich nen dung vi "3 luot khong lam duoc the nao")
+                x["the"]["dich_llm_loi_lan"] = int(x["the"].get("dich_llm_loi_lan") or 0) + 1
+                with cn:
+                    OD._luu(cn, x["the"])
             continue                                     # khong ghi HONG: lan sau goi lai
-        kt = kiem_tra(d, df)
+        try:
+            kt = kiem_tra(d, df)
+        except Exception as e:  # noqa: BLE001 - ket qua cache OK nhung kiem loi -> HONG, khong sap ca luot
+            kt = {"dat": False, "kieu": "", "ly_do": ["kiem_tra loi: %s: %s" % (type(e).__name__, str(e)[:160])],
+                  "so_lenh": 0}
         for x in v["the"]:
             t = x["the"]
             dem["lam"] += 1

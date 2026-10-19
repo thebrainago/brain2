@@ -65,8 +65,28 @@ def kiem_ast(ma: str) -> list[str]:
                     loi.append("shift am (nhin truoc)")
                 elif isinstance(x, ast.Constant) and isinstance(x.value, (int, float)) and x.value < 0:
                     loi.append("shift am (nhin truoc)")
-        if isinstance(n, ast.Constant) and isinstance(n.value, str) and len(n.value) > 2000:
-            loi.append("chuoi qua dai")
+        if isinstance(n, ast.Constant) and isinstance(n.value, str):
+            if len(n.value) > 2000:
+                loi.append("chuoi qua dai")
+            v = n.value.strip()
+            # 19/10/2026: pandas goi phuong thuc THEO TEN CHUOI (.apply("to_csv", args=(duong,)), .agg, .transform)
+            # -> lot qua kiem thuoc tinh va ghi file tuy y. Cam moi chuoi la ten phuong thuc nguy hiem.
+            if v.startswith("_") or v.startswith("read_") or (v.startswith("to_") and v not in CHO_TO) or \
+                    v in CAM_THUOC_TINH or v in CAM_TEN:
+                loi.append("cam chuoi %r (goi phuong thuc theo ten)" % v[:40])
+        if isinstance(n, ast.keyword) and n.arg == "center" and not (isinstance(n.value, ast.Constant) and n.value.value is False):
+            loi.append("NHIN TRUOC: center=True")
+        if isinstance(n, ast.Attribute) and n.attr in ("bfill", "backfill", "roll"):
+            loi.append("NHIN TRUOC: .%s" % n.attr)
+        if isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute) and n.func.attr in ("diff", "pct_change"):
+            for x in list(n.args[:1]) + [k.value for k in n.keywords if k.arg == "periods"]:
+                if (isinstance(x, ast.UnaryOp) and isinstance(x.op, ast.USub)) or \
+                        (isinstance(x, ast.Constant) and isinstance(x.value, (int, float)) and x.value < 0):
+                    loi.append("NHIN TRUOC: %s am" % n.func.attr)
+        if isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute) and n.func.attr == "fillna":
+            for k in n.keywords:
+                if k.arg == "method" and isinstance(k.value, ast.Constant) and str(k.value.value) in ("bfill", "backfill"):
+                    loi.append("NHIN TRUOC: fillna(method=bfill)")
     top = [x for x in cay.body if not (isinstance(x, ast.Expr) and isinstance(getattr(x, "value", None), ast.Constant))]
     if not any(isinstance(x, ast.FunctionDef) and x.name == "tin_hieu" for x in top):
         loi.append("khong co ham top-level tin_hieu(df)")

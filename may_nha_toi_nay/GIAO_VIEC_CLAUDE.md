@@ -98,7 +98,7 @@ Nếu sửa EA sau khi pha B đã chạy: chỉ cần `-Buoc 4` lại; việc MT
 | `-GoiZip` | `BRAIN_GOI_ZIP` | `goi_ea_ngoai_*.zip` mới nhất trong `D:\brain2_goi`, `E:\brain2_goi`, `Downloads` |
 | `-ThuMucLog` | `BRAIN_LOG_DIR` | `D:\brain2_log\toi_nay_<ngày>` (hoặc E:) |
 
-Khác: `-GioiHanThu 50` (bước 5), `-LuongLlm 4`, `-ToiDa 30` (bước 6), `-ChoDichXong`, `-KhongPush`.
+Khác: `-GioiHanThu 20` (bước 5), `-LuongLlm 4`, `-ToiDa 30` (bước 6), `-ChoDichXong`, `-KhongPush`.
 
 Log chi tiết từng lệnh: `<ThuMucLog>\<bước>.out.txt` / `.err.txt`. Tiến trình nền ghi PID ở `<ThuMucLog>\pid_<tên>.txt`;
 muốn dừng thì `Stop-Process -Id <pid>` đúng PID đó.
@@ -155,7 +155,7 @@ trong repo** (không sửa bản trong slot), chạy lại `-Buoc 4` tới khi 0
 (`git add ea_demo/BRAIN_XuLiLenh.mq5`), ghi nguyên nhân từng lỗi vào GHI_CHU.
 
 ### Bước 5 — Dịch bằng LLM
-Thử trước: `python ong_dan.py dich_llm --gioi_han 50 --luong 4`. Kiểm `reports/ong_dan/DICH_LLM.md`:
+Thử trước: `python ong_dan.py dich_llm --gioi_han 20 --luong 4` (lượt thử lỗi / quá giờ vẫn mở dịch nền). Kiểm `reports/ong_dan/DICH_LLM.md`:
 tỉ lệ `DAT` / `HONG` / `LOI_LLM`, số token, model dùng (qwen3.7-flash, tự lùi qwen3.6-flash khi 403/402/hết quota).
 Thẻ đạt phải qua kiểm tự động (không nhìn trước ở cắt 50/70/90%, ≥ 3 lệnh). Nếu `LOI_LLM` chiếm gần hết → dừng, ghi lý do.
 Ổn thì script mở **nền** `may_nha_toi_nay\dich_llm_nen.ps1` (lặp `dich_llm --gioi_han 200`, chạy lại được nhờ cache theo
@@ -209,3 +209,13 @@ hệ nào qua lọc cuối (DD ≤ 80%, ≥ 10%/năm sau phí) — **chỉ số 
 | Ổ D/E còn < 15 GB | Dừng Dukascopy (Stop-Process PID trong `pid_dukascopy.txt`). |
 | Push bị từ chối | `git pull --rebase` rồi push lại; xung đột thì giữ bản của cả hai, không `--force`. |
 | Trang web chặn / captcha | Ghi bị chặn, bỏ qua. |
+
+## 6. Đã biết, chưa sửa (19/10/2026 chiều, Claude rà soát) — ghi vào KET_QUA_SANG nếu gặp
+
+- Đối chiếu Python ↔ MT5 của việc **Exness** vẫn dùng hồ sơ tài khoản XM (stop-out, ký quỹ) ở phía Python
+  (`ong_dan.chay_python_csv`); lệch ở phần ký quỹ/stop-out với Exness là do đó, không phải lỗi EA.
+- `do_phi_san.py` chưa ghi hoa hồng theo lot → tài khoản có hoa hồng (Raw/Zero) bị tính hoa hồng 0.
+- Mã EA dài hơn 16.000 ký tự chỉ được gửi phần đầu cho LLM (`cau_llm.TRAN_MA`) → thẻ dịch từ mã cắt cụt.
+- Hộp cát chạy mã LLM trên Windows **không** có giới hạn bộ nhớ/CPU hay cách ly thư mục (chỉ trên Linux). Đã chặn thêm
+  đường gọi phương thức theo tên chuỗi (`.apply("to_csv", ...)`), nhưng vẫn coi mã LLM là mã lạ: không chạy bằng tay ngoài hộp cát.
+- Số liệu tối ưu cũ trong `trang_thai.sqlite` tính bằng PHÍ TẠM; sau bước 3 thẻ mới tính bằng phí ĐO → `tot_nhat` có thể trộn hai loại.

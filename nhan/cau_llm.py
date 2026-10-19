@@ -256,11 +256,22 @@ def boc_tach(ma_nguon: str, ngon_ngu: str = "MQL5", client=None, c: dict | None 
     d = _json_trong(r["van_ban"])
     if d is None:
         return dict(meta, trang_thai="LOI", ghi_chu="LLM khong tra JSON (%s)" % r.get("ghi_chu"))
+    if not isinstance(d, dict):
+        return dict(meta, trang_thai="LOI", ghi_chu="LLM tra JSON khong phai object")
+    # 19/10/2026: LLM co the tra chua_dich = null / chuoi / list dict, spec = dict / chuoi -> truoc day AttributeError /
+    # TypeError trong thread pool lam SAP ca luot dich_llm (va ca vong dich nen). Chuan hoa truoc khi dung.
+    cd = d.get("chua_dich")
+    d["chua_dich"] = [str(x) for x in cd] if isinstance(cd, list) else ([str(cd)] if cd else [])
+    sp_ds = d.get("spec")
+    sp_ds = sp_ds if isinstance(sp_ds, list) else ([sp_ds] if isinstance(sp_ds, dict) else [])
     spec_ok = []
-    for sp in d.get("spec") or []:
-        loi = kiem_spec(sp)
+    for sp in sp_ds:
+        try:
+            loi = kiem_spec(sp) if isinstance(sp, dict) else ["spec khong phai object"]
+        except Exception as e:  # noqa: BLE001
+            loi = ["kiem_spec loi: %s" % str(e)[:120]]
         if loi:
-            d.setdefault("chua_dich", []).extend(loi)
+            d["chua_dich"].extend(str(x) for x in (loi if isinstance(loi, list) else [loi]))
         else:
             spec_ok.append(sp)
     d["spec"] = spec_ok
