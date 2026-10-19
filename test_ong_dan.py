@@ -127,8 +127,10 @@ def test_kho_co_che_them_va_lay(tmp_path):
 
 
 # ------------------------------------------------------------------ LLM, gio san, terminal
-def test_llm_khong_khoa_bo_qua(monkeypatch):
+def test_llm_khong_khoa_bo_qua(monkeypatch, tmp_path):
     monkeypatch.delenv("AIBOX_API_KEY", raising=False)
+    monkeypatch.delenv("BRAIN_LLM_PROXY", raising=False)
+    monkeypatch.setattr(LLM, "CC_SWITCH_DB", tmp_path / "khong_co.db")      # khong dung toi cc-switch that
     assert not LLM.co_khoa() and LLM.boc_tach("int OnTick(){}")["trang_thai"] == "CHUA_CHAY_DUOC"
 
 
