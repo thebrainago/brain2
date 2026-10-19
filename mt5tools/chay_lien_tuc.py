@@ -12,6 +12,7 @@ import argparse
 import datetime as dt
 import html
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -33,6 +34,7 @@ DON_BAY = 30
 # Mot viec chay qua so giay nay thi giet va ghi `qua_gio` (do 18/10: lau nhat 506 s / 630 lan). Truoc day khong co
 # han: terminal treo -> `poll()` tra None mai, `ket_thuc` (commit so cai) khong bao gio chay.
 HAN_VIEC_GIAY = 1800
+GIA_HAN_PHUT = 20               # qua --den bao nhieu phut thi giet viec con chay (19/10/2026)
 HAN_TOI_UU_GIAY = 6 * 3600     # viec Optimization cua ong dan chay lau hon nhieu
 
 
@@ -111,6 +113,23 @@ def phong(slot: str, v: dict, ten: str) -> subprocess.Popen:
     return subprocess.Popen([slot + r"\terminal64.exe", "/portable", "/config:" + str(ini)], creationflags=0x00000040)  # IDLE_PRIORITY_CLASS
 
 
+def san_cua_slot(slot: str) -> str:
+    """'XM' / 'Exness' / '' theo dong Server= trong config/common.ini cua slot (KHONG doc Login / mat khau).
+    19/10/2026: moi slot lay viec dung san minh dang nhap -> XM va Exness chay SONG SONG ca dem, khong chia doi gio."""
+    f = Path(slot, "config", "common.ini")
+    if not f.exists():
+        return ""
+    for enc in ("utf-16", "utf-8", "cp1252"):
+        try:
+            for dong in f.read_text(encoding=enc).splitlines():
+                if dong.strip().lower().startswith("server="):
+                    sv = dong.split("=", 1)[1].lower()
+                    return "XM" if "xm" in sv else "Exness" if "exness" in sv else ""
+        except (UnicodeError, OSError):
+            continue
+    return ""
+
+
 def don_neu_day(slot: str, toi_thieu_gb: float = 6.0) -> None:
     """O dia cua slot con < toi_thieu_gb -> xoa cache tester (Agent-*) + lich su bases cua slot NAY (slot dang ranh)."""
     try:
@@ -124,10 +143,12 @@ def don_neu_day(slot: str, toi_thieu_gb: float = 6.0) -> None:
 
 
 def ket_thuc():
-    """Het han: xoa cache tester cua moi slot, ghi tong ket, commit + push so cai (khong --force)."""
+    """Het han: don cache tester cua slot NAO thieu cho, ghi tong ket, commit + push so cai (khong --force).
+
+    19/10/2026: truoc day XOA tick + lich su cua MOI slot sau moi phien -> dem sau tai / sinh lai tu dau hang GB tick
+    (va buoc 7 chia doi XM/Exness thi xoa ngay giua dem). Nay chi don khi o dia con < 6 GB (`don_neu_day`)."""
     for s in SLOT:
-        for d in list(Path(s, "Tester").glob("Agent-*")) + list(Path(s, "bases").glob("*/history")) + list(Path(s, "bases").glob("*/ticks")):
-            shutil.rmtree(d, ignore_errors=True)
+        don_neu_day(s)
     shutil.rmtree(REP, ignore_errors=True)
     goc = Path(__file__).resolve().parent.parent
     (goc / "reports/mt5_lien_tuc/tong_ket_mt5.json").write_text(json.dumps(SV.tong_ket(), ensure_ascii=False, indent=1), encoding="utf-8")
@@ -137,7 +158,7 @@ def ket_thuc():
         if KQ_ONG_DAN.exists():
             g("add", str(KQ_ONG_DAN))
         g("commit", "-m", "May nha chay lien tuc: so cai MT5 (%d lan thu) + tong ket" % len(SV.doc_so_cai()))
-        g("pull", "--rebase"); r = g("push")
+        g("pull", "--rebase", "--autostash"); r = g("push")   # buoc khac dang ghi reports/ -> can autostash
         log("GIT push rc=%s %s" % (r.returncode, (r.stderr or "")[-200:]))
     except Exception as e:
         log("GIT loi %s" % e)
@@ -218,13 +239,34 @@ def main():
         if now >= han:
             if not chay:
                 break
+            # 19/10/2026: viec toi uu duoc 6 gio -> khong cho qua han qua GIA_HAN_PHUT; giet DUNG PID cua minh,
+            # ghi `qua_gio` (CHUA_DO_DUOC, dem sau chay lai). Truoc day may chay toi trua hom sau.
+            if now >= han + dt.timedelta(minutes=GIA_HAN_PHUT):
+                for s, (pr, v, ten, t0) in list(chay.items()):
+                    try:
+                        pr.kill()
+                    except Exception:
+                        pass
+                    rec = _ban_ghi(v); rec.update(loi="qua_gio_het_han", giay=int(time.time() - t0), luc=now.isoformat(timespec="seconds"))
+                    SV.ghi(rec)
+                    log("HET HAN + %d phut: giet %s, ghi CHUA_DO_DUOC" % (GIA_HAN_PHUT, ten))
+                break
             time.sleep(15); continue
         trong = [s for s in SLOT[:n] if s not in chay and s not in bo and Path(s, "terminal64.exe").exists()]
         for s in trong:
             don_neu_day(s)
         if trong:
             dang = {SV.khoa(v) for _, v, _, _ in chay.values()}
-            for s, v in zip(trong, SV.lay_viec(len(trong), dang_chay=dang)):
+            # moi nhom slot cung san lay viec cua san do (BRAIN_SAN_TESTER dat tay thi thang)
+            nhom = {}
+            for s in trong:
+                nhom.setdefault(os.environ.get("BRAIN_SAN_TESTER") or san_cua_slot(s) or None, []).append(s)
+            cap = []
+            for sn, ds in nhom.items():
+                vs = SV.lay_viec(len(ds), dang_chay=dang, san=sn)
+                dang |= {SV.khoa(v) for v in vs}
+                cap += list(zip(ds, vs))
+            for s, v in cap:
                 ten = v["ten"] if v.get("nguon") == "ong_dan" and v.get("ten") else "lt_%s_%s_%s_%s_%s" % (v["ea"], re.sub(r"[^A-Za-z0-9]", "", v["ma"]), v["tf"], v["pha"], format(abs(hash(SV.khoa(v))) % 10**8, "08d"))
                 chay[s] = (phong(s, v, ten), v, ten, time.time())
                 log("PHONG %s %s muc=%s %s" % (ten, s, muc, json.dumps(v["ts"])))

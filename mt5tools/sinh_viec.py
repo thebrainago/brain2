@@ -137,7 +137,10 @@ def hang_xom(v: dict) -> list[dict]:
 SO_LAN_THU_TOI_DA = 2
 
 
-def lay_viec(n: int = 1, so_cai: list[dict] | None = None, dang_chay: set[str] | None = None, hat: int = 27) -> list[dict]:
+def lay_viec(n: int = 1, so_cai: list[dict] | None = None, dang_chay: set[str] | None = None, hat: int = 27,
+             san: str | None = None) -> list[dict]:
+    """`san` (19/10/2026): san cua SLOT se chay viec (doc tu config/common.ini cua slot). Co `san` -> chi lay viec
+    ong dan cua san do; viec cu V24 (ma XM `#`) chi cho slot XM - tren slot Exness chung chi sinh loi "khong co ma"."""
     sc = doc_so_cai() if so_cai is None else so_cai
     # 18/10/2026: dong `loi` la CHUA_DO_DUOC, khong phai "da thu". Truoc day moi dong deu vao `xong` nen mot lan
     # chay hong (moi truong, slot treo) xoa bien the do vinh vien khoi hang viec.
@@ -146,7 +149,8 @@ def lay_viec(n: int = 1, so_cai: list[dict] | None = None, dang_chay: set[str] |
         | (dang_chay or set())
     sc = [r for r in sc if not r.get("loi")]
     hang = []
-    for r in sc:   # 1) OOS cho bien the dat IS (cao nhat)
+    chi_ong_dan = bool(san) and san.lower() != "xm"
+    for r in ([] if chi_ong_dan else sc):   # 1) OOS cho bien the dat IS (cao nhat)
         if r.get("pha") == "IS" and dat(r, NGUONG_IS):
             v = {k: r[k] for k in ("ea", "ma", "tf", "ts")}; v.update(pha="OOS", diem=100 + (r.get("pf") or 0))
             hang.append(v)
@@ -155,9 +159,11 @@ def lay_viec(n: int = 1, so_cai: list[dict] | None = None, dang_chay: set[str] |
             for h in hang_xom(r):
                 h["diem"] = 10 + (r.get("pf") or 0)
                 hang.append(h)
-    hang += tu_python_box()
-    hang += tu_ong_dan()
-    hang += ung_vien(random.Random(hat + len(sc) // 500))
+    if not chi_ong_dan:
+        hang += tu_python_box()
+    hang += tu_ong_dan(san=san)
+    if not chi_ong_dan:
+        hang += ung_vien(random.Random(hat + len(sc) // 500))
     hang.sort(key=lambda v: -v["diem"])
     out, thay = [], set()
     for v in hang:
@@ -189,13 +195,14 @@ def tu_python_box(p: Path = BOX, toi_da: int = 300) -> list[dict]:
 HANG_CHO_OD = GOC / "reports" / "ong_dan" / "hang_cho_mt5.jsonl"
 
 
-def tu_ong_dan(p: Path = HANG_CHO_OD) -> list[dict]:
+def tu_ong_dan(p: Path = HANG_CHO_OD, san: str | None = None) -> list[dict]:
     """18/10/2026: viec MT5 do ong dan sinh (`python ong_dan.py sinh_mt5`). Chi lay viec `ea=XL` (BRAIN_XuLiLenh, .set
     day du); viec `NGOAI` (EA nguoi khac) can tai ma theo url truoc nen KHONG tu chay o day."""
     if not Path(p).exists():
         return []
     import os
-    san = os.environ.get("BRAIN_SAN_TESTER", "")     # vd "XM": slot tester dang nhap XM thi chi lay viec XM
+    # vd "XM": slot tester dang nhap XM thi chi lay viec XM. `san` (tung slot) thang bien moi truong (ca tien trinh)
+    san = san or os.environ.get("BRAIN_SAN_TESTER", "")
     out = []
     for x in Path(p).read_text(encoding="utf-8").splitlines():
         try:

@@ -245,6 +245,7 @@ def test_quyet_dinh_python_cho_dich_llm_khong_goi_mang(tmp_path, monkeypatch):
     assert t["duong_dich"] == "llm" and "dich_llm" in t["ly_do_duong"]
 
 
+@__import__("pytest").mark.skipif(not __import__("pathlib").Path("/workspace").exists(), reason="dong goi zip chi chay tren box cua Grok (/workspace)")
 def test_goi_may_nha_kem_the_llm_va_db(tmp_path, monkeypatch):
     from nhan import goi_may_nha as GM
     monkeypatch.setattr(GM, "GOC", tmp_path)

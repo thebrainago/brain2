@@ -411,6 +411,7 @@ def test_doc_nguon_seeker(tmp_path, monkeypatch):
     assert v[0]["tep_box"].endswith("GridEURJPY.mq5") and v[0]["so_tac_gia"]
 
 
+@__import__("pytest").mark.skipif(not __import__("pathlib").Path("/workspace").exists(), reason="dong goi zip chi chay tren box cua Grok (/workspace)")
 def test_goi_may_nha_kem_include(tmp_path, monkeypatch):
     import zipfile
     from nhan import goi_may_nha as GM

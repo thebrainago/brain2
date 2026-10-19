@@ -40,7 +40,7 @@ chạy nó theo từng bước, đọc log, **sửa chỗ hỏng** (nhất là l
 5. **Chỉ một phiên dùng MT5 tester tại một thời điểm.** Muốn dừng terminal thì chỉ `taskkill /PID <pid> /F` **theo PID của
    terminal tester** do chính bạn mở — không bao giờ `taskkill /IM terminal64.exe`, không đụng terminal giao dịch của chủ.
 6. **Chỉ báo số đo được thật.** Chưa đo thì ghi `CHƯA ĐO ĐƯỢC`. Không ước lượng, không bịa.
-7. **Commit khi test qua** (`python -m pytest -q test_ong_dan.py test_dich_llm.py test_sinh_viec.py`), `git pull --rebase`
+7. **Commit khi test qua** (`python -m pytest -q test_ong_dan.py test_dich_llm.py test_sinh_viec.py test_an_toan_tester.py`; hai test đóng gói zip tự bỏ qua ngoài box), `git pull --rebase`
    trước khi push, không `--force`. Ghi mọi việc vào `GHI_CHU_NANG_CAP_GROK.md` (hoặc `GHI_CHU_NANG_CAP_CLAUDE.md` nếu bạn
    muốn ghi chú riêng) **và** `may_nha_toi_nay/NHAT_KY.md` (script tự ghi một dòng cho mỗi việc; bạn ghi thêm nhận xét).
 8. **Không tắt máy, không khởi động lại, không đăng xuất**, không cài driver, không đổi cài đặt Windows.
@@ -53,18 +53,36 @@ Bạn không mở thêm việc nặng nào trong lúc đó.
 
 ---
 
-## 3. Cách chạy
+## 3. Cách chạy (sửa 19/10/2026 chiều, Claude: chạy hai pha, MT5 chạy nền suốt đêm)
 
-Mở PowerShell tại gốc repo brain2 (thường là `%USERPROFILE%\brain2`):
+Mở PowerShell tại gốc repo brain2 (thường là `%USERPROFILE%\brain2`).
 
+**Quan trọng với tác tử (Claude Code):**
+- Một lệnh shell của tác tử bị cắt sau vài phút (Claude Code: tối đa 10 phút một lệnh). Bước dài (đo phí ~1 giờ, dịch,
+  tối ưu, MT5 tới 07:00) phải chạy **tách rời** bằng `Start-Process`, rồi theo dõi `NHAT_KY.md` và log. Đừng gọi
+  `chay_toi_nay.bat` không tham số trong một lệnh chờ.
+- Hết lượt trả lời thì tác tử đứng yên tới khi có tin nhắn mới. Muốn tự xem lại định kỳ: `/loop 30m` với câu
+  "xem may_nha_toi_nay/NHAT_KY.md và log, sửa chỗ hỏng nếu sửa được". Script tự chạy hết các bước dù tác tử có xem hay không.
+
+**Pha A (19:00 – khoảng 19:45), từng bước, có người hoặc tác tử nhìn:**
 ```powershell
-may_nha_toi_nay\chay_toi_nay.bat                        # tất cả bước theo thứ tự 0,1,2,3,4,5,6,9,10,7,8,11
-may_nha_toi_nay\chay_toi_nay.bat -Buoc "0"              # chỉ một bước
-may_nha_toi_nay\chay_toi_nay.bat -Buoc "3-6" -Den "06:30"
+$L = "D:\brain2_log"; New-Item -ItemType Directory -Force $L | Out-Null
+foreach ($b in "0","1","2","3","4") {
+  Start-Process cmd -ArgumentList "/c may_nha_toi_nay\chay_toi_nay.bat -Buoc $b > $L\pha_a_$b.txt 2>&1" -WindowStyle Minimized -Wait
+  Get-Content may_nha_toi_nay\NHAT_KY.md -Tail 15
+}
 ```
+(`-Wait` trên Start-Process vẫn bị cắt nếu quá giờ của tác tử: bước 3 có thể lâu, khi đó bỏ `-Wait` và xem NHAT_KY sau.)
+Bước 4 phải ra **0 lỗi** và `.ex5` mới ở mọi slot trước pha B; có lỗi thì sửa `ea_demo\BRAIN_XuLiLenh.mq5`, chạy lại `-Buoc 4`.
 
-Nên chạy **từng bước hoặc từng cụm** (`-Buoc "0-2"`, rồi `"3"`, `"4"`…) để kịp đọc log và sửa. Bước 9 và 10 chạy
-trước bước 7 vì bước 7 giữ máy tới giờ `-Den` (mặc định 07:00).
+**Pha B (tách rời, tới 07:00 sáng):**
+```powershell
+Start-Process cmd -ArgumentList '/c may_nha_toi_nay\chay_toi_nay.bat -Buoc "5-11" -Den "07:00" > D:\brain2_log\pha_b.txt 2>&1' -WindowStyle Minimized
+```
+Thứ tự thật (theo vị trí trong script): **7** (mở hàng MT5 NỀN ngay, chạy tới 07:00) → **5** (dịch thử, rồi dịch nền;
+sau mỗi lượt dịch có thẻ đạt, vòng nền tự chạy `ong_dan.py chay` nên việc MT5 mới vào hàng trong đêm) → **6** → **9**
+(Dukascopy nền) → **10** → **8** (chờ hàng MT5 xong, tối đa 07:40) → **11** (commit + push).
+Nếu sửa EA sau khi pha B đã chạy: chỉ cần `-Buoc 4` lại; việc MT5 kế tiếp tự dùng `.ex5` mới.
 
 **Tham số / biến môi trường ghi đè** (khi tự dò sai):
 
@@ -147,15 +165,16 @@ sha256; dừng khi hết hàng hoặc 3 lượt liền không làm được th�
 `python ong_dan.py chay --toi-da 30` (tối ưu Python các thẻ mới dịch + lọc 65/15 ở lot thật + sinh việc MT5 + kho cơ chế).
 Có thể chạy lại sau khi dịch nền làm thêm được nhiều thẻ.
 
-### Bước 7 — Hàng MT5
-Chỉ khi **không có phiên nào khác đang dùng tester**. Script đọc server của từng slot, rồi chạy lần lượt
-`BRAIN_SAN_TESTER=XM` rồi `BRAIN_SAN_TESTER=Exness`: `python mt5tools/chay_lien_tuc.py --den <giờ>` (chia đôi thời gian tới
-`-Den`). `BRAIN_UU_TIEN_CSV=1` đẩy việc `KIEM_CSV` (đối chiếu lệnh Python ↔ MT5 của các hệ đạt) lên đầu; việc của
-28 hệ top đã có điểm cao sẵn. Slot đăng nhập lẫn sàn → việc sàn kia trên slot sai sẽ lỗi; ghi cảnh báo để chủ đăng nhập lại.
-Sàn không có slot nào đăng nhập → `CHƯA ĐO ĐƯỢC`.
+### Bước 7 — Hàng MT5 (NỀN, mở ngay sau bước 4)
+Chỉ khi **không có phiên nào khác đang dùng tester**. Script mở **một** `python mt5tools/chay_lien_tuc.py --den 07:00`
+chạy nền (PID ở `pid_mt5.txt`). **Mỗi slot tự lấy việc đúng sàn nó đăng nhập** (đọc `Server=` trong `config\common.ini`
+của slot): slot XM lấy việc XM và việc cũ V24, slot Exness chỉ lấy việc Exness của ống dẫn. Hai sàn chạy song song cả
+đêm, không chia đôi giờ, không xoá tick giữa đêm. `BRAIN_UU_TIEN_CSV=1` đẩy việc `KIEM_CSV` (đối chiếu lệnh Python ↔ MT5
+của các hệ đạt) lên đầu. Quá 07:00 thì không mở việc mới; quá 07:20 thì dừng đúng PID việc còn chạy và ghi `qua_gio_het_han`
+(CHƯA ĐO ĐƯỢC, đêm sau chạy lại). Slot chưa đăng nhập XM/Exness → chỉ chạy việc cũ; không slot nào đăng nhập → `CHƯA ĐO ĐƯỢC`.
 
 ### Bước 8 — Đọc kết quả MT5
-`python ong_dan.py doc_mt5` rồi `python ong_dan.py bao_cao`. Xem `reports/ong_dan/DOI_CHIEU_MT5.md` (sai số cho phép:
+Chờ hàng MT5 nền kết thúc (tối đa 07:40), rồi `python ong_dan.py doc_mt5` rồi `python ong_dan.py bao_cao`. Xem `reports/ong_dan/DOI_CHIEU_MT5.md` (sai số cho phép:
 ±1 nến, 3×spread + 0,05% giá, 1 bước lot, ≥ 95% lệnh khớp, chênh lãi/lỗ ≤ 10% hoặc ≤ 1% vốn).
 
 ### Bước 9 — Tải Dukascopy (nền)

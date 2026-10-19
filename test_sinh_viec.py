@@ -95,3 +95,30 @@ def test_uu_tien_csv_theo_bien_moi_truong(tmp_path, monkeypatch):
     assert [v["diem"] for v in _SV.tu_ong_dan(h)] == [64, 62]
     monkeypatch.setenv("BRAIN_UU_TIEN_CSV", "1")
     assert [v["diem"] for v in _SV.tu_ong_dan(h)] == [64, 262]
+
+
+def test_moi_slot_lay_viec_dung_san(tmp_path, monkeypatch):
+    # 19/10/2026: slot Exness chi lay viec ong dan cua Exness, khong lay viec V24 ma XM `#`; slot XM lay ca hai
+    import json
+    h = tmp_path / "h.jsonl"
+    h.write_text("\n".join(json.dumps(x) for x in (
+        {"ea": "XL", "ma": "EURUSDc", "tf": "H1", "ts": {}, "pha": "IS", "san": "Exness", "diem": 60, "ten": "od_e"},
+        {"ea": "XL", "ma": "EURUSD#", "tf": "H1", "ts": {}, "pha": "IS", "san": "XM", "diem": 61, "ten": "od_x"})))
+    monkeypatch.setattr(SV, "HANG_CHO_OD", h)
+    monkeypatch.setattr(SV, "tu_ong_dan", lambda p=h, san=None, _f=SV.tu_ong_dan: _f(h, san=san))
+    monkeypatch.delenv("BRAIN_SAN_TESTER", raising=False)
+    e = SV.lay_viec(5, so_cai=[], san="Exness")
+    assert [v.get("ten") for v in e] == ["od_e"]
+    x = SV.lay_viec(5, so_cai=[], san="XM")
+    assert x[0].get("ten") == "od_x" and len(x) == 5 and all(v.get("san", "XM") != "Exness" for v in x)
+
+
+def test_doc_san_cua_slot(tmp_path):
+    sys.path.insert(0, "mt5tools")
+    import chay_lien_tuc as CL
+    (tmp_path / "config").mkdir()
+    (tmp_path / "config" / "common.ini").write_bytes("[Common]\r\nLogin=1\r\nServer=Exness-MT5Trial7\r\n".encode("utf-16"))
+    assert CL.san_cua_slot(str(tmp_path)) == "Exness"
+    (tmp_path / "config" / "common.ini").write_bytes("[Common]\r\nServer=XMGlobal-MT5 6\r\n".encode("utf-16"))
+    assert CL.san_cua_slot(str(tmp_path)) == "XM"
+    assert CL.san_cua_slot(str(tmp_path / "khong_co")) == ""

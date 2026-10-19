@@ -208,7 +208,9 @@ function DocServer([string]$thuMucTerminal) {
 }
 
 # ---------------------------------------------------------------- chọn bước
-$ThuTu = @(0, 1, 2, 3, 4, 5, 6, 9, 10, 7, 8, 11)        # 9, 10 mở nền trước 7 vì 7 chạy tới giờ $Den
+# 19/10/2026 (Claude): 7 (hàng MT5) mở NỀN ngay sau 4 (cần EA đã biên dịch) để tester chạy cả đêm song song với dịch/
+# tối ưu Python; trước đây 7 chỉ bắt đầu sau 5+6 (tới 6 giờ). 8 chờ hàng MT5 kết thúc (giờ $Den + 20 phút) rồi mới đọc.
+$ThuTu = @(0, 1, 2, 3, 4, 7, 5, 6, 9, 10, 8, 11)
 function PhanTichBuoc([string]$s) {
     if (-not $s) { return $ThuTu }
     $chon = @()
@@ -350,8 +352,14 @@ Buoc 4 "Biên dịch ea_demo\BRAIN_XuLiLenh.mq5" {
         $logMe = Noi $dichTm "BRAIN_XuLiLenh.log"
         # BẪY: đường dẫn tuyệt đối -> rc=0 mà không làm gì. Phải dùng đường dẫn tương đối với cwd = MQL5.
         $ts = @("/compile:Experts\BRAIN\BRAIN_XuLiLenh.mq5", "/log:Experts\BRAIN\BRAIN_XuLiLenh.log")
-        if ($me -ne (Noi $s "metaeditor64.exe")) { $ts += "/inc:$mql" }
+        if ($me -ne (Noi $s "metaeditor64.exe")) { $ts += "/inc:$mql" } else { $ts += "/portable" }   # slot portable: thư viện chuẩn (Trade.mqh) của chính slot
         $null = ChayCon -exe $me -thamSo $ts -ten ("b4_bien_dich_" + (Split-Path -Leaf $s)) -phut 5 -cwd $mql
+        # MetaEditor sinh tiến trình con rồi THOÁT TRƯỚC khi dịch xong (đo 06/09, chay_tester_kho.bien_dich): chờ .ex5 mới tối đa 120 s
+        for ($i = 0; $i -lt 60; $i++) {
+            if ((Test-Path $ex5) -and ((Get-Item $ex5).LastWriteTime -gt $truoc)) { break }
+            Start-Sleep -Seconds 2
+        }
+        Start-Sleep -Seconds 2                                  # log ghi sau .ex5
         $loi = "?"
         if (Test-Path $logMe) {
             $dong = Get-Content $logMe -Encoding Unicode -ErrorAction SilentlyContinue
@@ -365,6 +373,28 @@ Buoc 4 "Biên dịch ea_demo\BRAIN_XuLiLenh.mq5" {
         $r += "$(Split-Path -Leaf $s): ex5 mới=$moi ($loi)"
     }
     ($r -join "; ")
+}
+
+# ---------------------------------------------------------------- 7. hàng MT5 (NỀN, chạy ngay sau bước 4)
+Buoc 7 "Hàng MT5 nền tới $Den (mỗi slot lấy việc đúng sàn nó đăng nhập)" {
+    $dang = Get-Process -Name terminal64, metatester64 -ErrorAction SilentlyContinue | Where-Object { $_.Path -like "*mt5_tester*" }
+    if ($dang) { return "BỎ QUA: đã có phiên khác dùng tester (PID $(($dang | ForEach-Object { $_.Id }) -join ',')) - một phiên một lúc" }
+    $san = @{}
+    foreach ($s in $DsSlot) {
+        if (-not (Test-Path (Noi $s "terminal64.exe"))) { continue }
+        $sv = DocServer $s
+        if ($sv -match "(?i)xm") { $san[$s] = "XM" } elseif ($sv -match "(?i)exness") { $san[$s] = "Exness" } else { $san[$s] = "?" }
+        Ghi "  slot $s -> $($san[$s]) ($sv)"
+    }
+    $co = @($san.Values | Where-Object { $_ -ne "?" } | Sort-Object -Unique)
+    if ($co.Count -eq 0) { return "CHƯA ĐO ĐƯỢC: không slot nào đăng nhập XM/Exness - chủ dự án cần đăng nhập slot" }
+    if (@($san.Values | Where-Object { $_ -eq "?" }).Count -gt 0) { Ghi "  CẢNH BÁO: có slot chưa đăng nhập XM/Exness - slot đó chỉ chạy việc cũ V24" }
+    # 19/10/2026: KHÔNG chia đôi đêm XM rồi Exness nữa. chay_lien_tuc.py đọc Server= của từng slot và lấy việc đúng sàn
+    # (sinh_viec.lay_viec(san=...)), nên hai sàn chạy song song cả đêm; không xoá tick giữa đêm.
+    Remove-Item Env:\BRAIN_SAN_TESTER -ErrorAction SilentlyContinue
+    $env:BRAIN_UU_TIEN_CSV = "1"
+    ChayNen $Py @("mt5tools/chay_lien_tuc.py", "--den", $Den) "mt5" "BelowNormal"
+    "nền tới $Den (+20 phút gia hạn) - sàn: $($co -join ', ')"
 }
 
 # ---------------------------------------------------------------- 5. dịch bằng LLM
@@ -385,7 +415,7 @@ Buoc 5 "dich_llm thử $GioiHanThu thẻ rồi chạy nền hết" {
     $psExe = (Get-Process -Id $PID).Path                  # cùng PowerShell đang chạy script này
     if (-not $psExe) { $psExe = "powershell.exe" }
     ChayNen $psExe @("-NoProfile", "-ExecutionPolicy", "Bypass", "-File", $nen, "-Repo", $Repo, "-Python", $Py,
-        "-ThuMucLog", $ThuMucLog, "-Luong", "$LuongLlm") "dich_llm_nen" "BelowNormal"
+        "-ThuMucLog", $ThuMucLog, "-Luong", "$LuongLlm", "-ToiDaOngDan", "$ToiDa", "-Den", $Den) "dich_llm_nen" "BelowNormal"
     if ($ChoDichXong) {
         $xong = Join-Path $ThuMucLog "dich_llm_nen.xong.txt"
         while (-not (Test-Path $xong)) { Start-Sleep -Seconds 120 }
@@ -397,7 +427,14 @@ Buoc 5 "dich_llm thử $GioiHanThu thẻ rồi chạy nền hết" {
 # ---------------------------------------------------------------- 6. ống dẫn
 Buoc 6 "ong_dan.py chay" {
     ChoGame
-    $rc = ChayPy @("ong_dan.py", "chay", "--toi-da", "$ToiDa") "b6_chay" 240
+    $khoa = Join-Path $ThuMucLog "ong_dan_chay.lock"           # chung với dich_llm_nen.ps1 (nó chạy ong_dan sau mỗi lượt dịch)
+    while (Test-Path $khoa) {
+        $pk = Get-Content $khoa -ErrorAction SilentlyContinue | Select-Object -First 1
+        if (-not ($pk -and (Get-Process -Id ([int]$pk) -ErrorAction SilentlyContinue))) { Remove-Item $khoa -Force; break }
+        Start-Sleep -Seconds 60
+    }
+    Set-Content $khoa $PID
+    try { $rc = ChayPy @("ong_dan.py", "chay", "--toi-da", "$ToiDa") "b6_chay" 240 } finally { Remove-Item $khoa -Force -ErrorAction SilentlyContinue }
     if ($rc -ne 0) { throw "ong_dan chay rc=$rc" }
     "XONG (xem reports\ong_dan\TRANG_THAI.md)"
 }
@@ -429,40 +466,15 @@ Buoc 10 "Seeker: nguồn box bị chặn IP + E:\brain2_nhap" {
     ($r -join "; ")
 }
 
-# ---------------------------------------------------------------- 7. hàng MT5
-Buoc 7 "Hàng MT5 tới $Den (XM rồi Exness)" {
-    $dang = Get-Process -Name terminal64, metatester64 -ErrorAction SilentlyContinue | Where-Object { $_.Path -like "*mt5_tester*" }
-    if ($dang) { return "BỎ QUA: đã có phiên khác dùng tester (PID $(($dang | ForEach-Object { $_.Id }) -join ',')) - một phiên một lúc" }
-    $san = @{}
-    foreach ($s in $DsSlot) {
-        if (-not (Test-Path (Noi $s "terminal64.exe"))) { continue }
-        $sv = DocServer $s
-        if ($sv -match "(?i)xm") { $san[$s] = "XM" } elseif ($sv -match "(?i)exness") { $san[$s] = "Exness" } else { $san[$s] = "?" }
-        Ghi "  slot $s -> $($san[$s]) ($sv)"
-    }
-    $co = @($san.Values | Where-Object { $_ -ne "?" } | Sort-Object -Unique)
-    if ($co.Count -eq 0) { return "CHƯA ĐO ĐƯỢC: không slot nào đăng nhập XM/Exness - chủ dự án cần đăng nhập slot" }
-    if ($co.Count -gt 1) { Ghi "  CẢNH BÁO: slot lẫn sàn ($($co -join ',')) - việc của sàn kia trên slot sai sẽ lỗi; nên đăng nhập cùng một sàn" }
-    $ket = [datetime]::ParseExact($Den, "HH:mm", $null)
-    if ($ket -lt (Get-Date)) { $ket = $ket.AddDays(1) }
-    $thu = @("XM", "Exness") | Where-Object { $co -contains $_ }
-    $r = @()
-    $env:BRAIN_UU_TIEN_CSV = "1"
-    for ($k = 0; $k -lt $thu.Count; $k++) {
-        $con = ($ket - (Get-Date)).TotalMinutes
-        if ($con -lt 10) { $r += "$($thu[$k]): hết giờ"; continue }
-        $moc = (Get-Date).AddMinutes($con / ($thu.Count - $k)).ToString("HH:mm")
-        $env:BRAIN_SAN_TESTER = $thu[$k]
-        Ghi "  BRAIN_SAN_TESTER=$($thu[$k]) tới $moc"
-        $rc = ChayPy @("mt5tools/chay_lien_tuc.py", "--den", $moc) ("b7_mt5_" + $thu[$k]) 0
-        $r += "$($thu[$k]) rc=$rc"
-    }
-    Remove-Item Env:\BRAIN_SAN_TESTER -ErrorAction SilentlyContinue
-    ($r -join "; ")
-}
-
 # ---------------------------------------------------------------- 8. đọc kết quả MT5
 Buoc 8 "ong_dan.py doc_mt5" {
+    $fp = Join-Path $ThuMucLog "pid_mt5.txt"
+    if (Test-Path $fp) {
+        $pm = [int](Get-Content $fp | Select-Object -First 1)
+        $han = [datetime]::ParseExact($Den, "HH:mm", $null); if ($han -lt (Get-Date).AddHours(-1)) { $han = $han.AddDays(1) }
+        while ((Get-Process -Id $pm -ErrorAction SilentlyContinue) -and ((Get-Date) -lt $han.AddMinutes(40))) { Start-Sleep -Seconds 60 }
+        if (Get-Process -Id $pm -ErrorAction SilentlyContinue) { Ghi "  hàng MT5 (PID $pm) vẫn chạy sau $Den+40 phút - đọc kết quả đang có" }
+    }
     $rc = ChayPy @("ong_dan.py", "doc_mt5") "b8_doc_mt5" 60
     $null = ChayPy @("ong_dan.py", "bao_cao") "b8_bao_cao" 30
     "rc=$rc"

@@ -1,13 +1,11 @@
-Câu lệnh khởi động — dán vào Claude Code (hoặc Cursor) mở tại gốc repo brain2 trên máy nhà:
+Câu lệnh khởi động (sửa 19/10/2026 chiều) - dán vào Claude Code mở tại gốc repo brain2 trên máy nhà:
 
-Đọc may_nha_toi_nay/GIAO_VIEC_CLAUDE.md và làm theo từng bước 0 đến 11. Chạy may_nha_toi_nay\chay_toi_nay.bat theo từng bước (-Buoc "0", "1", "2"...), đọc log sau mỗi bước, sửa lỗi nếu sửa được, bước nào lỗi thì ghi vào may_nha_toi_nay/NHAT_KY.md rồi sang bước sau. Không in khoá, không đọc E:\api.txt, không vượt chặn bot, không mua gì, không tắt máy. Sáng ra viết tóm tắt vào may_nha_toi_nay/KET_QUA_SANG.md, commit và push.
+Đọc may_nha_toi_nay/GIAO_VIEC_CLAUDE.md, nhất là mục 3 "Cách chạy". Pha A: chạy bước 0,1,2,3,4 từng bước bằng Start-Process (không chờ quá 10 phút trong một lệnh), đọc NHAT_KY.md sau mỗi bước, sửa lỗi biên dịch EA ở bước 4 tới khi 0 lỗi. Pha B: mở tách rời chay_toi_nay.bat -Buoc "5-11" -Den "07:00" rồi theo dõi NHAT_KY.md và log; bước nào lỗi thì ghi NHAT_KY.md. Không in khoá, không đọc E:\api.txt, không vượt chặn bot, không mua gì, không tắt máy. Sáng ra viết tóm tắt đầu may_nha_toi_nay/KET_QUA_SANG.md, commit và push.
 
-Lệnh dòng lệnh tương ứng (Claude Code, tự duyệt công cụ do chủ dự án quyết định):
+Sau khi mở pha B, nếu muốn tác tử tự xem lại định kỳ trong đêm, gõ trong Claude Code:
+/loop 30m xem may_nha_toi_nay/NHAT_KY.md và log ở D:\brain2_log, sửa chỗ hỏng nếu sửa được, không mở thêm việc nặng
 
-cd /d %USERPROFILE%\brain2
-claude "Đọc may_nha_toi_nay/GIAO_VIEC_CLAUDE.md và làm theo từng bước 0 đến 11; bước nào lỗi thì ghi NHAT_KY.md rồi sang bước sau."
-
-Chạy không cần tác tử (chỉ script):
+Chạy không cần tác tử (chỉ script, cả đêm):
 
 cd /d %USERPROFILE%\brain2
-may_nha_toi_nay\chay_toi_nay.bat
+may_nha_toi_nay\chay_toi_nay.bat -Den 07:00
