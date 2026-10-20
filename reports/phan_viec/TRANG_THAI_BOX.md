@@ -1,26 +1,12 @@
-# Thợ phụ box — trạng thái (tự sinh 2026-10-20 21:06, giờ VN)
+# Thợ phụ box — trạng thái (tự sinh 2026-10-20 21:26, giờ VN)
 
 Số MÔ PHỎNG Python, PHÍ theo ống dẫn. Box không có MT5.
 
-- Đã nhận (NHAN_VIEC.jsonl): 262 khoá
+- Đã nhận (NHAN_VIEC.jsonl): 380 khoá
 - Vòng dịch: 6; thẻ làm 89; gọi mới 96; ĐẠT 37; HỎNG 52; LỖI_LLM 8; 429 0; giây 1048
-- Vòng thử Python: 41; thẻ 143; việc MT5 mới 48
-- Việc trong hang_cho_mt5_box.jsonl: 52
+- Vòng thử Python: 59; thẻ 197; việc MT5 mới 62
+- Việc trong hang_cho_mt5_box.jsonl: 66
 
-  - `od_skea78384bbaf7_XM_CSV` XM USDCADmicro H1: 109.949%/năm, DD 64.382%
-  - `od_skea78384bbaf7_Exness_CSV` Exness USDCADc H1: 109.949%/năm, DD 64.382%
-  - `od_ghep6f5c193256881f31_XM_CSV` XM GBPCADmicro H1: 84.91%/năm, DD 50.487%
-  - `od_ghep6f5c193256881f31_Exness_CSV` Exness GBPCADc H1: 84.91%/năm, DD 50.487%
-  - `od_ghep89811dee41bce6b9_XM_CSV` XM GOLDmicro H4: 28.727%/năm, DD 58.417%
-  - `od_ghep89811dee41bce6b9_Exness_CSV` Exness XAUUSDc H4: 28.727%/năm, DD 58.417%
-  - `od_ghep9c03cef0b89f948f_XM_CSV` XM GBPCADmicro H1: 174.033%/năm, DD 59.836%
-  - `od_ghep9c03cef0b89f948f_Exness_CSV` Exness GBPCADc H1: 174.033%/năm, DD 59.836%
-  - `od_ghepa118e2570ac0ab84_XM_CSV` XM GBPCADmicro H1: 19.415%/năm, DD 28.246%
-  - `od_ghepa118e2570ac0ab84_Exness_CSV` Exness GBPCADc H1: 19.415%/năm, DD 28.246%
-  - `od_ghepa726a63c19a13e2e_XM_CSV` XM EURGBPmicro H1: 15.475%/năm, DD 55.816%
-  - `od_ghepa726a63c19a13e2e_Exness_CSV` Exness EURGBPc H1: 15.475%/năm, DD 55.816%
-  - `od_skea66a65a142a_XM_CSV` XM GBPNZDmicro H1: 20.22%/năm, DD 62.144%
-  - `od_skea66a65a142a_Exness_CSV` Exness GBPNZDc H1: 20.22%/năm, DD 62.144%
   - `od_ghepc9f8a1b857b9a416_XM_CSV` XM GBPCADmicro H4: 91.145%/năm, DD 52.242%
   - `od_ghepc9f8a1b857b9a416_Exness_CSV` Exness GBPCADc H4: 91.145%/năm, DD 52.242%
   - `od_ghepe9b41c33d4deee54_XM_CSV` XM GBPNZDmicro H4: 121.054%/năm, DD 38.432%
@@ -37,3 +23,17 @@ Số MÔ PHỎNG Python, PHÍ theo ống dẫn. Box không có MT5.
   - `od_skea135e93ee32_Exness_CSV` Exness EURUSDc H1: 17.178%/năm, DD 20.028%
   - `od_skeaa26780a363_XM_CSV` XM EURCADmicro H1: 23.758%/năm, DD 33.0%
   - `od_skeaa26780a363_Exness_CSV` Exness EURCADc H1: 23.758%/năm, DD 33.0%
+  - `od_skea363d6c8238_XM_CSV` XM NZDJPYmicro H4: 20.898%/năm, DD 30.906%
+  - `od_skea363d6c8238_Exness_CSV` Exness NZDJPYc H4: 20.898%/năm, DD 30.906%
+  - `od_skeaa3d6925a71_XM_CSV` XM AUDUSDmicro H4: 34.597%/năm, DD 51.779%
+  - `od_skeaa3d6925a71_Exness_CSV` Exness AUDUSDc H4: 34.597%/năm, DD 51.779%
+  - `od_skea61c21a2049_XM_CSV` XM CADJPYmicro H4: 30.923%/năm, DD 30.25%
+  - `od_skea61c21a2049_Exness_CSV` Exness CADJPYc H4: 30.923%/năm, DD 30.25%
+  - `od_skea154c9fdee7_XM_CSV` XM GBPCADmicro H4: 37.755%/năm, DD 58.212%
+  - `od_skea154c9fdee7_Exness_CSV` Exness GBPCADc H4: 37.755%/năm, DD 58.212%
+  - `od_skea31214192bc_XM_CSV` XM GBPNZDmicro H4: 34.626%/năm, DD 43.155%
+  - `od_skea31214192bc_Exness_CSV` Exness GBPNZDc H4: 34.626%/năm, DD 43.155%
+  - `od_skea09c76b6df5_XM_CSV` XM GBPAUDmicro H4: 20.501%/năm, DD 38.689%
+  - `od_skea09c76b6df5_Exness_CSV` Exness GBPAUDc H4: 20.501%/năm, DD 38.689%
+  - `od_skea0ab6e87da9_XM_CSV` XM EURGBPmicro H4: 22.132%/năm, DD 47.623%
+  - `od_skea0ab6e87da9_Exness_CSV` Exness EURGBPc H4: 22.132%/năm, DD 47.623%
