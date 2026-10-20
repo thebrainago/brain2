@@ -624,3 +624,51 @@ def test_khong_nhoi_khi_dau_nen_da_du_nguong_khoa():
     L = kq["lenh"]
     assert (~L["khoa"]).sum() == 1 and L["khoa"].sum() == 1
 
+
+# ------------------------------------------------------------------ dich_llm: 0 lenh -> kiem tinh + sua 1 lan
+_PY_0 = "def tin_hieu(df):\n    return [0] * len(df)\n"
+_PY_TOT = ("def tin_hieu(df):\n    s = (df['close'] > df['close'].rolling(20).mean()).astype(int) * 2 - 1\n"
+           "    return s.values\n")
+
+
+def _df_mau(n=600):
+    i = pd.date_range("2024-01-01", periods=n, freq="h")
+    c = 1.0 + 0.01 * np.sin(np.arange(n) / 15.0)
+    return pd.DataFrame({"open": c, "high": c + 0.001, "low": c - 0.001, "close": c}, index=i)
+
+
+def test_kiem_tinh_bat_tin_hieu_gia_va_gia_tuyet_doi():
+    df = _df_mau()
+    assert any("toan 0" in x for x in DL.kiem_tinh({"python": _PY_0}, df))
+    py = "def tin_hieu(df):\n    central_price = 5355.0\n    s = (df['close'] > central_price).astype(int)\n    return s.values\n"
+    assert any("cung gia tuyet doi 5355.0" in x for x in DL.kiem_tinh({"python": py}, df))
+    assert DL.kiem_tinh({"python": _PY_TOT}, df) == []
+    # khong co ma (LLM tu ghi khong dich duoc) -> khong hoi lai
+    assert not DL.can_sua({"dat": False, "ly_do": ["chi ra 0 lenh tren gia mau (< 3)"]}, {"python": "", "spec": []})
+    assert DL.can_sua({"dat": False, "ly_do": ["chi ra 0 lenh tren gia mau (< 3)"]}, {"python": _PY_0})
+
+
+class _ClDay:
+    def __init__(self, ds):
+        self.ds, self.lan, self.nhac = list(ds), 0, []
+
+    def __call__(self, url, h, body, timeout):
+        self.lan += 1
+        self.nhac.append(json.loads(body)["messages"][1]["content"])
+        py = self.ds.pop(0)
+        return 200, {"choices": [{"message": {"content": json.dumps({"loai": "he_hoan_thien", "spec": [], "python": py})}}],
+                     "usage": {}}
+
+
+def test_vong_sua_mot_lan_khi_0_lenh(monkeypatch, tmp_path):
+    monkeypatch.setenv("AIBOX_API_KEY", "khoa-gia-test")
+    monkeypatch.setattr(DL, "CACHE", tmp_path)
+    df = _df_mau()
+    cl = _ClDay([_PY_0, _PY_TOT])
+    d, tu_c = DL.dich_mot("void OnTick(){}", "MQL5", "h_sua", client=cl, df=df, nguon_gia="mau")
+    assert cl.lan == 2 and d["da_sua"] == 1 and "toan 0" in "\n".join(d["chan_doan_truoc"])
+    assert "CHAN DOAN" in cl.nhac[1] and DL.kiem_tra(d, df)["dat"]
+    # van 0 lenh sau khi sua -> chi hoi lai DUNG MOT lan, giu ban dau
+    cl2 = _ClDay([_PY_0, _PY_0, _PY_0])
+    d2, _ = DL.dich_mot("void OnTick(){}", "MQL5", "h_sua2", client=cl2, df=df, nguon_gia="mau")
+    assert cl2.lan == 2 and d2["da_sua"] == 1 and not DL.kiem_tra(d2, df)["dat"]

@@ -201,9 +201,10 @@ def test_dich_llm_cache_kiem_va_ghi_trang_thai(tmp_path, monkeypatch):
     cl = Client(_tra_theo_ma)
     r = DL.buoc_dich_llm(cn, client=cl, luong=2, in_ra=lambda *a: None)
     assert r["cho"] == 6 and r["thieu_ma"] == 1
-    assert len(cl.lan) == 4                                                # 2 the cung ma (a.py, d.mq5) -> 1 lan goi
+    # 2 the cung ma (a.py, d.mq5) -> 1 lan goi; 20/10/2026: pine_nhin (nhin truoc) duoc hoi SUA them MOT lan -> 5
+    assert len(cl.lan) == 5
     assert r["dat"] == 3 and r["hong"] == 1 and r["loi_llm"] == 1 and r["goi_moi"] == 4
-    assert r["so_lan_goi"] == 4 and r["token_vao"] == 900 + 800 + 100 + 100 and r["token_ra"] == 300 + 200 + 50 + 50
+    assert r["so_lan_goi"] == 5 and r["token_vao"] == 900 + 800 + 100 + 100 + 100 and r["token_ra"] == 300 + 200 + 50 + 50 + 50
     st = {t["id"]: (b, tt, t) for t, b, tt, _ in OD.cac_the(cn)}
     assert st["py_spec"][:2] == ("quyet_dinh", "SPEC_DSL") and st["py_spec"][2]["tin_hieu"]["kieu"] == "spec"
     assert st["ea_cung_ma"][:2] == ("quyet_dinh", "SPEC_DSL") and st["ea_cung_ma"][2]["duong_dich"] == "spec_dsl"
@@ -215,7 +216,7 @@ def test_dich_llm_cache_kiem_va_ghi_trang_thai(tmp_path, monkeypatch):
     assert len(s) == 600 and set(np.unique(s)) <= {-1, 0, 1} and np.count_nonzero(s) > 0
     # bao cao + nhat ky, khong co khoa
     md = (tmp_path / "DICH_LLM.md").read_text(encoding="utf-8")
-    assert "Số lần gọi API | 4" in md and "Token ra | 600" in md and KHOA_GIA not in md
+    assert "Số lần gọi API | 5" in md and "Token ra | 650" in md and KHOA_GIA not in md
     nk = (tmp_path / "data" / "ong_dan" / "dich_llm" / "nhat_ky.jsonl").read_text(encoding="utf-8")
     assert KHOA_GIA not in nk
     for f in (tmp_path / "data" / "ong_dan" / "dich_llm").glob("*.json"):

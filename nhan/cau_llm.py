@@ -26,7 +26,7 @@ GOC = Path(__file__).resolve().parent.parent
 CC_SWITCH_DB = Path.home() / ".cc-switch" / "cc-switch.db"
 TRAN_MA = 16000
 #: 20/10/2026: tang moi lan doi prompt / chuan hoa -> the HONG vi loi phia ta (prompt, bo kiem) duoc kiem / dich lai.
-PHIEN_PROMPT = 2
+PHIEN_PROMPT = 3
 MAC_DINH = {"cc_switch_provider": "aibox", "base_url": "https://api.ai-box.vn/v1", "model": "qwen3.7-flash",
             "model_du_phong": "qwen3.6-flash", "temperature": 0, "max_tokens": 8000, "timeout_giay": 420,
             "so_lan_thu_lai": 3, "qua_cau_noi": False}
@@ -250,6 +250,13 @@ Chi khi spec KHONG dien dat duoc moi dien 'python': MOT ham `tin_hieu(df)` nhan 
 thoi gian), tra mang cung do dai gia tri 1 (mua) / -1 (ban) / 0; np, pd, math da co san - KHONG import, KHONG class,
 KHONG doc file / mang; tin hieu tai nen i chi dung du lieu den het nen i (KHONG shift(-k), KHONG center=True, KHONG bfill,
 KHONG dung gia tri cuoi chuoi nhu iloc[-1] / max() ca chuoi).
+BAT BUOC (20/10/2026, do tren dau ra A/B: 14/30 ket qua OK ra 0 lenh):
+- KHONG tra tin hieu gia (vd `return [0]*len(df)`, np.zeros): neu khong dich duoc thi de python "" va ghi ly do vao chua_dich.
+- KHONG cung gia TUYET DOI cua mot ma (vd muc trung tam 5355.0 cua vang): bo may chay tren NHIEU ma khac thang gia ->
+  quy muc gia ve tuong doi (phan tram gia, boi ATR, cao/thap nhat N nen gan nhat).
+- EA luoi / DCA / martingale / theo trang thai lenh: dich DIEU KIEN MO LENH DAU (nguon_lenh) thanh tin hieu; luoi, nhoi,
+  hedge, chot ro ghi vao 'quan_tri' (bo may quan li lenh tu lam). Tin hieu phai ra lenh that tren gia H1 thuong
+  (it nhat vai lenh moi 1000 nen); dieu kien qua hiem (nhieu bo loc AND, nguong cuc tri) thi noi long ve mac dinh cua EA.
 MA NGUON (%s):
 ```
 %s
@@ -442,4 +449,48 @@ def boc_tach(ma_nguon: str, ngon_ngu: str = "MQL5", client=None, c: dict | None 
     d.update(meta)
     d["trang_thai"] = "OK"
     d["nhan"] = "LLM (%s) - can MT5 xac nhan" % r.get("model")
+    return d
+
+
+MAU_SUA = """Ban dich truoc cua ban cho MA NGUON duoi day KHONG DAT khi chay tren gia mau (%s, %d nen, gia %.5g-%.5g).
+CHAN DOAN (bo kiem tu dong):
+%s
+BAN DICH TRUOC (JSON):
+```
+%s
+```
+Sua theo chan doan va tra lai DUY NHAT mot JSON dung dang cu. Neu that su khong dich duoc thanh tin hieu tu gia OHLC thi
+de spec [] va python "" va ghi ly do vao chua_dich (KHONG tra tin hieu gia toan 0).
+MA NGUON (%s):
+```
+%s
+```"""
+
+
+def sua_lai(ma_nguon: str, ngon_ngu: str, truoc: dict, chan_doan: list, mo_ta_gia: tuple, client=None,
+            c: dict | None = None) -> dict:
+    """20/10/2026: hoi lai LLM MOT lan kem chan doan cua bo kiem (0 lenh / nhin truoc / loi chay). Dang tra nhu boc_tach."""
+    c = c or cau_hinh()
+    gon = {k: truoc.get(k) for k in ("loai", "spec", "python", "quan_tri", "chua_dich")}
+    nguon, n, lo, hi = mo_ta_gia
+    nhac = MAU_SUA % (nguon, n, lo, hi, "\n".join("- " + str(x) for x in chan_doan),
+                      json.dumps(gon, ensure_ascii=False)[:12000], ngon_ngu,
+                      rut_gon_ma(ma_nguon or "", int(c.get("tran_ma") or TRAN_MA)))
+    r = goi(nhac, client=client, c=c)
+    meta = {k: r.get(k) for k in ("model", "token_vao", "token_ra", "ghi_chu")}
+    if r["trang_thai"] != "OK":
+        return dict(meta, trang_thai=r["trang_thai"])
+    d = _json_trong(r["van_ban"])
+    if not isinstance(d, dict):
+        return dict(meta, trang_thai="LOI", ghi_chu="LLM sua: khong tra JSON object")
+    cd = d.get("chua_dich")
+    d["chua_dich"] = [str(x) for x in cd] if isinstance(cd, list) else ([str(cd)] if cd else [])
+    sp_ds = d.get("spec")
+    sp_ds = sp_ds if isinstance(sp_ds, list) else ([sp_ds] if isinstance(sp_ds, dict) else [])
+    d["spec"] = [chuan_hoa_spec(x) for x in sp_ds if isinstance(x, dict) and not kiem_spec(chuan_hoa_spec(x))]
+    if not isinstance(d.get("python"), str):
+        d["python"] = ""
+    d.update(meta)
+    d["trang_thai"] = "OK"
+    d["nhan"] = "LLM (%s) - da sua 1 lan theo chan doan - can MT5 xac nhan" % r.get("model")
     return d

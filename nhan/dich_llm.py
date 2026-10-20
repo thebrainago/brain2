@@ -239,7 +239,42 @@ def _ghi_cache(h: str, d: dict) -> None:
     (CACHE / (h + ".json")).write_text(json.dumps(d, ensure_ascii=False), encoding="utf-8")
 
 
-def dich_mot(vb: str, nn: str, h: str, client=None, c: dict | None = None) -> tuple[dict, bool]:
+def kiem_tinh(d: dict, df: pd.DataFrame | None = None) -> list[str]:
+    """20/10/2026: bo kiem TINH (khong chay ma) cho ban dich python - bat cac kieu 0 lenh do tren dau ra A/B
+    (data/ong_dan/ab_model): tin hieu gia toan 0, khong bao gio gan 1/-1, cung gia tuyet doi lech thang gia mau."""
+    import re
+    py = (d.get("python") or "").strip()
+    if not py:
+        return []
+    ly = []
+    gan_khac_0 = re.search(r"(=\s*-?1\b|append\(\s*-?1\s*\)|np\.where|np\.select|np\.sign|[-+*]\s*1\b|astype|\?\s*-?1)", py)
+    if re.search(r"return\s*(\[\s*0\s*\]\s*\*|np\.zeros|\[0 for)", py) and not gan_khac_0:
+        ly.append("tin hieu gia: ham tra mang toan 0, khong co nhanh nao gan 1/-1")
+    elif not gan_khac_0:
+        ly.append("khong thay cho nao gan tin hieu 1 hoac -1")
+    if df is not None and len(df):
+        lo, hi = float(df["low"].min()), float(df["high"].max())
+        for m in re.finditer(r"(?<![\w.])(\d+\.\d+|\d{3,})(?![\w.])", py):
+            v = float(m.group(1))
+            dong = py[max(0, py.rfind("\n", 0, m.start())):m.start()].lower()
+            if v > 0 and (v > 20 * hi or v < lo / 20) and re.search(r"(gia|price|central|level|muc|trung_tam)", dong) \
+                    and not re.search(r"(point|diem|pips?|period|n_|so_|max_|count|candles|nen)", dong):
+                ly.append("cung gia tuyet doi %s (gia mau %.5g-%.5g): quy ve tuong doi (pct / ATR / cao-thap N nen)"
+                          % (m.group(1), lo, hi))
+                break
+    return ly
+
+
+def can_sua(kt: dict, d: dict) -> bool:
+    """Ket qua kiem_tra co dang SUA DUOC bang mot lan hoi lai khong (co ma ma 0-it lenh / nhin truoc / loi chay)."""
+    if kt.get("dat") or not (d.get("spec") or (d.get("python") or "").strip()):
+        return False                       # khong co ma = LLM tu noi khong dich duoc -> hoi lai la phi tien
+    return any(("lenh tren gia mau" in x) or ("NHIN TRUOC" in x) or x.startswith("python:") or
+               x.startswith("spec khong chay") for x in kt.get("ly_do") or [])
+
+
+def dich_mot(vb: str, nn: str, h: str, client=None, c: dict | None = None,
+             df: pd.DataFrame | None = None, nguon_gia: str = "") -> tuple[dict, bool]:
     """-> (ket qua boc tach, tu_cache). Chi goi LLM khi chua co cache THANH CONG cho hash nay."""
     d = _doc_cache(h)
     if d and d.get("trang_thai") == "OK":
@@ -253,6 +288,25 @@ def dich_mot(vb: str, nn: str, h: str, client=None, c: dict | None = None) -> tu
     if client is None and not LLM.co_khoa(c):
         return {"trang_thai": "CHUA_CHAY_DUOC", "ghi_chu": "khong co khoa, khong co cache dung duoc"}, False
     d = LLM.boc_tach(vb, nn, client=client, c=c)
+    if d.get("trang_thai") == "OK" and df is not None:
+        # 20/10/2026: VONG SUA MOT LAN - ban dich 0 lenh / nhin truoc / loi chay -> hoi lai kem chan doan
+        try:
+            kt = kiem_tra(d, df)
+        except Exception as e:  # noqa: BLE001
+            kt = {"dat": False, "ly_do": ["python: kiem loi %s" % str(e)[:120]]}
+        if can_sua(kt, d):
+            cd = list(kt.get("ly_do") or []) + kiem_tinh(d, df)
+            d2 = LLM.sua_lai(vb, nn, d, cd, (nguon_gia or "gia mau", len(df), float(df["low"].min()),
+                                            float(df["high"].max())), client=client, c=c)
+            if d2.get("trang_thai") == "OK":
+                try:
+                    kt2 = kiem_tra(d2, df)
+                except Exception:  # noqa: BLE001
+                    kt2 = {"dat": False}
+                if kt2.get("dat") or not (d2.get("spec") or (d2.get("python") or "").strip()):
+                    d = dict(d2, da_sua=1, chan_doan_truoc=cd[:6])
+                else:
+                    d = dict(d, da_sua=1, chan_doan_truoc=cd[:6])
     if d.get("trang_thai") == "OK":
         _ghi_cache(h, dict(d, ngon_ngu=nn, phien=LLM.PHIEN_PROMPT, luc=time.strftime("%Y-%m-%dT%H:%M:%S")))
     return d, False
@@ -316,7 +370,7 @@ def buoc_dich_llm(cn, gioi_han: int | None = None, luong: int = 4, in_ra=print, 
     def _lam(h):
         v = viec[h]
         try:
-            d, tu_c = dich_mot(v["vb"], v["nn"], h, client=client, c=c)
+            d, tu_c = dich_mot(v["vb"], v["nn"], h, client=client, c=c, df=df, nguon_gia=nguon_gia)
         except Exception as e:  # noqa: BLE001 - mot the loi khong duoc lam sap ca luot (19/10/2026)
             d, tu_c = {"trang_thai": "LOI", "ghi_chu": "%s: %s" % (type(e).__name__, str(e)[:200])}, False
         with _KHOA:
