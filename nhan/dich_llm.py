@@ -286,6 +286,20 @@ def dich_mot(vb: str, nn: str, h: str, client=None, c: dict | None = None,
         co_ma = d.get("spec") or (d.get("python") or "").strip()
         if cung_model and (int(d.get("phien") or 1) >= LLM.PHIEN_PROMPT or co_ma):
             return d, True                              # khac model + co khoa -> goi lai bang model manh hien tai
+        # 20/10/2026 (kiem chi phi): 36 ma DA DAT hom 19/10 bi dich lai vi (1) trang_thai.sqlite tren may nha bi ban
+        # chup tu box ghi de (goi_may_nha) -> mat trang thai DAT, (2) cache khac model -> luon goi lai. Nay: cache khac
+        # model ma VAN DAT bo kiem hien tai -> dung lai, khong goi.
+        if co_ma and df is not None:
+            try:
+                kt0 = kiem_tra(d, df)
+            except Exception:  # noqa: BLE001
+                kt0 = {"dat": False}
+            if kt0.get("dat"):
+                return d, True
+        # 20/10/2026: "khong ra spec/python" voi >= 2 model khac nhau -> khong goi lai (tru khi ghi de bang tay)
+        if len(model_khong_ra(d)) >= SO_MODEL_KHONG_RA and not cho_dich_lai(h):
+            return dict(d, ghi_chu="KHONG_RA_SPEC_PY o %d model - khong dich lai (ghi de: %s)" % (
+                len(model_khong_ra(d)), DICH_LAI.name)), True
     if client is None and not LLM.co_khoa(c):
         return {"trang_thai": "CHUA_CHAY_DUOC", "ghi_chu": "khong co khoa, khong co cache dung duoc"}, False
     # 20/10/2026 (kiem chi phi): hai tien trinh (buoc 5 thu + dieu_phoi) cung lay dau hang -> 20 ma bi tra tien 2 lan.
@@ -302,6 +316,80 @@ def dich_mot(vb: str, nn: str, h: str, client=None, c: dict | None = None,
         return _dich_that(vb, nn, h, client, c, df, nguon_gia), False
     finally:
         _tha_cho(giu)
+
+
+SO_MODEL_KHONG_RA = 2
+#: Ghi de bang tay: moi dong mot hash (24 ky tu) hoac "*" = dich lai het; hoac bien moi truong BRAIN_DICH_LAI=1
+DICH_LAI = CACHE / "dich_lai.txt"
+
+
+def model_khong_ra(d: dict | None) -> set:
+    """Cac model da tra 'khong ra spec/python' cho ma nay: lich su hong_theo_model + chinh ban cache neu rong."""
+    if not d:
+        return set()
+    ra = {m for m, n in (d.get("hong_theo_model") or {}).items() if n == "KHONG_RA_SPEC_PY"}
+    if d.get("trang_thai") == "OK" and d.get("model") and not d.get("spec") and not (d.get("python") or "").strip():
+        ra.add(d["model"])
+    return ra
+
+
+def cho_dich_lai(h: str) -> bool:
+    if os.environ.get("BRAIN_DICH_LAI") == "1":
+        return True
+    f = CACHE / DICH_LAI.name
+    try:
+        ds = {x.strip() for x in f.read_text(encoding="utf-8").splitlines()}
+    except OSError:
+        return False
+    return "*" in ds or h in ds
+
+
+def ghi_hong_theo_model(h: str, model: str, nhom: str) -> None:
+    """Luu lich su HONG theo model vao cache (song sot khi trang_thai.sqlite bi ghi de)."""
+    d = _doc_cache(h)
+    if not d or not model or not nhom:
+        return
+    hm = dict(d.get("hong_theo_model") or {})
+    if hm.get(model) != nhom:
+        hm[model] = nhom
+        _ghi_cache(h, dict(d, hong_theo_model=hm))
+
+
+#: Truoc 20/10/2026 10:20 (commit 3b62c6e2) model dich la qwen3.7-flash (config/qwen.json) va nhat_ky khong ghi model
+MOC_FLASH = ("2026-10-20T10:20:00", "qwen3.7-flash")
+
+
+def bo_sung_lich_su_cu() -> int:
+    """Mot lan: nhat_ky.jsonl truoc MOC_FLASH -> hong_theo_model[qwen3.7-flash] cho ma KHONG_RA_SPEC_PY (cache hom do da
+    bi ghi de khi dich lai bang model moi). Tep danh dau .lich_su_cu -> khong lam lai."""
+    dau = CACHE / ".lich_su_cu"
+    if dau.exists():
+        return 0
+    n = 0
+    try:
+        with open(CACHE / "nhat_ky.jsonl", encoding="utf-8") as f:
+            for dong in f:
+                try:
+                    x = json.loads(dong)
+                except ValueError:
+                    continue
+                if str(x.get("luc") or "") >= MOC_FLASH[0]:
+                    continue
+                for c in x.get("the") or []:
+                    if c.get("ket_qua") in ("HONG", "BO_QUA") and c.get("bam") and \
+                            nhom_ly_do(c.get("ly_do")) == "KHONG_RA_SPEC_PY":
+                        d = _doc_cache(c["bam"])
+                        if d and MOC_FLASH[1] not in (d.get("hong_theo_model") or {}):
+                            ghi_hong_theo_model(c["bam"], MOC_FLASH[1], "KHONG_RA_SPEC_PY")
+                            n += 1
+    except OSError:
+        pass
+    try:
+        CACHE.mkdir(parents=True, exist_ok=True)
+        dau.write_text(str(n), encoding="utf-8")
+    except OSError:
+        pass
+    return n
 
 
 def _giu_cho(h: str, c: dict | None = None):
@@ -360,6 +448,12 @@ def _dich_that(vb, nn, h, client, c, df, nguon_gia) -> dict:
                     d = dict(d, da_sua=1, chan_doan_truoc=cd[:6])
     if d.get("trang_thai") == "OK":
         # token_*_tong: cong ca lan hoi lai (truoc day cache chi giu token cua lan cuoi -> khong do duoc chi phi sua)
+        cu = _doc_cache(h) or {}
+        hm = dict(cu.get("hong_theo_model") or {})
+        for m in model_khong_ra(cu):
+            hm.setdefault(m, "KHONG_RA_SPEC_PY")
+        if hm:
+            d = dict(d, hong_theo_model=hm)
         _ghi_cache(h, dict(d, ngon_ngu=nn, phien=LLM.PHIEN_PROMPT, luc=time.strftime("%Y-%m-%dT%H:%M:%S"),
                            **{k + "_tong": v for k, v in tong.items()}))
     return d
@@ -408,6 +502,10 @@ def buoc_dich_llm(cn, gioi_han: int | None = None, luong: int = 4, in_ra=print, 
             ghi_bao_cao(dem, LLM.THONG_KE, "", 0.0, ds_cho=danh_sach_cho(cn), tk_hong=thong_ke_hong(cn))
             return dem
         in_ra("dich_llm: khong co khoa - chi kiem lai %d the tu cache" % len(ds))
+    try:
+        bo_sung_lich_su_cu()
+    except Exception:  # noqa: BLE001 - chi la lich su, khong duoc chan buoc dich
+        pass
     df, nguon_gia = gia_mau(cfg)
     # 1) doc ma + hash, gom theo hash (nhieu the cung mot ma -> mot lan goi)
     viec = {}
@@ -494,6 +592,8 @@ def buoc_dich_llm(cn, gioi_han: int | None = None, luong: int = 4, in_ra=print, 
             else:
                 dem["hong"] += 1
                 dem["ly_do_hong"][nhom] = dem["ly_do_hong"].get(nhom, 0) + 1
+                if t is v["the"][0]["the"]:
+                    ghi_hong_theo_model(h, str(d.get("model") or ""), nhom)
                 if tt_moi == "BO_QUA":
                     dem["bo_qua"] += 1
                 with cn:
