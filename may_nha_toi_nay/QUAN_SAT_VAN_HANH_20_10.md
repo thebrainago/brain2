@@ -79,3 +79,22 @@ Ghi bởi Grok Bot (routine "Canh máy nhà đêm 20/10"), mỗi lần kiểm th
 2. **Giới hạn tầng 2 theo RAM thật thay vì trần 3:** lúc 21:31 còn 13,3 GB trống với 3 tầng 2 (2,0-6,0 GB mỗi việc), đủ cho việc tầng 2 thứ tư mà vẫn trên sàn 4 GB.
 3. **Ghi `slot` vào dòng QUA GIO** và hạ hạn cho việc đã quá giờ một lần (hoặc đẩy xuống cuối hàng) để không mất thêm 30 phút slot cho lần thử thứ hai.
 4. **Theo dõi metatester mồ côi** bằng canh_metatester_mo_coi.ps1 cho tới khi mọi tiến trình đều chạy bản có giet_cay.
+
+
+## Lần kiểm 22:08-22:12
+
+**Ảnh chụp tài nguyên 22:08:** RAM trống 13,5 GB (22:08, Win32_OperatingSystem); bộ điều phối ghi muc_mt5.json lúc 22:09:34: RAM trống 7,4 GB, tong 4, tang2 3. Ổ trống C 11,3 GB (21:31 là 13,2 GB, giảm 1,9 GB trong 37 phút), D 19,3 GB, E 191,1 GB. Process: chay_lien_tuc PID 15104/5804 sống, 3 terminal64 + 3 metatester64 trong mt5_tester (p7 PID 8528/8044 6,0 GB, p3 14360/12032 5,9 GB, p1 1500/9176 vừa phóng 22:08:43), XM chính 680 và claude 8720 không đụng. canh_metatester_mo_coi.ps1 PID 13708 vẫn chạy, log không thêm dòng nào từ 21:41:56 (không có metatester mồ côi mới).
+
+**Hàng MT5:** sổ cái 728 dòng (21:31) lên 781 (22:09), 53 lượt trong 38 phút. Hàng tầng 1 XM của box (38 việc lúc 21:31) đã chạy hết: p6 rỗi từ 22:03:46, p4 rỗi từ 22:04:32. Còn lại cho slot XM (lay_viec thử khô, BRAIN_HANG_BOX=1, san=XM, trần 500): 45 việc tầng 2 ống dẫn + 2 việc ống dẫn chưa gắn tầng + ít nhất 453 việc MRZ D1 OOS cũ. 115 việc tầng 1 Exness nằm chờ nhưng cả 5 slot đều đăng nhập XMGlobal-MT5 nên không chạy được. Vì hàng còn hơn 500 việc, phiên sẽ chạy tới 07:00 chứ không hết việc sớm, nên chưa tắt máy.
+
+**Tầng 2 real tick xong 21:58-22:08 (chay.log):** od_skeadd170ac7bf net 2.300,3 / 109 lệnh / PF 4,42 / DD 52,57 % (309 s); od_skea78384bbaf7 net -979,76 / DD 99,60 % (445 s); od_ghep0bf2c31fbfc9dea0 net 2.807,11 / 78 lệnh / PF 9,06 / DD 49,02 % (810 s). Tầng 1 OHLC M1 chạy 18-93 s mỗi việc.
+
+**Báo cáo:** PHIEN_20261020.md và UNG_VIEN.md được đẩy lúc 22:04 (commit 55c137c9, main = origin/main). UNG_VIEN: ĐẠT 33 (21:02) lên 44 (22:04), TRƯỢT 9, CHƯA ĐO ĐƯỢC 6. 11 hệ ĐẠT mới, ví dụ od_skst4ac0c7fd10781af4 EURUSD H1 330 %/năm kép (lịch sử chỉ 1,34 năm), od_skea0b8298aa53 GOLD H1 68 % (16 lệnh), od_skeadd170ac7bf USDCAD 54 % (cột TF trống, Py/MT5 CHƯA ĐO ĐƯỢC).
+
+**Đánh giá:** không có sự cố. 2/5 slot rỗi là do RAM chứ không phải lỗi: 3 việc tầng 2 ăn khoảng 6 GB mỗi việc, RAM trống còn 7,4 GB < 6 GB sàn tầng 2 + 4 GB sàn chung, nên không nâng BRAIN_TANG2_SLOT.
+
+### Đề xuất
+1. **Cho slot rỗi chạy việc nhẹ khi RAM chặn tầng 2:** đo RAM thật của việc MRZ D1 cũ (D1, ít tick hơn H1) và nếu dưới 3 GB thì gắn nhãn "nhẹ" để p4/p6 chạy chúng thay vì đứng không. Hiện 2 slot rỗi từ 22:04, tới 07:00 là khoảng 18 giờ slot.
+2. **Đăng nhập Exness cho một slot E (p4 hoặc p6)** nếu Anh muốn chạy 115 việc tầng 1 Exness đang treo; nếu không thì ngừng sinh việc Exness trên máy này để số đếm hàng đúng.
+3. **Sửa cột TF trống trong UNG_VIEN** (od_skeadd170ac7bf hiện không có TF) và tính Py/MT5 cho việc từ hàng box.
+4. **Theo dõi ổ C:** giảm 1,9 GB trong 37 phút (13,2 xuống 11,3 GB). Nếu giữ tốc độ này thì chạm sàn 6 GB khoảng 23:50; dọn tự động của chay_lien_tuc (DON SAU VIEC) cần được kiểm tra ở lần sau, nếu C dưới 8 GB thì chuyển dữ liệu nguội sang E.   Đo lúc 22:12: C:\mt5_tester\p7 chiếm 12,60 GB (Bases 7,13 GB, Tester 5,19 GB), %APPDATA%\MetaQuotes 18,07 GB, repo 0,41 GB. Phần tăng trên C nhiều khả năng là cache Tester của p7; QS.dam_bao_cho sẽ bỏ qua p7 nếu C dưới 6 GB, nên rủi ro chỉ là mất một slot chứ không làm đầy ổ.
