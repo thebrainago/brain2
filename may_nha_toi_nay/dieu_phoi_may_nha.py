@@ -151,6 +151,22 @@ def the_chua_dich() -> int | None:
         return None
 
 
+def cho_python() -> tuple[int | None, int | None]:
+    """(the cho toi_uu Python, trong do the ghep cheo) - tu cache ong dan. Loi -> (None, None) (CHUA DO DUOC)."""
+    try:
+        from nhan import ong_dan as OD
+        cn = OD._db()
+        try:
+            n = cn.execute("SELECT COUNT(*) FROM the WHERE buoc='quyet_dinh' AND loai='he_hoan_thien' AND "
+                           "duong IN ('noi_bo','spec_dsl','python_llm')").fetchone()[0]
+            g = cn.execute("SELECT COUNT(*) FROM the WHERE buoc='quyet_dinh' AND trang_thai='GHEP_CHEO'").fetchone()[0]
+            return int(n), int(g)
+        finally:
+            cn.close()
+    except Exception:
+        return None, None
+
+
 def do_dac(cfg: dict) -> dict:
     """Mot mau tai nguyen. Thieu psutil -> ghi None (CHUA DO DUOC), khong doan."""
     import quan_ly_slot as QS
@@ -169,6 +185,9 @@ def do_dac(cfg: dict) -> dict:
         o = QS.o_cua(s)
         if o and o not in d["o_trong_gb"]:
             d["o_trong_gb"][o] = round(trong_gb(QS.goc_o(s)), 1)
+    for o in (cfg.get("suc_khoe") or {}).get("o_kiem") or []:      # 20/10 toi: san C/D ~6 GB du khong co slot
+        if os.path.exists(o) and o[:2].upper() not in {k[:2].upper() for k in d["o_trong_gb"]}:
+            d["o_trong_gb"][o[:2].upper()] = round(trong_gb(o), 1)
     return d
 
 
@@ -223,6 +242,9 @@ def nen_chay_seeker(d: dict, cfg: dict, hang: int | None, cho: int | None, tt: d
     nghi = float(c.get("nghi_giua_hai_luot_phut", 60)) * 60
     if bay_gio - float(tt.get("seeker_luc_xong") or 0) < nghi:
         return False, "Seeker vua chay xong < %d phut" % (nghi // 60)
+    thieu = o_duoi_san(d, cfg)
+    if thieu:
+        return False, "ổ %s dưới sàn %.0f GB -> không tải thêm" % (",".join(thieu), float((cfg.get("suc_khoe") or {}).get("san_o_gb", 6)))
     tg = d.get("tai_ve_trong_gb")
     san = float(c.get("o_toi_thieu_gb", 20))
     if tg is None or tg != tg or tg < san:
@@ -236,6 +258,97 @@ def nen_chay_seeker(d: dict, cfg: dict, hang: int | None, cho: int | None, tt: d
         return False, "hang dau vao con du (MT5 %s viec, chua dich %s the)" % (hang, cho)
     return True, "hang sap can (MT5 %s < %s hoac chua dich %s < %s), o tai ve con %.1f GB" % (
         hang, c.get("hang_mt5_duoi", 20), cho, c.get("the_chua_dich_duoi", 40), tg)
+
+
+def o_duoi_san(d: dict, cfg: dict) -> list[str]:
+    """O he thong / SSD (C, D) duoi san (mac dinh 6 GB) -> danh sach; E (lanh) khong tinh."""
+    san = float((cfg.get("suc_khoe") or {}).get("san_o_gb", 6.0))
+    lanh = {x[:1].upper() for x in (cfg.get("suc_khoe") or {}).get("o_lanh") or ["E"]}
+    return sorted(k for k, v in (d.get("o_trong_gb") or {}).items()
+                  if isinstance(v, (int, float)) and v == v and v < san and k[:1].upper() not in lanh)
+
+
+def chon_viec_od(hang: int | None, cho_dich: int | None, cho_py: int | None, ton_ghep: int | None, cfg: dict,
+                 tt: dict, bay_gio: float) -> tuple[str | None, str]:
+    """Mot o "ong dan" (chung khoa ong_dan_chay.lock: dich_llm / python / ghep khong chay cung luc).
+    Day chuyen san xuat -> tieu thu, khong de o trong:
+      MT5 doi (hang < hang_mt5_duoi): the cho Python -> python (nhanh nhat ra viec MT5);
+                                       het the Python -> ghep_cheo (lap cho trong MT5) neu het nghi, khong thi dich_llm.
+      MT5 du viec: con the chua dich -> dich_llm; con the Python -> python; con lai -> ghep_cheo.
+    -> (viec | None, ly do)."""
+    c = cfg.get("vong_lap") or {}
+    if not c.get("bat", True):
+        return ("dich" if (cho_dich or 0) > 0 else None), "vong_lap tat -> chi dich_llm nhu cu"
+    duoi = int((cfg.get("seeker") or {}).get("hang_mt5_duoi", 20))
+    doi = hang is not None and hang < duoi
+    gc = cfg.get("ghep_cheo") or {}
+    ghep_ok = gc.get("bat", True) and bay_gio - float(tt.get("ghep_luc_xong") or 0) >= float(gc.get("nghi_phut", 30)) * 60 \
+        and (ton_ghep or 0) < int(gc.get("tran_ton", 60))
+    py_ok = (cho_py or 0) > 0 and bay_gio - float(tt.get("python_luc_xong") or 0) >= float(c.get("python_nghi_giay", 60))
+    if doi:
+        if py_ok:
+            return "python", "MT5 đói (%s < %d) và còn %s thẻ chờ Python" % (hang, duoi, cho_py)
+        if ghep_ok:
+            return "ghep", "MT5 đói (%s < %d), hết thẻ Python -> sinh thẻ ghép chéo" % (hang, duoi)
+        if (cho_dich or 0) > 0:
+            return "dich", "MT5 đói, ghép đang nghỉ/đủ trần -> đẩy dịch (%s thẻ chờ)" % cho_dich
+    if (cho_dich or 0) > 0:
+        return "dich", "MT5 đủ việc (%s), còn %s thẻ chờ dịch" % (hang, cho_dich)
+    if py_ok:
+        return "python", "hết thẻ dịch, còn %s thẻ chờ Python" % cho_py
+    if ghep_ok:
+        return "ghep", "mọi hàng trống -> ghép chéo"
+    return None, "không có việc ống dẫn (MT5 %s, dịch %s, Python %s, ghép tồn %s)" % (hang, cho_dich, cho_py, ton_ghep)
+
+
+def terminal_bo_roi(ds: list[dict], bay_gio: float, cfg: dict, la_tester=None) -> list[dict]:
+    """Terminal TESTER bo roi (giet DUNG PID, chi khi la_terminal_tester): (a) mo khong co /config: (do mt5.initialize mo,
+    loi truoc d4100d3d) qua `terminal_tran_phut` phut; (b) chay qua `terminal_qua_gio_phut` (lon hon han viec 6 gio).
+    ds: [{pid, exe, cmd, tao}]. Terminal giao dich (BRAIN_TERMINAL_GIAO_DICH) / mo tay -> la_tester False -> khong dung."""
+    if la_tester is None:
+        from nhan.khoa_tester import la_terminal_tester as la_tester
+    c = cfg.get("suc_khoe") or {}
+    tran, qua = float(c.get("terminal_tran_phut", 20)) * 60, float(c.get("terminal_qua_gio_phut", 420)) * 60
+    ra = []
+    for t in ds:
+        exe, cmd = t.get("exe") or "", t.get("cmd") or ""
+        if not la_tester(exe, cmd):
+            continue
+        tuoi = bay_gio - float(t.get("tao") or bay_gio)
+        if "/config:" not in cmd.lower() and tuoi > tran:
+            ra.append(dict(t, ly_do="terminal tester không /config: (initialize mở) %.0f phút" % (tuoi / 60)))
+        elif tuoi > qua:
+            ra.append(dict(t, ly_do="terminal tester chạy %.0f phút > %.0f" % (tuoi / 60, qua / 60)))
+    return ra
+
+
+def _ds_terminal() -> list[dict]:
+    ps = _psutil()
+    if not ps:
+        return []
+    ra = []
+    for p in ps.process_iter(["pid", "name", "exe", "cmdline", "create_time"]):
+        try:
+            if (p.info.get("name") or "").lower() == "terminal64.exe":
+                ra.append({"pid": p.info["pid"], "exe": p.info.get("exe") or "", "cmd": " ".join(p.info.get("cmdline") or []),
+                           "tao": p.info.get("create_time")})
+        except Exception:
+            pass
+    return ra
+
+
+def mt5_dang_chay() -> bool | None:
+    """Co tien trinh python chay mt5tools/chay_lien_tuc.py? Khong co psutil -> None."""
+    ps = _psutil()
+    if not ps:
+        return None
+    for p in ps.process_iter(["name", "cmdline"]):
+        try:
+            if "python" in (p.info.get("name") or "").lower() and any("chay_lien_tuc" in x for x in p.info.get("cmdline") or []):
+                return True
+        except Exception:
+            pass
+    return False
 
 
 # ------------------------------------------------------------------ don tep tho sau khi nhan
@@ -366,6 +479,36 @@ def _phong(lenh: list[str], ten: str) -> subprocess.Popen:
     return p
 
 
+def giet_cay(p) -> None:
+    """Giet tien trinh Popen p cua ta va cac con cua no theo PID (psutil); khong psutil -> chi p."""
+    ps = _psutil()
+    try:
+        if ps:
+            for c in ps.Process(p.pid).children(recursive=True):
+                try:
+                    c.kill()
+                except Exception:
+                    pass
+        p.kill()
+    except Exception:
+        pass
+
+
+def lenh_od(viec: str, cfg: dict) -> list[str]:
+    """Lenh cho o ong dan. python = toi_uu -> loc -> boc -> sinh_mt5 (moi buoc mot tien trinh con, noi tiep)."""
+    if viec == "dich":
+        c = cfg.get("dich_llm") or {}
+        return ["ong_dan.py", "dich_llm", "--gioi_han", str(c.get("gioi_han_moi_luot", 200)), "--luong", str(c.get("luong", 4))]
+    if viec == "python":
+        c = cfg.get("vong_lap") or {}
+        buoc = [["toi_uu", "--toi-da", str(c.get("python_the_moi_luot", 12))], ["loc"], ["boc"], ["sinh_mt5"]]
+        return ["-c", "import subprocess,sys\nfor b in %r:\n    r=subprocess.run([sys.executable,'ong_dan.py']+b).returncode\n"
+                      "    print(b[0],'rc',r,flush=True)\n    if r: sys.exit(r)" % (buoc,)]
+    if viec == "ghep":
+        return ["-m", "nhan.ghep_cheo", "--tran", str((cfg.get("ghep_cheo") or {}).get("tran_moi_luot", 20))]
+    raise ValueError(viec)
+
+
 class DieuPhoi:
     def __init__(self, cfg: dict, kho: bool = False):
         self.cfg, self.kho = cfg, kho
@@ -378,6 +521,9 @@ class DieuPhoi:
         except (OSError, ValueError):
             self.tt = {}
         self.t_hang = (0.0, None, None)
+        self.od_ten = None            # viec dang giu o ong dan: dich / python / ghep
+        self.t_py = (0.0, None, None)
+        self.mt5_tat_luc = 0.0
 
     def ghi(self, viec: str, quyet: str, ly_do: str, ep: bool = False) -> None:
         if not ep and self.cu.get(viec) == (quyet, ly_do):
@@ -403,36 +549,85 @@ class DieuPhoi:
         if not self.kho:
             ghi_muc_mt5(m)
         self.ghi("mt5", "tong=%d tang2=%d" % (m["tong"], m["tang2"]), m["ly_do"])
-        # dich_llm
+        # o ong dan (dich_llm / python / ghep_cheo - chung khoa ong_dan_chay.lock)
+        if now - self.t_py[0] > 120:
+            self.t_py = (now, *cho_python())
+        _, cho_py, ton_ghep = self.t_py
+        d.update(cho_python=cho_py, ghep_ton=ton_ghep)
         if self.dich is not None and self.dich.poll() is not None:
-            rc = self.dich.returncode
-            self.dich = None
+            rc, ten = self.dich.returncode, self.od_ten
+            self.dich, self.od_ten = None, None
             KHOA_OD.unlink(missing_ok=True)
-            self.nghi_dich = now + float((cfg.get("dich_llm") or {}).get("nghi_khi_het_giay", 900)) if rc != 0 or (cho or 0) == 0 else now
-            self.ghi("dich_llm", "xong", "rc=%s" % rc, ep=True)
+            if ten == "dich":
+                self.nghi_dich = now + float((cfg.get("dich_llm") or {}).get("nghi_khi_het_giay", 900)) if rc != 0 or (cho or 0) == 0 else now
+            else:
+                self.tt["%s_luc_xong" % ten] = now
+                self._luu_tt()
+            self.ghi(ten or "dich_llm", "xong", "rc=%s" % rc, ep=True)
             self.t_hang = (0.0, None, None)
-        elif self.dich is not None and now - self.dich_t0 > float((cfg.get("dich_llm") or {}).get("qua_gio_phut", 120)) * 60:
-            self.dich.kill()
-            self.ghi("dich_llm", "giet", "qua gio", ep=True)
-        ok, ly = nen_chay_dich(d, cfg, cho, self.dich is not None, self.nghi_dich, now)
-        if ok and self.seeker is not None and self.seeker[1] == "ong_dan":
-            ok, ly = False, "ong_dan nhan/phan_loai dang ghi CSDL"
-        if ok and not _khoa_ranh():
-            ok, ly = False, "ong_dan_chay.lock dang bi tien trinh khac giu"
-        self.ghi("dich_llm", "CHAY" if ok else "cho", ly)
-        if ok and not self.kho:
-            c = cfg.get("dich_llm") or {}
-            self.dich = _phong(["ong_dan.py", "dich_llm", "--gioi_han", str(c.get("gioi_han_moi_luot", 200)),
-                                "--luong", str(c.get("luong", 4))], "dich_llm")
-            self.dich_t0 = now
-            LOG_DIR.mkdir(parents=True, exist_ok=True)
-            KHOA_OD.write_text(str(self.dich.pid))
+            self.t_py = (0.0, None, None)
+        elif self.dich is not None:
+            han = {"dich": float((cfg.get("dich_llm") or {}).get("qua_gio_phut", 120)),
+                   "python": float((cfg.get("vong_lap") or {}).get("python_qua_gio_phut", 90)),
+                   "ghep": float((cfg.get("ghep_cheo") or {}).get("qua_gio_phut", 30))}.get(self.od_ten, 120.0)
+            if now - self.dich_t0 > han * 60:
+                giet_cay(self.dich)                  # DUNG PID con cua minh + cay con cua no, khong taskkill theo ten
+                self.ghi(self.od_ten or "dich_llm", "giet", "qua gio %.0f phut" % han, ep=True)
+        if self.dich is None:
+            viec, ly = chon_viec_od(hang, cho, cho_py, ton_ghep, cfg, self.tt, now)
+            if viec == "dich":
+                ok, ly2 = nen_chay_dich(d, cfg, cho, False, self.nghi_dich, now)
+                if not ok and (cho_py or 0) > 0:
+                    viec, ly = "python", ly2 + " -> làm Python thay"
+                elif not ok:
+                    viec, ly = None, ly2
+            if viec and self.seeker is not None and self.seeker[1] == "ong_dan":
+                viec, ly = None, "ong_dan nhan/phan_loai dang ghi CSDL"
+            if viec and not _khoa_ranh():
+                viec, ly = None, "ong_dan_chay.lock dang bi tien trinh khac giu"
+            self.ghi("ong_dan", ("CHAY " + viec) if viec else "cho", ly)
+            if viec and not self.kho:
+                self.dich = _phong(lenh_od(viec, cfg), {"dich": "dich_llm"}.get(viec, viec))
+                self.od_ten, self.dich_t0 = viec, now
+                LOG_DIR.mkdir(parents=True, exist_ok=True)
+                KHOA_OD.write_text(str(self.dich.pid))
+        # suc khoe / tu hoi phuc
+        self._suc_khoe(d, m, hang, now)
         # Seeker
         self._seeker(d, hang, cho, now)
-        d["dang_chay"] = {"dich_llm": self.dich is not None, "seeker": None if self.seeker is None else self.seeker[1],
+        d["dang_chay"] = {"dich_llm": self.od_ten == "dich", "python": self.od_ten == "python", "ghep": self.od_ten == "ghep",
+                          "seeker": None if self.seeker is None else self.seeker[1],
                           "mt5_cho_phep": m["tong"]}
         _ghi_dong(SU_DUNG, d)
         return d
+
+    def _suc_khoe(self, d, m, hang, now):
+        c = self.cfg.get("suc_khoe") or {}
+        if not c.get("bat", True):
+            return
+        thieu = o_duoi_san(d, self.cfg)
+        if thieu:
+            if not self.kho:
+                ghi_muc_mt5(dict(m, tong=0, tang2=0, nang_moi=False, ly_do="ổ %s dưới sàn -> dừng phóng việc MT5 mới" % ",".join(thieu)))
+            self.ghi("suc_khoe", "O_DAY", "ổ %s < %.0f GB: không phóng MT5/Seeker mới; dời dữ liệu lạnh sang E" % (
+                ",".join(thieu), float(c.get("san_o_gb", 6))))
+        for t in terminal_bo_roi(_ds_terminal(), now, self.cfg):
+            self.ghi("suc_khoe", "DONG_TERMINAL", "PID %s %s: %s" % (t["pid"], t["exe"], t["ly_do"]), ep=True)
+            if not self.kho:
+                try:
+                    _psutil().Process(int(t["pid"])).terminate()      # dung PID, khong bao gio theo ten
+                except Exception as e:  # noqa: BLE001
+                    self.ghi("suc_khoe", "loi", "PID %s: %s" % (t["pid"], e), ep=True)
+        if c.get("khoi_dong_lai_mt5", True) and hang and not co_lenh_tat() and not thieu:
+            chay = mt5_dang_chay()
+            if chay is False and now - self.mt5_tat_luc > float(c.get("mt5_cho_khoi_dong_giay", 600)):
+                self.mt5_tat_luc = now
+                den = self.den.strftime("%H:%M") if getattr(self, "den", None) else "07:00"
+                self.ghi("suc_khoe", "KHOI_DONG_LAI_MT5", "hàng MT5 %s việc nhưng không thấy chay_lien_tuc.py -> phóng lại tới %s" % (hang, den), ep=True)
+                if not self.kho:
+                    _phong(["mt5tools/chay_lien_tuc.py", "--den", den], "mt5_hoi_phuc")
+            elif chay:
+                self.mt5_tat_luc = now
 
     def _seeker(self, d, hang, cho, now):
         cfg = self.cfg
@@ -538,6 +733,7 @@ def main():
     if h <= dt.datetime.now():
         h += dt.timedelta(days=1)
     dp = DieuPhoi(cfg, kho=a.kho)
+    dp.den = h
     ghi_pid("dieu_phoi", os.getpid())
     dp.ghi("dieu_phoi", "BAT DAU", "toi %s, chu ky %ss" % (h, cfg.get("chu_ky_giay", 60)), ep=True)
     try:

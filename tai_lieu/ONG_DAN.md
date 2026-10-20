@@ -287,3 +287,36 @@ Khoá ai-box chỉ có trên máy nhà. Box **không** giữ khoá, không đọ
   - ≥ 90% blob sha file mã đã có.
 
   Mất mạng thì vẫn cho tải (CHƯA ĐO ĐƯỢC). Sổ đăng ký: `data/seeker_da_nguon/da_tai.jsonl`.
+
+## Sổ cơ chế, ghép chéo, vòng lặp liên tục (20/10/2026 tối)
+
+**Sổ cơ chế** (`nhan/so_co_che.py`): mỗi hệ một bản ghi, lưu ở `reports/kho_co_che/so_co_che.jsonl` và được commit. Tóm tắt cho người đọc ở `reports/kho_co_che/SO_CO_CHE.md`.
+- Sổ chỉ chứa metadata: id, tên, nguồn (kho, url), kiểu tín hiệu, tóm tắt lệnh vào, thoát/TP, quản lí (DCA, martingale, hedge/gỡ, gỡ chéo, trailing), khung, mã, lớp tài sản, nhãn phong cách vào lệnh, nhãn phong cách quản lí, kết quả Python (MÔ PHỎNG), kết quả MT5 (ĐO THẬT, lấy từ bảng "Tất cả" của `reports/UNG_VIEN.md`) và trạng thái.
+- Các trạng thái: DAT_MT5, TRUOT_MT5, CHUA_DO_MT5, DAT_PY, GAN_DAT (lãi ≥ 60 % ngưỡng 15 %/năm, DD ≤ 80 %, không stop-out), TRUOT_PY, CHUA_DO.
+- **Không có mã nguồn bên thứ ba.** Mã EA, mã Python do LLM dịch và spec đầy đủ đều nằm trong `data/ong_dan/trang_thai.sqlite`, thư mục git bỏ qua. Test `test_so_co_che_commit_khong_chua_ma` kiểm điều này.
+- Không trùng với `nhan/kho_co_che.py`. Kho đó lưu từng mảnh theo vai trò, trong sqlite ở data/. Sổ này lưu một bản ghi cho mỗi hệ.
+- Lệnh:
+  - `python -m nhan.so_co_che xay`
+  - `python -m nhan.so_co_che tim --tag dca --trang DAT_MT5,DAT_PY --ma GBPCAD --khung H1`
+  - `python -m nhan.so_co_che thong_ke`
+
+**Ghép chéo** (`nhan/ghep_cheo.py`, cấu hình ở `config/dieu_phoi.json` → `ghep_cheo`): chỉ lấy hệ DAT_MT5, DAT_PY hoặc GAN_DAT. Hai hệ đem ghép **bắt buộc khác phong cách**. Có ba kiểu ghép:
+1. `vao_x_quan_li`: lệnh vào của A cộng bộ quản lí tốt nhất của B. Bộ quản lí của B được gắn vào thẻ (`thu_goi_y`), và `buoc_toi_uu` thử nó đầu tiên.
+2. `hai_nguon`: A và B cùng chạy trên một mã, gỡ chéo (`to_hop.nguon_b` của engine `chay_tk`).
+3. `danh_muc`: 2–3 hệ DAT_MT5 khác mã. Điều kiện là tương quan lãi/lỗ theo ngày ≤ 0,3 (tính từ lệnh MT5 thật `*_lenh_mt5.csv`) và khoảng chung ≥ 1,5 năm. Kết quả ghi vào `reports/kho_co_che/danh_muc_ghep.jsonl`.
+- Thẻ kiểu 1 và 2 vào hàng Python: `buoc=quyet_dinh`, `trang_thai=GHEP_CHEO`, `duong=noi_bo`. Qua lọc 65/15 thì `sinh_mt5` đưa sang MT5 hai tầng như mọi thẻ khác.
+- Khử trùng bằng `ghep_<sha(kieu, A, B, mã, khung)>`.
+- Trần: tối đa `tran_moi_luot` thẻ mỗi lượt, tối đa `tran_ton` thẻ ghép chờ Python, và mỗi hệ góp mặt tối đa `toi_da_moi_he` lần mỗi lượt.
+
+**Vòng lặp** (`may_nha_toi_nay/dieu_phoi_may_nha.py`, các mục `vong_lap` và `suc_khoe`):
+- Có một ô "ống dẫn" dùng chung `ong_dan_chay.lock`. Ô này xoay giữa ba việc: `dich` (dich_llm), `python` (toi_uu → loc → boc → sinh_mt5) và `ghep` (ghep_cheo). Hàm thuần `chon_viec_od` quyết định chạy việc nào:
+  - MT5 đói (hàng < `hang_mt5_duoi`): làm Python trước. Hết thẻ Python thì ghép chéo. Ghép đang nghỉ hoặc đã đủ trần thì chuyển sang dịch.
+  - MT5 đủ việc: dịch trước, sau đó Python, sau đó ghép.
+- Seeker giữ điều kiện cũ, và thêm một điều kiện: ổ C hoặc D dưới sàn 6 GB thì không tải.
+- Sức khoẻ, kiểm mỗi vòng:
+  - Ổ C hoặc D dưới sàn: ghi `muc_mt5` tong=0 (không phóng việc mới).
+  - Terminal **tester** bị bỏ rơi thì terminate đúng PID. Có hai trường hợp: mở không có `/config:` (kiểu `initialize` để lại, tức lỗi trước d4100d3d) quá 20 phút, hoặc chạy quá 420 phút. Bộ lọc là `khoa_tester.la_terminal_tester`, nên không bao giờ đụng terminal giao dịch XM hay claude.exe.
+  - Hàng MT5 còn việc mà không thấy `chay_lien_tuc.py` thì phóng lại, các lần cách nhau ≥ 10 phút.
+  - Việc con quá giờ: giết cây tiến trình con của chính nó theo PID.
+- Tắt riêng từng phần: `vong_lap.bat=false` quay về hành vi cũ (chỉ dich_llm). Có thêm `ghep_cheo.bat` và `suc_khoe.bat`.
+- Test: `test_vong_lap_ghep_cheo.py`.

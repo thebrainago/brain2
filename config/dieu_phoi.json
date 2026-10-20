@@ -63,5 +63,42 @@
   "chi_xoa_cu_hon_phut": 30,
   "_ghi_chu": "sau khi ong_dan nhan/phan_loai/quyet_dinh xong: xoa tep nen/tho (.zip/.rar/.bi5...) va tep nhi phan > tep_lon_mb khong phai ma nguon, KHONG xoa tep nao dang la nguon.tep / sets / ea_lien_quan cua the trong trang_thai.sqlite; tep trung noi dung (sha1) khong duoc the nao tro toi cung bi xoa."
  },
- "uu_tien": "Normal"
+ "uu_tien": "Normal",
+ "vong_lap": {
+  "bat": true,
+  "python_the_moi_luot": 12,
+  "python_nghi_giay": 60,
+  "python_qua_gio_phut": 90,
+  "_ghi_chu": "20/10/2026 toi: mot o ong dan (chung ong_dan_chay.lock) xoay dich_llm / python (toi_uu->loc->boc->sinh_mt5) / ghep_cheo theo chon_viec_od: MT5 doi -> Python truoc, het Python -> ghep cheo, roi dich; MT5 du -> dich truoc. bat=false -> chi dich_llm nhu ban 20/10 sang."
+ },
+ "ghep_cheo": {
+  "bat": true,
+  "tran_moi_luot": 20,
+  "tran_ton": 60,
+  "nghi_phut": 30,
+  "qua_gio_phut": 30,
+  "toi_da_moi_he": 3,
+  "tuong_quan_toi_da": 0.3,
+  "danh_muc_toi_da": 10,
+  "von_moi_he": 1000.0,
+  "nam_toi_thieu": 1.5,
+  "ti_le_gan_dat": 0.6,
+  "_ghi_chu": "nhan/ghep_cheo.py: vao A x quan li B, hai nguon go cheo (bat buoc khac phong cach), danh muc 2-3 he DAT MT5 tuong quan lai/lo ngay <= tuong_quan_toi_da. tran_ton = so the ghep toi da dang cho Python."
+ },
+ "suc_khoe": {
+  "bat": true,
+  "san_o_gb": 6.0,
+  "o_kiem": [
+   "C:\\",
+   "D:\\"
+  ],
+  "o_lanh": [
+   "E"
+  ],
+  "terminal_tran_phut": 20,
+  "terminal_qua_gio_phut": 420,
+  "khoi_dong_lai_mt5": true,
+  "mt5_cho_khoi_dong_giay": 600,
+  "_ghi_chu": "o C/D < san_o_gb -> muc_mt5 tong=0 + khong Seeker; terminal TESTER (khoa_tester.la_terminal_tester) mo khong /config: qua terminal_tran_phut hoac chay qua terminal_qua_gio_phut -> terminate DUNG PID; hang MT5 > 0 ma khong thay chay_lien_tuc.py -> phong lai (cach nhau >= mt5_cho_khoi_dong_giay). Khong bao gio dong terminal giao dich (BRAIN_TERMINAL_GIAO_DICH), khong dong claude.exe, khong tat may."
+ }
 }

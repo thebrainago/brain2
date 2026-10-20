@@ -555,6 +555,9 @@ def buoc_toi_uu(cn, toi_da: int | None = None, ngan_sach: int | None = None, in_
         lam = 0
         thay = set()
         hat = []
+        for g in t.get("thu_goi_y") or []:              # 20/10/2026: the ghep cheo -> phep thu dau = (ma, khung, ql cua B)
+            if g.get("ma") in ma_co_du_lieu(cfg):
+                hat.append(json.loads(json.dumps(g)))
         if t.get("ql_goi_y"):                           # phep thu dau: quan li DO NGUOC tu statement
             for ma in [m for m in ((t.get("tin_hieu") or {}).get("ma") or []) if m in ma_co_du_lieu(cfg)][:2]:
                 q = {k: v[0] for k, v in KHONG_GIAN_QL.items()}

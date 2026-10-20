@@ -7,6 +7,24 @@
 > **Tài khoản Grok Bot mới:** đọc `START_HERE.md` → `BAN_GIAO_GROK.md` → `GHI_CHU_NANG_CAP_GROK.md`. Không secret trong git.
 
 
+## 20/10/2026 tối (giờ VN) — Sổ cơ chế, ghép chéo, vòng lặp liên tục (Grok Bot, box)
+
+Mọi số dưới đây đo trên box, từ cache box và `reports/UNG_VIEN.md` (cập nhật 20:01). Cache box cũ hơn máy nhà.
+
+- **Sổ cơ chế** `nhan/so_co_che.py` → `reports/kho_co_che/so_co_che.jsonl` (metadata, không mã bên thứ ba) và `SO_CO_CHE.md`.
+  - Điền lại được 1.114 hệ: DAT_MT5 30, TRUOT_MT5 9, CHUA_DO_MT5 6, DAT_PY 53, GAN_DAT 25, TRUOT_PY 82, CHUA_DO 909. Phần lớn CHUA_DO là thẻ `CHO_MT5_NGOAI`, chưa có số Python.
+  - 90 hệ chạy được trong Python.
+- **Ghép chéo** `nhan/ghep_cheo.py`. Thử trên một bản sao sqlite của box:
+  - Lượt 1 sinh 20 thẻ ghép, chặn 0 cặp vì cùng phong cách. Lượt 2 bỏ 11 cặp trùng.
+  - `toi_uu` (ngân sách 4 phép thử) chạy 3 thẻ ghép, MÔ PHỎNG: 34,7 %/năm DD 28,5 %; 36,6 %/năm DD 23,1 %; 43,1 %/năm DD 19,6 %.
+  - Danh mục: 16 hệ DAT_MT5 có tệp lệnh, giữ 10 danh mục có tương quan ngày ≤ 0,3. **DD của danh mục chỉ tính trên vốn đóng lệnh (0–5 %), thấp hơn nhiều so với DD vốn 45–70 % của từng hệ.** Vì vậy cờ đạt chỉ là NHÃN, chưa dùng làm phán xử. Danh mục chưa có EA nhiều mã để chạy MT5.
+- **Vòng lặp**: mục mới trong `tai_lieu/ONG_DAN.md`. Có ô ống dẫn xoay dịch / Python / ghép, kiểm sức khoẻ (sàn ổ C/D 6 GB, terminal tester bỏ rơi, phóng lại chay_lien_tuc), và giết cây tiến trình con theo PID.
+  - Chạy thử `--mot_lan --kho` trên box: hàng MT5 200, 2.306 thẻ chờ dịch → chọn dich. Box không có psutil nên RAM ghi CHƯA ĐO ĐƯỢC.
+- Thêm hook nhỏ trong `ong_dan.buoc_toi_uu`: `thu_goi_y` của thẻ được thử đầu tiên.
+- Bật trên máy nhà: `may_nha_toi_nay/KICH_HOAT_VONG_LAP.md`. Bước này chỉ làm sau phiên đêm 20→21/10.
+- Test: `test_vong_lap_ghep_cheo.py` (9) và `test_nang_cap_20_10.py`.
+- `test_to_hop.py::test_cache_KHONG_doi_ket_qua` đã hỏng trước khi sửa (kiểm bằng git stash); không do thay đổi này.
+
 ## 20/10/2026 (giờ VN) — Sửa dich_llm, khớp Python↔MT5, lọc MT5 hai tầng, ổ đĩa, báo cáo phiên, bộ điều phối (Grok Bot)
 
 Mọi số dưới đây là số đo trên box từ dữ liệu có sẵn trong repo. Các số Python là MÔ PHỎNG. Chưa gọi LLM thật, vì khoá chỉ có trên máy nhà.
