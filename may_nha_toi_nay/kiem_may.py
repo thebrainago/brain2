@@ -88,11 +88,45 @@ def game() -> list[str]:
         return []
 
 
+def _pid_terminal(p: Path) -> set[int]:
+    """PID terminal64 dang chay dung tep exe p (khong doc duoc exe -> bo qua)."""
+    try:
+        import psutil
+    except Exception:
+        return set()
+    ra = set()
+    for q in psutil.process_iter(["name", "exe"]):
+        try:
+            if (q.info["name"] or "").lower() == "terminal64.exe" and q.info["exe"] and \
+                    os.path.normcase(q.info["exe"]) == os.path.normcase(str(p)):
+                ra.add(q.pid)
+        except Exception:
+            pass
+    return ra
+
+
+def _dong_terminal_moi(p: Path, truoc: set[int]) -> None:
+    """20/10/2026: mt5.initialize mo terminal neu chua chay, mt5.shutdown KHONG dong no -> terminal slot
+    tester ngoi khong ca dem va buoc 7 tuong 'co phien khac'. Chi dong terminal do chinh lan kiem nay mo."""
+    try:
+        import psutil
+    except Exception:
+        return
+    for pid in _pid_terminal(p) - truoc:
+        try:
+            q = psutil.Process(pid)
+            q.terminate()
+            q.wait(15)
+        except Exception:
+            pass
+
+
 def mt5_tai_khoan(p: Path) -> dict:
     try:
         import MetaTrader5 as mt5
     except Exception:
         return {"loi": "chưa cài gói MetaTrader5"}
+    truoc = _pid_terminal(p)
     try:
         if not mt5.initialize(path=str(p), timeout=60000):
             return {"loi": "initialize lỗi %s" % (mt5.last_error(),)}
@@ -109,6 +143,7 @@ def mt5_tai_khoan(p: Path) -> dict:
             mt5.shutdown()
         except Exception:
             pass
+        _dong_terminal_moi(p, truoc)
 
 
 def main() -> int:

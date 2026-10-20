@@ -386,7 +386,7 @@ Buoc 4 "Biên dịch ea_demo\BRAIN_XuLiLenh.mq5" {
 
 # ---------------------------------------------------------------- 7. hàng MT5 (NỀN, chạy ngay sau bước 4)
 Buoc 7 "Hàng MT5 nền tới $Den (mỗi slot lấy việc đúng sàn nó đăng nhập)" {
-    $dang = Get-Process -Name terminal64, metatester64 -ErrorAction SilentlyContinue | Where-Object { $_.Path -like "*mt5_tester*" }
+    $dang = Get-Process -Name metatester64 -ErrorAction SilentlyContinue | Where-Object { $_.Path -like "*mt5_tester*" }   # 20/10/2026: chi metatester = dang test that; terminal64 ngoi khong (kiem_may/bien dich) khong tinh
     if ($dang) { return "BỎ QUA: đã có phiên khác dùng tester (PID $(($dang | ForEach-Object { $_.Id }) -join ',')) - một phiên một lúc" }
     $san = @{}
     foreach ($s in $DsSlot) {

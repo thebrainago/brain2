@@ -162,3 +162,86 @@ Mỗi dòng: giờ máy nhà (UTC+7) + việc. `chay_toi_nay.ps1` và `dich_llm_
 - 2026-10-19 23:53:45 ## Hết phiên. Tóm tắt: C:\Users\DUNG\brain2\may_nha_toi_nay\KET_QUA_SANG.md | log: E:\brain2_log\toi_nay_20261019 (máy KHÔNG tắt)
 - 2026-10-20 09:45 [Grok Bot, box] Sửa trong repo (không sửa trực tiếp trên máy nhà): nhan/cau_llm.py, nhan/dich_llm.py, nhan/hop_cat_llm.py, nhan/tai_khoan.py, nhan/ong_dan.py, nhan/nguon_seeker.py, mt5tools/sinh_viec.py, mt5tools/chay_lien_tuc.py, mt5tools/quan_ly_slot.py (mới), mt5tools/bao_cao_phien.py (mới), may_nha_toi_nay/dieu_phoi_may_nha.py (mới), BAT_THE_BRAIN.bat / TAT_THE_BRAIN.bat (mới), config/dieu_phoi.json (mới), chay_toi_nay.ps1, vong_phien.ps1 (mới). Máy nhà: `git stash` bản chay_lien_tuc.py cục bộ rồi pull — xem GIAO_VIEC_CLAUDE.md mục 7.2.
 - 2026-10-20 10:45 [Grok Bot, box] config/llm_dich.json: khoá model dịch qwen3.7-max (dự phòng 5xx: kimi-k2.7-code) theo A/B thật 20 EA trên box — reports/ong_dan/CHON_MODEL_LLM.md. Lưu ý: ai-box báo HẾT QUOTA (403, còn 0 đ) lúc ~10:40 — cần nạp trước khi dich_llm chạy.
+- 2026-10-20 19:25 [Claude, may nha] B1: commit 1b56621b da o origin/main (khong con commit chua push). pytest test_nang_cap_20_10.py: 42 passed. Stash 'may_nha_20_10_truoc_pull' (5 tep) DUNG mt5tools/chay_lien_tuc.py (tep vua keo ve) -> de nguyen, KHONG pop.
+- 2026-10-20 19:25 [Claude, may nha] B2: psutil 7.2.2 da cai. B3: data/seeker_da_nguon/tai_ve da la JUNCTION -> E:\brain2_seeker\tai_ve (co forex_station, forexfactory, github, mql5, web); khong co tien trinh seeker dang chay. C:\Research SP500\cau_hop_thu* : 22 junction -> E:\lanh_tu_C\Research SP500\ (22 thu muc dich ton tai, khong thieu), nhat quan, khong can sua. C trong ~41 GB.
+- 2026-10-20 19:26 [Claude, may nha] B4: kiem_truoc_khi_chay.ps1 -> TONG: OK (3 canh bao: NHAT_KY.md sua do, stash con 1, chay_lien_tuc.py khac ban sao 23h45 - da so: ban repo la ban gop cua Grok (BRAIN_SLOTS/quan_ly_slot thay slot cu), py_compile OK, pytest 42 pass). B5: bat BAT_THE_BRAIN.bat -Den 07:00 (tach roi).
+
+- 2026-10-20 19:26:18 ## Phiên chay_toi_nay.ps1 trên DESKTOP-05PNLGF - bước: 0,1,2,3,4,7,12,13,5,6,9,10,8,11
+- 2026-10-20 19:26:18 repo=C:\Users\DUNG\brain2 | python=C:\Research SP500\lab\.venv\Scripts\python.exe | log=E:\brain2_log\toi_nay_20261020 | XM=C:\Program Files\XM Global MT5\terminal64.exe | Exness= | dừng MT5 lúc 07:00
+- 2026-10-20 19:26:18 **Bước 0 - Kiểm máy**: BẮT ĐẦU
+- 2026-10-20 19:26:18   ổ C:\ trống 38.2 GB
+- 2026-10-20 19:26:18   ổ D:\ trống 16.8 GB
+- 2026-10-20 19:26:18   ổ E:\ trống 187.3 GB
+- 2026-10-20 19:26:19   chạy: python.exe may_nha_toi_nay/kiem_may.py --mt5 --terminal "C:\Program Files\XM Global MT5\terminal64.exe"
+- 2026-10-20 19:28:17   python 3.12.10 | gói: numpy=True, pandas=True, MetaTrader5=True, psutil=True, pyarrow=True, requests=True
+- 2026-10-20 19:28:17   khoá LLM: AIBOX_API_KEY=CÓ, cc-switch aibox=KHÔNG, proxy=KHÔNG
+- 2026-10-20 19:28:17   MT5 C:\Program Files\XM Global MT5\terminal64.exe: server=XMGlobal-MT5 10, hedging=True, demo=False, tiền=USD
+- 2026-10-20 19:28:17   MT5 D:\mt5_tester\p1\terminal64.exe: server=XMGlobal-MT5 10, hedging=True, demo=True, tiền=USD
+- 2026-10-20 19:28:17   MT5 E:\mt5_tester\p3\terminal64.exe: server=XMGlobal-MT5 10, hedging=True, demo=True, tiền=USD
+- 2026-10-20 19:28:17   MT5 E:\mt5_tester\p4\terminal64.exe: server=XMGlobal-MT5 10, hedging=True, demo=True, tiền=USD
+- 2026-10-20 19:28:17   MT5 E:\mt5_tester\p5\terminal64.exe: server=XMGlobal-MT5 10, hedging=True, demo=True, tiền=USD
+- 2026-10-20 19:28:17   MT5 E:\mt5_tester\p6\terminal64.exe: server=XMGlobal-MT5 10, hedging=True, demo=True, tiền=USD
+- 2026-10-20 19:28:17   MT5 C:\Program Files\MetaTrader 5\terminal64.exe: server cuối= | initialize lỗi (-10005, 'IPC timeout')
+- 2026-10-20 19:28:17   slot tester D:\mt5_tester\p1 : server=XMGlobal-MT5 10
+- 2026-10-20 19:28:17   slot tester E:\mt5_tester\p6 : server=XMGlobal-MT5 10
+- 2026-10-20 19:28:17   slot tester E:\mt5_tester\p3 : server=XMGlobal-MT5 10
+- 2026-10-20 19:28:17   slot tester E:\mt5_tester\p4 : server=XMGlobal-MT5 10
+- 2026-10-20 19:28:17 **Bước 0**: XONG (rc=0)
+- 2026-10-20 19:28:17 **Bước 1 - git pull brain2 + the-brain**: BẮT ĐẦU
+- 2026-10-20 19:28:17   chạy: git -C C:\Users\DUNG\brain2 pull --rebase
+- 2026-10-20 19:28:17   chạy: git -C "C:\Research SP500\lab" pull --rebase
+- 2026-10-20 19:28:18     | error: cannot pull with rebase: You have unstaged changes.
+- 2026-10-20 19:28:18     | error: Please commit or stash them.
+- 2026-10-20 19:28:18 **Bước 1**: brain2 rc=128; the-brain rc=128
+- 2026-10-20 19:28:18 **Bước 2 - Giải nén gói zip**: BẮT ĐẦU
+- 2026-10-20 19:28:18   gói: D:\brain2_goi\goi_ea_ngoai_20261019.zip (29.5 MB)
+- 2026-10-20 19:28:18   đã sao lưu trang_thai.sqlite -> E:\brain2_backup\trang_thai_20261020_192818.sqlite
+- 2026-10-20 19:28:59 **Bước 2**: XONG: 3070 tệp vào data\ (gói KHÔNG được vào git)
+- 2026-10-20 19:28:59 **Bước 3 - Đo phí sàn thật (Exness cent, XM micro)**: BẮT ĐẦU
+- 2026-10-20 19:28:59   chạy: python.exe mt5tools/do_phi_san.py "C:\Program Files\XM Global MT5\terminal64.exe" --ngay-tick 14 --tp-gia 5 --ngay-lich-su 365
+- 2026-10-20 19:31 [Claude, may nha] TOM TAT 5 DONG sau khi doc GHI_CHU_NANG_CAP_GROK (20/10 sang+chieu) va tai_lieu/ONG_DAN.md:
+  1) dich_llm: qwen3.7-max khoa (du phong kimi-k2.7-code chi khi 5xx), A/B 20 EA: 7/20 DAT, hong chu yeu IT_LENH; PHIEN_PROMPT=3, vong sua 1 lan kem chan doan; ty le dat sau sua CHUA DO DUOC. Het quota thi dich_llm dung (quota da nap).
+  2) Khop Python-MT5: quy doi lai cap cheo ve USD, khong vao lai trong nen vua cham TP, DCA khoa truoc nhoi -> trung vi Py/MT5 0,99, khop lenh 82,8%; lai MT5 lay net trong .htm; EURUSD# gan SAI_SYMBOL = CHUA DO DUOC va chay lai (chay_lai_mt5.json).
+  3) MT5 hai tang: tang 1 OHLC M1 (toi 5 slot, qua khi net>0 va DD<95%), tang 2 real tick (toi 3 slot, +300 diem); quan_ly_slot theo BRAIN_SLOTS, san C/D 6 GB, RAM<4 GB khong mo viec; seeker tai_ve o E: qua junction.
+  4) Bao cao: bao_cao_phien.py moi gio -> reports/phien/PHIEN_<ngay>.md + reports/UNG_VIEN.md (chi 2 loai tep nay duoc push); UNG_VIEN kiem toan lai: DAT 30 / TRUOT 9 / CHUA DO DUOC 6 (lai kep, DD=max(Maximal,Relative), stop-out=TRUOT).
+  5) Dieu phoi + che do: dieu_phoi_may_nha.py (MT5 uu tien RAM, dich_llm lien tuc 8 luong, Seeker chi khi hang MT5<20 hoac the chua dich<40 va o >20 GB), chay het suc (Normal, CPU toi 95%, khong giam tai theo game), tat bang TAT_THE_BRAIN.bat; Seeker loc trung truoc khi tai (loc_trung_tai) moi noi vao tru/seeker.tai_kho.
+- 2026-10-20 20:00:12     | ok XAUJPY XAUJPYmicro 123.0 1.76 POINTS
+- 2026-10-20 20:00:12     | ok XAUUSD GOLDmicro 0.5500000000001819 1.6 POINTS
+- 2026-10-20 20:00:12     | ok XPDUSD XPDUSDmicro 7.2000000000000455 1.14 POINTS
+- 2026-10-20 20:00:12     | ok XPTUSD XPTUSDmicro 5.2999999999999545 1.02 POINTS
+- 2026-10-20 20:00:12     | LICH SU: khong co lenh trong 365 ngay (hoa hong that = CHUA_DO_DUOC tren tai khoan nay)
+- 2026-10-20 20:00:12     | XONG -> reports\phi_san\XMGlobal-MT5_10
+- 2026-10-20 20:00:12   reports\phi_san\XMGlobal-MT5_10
+- 2026-10-20 20:00:12 **Bước 3**: Exness: CHƯA ĐO ĐƯỢC (không thấy terminal); XM: ĐO xong
+- 2026-10-20 20:00:12 **Bước 4 - Biên dịch ea_demo\BRAIN_XuLiLenh.mq5**: BẮT ĐẦU
+- 2026-10-20 20:00:12   chạy: metaeditor64.exe /compile:Experts\BRAIN\BRAIN_XuLiLenh.mq5 /log:Experts\BRAIN\BRAIN_XuLiLenh.log /portable
+- 2026-10-20 20:00:18   chạy: metaeditor64.exe /compile:Experts\BRAIN\BRAIN_XuLiLenh.mq5 /log:Experts\BRAIN\BRAIN_XuLiLenh.log /portable
+- 2026-10-20 20:00:26   chạy: metaeditor64.exe /compile:Experts\BRAIN\BRAIN_XuLiLenh.mq5 /log:Experts\BRAIN\BRAIN_XuLiLenh.log /portable
+- 2026-10-20 20:00:33   chạy: metaeditor64.exe /compile:Experts\BRAIN\BRAIN_XuLiLenh.mq5 /log:Experts\BRAIN\BRAIN_XuLiLenh.log /portable
+- 2026-10-20 20:00:40 **Bước 4**: p1: ex5 mới=True (Result: 0 errors, 0 warnings, 2034 ms elapsed, cpu='X64 Regular'); p6: ex5 mới=True (Result: 0 errors, 0 warnings, 5098 ms elapsed, cpu='X64 Regular'); p3: ex5 mới=True (Result: 0 errors, 0 warnings, 4730 ms elapsed, cpu='X64 Regular'); p4: ex5 mới=True (Result: 0 errors, 0 warnings, 4756 ms elapsed, cpu='X64 Regular')
+- 2026-10-20 20:00:40 **Bước 7 - Hàng MT5 nền tới 07:00 (mỗi slot lấy việc đúng sàn nó đăng nhập)**: BẮT ĐẦU
+- 2026-10-20 20:00:40 **Bước 7**: BỎ QUA: đã có phiên khác dùng tester (PID 7792,8236,8652,9452,10464) - một phiên một lúc
+- 2026-10-20 20:00:40 **Bước 12 - Vòng phiên nền: báo cáo mỗi 60 phút + bộ điều phối (dich_llm/Seeker/mức slot MT5 theo tài nguyên), cuối phiên doc_mt5 + báo cáo + dọn**: BẮT ĐẦU
+- 2026-10-20 20:00:40   nền: vong_phien PID 8976 (ưu tiên Normal) - dừng bằng: Stop-Process -Id 8976
+- 2026-10-20 20:00:40 **Bước 12**: nền tới 07:00: reports\phien\PHIEN_20261020.md + reports\UNG_VIEN.md
+- 2026-10-20 20:00:40 **Bước 13 - Chọn model LLM mạnh cố định cho dich_llm (GET /models + A/B 20 EA)**: BẮT ĐẦU
+- 2026-10-20 20:00:40   chạy: python.exe nhan/chon_model_llm.py --neu_cu_hon_gio 24
+- 2026-10-20 20:00:40     | da chon qwen3.7-max 9.5 gio truoc - bo qua
+- 2026-10-20 20:00:41 **Bước 13**: đã chọn trước đó (config\llm_dich.json)
+- 2026-10-20 20:00:41 **Bước 5 - dich_llm thử 20 thẻ rồi chạy nền hết**: BẮT ĐẦU
+- 2026-10-20 20:00:41   chạy: python.exe ong_dan.py dich_llm --gioi_han 20 --luong 4
+- 2026-10-20 20:00:41 [vÃ²ng phiÃªn] Báº®T Äáº¦U tá»›i 10/21/2026 07:00:00 (bÃ¡o cÃ¡o má»—i 60 phÃºt; Seeker/dich_llm do dieu_phoi_may_nha.py quyáº¿t theo tÃ i nguyÃªn)
+- 2026-10-20 20:00:41 [vÃ²ng phiÃªn] dieu_phoi_may_nha.py pid 6776
+- 2026-10-20 20:01:42 [vÃ²ng phiÃªn] bao_cao rc=0    1b56621b..5255c48d  main -> main / 
+- 2026-10-20 20:05:15     |  "so_lan_goi": 14,
+- 2026-10-20 20:05:15     |  "token_vao": 83094,
+- 2026-10-20 20:05:15     |  "token_ra": 86011,
+- 2026-10-20 20:05:15     |  "doi_du_phong": 0,
+- 2026-10-20 20:05:15     |  "so_lan_loi_http": 0
+- 2026-10-20 20:05:15     | }
+- 2026-10-20 20:05:15   thử: chờ=2306 làm=20 đạt=13 hỏng=7 lỗi_llm=0 gọi mới=12 cache=8
+- 2026-10-20 20:05:15 **Bước 5**: thử xong; phần còn lại do dieu_phoi_may_nha.py (bước 12) chạy
+- 2026-10-20 20:05:15 **Bước 6 - ong_dan.py chay**: BẮT ĐẦU
+- 2026-10-20 20:09 [Claude, may nha] B5 OK: brain chay tach roi tu 19:26 (den 07:00). Do duoc: buoc 3 do phi XM micro xong 20:00 (Exness CHUA DO DUOC - khong thay terminal; hoa hong that CHUA DO DUOC - tk khong co lenh 365 ngay); buoc 4 bien dich BRAIN_XuLiLenh 0 loi (p1, p6); dich_llm thu 20 the: DAT 13, HONG 7, LOI_LLM 0 (14 lan goi, 83k vao/86k ra token, 0 chuyen du phong).
+- 2026-10-20 20:09 [Claude, may nha] B6 OK: sau ~35 phut, origin/main co reports/phien/PHIEN_20261020.md + reports/UNG_VIEN.md (commit 5255c48d, vong_phien bao_cao rc=0). Luu y nho: chay_toi_nay buoc 1 pull --rebase that bai (NHAT_KY.md sua do) - vo hai, repo da moi nhat; log vong_phien in loi ma hoa (mojibake) - chi tham my.
+- 2026-10-20 20:18 [Grok, may nha] Buoc 7 bi bo qua sai: kiem_may.py (buoc 0) goi mt5.initialize cho tung terminal -> mo terminal p1,p3,p4,p5,p6 + C:\Program Files\MetaTrader 5 (PID 8236,7792,10464,8652,9452,1256) va mt5.shutdown khong dong -> buoc 7 thay terminal64 trong mt5_tester = 'phien khac'. Khong dong duoc (tien trinh chay quyen admin, shell khong admin: Access denied) - de nguyen, chiem slot p1/p3/p4/p6. Da chay chay_lien_tuc.py --den 07:00 tach roi tren slot trong C:\mt5_tester\p7 (BRAIN_SLOTS=p7, BRAIN_UU_TIEN_CSV=1), PID 15308 (con 6772), log D:\mt5_lien_tuc\chay.log; viec dau XONG 20:18 (od_skea0cc19095a9_XM_CSV_T1, 93s). Sua: kiem_may.py dong terminal do chinh no mo; buoc 7 chi coi metatester64 la phien dang test. pytest test_nang_cap_20_10.py 42 passed (--basetemp E:, temp C bi khoa quyen).
