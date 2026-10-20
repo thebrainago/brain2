@@ -7,7 +7,7 @@ Ba tien trinh (moi cai mot PID, nohup):
   python3 tho_box/tho_box.py thu    - toi_uu Python (loc 65/15 sau phi) cac the da dich DAT, sinh viec MT5 vao
                                       reports/phan_viec/hang_cho_mt5_box.jsonl (+ .set/.ini/CSV trong reports/phan_viec/viec_mt5).
   python3 tho_box/tho_box.py day    - moi 20 phut: pytest test_phan_viec.py -> chep reports/phan_viec vao worktree
-                                      rieng, commit, pull --rebase, push main (khong force). Khong dung cay lam viec chung.
+                                      rieng, commit, pull --rebase, push main (khong force). Chay trong worktree /workspace/brain2_box_wt (HEAD tach, data/ la symlink).
 CSDL rieng cua box: data/ong_dan/tho_box.sqlite (chup tu CSDL may nha 20:38 20/10). Khoa LLM chi tu bien moi truong.
 Khong sua dich_llm.py / ong_dan.py / dieu phoi: chi goi ham va doi duong dan ghi trong tien trinh nay.
 """
@@ -31,7 +31,7 @@ from nhan import phan_viec as PV  # noqa: E402
 DB = GOC / "data" / "ong_dan" / "tho_box.sqlite"
 LOG = GOC / "data" / "tho_box"
 MAY = "box"
-WT = Path("/workspace/brain2_box_wt")
+WT = GOC   # 20/10 21:10: tho chay NGAY trong worktree rieng (data -> symlink /workspace/brain2/data)
 
 
 def ghi(ten: str, s: str) -> None:
@@ -86,6 +86,16 @@ def vong_dich(luong: int, so_bam: int) -> dict:
     return dem
 
 
+def het_quota() -> bool:
+    from nhan import dich_llm as DL
+    p = DL.CACHE / "nhat_ky.jsonl"
+    try:
+        d = json.loads(p.read_text(encoding="utf-8").splitlines()[-1])
+    except Exception:
+        return False
+    return any("insufficient user quota" in str(x.get("ghi_chu") or "") for x in d.get("the") or [])
+
+
 def chay_dich(luong: int = 4, so_bam: int = 16) -> None:
     rong = 0
     while True:
@@ -97,9 +107,11 @@ def chay_dich(luong: int = 4, so_bam: int = 16) -> None:
             continue
         ghi("dich", "VONG " + json.dumps({k: d.get(k) for k in ("cho_truoc", "lam", "goi_moi", "dat", "hong", "loi_llm",
                                                                "so_429", "giay", "luong", "token_vao", "token_ra")}))
-        if "403" in json.dumps(d.get("ly_do_hong") or {}) or (d.get("loi_llm", 0) and d.get("loi_llm") == d.get("lam", -1)):
-            ghi("dich", "toan LOI_LLM (co the het quota) -> nghi 15 phut")
-            time.sleep(900)
+        if het_quota():
+            # 20/10/2026 21:00: ai-box 403 "insufficient user quota" -> DUNG HAN (goi lai chi lam tang dich_llm_loi_lan,
+            # 3 lan -> the bi BO_QUA oan). Nap quota roi chay lai tien trinh nay.
+            ghi("dich", "HET QUOTA ai-box (HTTP 403 insufficient user quota) -> dung tien trinh dich")
+            return
         if (d.get("so_429") or 0) >= 3 and luong > 1:
             luong = max(1, luong // 2)
             ghi("dich", "429 nhieu -> giam luong con %d" % luong)
@@ -214,17 +226,6 @@ def vong_day() -> str:
                        capture_output=True, text=True, timeout=600)
     if r.returncode:
         return "test TRUOT -> khong commit: %s" % r.stdout[-300:]
-    if not WT.exists():
-        git("worktree", "add", "--detach", str(WT), "origin/main", cwd=GOC)
-    git("fetch", "origin", "main")
-    git("checkout", "--detach", "origin/main")
-    d = WT / "reports" / "phan_viec"
-    if d.exists():
-        shutil.rmtree(d)
-    shutil.copytree(PV.THU_MUC, d)
-    for f in ("nhan/phan_viec.py", "test_phan_viec.py", "tho_box/tho_box.py"):
-        (WT / f).parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(GOC / f, WT / f)
     git("add", "reports/phan_viec", "nhan/phan_viec.py", "test_phan_viec.py", "tho_box/tho_box.py")
     if not git("status", "--porcelain", "--", "reports/phan_viec", "nhan/phan_viec.py", "test_phan_viec.py",
                "tho_box/tho_box.py").strip():
@@ -232,6 +233,10 @@ def vong_day() -> str:
     git("commit", "-m", "tho_box: so nhan viec + hang MT5 box (%s)" % time.strftime("%H:%M"))
     for _ in range(3):
         git("pull", "--rebase", "origin", "main")
+        r = subprocess.run([sys.executable, "-m", "pytest", "-q", "test_phan_viec.py"], cwd=str(GOC),
+                           capture_output=True, text=True, timeout=600)
+        if r.returncode:
+            return "test TRUOT sau rebase -> khong push: %s" % r.stdout[-300:]
         r = subprocess.run(["git", "push", "origin", "HEAD:main"], cwd=str(WT), capture_output=True, text=True, timeout=600)
         if r.returncode == 0:
             return "da day " + git("rev-parse", "--short", "HEAD").strip()
