@@ -266,6 +266,22 @@ def tu_ong_dan(p: Path = HANG_CHO_OD, san: str | None = None) -> list[dict]:
             if os.environ.get("BRAIN_UU_TIEN_CSV") and v.get("pha") == "KIEM_CSV":
                 v["diem"] = float(v.get("diem") or 60) + 200     # may_nha_toi_nay: viec VAO_CSV cua he dat chay truoc
             out.append(v)
+    # 20/10/2026 toi: viec box sinh (reports/phan_viec/hang_cho_mt5_box.jsonl, nhan/phan_viec.py). CHI khi dat
+    # BRAIN_HANG_BOX=1 (phien sau) - phien dem 20/10 dang chay khong bi doi. Trung ten voi hang chinh -> bo.
+    if os.environ.get("BRAIN_HANG_BOX") == "1" and Path(p) == HANG_CHO_OD:
+        try:
+            from nhan import phan_viec as PV
+        except ImportError:
+            import sys as _s
+            _s.path.insert(0, str(GOC))
+            from nhan import phan_viec as PV
+        co = {v.get("ten") for v in out}
+        for v in PV.doc_hang_box(san=san or None):
+            if v.get("tf") in TF and v.get("ten") not in co:
+                if os.environ.get("BRAIN_UU_TIEN_CSV") and v.get("pha") == "KIEM_CSV":
+                    v["diem"] = float(v.get("diem") or 60) + 200
+                out.append(v)
+                co.add(v.get("ten"))
     return out
 
 
