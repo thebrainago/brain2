@@ -453,6 +453,7 @@ def chuan_bi(t: dict, thu: dict, cfg: dict) -> dict:
     ev = NL.lenh_vao(df, s, t["id"], thu["ma"])
     von = float(cfg.get("von", 1000.0))
     tk = TK.ho_so_tai_khoan(cfg.get("tai_khoan", "XM_MICRO_TAM"), von)
+    tk = don_bay_viec(tk, cfg)
     hs = TK.ho_so_phi(thu["ma"], cfg.get("san_phi", "XM"))
     ql = quan_li_tu(thu["ql"], von)
     ghep = False
@@ -752,13 +753,27 @@ def ql_doi_chieu(ql: dict, von: float) -> TK.QuanLi:
     return q
 
 
-def chay_python_csv(b: pd.DataFrame, df: pd.DataFrame, ql: dict, von: float, hs: TK.HoSoPhi, tk=None) -> dict:
+def don_bay_viec(tk, cfg: dict | None = None, don_bay: float | None = None):
+    """20/10/2026: don bay cua Python = don bay TESTER MT5 / tieu chi chu du an (config san_mt5.XM.don_bay = 500), khong
+    phai don bay tai khoan that do duoc (san.json XM = 1:1000). Truoc day Python ky quy 1:1000, MT5 chay 1:500 ->
+    stop-out lech (Python song, MT5 chay tai khoan)."""
+    import dataclasses
+    db = don_bay or (((cfg or {}).get("san_mt5") or {}).get("XM") or {}).get("don_bay")
+    if not db or float(db) == float(tk.don_bay):
+        return tk
+    return dataclasses.replace(tk, don_bay=float(db), nhan="%s | đòn bẩy 1:%d theo tester/tiêu chí" % (tk.nhan, int(float(db))))
+
+
+def chay_python_csv(b: pd.DataFrame, df: pd.DataFrame, ql: dict, von: float, hs: TK.HoSoPhi, tk=None,
+                    don_bay: float | None = None) -> dict:
     """Chay chay_tk tren CUNG CSV (moi dong -> LenhVao o nen dau tien >= thoi_gian, nguon chung "csv") va gia `df`."""
     df = df.sort_index()
     vt = df.index.searchsorted(pd.DatetimeIndex(b["thoi_gian"]), side="left")
     ev = [NL.LenhVao("csv", int(i), float(df["open"].iloc[i]), int(c), "", float(l) if pd.notna(l) else None)
           for i, c, l in zip(vt, b["chieu"], b["lot"] if "lot" in b.columns else [None] * len(b)) if i < len(df)]
     tk = tk or TK.ho_so_tai_khoan("XM_MICRO_TAM", von)
+    if don_bay:
+        tk = don_bay_viec(tk, don_bay=don_bay)
     return TK.chay_tk({"": df}, ev, ql_doi_chieu(ql, von), tk, {"": hs}, ghi_lenh=True)
 
 
@@ -861,11 +876,11 @@ def doi_chieu_viec(v: dict, thu_muc: Path, cfg: dict | None = None) -> dict:
     """Mot viec VAO_CSV da chay: doc <ten>_vao.csv_lenh_mt5.csv (+ _gia.csv) trong thu_muc, chay Python tren CUNG CSV va
     gia nen EA xuat (khong co -> gia box, nhan "GIÁ KHÁC NGUỒN"), roi doi_chieu."""
     cfg = cfg or cau_hinh()
-    ten_csv = Path(v["csv_vao"]).name
+    ten_csv = Path(str(v["csv_vao"]).replace("\\", "/")).name
     t_lenh, t_gia = thu_muc / (ten_csv + "_lenh_mt5.csv"), thu_muc / (ten_csv + "_gia.csv")
     if not t_lenh.exists():
         return {"ket_luan": "CHUA_DO_DUOC", "ly_do": ["chua co %s" % t_lenh.name]}
-    tep_vao = GOC / v["csv_vao"]
+    tep_vao = GOC / str(v["csv_vao"]).replace("\\", "/")     # hang cho ghi tren Windows (dau \\)
     if not tep_vao.exists():
         return {"ket_luan": "CHUA_DO_DUOC", "ly_do": ["mat CSV lenh vao %s" % v["csv_vao"]]}
     b = doc_csv_vao(tep_vao)
@@ -888,13 +903,39 @@ def doi_chieu_viec(v: dict, thu_muc: Path, cfg: dict | None = None) -> dict:
         df = df[(df.index >= a) & (df.index <= z)]
         nguon_gia = "GIÁ KHÁC NGUỒN (box, không phải giá MT5)"
     von = float(cfg.get("von", 1000.0))
-    kq = chay_python_csv(b, df, v.get("python_ql") or {}, von, hs)
+    kq = chay_python_csv(b, df, v.get("python_ql") or {}, von, hs, don_bay=v.get("don_bay"))
     chia = 100.0 if v.get("tien") == "USC" else 1.0
     mt = doc_lenh_mt5(t_lenh, chia)
     lai_mt5 = float(mt["lai_tien"].sum()) if len(mt) else 0.0
+    ghi = []
+    # 20/10/2026 (a): position bi stop-out / dong cuoi ky KHONG co dong "out" trong CSV EA xuat -> lai 0. Lay lai rong
+    # MT5 tu bao cao .htm (Total Net Profit, da gom stop-out va dong cuoi ky); CSV chi dung de ghep tung lenh.
+    t_htm = thu_muc / ((v.get("ten") or "") + ".htm")
+    bc = doc_htm(t_htm) if v.get("ten") and t_htm.exists() else {}
+    so_mo = int(mt["dong"].isna().sum()) if len(mt) else 0
+    if bc.get("net") is not None:
+        if abs(bc["net"] / chia - lai_mt5) > 0.01:
+            ghi.append("lãi MT5 lấy từ .htm %.2f (CSV lệnh cộng được %.2f; %d position không có lệnh đóng trong CSV = "
+                       "stop-out / đóng cuối kỳ)" % (bc["net"] / chia, lai_mt5, so_mo))
+        lai_mt5 = float(bc["net"]) / chia
+    # (b): chay SAI symbol (vd EURUSD# hop dong chuan thay vi EURUSDmicro) -> quy lot ve hop dong yeu cau, gan co
+    sai_sym = not ky_hieu_dung(bc.get("symbol"), v.get("ma"))
+    if sai_sym:
+        hs_l = he_so_hop_dong(bc.get("symbol"), v.get("ma"))
+        if len(mt) and hs_l != 1.0:
+            mt = mt.copy()
+            mt["lot"] = mt["lot"] * hs_l
+        ghi.append("SAI SYMBOL: báo cáo chạy %s, việc yêu cầu %s (lot MT5 x %g khi ghép) - CẦN CHẠY LẠI" % (
+            bc.get("symbol"), v.get("ma"), hs_l))
     sp = float(np.median(hs.spread_gio)) if len(hs.spread_gio) else 0.0
     r = doi_chieu(kq["lenh"], mt, kq["chi_muc"], sp, float(hs.buoc_lot), kq["lai_tien"], lai_mt5, von)
     r["nguon_gia"] = nguon_gia
+    r["so_position_khong_dong"] = so_mo
+    if sai_sym:
+        r["sai_symbol"] = {"chay": bc.get("symbol"), "yeu_cau": v.get("ma")}
+        r["ket_luan"] = "SAI_SYMBOL"
+    if ghi:
+        r["ghi_chu_mt5"] = "; ".join(ghi)
     if v.get("gan_dung"):
         r["ghi_chu"] = v["gan_dung"]
     return r
@@ -1266,8 +1307,30 @@ def doc_htm(p: Path) -> dict:
             return float(str(x).replace(" ", "").replace("\xa0", "").split("(")[0])
         except Exception:
             return None
-    return {"net": so(g("Total Net Profit:")), "pf": so(g("Profit Factor:")), "lenh": so(g("Total Trades:")),
-            "dd": g("Equity Drawdown Maximal:"), "von_dau": so(g("Initial Deposit:"))}
+    r = {"net": so(g("Total Net Profit:")), "pf": so(g("Profit Factor:")), "lenh": so(g("Total Trades:")),
+         "dd": g("Equity Drawdown Maximal:"), "von_dau": so(g("Initial Deposit:")), "symbol": g("Symbol:"),
+         "chat_luong": g("History Quality:")}
+    # 20/10/2026: KY THAT cua bao cao ("H1 (2025.01.30 - 2026.06.03)") -> so nam do duoc, lai %/nam that
+    m = re.search(r"\((\d{4}\.\d{2}\.\d{2})\s*-\s*(\d{4}\.\d{2}\.\d{2})\)", str(g("Period:") or ""))
+    if m:
+        r["tu_bc"], r["den_bc"] = m.group(1), m.group(2)
+    return r
+
+
+def ky_hieu_dung(sym_chay: str | None, sym_yeu_cau: str | None) -> bool:
+    """Bao cao chay DUNG symbol viec yeu cau? (20/10/2026: 3 viec XM micro chay tren EURUSD# hop dong chuan)."""
+    if not sym_chay or not sym_yeu_cau:
+        return True                      # thieu thong tin -> khong ket luan sai
+    return sym_chay.strip().lower() == sym_yeu_cau.strip().lower()
+
+
+def he_so_hop_dong(sym_chay: str | None, sym_yeu_cau: str | None) -> float:
+    """lot MT5 x he so = lot theo hop dong viec yeu cau. XM: '*micro' = 1.000 don vi / lot; '#', '.i#', khong hau to =
+    hop dong chuan 100.000 -> 0,30 lot EURUSD# = 30 lot EURUSDmicro (cung khoi luong). Khong nhan ra -> 1."""
+    a, b = str(sym_chay or "").lower(), str(sym_yeu_cau or "").lower()
+    if b.endswith("micro") and a and not a.endswith("micro") and a[:6] == b[:6]:
+        return 100.0
+    return 1.0
 
 
 def doc_xml_toi_uu(p: Path) -> list[dict]:
@@ -1298,8 +1361,18 @@ def _cot_loi_mt5(net: float | None, dd_chuoi: str | None, von: float, nam: float
         return {"dat": False, "ly_do": ["CHUA_DO_DUOC"]}
     lai = net / von / max(nam, 1e-6) * 100.0
     ph = NG.dat(lai, float(m.group(1)), "cuoi")
-    ph.update(lai_pct_nam=round(lai, 2), sut_giam_pct=float(m.group(1)), nhan="MT5 lot that")
+    # 20/10/2026: ghi them so nam DO (ky bao cao) va lai kep %/nam de doi chieu voi Python (Python dung lai kep)
+    kep = ((1.0 + net / von) ** (1.0 / max(nam, 1e-6)) - 1.0) * 100.0 if net / von > -1.0 else -100.0
+    ph.update(lai_pct_nam=round(lai, 2), lai_kep_pct_nam=round(kep, 2), so_nam=round(nam, 3),
+              sut_giam_pct=float(m.group(1)), nhan="MT5 lot that")
     return ph
+
+
+def _nam_bc(r: dict, v: dict | None, cfg: dict) -> float:
+    """So nam: KY THAT trong bao cao .htm (tu_bc/den_bc) neu co, khong thi tu/den cua viec."""
+    if r.get("tu_bc") and r.get("den_bc"):
+        return _nam_viec({"tu": r["tu_bc"], "den": r["den_bc"]}, cfg)
+    return _nam_viec(v or r, cfg)
 
 
 def _nam_viec(v: dict | None, cfg: dict) -> float:
@@ -1333,6 +1406,7 @@ def buoc_doc_mt5(cn, in_ra=print) -> dict:
             if r.get("nguon") == "ong_dan" and r.get("pha") != "TOI_UU":   # toi uu: doc file .xml ben duoi
                 ket.setdefault(r.get("the_id", ""), []).append(r)
     KET_QUA_MT5.mkdir(parents=True, exist_ok=True)
+    chay_lai: dict[str, str] = {}
     for f in sorted(KET_QUA_MT5.glob("od_*")):
         v = hang.get(f.stem) or {}
         tid = v.get("the_id")
@@ -1340,6 +1414,9 @@ def buoc_doc_mt5(cn, in_ra=print) -> dict:
             continue
         if f.suffix.lower() in (".htm", ".html"):
             r = doc_htm(f); r.update(ten=f.stem, pha=v.get("pha"), von=v.get("von"))
+            if not ky_hieu_dung(r.get("symbol"), v.get("ma")):      # 20/10/2026: chay sai symbol -> chua do duoc
+                r["loi"] = "sai_symbol: bao cao %s, viec %s - can chay lai" % (r.get("symbol"), v.get("ma"))
+                chay_lai[f.stem] = r["loi"]
             ket.setdefault(tid, []).append(r)
         elif f.suffix.lower() == ".xml":
             ps = doc_xml_toi_uu(f)
@@ -1372,6 +1449,11 @@ def buoc_doc_mt5(cn, in_ra=print) -> dict:
             ket.setdefault(v.get("the_id", ""), []).append({"ten": ten, "pha": "KIEM_CSV", "loi": "chua co bao cao htm",
                                                              "doi_chieu": dc})
     ghi_doi_chieu_md(dc_ds)
+    # 20/10/2026: viec chay sai symbol -> danh sach chay lai (sinh_viec.lay_viec bo qua so cai cu cua cac viec nay)
+    ghi_chay_lai(chay_lai)
+    # so cai co the con dong cua viec sai symbol (khong co loi) -> bo, de phan xu chi dua tren bao cao dung
+    for tid in list(ket):
+        ket[tid] = [r for r in ket[tid] if not (r.get("ten") in chay_lai and not r.get("loi"))]
     dem = {"DAT_CUOI": 0, "TRUOT_CUOI": 0, "CHUA_DO_DUOC": 0}
     with cn:
         for t, buoc, tt, kq in cac_the(cn):
@@ -1387,7 +1469,7 @@ def buoc_doc_mt5(cn, in_ra=print) -> dict:
                     ph_ds.append({"dat": False, "ly_do": ["CHUA_DO_DUOC: %s" % r["loi"]]})
                 else:
                     ph_ds.append(_cot_loi_mt5(r.get("net"), r.get("dd"), float(r.get("von") or cfg.get("von", 1000.0)),
-                                              _nam_viec(hang.get(r.get("ten") or "") or r, cfg)))
+                                              _nam_bc(r, hang.get(r.get("ten") or ""), cfg)))
             if any(p["dat"] for p in ph_ds):
                 moi = "DAT_CUOI"
             elif all("CHUA_DO_DUOC" in " ".join(p.get("ly_do", [])) for p in ph_ds):
@@ -1399,6 +1481,27 @@ def buoc_doc_mt5(cn, in_ra=print) -> dict:
             dem[moi] += 1
     in_ra("doc_mt5: %s (the co ket qua MT5: %d)" % (dem, len(ket)))
     return dem
+
+
+CHAY_LAI = RA / "chay_lai_mt5.json"
+
+
+def ghi_chay_lai(moi: dict[str, str], tep: Path | None = None) -> dict:
+    """reports/ong_dan/chay_lai_mt5.json: {ten viec: {"luc", "ly_do"}}. Giu muc cu, them muc moi (luc = lan dau thay)."""
+    tep = Path(tep or CHAY_LAI)
+    cu = {}
+    if tep.exists():
+        try:
+            cu = json.loads(tep.read_text(encoding="utf-8"))
+        except ValueError:
+            cu = {}
+    import datetime as _dt
+    for ten, ly in moi.items():
+        cu.setdefault(ten, {"luc": _dt.datetime.now().isoformat(timespec="seconds"), "ly_do": ly})
+    if cu:
+        tep.parent.mkdir(parents=True, exist_ok=True)
+        tep.write_text(json.dumps(cu, ensure_ascii=False, indent=1), encoding="utf-8")
+    return cu
 
 
 def ghi_doi_chieu_md(ds: list[dict], tep: Path | None = None) -> str:
@@ -1418,7 +1521,8 @@ def ghi_doi_chieu_md(ds: list[dict], tep: Path | None = None) -> str:
             r.get("ten"), r.get("ket_luan"), r.get("so_lenh_python", "–"), r.get("so_lenh_mt5", "–"), r.get("so_khop", "–"),
             ("%s %%" % r["ti_le_khop_pct"]) if r.get("ti_le_khop_pct") is not None else "–",
             r.get("lai_python", "–"), r.get("lai_mt5", "–"), r.get("trung_vi_lech_nen_mo", "–"), r.get("nguon_gia", "–"),
-            "; ".join(r.get("ly_do") or []) + ((" " + r["ghi_chu"]) if r.get("ghi_chu") else "")))
+            "; ".join(r.get("ly_do") or []) + ((" " + r["ghi_chu"]) if r.get("ghi_chu") else "") +
+            ((" | " + r["ghi_chu_mt5"]) if r.get("ghi_chu_mt5") else "")))
     if not ds:
         d.append("| – | CHƯA ĐO ĐƯỢC: chưa có kết quả MT5 nào của việc VAO_CSV | | | | | | |")
     tep.parent.mkdir(parents=True, exist_ok=True)

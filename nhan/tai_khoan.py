@@ -327,6 +327,19 @@ def ho_so_phi(ma: str, san: str = "XM", phi_san_dir: _Path | None = None) -> HoS
                          spread_gio=sg, swap_mua_diem=f("swap_mua"), swap_ban_diem=f("swap_ban"), ngay_x3=x3,
                          hoa_hong_lot=f("hoa_hong_lot"), lot_min=f("lot_min", 0.01), buoc_lot=f("buoc_lot", 0.01),
                          lot_max=f("lot_max", 100.0), nhan="ĐO (%s)" % d.name, nguon=str(d))
+            # 20/10/2026: cap CHEO (lai tinh bang tien yet gia khac USD, vd GBPNZD -> NZD) truoc day KHONG quy doi o
+            # nhanh "ĐO" -> qd() = 1, lai Python = lai NZD coi la USD: GBPNZD lot 30 TP 0,5 %% Python +303 USD/lenh,
+            # MT5 +190 USD (NZDUSD ~0,6) -> mot phan lon cua "lech ~2 lan" Python/MT5. Nay lay he so DO luc do phi:
+            # tien_moi_1_gia_lot_min / (lot_min x hop_dong) = USD cho 1 don vi gia x 1 don vi co so.
+            tl = str(r.get("tien_te_loi") or "").upper()
+            if tl and tl != "USD" and not goc.startswith("USD"):
+                t1 = f("tien_moi_1_gia_lot_min")
+                if t1 > 0 and hs.lot_min > 0 and hs.hop_dong > 0:
+                    hs.quy_doi_usd = t1 / (hs.lot_min * hs.hop_dong)
+                    hs.nhan += " | QUY ĐỔI %s->USD %.4f (đo lúc đo phí)" % (tl, hs.quy_doi_usd)
+                elif tl in QUY_DOI_TAM:
+                    hs.quy_doi_usd = QUY_DOI_TAM[tl]
+                    hs.nhan += " | QUY ĐỔI TẠM %s->USD %.4f" % (tl, hs.quy_doi_usd)
             if sw_mode not in ("DIEM", "1", "POINTS"):
                 hs.nhan += " | swap_mode %s chua quy doi -> swap = 0, CHUA ĐO ĐƯỢC" % sw_mode
                 hs.swap_mua_diem = hs.swap_ban_diem = 0.0
@@ -600,6 +613,7 @@ def chay_tk(du_lieu: dict | pd.DataFrame, luong: list[LenhVao], ql: QuanLi | dic
         return (sum(L.gia * L.lot for L in ch) / lot, lot) if lot else (None, 0.0)
 
     for t in range(n):
+        vua_dong: set = set()               # (nguon, ma, chieu) co ro dong TRONG nen t (TP/trailing o buoc 2)
         # 1) swap cho lenh giu qua moc 00:00 server
         for r in ro_mo:
             a = A[r.ma]
@@ -628,6 +642,7 @@ def chay_tk(du_lieu: dict | pd.DataFrame, luong: list[LenhVao], ql: QuanLi | dic
                 if tp > 0 and cham:
                     dong_ro(r, tp_gia if r.s > 0 else tp_gia - sp, t, "tp")
                     dem["so_tp"] += 1
+                    vua_dong.add((r.nguon, r.ma, r.s))
                     continue
                 if q.trail_kich_pct > 0:
                     if r.dinh is not None:
@@ -635,6 +650,7 @@ def chay_tk(du_lieu: dict | pd.DataFrame, luong: list[LenhVao], ql: QuanLi | dic
                         if (a["l"][t] <= stop) if r.s > 0 else (a["h"][t] + sp >= stop):
                             dong_ro(r, stop if r.s > 0 else stop - sp, t, "trailing")
                             dem["so_trail"] += 1
+                            vua_dong.add((r.nguon, r.ma, r.s))
                             continue
                     tot = a["h"][t] if r.s > 0 else a["l"][t] + sp
                     if r.s * (tot - gv) >= q.trail_kich_pct * gv:
@@ -659,6 +675,11 @@ def chay_tk(du_lieu: dict | pd.DataFrame, luong: list[LenhVao], ql: QuanLi | dic
                 continue
             ch = 1 if int(e.chieu) >= 0 else -1
             if q.mot_ro_moi_chieu and any(r.nguon == e.nguon and r.ma == m and r.s == ch for r in ro_mo):
+                continue
+            # 20/10/2026: lenh vao o OPEN nen t xay ra TRUOC luc ro cung chieu cham TP/trailing trong nen t -> luc do
+            # ro van mo, EA (mot ro moi chieu) BO lenh nay. Truoc day Python dong ro truoc roi mo lenh moi o gia open
+            # (nhin truoc trong nen): od_skea0ca971ac32 Python 35 lenh / MT5 27, cac lenh "them" deu mo dung nen TP.
+            if q.mot_ro_moi_chieu and (e.nguon, m, ch) in vua_dong:
                 continue
             dem_id[0] += 1
             r = _RoTK(id=dem_id[0], nguon=e.nguon, ma=m, s=ch, sinh=t, ql=q)
