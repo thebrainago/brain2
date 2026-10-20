@@ -25,9 +25,16 @@ from pathlib import Path
 GOC = Path(__file__).resolve().parent.parent
 CC_SWITCH_DB = Path.home() / ".cc-switch" / "cc-switch.db"
 TRAN_MA = 16000
+#: 20/10/2026: tang moi lan doi prompt / chuan hoa -> the HONG vi loi phia ta (prompt, bo kiem) duoc kiem / dich lai.
+PHIEN_PROMPT = 2
 MAC_DINH = {"cc_switch_provider": "aibox", "base_url": "https://api.ai-box.vn/v1", "model": "qwen3.7-flash",
             "model_du_phong": "qwen3.6-flash", "temperature": 0, "max_tokens": 8000, "timeout_giay": 420,
             "so_lan_thu_lai": 3, "qua_cau_noi": False}
+#: 20/10/2026 09:56 (chu du an): model DICH co dinh, manh, chon bang do (nhan/chon_model_llm.py tren may nha) ->
+#: config/llm_dich.json. Tep nay thang config/qwen.json (qwen.json con dung cho he `q` khac, khong sua).
+LLM_DICH = "llm_dich.json"
+KHOA_DICH = ("model", "model_du_phong", "temperature", "max_tokens", "timeout_giay", "so_lan_thu_lai", "tran_ma",
+             "chi_du_phong_khi_5xx", "so_lan_thu_429")
 #: so lan goi / token cua tien trinh nay (dich_llm ghi ra bao cao). KHONG chua khoa.
 THONG_KE = {"so_lan_goi": 0, "so_lan_loi": 0, "token_vao": 0, "token_ra": 0, "doi_du_phong": 0, "theo_model": {}}
 
@@ -55,8 +62,21 @@ def cau_hinh(goc: Path | None = None) -> dict:
                     c[k] = d[k]
         except Exception:
             pass
+    ld = goc / "config" / LLM_DICH
+    if ld.exists():
+        try:
+            d = json.loads(ld.read_text(encoding="utf-8-sig"))
+            for k in KHOA_DICH:
+                if d.get(k) not in (None, ""):
+                    c[k] = d[k]
+            if d.get("model") and not d.get("model_du_phong"):
+                c["model_du_phong"] = ""                # da khoa model manh: KHONG lui ve flash
+        except Exception:
+            pass
     if os.environ.get("BRAIN_LLM_MODEL"):
         c["model"] = os.environ["BRAIN_LLM_MODEL"]
+        if os.environ.get("BRAIN_LLM_KHONG_DU_PHONG"):
+            c["model_du_phong"] = ""
     return c
 
 
@@ -162,11 +182,14 @@ def goi(nguoi_dung: str, he_thong: str | None = None, model: str | None = None, 
     if d.get("model_du_phong") and d["model_du_phong"] not in ds_model:
         ds_model.append(d["model_du_phong"])
     ghi = []
+    chi_5xx = bool(c.get("chi_du_phong_khi_5xx"))
     for i_m, m in enumerate(ds_model):
+        if i_m and chi_5xx and not any((" HTTP 5" in g or " HTTP 0:" in g) for g in ghi if g.startswith(ds_model[i_m - 1] + " ")):
+            break                                       # 20/10/2026: chi lui sang model du phong khi model chinh loi 5xx / mang
         body = json.dumps({"model": m, "temperature": c.get("temperature", 0), "max_tokens": int(max_tokens or c["max_tokens"]),
                            "stream": False, "messages": [{"role": "system", "content": he_thong or HE_THONG},
                                                          {"role": "user", "content": nguoi_dung}]}).encode()
-        for lan in range(max(1, int(c.get("so_lan_thu_lai", 3)))):
+        for lan in range(max(1, int(c.get("so_lan_thu_lai", 3)), int(c.get("so_lan_thu_429", 6)))):
             t0 = time.time()
             THONG_KE["so_lan_goi"] += 1
             tm = THONG_KE["theo_model"].setdefault(m, {"so_lan_goi": 0, "token_vao": 0, "token_ra": 0})
@@ -191,6 +214,14 @@ def goi(nguoi_dung: str, he_thong: str | None = None, model: str | None = None, 
                 break                                   # sang model du phong, khong thu lai cung model
             if ma in (400, 401, 404):
                 break
+            if ma == 429:
+                # 20/10/2026: 429 gioi han toc do (khong phai het quota) -> lui dan 5,10,20..60 s, them luot thu, ghi thong ke
+                THONG_KE["so_lan_429"] = THONG_KE.get("so_lan_429", 0) + 1
+                time.sleep(min(5 * 2 ** lan, 60) if client is _http else 0)
+                continue
+            so_loi_khac = sum(1 for g in ghi if (" HTTP 429:" not in g) and g.startswith(m + " "))
+            if so_loi_khac >= max(1, int(c.get("so_lan_thu_lai", 3))):
+                break                                   # loi khac 429: giu so lan thu lai cu
             time.sleep(min(2 ** lan, 8) if client is _http else 0)
     return {"trang_thai": "LOI", "van_ban": "", "model": ds_model[-1], "token_vao": 0, "token_ra": 0,
             "ghi_chu": " | ".join(ghi)[-400:]}
@@ -208,13 +239,17 @@ MAU_BOC = """Tra JSON dang:
  "quan_tri": {"tp": str, "sl": str, "dca": str, "hedge": str, "trailing": str, "chot_ro": str, "go_lenh": str},
  "tham_so": {"ten_input": [gia_tri_thap, mac_dinh, cao]},
  "chua_dich": [str]}
-Uu tien 'spec'. Toan hang trong 'vao' dung ngu phap The Brain, vi du {"chi_bao": "gia", "cot": "close"},
-{"chi_bao": "sma", "n": 50}, {"chi_bao": "ema", "n": 20}, {"chi_bao": "rsi", "n": 14}, hang so {"hang": 30}.
-Chi bao co san: gia, sma, ema, wma, smma, rsi, atr, macd, bollinger, donchian, stochastic, cci, adx, keltner, supertrend,
-zscore, cao_nhat, thap_nhat, tre, doi, doi_pct, gio, ngay_trong_tuan.
+Uu tien 'spec'. 'phep' CHI duoc la: ">", "<", ">=", "<=", "==", "!=", "cheo_len" (trai cat len tren phai), "cheo_xuong".
+'chieu' la so 1 (mua) hoac -1 (ban); moi chieu mot spec rieng. Toan hang dung ngu phap The Brain, vi du
+{"chi_bao": "gia", "cot": "close"}, {"chi_bao": "sma", "n": 50}, {"chi_bao": "ema", "n": 20}, {"chi_bao": "rsi", "n": 14},
+hang so {"hang": 30}. Chi bao co san: gia, sma, ema, wma, smma, rsi, atr, macd, bollinger, donchian, stochastic, cci, adx,
+keltner, supertrend, gio, ngay_trong_tuan. Toan tu BIEN DOI phai co truong "cua" (toan hang goc):
+{"chi_bao": "tre", "n": 1, "cua": {...}} (gia tri nen truoc), {"chi_bao": "cao_nhat", "n": 20, "cua": {"chi_bao": "gia", "cot": "high"}},
+thap_nhat, zscore, doi, doi_pct, tb, do_lech cung kieu.
 Chi khi spec KHONG dien dat duoc moi dien 'python': MOT ham `tin_hieu(df)` nhan DataFrame cot open/high/low/close (chi muc
-thoi gian), tra mang cung do dai gia tri 1 (mua) / -1 (ban) / 0; chi dung numpy (np), pandas (pd), math; KHONG import,
-KHONG doc file / mang; tin hieu tai nen i chi dung du lieu den het nen i (KHONG shift(-k), KHONG nhin truoc).
+thoi gian), tra mang cung do dai gia tri 1 (mua) / -1 (ban) / 0; np, pd, math da co san - KHONG import, KHONG class,
+KHONG doc file / mang; tin hieu tai nen i chi dung du lieu den het nen i (KHONG shift(-k), KHONG center=True, KHONG bfill,
+KHONG dung gia tri cuoi chuoi nhu iloc[-1] / max() ca chuoi).
 MA NGUON (%s):
 ```
 %s
@@ -231,13 +266,85 @@ def _json_trong(van_ban: str) -> dict | None:
         return None
 
 
+#: Phep so sanh ma bo may DSL (`nhan/ngu_phap._so_sanh`) THAT SU hieu. 20/10/2026: truoc day prompt va kiem_spec dung
+#: "cat_len"/"cat_xuong" nhung ngu_phap chi biet "cheo_len"/"cheo_xuong" -> MOI spec giao cat (dang vao lenh pho bien
+#: nhat cua EA) deu hong "phep so sanh khong biet: 'cat_len'" o buoc kiem.
+PHEP_DUNG = (">", "<", ">=", "<=", "==", "!=", "cheo_len", "cheo_xuong")
+BI_DANH_PHEP = {"cat_len": "cheo_len", "cat_xuong": "cheo_xuong", "cross_above": "cheo_len", "crosses_above": "cheo_len",
+                "cross_up": "cheo_len", "crossover": "cheo_len", "crosses_over": "cheo_len", "cross_over": "cheo_len",
+                "cross_below": "cheo_xuong", "crosses_below": "cheo_xuong", "cross_down": "cheo_xuong",
+                "crossunder": "cheo_xuong", "crosses_under": "cheo_xuong", "cross_under": "cheo_xuong",
+                "=": "==", "eq": "==", "<>": "!=", "gt": ">", "lt": "<", "ge": ">=", "le": "<="}
+BI_DANH_CHIEU = {"mua": 1, "buy": 1, "long": 1, "1": 1, "+1": 1, "ban": -1, "sell": -1, "short": -1, "-1": -1}
+#: Toan tu bien doi cua ngu_phap: BAT BUOC co truong "cua"; LLM hay bo -> mac dinh la gia dong cua (hoac cot da ghi).
+BIEN_DOI = {"tb", "do_lech", "phuong_sai", "zscore", "phan_vi", "doi", "doi_pct", "tre", "cao_nhat", "thap_nhat",
+            "tuyet_doi", "tong"}
+BI_DANH_CB = {"price": "gia", "close": "gia", "highest": "cao_nhat", "lowest": "thap_nhat", "shift": "tre",
+              "lag": "tre", "change": "doi", "roc": "doi_pct", "hour": "gio", "dayofweek": "ngay_trong_tuan"}
+
+
+def _chuan_hoa_th(t):
+    """Mot toan hang LLM -> dang ngu_phap hieu (khong exec gi). Chuoi so -> hang so."""
+    if isinstance(t, (int, float)) and not isinstance(t, bool):
+        return {"hang": float(t)}
+    if isinstance(t, str):
+        try:
+            return {"hang": float(t)}
+        except ValueError:
+            return {"chi_bao": "gia", "cot": t.lower()} if t.lower() in ("open", "high", "low", "close") else t
+    if not isinstance(t, dict):
+        return t
+    t = dict(t)
+    if "hang" in t and isinstance(t["hang"], str):
+        try:
+            t["hang"] = float(t["hang"])
+        except ValueError:
+            pass
+    cb = str(t.get("chi_bao", "")).lower()
+    if cb in BI_DANH_CB:
+        if cb == "close":
+            t.setdefault("cot", "close")
+        cb = BI_DANH_CB[cb]
+    if cb:
+        t["chi_bao"] = cb
+    if cb in BIEN_DOI and "cua" not in t:
+        t["cua"] = {"chi_bao": "gia", "cot": str(t.pop("cot", "close")).lower()}
+    if isinstance(t.get("cua"), (dict, str, int, float)):
+        t["cua"] = _chuan_hoa_th(t["cua"])
+    return t
+
+
+def chuan_hoa_spec(sp: dict) -> dict:
+    """Chuan hoa spec LLM truoc kiem_spec / ngu_phap: bi danh phep, chieu chu ("buy"), toan tu bien doi thieu "cua"."""
+    sp = dict(sp)
+    ch = sp.get("chieu", 1)
+    if isinstance(ch, str):
+        sp["chieu"] = BI_DANH_CHIEU.get(ch.strip().lower(), ch)
+    vao = sp.get("vao")
+    if isinstance(vao, dict):
+        vao = [vao]
+    if isinstance(vao, list):
+        moi = []
+        for d in vao:
+            if isinstance(d, dict):
+                d = dict(d)
+                p = str(d.get("phep", "")).strip()
+                d["phep"] = BI_DANH_PHEP.get(p.lower(), p)
+                for k in ("trai", "phai"):
+                    if k in d:
+                        d[k] = _chuan_hoa_th(d[k])
+            moi.append(d)
+        sp["vao"] = moi
+    return sp
+
+
 def kiem_spec(sp: dict) -> list[str]:
     """Kiem toi thieu mot spec LLM tra ve truoc khi dung (khong exec gi)."""
     loi = []
     if not isinstance(sp, dict) or not sp.get("vao"):
         return ["spec khong co 'vao'"]
     for d in sp["vao"]:
-        if not isinstance(d, dict) or d.get("phep") not in (">", "<", ">=", "<=", "cat_len", "cat_xuong"):
+        if not isinstance(d, dict) or d.get("phep") not in PHEP_DUNG:
             loi.append("dieu kien hong: %s" % str(d)[:80])
     try:
         if int(sp.get("chieu", 1) or 1) not in (1, -1):
@@ -247,9 +354,63 @@ def kiem_spec(sp: dict) -> list[str]:
     return loi
 
 
+_HAM_CHINH = re.compile(r"\b(OnTick|OnCalculate|OnBar|OnTimer|OnTrade|start|populate_\w+|next|on_bar|tin_hieu)\s*\(")
+_KY_LENH = re.compile(r"OrderSend|trade\.(Buy|Sell|PositionOpen)|\.Buy\(|\.Sell\(|strategy\.(entry|order)|enter_long|"
+                      r"enter_short|buy_signal|sell_signal|iCustom|iMA|iRSI|iBands|iMACD|iStochastic|iATR|iCCI|iADX")
+
+
+def rut_gon_ma(vb: str, tran: int = TRAN_MA) -> str:
+    """Ma nguon -> doan gui LLM <= tran ky tu. 20/10/2026: truoc day cat CUNG tran ky tu DAU file: EA MQL dai (thu vien,
+    giao dien, khai bao) bi mat het OnTick / logic vao lenh -> LLM "khong ra spec hay python" (loai HONG pho bien).
+    Nay: bo chu thich + dong trong; con dai thi giu (1) dong input/extern, (2) cac ham chinh (OnTick, OnCalculate,
+    populate_*...) va ham co lenh/chi bao, (3) phan dau file cho du tran."""
+    if len(vb or "") <= tran:
+        return vb or ""
+    t = re.sub(r"/\*.*?\*/", "", vb or "", flags=re.S)
+    t = re.sub(r"(?m)^\s*//.*$", "", t)
+    t = re.sub(r"(?m)[ \t]+$", "", t)
+    t = re.sub(r"\n\s*\n+", "\n", t)
+    if len(t) <= tran:
+        return t
+    dong = t.split("\n")
+    giu = [x for x in dong if re.match(r"\s*(input|extern|sinput)\b", x)][:80]
+    # tach ham theo ngoac nhon (MQL/Pine kieu C) hoac theo "def " (Python)
+    khoi, i = [], 0
+    while i < len(dong):
+        x = dong[i]
+        if _HAM_CHINH.search(x) or (re.match(r"\s*(def |[\w:<>\*&\s]+\()", x) and i + 1 < len(dong)):
+            j, sau, mo = i, 0, False
+            buf = []
+            while j < len(dong) and j - i < 400:
+                buf.append(dong[j]); sau += dong[j].count("{") - dong[j].count("}")
+                mo = mo or "{" in dong[j]
+                j += 1
+                if mo and sau <= 0:
+                    break
+                if x.lstrip().startswith("def ") and j < len(dong) and dong[j] and not dong[j][:1].isspace():
+                    break
+            vb_k = "\n".join(buf)
+            if _HAM_CHINH.search(x):
+                khoi.append((0, vb_k))
+            elif _KY_LENH.search(vb_k):
+                khoi.append((1, vb_k))
+            i = max(j, i + 1)
+        else:
+            i += 1
+    ra = "\n".join(giu)
+    for _, k in sorted(khoi, key=lambda z: z[0]):
+        if len(ra) + len(k) + 1 > tran:
+            continue
+        ra += "\n" + k
+    if len(ra) < tran:
+        ra = t[: tran - len(ra) - 40] + "\n// ... (rut gon) ...\n" + ra
+    return ra[:tran]
+
+
 def boc_tach(ma_nguon: str, ngon_ngu: str = "MQL5", client=None, c: dict | None = None) -> dict:
     """Ma nguon -> {trang_thai, loai, spec[], python, co_che[], quan_tri{}, tham_so{}, chua_dich[], model, token_*}."""
-    r = goi(MAU_BOC % (ngon_ngu, (ma_nguon or "")[:TRAN_MA]), client=client, c=c)
+    c = c or cau_hinh()
+    r = goi(MAU_BOC % (ngon_ngu, rut_gon_ma(ma_nguon or "", int(c.get("tran_ma") or TRAN_MA))), client=client, c=c)
     meta = {k: r.get(k) for k in ("model", "token_vao", "token_ra", "ghi_chu")}
     if r["trang_thai"] != "OK":
         return dict(meta, trang_thai=r["trang_thai"])
@@ -267,6 +428,7 @@ def boc_tach(ma_nguon: str, ngon_ngu: str = "MQL5", client=None, c: dict | None 
     spec_ok = []
     for sp in sp_ds:
         try:
+            sp = chuan_hoa_spec(sp) if isinstance(sp, dict) else sp
             loi = kiem_spec(sp) if isinstance(sp, dict) else ["spec khong phai object"]
         except Exception as e:  # noqa: BLE001
             loi = ["kiem_spec loi: %s" % str(e)[:120]]

@@ -11,6 +11,7 @@ Khong bao gio exec ma LLM trong tien trinh chinh. Duong di:
 from __future__ import annotations
 
 import ast
+import re
 import json
 import os
 import subprocess
@@ -25,7 +26,15 @@ CAM_TEN = {"open", "exec", "eval", "compile", "__import__", "getattr", "setattr"
            "dir", "id", "hash", "format", "bytes", "bytearray"}
 CHO_TO = {"to_numpy", "tolist", "to_list"}
 CAM_THUOC_TINH = {"eval", "query", "load", "save", "savetxt", "loadtxt", "fromfile", "tofile", "genfromtxt", "memmap",
-                  "lib", "ctypeslib", "testing", "f2py", "distutils", "system", "popen", "pipe", "style", "plot"}
+                  "lib", "ctypeslib", "testing", "f2py", "distutils", "system", "popen", "pipe", "style", "plot",
+                  "HDFStore", "ExcelWriter", "ExcelFile", "io", "api"}
+#: 20/10/2026: TEN COT gia la chuoi hop le (df["open"]). Truoc day "open" nam trong CAM_TEN nen MOI ma Python dung
+#: df["open"] bi chan "cam chuoi 'open'" -> HONG. Chuoi nay khong goi duoc ham nguy hiem (Series/DataFrame khong co
+#: phuong thuc ten "open"); thuoc tinh .open van cam.
+CHUOI_COT = {"open", "high", "low", "close", "volume", "tick_volume", "time", "date"}
+#: dong import LLM hay viet du da duoc dan "khong import" - chi bo cac module da co san (np/pd/math), con lai van cam.
+_IMPORT_CHO = re.compile(r"(?m)^[ \t]*(import numpy as np|import pandas as pd|import math|import numpy|import pandas|"
+                         r"from math import [\w, ]+|from numpy import nan)[ \t]*$")
 NUT_CHO = (ast.Module, ast.FunctionDef, ast.arguments, ast.arg, ast.Return, ast.Assign, ast.AugAssign, ast.AnnAssign,
            ast.Expr, ast.Name, ast.Load, ast.Store, ast.Del, ast.Constant, ast.Attribute, ast.Subscript, ast.Slice,
            ast.Call, ast.keyword, ast.BinOp, ast.UnaryOp, ast.BoolOp, ast.Compare, ast.IfExp, ast.If, ast.For, ast.While,
@@ -33,14 +42,24 @@ NUT_CHO = (ast.Module, ast.FunctionDef, ast.arguments, ast.arg, ast.Return, ast.
            ast.SetComp, ast.GeneratorExp, ast.comprehension, ast.Lambda, ast.Starred,
            ast.Add, ast.Sub, ast.Mult, ast.Div, ast.FloorDiv, ast.Mod, ast.Pow, ast.USub, ast.UAdd, ast.Not, ast.Invert,
            ast.And, ast.Or, ast.BitAnd, ast.BitOr, ast.BitXor, ast.LShift, ast.RShift, ast.MatMult,
-           ast.Eq, ast.NotEq, ast.Lt, ast.LtE, ast.Gt, ast.GtE, ast.Is, ast.IsNot, ast.In, ast.NotIn)
+           ast.Eq, ast.NotEq, ast.Lt, ast.LtE, ast.Gt, ast.GtE, ast.Is, ast.IsNot, ast.In, ast.NotIn,
+           # 20/10/2026: f-string / try / raise / assert vo hai (bieu thuc ben trong van bi kiem tung nut) - truoc day
+           # lam HONG ca ban dich chi vi mot f-string hay try/except
+           ast.JoinedStr, ast.FormattedValue, ast.Try, ast.ExceptHandler, ast.Raise, ast.Assert)
 BUILTIN_CHO = ["abs", "min", "max", "range", "len", "float", "int", "bool", "round", "sum", "zip", "enumerate", "list",
                "dict", "tuple", "set", "sorted", "reversed", "any", "all", "map", "filter", "isinstance", "str",
-               "ValueError", "ZeroDivisionError", "None", "True", "False"]
+               "ValueError", "ZeroDivisionError", "None", "True", "False",
+               "Exception", "KeyError", "IndexError", "TypeError", "ArithmeticError", "FloatingPointError"]
+
+
+def lam_sach(ma: str) -> str:
+    """Bo dong import np/pd/math (da co san trong hop cat). Import khac giu nguyen -> kiem_ast chan."""
+    return _IMPORT_CHO.sub("", ma or "")
 
 
 def kiem_ast(ma: str) -> list[str]:
     """-> danh sach loi (rong = qua). Can dung MOT ham top-level `tin_hieu(df)`."""
+    ma = lam_sach(ma)
     try:
         cay = ast.parse(ma or "")
     except SyntaxError as e:
@@ -71,7 +90,9 @@ def kiem_ast(ma: str) -> list[str]:
             v = n.value.strip()
             # 19/10/2026: pandas goi phuong thuc THEO TEN CHUOI (.apply("to_csv", args=(duong,)), .agg, .transform)
             # -> lot qua kiem thuoc tinh va ghi file tuy y. Cam moi chuoi la ten phuong thuc nguy hiem.
-            if v.startswith("_") or v.startswith("read_") or (v.startswith("to_") and v not in CHO_TO) or \
+            if v.lower() in CHUOI_COT:
+                pass
+            elif v.startswith("_") or v.startswith("read_") or (v.startswith("to_") and v not in CHO_TO) or \
                     v in CAM_THUOC_TINH or v in CAM_TEN:
                 loi.append("cam chuoi %r (goi phuong thuc theo ten)" % v[:40])
         if isinstance(n, ast.keyword) and n.arg == "center" and not (isinstance(n.value, ast.Constant) and n.value.value is False):
@@ -101,6 +122,7 @@ def chay(ma: str, df, cat: list[int] | None = None, han_giay: int = 90) -> dict:
     loi = kiem_ast(ma)
     if loi:
         return {"ok": False, "loi": "; ".join(loi)}
+    ma = lam_sach(ma)
     with tempfile.TemporaryDirectory() as d:
         p = Path(d)
         df[["open", "high", "low", "close"]].to_csv(p / "gia.csv", index_label="time")

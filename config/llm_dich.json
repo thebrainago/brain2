@@ -1,0 +1,27 @@
+{
+ "_ghi_chu": "20/10/2026 09:56 (chu du an): dich_llm dung MOT model manh co dinh, hieu qua hon chi phi. 'model' de rong = CHUA CHON (dang lui ve config/qwen.json: qwen3.7-flash). May nha chay `python nhan/chon_model_llm.py` dau phien: GET /v1/models (khoa AIBOX_API_KEY / cc-switch, KHONG in), loc theo 'uu_tien', A/B tren 'so_mau' EA, ghi model thang vao day + reports/ong_dan/CHON_MODEL_LLM.md. Khong lui ve flash; du phong chi khi model chinh loi 5xx/mang (chi_du_phong_khi_5xx). Tep nay thang config/qwen.json cho buoc dich; he `q` van doc qwen.json.",
+ "model": "",
+ "model_du_phong": "",
+ "chi_du_phong_khi_5xx": true,
+ "temperature": 0,
+ "max_tokens": 32000,
+ "timeout_giay": 900,
+ "so_lan_thu_lai": 3,
+ "so_lan_thu_429": 6,
+ "tran_ma": 60000,
+ "uu_tien": [
+  "^deepseek-v3\\.[0-9]",
+  "^deepseek-chat$",
+  "^deepseek-v3$",
+  "^qwen3(\\.[0-9])?-coder(-plus)?$",
+  "^qwen3(\\.[0-9])?-max",
+  "^qwen-max",
+  "^deepseek-r1",
+  "^deepseek-reasoner",
+  "^qwen3(\\.[0-9])?-plus",
+  "^qwen-plus",
+  "^qwen3(\\.[0-9])?-235b"
+ ],
+ "loai_tru": ["flash", "turbo", "mini", "lite", "nano", "vl", "embed", "tts", "audio", "image", "ocr", "omni"],
+ "ab": {"so_ung_vien": 3, "so_mau": 20, "luong": 4, "han_giay_moi_mau": 900}
+}
