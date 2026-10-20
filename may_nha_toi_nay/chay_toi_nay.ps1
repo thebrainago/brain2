@@ -559,8 +559,11 @@ Buoc 11 "Commit reports\ + KET_QUA_SANG.md" {
         git @id commit -q -m "Máy nhà tối ${Ngay}: báo cáo đo + nhật ký (chay_toi_nay.ps1)" 2>&1 | ForEach-Object { Ghi "    | $_" }
         if ($LASTEXITCODE -ne 0) { return "COMMIT LỖI rc=$LASTEXITCODE - xem nhật ký" }
         if ($KhongPush) { return "commit xong, không push (-KhongPush)" }
-        git pull --rebase --autostash -q 2>&1 | ForEach-Object { Ghi "    | $_" }
-        if ($LASTEXITCODE -ne 0) { git rebase --abort 2>&1 | Out-Null; return "commit xong, pull LỖI rc=$LASTEXITCODE - chưa push" }
+        # 20/10/2026 21:50 (Grok): KHONG pull --rebase --autostash (21:44 autostash cuon ca tep dang sua + chay_lien_tuc dang ghi,
+        # ap lai xung dot -> khong push). Chi fetch + merge thuong; upstream cham tep ban thi git tu choi, khong mat gi.
+        git fetch -q origin 2>&1 | ForEach-Object { Ghi "    | $_" }
+        git merge --no-edit -q origin/main 2>&1 | ForEach-Object { Ghi "    | $_" }
+        if ($LASTEXITCODE -ne 0) { git merge --abort 2>&1 | Out-Null; return "commit xong, pull LỖI rc=$LASTEXITCODE - chưa push" }
         git push -q 2>&1 | ForEach-Object { Ghi "    | $_" }
         if ($LASTEXITCODE -ne 0) { return "commit xong, push LỖI rc=$LASTEXITCODE" }
         "commit + push xong ($(@($staged).Count) tệp)"

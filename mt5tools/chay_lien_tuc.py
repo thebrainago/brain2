@@ -190,7 +190,14 @@ def ket_thuc():
         if KQ_ONG_DAN.exists():
             g("add", str(KQ_ONG_DAN))
         g("commit", "-m", "May nha chay lien tuc: so cai MT5 (%d lan thu) + tong ket" % len(SV.doc_so_cai()))
-        g("pull", "--rebase", "--autostash"); r = g("push")   # buoc khac dang ghi reports/ -> can autostash
+        # 20/10/2026 21:40 (Grok, may nha): KHONG pull --rebase --autostash (20:53 autostash cat tam so_cai.jsonl dang ghi
+        # -> lui 2 phut, chay lai 4 viec). Chi fetch + merge thuong; upstream cham tep ban thi git tu choi, khong mat gi.
+        g("fetch", "origin")
+        m = g("merge", "--no-edit", "origin/main")
+        if m.returncode:
+            g("merge", "--abort")
+            log("GIT merge loi (bo qua, van push neu duoc): %s" % (m.stderr or m.stdout or "")[-200:])
+        r = g("push")
         log("GIT push rc=%s %s" % (r.returncode, (r.stderr or "")[-200:]))
     except Exception as e:
         log("GIT loi %s" % e)

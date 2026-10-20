@@ -760,3 +760,19 @@ def test_qua_gio_giet_ca_cay_tien_trinh():
     pr.wait(timeout=10)
     _, song = psutil.wait_procs(con, timeout=10)
     assert not song
+
+
+def test_ket_thuc_khong_autostash():
+    """20/10/2026 21:40: ket_thuc chay_lien_tuc khong duoc pull --rebase --autostash (cat tam so_cai dang ghi)."""
+    src = (Path(__file__).resolve().parent / "mt5tools" / "chay_lien_tuc.py").read_text(encoding="utf-8")
+    than = src[src.index("def ket_thuc"):src.index("def ha_uu_tien")]
+    assert '"--autostash"' not in than
+    assert '"merge", "--no-edit", "origin/main"' in than
+
+
+def test_chay_toi_nay_khong_autostash():
+    """20/10/2026 21:50: buoc 11 chay_toi_nay.ps1 khong duoc pull --rebase --autostash."""
+    src = (Path(__file__).resolve().parent / "may_nha_toi_nay" / "chay_toi_nay.ps1").read_bytes().decode("utf-8", "replace")
+    dong = [x for x in src.splitlines() if not x.strip().startswith("#")]
+    assert not any("--autostash" in x for x in dong)
+    assert any("git merge --no-edit -q origin/main" in x for x in dong)
