@@ -4,6 +4,7 @@ Python/MT5 (quy doi cap cheo, vao lai cung nen, lai MT5 tu .htm, sai symbol, %/n
 o dia / RAM / slot, robots, bao cao phien. Khong goi mang, khong co khoa that."""
 from __future__ import annotations
 
+import copy
 import json
 import os
 import sys
@@ -444,10 +445,14 @@ def test_dp_seeker_chi_chay_khi_hang_can_va_o_du():
 
 def test_dp_dich_song_song():
     now = time.time()
-    assert DP.nen_chay_dich(_d(), CFG_DP, 10, False, 0, now)[0]
-    assert not DP.nen_chay_dich(_d(), CFG_DP, 0, False, 0, now)[0]
-    assert not DP.nen_chay_dich(_d(), CFG_DP, 10, True, 0, now)[0]
-    assert not DP.nen_chay_dich(_d(), CFG_DP, 10, False, now + 100, now)[0]
+    cfg = copy.deepcopy(CFG_DP)          # 21/10: config that co the dang tat dich (tam dung) -> test logic voi bat=True
+    cfg.setdefault("dich_llm", {})["bat"] = True
+    assert DP.nen_chay_dich(_d(), cfg, 10, False, 0, now)[0]
+    assert not DP.nen_chay_dich(_d(), cfg, 0, False, 0, now)[0]
+    assert not DP.nen_chay_dich(_d(), cfg, 10, True, 0, now)[0]
+    assert not DP.nen_chay_dich(_d(), cfg, 10, False, now + 100, now)[0]
+    cfg["dich_llm"]["bat"] = False
+    assert not DP.nen_chay_dich(_d(), cfg, 10, False, 0, now)[0]
 
 
 def test_dp_don_tho_giu_tep_the_tro_toi(tmp_path):

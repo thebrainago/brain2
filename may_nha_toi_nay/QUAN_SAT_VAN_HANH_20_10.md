@@ -117,3 +117,22 @@ Ghi bởi Grok Bot (routine "Canh máy nhà đêm 20/10"), mỗi lần kiểm th
 2. **Theo dõi D:** nếu tốc độ giảm giữ nguyên thì D chạm 6 GB khoảng 02:00; quan_ly_slot.dam_bao_cho sẽ dọn tick của p1 khi rỗi (tốn thời gian tải lại). Lần kiểm sau đo lại; dưới 8 GB thì tìm nguồn ngoài mt5_tester.
 3. **Cho p4/p6 chạy việc MRZ D1 cũ khi RAM chặn tầng 2** (vẫn đúng như đề xuất 22:08): hai slot đã rỗi thêm 70 phút.
 4. **Lọc chặt hơn trước khi gọi ĐẠT:** gắn cờ "lịch sử < 3 năm" và TF trống trong UNG_VIEN để 19 hệ ĐẠT mới không bị đọc như ứng viên chắc chắn.
+
+
+## Lần kiểm 00:12-00:25 (21/10)
+
+**Ảnh chụp tài nguyên 00:12:** RAM trống 13,9 GB. Ổ trống: C 10,2 GB (23:21 là 12,09 GB), D 11,9 GB (23:15 là 15,5 GB), E 186,4 GB. Process: chay_lien_tuc PID 15104/5804 sống, 3 terminal64 + 3 metatester64 trong mt5_tester (p1, p3, p7), XM chính 680 và claude 8720 không đụng, canh_metatester_mo_coi.ps1 PID 13708 vẫn chạy.
+
+**Hàng MT5:** sổ cái 800 (23:16) lên 814 (00:12), 14 lượt trong 56 phút, tầng 2 real tick 164-988 s mỗi việc. Thử khô lay_viec (BRAIN_HANG_BOX=1, n=2000): còn 10 việc XM tầng 2 (23:15 là 24), 115 việc Exness tầng 1 (vẫn treo), 2 XM + 2 Exness chưa gắn tầng, 1.871 việc cũ không gắn sàn/tầng (MRZ D1). Ước hết tầng 2 XM khoảng 01:00-01:30, sau đó RAM thôi chặn và p4/p6 có việc (nếu hàng cũ được phóng).
+
+**Báo cáo:** PHIEN_20261021.md và UNG_VIEN.md đẩy lúc 00:07 (commit f3979c9a). UNG_VIEN: ĐẠT 63 lên 78, TRƯỢT 10, CHƯA ĐO ĐƯỢC 6. 15 hệ ĐẠT mới đều khoảng 2,7 năm lịch sử, %/năm kép 13,1-27,7 %, DD vốn 8,4-75,7 %, Py/MT5 và TF đều CHƯA ĐO ĐƯỢC. Tốt nhất về DD: od_skead0a7af9f8b AUDJPY 17,9 %/năm kép, DD 8,4 %, 158 lệnh.
+
+**Ổ đĩa (đã xử lý):** D:\mt5_tester tăng 10,92 lên 14,49 GB và C:\mt5_tester\p7 tăng 14,27 lên 16,16 GB trong khoảng 55 phút. Tester\bases của p1 là 5,78 GB, của p7 là 6,73 GB (bản sao tick theo symbol của agent). Với tốc độ này D chạm sàn 6 GB khoảng 01:45, và khi đó dieu_phoi ghi tong=0 nên toàn bộ MT5 (kể cả p3 trên E) dừng phóng việc mới, trong khi dọn tự động của quan_ly_slot chỉ chạy lúc phóng việc. Đã chạy may_nha_toi_nay/chuyen_tick_sang_E.ps1: chuyển 15 thư mục symbol của p1 (5,36 GB) và 17 của p7 (6,28 GB) trong Tester\bases sang E:\brain2_nguoi\tick_junction và đặt junction về chỗ cũ, bỏ qua symbol đang test (EURUSDmicro p1, EURCHFmicro p7). Thư mục bases\*\ticks của terminal không chuyển được vì terminal64 giữ file mở (1-35 file mỗi symbol), script đã trả lại nguyên chỗ và giờ chỉ xử lý Tester\bases. Sau sửa: C 16,5 GB, D 17,2 GB.
+
+**Dịch LLM:** dieu_phoi vẫn gọi dich_llm mỗi 15-16 phút từ 22:01 tới 00:11 (9 lượt, mỗi lượt 8 lần gọi đều 403 hết quota, số dư -144,6 đ), không tốn tiền nhưng trái lệnh tạm dừng. Đã đặt dich_llm.bat=false (hiệu lực phiên sau, vì dieu_phoi chỉ đọc config lúc khởi động).
+
+### Đề xuất
+1. **Cho dieu_phoi đọc lại config mỗi chu kỳ** (hoặc khi mtime đổi): hiện tắt dịch hay đổi sàn ổ giữa phiên đều phải khởi động lại tiến trình admin.
+2. **Khi ổ dưới sàn, đừng đặt tong=0 cho mọi slot:** chỉ chặn slot nằm trên ổ thiếu và gọi quan_ly_slot.dam_bao_cho cho slot rảnh, để p3 trên E vẫn chạy.
+3. **Đặt Tester\bases của slot SSD trỏ thẳng sang E ngay khi tạo slot** (junction cả thư mục khi slot chưa chạy), để cache tick mới không bao giờ rơi vào C/D. Junction theo symbol tối nay chỉ chặn được phần đã có.
+4. **Định nghĩa "hết việc" cho lệnh tắt máy:** sau tầng 2 XM chỉ còn 1.871 việc MRZ D1 cũ và 115 việc Exness không slot nào chạy được, nên hàng không bao giờ về 0 trước 07:00. Cần chốt có chạy hàng cũ không hay dừng khi hết việc ống dẫn XM.
