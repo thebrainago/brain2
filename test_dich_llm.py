@@ -263,8 +263,9 @@ def test_goi_may_nha_kem_the_llm_va_db(tmp_path, monkeypatch):
         n = set(z.namelist())
         man = json.loads(z.read("MANIFEST.json"))
         hd = z.read("HUONG_DAN.md").decode("utf-8")
-        db = z.read("data/ong_dan/trang_thai.sqlite")
-    assert {"data/seeker/p1.py", "data/seeker/p2.pine", "data/ong_dan/trang_thai.sqlite"} <= n
+        db = z.read("data/ong_dan/goi_vao/trang_thai_box.sqlite")
+    assert {"data/seeker/p1.py", "data/seeker/p2.pine", "data/ong_dan/goi_vao/trang_thai_box.sqlite"} <= n
+    assert "data/ong_dan/trang_thai.sqlite" not in n                 # 20/10/2026: khong ghi de CSDL may nha
     assert man["so_the_cho_dich_llm"] == 2 and man["the_cho_dich_llm"][0]["the"] == "p1"
     assert "dich_llm" in hd and "git pull" in hd and "ong_dan.py chay" in hd
     p = tmp_path / "chup.sqlite"; p.write_bytes(db)

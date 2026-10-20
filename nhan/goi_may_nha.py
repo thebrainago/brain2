@@ -21,6 +21,7 @@ from nhan import nhap_tay as NT
 GOC = Path(__file__).resolve().parent.parent
 HANG_CHO = GOC / "reports" / "ong_dan" / "hang_cho_mt5.jsonl"
 RA = Path("/workspace/goi_may_nha")
+THO_BOX_DB = ("tho_box.sqlite",)
 _INC = re.compile(r'#include\s+"([^"]+)"')
 
 
@@ -90,11 +91,21 @@ def dong_goi(thu_muc: Path = RA, hang_cho: Path = HANG_CHO, tran_mb: float = 150
         t_llm, bang_llm = tep_dich_llm(cn)
         tep |= t_llm
         ch = GOC / "data" / "ong_dan" / "dich_llm"
-        if ch.exists():
-            tep |= {p for p in ch.glob("*.json")}          # cache dich: may nha khong goi lai ma da dich
         import tempfile
         tam = Path(tempfile.mkdtemp())
-        phu.append((_chup_db(cn, tam / "trang_thai.sqlite"), "data/ong_dan/trang_thai.sqlite"))
+        # 20/10/2026: KHONG ghi de trang thai / cache may nha nua - dat vao data/ong_dan/goi_vao/, may nha gop bang
+        # `python -m nhan.gop_csdl --nhap-goi` (the DAT khong bao gio bi ha cap; nhat ky hai ben giu het).
+        if ch.exists():
+            phu += [(p, "data/ong_dan/goi_vao/dich_llm/" + p.name) for p in ch.glob("*.json")]
+        phu.append((_chup_db(cn, tam / "trang_thai_box.sqlite"), "data/ong_dan/goi_vao/trang_thai_box.sqlite"))
+        # ket qua tho box (executor phu tren box, CSDL rieng tho_box/tho_box.py) cung di qua duong gop
+        for ten_db in THO_BOX_DB:
+            f = GOC / "data" / "ong_dan" / ten_db
+            if f.exists():
+                import sqlite3
+                s = sqlite3.connect("file:%s?mode=ro" % f.as_posix(), uri=True)
+                phu.append((_chup_db(s, tam / ten_db), "data/ong_dan/goi_vao/" + ten_db))
+                s.close()
         if kem_gia:
             from nhan import ong_dan as OD
             for f in OD.xuat_gia_goi():
@@ -110,7 +121,8 @@ def dong_goi(thu_muc: Path = RA, hang_cho: Path = HANG_CHO, tran_mb: float = 150
           "## Dịch bằng LLM (khoá ai-box chỉ có trên máy nhà)\n\n"
           "1. `git pull` trong repo brain2.\n"
           "2. Giải nén zip này vào GỐC repo (giữ nguyên `data/...`; `data/` không vào git). Gói có: mã nguồn %d thẻ chờ dịch, "
-          "bản chụp `data/ong_dan/trang_thai.sqlite` (ghi đè trạng thái ống dẫn cũ trên máy nhà nếu có), cache dịch, "
+          "bản chụp trạng thái box (+ thợ box) và cache dịch trong `data/ong_dan/goi_vao/` - KHÔNG ghi đè; sau khi giải nén "
+          "chạy `python -m nhan.gop_csdl --nhap-goi` để GỘP (thẻ đã DAT không bị hạ, nhật ký hai bên giữ hết), "
           "giá H1 `data/ong_dan/gia_goi/`.\n"
           "3. `python ong_dan.py dich_llm` (thêm `--gioi_han 50` để chạy thử ít thẻ trước). Khoá lấy từ biến AIBOX_API_KEY, "
           "hoặc từ cc-switch (provider 'aibox'); không cần chép khoá đi đâu. Model `qwen3.7-flash`, hết quota hay 403 thì "
