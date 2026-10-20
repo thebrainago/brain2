@@ -78,3 +78,7 @@ reports/chrome_extract/
 _thu_dang_nhap*.sh
 _dang_nhap_mot_lan*.sh
 _thu_ini_server*.sh
+
+# 20/10/2026: cong tac bat/tat The Brain may nha
+may_nha_toi_nay/TAT_THE_BRAIN.co
+may_nha_toi_nay/PHIEN_HIEN_TAI.txt

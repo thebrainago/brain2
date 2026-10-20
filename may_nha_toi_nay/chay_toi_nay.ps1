@@ -59,6 +59,9 @@ if (-not $ThuMucLog) {
     if ($ODuLieu) { $ThuMucLog = Join-Path $ODuLieu "brain2_log\toi_nay_$Ngay" } else { $ThuMucLog = Join-Path $ThuMucViec "log" }
 }
 New-Item -ItemType Directory -Force -Path $ThuMucLog | Out-Null
+# 20/10/2026: TAT_THE_BRAIN.bat đọc thư mục log phiên ở đây để chỉ dừng đúng các PID ống dẫn đã ghi
+$env:BRAIN_LOG_DIR = $ThuMucLog
+try { Set-Content -Path (Join-Path $ThuMucViec "PHIEN_HIEN_TAI.txt") -Value $ThuMucLog -Encoding UTF8 } catch { }
 $LogChung = Join-Path $ThuMucLog "chay_toi_nay.log"
 if ($ODuLieu) {
     $TmpCon = Join-Path $ODuLieu "brain2_tmp"
@@ -108,8 +111,11 @@ function TimTerminal([string]$mau, [string]$uuTien) {
 $Py = TimPython
 if (-not $Mt5Xm) { $Mt5Xm = TimTerminal "(?i)xm" "(?i)xm_micro" }
 if (-not $Mt5Exness) { $Mt5Exness = TimTerminal "(?i)exness" "(?i)exness_cent" }
+# 20/10/2026: mặc định giống mt5tools/quan_ly_slot.py (SSD D/C trước, E dự phòng); đặt BRAIN_SLOTS để đổi. Chuyền xuống
+# chay_lien_tuc.py qua biến môi trường nên máy nhà không phải sửa tay tệp .py nữa.
 if ($Slots) { $DsSlot = $Slots.Split(";") | Where-Object { $_ } }
-else { $DsSlot = @("D:\mt5_tester\p1", "D:\mt5_tester\p2", "E:\mt5_tester\p3", "E:\mt5_tester\p4") }
+else { $DsSlot = @("D:\mt5_tester\p1", "C:\mt5_tester\p7", "E:\mt5_tester\p3", "E:\mt5_tester\p6", "E:\mt5_tester\p4") }
+$env:BRAIN_SLOTS = ($DsSlot -join ";")
 
 # ---------------------------------------------------------------- tiện ích chạy
 function TrichDoi([string]$a) {
@@ -119,7 +125,7 @@ function TrichDoi([string]$a) {
 
 function ChayCon {
     # Chạy một chương trình con, chờ tối đa $phut phút (0 = chờ hết), log ra $ThuMucLog\<ten>.out/.err
-    param([string]$exe, [string[]]$thamSo, [string]$ten, [int]$phut = 0, [string]$uuTien = "BelowNormal", [string]$cwd = $Repo)
+    param([string]$exe, [string[]]$thamSo, [string]$ten, [int]$phut = 0, [string]$uuTien = "Normal", [string]$cwd = $Repo)
     $out = Join-Path $ThuMucLog "$ten.out.txt"; $err = Join-Path $ThuMucLog "$ten.err.txt"
     $chuoi = ($thamSo | ForEach-Object { TrichDoi $_ }) -join " "
     Ghi ("  chạy: " + (Split-Path -Leaf $exe) + " " + $chuoi)
@@ -138,7 +144,7 @@ function ChayCon {
     return $p.ExitCode
 }
 
-function ChayPy([string[]]$thamSo, [string]$ten, [int]$phut = 0, [string]$uuTien = "BelowNormal") {
+function ChayPy([string[]]$thamSo, [string]$ten, [int]$phut = 0, [string]$uuTien = "Normal") {
     if (-not $Py) { throw "không tìm thấy python (đặt BRAIN_PY)" }
     $rc = ChayCon -exe $Py -thamSo $thamSo -ten $ten -phut $phut -uuTien $uuTien
     $out = Join-Path $ThuMucLog "$ten.out.txt"
@@ -148,7 +154,7 @@ function ChayPy([string[]]$thamSo, [string]$ten, [int]$phut = 0, [string]$uuTien
     return $rc
 }
 
-function ChayNen([string]$exe, [string[]]$thamSo, [string]$ten, [string]$uuTien = "Idle") {
+function ChayNen([string]$exe, [string[]]$thamSo, [string]$ten, [string]$uuTien = "Normal") {
     # Tiến trình nền: không chờ. Ghi PID ra $ThuMucLog\pid_<ten>.txt để dừng đúng PID.
     $fp = Join-Path $ThuMucLog "pid_$ten.txt"
     if (Test-Path $fp) {
@@ -185,8 +191,10 @@ function DangChoiGame {
 }
 
 function ChoGame([int]$toiDaPhut = 120) {
-    # Chủ dự án đang chơi game -> chờ (mỗi 5 phút xem lại), tối đa $toiDaPhut rồi chạy tiếp ở mức ưu tiên thấp
+    # 20/10/2026 09:50 (chủ dự án): BỎ giảm tải theo game - máy chạy The Brain hết sức hoặc tắt hẳn. Chỉ còn ghi chú.
     $g = DangChoiGame
+    if ($g) { Ghi "  ghi chú: thấy tiến trình $g - KHÔNG giảm tải (chế độ hết sức)" }
+    return
     if (-not $g) { return }
     Ghi "  đang chơi game ($g) - tạm chờ, giảm tải"
     $bd = Get-Date
@@ -210,7 +218,8 @@ function DocServer([string]$thuMucTerminal) {
 # ---------------------------------------------------------------- chọn bước
 # 19/10/2026 (Claude): 7 (hàng MT5) mở NỀN ngay sau 4 (cần EA đã biên dịch) để tester chạy cả đêm song song với dịch/
 # tối ưu Python; trước đây 7 chỉ bắt đầu sau 5+6 (tới 6 giờ). 8 chờ hàng MT5 kết thúc (giờ $Den + 20 phút) rồi mới đọc.
-$ThuTu = @(0, 1, 2, 3, 4, 7, 5, 6, 9, 10, 8, 11)
+# 20/10/2026: 12 = vòng phiên nền (báo cáo mỗi 60 phút, Seeker mỗi 2 giờ, báo cáo cuối phiên) mở ngay sau hàng MT5.
+$ThuTu = @(0, 1, 2, 3, 4, 7, 12, 13, 5, 6, 9, 10, 8, 11)
 function PhanTichBuoc([string]$s) {
     if (-not $s) { return $ThuTu }
     $chon = @()
@@ -393,8 +402,30 @@ Buoc 7 "Hàng MT5 nền tới $Den (mỗi slot lấy việc đúng sàn nó đă
     # (sinh_viec.lay_viec(san=...)), nên hai sàn chạy song song cả đêm; không xoá tick giữa đêm.
     Remove-Item Env:\BRAIN_SAN_TESTER -ErrorAction SilentlyContinue
     $env:BRAIN_UU_TIEN_CSV = "1"
-    ChayNen $Py @("mt5tools/chay_lien_tuc.py", "--den", $Den) "mt5" "BelowNormal"
+    ChayNen $Py @("mt5tools/chay_lien_tuc.py", "--den", $Den) "mt5" "Normal"
     "nền tới $Den (+20 phút gia hạn) - sàn: $($co -join ', ')"
+}
+
+# ---------------------------------------------------------------- 12. vòng phiên nền
+Buoc 12 "Vòng phiên nền: báo cáo mỗi 60 phút + bộ điều phối (dich_llm/Seeker/mức slot MT5 theo tài nguyên), cuối phiên doc_mt5 + báo cáo + dọn" {
+    $vp = Join-Path $ThuMucViec "vong_phien.ps1"
+    $psExe = (Get-Process -Id $PID).Path
+    if (-not $psExe) { $psExe = "powershell.exe" }
+    $tham = @("-NoProfile", "-ExecutionPolicy", "Bypass", "-File", $vp, "-Repo", $Repo, "-Python", $Py, "-ThuMucLog", $ThuMucLog, "-Den", $Den)
+    if ($KhongPush) { $tham += "-KhongPush" }
+    ChayNen $psExe $tham "vong_phien" "Normal"
+    "nền tới ${Den}: reports\phien\PHIEN_$Ngay.md + reports\UNG_VIEN.md"
+}
+
+# ---------------------------------------------------------------- 13. chọn model LLM mạnh (20/10/2026 09:56)
+Buoc 13 "Chọn model LLM mạnh cố định cho dich_llm (GET /models + A/B 20 EA)" {
+    # khoá đọc tại chỗ (AIBOX_API_KEY / cc-switch), không in; đã chọn trong 24 giờ thì bỏ qua
+    $rc = ChayPy @("nhan/chon_model_llm.py", "--neu_cu_hon_gio", "24") "b13_chon_model" 90
+    $out = Get-Content (Join-Path $ThuMucLog "b13_chon_model.out.txt") -Raw -Encoding UTF8 -ErrorAction SilentlyContinue
+    if ($out -match "CHUA CHAY DUOC") { return "CHƯA CHẠY ĐƯỢC: không có khoá" }
+    if ($rc -ne 0) { return "CHƯA CHỌN ĐƯỢC (rc=$rc) - dich_llm vẫn dùng config/qwen.json; xem reports\ong_dan\CHON_MODEL_LLM.md" }
+    $m = [regex]::Match($out, "CHON: (\S+)")
+    if ($m.Success) { "chọn $($m.Groups[1].Value) - reports\ong_dan\CHON_MODEL_LLM.md" } else { "đã chọn trước đó (config\llm_dich.json)" }
 }
 
 # ---------------------------------------------------------------- 5. dịch bằng LLM
@@ -413,11 +444,16 @@ Buoc 5 "dich_llm thử $GioiHanThu thẻ rồi chạy nền hết" {
         Ghi "  thử: chờ=$($dem.cho) làm=$($dem.lam) đạt=$($dem.dat) hỏng=$($dem.hong) lỗi_llm=$($dem.loi_llm) gọi mới=$($dem.goi_moi) cache=$($dem.tu_cache)"
         if ($dem.lam -eq 0 -and $dem.loi_llm -gt 0) { return "DỪNG: $($dem.loi_llm) lỗi LLM, 0 thẻ làm được - xem reports\ong_dan\DICH_LLM.md" }
     }
+    # 20/10/2026: bộ điều phối (bước 12, config/dieu_phoi.json "bat") đã tự chạy dich_llm liên tục -> không mở thêm dich_llm_nen
+    $dpCfg = Join-Path $Repo "config\dieu_phoi.json"
+    if ((-not $ChoDichXong) -and ($Chon -contains 12) -and (Test-Path $dpCfg)) {
+        try { if ((Get-Content $dpCfg -Raw -Encoding UTF8 | ConvertFrom-Json).bat) { return "thử xong; phần còn lại do dieu_phoi_may_nha.py (bước 12) chạy" } } catch { }
+    }
     $nen = Join-Path $ThuMucViec "dich_llm_nen.ps1"
     $psExe = (Get-Process -Id $PID).Path                  # cùng PowerShell đang chạy script này
     if (-not $psExe) { $psExe = "powershell.exe" }
     ChayNen $psExe @("-NoProfile", "-ExecutionPolicy", "Bypass", "-File", $nen, "-Repo", $Repo, "-Python", $Py,
-        "-ThuMucLog", $ThuMucLog, "-Luong", "$LuongLlm", "-ToiDaOngDan", "$ToiDa", "-Den", $Den) "dich_llm_nen" "BelowNormal"
+        "-ThuMucLog", $ThuMucLog, "-Luong", "$LuongLlm", "-ToiDaOngDan", "$ToiDa", "-Den", $Den) "dich_llm_nen" "Normal"
     if ($ChoDichXong) {
         $xong = Join-Path $ThuMucLog "dich_llm_nen.xong.txt"
         while (-not (Test-Path $xong)) { Start-Sleep -Seconds 120 }
@@ -446,7 +482,7 @@ Buoc 9 "Tải Dukascopy nền (ổ D/E, ưu tiên thấp)" {
     if (-not $ODuLieu) { throw "không có ổ D:/E: - không tải vào C:" }
     $env:DU_LIEU_CHUAN = Join-Path $ODuLieu "du_lieu_chuan"
     New-Item -ItemType Directory -Force -Path $env:DU_LIEU_CHUAN | Out-Null
-    ChayNen $Py @("tai_dukascopy_tick_m1.py", "--luong", "4") "dukascopy" "Idle"
+    ChayNen $Py @("tai_dukascopy_tick_m1.py", "--luong", "4") "dukascopy" "Normal"
     "nền -> $env:DU_LIEU_CHUAN (script tự dừng khi ổ trống < 15 GB)"
 }
 
@@ -507,9 +543,15 @@ Buoc 11 "Commit reports\ + KET_QUA_SANG.md" {
         $mau = '(sk-[A-Za-z0-9_\-]{16,}|AIBOX_API_KEY\s*=\s*\S{8,}|password\s*=|api\.txt)'
         $nghi = git diff --cached -U0 | Select-String -Pattern $mau
         if ($nghi) { git reset -q; return "DỪNG COMMIT: diff có chuỗi giống khoá/mật khẩu - kiểm tay" }
-        git commit -q -m "Máy nhà tối ${Ngay}: báo cáo đo + nhật ký (chay_toi_nay.ps1)" 2>&1 | ForEach-Object { Ghi "    | $_" }
+        # 20/10/2026: đêm 19/10 máy nhà chưa đặt git user -> commit hỏng nhưng bước báo "commit + push xong". Nay: chưa có
+        # danh tính thì dùng danh tính máy cho riêng lệnh commit này, và kiểm mã thoát của commit.
+        $id = @()
+        if (-not (git config user.email)) { $id = @("-c", "user.name=brain2 may nha", "-c", "user.email=may-nha@brain2.local") }
+        git @id commit -q -m "Máy nhà tối ${Ngay}: báo cáo đo + nhật ký (chay_toi_nay.ps1)" 2>&1 | ForEach-Object { Ghi "    | $_" }
+        if ($LASTEXITCODE -ne 0) { return "COMMIT LỖI rc=$LASTEXITCODE - xem nhật ký" }
         if ($KhongPush) { return "commit xong, không push (-KhongPush)" }
-        git pull --rebase -q 2>&1 | ForEach-Object { Ghi "    | $_" }
+        git pull --rebase --autostash -q 2>&1 | ForEach-Object { Ghi "    | $_" }
+        if ($LASTEXITCODE -ne 0) { git rebase --abort 2>&1 | Out-Null; return "commit xong, pull LỖI rc=$LASTEXITCODE - chưa push" }
         git push -q 2>&1 | ForEach-Object { Ghi "    | $_" }
         if ($LASTEXITCODE -ne 0) { return "commit xong, push LỖI rc=$LASTEXITCODE" }
         "commit + push xong ($(@($staged).Count) tệp)"

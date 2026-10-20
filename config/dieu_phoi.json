@@ -1,0 +1,67 @@
+{
+ "_ghi_chu": "20/10/2026 - bo dieu phoi tai nguyen may nha (may_nha_toi_nay/dieu_phoi_may_nha.py). MT5 la uu tien so 1 ve RAM/IO dia; dich_llm chay lien tuc song song (nhe, cho mang/LLM); Seeker chi chay khi hang dau vao sap can VA o dia dich con du cho. Moi quyet dinh ghi data/dieu_phoi/nhat_ky.jsonl kem ly do; mau su dung ghi data/dieu_phoi/su_dung.jsonl (bao_cao_phien doc de in % su dung moi gio). Thu tu uu tien gia tri: bien moi truong BRAIN_DIEU_PHOI_JSON (duong dan tep khac) > tep nay. 20/10/2026 09:50: BO giam tai theo game - may chay The Brain het suc hoac tat han (BAT_THE_BRAIN.bat / TAT_THE_BRAIN.bat). Gioi han duy nhat: RAM trong >= 4 GB, CPU < 95%, san o dia.",
+ "bat": true,
+ "chu_ky_giay": 60,
+ "ram_toi_thieu_gb": 4.0,
+ "ram_moi_slot_tang1_gb": 1.2,
+ "ram_moi_slot_tang2_gb": 2.5,
+ "tang1_slot_toi_da": 5,
+ "tang2_slot_toi_da": 3,
+ "tang2_slot_toi_thieu": 1,
+ "cpu_cao_pct": 95,
+ "dich_llm": {
+  "bat": true,
+  "gioi_han_moi_luot": 200,
+  "luong": 8,
+  "nghi_khi_het_giay": 900,
+  "qua_gio_phut": 120,
+  "_ghi_chu": "luong = so goi LLM song song toi da; 429 gioi han toc do -> cau_llm lui 5..60 s (so_lan_thu_429 trong config LLM, mac dinh 6); het quota 402/403 -> model du phong"
+ },
+ "seeker": {
+  "bat": true,
+  "hang_mt5_duoi": 20,
+  "the_chua_dich_duoi": 40,
+  "nghi_giua_hai_luot_phut": 60,
+  "thu_muc_tai_ve": "data/seeker_da_nguon/tai_ve",
+  "o_toi_thieu_gb": 20,
+  "gb_moi_luot": 3,
+  "gb_tong_toi_da": 60,
+  "qua_gio_phut": 90,
+  "lenh": [
+   "seeker_quet_nguon.py"
+  ],
+  "_ghi_chu_o": "dat thu_muc_tai_ve tren HDD E: chuyen data/seeker_da_nguon/tai_ve sang E:\\brain2_seeker\\tai_ve roi mklink /J (giu duong dan tuong doi cua the). Bo dieu phoi do cho trong tren o THAT cua thu muc (realpath)."
+ },
+ "don_tho": {
+  "bat": true,
+  "duoi_xoa": [
+   ".zip",
+   ".rar",
+   ".7z",
+   ".tar",
+   ".gz",
+   ".tgz",
+   ".bz2",
+   ".xz",
+   ".bi5"
+  ],
+  "tep_lon_mb": 5,
+  "giu_duoi": [
+   ".mq4",
+   ".mq5",
+   ".mqh",
+   ".pine",
+   ".py",
+   ".set",
+   ".txt",
+   ".md",
+   ".htm",
+   ".html",
+   ".json",
+   ".csv"
+  ],
+  "chi_xoa_cu_hon_phut": 30,
+  "_ghi_chu": "sau khi ong_dan nhan/phan_loai/quyet_dinh xong: xoa tep nen/tho (.zip/.rar/.bi5...) va tep nhi phan > tep_lon_mb khong phai ma nguon, KHONG xoa tep nao dang la nguon.tep / sets / ea_lien_quan cua the trong trang_thai.sqlite; tep trung noi dung (sha1) khong duoc the nao tro toi cung bi xoa."
+ },
+ "uu_tien": "Normal"
+}

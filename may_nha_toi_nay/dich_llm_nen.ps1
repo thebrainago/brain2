@@ -4,7 +4,7 @@
   Dịch nền toàn bộ hàng chờ bằng LLM trên máy nhà: gọi `python ong_dan.py dich_llm --gioi_han N` lặp lại tới khi hết.
   Chạy lại được bất cứ lúc nào: kết quả đã gọi nằm trong cache data/ong_dan/dich_llm/ (theo sha256 mã nguồn),
   trạng thái thẻ ghi vào trang_thai.sqlite ở cuối mỗi lượt (nên lượt nhỏ = mất ít nhất khi bị ngắt).
-  Không đọc, không in khoá. Đang chơi game thì chờ.
+  Không đọc, không in khoá. 20/10/2026 09:50: không giảm tải theo game (chế độ hết sức).
 #>
 param(
     [string]$Repo = (Split-Path -Parent $PSScriptRoot),
@@ -22,9 +22,7 @@ New-Item -ItemType Directory -Force -Path $ThuMucLog | Out-Null
 $log = Join-Path $ThuMucLog "dich_llm_nen.log"
 $xong = Join-Path $ThuMucLog "dich_llm_nen.xong.txt"
 $nk = Join-Path $Repo "may_nha_toi_nay\NHAT_KY.md"
-$game = @("valorant-win64-shipping.exe", "valorant.exe", "league of legends.exe", "leagueclientux.exe", "cs2.exe", "dota2.exe",
-    "gta5.exe", "fortniteclient-win64-shipping.exe", "r5apex.exe", "overwatch.exe", "pubg-win64-shipping.exe", "eldenring.exe",
-    "genshinimpact.exe")
+$game = @()                                   # 20/10/2026 09:50: bo giam tai theo game
 
 function Ghi([string]$s) {
     $d = "- " + (Get-Date -Format "yyyy-MM-dd HH:mm:ss") + " [dịch nền] " + $s
