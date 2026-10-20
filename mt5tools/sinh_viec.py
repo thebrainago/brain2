@@ -67,7 +67,15 @@ def cot_loi(r: dict) -> dict | None:
 
 
 def khoa(v: dict) -> str:
-    return json.dumps({k: v[k] for k in ("ea", "ma", "tf", "ts", "pha")}, sort_keys=True)
+    d = {k: v[k] for k in ("ea", "ma", "tf", "ts", "pha")}
+    if v.get("tang") == 1:          # 20/10/2026: viec loc tang 1 (OHLC M1) khac khoa voi viec real tick cung thong so
+        d["tang"] = 1
+    return json.dumps(d, sort_keys=True)
+
+
+def la_viec_hai_tang(v: dict) -> bool:
+    """Viec ong dan chay don (khong toi uu) cua BRAIN_XuLiLenh -> qua loc hai tang."""
+    return v.get("nguon") == "ong_dan" and v.get("ea") == "XL" and not v.get("toi_uu")
 
 
 def doc_so_cai(p: Path = SO_CAI) -> list[dict]:
@@ -138,15 +146,31 @@ SO_LAN_THU_TOI_DA = 2
 
 
 def lay_viec(n: int = 1, so_cai: list[dict] | None = None, dang_chay: set[str] | None = None, hat: int = 27,
-             san: str | None = None) -> list[dict]:
+             san: str | None = None, hai_tang: bool | None = None, chi_tang1: bool = False) -> list[dict]:
     """`san` (19/10/2026): san cua SLOT se chay viec (doc tu config/common.ini cua slot). Co `san` -> chi lay viec
     ong dan cua san do; viec cu V24 (ma XM `#`) chi cho slot XM - tren slot Exness chung chi sinh loi "khong co ma"."""
     sc = doc_so_cai() if so_cai is None else so_cai
+    # 20/10/2026: viec trong reports/ong_dan/chay_lai_mt5.json (vd chay sai symbol EURUSD# thay EURUSDmicro) -> bo cac
+    # dong so cai TRUOC luc danh dau, viec duoc chay lai
+    cl = doc_chay_lai()
+    if cl:
+        sc = [r for r in sc if not (r.get("ten") in cl and str(r.get("luc") or "") < str(cl[r["ten"]].get("luc") or ""))]
     # 18/10/2026: dong `loi` la CHUA_DO_DUOC, khong phai "da thu". Truoc day moi dong deu vao `xong` nen mot lan
     # chay hong (moi truong, slot treo) xoa bien the do vinh vien khoi hang viec.
     hong = Counter(khoa(r) for r in sc if r.get("loi"))
     xong = {khoa(r) for r in sc if not r.get("loi")} | {k for k, c in hong.items() if c >= SO_LAN_THU_TOI_DA} \
         | (dang_chay or set())
+    # 20/10/2026 hai tang: ket qua tang 1 (dong so cai tang=1, khong loi) theo khoa tang 2
+    if hai_tang is None:
+        try:
+            import quan_ly_slot as _QS
+            hai_tang = _QS.hai_tang()
+        except Exception:
+            hai_tang = False
+    tang1 = {}
+    for r in sc:
+        if r.get("tang") == 1 and not r.get("loi"):
+            tang1[khoa(dict(r, tang=None))] = bool(r.get("tang1_qua", True))
     sc = [r for r in sc if not r.get("loi")]
     hang = []
     chi_ong_dan = bool(san) and san.lower() != "xm"
@@ -165,8 +189,25 @@ def lay_viec(n: int = 1, so_cai: list[dict] | None = None, dang_chay: set[str] |
     if not chi_ong_dan:
         hang += ung_vien(random.Random(hat + len(sc) // 500))
     hang.sort(key=lambda v: -v["diem"])
+    if hai_tang:
+        moi = []
+        for v in hang:
+            if not la_viec_hai_tang(v):
+                moi.append(v)
+                continue
+            k2 = khoa(v)
+            if k2 in xong:
+                continue                        # da co real tick (hoac so cai cu truoc hai tang)
+            if k2 in tang1:
+                if tang1[k2]:
+                    moi.append(dict(v, diem=float(v.get("diem") or 0) + 300, tang=2))   # qua tang 1 -> real tick som
+            else:
+                moi.append(dict(v, tang=1))
+        hang = sorted(moi, key=lambda v: -v["diem"])
     out, thay = [], set()
     for v in hang:
+        if chi_tang1 and v.get("tang") != 1:
+            continue
         k = khoa(v)
         if k in xong or k in thay:
             continue
@@ -174,6 +215,16 @@ def lay_viec(n: int = 1, so_cai: list[dict] | None = None, dang_chay: set[str] |
         if len(out) >= n:
             break
     return out
+
+
+CHAY_LAI_OD = GOC / "reports" / "ong_dan" / "chay_lai_mt5.json"
+
+
+def doc_chay_lai(p: Path | None = None) -> dict:
+    try:
+        return json.loads(Path(p or CHAY_LAI_OD).read_text(encoding="utf-8"))
+    except Exception:
+        return {}
 
 
 BOX = GOC / "reports" / "mt5_lien_tuc" / "box_luoi_python.json"
@@ -279,7 +330,14 @@ def ini_ong_dan(v: dict, ten: str, don_bay_dong: str) -> str:
     for a, b, c in (v.get("toi_uu") or {}).values():
         n *= int(round((float(c) - float(a)) / float(b))) + 1 if float(b) else 1
     opt = 0 if not v.get("toi_uu") else (1 if n <= 2000 else 2)
-    return ("[Tester]\nExpert=BRAIN\\%s.ex5\nExpertParameters=%s.set\nSymbol=%s\nPeriod=%s\nModel=4\nExecutionMode=0\n"
+    model = 4
+    if v.get("tang") == 1:              # 20/10/2026: loc tang 1 nhanh, it RAM (OHLC M1 / gia mo nen)
+        try:
+            import quan_ly_slot as _QS
+            model = _QS.model_tang1()
+        except Exception:
+            model = 1
+    return ("[Tester]\nExpert=BRAIN\\%s.ex5\nExpertParameters=%s.set\nSymbol=%s\nPeriod=%s\nModel=" + str(model) + "\nExecutionMode=0\n"
             "Optimization=%d\nOptimizationCriterion=0\nFromDate=%s\nToDate=%s\nForwardMode=0\nDeposit=%d\nCurrency=%s\n%s"
             "Report=%s\nReplaceReport=1\nShutdownTerminal=1\nVisual=0\n") % (
         v.get("ea_file", "BRAIN_XuLiLenh"), ten, v["ma"], v["tf"], opt, v.get("tu") or IS[0], v.get("den") or OOS[1],
