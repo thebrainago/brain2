@@ -740,3 +740,23 @@ def test_het_quota_khong_tinh_loi_llm_va_dung_luot(monkeypatch, tmp_path):
     t = {t["id"]: t for t, *_ in OD.cac_the(cn)}["q"]
     assert (t.get("dich_llm") or {}).get("trang_thai") not in ("BO_QUA", "HONG") and not t.get("dich_llm_loi_lan")
     LLM.HET_QUOTA.clear()
+
+
+def test_qua_gio_giet_ca_cay_tien_trinh():
+    """20/10/2026 21:10: QUA GIO chi kill terminal64 -> metatester64 con mo coi an 6 GB RAM. giet_cay giet ca con."""
+    import subprocess
+    import psutil
+    import chay_lien_tuc as CLT
+    pr = subprocess.Popen([sys.executable, "-c", "import subprocess,sys,time; "
+                           "subprocess.Popen([sys.executable,'-c','import time; time.sleep(60)']); time.sleep(60)"])
+    con = []
+    for _ in range(50):
+        con = psutil.Process(pr.pid).children(recursive=True)
+        if con:
+            break
+        time.sleep(0.1)
+    assert con
+    CLT.giet_cay(pr)
+    pr.wait(timeout=10)
+    _, song = psutil.wait_procs(con, timeout=10)
+    assert not song

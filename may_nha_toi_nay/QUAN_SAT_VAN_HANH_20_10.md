@@ -54,3 +54,7 @@ Ghi bởi Grok Bot (routine "Canh máy nhà đêm 20/10"), mỗi lần kiểm th
 3. **Giảm token suy luận của qwen3.7-max:** 82 % token ra ở lượt 3 là suy luận. Thử A/B 20 EA với `tham_so_them` (tắt thinking hoặc đặt thinking_budget) xem tỷ lệ ĐẠT có giữ được không trước khi bật.
 4. **Lọc trước thẻ khó ra spec:** KHONG_RA_SPEC_PY chiếm 57 % lượt 2. Bỏ qua trước khi gọi LLM các tệp không có hàm vào lệnh (OnTick/OrderSend/strategy.entry) hoặc chỉ là thư viện, chỉ báo.
 5. **Nuôi hàng tầng 1 XM liên tục:** khi số việc tầng 1 XM sẵn sàng thấp hơn số slot rỗi, ưu tiên ô ống dẫn chạy Python (sinh_mt5) trước dịch. Không sinh việc Exness trên máy này (hoặc tách hàng riêng) để số đếm hàng phản ánh đúng. Thay hang_mt5 = 200 bằng số việc tầng 1 / tầng 2 của sàn XM.
+
+**Bổ sung 21:20 - metatester mồ côi:** QUA GIO chỉ kill terminal64, metatester64 con (PID 8448, p1) chạy tiếp 4 phút sau đó với 5,98 GB RAM, kéo RAM trống xuống 3,9 GB và chặn mọi việc mới (muc tong=0). Ngoài ra p1 bị phóng việc mới (21:10:31) trong khi metatester cũ vẫn chạy trên cùng thư mục. Đã giết đúng PID và sửa mã (giet_cay). Việc tầng 2 dài nhất đo được tối nay: 944 s, 1158 s, và od_skea0e88e1df54 > 1807 s (quá hạn, chạy lại).
+
+6. **Hạn giờ tầng 2 theo độ dài kỳ và số tick** thay cho 1800 s cố định: việc H1 2,77 năm real tick đã chạy 944-1807 s khi 3 tầng 2 chạy song song. Việc quá hạn bị chạy lại từ đầu, mất thêm 30 phút slot mỗi lần.
