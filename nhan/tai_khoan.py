@@ -656,13 +656,21 @@ def chay_tk(du_lieu: dict | pd.DataFrame, luong: list[LenhVao], ql: QuanLi | dic
                     if r.s * (tot - gv) >= q.trail_kich_pct * gv:
                         r.dinh = tot if r.dinh is None else (max(r.dinh, tot) if r.s > 0 else min(r.dinh, tot))
             # DCA (sau TP, bao thu); khong nhoi khi dang khoa
-            if not any(L.khoa for L in r.chan):
+            # 20/10/2026 (od_skea3279057100): EA xet KHOA truoc NHOI moi tick -> ngay sau khi mo khoa ma lo van >= nguong
+            # thi EA khoa lai ngay, KHONG nhoi. Python truoc day nhoi 3 tang trong nen ke tiep (o gia muc cu) roi khoa 50 lot
+            # (MT5 khoa 20). Nay: neu dau nen (gia dong nen t-1) ro dang du nguong khoa -> bo nhoi nen nay (buoc 4 se khoa).
+            c0 = a["c"][t - 1] if t > 0 else a["c"][t]
+            du_khoa = (q.hedge_khi_lo_pct > 0 and r.so_khoa < q.hedge_max_lan and not any(L.khoa for L in r.chan)
+                       and sum(loi_chan(r, L, c0, t) for L in r.chan) <= -q.hedge_khi_lo_pct / 100.0 * von)
+            if not any(L.khoa for L in r.chan) and not du_khoa:
                 while r.muc:
                     g, lt = r.muc[0]
                     hit = (a["l"][t] + sp <= g) if r.s > 0 else (a["h"][t] >= g)
                     if not hit:
                         break
-                    if not mo_chan(r, r.s, lt, g - sp if r.s > 0 else g, t):
+                    # gia da vuot muc tu dau nen (sau khoa / gap): EA mo o gia thi truong, khong o gia muc cu
+                    gm = min(g, c0 + sp) if r.s > 0 else max(g, c0)
+                    if not mo_chan(r, r.s, lt, gm - sp if r.s > 0 else gm, t):
                         break                      # tu choi (ky quy / lot_max): thu lai nen sau
                     r.muc.pop(0)
         # 3) lenh vao moi o nen t

@@ -597,3 +597,30 @@ def test_ung_vien_chuan_chat_kep_stop_out_trung(tmp_path):
     assert r["od_mql5164edabb0bca1b7d_XM_CSV"]["ket_luan"] == "TRƯỢT"                    # tick 31% nhung stop-out
     md = Path(BCP.ghi_ung_vien(list(r.values()), tmp_path / "U.md")).read_text(encoding="utf-8")
     assert "Bảng xếp hạng" in md and "trùng bỏ 1" in md
+
+
+def _dca_df():
+    i = pd.date_range("2024-01-01", periods=5, freq="h")
+    return pd.DataFrame({"open": [1.0, 1.0, 0.97, 0.97, 0.97], "high": [1.0, 1.0, 0.97, 0.97, 0.97],
+                         "low": [1.0, 1.0, 0.97, 0.96, 0.97], "close": [1.0, 0.97, 0.97, 0.96, 0.97]}, index=i)
+
+
+def test_dca_gia_da_vuot_muc_thi_mo_o_gia_thi_truong():
+    # od_skea3279057100: sau khi gia vuot muc (gap / vua mo khoa) EA nhoi o gia thi truong, khong o gia muc cu
+    q = TK.QuanLi(lot0=0.01, tp_pct=0.5, dca_buoc_pct=0.01, dca_toi_da=2, dca_he_so_lot=1.0)
+    hs = TK.HoSoPhi(ma="EURUSD", spread_gio=[0.0] * 24)
+    kq = TK.chay_tk({"": _dca_df()}, [NL.LenhVao("csv", 0, 1.0, 1, "", 0.01)], q,
+                    TK.TaiKhoan(von=1000.0, don_bay=500.0), {"": hs}, ghi_lenh=True)
+    gia = sorted(kq["lenh"]["gia_mo"].round(4).tolist())
+    assert gia == [0.97, 0.97, 1.0]
+
+
+def test_khong_nhoi_khi_dau_nen_da_du_nguong_khoa():
+    # EA xet khoa TRUOC nhoi: lo da >= nguong khoa o dau nen -> khoa, khong nhoi
+    q = TK.QuanLi(lot0=0.01, tp_pct=0.5, dca_buoc_pct=0.01, dca_toi_da=2, dca_he_so_lot=1.0, hedge_khi_lo_pct=0.01)
+    hs = TK.HoSoPhi(ma="EURUSD", spread_gio=[0.0] * 24)
+    kq = TK.chay_tk({"": _dca_df()}, [NL.LenhVao("csv", 0, 1.0, 1, "", 0.01)], q,
+                    TK.TaiKhoan(von=1000.0, don_bay=500.0), {"": hs}, ghi_lenh=True)
+    L = kq["lenh"]
+    assert (~L["khoa"]).sum() == 1 and L["khoa"].sum() == 1
+
