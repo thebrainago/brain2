@@ -303,3 +303,43 @@ def test_ra_soat_19_10_hop_cat_va_nhin_truoc_va_tra_loi_la():
         finally:
             L.goi = orig
         assert out["trang_thai"] == "OK" and all(isinstance(x, str) for x in out["chua_dich"]) and out["spec"] == []
+
+
+def test_tham_so_them_va_dem_token_suy_luan(monkeypatch):
+    """20/10/2026 kiem chi phi: tham_so_them theo model vao body; reasoning_tokens/cached_tokens duoc dem."""
+    monkeypatch.setenv("AIBOX_API_KEY", KHOA_GIA)
+    bodies = []
+
+    def cl(url, headers, body, timeout):
+        bodies.append(json.loads(body.decode()))
+        return 200, {"choices": [{"message": {"content": "{}"}}],
+                     "usage": {"prompt_tokens": 100, "completion_tokens": 900,
+                               "completion_tokens_details": {"reasoning_tokens": 800},
+                               "prompt_tokens_details": {"cached_tokens": 40}}}
+    c = dict(LLM.MAC_DINH, model="qwen3.7-max", model_du_phong="",
+             tham_so_them={"*": {"thinking_budget": 4000}, "qwen3.7-max": {"enable_thinking": False, "model": "x"}})
+    r = LLM.goi("x", client=cl, c=c)
+    assert bodies[0]["enable_thinking"] is False and bodies[0]["thinking_budget"] == 4000
+    assert bodies[0]["model"] == "qwen3.7-max"                       # khong cho ghi de model/messages
+    assert r["token_suy_luan"] == 800 and r["token_vao_cache"] == 40
+    assert LLM.THONG_KE["token_suy_luan"] == 800 and LLM.THONG_KE["theo_model"]["qwen3.7-max"]["token_suy_luan"] == 800
+    bodies.clear()
+    LLM.goi("x", client=cl, c=dict(c, tham_so_them={}))
+    assert "enable_thinking" not in bodies[0]                         # mac dinh: hanh vi cu
+
+
+def test_giu_cho_hash_khong_dich_trung(tmp_path, monkeypatch):
+    """Hai tien trinh cung dich mot hash -> tien trinh sau KHONG goi LLM (truoc day tra tien 2 lan)."""
+    import os
+    import time as _t
+    monkeypatch.setattr(DL, "CACHE", tmp_path)
+    monkeypatch.setenv("AIBOX_API_KEY", KHOA_GIA)
+    (tmp_path / "abc.dang").write_text("123")
+    goi = []
+    monkeypatch.setattr(LLM, "boc_tach", lambda *a, **k: goi.append(1) or {"trang_thai": "OK"})
+    d, tu_c = DL.dich_mot("ma", "MQL5", "abc", c=dict(LLM.MAC_DINH))
+    assert d["trang_thai"] == "DANG_DICH" and not tu_c and goi == []
+    os.utime(tmp_path / "abc.dang", (_t.time() - 99999, _t.time() - 99999))   # tep giu cho treo -> chiem lai
+    d, tu_c = DL.dich_mot("ma", "MQL5", "abc", c=dict(LLM.MAC_DINH))
+    assert d["trang_thai"] == "OK" and goi == [1] and not (tmp_path / "abc.dang").exists()
+    assert json.loads((tmp_path / "abc.json").read_text(encoding="utf-8"))["token_ra_tong"] == 0

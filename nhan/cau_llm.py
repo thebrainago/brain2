@@ -34,9 +34,10 @@ MAC_DINH = {"cc_switch_provider": "aibox", "base_url": "https://api.ai-box.vn/v1
 #: config/llm_dich.json. Tep nay thang config/qwen.json (qwen.json con dung cho he `q` khac, khong sua).
 LLM_DICH = "llm_dich.json"
 KHOA_DICH = ("model", "model_du_phong", "temperature", "max_tokens", "timeout_giay", "so_lan_thu_lai", "tran_ma",
-             "chi_du_phong_khi_5xx", "so_lan_thu_429")
+             "chi_du_phong_khi_5xx", "so_lan_thu_429", "tham_so_them")
 #: so lan goi / token cua tien trinh nay (dich_llm ghi ra bao cao). KHONG chua khoa.
-THONG_KE = {"so_lan_goi": 0, "so_lan_loi": 0, "token_vao": 0, "token_ra": 0, "doi_du_phong": 0, "theo_model": {}}
+THONG_KE = {"so_lan_goi": 0, "so_lan_loi": 0, "token_vao": 0, "token_ra": 0, "token_suy_luan": 0, "token_vao_cache": 0,
+            "doi_du_phong": 0, "theo_model": {}}
 
 
 def cau_hinh(goc: Path | None = None) -> dict:
@@ -186,9 +187,17 @@ def goi(nguoi_dung: str, he_thong: str | None = None, model: str | None = None, 
     for i_m, m in enumerate(ds_model):
         if i_m and chi_5xx and not any((" HTTP 5" in g or " HTTP 0:" in g) for g in ghi if g.startswith(ds_model[i_m - 1] + " ")):
             break                                       # 20/10/2026: chi lui sang model du phong khi model chinh loi 5xx / mang
-        body = json.dumps({"model": m, "temperature": c.get("temperature", 0), "max_tokens": int(max_tokens or c["max_tokens"]),
-                           "stream": False, "messages": [{"role": "system", "content": he_thong or HE_THONG},
-                                                         {"role": "user", "content": nguoi_dung}]}).encode()
+        bd = {"model": m, "temperature": c.get("temperature", 0), "max_tokens": int(max_tokens or c["max_tokens"]),
+              "stream": False, "messages": [{"role": "system", "content": he_thong or HE_THONG},
+                                            {"role": "user", "content": nguoi_dung}]}
+        # 20/10/2026 (kiem chi phi): tham so them theo model, vd {"qwen3.7-max": {"enable_thinking": false}} hoac
+        # {"*": {"thinking_budget": 4000}} - mac dinh rong = hanh vi cu. Do that: 90% token ra cua qwen3.7-max la suy luan.
+        ts = c.get("tham_so_them") or {}
+        if isinstance(ts, dict):
+            for k_m in ("*", m):
+                if isinstance(ts.get(k_m), dict):
+                    bd.update({k: v for k, v in ts[k_m].items() if k not in ("model", "messages")})
+        body = json.dumps(bd).encode()
         for lan in range(max(1, int(c.get("so_lan_thu_lai", 3)), int(c.get("so_lan_thu_429", 6)))):
             t0 = time.time()
             THONG_KE["so_lan_goi"] += 1
@@ -198,13 +207,18 @@ def goi(nguoi_dung: str, he_thong: str | None = None, model: str | None = None, 
             if ma == 200 and isinstance(kq, dict):
                 u = kq.get("usage") or {}
                 tv, tr = int(u.get("prompt_tokens") or 0), int(u.get("completion_tokens") or 0)
+                tsl = int((u.get("completion_tokens_details") or {}).get("reasoning_tokens") or 0)
+                tvc = int((u.get("prompt_tokens_details") or {}).get("cached_tokens") or 0)
                 THONG_KE["token_vao"] += tv; THONG_KE["token_ra"] += tr
+                THONG_KE["token_suy_luan"] = THONG_KE.get("token_suy_luan", 0) + tsl
+                THONG_KE["token_vao_cache"] = THONG_KE.get("token_vao_cache", 0) + tvc
                 tm["token_vao"] += tv; tm["token_ra"] += tr
+                tm["token_suy_luan"] = tm.get("token_suy_luan", 0) + tsl
                 ch = kq.get("choices") or [{}]
                 txt = ((ch[0].get("message") or {}).get("content") or "").strip()
                 cham_tran = tr >= int(max_tokens or c["max_tokens"]) - 5
                 return {"trang_thai": "OK" if txt else "LOI", "van_ban": txt, "model": m, "token_vao": tv, "token_ra": tr,
-                        "ghi_chu": "%.0fs%s%s" % (time.time() - t0, " CHAM_TRAN_TOKEN" if cham_tran else "",
+                        "token_suy_luan": tsl, "token_vao_cache": tvc, "ghi_chu": "%.0fs%s%s" % (time.time() - t0, " CHAM_TRAN_TOKEN" if cham_tran else "",
                                                   " (du phong)" if i_m else "")}
             THONG_KE["so_lan_loi"] += 1
             ghi.append("%s HTTP %s: %s" % (m, ma, _che(kq if isinstance(kq, str) else json.dumps(kq)[:200], d["khoa"])[:160]))
@@ -418,7 +432,7 @@ def boc_tach(ma_nguon: str, ngon_ngu: str = "MQL5", client=None, c: dict | None 
     """Ma nguon -> {trang_thai, loai, spec[], python, co_che[], quan_tri{}, tham_so{}, chua_dich[], model, token_*}."""
     c = c or cau_hinh()
     r = goi(MAU_BOC % (ngon_ngu, rut_gon_ma(ma_nguon or "", int(c.get("tran_ma") or TRAN_MA))), client=client, c=c)
-    meta = {k: r.get(k) for k in ("model", "token_vao", "token_ra", "ghi_chu")}
+    meta = {k: r.get(k) for k in ("model", "token_vao", "token_ra", "token_suy_luan", "ghi_chu")}
     if r["trang_thai"] != "OK":
         return dict(meta, trang_thai=r["trang_thai"])
     d = _json_trong(r["van_ban"])
@@ -477,7 +491,7 @@ def sua_lai(ma_nguon: str, ngon_ngu: str, truoc: dict, chan_doan: list, mo_ta_gi
                       json.dumps(gon, ensure_ascii=False)[:12000], ngon_ngu,
                       rut_gon_ma(ma_nguon or "", int(c.get("tran_ma") or TRAN_MA)))
     r = goi(nhac, client=client, c=c)
-    meta = {k: r.get(k) for k in ("model", "token_vao", "token_ra", "ghi_chu")}
+    meta = {k: r.get(k) for k in ("model", "token_vao", "token_ra", "token_suy_luan", "ghi_chu")}
     if r["trang_thai"] != "OK":
         return dict(meta, trang_thai=r["trang_thai"])
     d = _json_trong(r["van_ban"])
