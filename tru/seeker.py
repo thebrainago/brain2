@@ -2906,6 +2906,12 @@ def tai_kho(repo: str, goc: str = "data/cau_kho") -> Path | None:
     dich = Path(goc) / repo.replace("/", "__")
     if (dich / ".git").exists():
         return dich
+    # 20/10/2026: loc trung TRUOC khi tai (metadata GitHub: repo id / commit sha / tree sha / blob sha file ma)
+    from nhan import loc_trung_tai as LT
+    ok, ly, m = LT.nen_tai(repo)
+    if not ok:
+        print("tai_kho BO QUA %s: %s" % (repo, ly))
+        return None
     dich.parent.mkdir(parents=True, exist_ok=True)
     env = {**os.environ, "GIT_LFS_SKIP_SMUDGE": "1"}
     try:
@@ -2914,7 +2920,11 @@ def tai_kho(repo: str, goc: str = "data/cau_kho") -> Path | None:
                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     except Exception:
         return None
-    return dich if (dich / ".git").exists() else None
+    if (dich / ".git").exists():
+        if m.get("trang_thai") == "OK":
+            LT.ghi_so(m, str(dich))
+        return dich
+    return None
 
 
 def kiem_ke_kho(thu_muc: str | Path, ten: str | None = None, ra_thu_muc: str = "reports") -> dict:

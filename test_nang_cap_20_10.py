@@ -672,3 +672,41 @@ def test_vong_sua_mot_lan_khi_0_lenh(monkeypatch, tmp_path):
     cl2 = _ClDay([_PY_0, _PY_0, _PY_0])
     d2, _ = DL.dich_mot("void OnTick(){}", "MQL5", "h_sua2", client=cl2, df=df, nguon_gia="mau")
     assert cl2.lan == 2 and d2["da_sua"] == 1 and not DL.kiem_tra(d2, df)["dat"]
+
+
+# ------------------------------------------------------------------ Seeker: loc trung truoc khi tai
+from nhan import loc_trung_tai as LT  # noqa: E402
+
+
+def _gh(kho):
+    def get(url):
+        for ten, (rid, sha, tree, blob) in kho.items():
+            if url.endswith("/repos/" + ten):
+                return 200, {"id": rid, "full_name": ten, "default_branch": "main", "fork": False}
+            if "/repos/%s/commits/" % ten in url:
+                return 200, {"sha": sha, "commit": {"tree": {"sha": tree}}}
+            if "/repos/%s/git/trees/" % ten in url:
+                return 200, {"tree": [{"type": "blob", "path": p, "sha": s} for p, s in blob.items()] +
+                             [{"type": "blob", "path": "README.md", "sha": "r"}]}
+        return 404, None
+    return get
+
+
+def test_loc_trung_truoc_khi_tai(tmp_path):
+    kho = {"a/ea": (1, "c1", "t1", {"x.mq5": "b1", "y.mqh": "b2"}),
+           "b/fork": (2, "c2", "t2", {"x.mq5": "b1", "y.mqh": "b2"}),          # fork: cung file ma, khac tree (README)
+           "c/ban_sao": (3, "c3", "t1", {"x.mq5": "b1", "y.mqh": "b2"}),
+           "d/moi": (4, "c4", "t4", {"z.mq5": "b9", "x.mq5": "b1"})}
+    get, so = _gh(kho), tmp_path / "so.jsonl"
+    ok, ly, m = LT.nen_tai("a/ea", get=get, so=LT.doc_so(so))
+    assert ok and "MOI" in ly
+    LT.ghi_so(m, "data/x", p=so)
+    assert not LT.nen_tai("a/ea", get=get, so=LT.doc_so(so))[0]                      # cung kho cung commit
+    assert "cay file" in LT.nen_tai("c/ban_sao", get=get, so=LT.doc_so(so))[1]
+    assert "100% file ma" in LT.nen_tai("b/fork", get=get, so=LT.doc_so(so))[1]
+    ok, ly, _ = LT.nen_tai("d/moi", get=get, so=LT.doc_so(so))
+    assert ok and "trung 50%" in ly
+    assert not LT.nen_tai("e/khong", get=get, so=[])[0]                             # 404
+    ok, ly, _ = LT.nen_tai("a/ea", get=lambda u: (0, None), so=[])                   # mat mang -> van tai
+    assert ok and "CHUA_DO_DUOC" in ly
+    assert "README.md" not in m["blob"]
