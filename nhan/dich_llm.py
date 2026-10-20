@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
@@ -287,7 +288,55 @@ def dich_mot(vb: str, nn: str, h: str, client=None, c: dict | None = None,
             return d, True                              # khac model + co khoa -> goi lai bang model manh hien tai
     if client is None and not LLM.co_khoa(c):
         return {"trang_thai": "CHUA_CHAY_DUOC", "ghi_chu": "khong co khoa, khong co cache dung duoc"}, False
+    # 20/10/2026 (kiem chi phi): hai tien trinh (buoc 5 thu + dieu_phoi) cung lay dau hang -> 20 ma bi tra tien 2 lan.
+    # Giu cho theo hash: tien trinh khac dang dich hash nay -> bo qua luot nay (lan sau lay tu cache).
+    giu = _giu_cho(h, c)
+    if giu is None:
+        return {"trang_thai": "DANG_DICH", "ghi_chu": "tien trinh khac dang dich ma nay"}, False
+    try:
+        d0 = _doc_cache(h)
+        cm = str((c or {}).get("model") or "")
+        if d0 and d0.get("trang_thai") == "OK" and (not d or d0.get("luc") != d.get("luc")) \
+                and (not cm or d0.get("model") == cm) and int(d0.get("phien") or 1) >= LLM.PHIEN_PROMPT:
+            return d0, True                             # tien trinh khac vua dich xong trong luc cho
+        return _dich_that(vb, nn, h, client, c, df, nguon_gia), False
+    finally:
+        _tha_cho(giu)
+
+
+def _giu_cho(h: str, c: dict | None = None):
+    """Tep <hash>.dang (O_EXCL). Tep cu hon han goi (timeout * so lan thu + 120 s) coi nhu treo -> chiem lai."""
+    CACHE.mkdir(parents=True, exist_ok=True)
+    f = CACHE / (h + ".dang")
+    han = float((c or {}).get("timeout_giay") or 900) * 2 + 120
+    for _ in range(2):
+        try:
+            fd = os.open(str(f), os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+            os.write(fd, str(os.getpid()).encode()); os.close(fd)
+            return f
+        except FileExistsError:
+            try:
+                if time.time() - f.stat().st_mtime < han:
+                    return None
+                f.unlink()
+            except FileNotFoundError:
+                pass
+        except OSError:
+            return CACHE                                # khong tao duoc tep giu cho -> van dich (hanh vi cu)
+    return None
+
+
+def _tha_cho(f) -> None:
+    if f is not None and f != CACHE:
+        try:
+            f.unlink()
+        except OSError:
+            pass
+
+
+def _dich_that(vb, nn, h, client, c, df, nguon_gia) -> dict:
     d = LLM.boc_tach(vb, nn, client=client, c=c)
+    tong = {k: int(d.get(k) or 0) for k in ("token_vao", "token_ra", "token_suy_luan")}
     if d.get("trang_thai") == "OK" and df is not None:
         # 20/10/2026: VONG SUA MOT LAN - ban dich 0 lenh / nhin truoc / loi chay -> hoi lai kem chan doan
         try:
@@ -298,6 +347,8 @@ def dich_mot(vb: str, nn: str, h: str, client=None, c: dict | None = None,
             cd = list(kt.get("ly_do") or []) + kiem_tinh(d, df)
             d2 = LLM.sua_lai(vb, nn, d, cd, (nguon_gia or "gia mau", len(df), float(df["low"].min()),
                                             float(df["high"].max())), client=client, c=c)
+            for k in tong:
+                tong[k] += int(d2.get(k) or 0)
             if d2.get("trang_thai") == "OK":
                 try:
                     kt2 = kiem_tra(d2, df)
@@ -308,8 +359,10 @@ def dich_mot(vb: str, nn: str, h: str, client=None, c: dict | None = None,
                 else:
                     d = dict(d, da_sua=1, chan_doan_truoc=cd[:6])
     if d.get("trang_thai") == "OK":
-        _ghi_cache(h, dict(d, ngon_ngu=nn, phien=LLM.PHIEN_PROMPT, luc=time.strftime("%Y-%m-%dT%H:%M:%S")))
-    return d, False
+        # token_*_tong: cong ca lan hoi lai (truoc day cache chi giu token cua lan cuoi -> khong do duoc chi phi sua)
+        _ghi_cache(h, dict(d, ngon_ngu=nn, phien=LLM.PHIEN_PROMPT, luc=time.strftime("%Y-%m-%dT%H:%M:%S"),
+                           **{k + "_tong": v for k, v in tong.items()}))
+    return d
 
 
 def tin_hieu_python(ma: str, df: pd.DataFrame) -> np.ndarray:
@@ -385,6 +438,9 @@ def buoc_dich_llm(cn, gioi_han: int | None = None, luong: int = 4, in_ra=print, 
         dem["tu_cache" if tu_c else "goi_moi"] += 1
         if "CHAM_TRAN_TOKEN" in str(d.get("ghi_chu") or ""):
             dem["cham_tran_token"] += 1
+        if d.get("trang_thai") == "DANG_DICH":
+            dem["dang_dich_noi_khac"] = dem.get("dang_dich_noi_khac", 0) + len(v["the"])
+            continue                                     # khong ghi gi: luot sau lay tu cache
         if d.get("trang_thai") == "CHUA_CHAY_DUOC":
             dem["chua_chay_duoc"] += len(v["the"])
             continue
@@ -445,9 +501,11 @@ def buoc_dich_llm(cn, gioi_han: int | None = None, luong: int = 4, in_ra=print, 
                     OD._ghi_nk(cn, "dich_llm", t["id"], "HONG %s" % "; ".join(kt["ly_do"])[:300])
             nk.append({"the": t["id"], "bam": h, "ket_qua": t["dich_llm"]["trang_thai"], "kieu": kt["kieu"],
                        "ly_do": kt["ly_do"][:3], "tu_cache": tu_c})
-    tk1 = {k: LLM.THONG_KE[k] - tk0.get(k, 0) for k in tk0}
+    tk1 = {k: v - tk0.get(k, 0) for k, v in LLM.THONG_KE.items() if k != "theo_model"}
     dem.update({"so_lan_goi": tk1["so_lan_goi"], "token_vao": tk1["token_vao"], "token_ra": tk1["token_ra"],
-                "doi_du_phong": tk1["doi_du_phong"], "so_lan_loi_http": tk1["so_lan_loi"]})
+                "doi_du_phong": tk1["doi_du_phong"], "so_lan_loi_http": tk1["so_lan_loi"],
+                "token_suy_luan": tk1.get("token_suy_luan", 0), "token_vao_cache": tk1.get("token_vao_cache", 0),
+                "so_lan_429": tk1.get("so_lan_429", 0)})
     CACHE.mkdir(parents=True, exist_ok=True)
     with open(CACHE / "nhat_ky.jsonl", "a", encoding="utf-8") as f:
         f.write(json.dumps({"luc": time.strftime("%Y-%m-%dT%H:%M:%S"), "dem": dem, "the": nk}, ensure_ascii=False) + "\n")
@@ -483,6 +541,8 @@ def ghi_bao_cao(dem: dict, tk: dict, nguon_gia: str, giay: float, ds_cho: list |
                    ("goi_moi", "Mã nguồn gọi LLM mới"), ("tu_cache", "Mã nguồn lấy từ cache"),
                    ("so_lan_goi", "Số lần gọi API"), ("so_lan_loi_http", "Lần gọi lỗi"),
                    ("doi_du_phong", "Lần chuyển sang model dự phòng"), ("token_vao", "Token vào"), ("token_ra", "Token ra"),
+                   ("token_suy_luan", "Token suy luận (trong token ra)"), ("so_lan_429", "Lần bị 429"),
+                   ("dang_dich_noi_khac", "Thẻ bỏ qua vì tiến trình khác đang dịch cùng mã"),
                    ("bo_qua", "Đánh dấu BO_QUA lần này (hỏng lặp lại / lỗi không do ta)"),
                    ("cham_tran_token", "Câu trả lời chạm trần max_tokens"),
                    ("chua_chay_duoc", "CHƯA CHẠY ĐƯỢC (không có khoá)")):
