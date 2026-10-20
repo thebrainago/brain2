@@ -28,3 +28,5 @@ Ghi bởi Grok Bot (routine "Canh máy nhà đêm 20/10"), mỗi lần kiểm th
 4. **CPU còn rảnh khoảng 65 %:** tầng 1 nhẹ RAM (terminal 100–190 MB, metatester tầng 1 khoảng 30–280 MB), nên có thể thêm slot tầng 1 (E:\mt5_tester\p5 đã có sẵn nhưng không nằm trong BRAIN_SLOTS) để lọc nhanh hơn trong khi 3 slot tầng 2 giữ RAM.
 5. **Giữ sẵn lịch sử trong slot:** 20–110 s tải lịch sử mỗi lượt tầng 1 chiếm phần lớn thời gian một lượt 66–129 s. Đồng bộ trước lịch sử các symbol hay dùng vào từng slot sẽ rút ngắn tầng 1 đáng kể.
 6. **Giảm phí dịch:** khoảng 25.800 token cho mỗi thẻ dịch đạt (2.763.611 token / 107). KHONG_RA_SPEC_PY chiếm 69/200 thẻ, ước khoảng 34 % token của lượt. Nên xem lại prompt hoặc lọc trước những thẻ không có mã cơ chế để bớt gọi thừa.
+
+**Bài học git trên máy nhà (20:53):** không dùng `pull --rebase --autostash` khi vòng MT5 đang chạy. Autostash làm `so_cai.jsonl` lùi 2 phút, khiến 4 việc tầng 1 bị chạy lại (351 giây slot). Đề xuất: tách các tệp sổ cái, báo cáo chạy liên tục ra khỏi cây git (ghi vào `data/` rồi chỉ sao chép vào `reports/` lúc báo cáo), để mọi lần pull hay push trên máy nhà luôn có cây sạch.
