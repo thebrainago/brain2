@@ -271,3 +271,19 @@ Khoá ai-box chỉ có trên máy nhà. Box **không** giữ khoá, không đọ
 - Bước 13 của `chay_toi_nay.ps1` chạy script này mỗi ngày một lần. `bao_cao_phien.py` in model đang dùng và bảng A/B.
 - Đổi model thì thẻ HONG cũ (nhóm lỗi phía ta) vào lại hàng. Cache spec của model khác bị gọi lại nếu có khoá.
 - Đang khoá (20/10/2026, A/B thật trên box): `qwen3.7-max`, dự phòng 5xx/timeout `kimi-k2.7-code`. Số đo xem `reports/ong_dan/CHON_MODEL_LLM.md`.
+
+## Khớp DCA với EA, vòng sửa dịch LLM, lọc trùng Seeker (20/10/2026 chiều)
+
+- `nhan/tai_khoan.chay_tk`:
+  - Đầu nến (giá đóng nến trước) mà rổ đã đủ ngưỡng khoá thì không nhồi trong nến đó; bước 4 sẽ khoá, giống EA BRAIN_XuLiLenh, vốn xét khoá trước nhồi.
+  - Mức DCA mà giá đã vượt từ đầu nến thì nhồi ở giá thị trường, không nhồi ở giá mức cũ.
+- `nhan/dich_llm`:
+  - `kiem_tinh(d, df)` bắt tín hiệu giả toàn 0, mã không gán 1/-1, và giá tuyệt đối lệch thang giá mẫu.
+  - `can_sua` và `dich_mot(df=...)`: bản dịch có mã mà ra 0–2 lệnh, nhìn trước hoặc lỗi chạy thì hỏi lại LLM ĐÚNG MỘT lần kèm chẩn đoán (`cau_llm.sua_lai`). Bản sửa chỉ được dùng khi đạt hoặc khi LLM nói không dịch được.
+  - `PHIEN_PROMPT` = 3.
+- `nhan/loc_trung_tai.nen_tai(full_name)`: chỉ đọc metadata GitHub, không tải mã. Các trường hợp bỏ qua:
+  - trùng repo id hoặc full_name cùng commit;
+  - trùng tree sha;
+  - ≥ 90% blob sha file mã đã có.
+
+  Mất mạng thì vẫn cho tải (CHƯA ĐO ĐƯỢC). Sổ đăng ký: `data/seeker_da_nguon/da_tai.jsonl`.

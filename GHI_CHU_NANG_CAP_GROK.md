@@ -2314,3 +2314,29 @@ Test dùng client giả, không gọi mạng thật.
 - Kiểm: `pwsh 7.6.7` (bản chính thức, đã so sha256) phân tích cú pháp 2 script: 0 lỗi; chạy thử bước 2/5/6/8/11 trên repo giả
   với python giả: giải nén + sao lưu DB, vòng dịch nền, commit chạy đúng. Chưa chạy được trên Windows thật: CHƯA ĐO ĐƯỢC.
 - Gói zip: tải lên Drive không được (kết nối Drive chỉ đọc). Thư mục Drive `brain2_may_nha` đã tạo nhưng trống. Grok Bot chép gói vào `D:\brain2_goi\` khi máy nhà kết nối.
+
+## 20/10/2026 chiều: kiểm toán UNG_VIEN, độ lệch DCA, dịch ra 0 lệnh, lọc trùng Seeker, việc tối nay
+
+- **Kiểm toán `reports/UNG_VIEN.md`** (844a07a5):
+  - %/năm giờ là lãi KÉP theo kỳ báo cáo; DD lấy max(Maximal, Relative) của DD vốn; có stop-out → TRƯỢT.
+  - Sai symbol (không phải *micro) hoặc tick < 90% → CHƯA ĐO ĐƯỢC. Mỗi bản trùng chỉ đếm một lần.
+  - Có nhãn điểm yếu: ít lệnh, lịch sử ngắn, ≥3 lệnh bị đóng ở cuối kỳ test, tỉ số Py/MT5 lệch.
+  - Kết quả đo: ĐẠT 30, TRƯỢT 9, CHƯA ĐO ĐƯỢC 6. Trước đó báo 32 ĐẠT theo %/năm đơn.
+- **DCA Python↔MT5** (d9683b0a). Đối chiếu từng lệnh trên od_skea3279057100 cho thấy:
+  - Sau khi mở khoá mà lỗ vẫn ≥ ngưỡng, EA khoá lại ngay vì nó xét khoá trước nhồi. Python thì nhồi 3 tầng ở giá mức cũ rồi mới khoá 50 lot, trong khi MT5 khoá 20 lot.
+  - Đã sửa: đầu nến mà đã đủ ngưỡng khoá thì không nhồi; giá đã vượt mức thì nhồi ở giá thị trường.
+  - Kết quả: 12 lệnh đầu khớp MT5 từng lệnh. Tổng của job này vẫn lệch (MÔ PHỎNG −998 so với MT5 +1780), vì thời điểm khoá/mở khoá trong nến H1 so với theo tick làm hai đường đi tách nhau. Thử khoá ngay trong nến (theo giá xấu nhất) không cải thiện tổng thể mà còn làm GOLD skeaa7cd tệ hơn, nên đã bỏ.
+  - Trên 33 job không cháy tài khoản, tỉ số Py/MT5 giữ trung vị 0,98 (p25 0,91, p75 1,05).
+- **dich_llm ra 0 lệnh** (861677b5). Phân tích 30 kết quả OK đã lưu trong data/ong_dan/ab_model, không gọi LLM mới. 23 kết quả không đạt:
+  - 9 không có mã: LLM tự ghi là không dịch được (bridge, theo trạng thái lệnh, chỉ báo ngoài);
+  - 7 trả tín hiệu giả toàn 0;
+  - 3 cứng giá tuyệt đối 5355 của vàng;
+  - 4 có điều kiện quá hiếm.
+
+  Đã thêm:
+  - `kiem_tinh` (bộ kiểm tĩnh);
+  - vòng sửa MỘT lần kèm chẩn đoán (chỉ khi có mã mà 0 lệnh / nhìn trước / lỗi chạy);
+  - prompt phiên 3 cấm hai lỗi trên và với EA lưới thì dịch lệnh đầu.
+- **Seeker lọc trùng trước khi tải** (e1730fe0). `nhan/loc_trung_tai.py` đọc metadata GitHub (repo id, commit sha, tree sha, blob sha của file mã) rồi so với sổ data/seeker_da_nguon/da_tai.jsonl. Hàm `tru/seeker.tai_kho` đã dùng nó. `seeker_quet_nguon.py` trên máy nhà chưa có trong repo nên chưa nối vào.
+- **Máy nhà tối nay** (335aaaa0): `may_nha_toi_nay/TOI_NAY_20_10.md` và `kiem_truoc_khi_chay.ps1`. pwsh phân tích cú pháp: 0 lỗi. Chạy trên Windows thật: CHƯA ĐO ĐƯỢC.
+- Test: test_nang_cap_20_10.py có 42 test đạt. Toàn bộ pytest: 90 lỗi, trùng y hệt baseline của main sạch, không có lỗi mới.
