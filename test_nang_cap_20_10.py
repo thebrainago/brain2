@@ -710,3 +710,18 @@ def test_loc_trung_truoc_khi_tai(tmp_path):
     ok, ly, _ = LT.nen_tai("a/ea", get=lambda u: (0, None), so=[])                   # mat mang -> van tai
     assert ok and "CHUA_DO_DUOC" in ly
     assert "README.md" not in m["blob"]
+
+
+def test_dp_tha_khoa_chi_khi_dung_pid(tmp_path, monkeypatch):
+    # 20/10/2026: dieu_phoi khong duoc xoa ong_dan_chay.lock ma tien trinh khac (chay_toi_nay buoc 6) vua lay
+    k = tmp_path / "ong_dan_chay.lock"
+    monkeypatch.setattr(DP, "KHOA_OD", k)
+    k.write_text("10256")
+    DP._tha_khoa(14000)
+    assert k.exists() and k.read_text() == "10256"
+    DP._tha_khoa(10256)
+    assert not k.exists()
+    k.write_text("")
+    DP._tha_khoa(14000)          # khoa hong / rong -> xoa duoc
+    assert not k.exists()
+    DP._tha_khoa(1)              # khong co khoa -> khong loi
