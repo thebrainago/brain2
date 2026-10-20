@@ -353,7 +353,7 @@ def main():
                 SV.ghi(rec)
                 log("KHONG PHONG DUOC %s: %s" % (ten, e))
                 continue
-            log("PHONG %s %s muc=%s tang=%s %s" % (ten, s, muc, v.get("tang", "-"), json.dumps(v["ts"])))
+            log("PHONG %s %s muc=%s tang=%s %s" % (ten, s, a.muc or "-", v.get("tang", "-"), json.dumps(v["ts"])))
             time.sleep(3)
         ha_uu_tien()
         time.sleep(15)
