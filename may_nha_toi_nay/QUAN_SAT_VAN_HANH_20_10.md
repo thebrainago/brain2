@@ -98,3 +98,22 @@ Ghi bởi Grok Bot (routine "Canh máy nhà đêm 20/10"), mỗi lần kiểm th
 2. **Đăng nhập Exness cho một slot E (p4 hoặc p6)** nếu Anh muốn chạy 115 việc tầng 1 Exness đang treo; nếu không thì ngừng sinh việc Exness trên máy này để số đếm hàng đúng.
 3. **Sửa cột TF trống trong UNG_VIEN** (od_skeadd170ac7bf hiện không có TF) và tính Py/MT5 cho việc từ hàng box.
 4. **Theo dõi ổ C:** giảm 1,9 GB trong 37 phút (13,2 xuống 11,3 GB). Nếu giữ tốc độ này thì chạm sàn 6 GB khoảng 23:50; dọn tự động của chay_lien_tuc (DON SAU VIEC) cần được kiểm tra ở lần sau, nếu C dưới 8 GB thì chuyển dữ liệu nguội sang E.   Đo lúc 22:12: C:\mt5_tester\p7 chiếm 12,60 GB (Bases 7,13 GB, Tester 5,19 GB), %APPDATA%\MetaQuotes 18,07 GB, repo 0,41 GB. Phần tăng trên C nhiều khả năng là cache Tester của p7; QS.dam_bao_cho sẽ bỏ qua p7 nếu C dưới 6 GB, nên rủi ro chỉ là mất một slot chứ không làm đầy ổ.
+
+
+## Lần kiểm 23:15-23:27
+
+**Ảnh chụp tài nguyên 23:15:** RAM trống 11,6 GB (Win32_OperatingSystem). Ổ trống: C 9,6 GB (22:08 là 11,3 GB), D 15,5 GB (22:08 là 19,3 GB), E 189,9 GB. Process: chay_lien_tuc PID 15104/5804 sống, 3 terminal64 + 3 metatester64 trong mt5_tester (p1, p3, p7), XM chính 680 và claude 8720 không đụng. canh_metatester_mo_coi.ps1 PID 13708 vẫn chạy, log không thêm dòng từ 21:41:56 (không có metatester mồ côi mới).
+
+**Hàng MT5:** sổ cái 781 dòng (22:09) lên 800 (23:16), 19 lượt trong 67 phút (chậm hơn 53 lượt/38 phút lúc trước vì giờ toàn việc tầng 2 real tick, 64-774 s mỗi việc). lay_viec thử khô (BRAIN_HANG_BOX=1, n=2000): 24 việc XM tầng 2 (22:08 là 45), 115 việc Exness tầng 1 (vẫn treo vì không slot nào đăng nhập Exness), 2 XM chưa gắn tầng, và ít nhất 1.857 việc cũ không gắn sàn/tầng (MRZ D1 OOS). Hàng còn dài, chưa tắt máy. p4 và p6 vẫn rỗi do chặn RAM tầng 2.
+
+**Báo cáo:** PHIEN_20261020.md và UNG_VIEN.md được đẩy lúc 23:05 (commit 391795f4, HEAD = origin/main). UNG_VIEN: ĐẠT 44 (22:04) lên 63 (23:05), TRƯỢT 10, CHƯA ĐO ĐƯỢC 6. Nhiều hệ ĐẠT mới là việc ghép (od_ghep*) GBPCAD/GBPNZD chỉ có khoảng 2,77 năm lịch sử, cột TF trống và Py/MT5 CHƯA ĐO ĐƯỢC.
+
+**Ổ C (đã xử lý):** C giảm 1,7 GB trong 67 phút. Đo lúc 23:17: C:\mt5_tester\p7 tăng từ 12,60 GB (22:12) lên 14,27 GB (bases 8,08 GB, Tester\bases 5,91 GB), tức là cache tick/lịch sử của slot p7 khi gặp symbol mới. Đã chuyển hai thư mục dữ liệu terminal nguội của slot cũ C:\MT5slots\s1 và s2 (%APPDATA%\MetaQuotes\Terminal\7BD9DD42... 1,26 GB và D2094495... 1,25 GB, sửa lần cuối 13/10) sang E:\brain2_nguoi\MetaQuotes_Terminal_cu_20261020 bằng robocopy /MOVE. C trống lên 12,09 GB lúc 23:21. Không đụng BB16F565... (XM chính, 14,52 GB).
+
+**Ổ D:** giảm 3,8 GB trong 67 phút (19,3 xuống 15,5 GB). D:\mt5_tester 10,92 GB (p1 bases 6,35 GB, Tester 4,16 GB); không có file lớn nào mới ghi trong 70 phút trong mt5_tester/mt5_lien_tuc, phần còn lại không đo (không quét thư mục Riot Games).
+
+### Đề xuất
+1. **Gom cache tick về một chỗ trên E:** mỗi slot tự tải bases riêng (p7 8,1 + 5,9 GB, p1 6,4 + 4,2 GB). Dùng junction cho `bases` của p1/p7 sang E (làm khi slot rỗi, giữa phiên) để C và D không bị cache tick ăn dần khoảng 1,5-3,5 GB/giờ.
+2. **Theo dõi D:** nếu tốc độ giảm giữ nguyên thì D chạm 6 GB khoảng 02:00; quan_ly_slot.dam_bao_cho sẽ dọn tick của p1 khi rỗi (tốn thời gian tải lại). Lần kiểm sau đo lại; dưới 8 GB thì tìm nguồn ngoài mt5_tester.
+3. **Cho p4/p6 chạy việc MRZ D1 cũ khi RAM chặn tầng 2** (vẫn đúng như đề xuất 22:08): hai slot đã rỗi thêm 70 phút.
+4. **Lọc chặt hơn trước khi gọi ĐẠT:** gắn cờ "lịch sử < 3 năm" và TF trống trong UNG_VIEN để 19 hệ ĐẠT mới không bị đọc như ứng viên chắc chắn.
