@@ -1,14 +1,12 @@
-# Thợ phụ box — trạng thái (tự sinh 2026-10-20 21:02, giờ VN)
+# Thợ phụ box — trạng thái (tự sinh 2026-10-20 21:06, giờ VN)
 
 Số MÔ PHỎNG Python, PHÍ theo ống dẫn. Box không có MT5.
 
-- Đã nhận (NHAN_VIEC.jsonl): 260 khoá
+- Đã nhận (NHAN_VIEC.jsonl): 262 khoá
 - Vòng dịch: 6; thẻ làm 89; gọi mới 96; ĐẠT 37; HỎNG 52; LỖI_LLM 8; 429 0; giây 1048
-- Vòng thử Python: 38; thẻ 137; việc MT5 mới 46
-- Việc trong hang_cho_mt5_box.jsonl: 50
+- Vòng thử Python: 41; thẻ 143; việc MT5 mới 48
+- Việc trong hang_cho_mt5_box.jsonl: 52
 
-  - `od_ghep60ff9350c26c63ee_XM_CSV` XM GBPCADmicro H1: 69.831%/năm, DD 22.858%
-  - `od_ghep60ff9350c26c63ee_Exness_CSV` Exness GBPCADc H1: 69.831%/năm, DD 22.858%
   - `od_skea78384bbaf7_XM_CSV` XM USDCADmicro H1: 109.949%/năm, DD 64.382%
   - `od_skea78384bbaf7_Exness_CSV` Exness USDCADc H1: 109.949%/năm, DD 64.382%
   - `od_ghep6f5c193256881f31_XM_CSV` XM GBPCADmicro H1: 84.91%/năm, DD 50.487%
@@ -37,3 +35,5 @@ Số MÔ PHỎNG Python, PHÍ theo ống dẫn. Box không có MT5.
   - `od_skeaf3d30ea9da_Exness_CSV` Exness GBPAUDc H1: 18.796%/năm, DD 37.17%
   - `od_skea135e93ee32_XM_CSV` XM EURUSDmicro H1: 17.178%/năm, DD 20.028%
   - `od_skea135e93ee32_Exness_CSV` Exness EURUSDc H1: 17.178%/năm, DD 20.028%
+  - `od_skeaa26780a363_XM_CSV` XM EURCADmicro H1: 23.758%/năm, DD 33.0%
+  - `od_skeaa26780a363_Exness_CSV` Exness EURCADc H1: 23.758%/năm, DD 33.0%
