@@ -566,3 +566,34 @@ def test_hop_cat_numpy_import_noi_bo_nhung_cam_os():
           "        out[i] = 1 if c[i - 1] > v else -1\n    return out\n")
     assert DL.kiem_tra({"python": ma}, df)["dat"]              # truoc: KeyError '__import__' trong np.dot
     assert HC.chay("def tin_hieu(df):\n    return __import__('os')", df)["ok"] is False
+
+
+# ------------------------------------------------------------------ kiem toan UNG_VIEN (11:39)
+def test_kiem_toan_htm_dd_von_va_stop_out():
+    f = KQ / "od_b0be91a35f43f34a_XM_CSV.htm"
+    g = KQ / "od_skea9c34a60460_XM_CSV.htm"
+    if not (f.exists() and g.exists()):
+        pytest.skip("thieu bao cao mau")
+    k = BCP.kiem_toan_htm(f)
+    assert k["dd_von_pct"] == 58.65 and k["lo_gop"] == 0 and k["stop_out"] == 0     # Relative 58,65 > Maximal 53,65
+    assert BCP.kiem_toan_htm(g)["stop_out"] == 3
+
+
+def test_ung_vien_chuan_chat_kep_stop_out_trung(tmp_path):
+    if not (KQ / "od_skea9c34a60460_XM_CSV.htm").exists():
+        pytest.skip("thieu bao cao mau")
+    import shutil as SH
+    for t in ("od_skea0ca971ac32_XM_CSV", "od_skea9c34a60460_XM_CSV", "od_mql5164edabb0bca1b7d_XM_CSV"):
+        SH.copy(KQ / (t + ".htm"), tmp_path / (t + ".htm"))
+    SH.copy(KQ / "od_skea0ca971ac32_XM_CSV.htm", tmp_path / "od_banSao_XM_CSV.htm")       # cung ket qua -> trung
+    hang = {"od_skea0ca971ac32_XM_CSV": {"ma": "GBPNZDmicro", "tf": "H4", "the_id": "sk_ea_0ca971ac32"},
+            "od_banSao_XM_CSV": {"ma": "GBPNZDmicro", "tf": "H4", "the_id": "khac"}}
+    r = {x["ten"]: x for x in BCP.ung_vien(hang=hang, thu_muc=tmp_path, ti_so={"od_skea0ca971ac32_XM_CSV": 1.5})}
+    a = r["od_skea0ca971ac32_XM_CSV"]
+    assert a["ket_luan"] == "ĐẠT" and a["lai_kep_pct_nam"] < a["lai_pct_nam"]
+    assert any("ít lệnh" in n for n in a["nhan"]) and any("Python/MT5 1.50" in n for n in a["nhan"])
+    assert r["od_banSao_XM_CSV"]["trung"] == "od_skea0ca971ac32_XM_CSV" or a["trung"] == "od_banSao_XM_CSV"
+    assert r["od_skea9c34a60460_XM_CSV"]["ket_luan"] == "TRƯỢT" and "STOP-OUT" in r["od_skea9c34a60460_XM_CSV"]["ly_do"]
+    assert r["od_mql5164edabb0bca1b7d_XM_CSV"]["ket_luan"] == "TRƯỢT"                    # tick 31% nhung stop-out
+    md = Path(BCP.ghi_ung_vien(list(r.values()), tmp_path / "U.md")).read_text(encoding="utf-8")
+    assert "Bảng xếp hạng" in md and "trùng bỏ 1" in md

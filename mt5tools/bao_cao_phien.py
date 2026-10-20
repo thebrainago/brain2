@@ -63,9 +63,61 @@ def _so_cai() -> list[dict]:
     return ra
 
 
-def ung_vien(hang: dict | None = None, thu_muc: Path = KQ) -> list[dict]:
-    """Moi bao cao real tick od_*.htm (goc ket_qua_mt5, KHONG gom tang1/) -> mot dong do that + phan xu chuan cuoi."""
+def kiem_toan_htm(f: Path) -> dict:
+    """20/10/2026 kiem toan: doc them tu .htm - DD von (equity) % LON NHAT trong 'Maximal' va 'Relative', stop-out
+    (comment 'so ...'), lenh dong cuong buc cuoi ky ('end of test'), tong hoa hong / swap trong bang deal, margin level thap nhat."""
+    import html as H
+    t = f.read_bytes().decode("utf-16", errors="ignore")
+    if "<td" not in t:
+        t = f.read_bytes().decode("utf-8", errors="ignore")
+    o = [H.unescape(re.sub(r"<[^>]+>", "", c)).strip() for c in re.findall(r"<td[^>]*>(.*?)</td>", t, re.S)]
+
+    def g(k):
+        try:
+            return o[o.index(k) + 1]
+        except ValueError:
+            return None
+
+    def so(x):
+        try:
+            return float(str(x).replace(" ", "").replace("\xa0", "").replace("%", "").split("(")[0])
+        except Exception:
+            return None
+    pct = []
+    m = re.search(r"\(([\d.]+)%\)", str(g("Equity Drawdown Maximal:") or ""))
+    if m:
+        pct.append(float(m.group(1)))
+    x = so(g("Equity Drawdown Relative:"))
+    if x is not None:
+        pct.append(x)
+    hh = sw = 0.0
+    so_out = cuoi = 0
+    hang = re.findall(r"<tr[^>]*>(.*?)</tr>", t, re.S)
+    R = [[H.unescape(re.sub(r"<[^>]+>", "", c)).strip() for c in re.findall(r"<td[^>]*>(.*?)</td>", r, re.S)] for r in hang]
+    i0 = next((k for k, r in enumerate(R) if r[:3] == ["Time", "Deal", "Symbol"]), None)
+    if i0 is not None:
+        for r in R[i0 + 1:]:
+            if len(r) < 13:
+                continue
+            hh += so(r[8]) or 0.0
+            sw += so(r[9]) or 0.0
+            c = r[12].lower()
+            so_out += bool(re.match(r"^so\b", c) or "stop out" in c)
+            cuoi += c == "end of test" and r[4] == "out"
+    return {"dd_von_pct": max(pct) if pct else None, "stop_out": so_out, "dong_cuoi_ky": cuoi, "hoa_hong": round(hh, 2),
+            "swap": round(sw, 2), "margin_min_pct": so(g("Margin Level:")), "lo_gop": so(g("Gross Loss:"))}
+
+
+LENH_TOI_THIEU = 30
+
+
+def ung_vien(hang: dict | None = None, thu_muc: Path = KQ, ti_so: dict | None = None) -> list[dict]:
+    """Moi bao cao real tick od_*.htm (goc ket_qua_mt5, KHONG gom tang1/) -> mot dong do that + phan xu chuan cuoi.
+    20/10/2026 (kiem toan): chuan cuoi dung lai KEP %/nam (chat hon lai don) tren KY bao cao, DD von = max(Maximal %,
+    Relative %), stop-out -> TRUOT, symbol phai dung *micro cua viec, tick < 90 % -> CHUA DO DUOC; trung (the, symbol, TF)
+    hoac trung ket qua -> dem MOT lan (dong kem 'TRÙNG'). ti_so: ten -> Python/MT5 (doi chieu), de gan nhan."""
     from nhan import ong_dan as OD
+    from nhan import nguong as NG
     hang = _hang() if hang is None else hang
     cfg = OD.cau_hinh()
     luc = {}                                  # ten -> ngay do (so cai, lan xong cuoi); khong co -> mtime tep
@@ -76,23 +128,56 @@ def ung_vien(hang: dict | None = None, thu_muc: Path = KQ) -> list[dict]:
     for f in sorted(Path(thu_muc).glob("od_*.htm")):
         v = hang.get(f.stem) or {}
         r = OD.doc_htm(f)
+        kt = kiem_toan_htm(f)
         von = float(r.get("von_dau") or v.get("von") or cfg.get("von", 1000.0))
-        dung_sym = OD.ky_hieu_dung(r.get("symbol"), v.get("ma"))
+        sym = r.get("symbol") or ""
+        dung_sym = OD.ky_hieu_dung(sym, v.get("ma")) and (not v.get("ma") or str(sym).lower().endswith("micro"))
+        nam = OD._nam_bc(r, v, cfg)
+        ph = OD._cot_loi_mt5(r.get("net"), r.get("dd"), von, nam)
+        dd = kt["dd_von_pct"] if kt["dd_von_pct"] is not None else ph.get("sut_giam_pct")
+        kep = ph.get("lai_kep_pct_nam")
+        ly, nhan = [], []
         if not dung_sym:
-            ph = {"dat": False, "ly_do": ["SAI SYMBOL %s (việc %s) - %s" % (r.get("symbol"), v.get("ma"), CDD)]}
+            kl = "CHƯA ĐO ĐƯỢC"
+            ly.append("SAI SYMBOL %s (việc %s)" % (sym, v.get("ma")))
+        elif r.get("net") is None or dd is None or kep is None:
+            kl = "CHƯA ĐO ĐƯỢC"
+            ly.append("thiếu số trong .htm")
+        elif _cl(r.get("chat_luong")) < 90 and not kt["stop_out"]:
+            kl = "CHƯA ĐO ĐƯỢC"
+            ly.append("chất lượng tick %s < 90%%" % r.get("chat_luong"))
         else:
-            ph = OD._cot_loi_mt5(r.get("net"), r.get("dd"), von, OD._nam_bc(r, v, cfg))
-        m = re.search(r"\(([\d.]+)%\)", str(r.get("dd") or ""))
+            ok = NG.dat(kep, dd, "cuoi")
+            kl = "ĐẠT" if ok.get("dat") and not kt["stop_out"] else "TRƯỢT"   # stop-out: TRUOT ca khi tick thap
+            if kt["stop_out"]:
+                ly.append("STOP-OUT %d lần" % kt["stop_out"])
+            ly += ok.get("ly_do") or []
+        if (r.get("lenh") or 0) < LENH_TOI_THIEU:
+            nhan.append("ít lệnh (%d < %d)" % (r.get("lenh") or 0, LENH_TOI_THIEU))
+        if nam < 2.0:
+            nhan.append("lịch sử ngắn (%.1f năm)" % nam)
+        if kt["dong_cuoi_ky"] >= 3:
+            nhan.append("%d lệnh còn mở bị đóng cuối kỳ" % kt["dong_cuoi_ky"])
+        if kt["lo_gop"] == 0 and (r.get("lenh") or 0) > 0:
+            nhan.append("không đóng lệnh lỗ nào (PF vô hạn; DD vốn %.0f%%)" % (dd or 0))
+        ts = (ti_so or {}).get(f.stem)
+        if ts is not None and not (0.8 <= ts <= 1.25):
+            nhan.append("Python/MT5 %.2f ngoài 0,8–1,25" % ts)
         ra.append({"ten": f.stem, "the_id": v.get("the_id", ""), "nguon": (v.get("the_id") or f.stem).split("_")[0],
-                   "ma": r.get("symbol") or v.get("ma"), "tf": v.get("tf", ""), "net": r.get("net"),
-                   "lai_pct_nam": ph.get("lai_pct_nam"), "lai_kep_pct_nam": ph.get("lai_kep_pct_nam"),
-                   "dd_pct": float(m.group(1)) if m else None, "pf": r.get("pf"), "lenh": r.get("lenh"),
+                   "ma": sym or v.get("ma"), "tf": v.get("tf", ""), "net": r.get("net"),
+                   "lai_pct_nam": ph.get("lai_pct_nam"), "lai_kep_pct_nam": kep, "so_nam": round(nam, 2),
+                   "dd_pct": dd, "pf": r.get("pf"), "lenh": r.get("lenh"), "stop_out": kt["stop_out"],
+                   "hoa_hong": kt["hoa_hong"], "swap": kt["swap"], "ti_so_py_mt5": ts,
                    "chat_luong": r.get("chat_luong") or CDD, "ky": "%s–%s" % (r.get("tu_bc", "?"), r.get("den_bc", "?")),
                    "phien": luc.get(f.stem) or dt.datetime.fromtimestamp(f.stat().st_mtime).strftime("%Y-%m-%d"),
-                   "ket_luan": "ĐẠT" if ph.get("dat") else ("CHƯA ĐO ĐƯỢC" if "CHUA_DO_DUOC" in " ".join(ph.get("ly_do", []))
-                                                           or not dung_sym else "TRƯỢT"),
-                   "ly_do": "; ".join(ph.get("ly_do", []) + (
-                       ["chất lượng tick thấp (%s)" % r.get("chat_luong")] if _cl(r.get("chat_luong")) < 90 else []))})
+                   "ket_luan": kl, "ly_do": "; ".join(ly), "nhan": nhan, "trung": None})
+    # trung: cung (the, symbol, TF) hoac cung (symbol, net, so lenh) -> giu dong %/nam kep cao nhat
+    nhom = {}
+    for x in sorted(ra, key=lambda x: -(x["lai_kep_pct_nam"] if x["lai_kep_pct_nam"] is not None else -1e9)):
+        for k in ((x["the_id"] or x["ten"], x["ma"], x["tf"]), ("kq", x["ma"], x["net"], x["lenh"])):
+            if k in nhom and x["trung"] is None:
+                x["trung"] = nhom[k]
+            nhom.setdefault(k, x["ten"])
     return ra
 
 
@@ -106,24 +191,63 @@ def _o(x, d=2):
 
 
 def ghi_ung_vien(ds: list[dict], tep: Path = UNG_VIEN) -> str:
+    dem = [r for r in ds if not r["trung"]]
     d = ["# Ứng viên MT5 (cộng dồn, tự sinh bởi `mt5tools/bao_cao_phien.py`)", "",
          "Mỗi hệ một dòng, số **đo thật** từ báo cáo MT5 real tick (`reports/ong_dan/ket_qua_mt5/od_*.htm`), tài khoản XM micro "
-         "1:500, vốn trong báo cáo. Chuẩn cuối của chủ dự án: sụt giảm ≤ 80 %, lãi ≥ 10 %/năm sau phí (lãi/năm = lãi ròng / vốn / "
-         "số năm của **kỳ trong báo cáo**). Lãi kép ghi kèm để so với Python. Chạy sai symbol → CHƯA ĐO ĐƯỢC, phải chạy lại.",
-         "", "Cập nhật: %s (giờ máy chạy)." % dt.datetime.now().strftime("%d/%m/%Y %H:%M"), "",
-         "| Kết luận | id | EA/nguồn | Symbol | TF | Lãi ròng | %/năm | %/năm kép | Sụt giảm % | PF | Lệnh | Kỳ | Phiên đo | Chất lượng tick | Ghi chú |",
-         "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+         "1:500, vốn trong báo cáo (1.000 USD). **Chuẩn cuối (kiểm toán 20/10/2026):**",
+         "",
+         "- **%/năm:** lãi **kép** (chặt hơn lãi đơn) trên **kỳ trong báo cáo**, tính bằng (1 + lãi ròng/vốn)^(1/số năm) − 1. Đạt khi ≥ 10 %.",
+         "- **Sụt giảm:** lấy theo **vốn (equity)**, là số lớn hơn giữa *Equity Drawdown Maximal %* và *Relative %*. Đạt khi ≤ 80 %.",
+         "- **Loại:** có stop-out thì TRƯỢT. Sai symbol (không phải `*micro` của việc) hoặc tick < 90 % thì CHƯA ĐO ĐƯỢC.",
+         "- **Phí:** spread và swap đã nằm trong báo cáo real tick. Hoa hồng trong báo cáo XM micro bằng 0, hoa hồng thật **CHƯA ĐO ĐƯỢC**.",
+         "- **Trùng:** cùng thẻ + symbol + TF, hoặc cùng kết quả, chỉ đếm một lần.",
+         "",
+         "Cập nhật: %s (giờ máy chạy). Đếm (không trùng): ĐẠT %d, TRƯỢT %d, CHƯA ĐO ĐƯỢC %d; trùng bỏ %d." % (
+             dt.datetime.now().strftime("%d/%m/%Y %H:%M"), sum(r["ket_luan"] == "ĐẠT" for r in dem),
+             sum(r["ket_luan"] == "TRƯỢT" for r in dem), sum(r["ket_luan"] == "CHƯA ĐO ĐƯỢC" for r in dem), len(ds) - len(dem)),
+         "", "## Bảng xếp hạng (ĐẠT, không trùng, theo %/năm kép)", "",
+         "| # | id | Symbol | TF | Lãi ròng | %/năm kép | %/năm đơn | DD vốn % | Lệnh | Số năm | Py/MT5 | Điểm yếu |",
+         "|---|---|---|---|---|---|---|---|---|---|---|---|"]
+    top = sorted([r for r in dem if r["ket_luan"] == "ĐẠT"], key=lambda r: -r["lai_kep_pct_nam"])
+    for i, r in enumerate(top, 1):
+        d.append("| %d | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |" % (
+            i, r["ten"], r["ma"], r["tf"], _o(r["net"]), _o(r["lai_kep_pct_nam"]), _o(r["lai_pct_nam"]), _o(r["dd_pct"]),
+            _o(r["lenh"], 0), _o(r["so_nam"]), _o(r["ti_so_py_mt5"]) if r["ti_so_py_mt5"] is not None else CDD,
+            "; ".join(r["nhan"]) or "—"))
+    if not top:
+        d.append("| – | chưa có hệ ĐẠT | | | | | | | | | | |")
+    d += ["", "## Tất cả", "",
+          "| Kết luận | id | EA/nguồn | Symbol | TF | Lãi ròng | %/năm kép | %/năm đơn | DD vốn % | PF | Lệnh | Stop-out | Swap | Kỳ | Chất lượng tick | Lí do / nhãn |",
+          "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     thu_tu = {"ĐẠT": 0, "TRƯỢT": 1, "CHƯA ĐO ĐƯỢC": 2}
-    for r in sorted(ds, key=lambda r: (thu_tu.get(r["ket_luan"], 3), -(r["lai_pct_nam"] or -1e9))):
-        d.append("| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |" % (
-            r["ket_luan"], r["ten"], r["the_id"] or r["nguon"], r["ma"], r["tf"], _o(r["net"]), _o(r["lai_pct_nam"]),
-            _o(r["lai_kep_pct_nam"]), _o(r["dd_pct"]), _o(r["pf"]), _o(r["lenh"], 0), r["ky"], r["phien"], r["chat_luong"],
-            r["ly_do"].replace("|", "/")[:120]))
+    for r in sorted(ds, key=lambda r: (bool(r["trung"]), thu_tu.get(r["ket_luan"], 3), -(r["lai_kep_pct_nam"] or -1e9))):
+        gc = "; ".join(([r["ly_do"]] if r["ly_do"] else []) + r["nhan"] + (["TRÙNG với %s" % r["trung"]] if r["trung"] else []))
+        d.append("| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |" % (
+            r["ket_luan"] + (" (trùng)" if r["trung"] else ""), r["ten"], r["the_id"] or r["nguon"], r["ma"], r["tf"],
+            _o(r["net"]), _o(r["lai_kep_pct_nam"]), _o(r["lai_pct_nam"]), _o(r["dd_pct"]), _o(r["pf"]), _o(r["lenh"], 0),
+            r["stop_out"], _o(r["swap"]), r["ky"], r["chat_luong"], gc.replace("|", "/")[:160]))
     if not ds:
-        d.append("| %s | – | – | – | – | – | – | – | – | – | – | – | – | – | chưa có báo cáo MT5 real tick |" % CDD)
+        d.append("| %s | – | – | – | – | – | – | – | – | – | – | – | – | – | – | chưa có báo cáo MT5 real tick |" % CDD)
     tep.parent.mkdir(parents=True, exist_ok=True)
     tep.write_text("\n".join(d) + "\n", encoding="utf-8")
     return str(tep)
+
+
+def ti_so_doi_chieu(hang: dict | None = None) -> dict:
+    """ten -> lai Python / lai MT5 (MO PHONG / do that) cho viec KIEM_CSV co lenh MT5; loi -> bo qua."""
+    from nhan import ong_dan as OD
+    hang = _hang() if hang is None else hang
+    ra = {}
+    for ten, v in hang.items():
+        if v.get("pha") != "KIEM_CSV" or not v.get("csv_vao"):
+            continue
+        try:
+            r = OD.doi_chieu_viec(v, KQ)
+            if r.get("lai_mt5") and r.get("lai_python") is not None and r["lai_mt5"] > 0:
+                ra[ten] = round(r["lai_python"] / r["lai_mt5"], 2)
+        except Exception:  # noqa: BLE001
+            continue
+    return ra
 
 
 def thong_ke_viec(so_cai: list[dict], ngay: str, hang: dict) -> dict:
@@ -250,17 +374,17 @@ def ghi_phien(ngay8: str, ds_uv: list[dict]) -> Path:
     except Exception as e:  # noqa: BLE001
         db = {"co_db": False, "loi": str(e)[:200]}
     m = may()
-    hom = [r for r in ds_uv if r["phien"] == ngay]
+    hom = [r for r in ds_uv if r["phien"] == ngay and not r.get("trung")]
     d = ["# Phiên máy nhà %s/%s/%s" % (ngay8[6:], ngay8[4:6], ngay8[:4]), "",
          "Tự sinh bởi `mt5tools/bao_cao_phien.py` lúc %s (giờ máy chạy). Số MT5 là đo thật (real tick); số Python là MÔ PHỎNG; "
          "thiếu số ghi %s." % (dt.datetime.now().strftime("%H:%M"), CDD), "",
          "## Hệ đo trong phiên này (MT5 real tick)", ""]
     for nhan in ("ĐẠT", "TRƯỢT", "CHƯA ĐO ĐƯỢC"):
         nhom = [r for r in hom if r["ket_luan"] == nhan]
-        d.append("- **%s**: %d%s" % (nhan, len(nhom), (" — " + ", ".join("%s (%s %s, %s %%/năm, DD %s %%)" % (
-            r["ten"], r["ma"], r["tf"], _o(r["lai_pct_nam"]), _o(r["dd_pct"])) for r in nhom[:15])) if nhom else ""))
+        d.append("- **%s**: %d%s" % (nhan, len(nhom), (" — " + ", ".join("%s (%s %s, %s %%/năm kép, DD vốn %s %%)" % (
+            r["ten"], r["ma"], r["tf"], _o(r["lai_kep_pct_nam"]), _o(r["dd_pct"])) for r in nhom[:15])) if nhom else ""))
     d += ["", "Cộng dồn mọi phiên: xem `reports/UNG_VIEN.md` (%d hệ, ĐẠT %d)." % (
-        len(ds_uv), sum(1 for r in ds_uv if r["ket_luan"] == "ĐẠT")), "",
+        len(ds_uv), sum(1 for r in ds_uv if r["ket_luan"] == "ĐẠT" and not r.get("trung"))), "",
         "## Hàng MT5", "",
         "| Chỉ số | Giá trị |", "|---|---|",
         "| Lượt chạy trong phiên (sổ cái) | %d |" % tv["tong"], "| Xong có báo cáo | %d |" % tv["xong"],
@@ -332,7 +456,11 @@ def main(argv=None) -> int:
         r = subprocess.run([sys.executable, str(GOC / "ong_dan.py"), "doc_mt5"], cwd=str(GOC), capture_output=True,
                            text=True, timeout=1800)
         print("doc_mt5 rc=%s %s" % (r.returncode, (r.stdout or r.stderr)[-300:]))
-    ds = ung_vien()
+    try:
+        ts = ti_so_doi_chieu()
+    except Exception:  # noqa: BLE001
+        ts = {}
+    ds = ung_vien(ti_so=ts)
     ghi_ung_vien(ds)
     tep = ghi_phien(a.ngay, ds)
     print("ghi %s, %s" % (tep, UNG_VIEN))
