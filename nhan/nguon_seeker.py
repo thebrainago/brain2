@@ -116,6 +116,71 @@ def nap(p: Path = SO_DANG_KY) -> dict:
 
 
 # ------------------------------------------------------------- mang -------
+class QuyTacRobots:
+    """robots.txt theo RFC 9309 (kieu Google): khop TIEN TO tren duong dan + query, ho tro '*' va '$', luat DAI NHAT thang,
+    bang dai thi Allow thang. Nhom theo User-agent: nhom ten trung UA (dai nhat) neu co, khong thi nhom '*'.
+
+    20/10/2026: `urllib.robotparser` chuan hoa "Disallow: /?" thanh "Disallow: /" (urlparse bo dau '?' rong) -> coi CA
+    trang web bi cam (earnforex.com bi ghi ROBOTS CAM sai). Lop nay giu nguyen y nghia: chi cam URL bat dau bang "/?"."""
+
+    def __init__(self, van_ban: str, ua: str):
+        nhom: list[tuple[list[str], list[tuple[bool, str]]]] = []
+        ua_ds: list[str] = []
+        luat: list[tuple[bool, str]] = []
+        dang_luat = False
+        for dong in (van_ban or "").splitlines():
+            dong = dong.split("#", 1)[0].strip()
+            if ":" not in dong:
+                continue
+            k, v = (x.strip() for x in dong.split(":", 1))
+            k = k.lower()
+            if k == "user-agent":
+                if dang_luat:
+                    nhom.append((ua_ds, luat)); ua_ds, luat, dang_luat = [], [], False
+                ua_ds.append(v.lower())
+            elif k in ("allow", "disallow"):
+                dang_luat = True
+                if v:                                      # "Disallow:" rong = khong cam gi
+                    luat.append((k == "allow", v))
+            elif k == "crawl-delay":
+                dang_luat = True
+                try:
+                    luat.append((None, float(v)))           # (None, giay) = Crawl-delay cua nhom
+                except ValueError:
+                    pass
+        if ua_ds:
+            nhom.append((ua_ds, luat))
+        ten = (ua or "").lower()
+        tot, do_dai = None, -1
+        for ds, l in nhom:
+            for u in ds:
+                if u != "*" and u and u.split("/")[0] in ten and len(u) > do_dai:
+                    tot, do_dai = l, len(u)
+        if tot is None:
+            tot = [x for ds, l in nhom if "*" in ds for x in l]
+        self.tre_giay = max([float(x[1]) for x in tot if x[0] is None] or [0.0])
+        self.luat = [x for x in tot if x[0] is not None]
+
+    @staticmethod
+    def _khop(mau: str, duong: str) -> bool:
+        cuoi = mau.endswith("$")
+        if cuoi:
+            mau = mau[:-1]
+        rx = "".join(".*" if c == "*" else re.escape(c) for c in mau)
+        return re.match(rx + ("$" if cuoi else ""), duong) is not None
+
+    def can_fetch(self, ua: str, url: str) -> bool:
+        p = urlparse(url)
+        duong = (p.path or "/") + (("?" + p.query) if p.query else "")
+        tot = None                                         # (do dai, cho_phep)
+        for cho, mau in self.luat:
+            if self._khop(mau, duong):
+                k = (len(mau), cho)
+                if tot is None or k > tot:
+                    tot = k
+        return True if tot is None else tot[1]
+
+
 class Mang:
     """GET lich su: robots.txt, nhip theo ten mien, dung ten mien bi chan. `get` thay duoc (test)."""
 
@@ -143,7 +208,9 @@ class Mang:
         return h[4:] if h.startswith("www.") else h
 
     def _cho(self, mien):
-        cho = NHIP_GIAY - (self.dong_ho() - self.lan_cuoi.get(mien, -1e9))
+        tre = max([getattr(r, "tre_giay", 0.0) for g, r in self.robots.items() if r is not None and self.mien(g) == mien]
+                  or [0.0])                         # 20/10/2026: ton trong Crawl-delay (earnforex: 10 s)
+        cho = max(NHIP_GIAY, min(tre, 60.0)) - (self.dong_ho() - self.lan_cuoi.get(mien, -1e9))
         if cho > 0:
             self.ngu(cho)
         self.lan_cuoi[mien] = self.dong_ho()
@@ -156,9 +223,7 @@ class Mang:
             kq = self.get(goc + "/robots.txt")
             self.so_yeu_cau += 1
             if kq.get("ma") == 200 and "<html" not in kq["text"][:500].lower():
-                rp = urllib.robotparser.RobotFileParser()
-                rp.parse(kq["text"].splitlines())
-                self.robots[goc] = rp
+                self.robots[goc] = QuyTacRobots(kq["text"], UA)
             else:
                 self.robots[goc] = None          # khong co robots doc duoc -> cho phep
         rp = self.robots[goc]
