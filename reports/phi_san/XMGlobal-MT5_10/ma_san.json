@@ -10,7 +10,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 710.1919648881093
+   "tien_moi_gia_1lot": 712.1086962713988
   },
   "AUDCHF": {
    "symbol": "AUDCHFmicro",
@@ -20,7 +20,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 1212.018374198553
+   "tien_moi_gia_1lot": 1215.30309659229
   },
   "AUDJPY": {
    "symbol": "AUDJPYmicro",
@@ -30,7 +30,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 3,
-   "tien_moi_gia_1lot": 6.319035462427014
+   "tien_moi_gia_1lot": 6.332079581576181
   },
   "AUDNZD": {
    "symbol": "AUDNZDmicro",
@@ -40,7 +40,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 566.91
+   "tien_moi_gia_1lot": 568.2399999999999
   },
   "AUDUSD": {
    "symbol": "AUDUSDmicro",
@@ -71,7 +71,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 1212.018374198553
+   "tien_moi_gia_1lot": 1215.849818230452
   },
   "CADJPY": {
    "symbol": "CADJPYmicro",
@@ -81,7 +81,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 3,
-   "tien_moi_gia_1lot": 6.318955603017933
+   "tien_moi_gia_1lot": 6.332440459228582
   },
   "CHFJPY": {
    "symbol": "CHFJPYmicro",
@@ -91,7 +91,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 3,
-   "tien_moi_gia_1lot": 6.318995532470159
+   "tien_moi_gia_1lot": 6.332440459228582
   },
   "CHFSGD": {
    "symbol": "CHFSGDmicro",
@@ -101,7 +101,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 781.1401521661015
+   "tien_moi_gia_1lot": 782.0442637053258
   },
   "EU50": {
    "symbol": "EU50Cash",
@@ -121,7 +121,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 698.35
+   "tien_moi_gia_1lot": 699.07
   },
   "EURCAD": {
    "symbol": "EURCADmicro",
@@ -131,7 +131,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 710.4190051292252
+   "tien_moi_gia_1lot": 712.1391234991668
   },
   "EURCHF": {
    "symbol": "EURCHFmicro",
@@ -141,7 +141,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 1211.9449292224162
+   "tien_moi_gia_1lot": 1215.4803578374174
   },
   "EURDKK": {
    "symbol": "EURDKKmicro",
@@ -151,7 +151,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 150.10439760853674
+   "tien_moi_gia_1lot": 150.08254539997
   },
   "EURGBP": {
    "symbol": "EURGBPmicro",
@@ -161,7 +161,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 1332.61
+   "tien_moi_gia_1lot": 1336.6200000000001
   },
   "EURHKD": {
    "symbol": "EURHKDmicro",
@@ -171,7 +171,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 127.38204422704572
+   "tien_moi_gia_1lot": 127.37879907268234
   },
   "EURHUF": {
    "symbol": "EURHUFmicro",
@@ -181,7 +181,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 3,
-   "tien_moi_gia_1lot": 3.086724614776768
+   "tien_moi_gia_1lot": 3.0747281940276476
   },
   "EURJPY": {
    "symbol": "EURJPYmicro",
@@ -191,7 +191,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 3,
-   "tien_moi_gia_1lot": 6.317558390033421
+   "tien_moi_gia_1lot": 6.3316385647441695
   },
   "EURNOK": {
    "symbol": "EURNOKmicro",
@@ -201,7 +201,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 106.20705915839402
+   "tien_moi_gia_1lot": 106.53121577684693
   },
   "EURNZD": {
    "symbol": "EURNZDmicro",
@@ -211,7 +211,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 567.0699999999999
+   "tien_moi_gia_1lot": 567.82
   },
   "EURPLN": {
    "symbol": "EURPLNmicro",
@@ -221,7 +221,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 256.56880277299564
+   "tien_moi_gia_1lot": 256.29262466713993
   },
   "EURSEK": {
    "symbol": "EURSEKmicro",
@@ -231,7 +231,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 101.02918430046887
+   "tien_moi_gia_1lot": 100.8304394997197
   },
   "EURSGD": {
    "symbol": "EURSGDmicro",
@@ -241,7 +241,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 781.03033521822
+   "tien_moi_gia_1lot": 781.8363772829623
   },
   "EURTRY": {
    "symbol": "EURTRYmicro",
@@ -251,7 +251,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 20.170607028367336
+   "tien_moi_gia_1lot": 20.160688753642027
   },
   "EURUSD": {
    "symbol": "EURUSDmicro",
@@ -272,7 +272,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 60.783622460764185
+   "tien_moi_gia_1lot": 60.79840464986199
   },
   "FRA40": {
    "symbol": "FRA40Cash",
@@ -292,7 +292,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 698.2600000000001
+   "tien_moi_gia_1lot": 699.09
   },
   "GBPCAD": {
    "symbol": "GBPCADmicro",
@@ -302,7 +302,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 710.2928537435985
+   "tien_moi_gia_1lot": 712.1137672954632
   },
   "GBPCHF": {
    "symbol": "GBPCHFmicro",
@@ -312,7 +312,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 1211.7833816027046
+   "tien_moi_gia_1lot": 1215.362177929023
   },
   "GBPDKK": {
    "symbol": "GBPDKKmicro",
@@ -322,7 +322,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 150.07511259385322
+   "tien_moi_gia_1lot": 150.13662432813862
   },
   "GBPJPY": {
    "symbol": "GBPJPYmicro",
@@ -332,7 +332,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 3,
-   "tien_moi_gia_1lot": 6.318396643667703
+   "tien_moi_gia_1lot": 6.331277778481253
   },
   "GBPNOK": {
    "symbol": "GBPNOKmicro",
@@ -342,7 +342,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 106.17311739136898
+   "tien_moi_gia_1lot": 106.5174853778122
   },
   "GBPNZD": {
    "symbol": "GBPNZDmicro",
@@ -352,7 +352,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 567.02
+   "tien_moi_gia_1lot": 568.08
   },
   "GBPSEK": {
    "symbol": "GBPSEKmicro",
@@ -362,7 +362,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 100.99204485662666
+   "tien_moi_gia_1lot": 100.91326504869065
   },
   "GBPSGD": {
    "symbol": "GBPSGDmicro",
@@ -372,7 +372,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 781.0425355764875
+   "tien_moi_gia_1lot": 781.9892241884909
   },
   "GBPUSD": {
    "symbol": "GBPUSDmicro",
@@ -413,7 +413,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 708.576611303214
+   "tien_moi_gia_1lot": 712.017430186691
   },
   "NZDCHF": {
    "symbol": "NZDCHFmicro",
@@ -423,7 +423,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 1211.4604155309225
+   "tien_moi_gia_1lot": 1215.0520649809844
   },
   "NZDJPY": {
    "symbol": "NZDJPYmicro",
@@ -433,7 +433,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 3,
-   "tien_moi_gia_1lot": 6.3171193935565375
+   "tien_moi_gia_1lot": 6.327752255843679
   },
   "NZDSGD": {
    "symbol": "NZDSGDmicro",
@@ -443,7 +443,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 780.9327460719081
+   "tien_moi_gia_1lot": 782.0014545227054
   },
   "NZDUSD": {
    "symbol": "NZDUSDmicro",
@@ -464,7 +464,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 3,
-   "tien_moi_gia_1lot": 6.316999677833016
+   "tien_moi_gia_1lot": 6.327311841564112
   },
   "UK100": {
    "symbol": "UK100Cash",
@@ -525,7 +525,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 709.084076098903
+   "tien_moi_gia_1lot": 711.2982615870486
   },
   "USDCHF": {
    "symbol": "USDCHFmicro",
@@ -536,7 +536,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 1210.6977250989746
+   "tien_moi_gia_1lot": 1214.0784537496816
   },
   "USDCNH": {
    "symbol": "USDCNHmicro",
@@ -547,7 +547,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 4,
-   "tien_moi_gia_1lot": 149.63339817447255
+   "tien_moi_gia_1lot": 149.72301242701002
   },
   "USDDKK": {
    "symbol": "USDDKKmicro",
@@ -558,7 +558,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 149.97922787693904
+   "tien_moi_gia_1lot": 150.11070664615153
   },
   "USDHKD": {
    "symbol": "USDHKDmicro",
@@ -569,7 +569,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 4,
-   "tien_moi_gia_1lot": 127.38204422704574
+   "tien_moi_gia_1lot": 127.37879907268234
   },
   "USDHUF": {
    "symbol": "USDHUFmicro",
@@ -580,7 +580,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 3,
-   "tien_moi_gia_1lot": 3.0889175815010907
+   "tien_moi_gia_1lot": 3.077945902022826
   },
   "USDJPY": {
    "symbol": "USDJPYmicro",
@@ -591,7 +591,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 3,
-   "tien_moi_gia_1lot": 6.314367079415795
+   "tien_moi_gia_1lot": 6.326351150446957
   },
   "USDMXN": {
    "symbol": "USDMXNmicro",
@@ -602,7 +602,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 54.08565761939814
+   "tien_moi_gia_1lot": 54.07717570052925
   },
   "USDNOK": {
    "symbol": "USDNOKmicro",
@@ -613,7 +613,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 106.09550505173746
+   "tien_moi_gia_1lot": 106.39950460390656
   },
   "USDPLN": {
    "symbol": "USDPLNmicro",
@@ -624,7 +624,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 256.349127003048
+   "tien_moi_gia_1lot": 256.5753856969485
   },
   "USDSEK": {
    "symbol": "USDSEKmicro",
@@ -635,7 +635,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 100.90664621625305
+   "tien_moi_gia_1lot": 100.96227140879725
   },
   "USDSGD": {
    "symbol": "USDSGDmicro",
@@ -646,7 +646,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 780.8717652387127
+   "tien_moi_gia_1lot": 781.9158502161997
   },
   "USDTRY": {
    "symbol": "USDTRYmicro",
@@ -657,7 +657,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 5,
-   "tien_moi_gia_1lot": 20.17048090460573
+   "tien_moi_gia_1lot": 20.16058714081142
   },
   "USDZAR": {
    "symbol": "USDZARmicro",
@@ -668,7 +668,7 @@
    "lot_min": 0.1,
    "buoc_lot": 0.01,
    "chu_so": 4,
-   "tien_moi_gia_1lot": 60.79988326422413
+   "tien_moi_gia_1lot": 60.793969238251556
   },
   "USOIL": {
    "symbol": "OILCash",

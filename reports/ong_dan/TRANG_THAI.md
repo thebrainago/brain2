@@ -7,34 +7,32 @@ Mọi số là **MÔ PHỎNG** Python ở **lot thật** (ký quỹ, stop-out, `
 ```json
 {
  "doc_mt5": {
-  "CHUA_DO_DUOC": 3,
-  "DAT_CUOI": 33,
-  "TRUOT_CUOI": 12
+  "CHUA_DO_DUOC": 4,
+  "DAT_CUOI": 50,
+  "TRUOT_CUOI": 13
  },
  "loc": {
-  "CHUA_DO_DUOC": 208,
-  "TRUOT_LOC": 127
+  "CHUA_DO_DUOC": 186,
+  "TRUOT_LOC": 78
  },
  "quyet_dinh": {
-  "BO_QUA": 1854,
-  "LLM": 252,
-  "MT5_TRUC_TIEP": 3275,
-  "PYTHON_LLM": 3,
-  "SPEC_DSL": 7
+  "BO_QUA": 1855,
+  "LLM": 187,
+  "MT5_TRUC_TIEP": 4784,
+  "PYTHON_LLM": 157,
+  "SPEC_DSL": 189
  },
  "sinh_mt5": {
-  "CHO_EA_GHEP": 14,
-  "CHO_MT5": 2,
-  "CHO_MT5_NGOAI": 2718
+  "CHO_MT5_NGOAI": 1005
  },
- "_so_phep_thu": 5084,
- "_so_to_hop": 268,
+ "_so_phep_thu": 3964,
+ "_so_to_hop": 172,
  "_kho_co_che": {
-  "nguon_lenh": 384,
-  "bo_loc": 274,
-  "moc_vung": 41,
-  "quan_li": 351,
-  "go_lenh": 80
+  "nguon_lenh": 415,
+  "bo_loc": 325,
+  "moc_vung": 47,
+  "quan_li": 399,
+  "go_lenh": 91
  }
 }
 ```
@@ -48,56 +46,24 @@ Mọi số là **MÔ PHỎNG** Python ở **lot thật** (ký quỹ, stop-out, `
 | BRAIN_XuLiLenh · RSI quá mua / quá bán | AUDCAD H4 | 3.0 | 22.318 | 58.15 | 0 | 30.2 | 5.87 / 18.36 | ĐẠT |
 | Nhập tay: U3e41d7_mau_nhap_tay.mq5 | NZDUSD H4 | 30.0 | 261.331 | 83.284 | 0 | 56.7 | 44.52 / 39.15 | TRUOT_LOC |
 | Nhập tay: trang_luu_tay.html | EURGBP H4 | 3.0 | 21.952 | 59.698 | 0 | 292.3 | 46.84 / 19.22 | ĐẠT |
-| zhutoutoutousan/profitable-expert-advisor :: XAUUSD_M15_Acti | XAUUSD H4 | 3.0 | 74.354 | 59.096 | 0 | 179.3 | -31.22 / 59.1 | ĐẠT |
-| zhutoutoutousan/profitable-expert-advisor :: main.mq5 | EURGBP H1 | 1.0 | 6.633 | 14.158 | 0 | 57.2 | 2.61 / 3.98 | TRUOT_LOC |
-| GeneralTradingSarl/mql4_experts :: macross.mq4 | EURJPY H1 | 30.0 | 0.0 | 0.0 | 0 | 0.0 | 0.0 / 0.0 | TRUOT_LOC |
-| XANDER Grid XAUUSD :: XANDER_Grid_XAUUSD.mq5 | NZDUSD H1 | 3.0 | -3.384 | 31.533 | 0 | 2207.5 | -5.12 / 14.37 | TRUOT_LOC |
-| zhutoutoutousan/profitable-expert-advisor :: main.mq5 | EURGBP H1 | 3.0 | 15.058 | 31.666 | 0 | 293.0 | 22.17 / 13.28 | ĐẠT |
-| zhutoutoutousan/profitable-expert-advisor :: main.mq5 | EURCHF H1 | 1.0 | -1.519 | 6.756 | 0 | 613.5 | -3.87 / 3.96 | TRUOT_LOC |
-| GeneralTradingSarl/mql4_experts :: adjustable_ma.mq4 | CADJPY H1 | 10.0 | 0.0 | 0.0 | 0 | 0.0 | 0.0 / 0.0 | TRUOT_LOC |
-| GeneralTradingSarl/mql4_experts :: autopendingbyrsi.mq4 | EURGBP H1 | 10.0 | 39.217 | 59.93 | 0 | 282.4 | 1.41 / 30.47 | ĐẠT |
-| zhutoutoutousan/profitable-expert-advisor :: main.mq5 | EURUSD H4 | 1.0 | 8.306 | 10.275 | 0 | 18.5 | 0.07 / 10.27 | TRUOT_LOC |
-| zhutoutoutousan/profitable-expert-advisor :: main.mq5 | GBPCAD H1 | 0.3 | 7.763 | 9.287 | 0 | 28.1 | 8.25 / 1.3 | TRUOT_LOC |
-| GeneralTradingSarl/mql4_experts :: 3sma_www_forex-instrument | CHFJPY H4 | 30.0 | 0.0 | 0.0 | 0 | 0.0 | 0.0 / 0.0 | TRUOT_LOC |
-| GeneralTradingSarl/mql4_experts :: Avalanche_v1_2.mq4 | EURGBP H1 | 1.0 | 7.119 | 12.528 | 0 | 284.3 | 5.2 / 8.41 | TRUOT_LOC |
-| GeneralTradingSarl/expert-mt5 :: alexav_d1_profit_gbpusd.mq5 | GBPUSD H4 | 1.0 | 10.704 | 63.952 | 0 | 390.3 | 2.02 / 36.36 | TRUOT_LOC |
-| GeneralTradingSarl/mql4_experts :: macross.mq4 | XAUUSD H1 | 3.0 | 14.039 | 64.665 | 0 | 653.2 | -50.2 / 64.66 | TRUOT_LOC |
-| zhutoutoutousan/profitable-expert-advisor :: main.mq5 | XAUUSD H1 | 1.0 | 19.424 | 28.024 | 0 | 653.2 | -6.74 / 28.02 | ĐẠT |
-| GeneralTradingSarl/mql4_experts :: adx_ea.mq4 | GBPCAD H4 | 3.0 | 56.956 | 31.776 | 0 | 68.5 | 28.12 / 17.26 | ĐẠT |
-| GeneralTradingSarl/expert-mt5 :: badx.mq5 | EURGBP H4 | 3.0 | 15.243 | 32.217 | 0 | 292.3 | 45.37 / 15.08 | ĐẠT |
-| zhutoutoutousan/profitable-expert-advisor :: main.mq5 | XAUUSD H1 | 1.0 | 4.866 | 37.841 | 0 | 653.5 | -31.32 / 37.56 | TRUOT_LOC |
-| GeneralTradingSarl/expert-mt5 :: bss_1_0.mq5 | CHFJPY H1 | 10.0 | 0.0 | 0.0 | 0 | 0.0 | 0.0 / 0.0 | TRUOT_LOC |
-| zhutoutoutousan/profitable-expert-advisor :: main.mq5 | XAUUSD H1 | 10.0 | 54.556 | 86.387 | 0 | 653.5 | -55.25 / 86.25 | TRUOT_LOC |
-| zhutoutoutousan/profitable-expert-advisor :: main.mq5 | CHFJPY H4 | 10.0 | 0.0 | 0.0 | 0 | 0.0 | 0.0 / 0.0 | TRUOT_LOC |
-| GeneralTradingSarl/mql4_experts :: Avalanche_v1_2.mq4 | EURCHF H4 | 0.3 | 5.517 | 9.759 | 0 | 154.5 | -2.39 / 9.76 | TRUOT_LOC |
-| GeneralTradingSarl/expert-mt5 :: badx.mq5 | CHFJPY H1 | 10.0 | 0.0 | 0.0 | 0 | 0.0 | 0.0 / 0.0 | TRUOT_LOC |
-| ExMachina SafeScalping :: ExMachina_SafeScalping_CB_l1j.mq5 | GBPUSD H1 | 0.3 | 5.226 | 18.454 | 0 | 389.3 | 2.52 / 11.41 | TRUOT_LOC |
-| BlueMoon :: BlueMoon_EA_v3_4_Netting_Volume_Fix.mq5 | EURCHF H1 | 3.0 | 12.254 | 55.218 | 0 | 98.8 | -7.62 / 32.09 | TRUOT_LOC |
-| XANDER Grid XAUUSD :: XANDER_Grid_XAUUSD.mq5 | GBPJPY H1 | 30.0 | 0.0 | 0.0 | 0 | 0.0 | 0.0 / 0.0 | TRUOT_LOC |
-| GeneralTradingSarl/expert-mt5 :: bss_1_0.mq5 | EURCAD H4 | 3.0 | 31.154 | 63.57 | 0 | 35.7 | 1.22 / 35.93 | ĐẠT |
-| GeneralTradingSarl/mql4_experts :: FT_BillWillams_AO.mq4 | AUDUSD H4 | 0.3 | -0.627 | 2.054 | 0 | 391.2 | -0.81 / 0.83 | TRUOT_LOC |
-| zhutoutoutousan/profitable-expert-advisor :: main_portfolio. | NZDUSD H1 | 0.3 | 2.12 | 22.946 | 0 | 552.4 | 6.62 / 8.83 | TRUOT_LOC |
-| GeneralTradingSarl/expert-mt5 :: 3sma.mq5 | EURGBP H1 | 1.0 | 8.884 | 12.752 | 0 | 277.7 | 11.18 / 8.24 | TRUOT_LOC |
-| GeneralTradingSarl/expert-mt5 :: alexav_d1_profit_gbpusd.mq5 | GBPUSD H1 | 0.3 | 1.027 | 19.583 | 0 | 429.3 | 0.91 / 13.38 | TRUOT_LOC |
-| 370 Percent from 2022 to 2026 at 10 Percent MaxDD. The GER40 | GBPCAD H1 | 10.0 | 163.33 | 48.489 | 0 | 30.6 | 42.97 / 32.18 | ĐẠT |
-| 370 Percent from 2022 to 2026 at 10 Percent MaxDD. The GER40 | GBPCHF H4 | 1.0 | 5.691 | 32.818 | 0 | 582.5 | 20.85 / 19.16 | TRUOT_LOC |
-| zhutoutoutousan/profitable-expert-advisor :: XAUUSD_M15_Acti | XAUUSD H1 | 3.0 | 106.68 | 40.309 | 0 | 150.5 | -6.07 / 40.31 | ĐẠT |
-| GeneralTradingSarl/mql4_experts :: 3sma_www_forex-instrument | GBPCAD H1 | 3.0 | 88.896 | 48.701 | 0 | 52.8 | 25.87 / 12.41 | ĐẠT |
-| GeneralTradingSarl/mql4_experts :: autopendingbyrsi.mq4 | USDJPY H4 | 3.0 | 24.341 | 51.43 | 0 | 54.8 | 13.72 / 22.68 | ĐẠT |
-| zhutoutoutousan/profitable-expert-advisor :: main.mq5 | GBPCHF H1 | 0.3 | -3.102 | 9.338 | 0 | 392.9 | -3.61 / 4.41 | TRUOT_LOC |
-| zhutoutoutousan/profitable-expert-advisor :: USDCHF.mq5 | CADJPY H1 | 30.0 | 0.0 | 0.0 | 0 | 0.0 | 0.0 / 0.0 | TRUOT_LOC |
-| GeneralTradingSarl/expert-mt5 :: 3sma.mq5 | EURGBP H4 | 1.0 | 0.432 | 13.681 | 0 | 293.5 | 5.04 / 3.95 | TRUOT_LOC |
-| BlueMoon :: BlueMoon_EA_v3_4_Netting_Volume_Fix.mq5 | AUDCAD H1 | 0.3 | -1.503 | 33.969 | 0 | 722.4 | -8.26 / 33.97 | TRUOT_LOC |
-| zhutoutoutousan/profitable-expert-advisor :: main.mq5 | EURCAD H4 | 0.3 | 0.923 | 2.778 | 0 | 422.7 | 0.89 / 0.71 | TRUOT_LOC |
-| zhutoutoutousan/profitable-expert-advisor :: main.mq5 | EURUSD H4 | 0.3 | 0.354 | 13.877 | 0 | 438.7 | -5.27 / 9.58 | TRUOT_LOC |
-| Most Famous Blessing 3.9.6 EA and Setfiles :: Blessing 3 v3. | EURUSD H4 | 0.3 | 8.575 | 14.661 | 0 | 54.7 | -4.23 / 14.66 | TRUOT_LOC |
-| ExMachina SafeScalping :: ExMachina_SafeScalping_CB_l1j.mq5 | AUDJPY H4 | 30.0 | 0.0 | 0.0 | 0 | 0.0 | 0.0 / 0.0 | TRUOT_LOC |
-| zhutoutoutousan/profitable-expert-advisor :: USDCHF.mq5 | USDCHF H4 | 0.3 | 1.418 | 19.715 | 0 | 133.0 | 0.65 / 7.65 | TRUOT_LOC |
-| Most Famous Blessing 3.9.6 EA and Setfiles :: Blessing 3 v3. | GBPCAD H4 | 1.0 | 15.217 | 35.246 | 0 | 29.5 | 12.37 / 4.64 | ĐẠT |
-| zhutoutoutousan/profitable-expert-advisor :: main_portfolio. | NZDUSD H1 | 1.0 | 5.753 | 63.691 | 0 | 510.1 | 5.89 / 6.64 | TRUOT_LOC |
-| GeneralTradingSarl/mql4_experts :: FT_BillWillams_AO.mq4 | EURCHF H1 | 0.3 | 7.81 | 20.389 | 0 | 94.0 | 3.15 / 7.4 | TRUOT_LOC |
-| GeneralTradingSarl/mql4_experts :: adjustable_ma.mq4 | CHFJPY H4 | 10.0 | 0.0 | 0.0 | 0 | 0.0 | 0.0 / 0.0 | TRUOT_LOC |
-| GeneralTradingSarl/mql4_experts :: adx_ea.mq4 | GBPCAD H1 | 1.0 | 51.807 | 54.287 | 0 | 41.8 | 27.29 / 35.23 | ĐẠT |
+| GeneralTradingSarl/mql4_experts :: macross.mq4 | EURCAD H1 | 1.0 | -2.563 | 10.17 | 0 | 449.4 | -1.36 / 3.42 | TRUOT_LOC |
+| GeneralTradingSarl/expert-mt5 :: rsijmartingale1.5.mq5 | AUDNZD H4 | 0.3 | -4.537 | 13.569 | 0 | 330.7 | -10.01 / 8.98 | TRUOT_LOC |
+| XANDER Grid XAUUSD :: XANDER_Grid_XAUUSD.mq5 | NZDUSD H1 | 3.0 | -5.348 | 40.2 | 0 | 1425.1 | -5.68 / 16.0 | TRUOT_LOC |
+| zhutoutoutousan/profitable-expert-advisor :: main.mq5 | XAUUSD H1 | 10.0 | 76.598 | 58.731 | 0 | 1.7 | 195.45 / 58.73 | ĐẠT |
+| zhutoutoutousan/profitable-expert-advisor :: simple-rsi-reve | GBPCAD H1 | 3.0 | -13.533 | 35.851 | 0 | 718.8 | -18.38 / 18.08 | TRUOT_LOC |
+| zhutoutoutousan/profitable-expert-advisor :: main.mq5 | CHFJPY H4 | 10.0 | 25.16 | 29.86 | 0 | 14.0 | 20.81 / 17.22 | ĐẠT |
+| GeneralTradingSarl/expert-mt5 :: angry_bird_vscalpingh.mq5 | EURGBP H4 | 3.0 | 2.309 | 17.609 | 0 | 469.2 | 19.22 / 6.97 | TRUOT_LOC |
+| zhutoutoutousan/profitable-expert-advisor :: main.mq5 | EURUSD H1 | 3.0 | 17.178 | 20.028 | 0 | 47.5 | 17.3 / 18.63 | ĐẠT |
+| zhutoutoutousan/profitable-expert-advisor :: main.mq5 | XAUUSD H4 | 0.3 | 4.119 | 38.829 | 0 | 16.5 | 7.37 / 26.44 | TRUOT_LOC |
+| GeneralTradingSarl/mql4_experts :: bleris.mq4 | GBPAUD H4 | 1.0 | 2.433 | 52.3 | 0 | 226.2 | -28.76 / 33.67 | TRUOT_LOC |
+| zhutoutoutousan/profitable-expert-advisor :: main.mq5 | XAUUSD H1 | 1.0 | 13.868 | 16.068 | 0 | 24.3 | 17.83 / 7.84 | TRUOT_LOC |
+| GeneralTradingSarl/expert-mt5 :: rsijmartingale1.5.mq5 | GBPAUD H1 | 0.3 | 2.353 | 29.469 | 0 | 304.2 | -8.95 / 16.38 | TRUOT_LOC |
+| GeneralTradingSarl/expert-mt5 :: 20_pips_opposite_last_n_hou | GBPAUD H4 | 0.3 | 3.293 | 14.764 | 0 | 226.2 | -11.31 / 12.7 | TRUOT_LOC |
+| geraked/metatrader5 :: CEZLSMA.mq5 | AUDNZD H1 | 1.0 | 14.886 | 22.67 | 0 | 37.0 | 18.24 / 5.6 | TRUOT_LOC |
+| zhutoutoutousan/profitable-expert-advisor :: main.mq5 | XAUUSD H1 | 3.0 | 6.716 | 29.451 | 0 | 4.2 | 9.92 / 24.51 | TRUOT_LOC |
+| GeneralTradingSarl/mql4_experts :: 10pips.mq4 | GBPUSD H1 | 0.3 | 14.504 | 37.012 | 0 | 53.6 | 8.15 / 36.64 | TRUOT_LOC |
+| GeneralTradingSarl/mql4_experts :: accelerator_trailing_tpbs | EURNZD H1 | 0.3 | -9.796 | 26.247 | 0 | 602.2 | -11.34 / 10.7 | TRUOT_LOC |
+| GeneralTradingSarl/expert-mt5 :: alexav_d1_profit_gbpusd.mq5 | AUDJPY H4 | 10.0 | 28.887 | 45.705 | 0 | 180.7 | 6.2 / 16.86 | ĐẠT |
 | schundi365/Wise-Expert :: report_C1_retest_limit.htm | XAUUSD H1 | 0.3 | -100.0 | 100.331 | 2 | 2.6 | - | CHUA_DO_DUOC |
 | Marco210210/AI-Enhanced-HFT :: ReportTester-7101049.html | XAGUSD H1 | 3.0 | 997.045 | 69.16 | 0 | 6.4 | 422.16 / 30.62 | CHUA_DO_DUOC |
 | schundi365/Wise-Expert :: report_E9_eur_tuned_EURUSD_2025070 | EURUSD H1 | 10.0 | 133.067 | 39.636 | 0 | 60.1 | 1055.98 / 19.16 | CHUA_DO_DUOC |
@@ -248,44 +214,13 @@ Mọi số là **MÔ PHỎNG** Python ở **lot thật** (ký quỹ, stop-out, `
 | keyneelvrt__mt5-expert-advisors__EA05_DualMovingAverage_Dual | EURCAD H1 | 1.0 | 7.931 | 17.35 | 0 | 46.3 | -5.14 / 16.97 | TRUOT_LOC |
 | syarief02__kelasEA17__kelas17ea2_mq4/kelas17ea2.mq4 | GBPCAD H1 | 3.0 | 71.878 | 43.329 | 0 | 64.2 | 20.44 / 11.47 | ĐẠT |
 | diayuunr__ea-optimization-project__EA05_MACD_Momentum_EA05_M | EURCHF H4 | 3.0 | 25.466 | 45.869 | 0 | 350.0 | 12.38 / 42.19 | ĐẠT |
-| GDS Renko Dual MA Demo EA :: GDS_Renko_Dual_MA_Demo.mq5 | GBPNZD H1 | 10.0 | 153.102 | 40.199 | 0 | 91.3 | 35.98 / 22.04 | ĐẠT |
-| EarnForex/Binario :: Binario.mq5 | XAUUSD H1 | 0.3 | 7.242 | 12.57 | 0 | 653.2 | -2.15 / 12.57 | TRUOT_LOC |
-| Bollinger Bands N positions v2 :: Bollinger_Bands_N_position | EURUSD H4 | 0.3 | 15.583 | 60.347 | 0 | 41.0 | 5.98 / 6.34 | ĐẠT |
-| akshayboora342-cell/moneymaker :: Mean_Reversion.mq5 | GBPAUD H4 | 0.3 | 2.649 | 28.555 | 0 | 175.7 | 5.01 / 2.74 | TRUOT_LOC |
-| Yogurt-Peng/TrendEA :: Test.mq5 | GBPJPY H1 | 30.0 | 0.0 | 0.0 | 0 | 0.0 | 0.0 / 0.0 | TRUOT_LOC |
 | 97joseph/MultiCurrencyStrength :: Breakout5-2-2.mq5 | CHFJPY H4 | 0.3 | -2.27 | 28.501 | 0 | 357.2 | 2.05 / 11.31 | TRUOT_LOC |
-| The Expert Advisor on Traffic Light trend strategy :: traffi | EURUSD H4 | 1.0 | 12.394 | 15.443 | 0 | 40.7 | -2.28 / 12.84 | TRUOT_LOC |
-| jensengelke/MT4 :: rsi_grid.mq4 | EURGBP H4 | 0.3 | 1.614 | 4.724 | 0 | 174.2 | 0.04 / 2.15 | TRUOT_LOC |
-| BreakOut15 :: Breakout15.mq4 | EURUSD H1 | 10.0 | 11.232 | 24.267 | 0 | 451.6 | -7.33 / 16.15 | TRUOT_LOC |
 | 97joseph/MultiCurrencyStrength :: Breakout5.mq5 | USDCHF H1 | 0.3 | -1.757 | 5.008 | 0 | 633.0 | -1.95 / 1.86 | TRUOT_LOC |
 | peterthomet/MetaTrader-5-and-4-Tools :: Breakout5-2.mq5 | EURCAD H1 | 1.0 | 20.383 | 30.713 | 0 | 149.3 | -3.11 / 15.59 | ĐẠT |
 | santiago-cruzlopez/MQL5 :: 011_RSI_V2_EA.mq5 | GBPCHF H1 | 3.0 | 0.67 | 5.752 | 0 | 0.5 | 0.0 / 0.0 | TRUOT_LOC |
-| zobad16/Zobad_EA :: AMG.mq5 | EURCAD H4 | 10.0 | 4.881 | 12.842 | 0 | 16.8 | 3.46 / 4.21 | TRUOT_LOC |
-| ScalpWiz 9001 :: ScalpWiz_9001.mq5 | USDJPY H1 | 0.3 | 9.316 | 31.344 | 0 | 130.9 | 8.69 / 10.1 | TRUOT_LOC |
 | peterthomet/MetaTrader-5-and-4-Tools :: 2BarReversal.mq5 | AUDUSD H1 | 30.0 | 0.0 | 0.0 | 0 | 0.0 | 0.0 / 0.0 | TRUOT_LOC |
-| RSI MA EA :: MA-RSI-EA.mq4 | EURGBP H1 | 1.0 | 9.993 | 21.53 | 0 | 35.3 | 4.99 / 3.21 | TRUOT_LOC |
-| RSI Bot MT5 :: RSI_Alert.mq5 | EURNZD H4 | 30.0 | 22.797 | 50.285 | 0 | 2.2 | 0.0 / 0.0 | ĐẠT |
-| victor-algo/channel :: morning-buy-us.mq5 | AUDNZD H1 | 10.0 | 44.316 | 38.628 | 0 | 212.2 | 73.43 / 14.65 | ĐẠT |
-| Quantum XAUUSD Silver Trader :: Quantum_XAUUSD_Silver_Trader | EURGBP H4 | 1.0 | 4.246 | 16.008 | 0 | 287.0 | 17.81 / 7.53 | TRUOT_LOC |
-| tHeStRyNg/mt5_mql5_eas :: SMA_Fractals_RSI.mq5 | GBPCAD H4 | 0.3 | 14.473 | 48.474 | 0 | 32.0 | 7.49 / 3.68 | TRUOT_LOC |
-| Market Miner :: Market_Miner.mq5 | CHFJPY H1 | 10.0 | 0.0 | 0.0 | 0 | 0.0 | 0.0 / 0.0 | TRUOT_LOC |
-| Smoothing Average :: Smoothing_Average.mq5 | EURCHF H1 | 1.0 | 16.305 | 21.496 | 0 | 153.5 | 0.63 / 19.9 | ĐẠT |
 | peterthomet/MetaTrader-5-and-4-Tools :: Breakout2.mq5 | NZDJPY H1 | 1.0 | 3.16 | 33.711 | 0 | 582.1 | 3.73 / 11.09 | TRUOT_LOC |
-| Hybrid Scalper :: hybrid_Scalper.mq4 | EURNZD H1 | 1.0 | 20.865 | 42.356 | 0 | 46.0 | 15.96 / 42.36 | ĐẠT |
-| Xzmjj/Trading_Bots :: Pirañas.mq5 | GBPCHF H4 | 0.3 | 0.134 | 12.461 | 0 | 394.2 | 0.07 / 7.07 | TRUOT_LOC |
-| VR Smart Grid Lite :: VR_Smart_Grid_Lite.mq4 | XAUUSD H1 | 1.0 | 2.097 | 41.15 | 0 | 653.2 | -24.31 / 41.15 | TRUOT_LOC |
-| RSI Eraser :: RSI_Eraser.mq5 | EURCHF H4 | 1.0 | 2.526 | 15.655 | 0 | 154.5 | -6.08 / 12.74 | TRUOT_LOC |
-| galileoChr/Projects_galileo :: MovingAverage_Test.mq5 | GBPNZD H4 | 30.0 | 150.914 | 49.33 | 0 | 219.2 | 13.52 / 24.79 | ĐẠT |
-| New Martin :: New_Martin.mq5 | GBPNZD H1 | 1.0 | 44.486 | 50.721 | 0 | 62.3 | 21.74 / 10.91 | ĐẠT |
-| Desmath3/MT5-EA-Project :: Belema SFP V12.mq5 | XAUUSD H1 | 0.3 | -11.257 | 36.074 | 0 | 653.5 | -26.5 / 30.38 | TRUOT_LOC |
-| GDS Renko ADX Demo EA :: GDS_Renko_ADX_Demo.mq5 | EURJPY H1 | 10.0 | 0.0 | 0.0 | 0 | 0.0 | 0.0 / 0.0 | TRUOT_LOC |
 | zhihua045-ui/free-mt5-ea-source-code :: SimpleEMA_SinglePosi | XAUUSD H1 | 0.3 | 3.063 | 15.335 | 0 | 653.5 | -10.06 / 15.14 | TRUOT_LOC |
-| APB Channel EA — Heikin-Ashi reversal with channel confirmat | GBPCHF H4 | 1.0 | -6.636 | 18.39 | 0 | 578.7 | -6.19 / 6.27 | TRUOT_LOC |
-| Kyosuke-Fukui/AutoTrade_test :: ma_regression.mq4 | GBPUSD H4 | 3.0 | 8.176 | 20.49 | 0 | 430.7 | 6.0 / 11.31 | TRUOT_LOC |
-| 17636208107zxc/XAUUSD-C3.3-TF1 :: XAUUSD_M15_M5_V3_10_9_C33_ | GBPAUD H4 | 0.3 | -2.026 | 6.092 | 0 | 560.7 | -1.0 / 1.27 | TRUOT_LOC |
-| tthanhvu002sgu/ea :: The Volatility Rider session filter cop | GBPCAD H4 | 1.0 | 50.502 | 51.84 | 0 | 79.0 | 17.31 / 8.59 | ĐẠT |
-| Young666YHF/xauusd_backtest :: XAUUSD_DollarTrader.mq4 | XAUUSD H1 | 0.3 | -8.245 | 24.979 | 0 | 653.2 | -20.93 / 22.45 | TRUOT_LOC |
-| bailzx5522/mql_divergence :: bai_FTD.mq4 | AUDJPY H4 | 30.0 | 0.0 | 0.0 | 0 | 0.0 | 0.0 / 0.0 | TRUOT_LOC |
 | 97joseph/MultiCurrencyStrength :: Breakout5-2.mq5 | CADJPY H1 | 0.3 | 3.297 | 13.705 | 0 | 433.9 | 3.28 / 2.74 | TRUOT_LOC |
 | santiago-cruzlopez/MQL5 :: 013_Bollinger_Bands_EA.mq5 | CADJPY H4 | 0.3 | 2.416 | 4.48 | 0 | 26.5 | -0.32 / 4.48 | TRUOT_LOC |
 | Simple EMA Cross EA with SL/TP and Magic Number :: EMA_Cross | XAUUSD H4 | 1.0 | 34.075 | 93.742 | 0 | 18.8 | 42.74 / 69.04 | TRUOT_LOC |
@@ -307,18 +242,10 @@ Mọi số là **MÔ PHỎNG** Python ở **lot thật** (ký quỹ, stop-out, `
 | peterthomet/MetaTrader-5-and-4-Tools :: Breakout3.mq5 | GBPCAD H4 | 0.3 | -1.112 | 3.289 | 0 | 719.5 | -1.5 / 1.46 | TRUOT_LOC |
 | 97joseph/MultiCurrencyStrength :: Breakout2.mq5 | EURCAD H1 | 10.0 | 24.434 | 18.736 | 0 | 353.9 | -8.72 / 15.94 | ĐẠT |
 | kecoma1/Trading_BOT :: CloseOnCross.mq5 | GBPUSD H1 | 0.3 | 7.982 | 12.214 | 0 | 99.3 | 5.5 / 5.65 | TRUOT_LOC |
-| freqtrade/freqtrade-strategies :: user_data/strategies/berli | EURNZD H4 | 3.0 | 22.945 | 25.959 | 0 | 146.8 | 6.97 / 11.0 | ĐẠT |
-| freqtrade/freqtrade-strategies :: user_data/strategies/Strat | USDCAD H4 | 10.0 | 23.186 | 17.418 | 0 | 7.2 | 24.75 / 11.67 | ĐẠT |
-| freqtrade/freqtrade-strategies :: user_data/strategies/berli | EURNZD H1 | 1.0 | 13.026 | 63.666 | 0 | 51.8 | 12.18 / 5.75 | TRUOT_LOC |
-| freqtrade/freqtrade-strategies :: user_data/strategies/berli | GBPUSD H1 | 0.3 | 3.585 | 16.617 | 0 | 430.8 | -3.7 / 11.8 | TRUOT_LOC |
-| freqtrade/freqtrade-strategies :: user_data/strategies/berli | EURGBP H4 | 1.0 | 4.553 | 12.635 | 0 | 283.0 | 10.15 / 5.87 | TRUOT_LOC |
-| freqtrade/freqtrade-strategies :: user_data/strategies/Infor | EURUSD H4 | 0.3 | 0.208 | 10.247 | 0 | 433.7 | 1.95 / 4.44 | TRUOT_LOC |
-| freqtrade/freqtrade-strategies :: user_data/strategies/berli | USDCAD H4 | 30.0 | 41.343 | 55.159 | 0 | 148.5 | 48.5 / 48.36 | ĐẠT |
 | Tổ hợp: ma_ban_ema12_duoi_ema26_va_ema12_tre1_tr + DCA deu 0 | EURUSD H4 | 3.0 | 20.635 | 21.389 | 0 | 32.3 | 15.47 / 14.74 | ĐẠT |
-| Tổ hợp: ma_mua_ema20_tren_ema50_va_ema20_tre1_du + loc bien  | GBPCAD H1 | 10.0 | 112.636 | 62.064 | 0 | 33.0 | 36.29 / 28.79 | ĐẠT |
 | Tổ hợp: ma_ban_gio_tren_14_va_gio_duoi_18_va_rsi + loc gio 0 | EURGBP H4 | 1.0 | 4.903 | 9.952 | 0 | 22.0 | 5.31 / 1.62 | TRUOT_LOC |
-| Tổ hợp: ma_mua_close_tren_tuyen_tinh_va_gio_bang + loc bien  | EURCAD H4 | 1.0 | 16.517 | 18.898 | 0 | 71.2 | 6.11 / 14.9 | ĐẠT |
-| Tổ hợp: ma_mua_ema20_tren_ema50_va_ema20_tre1_du + loc xu hu | GBPCAD H1 | 1.0 | 16.603 | 14.23 | 0 | 67.9 | 19.79 / 12.61 | ĐẠT |
+| Tổ hợp: ma_ban_ema15_tre1_tren_ema100_tre1_va_em + loc xu hu | GBPUSD H1 | 3.0 | 16.807 | 27.369 | 0 | 20.8 | 16.14 / 27.37 | ĐẠT |
+| Tổ hợp: mua + loc gio 07-20 server + ql tp0.003 dca0.008x5 h | AUDNZD H1 | 3.0 | 17.147 | 42.472 | 0 | 56.9 | 37.83 / 10.68 | ĐẠT |
 | Tổ hợp: ma_ban_gio_tren_14_va_gio_duoi_18_va_rsi + loc bien  | AUDUSD H4 | 3.0 | 3.038 | 43.608 | 0 | 44.2 | 1.04 / 43.61 | TRUOT_LOC |
 | Tổ hợp: ma_ban_sma10_tre1_tren_sma30_tre1_va_sma + loc bien  | EURGBP H1 | 10.0 | 66.74 | 64.186 | 0 | 101.2 | 78.25 / 18.77 | ĐẠT |
 | Tổ hợp: ma_ban_ema21_duoi_ema50_va_ema50_duoi_em + ql tp0.00 | EURGBP H1 | 1.0 | 4.974 | 24.347 | 0 | 418.0 | 18.71 / 8.33 | TRUOT_LOC |
