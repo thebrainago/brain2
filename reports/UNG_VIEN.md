@@ -8,7 +8,7 @@ Mỗi hệ một dòng, số **đo thật** từ báo cáo MT5 real tick (`repor
 - **Phí:** spread và swap đã nằm trong báo cáo real tick. Hoa hồng trong báo cáo XM micro bằng 0, hoa hồng thật **CHƯA ĐO ĐƯỢC**.
 - **Trùng:** cùng thẻ + symbol + TF, hoặc cùng kết quả, chỉ đếm một lần.
 
-Cập nhật: 20/10/2026 11:43 (giờ máy chạy). Đếm (không trùng): ĐẠT 30, TRƯỢT 9, CHƯA ĐO ĐƯỢC 6; trùng bỏ 0.
+Cập nhật: 20/10/2026 20:01 (giờ máy chạy). Đếm (không trùng): ĐẠT 30, TRƯỢT 9, CHƯA ĐO ĐƯỢC 6; trùng bỏ 0.
 
 ## Bảng xếp hạng (ĐẠT, không trùng, theo %/năm kép)
 
@@ -17,15 +17,15 @@ Cập nhật: 20/10/2026 11:43 (giờ máy chạy). Đếm (không trùng): Đ�
 | 1 | od_skea44640140cc_XM_CSV | GBPCADmicro | H1 | 10075.87 | 138.61 | 364.38 | 45.83 | 616 | 2.77 | 1.03 | — |
 | 2 | od_tohop16b0d75bb149f634_XM_CSV | GBPCADmicro | H1 | 5078.62 | 92.19 | 183.84 | 55.87 | 127 | 2.76 | 0.97 | — |
 | 3 | od_skea0075f624b3_XM_CSV | GBPNZDmicro | H1 | 4922.39 | 91.25 | 179.43 | 52.77 | 139 | 2.74 | 1.02 | — |
-| 4 | od_skea0ca971ac32_XM_CSV | GBPNZDmicro | H4 | 4533.59 | 85.88 | 164.28 | 50.61 | 27 | 2.76 | 1.12 | ít lệnh (27 < 30) |
+| 4 | od_skea0ca971ac32_XM_CSV | GBPNZDmicro | H4 | 4533.59 | 85.88 | 164.28 | 50.61 | 27 | 2.76 | 1.13 | ít lệnh (27 < 30) |
 | 5 | od_skstadd3a54f8edcbce2_XM_CSV | EURUSDmicro | H1 | 1042.87 | 70.32 | 77.74 | 60.76 | 15 | 1.34 | 1.05 | ít lệnh (15 < 30); lịch sử ngắn (1.3 năm) |
-| 6 | od_mql5f3313c2c79f00c10_XM_CSV | EURGBPmicro | H4 | 3026.52 | 66.07 | 110.21 | 50.64 | 178 | 2.75 | 0.99 | — |
+| 6 | od_mql5f3313c2c79f00c10_XM_CSV | EURGBPmicro | H4 | 3026.52 | 66.07 | 110.21 | 50.64 | 178 | 2.75 | 1.03 | — |
 | 7 | od_skeaa7cd39087e_XM_CSV | GOLDmicro | H1 | 2665.71 | 59.96 | 96.40 | 60.59 | 351 | 2.77 | 0.69 | Python/MT5 0.69 ngoài 0,8–1,25 |
 | 8 | od_skeaff87f96be7_XM_CSV | GBPCADmicro | H1 | 2247.33 | 53.30 | 81.51 | 31.72 | 211 | 2.76 | 1.05 | — |
-| 9 | od_skea3279057100_XM_CSV | EURGBPmicro | H1 | 1779.61 | 44.73 | 64.36 | 64.02 | 203 | 2.77 | -0.56 | 10 lệnh còn mở bị đóng cuối kỳ; Python/MT5 -0.56 ngoài 0,8–1,25 |
+| 9 | od_skea3279057100_XM_CSV | EURGBPmicro | H1 | 1779.61 | 44.73 | 64.36 | 64.02 | 203 | 2.77 | -0.57 | 10 lệnh còn mở bị đóng cuối kỳ; Python/MT5 -0.57 ngoài 0,8–1,25 |
 | 10 | od_b0be91a35f43f34a_XM_CSV | USDCADmicro | H4 | 1684.11 | 43.95 | 62.13 | 58.65 | 46 | 2.71 | 0.95 | không đóng lệnh lỗ nào (PF vô hạn; DD vốn 59%) |
 | 11 | od_skea02906b7d6a_XM_CSV | GOLDmicro | H4 | 1496.80 | 39.22 | 54.13 | 70.34 | 180 | 2.77 | 0.13 | Python/MT5 0.13 ngoài 0,8–1,25 |
-| 12 | od_skea8897567020_XM_CSV | GBPNZDmicro | H1 | 1400.85 | 37.26 | 50.66 | 45.65 | 154 | 2.77 | 1.23 | — |
+| 12 | od_skea8897567020_XM_CSV | GBPNZDmicro | H1 | 1400.85 | 37.26 | 50.66 | 45.65 | 154 | 2.77 | 1.24 | — |
 | 13 | od_skstc21c2acd239f3c87_XM_CSV | EURUSDmicro | H1 | 525.66 | 37.01 | 39.18 | 49.71 | 20 | 1.34 | 1.01 | ít lệnh (20 < 30); lịch sử ngắn (1.3 năm) |
 | 14 | od_skea5049c79288_XM_CSV | GBPCADmicro | H4 | 1246.00 | 34.79 | 45.97 | 30.42 | 83 | 2.71 | 1.15 | — |
 | 15 | od_mql5fd4bc285e11ab5a1_XM_CSV | EURCHFmicro | H4 | 1106.60 | 30.96 | 40.06 | 49.29 | 138 | 2.76 | 0.76 | 5 lệnh còn mở bị đóng cuối kỳ; Python/MT5 0.76 ngoài 0,8–1,25 |
@@ -37,13 +37,13 @@ Cập nhật: 20/10/2026 11:43 (giờ máy chạy). Đếm (không trùng): Đ�
 | 21 | od_skea0806a3a5e5_XM_CSV | AUDNZDmicro | H1 | 829.37 | 24.41 | 29.99 | 25.88 | 29 | 2.77 | 0.95 | ít lệnh (29 < 30) |
 | 22 | od_skstaca366b679c75482_XM_CSV | EURUSDmicro | H1 | 339.41 | 24.39 | 25.35 | 18.20 | 15 | 1.34 | 0.96 | ít lệnh (15 < 30); lịch sử ngắn (1.3 năm); không đóng lệnh lỗ nào (PF vô hạn; DD vốn 18%) |
 | 23 | od_skeaaba30a4e06_XM_CSV | USDJPYmicro | H4 | 727.88 | 21.87 | 26.32 | 49.68 | 164 | 2.77 | 0.89 | — |
-| 24 | od_nhapcf8073245473d2a1_XM_CSV | EURGBPmicro | H4 | 687.05 | 20.82 | 24.85 | 67.75 | 188 | 2.77 | 1.33 | 10 lệnh còn mở bị đóng cuối kỳ; Python/MT5 1.33 ngoài 0,8–1,25 |
+| 24 | od_nhapcf8073245473d2a1_XM_CSV | EURGBPmicro | H4 | 687.05 | 20.82 | 24.85 | 67.75 | 188 | 2.77 | 1.34 | 10 lệnh còn mở bị đóng cuối kỳ; Python/MT5 1.34 ngoài 0,8–1,25 |
 | 25 | od_mql5b39a9f3ba216fb47_XM_CSV | CHFJPYmicro | H1 | 638.48 | 19.57 | 23.11 | 27.06 | 392 | 2.76 | 0.86 | 5 lệnh còn mở bị đóng cuối kỳ |
-| 26 | od_mql5a790e25e547f0b57_XM_CSV | AUDNZDmicro | H4 | 557.33 | 17.51 | 20.30 | 20.87 | 31 | 2.75 | 0.98 | — |
+| 26 | od_mql5a790e25e547f0b57_XM_CSV | AUDNZDmicro | H4 | 557.33 | 17.51 | 20.30 | 20.87 | 31 | 2.75 | 0.99 | — |
 | 27 | od_tohop09a3b2ddc3e78dc8_XM_CSV | EURUSDmicro | H4 | 492.82 | 15.59 | 17.82 | 32.00 | 69 | 2.77 | 1.41 | Python/MT5 1.41 ngoài 0,8–1,25 |
 | 28 | od_3304d2fad28adef6_XM_CSV | USDCADmicro | H4 | 408.78 | 14.15 | 15.78 | 40.16 | 64 | 2.59 | 1.86 | Python/MT5 1.86 ngoài 0,8–1,25 |
 | 29 | od_018dcb1347276c97_XM_CSV | EURNZDmicro | H4 | 365.94 | 12.13 | 13.43 | 18.45 | 76 | 2.72 | 0.96 | — |
-| 30 | od_skea0757c93eb3_XM_CSV | EURNZDmicro | H4 | 319.59 | 10.55 | 11.56 | 29.25 | 2 | 2.77 | 0.90 | ít lệnh (2 < 30); không đóng lệnh lỗ nào (PF vô hạn; DD vốn 29%) |
+| 30 | od_skea0757c93eb3_XM_CSV | EURNZDmicro | H4 | 319.59 | 10.55 | 11.56 | 29.25 | 2 | 2.77 | 0.91 | ít lệnh (2 < 30); không đóng lệnh lỗ nào (PF vô hạn; DD vốn 29%) |
 
 ## Tất cả
 
@@ -57,7 +57,7 @@ Cập nhật: 20/10/2026 11:43 (giờ máy chạy). Đếm (không trùng): Đ�
 | ĐẠT | od_mql5f3313c2c79f00c10_XM_CSV | mql5_f3313c2c79f00c10 | EURGBPmicro | H4 | 3026.52 | 66.07 | 110.21 | 50.64 | 4.32 | 178 | 0 | -811.59 | 2024.01.02–2026.10.01 | 100% real ticks |  |
 | ĐẠT | od_skeaa7cd39087e_XM_CSV | sk_ea_a7cd39087e | GOLDmicro | H1 | 2665.71 | 59.96 | 96.40 | 60.59 | 1.39 | 351 | 0 | -2461.95 | 2023.12.26–2026.10.01 | 99% real ticks | Python/MT5 0.69 ngoài 0,8–1,25 |
 | ĐẠT | od_skeaff87f96be7_XM_CSV | sk_ea_ff87f96be7 | GBPCADmicro | H1 | 2247.33 | 53.30 | 81.51 | 31.72 | 3.10 | 211 | 0 | 7.06 | 2023.12.29–2026.10.01 | 99% real ticks |  |
-| ĐẠT | od_skea3279057100_XM_CSV | sk_ea_3279057100 | EURGBPmicro | H1 | 1779.61 | 44.73 | 64.36 | 64.02 | 1.24 | 203 | 0 | -2009.05 | 2023.12.26–2026.10.01 | 99% real ticks | 10 lệnh còn mở bị đóng cuối kỳ; Python/MT5 -0.56 ngoài 0,8–1,25 |
+| ĐẠT | od_skea3279057100_XM_CSV | sk_ea_3279057100 | EURGBPmicro | H1 | 1779.61 | 44.73 | 64.36 | 64.02 | 1.24 | 203 | 0 | -2009.05 | 2023.12.26–2026.10.01 | 99% real ticks | 10 lệnh còn mở bị đóng cuối kỳ; Python/MT5 -0.57 ngoài 0,8–1,25 |
 | ĐẠT | od_b0be91a35f43f34a_XM_CSV | b0be91a35f43f34a | USDCADmicro | H4 | 1684.11 | 43.95 | 62.13 | 58.65 | 0.00 | 46 | 0 | 248.19 | 2024.01.15–2026.10.01 | 100% real ticks | không đóng lệnh lỗ nào (PF vô hạn; DD vốn 59%) |
 | ĐẠT | od_skea02906b7d6a_XM_CSV | sk_ea_02906b7d6a | GOLDmicro | H4 | 1496.80 | 39.22 | 54.13 | 70.34 | 1.26 | 180 | 0 | -2454.35 | 2023.12.26–2026.10.01 | 99% real ticks | Python/MT5 0.13 ngoài 0,8–1,25 |
 | ĐẠT | od_skea8897567020_XM_CSV | sk_ea_8897567020 | GBPNZDmicro | H1 | 1400.85 | 37.26 | 50.66 | 45.65 | 1.90 | 154 | 0 | -241.45 | 2023.12.26–2026.10.01 | 99% real ticks |  |
@@ -72,7 +72,7 @@ Cập nhật: 20/10/2026 11:43 (giờ máy chạy). Đếm (không trùng): Đ�
 | ĐẠT | od_skea0806a3a5e5_XM_CSV | sk_ea_0806a3a5e5 | AUDNZDmicro | H1 | 829.37 | 24.41 | 29.99 | 25.88 | 10.57 | 29 | 0 | -49.78 | 2023.12.26–2026.10.01 | 99% real ticks | ít lệnh (29 < 30) |
 | ĐẠT | od_skstaca366b679c75482_XM_CSV | sk_st_aca366b679c75482 | EURUSDmicro | H1 | 339.41 | 24.39 | 25.35 | 18.20 | 0.00 | 15 | 0 | -8.29 | 2025.01.30–2026.06.03 | 100% real ticks | ít lệnh (15 < 30); lịch sử ngắn (1.3 năm); không đóng lệnh lỗ nào (PF vô hạn; DD vốn 18%) |
 | ĐẠT | od_skeaaba30a4e06_XM_CSV | sk_ea_aba30a4e06 | USDJPYmicro | H4 | 727.88 | 21.87 | 26.32 | 49.68 | 2.07 | 164 | 0 | -273.00 | 2023.12.26–2026.10.01 | 99% real ticks |  |
-| ĐẠT | od_nhapcf8073245473d2a1_XM_CSV | nhap_cf8073245473d2a1 | EURGBPmicro | H4 | 687.05 | 20.82 | 24.85 | 67.75 | 1.42 | 188 | 0 | -905.01 | 2023.12.26–2026.10.01 | 99% real ticks | 10 lệnh còn mở bị đóng cuối kỳ; Python/MT5 1.33 ngoài 0,8–1,25 |
+| ĐẠT | od_nhapcf8073245473d2a1_XM_CSV | nhap_cf8073245473d2a1 | EURGBPmicro | H4 | 687.05 | 20.82 | 24.85 | 67.75 | 1.42 | 188 | 0 | -905.01 | 2023.12.26–2026.10.01 | 99% real ticks | 10 lệnh còn mở bị đóng cuối kỳ; Python/MT5 1.34 ngoài 0,8–1,25 |
 | ĐẠT | od_mql5b39a9f3ba216fb47_XM_CSV | mql5_b39a9f3ba216fb47 | CHFJPYmicro | H1 | 638.48 | 19.57 | 23.11 | 27.06 | 1.81 | 392 | 0 | -138.91 | 2023.12.27–2026.10.01 | 99% real ticks | 5 lệnh còn mở bị đóng cuối kỳ |
 | ĐẠT | od_mql5a790e25e547f0b57_XM_CSV | mql5_a790e25e547f0b57 | AUDNZDmicro | H4 | 557.33 | 17.51 | 20.30 | 20.87 | 24.36 | 31 | 0 | -29.33 | 2024.01.02–2026.10.01 | 100% real ticks |  |
 | ĐẠT | od_tohop09a3b2ddc3e78dc8_XM_CSV | to_hop_09a3b2ddc3e78dc8 | EURUSDmicro | H4 | 492.82 | 15.59 | 17.82 | 32.00 | 2.41 | 69 | 0 | 21.34 | 2023.12.26–2026.10.01 | 99% real ticks | Python/MT5 1.41 ngoài 0,8–1,25 |
