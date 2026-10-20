@@ -250,3 +250,36 @@ Mỗi dòng: giờ máy nhà (UTC+7) + việc. `chay_toi_nay.ps1` và `dich_llm_
 - 2026-10-20 20:44 [Grok, may nha] Da xac nhan 8236,7792,10464,8652,9452,1256 da tat (680 XM chinh con). Cho viec tang 2 tren p7 xong (20:38:30, ket qua da ghi) roi dung chay_lien_tuc 15308/6772 + terminal p7 vua phong (viec od_skea0e88e1df54_T1 duoc phong lai tren p1, khong mat ket qua). Chay lai chay_lien_tuc.py --den 07:00 tach roi, BRAIN_SLOTS=p1;p7;p3;p6;p4, BRAIN_UU_TIEN_CSV=1, PID 7136 (pid_mt5.txt). 20:44: 5/5 slot co terminal64 + metatester64, RAM trong ~9 GB.
 - 2026-10-20 20:46 [Grok, máy nhà] Kiểm 20:38: MT5 đã chạy 5 slot từ 20:38:38 (chay_lien_tuc PID 7136, khởi động lại có chủ đích bằng khoi_lai_mt5.ps1). Sửa lỗi khoá ong_dan_chay.lock: dieu_phoi_may_nha.py xoá khoá vô điều kiện khi lượt dịch xong, nên lúc 20:34 xoá mất khoá bước 6 vừa lấy, làm ong_dan chay và dich_llm chạy song song. Thêm _tha_khoa(pid) chỉ xoá khi khoá còn ghi PID của mình, kèm test test_dp_tha_khoa_chi_khi_dung_pid (43 passed). Mã mới có hiệu lực từ phiên sau, không khởi động lại bộ điều phối đang chạy. Ghi chú: trùng cổng agent 3001 giữa p7 và p3 lúc 20:39:04 làm một lượt tầng 1 hỏng, đã tự chạy lại được. Chi tiết trong QUAN_SAT_VAN_HANH_20_10.md.
 - 2026-10-20 20:53 [Grok, máy nhà] Sự cố do chính Grok gây ra khi push: `git pull --rebase --autostash` cất tạm cả `reports/mt5_lien_tuc/so_cai.jsonl` trong lúc chay_lien_tuc đang ghi, sổ cái bị lùi về bản commit khoảng 2 phút (20:47–20:49) nên vòng MT5 chạy lại 4 việc tầng 1 đã xong (0cc19095a9, 4d01476642, e52afb999eca4bd1, b5a04d7c15935f8b; tổng 351 giây slot). Đã khôi phục sổ cái (bản cất tạm cộng 4 dòng mới, 703 dòng, hợp lệ JSON), gắn lại nhánh main (rebase --quit để lại HEAD rời) và đẩy bằng merge thường (96f0b6ad). Từ nay trên máy nhà không dùng autostash hay rebase khi có tệp đang được ghi; chỉ dùng `git merge origin/main` khi upstream không chạm tệp bẩn.
+- 2026-10-20 20:54 [Claude, may nha] DO RAM: trong 0,8-1,7 GB / 31,9 GB (do 20:54). 5 metatester64 chiem ~22 GB (5,5/5,0/4,6/4,2/2,8 GB, real tick). muc_mt5.json: nang_moi=false (RAM < 4 GB -> khong phong viec nang moi, viec dang chay giu nguyen) = bo chan RAM cua quan_ly_slot dang hoat dong. Khong dong tien trinh nao. Claude dung vong cho nen (he thong bao thieu bo nho); tu day theo doi bang kiem tay, khong chay lai vong cho.
+- 2026-10-20 21:02:55 [vÃ²ng phiÃªn] bao_cao rc=0    daf0b2ce..baed0601  main -> main / 
+- 2026-10-20 21:05:05     |   "bo_loc": 325,
+- 2026-10-20 21:05:05     |   "moc_vung": 47,
+- 2026-10-20 21:05:05     |   "quan_li": 399,
+- 2026-10-20 21:05:05     |   "go_lenh": 91
+- 2026-10-20 21:05:05     |  }
+- 2026-10-20 21:05:05     | }
+- 2026-10-20 21:05:05 **Bước 6**: XONG (xem reports\ong_dan\TRANG_THAI.md)
+- 2026-10-20 21:05:05 **Bước 9 - Tải Dukascopy nền (ổ D/E, ưu tiên thấp)**: BẮT ĐẦU
+- 2026-10-20 21:05:05   nền: dukascopy PID 3028 (ưu tiên Normal) - dừng bằng: Stop-Process -Id 3028
+- 2026-10-20 21:05:05 **Bước 9**: nền -> E:\du_lieu_chuan (script tự dừng khi ổ trống < 15 GB)
+- 2026-10-20 21:05:05 **Bước 10 - Seeker: nguồn box bị chặn IP + E:\brain2_nhap**: BẮT ĐẦU
+- 2026-10-20 21:05:05   nguồn box không lấy được: arxiv,quantconnect,rss_fh_financial_hacker,rss_reddit_quant,rss_gestaltu
+- 2026-10-20 21:05:05   chạy: python.exe seeker_quet_nguon.py --chi arxiv,quantconnect,rss_fh_financial_hacker,rss_reddit_quant,rss_gestaltu --ep
+- 2026-10-20 21:05:14     |   "tong_hop": {
+- 2026-10-20 21:05:14     |    "ROBOTS.TXT CẤM — không đọc": 1,
+- 2026-10-20 21:05:14     |    "ĐỌC ĐƯỢC": 1
+- 2026-10-20 21:05:14     |   }
+- 2026-10-20 21:05:14     |  }
+- 2026-10-20 21:05:14     | }
+- 2026-10-20 21:05:14   E:\brain2_nhap: 2 tệp
+- 2026-10-20 21:05:14   chạy: python.exe ong_dan.py nhan
+- 2026-10-20 21:05:37     | nhan: 0 the moi (tong 8508)
+- 2026-10-20 21:05:37   chạy: python.exe ong_dan.py phan_loai
+- 2026-10-20 21:05:38     | phan_loai: 0 the
+- 2026-10-20 21:05:38   chạy: python.exe ong_dan.py quyet_dinh
+- 2026-10-20 21:05:40     | quyet_dinh: 0 the
+- 2026-10-20 21:05:40 **Bước 10**: seeker rc=0; nhan rc=0; phan_loai rc=0; quyet_dinh rc=0
+- 2026-10-20 21:05:40 **Bước 8 - ong_dan.py doc_mt5**: BẮT ĐẦU
+
+- 2026-10-20 21:15 [Grok, máy nhà] SỰ CỐ ai-box HẾT QUOTA: từ ~20:58 mọi lần gọi LLM trả HTTP 403 insufficient_user_quota (kiểm từ box 21:06: số dư -144,6 đ, cả qwen3.7-max lẫn kimi-k2.7-code). dieu_phoi phóng lại dich_llm mỗi ~1 phút (rc=0), 6 lượt 20:58-21:11 ghi 1.067 lỗi LOI_LLM lên 575 thẻ, 492 thẻ đã lên dich_llm_loi_lan=2 (thêm 1 lần nữa là BO_QUA vĩnh viễn). Không dừng được bộ điều phối (PID 1524 quyền admin, Access denied) nên sửa code: cau_llm.goi trả CHUA_CHAY_DUOC kèm HET_QUOTA khi mọi model đã thử đều hết quota (không tính lỗi cho thẻ), dich_llm bỏ qua phần còn lại của lượt, `ong_dan.py dich_llm` trả rc=3 để dieu_phoi nghỉ 15 phút rồi nhường Python. Lượt 21:11 chạy mã mới: chua_chay_duoc 200, loi_llm 0, chỉ 8 lần gọi, rc=3, nghỉ tới 21:27. Đã trả lại dich_llm_loi_lan cho 575 thẻ (trừ đúng số lỗi quota tối nay, còn 0, BO_QUA 0). Test test_nang_cap_20_10.py: 44 passed (thêm test_het_quota_khong_tinh_loi_llm_va_dung_luot). CẦN ANH NẠP QUOTA ai-box; nạp xong dich_llm tự chạy lại ở lượt kế (tối đa 15 phút).
+- 2026-10-20 21:15 [Grok, máy nhà] MT5: 5 slot chạy lại từ 21:04 (p1, p7, p3 tầng 2; p6, p4 tầng 1). 20:56-21:04 p4 rỗi 8 phút, p3 6 phút vì hàng tầng 1 XM trống (hang_cho_mt5.jsonl chỉ mới có 6 việc tầng 1 XM lúc 21:03:54). Ứng viên ĐẠT tăng 30 (20:01) lên 33 (21:02).

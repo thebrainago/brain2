@@ -160,6 +160,13 @@ def _http(url: str, headers: dict, body: bytes, timeout: float) -> tuple[int, di
         return 0, str(e)[:300]
 
 
+#: 20/10/2026 21:10 (may nha): lan goi gan nhat bi tu choi vi HET QUOTA (402/403/429-quota) o MOI model da thu.
+#: goi() tra CHUA_CHAY_DUOC (loi khong do the -> KHONG tinh LOI_LLM / BO_QUA) va ghi vao day; dich_llm.buoc_dich_llm
+#: xoa dau luot, thay co -> bo qua phan con lai cua luot va ong_dan.py dich_llm tra rc=3 (dieu_phoi nghi roi lam Python).
+#: Su co that 20/10 21:00: ai-box het quota -> 4 luot lien tiep ~470 the bi dem LOI_LLM, se thanh BO_QUA sau 3 lan.
+HET_QUOTA: dict = {}
+
+
 def _het_quota(ma: int, tho: str) -> bool:
     t = str(tho).lower()
     return ma in (402, 403) or (ma == 429 and any(x in t for x in ("quota", "insufficient", "balance", "het han", "limit exceeded")))
@@ -183,6 +190,7 @@ def goi(nguoi_dung: str, he_thong: str | None = None, model: str | None = None, 
     if d.get("model_du_phong") and d["model_du_phong"] not in ds_model:
         ds_model.append(d["model_du_phong"])
     ghi = []
+    quota_m = []
     chi_5xx = bool(c.get("chi_du_phong_khi_5xx"))
     for i_m, m in enumerate(ds_model):
         if i_m and chi_5xx and not any((" HTTP 5" in g or " HTTP 0:" in g) for g in ghi if g.startswith(ds_model[i_m - 1] + " ")):
@@ -223,6 +231,7 @@ def goi(nguoi_dung: str, he_thong: str | None = None, model: str | None = None, 
             THONG_KE["so_lan_loi"] += 1
             ghi.append("%s HTTP %s: %s" % (m, ma, _che(kq if isinstance(kq, str) else json.dumps(kq)[:200], d["khoa"])[:160]))
             if _het_quota(ma, kq if isinstance(kq, str) else json.dumps(kq)):
+                quota_m.append(m)
                 if i_m + 1 < len(ds_model):
                     THONG_KE["doi_du_phong"] += 1
                 break                                   # sang model du phong, khong thu lai cung model
@@ -237,6 +246,11 @@ def goi(nguoi_dung: str, he_thong: str | None = None, model: str | None = None, 
             if so_loi_khac >= max(1, int(c.get("so_lan_thu_lai", 3))):
                 break                                   # loi khac 429: giu so lan thu lai cu
             time.sleep(min(2 ** lan, 8) if client is _http else 0)
+    da_thu = {g.split(" ", 1)[0] for g in ghi}
+    if quota_m and da_thu and da_thu <= set(quota_m):
+        HET_QUOTA.update(luc=time.strftime("%Y-%m-%dT%H:%M:%S"), ghi_chu=" | ".join(ghi)[-300:])
+        return {"trang_thai": "CHUA_CHAY_DUOC", "van_ban": "", "model": ds_model[-1], "token_vao": 0, "token_ra": 0,
+                "ghi_chu": "HET_QUOTA: " + " | ".join(ghi)[-380:]}
     return {"trang_thai": "LOI", "van_ban": "", "model": ds_model[-1], "token_vao": 0, "token_ra": 0,
             "ghi_chu": " | ".join(ghi)[-400:]}
 

@@ -491,6 +491,7 @@ def buoc_dich_llm(cn, gioi_han: int | None = None, luong: int = 4, in_ra=print, 
     if gioi_han is not None:
         ds = ds[:int(gioi_han)]
     tk0 = {k: v for k, v in LLM.THONG_KE.items() if k != "theo_model"}
+    LLM.HET_QUOTA.clear()
     dem = {"cho": tong_cho, "thieu_ma": len(thieu_ma), "lam": 0, "goi_moi": 0, "tu_cache": 0, "dat": 0, "hong": 0,
            "loi_llm": 0, "bo_qua": 0, "chua_chay_duoc": 0, "cham_tran_token": 0, "ly_do_hong": {}}
     if not co:
@@ -520,6 +521,10 @@ def buoc_dich_llm(cn, gioi_han: int | None = None, luong: int = 4, in_ra=print, 
 
     def _lam(h):
         v = viec[h]
+        if LLM.HET_QUOTA:                       # 20/10/2026: het quota giua luot -> khong goi tiep, the giu nguyen
+            with _KHOA:
+                kq_h[h] = ({"trang_thai": "CHUA_CHAY_DUOC", "ghi_chu": "HET_QUOTA - bo qua luot"}, False)
+            return
         try:
             d, tu_c = dich_mot(v["vb"], v["nn"], h, client=client, c=c, df=df, nguon_gia=nguon_gia)
         except Exception as e:  # noqa: BLE001 - mot the loi khong duoc lam sap ca luot (19/10/2026)
@@ -606,6 +611,8 @@ def buoc_dich_llm(cn, gioi_han: int | None = None, luong: int = 4, in_ra=print, 
                 "doi_du_phong": tk1["doi_du_phong"], "so_lan_loi_http": tk1["so_lan_loi"],
                 "token_suy_luan": tk1.get("token_suy_luan", 0), "token_vao_cache": tk1.get("token_vao_cache", 0),
                 "so_lan_429": tk1.get("so_lan_429", 0)})
+    if LLM.HET_QUOTA:
+        dem["het_quota"] = str(LLM.HET_QUOTA.get("ghi_chu") or "het quota")[:300]
     CACHE.mkdir(parents=True, exist_ok=True)
     with open(CACHE / "nhat_ky.jsonl", "a", encoding="utf-8") as f:
         f.write(json.dumps({"luc": time.strftime("%Y-%m-%dT%H:%M:%S"), "dem": dem, "the": nk}, ensure_ascii=False) + "\n")

@@ -30,3 +30,27 @@ Ghi bởi Grok Bot (routine "Canh máy nhà đêm 20/10"), mỗi lần kiểm th
 6. **Giảm phí dịch:** khoảng 25.800 token cho mỗi thẻ dịch đạt (2.763.611 token / 107). KHONG_RA_SPEC_PY chiếm 69/200 thẻ, ước khoảng 34 % token của lượt. Nên xem lại prompt hoặc lọc trước những thẻ không có mã cơ chế để bớt gọi thừa.
 
 **Bài học git trên máy nhà (20:53):** không dùng `pull --rebase --autostash` khi vòng MT5 đang chạy. Autostash làm `so_cai.jsonl` lùi 2 phút, khiến 4 việc tầng 1 bị chạy lại (351 giây slot). Đề xuất: tách các tệp sổ cái, báo cáo chạy liên tục ra khỏi cây git (ghi vào `data/` rồi chỉ sao chép vào `reports/` lúc báo cáo), để mọi lần pull hay push trên máy nhà luôn có cây sạch.
+
+
+## Lần kiểm 21:01-21:15
+
+**Ảnh chụp tài nguyên:** 21:01 CPU 8-9 % (chỉ 3 metatester tầng 2), RAM trống 9,3 / 31,9 GB, ổ trống C 19,1 GB, D 20,2 GB, E 196,1 GB. 21:12 có 5 việc MT5: CPU 18 %, RAM trống 3,9 GB (bộ điều phối hạ muc_mt5 về tong=0, việc đang chạy giữ nguyên).
+
+**Hàng MT5:** sổ cái 710 dòng lúc 21:01 (703 lúc khôi phục 20:53). Từ 20:47 đến 21:02 xong 9 lượt tầng 1 (7 QUA, 2 TRUOT, 63-246 s mỗi lượt) và 2 lượt tầng 2 real tick (od_skea0ab4d307d3 944 s, od_mql525573694a7f03d3a 1158 s). UNG_VIEN.md: ĐẠT 30 (20:01) lên 33 (21:02).
+
+**Slot rỗi vì hết việc tầng 1 XM:** 20:56:18-21:04:12 p4 rỗi 8 phút, p3 rỗi 6 phút (tới 21:02:18), p6 rỗi 2 phút. Lúc đó `sinh_viec.lay_viec(san='XM', chi_tang1=True)` trả 0 việc; trong hang_cho_mt5.jsonl có 144 việc ống dẫn thì 72 là Exness (máy này không có slot Exness nên không bao giờ chạy). Việc tầng 1 mới chỉ xuất hiện khi `ong_dan chay` ghi lại hang_cho_mt5.jsonl lúc 21:03:54 (6 việc XM). CPU chỉ 8-9 % trong khoảng đó.
+
+**Số đo bộ điều phối gây hiểu nhầm:** su_dung.jsonl luôn ghi hang_mt5 = 200 (đếm có trần, gồm khoảng 2.830 việc cũ không phải ống dẫn), nên Seeker luôn bị chặn với lý do "MT5 200 việc" trong khi việc tầng 1 XM sẵn sàng thật chỉ 0-6. slot_tong ghi 4 trong khi chay_lien_tuc chạy 5 slot (p7 không được đếm).
+
+**Dịch LLM (số thật từ dp_dich_llm.out.txt):**
+- Lượt 2 (20:34-20:57, 1400 s): 200 thẻ, ĐẠT 68, HỎNG 132 (KHONG_RA_SPEC_PY 114 = 57 %), 225 lần gọi, 1.655.430 token vào + 914.201 token ra, tức khoảng 37.800 token cho mỗi thẻ ĐẠT (lượt 1 khoảng 25.800).
+- Lượt 3 (20:57-21:05): 164 thẻ, 144 lấy từ cache (bản sửa dùng lại cache khác model chạy đúng), ĐẠT 100, 56 lần gọi, 116.384 vào + 90.894 ra; token suy luận 74.472 = 82 % token ra.
+- **Sự cố hết quota ai-box từ ~20:58:** HTTP 403 insufficient_user_quota (số dư -144,6 đ, kiểm 21:06). 6 lượt 20:58-21:11, mỗi lượt ~1 phút, ghi 1.067 lỗi LOI_LLM lên 575 thẻ, 492 thẻ lên loi_lan=2. Model dự phòng cũng 403 (cùng tài khoản). Đã sửa code (hết quota thì CHUA_CHAY_DUOC, dừng lượt, rc=3, điều phối nghỉ 15 phút) và trả lại loi_lan cho 575 thẻ. Trong lúc lặp dich_llm hỏng, ô ống dẫn (khoá ong_dan_chay.lock) bị chiếm nên Python (toi_uu, loc, sinh_mt5, nguồn việc tầng 1) không được chạy từ bộ điều phối.
+- Không dừng được bộ điều phối để đổi cấu hình: tiến trình chạy quyền admin, shell của Grok không có quyền (Access denied), và dieu_phoi_may_nha.py chỉ đọc config/dieu_phoi.json lúc khởi động.
+
+### Đề xuất
+1. **Nạp quota ai-box** (chỉ Anh làm được) và đặt cảnh báo số dư: trước mỗi lượt dich_llm gọi thử 1 lần rẻ; hết quota thì nghỉ và báo, thay vì đốt lượt.
+2. **Bộ điều phối đọc lại config/dieu_phoi.json mỗi chu kỳ** (hoặc theo mtime), để tắt hay bật một bước chỉ cần sửa tệp, không phải giết tiến trình admin.
+3. **Giảm token suy luận của qwen3.7-max:** 82 % token ra ở lượt 3 là suy luận. Thử A/B 20 EA với `tham_so_them` (tắt thinking hoặc đặt thinking_budget) xem tỷ lệ ĐẠT có giữ được không trước khi bật.
+4. **Lọc trước thẻ khó ra spec:** KHONG_RA_SPEC_PY chiếm 57 % lượt 2. Bỏ qua trước khi gọi LLM các tệp không có hàm vào lệnh (OnTick/OrderSend/strategy.entry) hoặc chỉ là thư viện, chỉ báo.
+5. **Nuôi hàng tầng 1 XM liên tục:** khi số việc tầng 1 XM sẵn sàng thấp hơn số slot rỗi, ưu tiên ô ống dẫn chạy Python (sinh_mt5) trước dịch. Không sinh việc Exness trên máy này (hoặc tách hàng riêng) để số đếm hàng phản ánh đúng. Thay hang_mt5 = 200 bằng số việc tầng 1 / tầng 2 của sàn XM.

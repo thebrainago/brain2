@@ -541,7 +541,8 @@ def test_du_phong_chi_khi_5xx(monkeypatch):
     assert r["trang_thai"] == "OK" and goi == ["manh", "manh", "manh2"]
     goi.clear()
     r = LLM.goi("x", client=cl(lambda m: (403, "quota exceeded") if m == "manh" else ok), c=c)
-    assert r["trang_thai"] == "LOI" and goi == ["manh"]                 # het quota: KHONG lui sang model khac
+    assert r["trang_thai"] == "CHUA_CHAY_DUOC" and "HET_QUOTA" in r["ghi_chu"] and goi == ["manh"]  # het quota: KHONG lui model khac, khong tinh loi cho the
+    LLM.HET_QUOTA.clear()
 
 
 def test_ab_voi_client_gia(monkeypatch):
@@ -725,3 +726,17 @@ def test_dp_tha_khoa_chi_khi_dung_pid(tmp_path, monkeypatch):
     DP._tha_khoa(14000)          # khoa hong / rong -> xoa duoc
     assert not k.exists()
     DP._tha_khoa(1)              # khong co khoa -> khong loi
+
+
+def test_het_quota_khong_tinh_loi_llm_va_dung_luot(monkeypatch, tmp_path):
+    """20/10/2026 21:00: ai-box het quota (403 insufficient_user_quota) -> the KHONG bi dem LOI_LLM / BO_QUA, luot dung."""
+    monkeypatch.setenv("AIBOX_API_KEY", "khoa-gia-test")
+    cn = _moi_truong(monkeypatch, tmp_path)
+    _the(cn, tmp_path, "q", "MARKER_Q", "q.py")
+    cl = _Cl((403, {"error": {"message": "insufficient user quota", "code": "insufficient_user_quota"}}))
+    for _ in range(DL.SO_LAN_TOI_DA + 1):
+        r = DL.buoc_dich_llm(cn, client=cl, in_ra=lambda *a: None)
+        assert r.get("het_quota") and r["loi_llm"] == 0 and r["chua_chay_duoc"] >= 1 and r["bo_qua"] == 0
+    t = {t["id"]: t for t, *_ in OD.cac_the(cn)}["q"]
+    assert (t.get("dich_llm") or {}).get("trang_thai") not in ("BO_QUA", "HONG") and not t.get("dich_llm_loi_lan")
+    LLM.HET_QUOTA.clear()
