@@ -177,6 +177,11 @@ def ghi_bao_cao(r: dict) -> None:
         d += ["| Model | ĐẠT | JSON hợp lệ | Tỉ lệ ĐẠT | Giây/mẫu | Token ra TB | Chạm trần token |", "|---|---|---|---|---|---|---|"]
         d += ["| %s | %d/%d | %d | %s%% | %s | %s | %d |" % (x["model"], x["dat"], x["so_mau"], x["ok_json"], x["ti_le_dat_pct"],
                                                          x["giay_tb"], x["token_ra_tb"], x["cham_tran"]) for x in r["ab"]]
+        d += ["", "Lý do hỏng theo nhóm (bộ kiểm của dich_llm):", ""]
+        d += ["- %s: %s" % (x["model"], ", ".join("%s %d" % kv for kv in sorted((x.get("ly_do_hong") or {}).items(), key=lambda z: -z[1])) or "—")
+              for x in r["ab"]]
+    if r.get("ghi_chu"):
+        d += ["", r["ghi_chu"]]
     else:
         d.append("A/B: CHƯA ĐO ĐƯỢC (%s)" % r.get("ly_do", ""))
     KQ_MD.write_text("\n".join(d) + "\n", encoding="utf-8")

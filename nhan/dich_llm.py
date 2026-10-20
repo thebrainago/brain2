@@ -110,9 +110,9 @@ def danh_sach_cho(cn) -> list[dict]:
     return ra
 
 
-def gia_mau(cfg: dict | None = None, n: int = 12000) -> tuple[pd.DataFrame, str]:
-    """20/10/2026: 3000 -> 12000 nen (~2 nam): A/B model cho thay IT_LENH (< 3 lenh tren 3000 nen H1) la nhom hong lon
-    nhat (6-9/20) du spec dung - he luoi/dot pha it vao lenh. Gia de kiem: n nen H1 cuoi cua ma dau tien co du lieu; khong co -> buoc ngau nhien co dinh hat giong (ghi ro)."""
+def gia_mau(cfg: dict | None = None, n: int = 3000) -> tuple[pd.DataFrame, str]:
+    """20/10/2026: da thu 12000 nen - dau ra A/B cua 5 model cho KET QUA Y HET 3000 nen (IT_LENH la do tin hieu 0 lenh
+    that, khong do it du lieu) -> giu 3000. Gia de kiem: n nen H1 cuoi cua ma dau tien co du lieu; khong co -> buoc ngau nhien co dinh hat giong (ghi ro)."""
     from nhan import ong_dan as OD
     try:
         cfg = cfg or OD.cau_hinh()

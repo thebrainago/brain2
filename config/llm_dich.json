@@ -1,7 +1,7 @@
 {
  "_ghi_chu": "20/10/2026 09:56 (chu du an): dich_llm dung MOT model manh co dinh, hieu qua hon chi phi. 'model' de rong = CHUA CHON (dang lui ve config/qwen.json: qwen3.7-flash). May nha chay `python nhan/chon_model_llm.py` dau phien: GET /v1/models (khoa AIBOX_API_KEY / cc-switch, KHONG in), loc theo 'uu_tien', A/B tren 'so_mau' EA, ghi model thang vao day + reports/ong_dan/CHON_MODEL_LLM.md. Khong lui ve flash; du phong chi khi model chinh loi 5xx/mang (chi_du_phong_khi_5xx). Tep nay thang config/qwen.json cho buoc dich; he `q` van doc qwen.json.",
- "model": "",
- "model_du_phong": "",
+ "model": "qwen3.7-max",
+ "model_du_phong": "kimi-k2.7-code",
  "chi_du_phong_khi_5xx": true,
  "temperature": 0,
  "max_tokens": 32000,
@@ -10,18 +10,37 @@
  "so_lan_thu_429": 6,
  "tran_ma": 60000,
  "uu_tien": [
+  "^qwen3(\\.[0-9])?-max",
+  "^kimi-k[0-9.]+-code",
+  "^ds/deepseek-v[0-9.]+-pro",
   "^deepseek-v3\\.[0-9]",
   "^deepseek-chat$",
-  "^deepseek-v3$",
+  "^glm-[0-9.]+$",
   "^qwen3(\\.[0-9])?-coder(-plus)?$",
-  "^qwen3(\\.[0-9])?-max",
+  "^kimi-k[0-9.]+$",
   "^qwen-max",
-  "^deepseek-r1",
-  "^deepseek-reasoner",
-  "^qwen3(\\.[0-9])?-plus",
-  "^qwen-plus",
-  "^qwen3(\\.[0-9])?-235b"
+  "^qwen3(\\.[0-9])?-plus"
  ],
- "loai_tru": ["flash", "turbo", "mini", "lite", "nano", "vl", "embed", "tts", "audio", "image", "ocr", "omni"],
- "ab": {"so_ung_vien": 3, "so_mau": 20, "luong": 4, "han_giay_moi_mau": 900}
+ "loai_tru": [
+  "flash",
+  "turbo",
+  "mini",
+  "lite",
+  "nano",
+  "vl",
+  "embed",
+  "tts",
+  "audio",
+  "image",
+  "ocr",
+  "omni"
+ ],
+ "ab": {
+  "so_ung_vien": 3,
+  "so_mau": 20,
+  "luong": 4,
+  "han_giay_moi_mau": 900
+ },
+ "chon_luc": "2026-10-20T10:32:37",
+ "_ghi_chu_chon": "20/10/2026 ~10:20 do tren box (that, 20 EA: 10 EA > 16.000 ky tu + 10 EA ngan, prompt + bo kiem dich_llm that): qwen3.7-max DAT 7/20 52s/mau; kimi-k2.7-code 7/20 90s; ds/deepseek-v4-pro 6/20 128s. glm-5.3 / qwen3.7-flash: CHUA DO DUOC (het quota ai-box giua chung). Bang day du: reports/ong_dan/CHON_MODEL_LLM.md."
 }

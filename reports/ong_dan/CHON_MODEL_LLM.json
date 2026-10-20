@@ -1,0 +1,75 @@
+{
+ "luc": "2026-10-20T10:25:00",
+ "ghi_chu_liet_ke": "đo trên box (khoá chủ dự án cấp qua biến môi trường, không ghi ra). Lượt A/B thứ hai (10:40) hỏng: ai-box trả HTTP 403 'insufficient user quota, remaining: 0.0 đ' — không dùng số lượt đó; glm-5.3 và qwen3.7-flash chưa đo được trọn 20 mẫu",
+ "tat_ca_model": [
+  "ds/deepseek-v4-pro",
+  "ds/deepseek-flash",
+  "qwen3.8-max",
+  "qwen3.7-max",
+  "qwen3.7-plus",
+  "kimi-k2.7-code",
+  "kimi-k3",
+  "glm-5.3",
+  "glm-5.3-prime"
+ ],
+ "ung_vien": [
+  "kimi-k2.7-code",
+  "glm-5.3",
+  "qwen3.7-max",
+  "ds/deepseek-v4-pro"
+ ],
+ "so_mau": 20,
+ "ab": [
+  {
+   "model": "ds/deepseek-v4-pro",
+   "so_mau": 20,
+   "dat": 6,
+   "ok_json": 20,
+   "ti_le_dat_pct": 30.0,
+   "giay_tb": 128.4,
+   "token_ra_tb": 10219,
+   "cham_tran": 0,
+   "ly_do_hong": {
+    "IT_LENH": 8,
+    "KHONG_RA_SPEC_PY": 3,
+    "PY_LOI_CHAY": 1,
+    "PY_CAM_CU_PHAP": 2
+   }
+  },
+  {
+   "model": "kimi-k2.7-code",
+   "so_mau": 20,
+   "dat": 7,
+   "ok_json": 19,
+   "ti_le_dat_pct": 35.0,
+   "giay_tb": 89.8,
+   "token_ra_tb": 9726,
+   "cham_tran": 0,
+   "ly_do_hong": {
+    "IT_LENH": 6,
+    "KHONG_RA_SPEC_PY": 3,
+    "SPEC_KHONG_CHAY": 3,
+    "LOI_LLM": 1
+   }
+  },
+  {
+   "model": "qwen3.7-max",
+   "so_mau": 20,
+   "dat": 7,
+   "ok_json": 20,
+   "ti_le_dat_pct": 35.0,
+   "giay_tb": 52.1,
+   "token_ra_tb": 4559,
+   "cham_tran": 0,
+   "ly_do_hong": {
+    "IT_LENH": 9,
+    "KHONG_RA_SPEC_PY": 1,
+    "SPEC_KHONG_CHAY": 2,
+    "PY_CAM_CU_PHAP": 1
+   }
+  }
+ ],
+ "thang": "qwen3.7-max",
+ "du_phong": "kimi-k2.7-code",
+ "ghi_chu": "Mẫu: 10 EA dài hơn 16.000 ký tự (trước đây bị cắt mất OnTick) và 10 EA ngắn, lấy theo thứ tự sha1 từ hàng chờ dịch trên box. Mỗi model chạy 5 lời gọi song song, max_tokens 32000, timeout 600 giây. Box không có lịch sử dịch, nên không xác định được thẻ nào đã hỏng trước đây. Sau lượt đo, đã sửa lỗi hộp cát (KeyError '__import__' khi numpy gọi import từ C). Kiểm lại đầu ra đã lưu: với qwen3.7-max, lỗi này làm hỏng oan 1 mẫu. Nhóm IT_LENH (0 lệnh trên giá mẫu) không đổi khi tăng giá mẫu lên 12.000 nến, nên nguyên nhân là tín hiệu thật sự ra 0 lệnh chứ không phải do thiếu dữ liệu."
+}

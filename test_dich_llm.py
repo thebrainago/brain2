@@ -53,9 +53,11 @@ def test_cau_hinh_qwen_truoc_tri_tue(tmp_path):
                                                                "max_tokens": 32000, "timeout_giay": 600, "temperature": 0}))
     c = LLM.cau_hinh(tmp_path)
     assert (c["model"], c["model_du_phong"], c["max_tokens"], c["timeout_giay"]) == ("qwen3.7-flash", "qwen3.6-flash", 32000, 600)
-    # cau hinh that cua repo: dung model chinh / du phong nhu chu du an dat
+    # cau hinh that cua repo: 20/10/2026 chu du an khoa MOT model manh trong config/llm_dich.json (khong lui ve flash)
     r = LLM.cau_hinh()
-    assert r["model"] == "qwen3.7-flash" and r["model_du_phong"] == "qwen3.6-flash" and r["temperature"] == 0
+    ld = json.loads((Path(LLM.GOC) / "config" / "llm_dich.json").read_text(encoding="utf-8"))
+    assert r["model"] == ld["model"] and "flash" not in r["model"] and "flash" not in (r["model_du_phong"] or "")
+    assert r["temperature"] == 0 and r["max_tokens"] >= 16000
 
 
 def test_thu_tu_lay_khoa(tmp_path, monkeypatch):

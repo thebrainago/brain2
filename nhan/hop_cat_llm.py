@@ -164,6 +164,18 @@ def _main(thu_muc: str) -> None:                       # chay BEN TRONG tien tri
         cat = json.loads((p / "cat.json").read_text(encoding="utf-8"))
         ma = (p / "ma.py").read_text(encoding="utf-8")
         bi = {k: getattr(builtins, k) for k in BUILTIN_CHO if hasattr(builtins, k)}
+        # 20/10/2026: numpy/pandas goi PyImport_Import tu C (vd np.dot -> dispatch) bang __import__ cua FRAME hien tai
+        # -> KeyError '__import__' du ma LLM khong import gi (A/B model: hong ca ham WMA dung). Ma LLM van KHONG
+        # import duoc (kiem_ast cam Import/ImportFrom); __import__ nay chi tra module numpy/pandas/thu vien chuan an toan.
+        _that = builtins.__import__
+
+        def _nhap_noi_bo(ten, *a, **k):
+            goc = str(ten).split(".")[0]
+            if goc in ("numpy", "pandas", "math", "datetime", "warnings", "functools", "operator", "collections",
+                       "numbers", "decimal", "re") or goc.startswith("_"):
+                return _that(ten, *a, **k)
+            raise ImportError("hop cat: cam import %s" % ten)
+        bi["__import__"] = _nhap_noi_bo
         g = {"__builtins__": bi, "np": np, "pd": pd, "math": math, "__name__": "llm"}
         exec(compile(ma, "<llm>", "exec"), g)          # noqa: S102 - da qua kiem_ast, builtins rut gon, tien trinh rieng
 
