@@ -417,9 +417,19 @@ def quan_li_tu(x: dict, von: float) -> TK.QuanLi:
                      trail_kich_pct=float(x.get("trail_kich_pct", 0.0)), trail_khoang_pct=float(x.get("trail_khoang_pct", 0.0)))
 
 
+def _ma_rieng(t: dict) -> list:
+    """Danh sach MA (symbol) rieng cua the. 20/10/2026 21:30: the python_llm luu MA NGUON Python o tin_hieu["ma"]
+    (chuoi) -> truoc day bi hieu la danh sach symbol (tung ky tu) -> mau_thu tra None, MOI the python_llm CHUA_DO_DUOC."""
+    th = t.get("tin_hieu") or {}
+    r = th.get("ma")
+    if th.get("kieu") == "python_llm" or not isinstance(r, (list, tuple)):
+        return []
+    return list(r)
+
+
 def mau_thu(t: dict, rng: random.Random, cfg: dict) -> dict | None:
     co = ma_co_du_lieu(cfg)
-    rieng = (t.get("tin_hieu") or {}).get("ma")          # the gan voi ma cu the (vd statement) -> chi ma do
+    rieng = _ma_rieng(t)                                 # the gan voi ma cu the (vd statement) -> chi ma do
     if rieng:
         co = [m for m in co if m in set(rieng)]
         if not co:
@@ -559,7 +569,7 @@ def buoc_toi_uu(cn, toi_da: int | None = None, ngan_sach: int | None = None, in_
             if g.get("ma") in ma_co_du_lieu(cfg):
                 hat.append(json.loads(json.dumps(g)))
         if t.get("ql_goi_y"):                           # phep thu dau: quan li DO NGUOC tu statement
-            for ma in [m for m in ((t.get("tin_hieu") or {}).get("ma") or []) if m in ma_co_du_lieu(cfg)][:2]:
+            for ma in [m for m in _ma_rieng(t) if m in ma_co_du_lieu(cfg)][:2]:
                 q = {k: v[0] for k, v in KHONG_GIAN_QL.items()}
                 q.update(dca_toi_da=0, hedge_khi_lo_pct=0.0, lot_tren_1000=1.0)
                 q.update(t["ql_goi_y"])
@@ -583,9 +593,9 @@ def buoc_toi_uu(cn, toi_da: int | None = None, ngan_sach: int | None = None, in_
             cu[khoa] = {"thu": thu, "kq": r}
             lam += 1
         tot = max(cu.values(), key=lambda z: diem(z["kq"])) if cu else None
-        if tot is None and (t.get("tin_hieu") or {}).get("ma"):
+        if tot is None and _ma_rieng(t):
             tot = {"thu": {"ma": None, "khung": None, "tham": {}, "ql": {}},
-                   "kq": {"loi": "CHUA_DO_DUOC: box khong co du lieu gia cho %s" % ",".join(t["tin_hieu"]["ma"])}}
+                   "kq": {"loi": "CHUA_DO_DUOC: box khong co du lieu gia cho %s" % ",".join(_ma_rieng(t))}}
         with cn:
             _luu(cn, t, "toi_uu", "DA_TOI_UU", {"tot_nhat": tot, "so_thu": len(cu)})
             _ghi_nk(cn, "toi_uu", t["id"], "thu moi %d, tong %d" % (lam, len(cu)))
