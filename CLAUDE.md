@@ -9,6 +9,11 @@
 
 # HUONG DAN CHO CLAUDE CODE — lab/ (THE BRAIN)
 
+## CHIA VIEC MAY NHA (20/10/2026, chu du an duyet)
+
+Claude: chay hang MT5 + script tren may nha (DESKTOP-05PNLGF). Grok Bot: sua repo, theo doi, bao cao. Ai sua tep tren may nha
+ghi `may_nha_toi_nay/NHAT_KY.md` TRUOC khi sua; commit nho, `git pull --rebase` truoc khi push. Chi tiet: `may_nha_toi_nay/GIAO_VIEC_CLAUDE.md` muc 7.
+
 ## LUAT SO 0 — DOI CHIEU SO DO TRUOC MOI PHIEN (chot 12/09/2026)
 
 **Nguon duy nhat cua CAU TRUC he thong la `Desktop/hethong.txt`**, ban chep dong bo

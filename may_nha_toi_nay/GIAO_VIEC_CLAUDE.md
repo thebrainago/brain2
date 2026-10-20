@@ -7,6 +7,8 @@ chú thích trong mã viết không dấu. Làm **lần lượt bước 0 → 11
 Script làm sẵn gần hết việc: `may_nha_toi_nay\chay_toi_nay.ps1` (gọi qua `chay_toi_nay.bat`). Việc của bạn là
 chạy nó theo từng bước, đọc log, **sửa chỗ hỏng** (nhất là lỗi biên dịch EA ở bước 4), và viết tóm tắt sáng.
 
+> **20/10/2026:** đọc mục 7 (chia việc Claude/Grok, hoà giải `chay_lien_tuc.py`, biến môi trường, bộ điều phối) trước bước 0.
+
 ---
 
 ## 1. Bối cảnh — đọc trước
@@ -47,9 +49,7 @@ chạy nó theo từng bước, đọc log, **sửa chỗ hỏng** (nhất là l
 9. Thư mục `data/`, `reports/SEEKER_*`, `reports/URL_BI_CHAN.md` thuộc tác vụ Seeker: chỉ để các script Seeker ghi, không sửa tay.
 10. Không `git stash` khi còn tiến trình nền đang ghi vào repo.
 
-**Điều kiện dừng / giảm tải:** khi chủ dự án **đang chơi game** (danh sách trong `mt5tools/dieu_phoi_song_song.py`, ví dụ
-Valorant, LoL, CS2) thì giảm tải: script tự chờ trước các bước nặng, hàng MT5 tự hạ số slot, dịch nền chờ hết game.
-Bạn không mở thêm việc nặng nào trong lúc đó.
+**Điều kiện dừng / giảm tải (sửa 20/10/2026 09:50):** KHÔNG còn giảm tải theo game. Máy chạy The Brain hết sức, hoặc tắt hẳn bằng `TAT_THE_BRAIN.bat`. Giới hạn duy nhất: RAM trống ≥ 4 GB, CPU < 95%, sàn ổ C/D 6 GB.
 
 ---
 
@@ -219,3 +219,43 @@ hệ nào qua lọc cuối (DD ≤ 80%, ≥ 10%/năm sau phí) — **chỉ số 
 - Hộp cát chạy mã LLM trên Windows **không** có giới hạn bộ nhớ/CPU hay cách ly thư mục (chỉ trên Linux). Đã chặn thêm
   đường gọi phương thức theo tên chuỗi (`.apply("to_csv", ...)`), nhưng vẫn coi mã LLM là mã lạ: không chạy bằng tay ngoài hộp cát.
 - Số liệu tối ưu cũ trong `trang_thai.sqlite` tính bằng PHÍ TẠM; sau bước 3 thẻ mới tính bằng phí ĐO → `tot_nhat` có thể trộn hai loại.
+
+---
+
+## 7. Cập nhật 20/10/2026 (Grok Bot) — đọc TRƯỚC phiên tối nay
+
+### 7.1 Chia việc (chủ dự án duyệt)
+- **Claude (máy nhà):** chạy hàng MT5 và các script trên máy nhà (`chay_toi_nay.ps1`), sửa lỗi cục bộ khi chạy.
+- **Grok Bot (box):** sửa mã trong repo, theo dõi, viết báo cáo, đẩy lên `main`.
+- **Ai sửa một tệp NGAY TRÊN máy nhà thì phải ghi vào `may_nha_toi_nay/NHAT_KY.md` TRƯỚC khi sửa:** giờ, tên tệp, lý do. Sau đó commit nhỏ và `git pull --rebase` trước khi push. Không sửa đè việc của người kia.
+
+### 7.2 Hoà giải `mt5tools/chay_lien_tuc.py` sửa cục bộ đêm 19/10
+Đêm 19/10 trên máy nhà có bản sửa cục bộ, đã sao lưu ở `E:\brain2_sao_luu\chay_lien_tuc.py.claude_23h45`. Bản trong `main` hôm nay đã viết lại phần slot/ổ đĩa/tầng. Làm theo thứ tự:
+1. `git stash push mt5tools/chay_lien_tuc.py -m "claude_19_10"`, rồi `git pull --rebase`.
+2. `git diff stash@{0} -- mt5tools/chay_lien_tuc.py` (hoặc so với tệp sao lưu) để xem bản cục bộ đã thêm gì.
+3. Ý nào chưa có trong bản mới (đường slot, xoá REP khi đầy ổ, …) thì đưa vào bằng biến môi trường ở mục 7.3, không sửa cứng. Phải sửa mã thì ghi NHAT_KY trước, kèm test.
+4. `git stash drop` chỉ sau khi đã đối chiếu xong.
+
+### 7.3 Biến môi trường (mặc định trong ngoặc)
+| Biến | Ý nghĩa |
+|---|---|
+| `BRAIN_SLOTS` (`D:\mt5_tester\p1;C:\mt5_tester\p7;E:\mt5_tester\p3;E:\mt5_tester\p6;E:\mt5_tester\p4`) | Thứ tự slot. `chay_toi_nay.ps1` xuất sẵn biến này. |
+| `BRAIN_O_SSD` (`C,D`) / `BRAIN_SAN_TRONG_GB` (6) / `BRAIN_SAN_TRONG_HDD_GB` (3) | Sàn chỗ trống. Thiếu chỗ thì dọn theo bậc (log → tick → lịch sử). Vẫn thiếu thì bỏ slot đó. |
+| `BRAIN_RAM_MIN_GB` (4) / `BRAIN_RAM_TANG2_GB` (6) | RAM tối thiểu để mở việc mới. |
+| `BRAIN_HAI_TANG` (1), `BRAIN_TANG1_MODEL` (1 = OHLC M1), `BRAIN_TANG1_SLOT` (5), `BRAIN_TANG2_SLOT` (3) | Lọc hai tầng. |
+| `BRAIN_TANG1_DD_MAX` (95), `BRAIN_TANG1_NET_MIN` (0) | Ngưỡng qua tầng 1. |
+| `BRAIN_LANH_DIR` (`E:\lanh_tu_D\rep`) | Nơi chuyển `.htm` cũ đến lúc đầu phiên. |
+| `BRAIN_REP_DIR`, `BRAIN_LOG_LIEN_TUC` | Đường dẫn báo cáo / log của `chay_lien_tuc`. |
+| `BRAIN_MUC_MT5` | Tệp mức slot do `dieu_phoi_may_nha.py` ghi (mặc định `data\dieu_phoi\muc_mt5.json`). |
+
+### 7.4 Việc cần làm tối nay
+1. `pip install psutil` (bộ điều phối và chặn RAM cần nó).
+2. Chuyển thư mục tải về của Seeker sang ổ E (xem `tai_lieu/ONG_DAN.md`, mục "Bộ điều phối"): dừng Seeker, `robocopy data\seeker_da_nguon\tai_ve E:\brain2_seeker\tai_ve /E /MOVE`, rồi `mklink /J data\seeker_da_nguon\tai_ve E:\brain2_seeker\tai_ve`. Ghi NHAT_KY.
+3. Bật bằng `may_nha_toi_nay\BAT_THE_BRAIN.bat` (tương đương `chay_toi_nay.bat` và xoá cờ tắt). Tắt bằng `TAT_THE_BRAIN.bat`: tắt êm, chỉ dừng PID ống dẫn, không đụng XM chính hay Claude. Không còn giảm tải khi chủ dự án chơi game. Máy chạy hết sức: ưu tiên Normal, CPU tới 95%, slot MT5 theo RAM. Khi chạy:
+   - Bước 12 mở `vong_phien.ps1`. Nó viết báo cáo mỗi 60 phút và khởi động `dieu_phoi_may_nha.py`, nên Seeker và dich_llm chạy theo tài nguyên, không còn cố định 2 giờ.
+   - Bước 5 chỉ dịch thử rồi giao phần còn lại cho bộ điều phối.
+4. `ong_dan.py dich_llm` chạy lại sẽ tự kiểm lại các thẻ cache cũ bằng bộ chuẩn hoá mới, không tốn lượt gọi. Lượt gọi mới dùng prompt phiên 2. Sáng mai ghi vào KET_QUA_SANG: tỉ lệ ĐẠT và bảng nhóm lý do trong `reports/ong_dan/DICH_LLM.md`.
+5. Chạy lại 3 việc EURUSD# (`od_skst299b0817f66d4096`, `od_skst48a4616b10a6ff9c`, `od_skst4ac0c7fd10781af4`): `ong_dan.py doc_mt5` ghi `reports/ong_dan/chay_lai_mt5.json`, rồi `sinh_viec` tự đưa chúng vào lại hàng với symbol `EURUSDmicro`.
+6. Bước 11 giờ tự đặt danh tính git nếu thiếu và báo đúng khi commit/push hỏng. Kiểm tra `git log -1` sau phiên.
+7. Thử bộ điều phối không chạy gì: `python may_nha_toi_nay\dieu_phoi_may_nha.py --mot_lan --kho`. Xem `data\dieu_phoi\nhat_ky.jsonl`.
+8. Bước 13 (mới) chọn model LLM mạnh cố định. Nếu nó báo CHƯA CHỌN ĐƯỢC: chạy `python nhan\chon_model_llm.py --chi_liet_ke`, chép **tên model** (không chép khoá) vào KET_QUA_SANG, rồi sửa `uu_tien` trong `config\llm_dich.json` cho khớp. Ghi NHAT_KY trước khi sửa.

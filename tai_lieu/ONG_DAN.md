@@ -206,3 +206,68 @@ Khoá ai-box chỉ có trên máy nhà. Box **không** giữ khoá, không đọ
   - Trường `tep_box` và `set_box` ghi đường dẫn trong `data/` trên box.
 - Gói cho máy nhà: `python3 ong_dan.py goi` tạo `/workspace/goi_may_nha/goi_ea_ngoai_<ngày>.zip`, nằm ngoài git. Gói giữ nguyên cấu trúc `data/...`, kèm các `.mqh` được `#include`, `MANIFEST.json` và `HUONG_DAN.md`. Giải nén vào gốc repo trên máy nhà.
 - Chạy nền theo đợt ngắn, chạy tiếp được: `nohup bash chay_nen_ong_dan.sh "12 16 20" 30 > /dev/null 2>&1 &`, log ghi vào `data/ong_dan/nen.log`. `toi_uu --lam-lai` mở lại các thẻ còn thiếu phép thử. Bị ngắt thì chạy lại đúng lệnh đó.
+
+## Bộ điều phối tài nguyên máy nhà (20/10/2026)
+
+`may_nha_toi_nay/dieu_phoi_may_nha.py` được `vong_phien.ps1` (bước 12 của `chay_toi_nay.ps1`) khởi động. Nó xoay vòng ba loại việc, mỗi chu kỳ `chu_ky_giay` (60 giây):
+
+| Việc | Tài nguyên | Khi nào chạy |
+|---|---|---|
+| MT5 tester (`mt5tools/chay_lien_tuc.py`) | RAM, IO đĩa — ưu tiên 1 | Luôn chạy. Bộ điều phối chỉ ghi `data/dieu_phoi/muc_mt5.json` (tổng việc / real tick). `quan_ly_slot.slot_toi_da()` lấy mức nhỏ hơn giữa mức này và biến môi trường (tệp cũ hơn 10 phút thì bỏ qua). |
+| dich_llm (`ong_dan.py dich_llm --gioi_han 200`) | Mạng/LLM, nhẹ | Liên tục, song song MT5, khi còn thẻ chờ dịch. Hết việc hoặc lỗi thì nghỉ 15 phút. |
+| Seeker (`seeker_quet_nguon.py` → `ong_dan nhan/phan_loai/quyet_dinh` → dọn thô) | Mạng + ghi đĩa | Chỉ khi hàng MT5 < `hang_mt5_duoi` **hoặc** thẻ chưa dịch < `the_chua_dich_duoi`, **và** ổ thật của `thu_muc_tai_ve` còn > `o_toi_thieu_gb`, **và** chưa vượt `gb_tong_toi_da`. Tải quá `gb_moi_luot` thì dừng lượt. |
+
+- **Mức slot theo RAM:** gọi `R` là RAM trống. Tổng việc = slot đang bận + ⌊(R − 4)/1,2⌋ (tối đa 5). Việc real tick = slot đang bận + ⌊(R − 4)/2,5⌋ (tối đa 3). RAM < 4 GB thì không mở việc nặng mới. CPU ≥ 92% thì không thêm việc.
+- **Không giảm tải theo game** (chủ dự án, 09:50 ngày 20/10/2026). Máy chỉ có hai trạng thái: chạy The Brain hết sức, hoặc tắt hẳn.
+  - Tiến trình chạy ưu tiên Normal (không còn BelowNormal/Idle). CPU được dùng tới `cpu_cao_pct` (95%).
+  - MT5 dùng mọi slot trong `BRAIN_SLOTS`, miễn RAM còn đủ. Chặn RAM 4 GB chỉ để chống swap và sập máy.
+  - dich_llm chạy `luong` = 8 lời gọi song song. Khi gặp 429 (giới hạn tốc độ), `cau_llm.goi` lùi chờ 5→10→20…60 giây, thử tới `so_lan_thu_429` (6) lần và ghi `so_lan_429`. Khi hết quota (402/403/429 kèm "quota"), chuyển sang model dự phòng.
+  - Sàn ổ C/D vẫn là 6 GB, dữ liệu lớn để trên E.
+- **Bật / tắt:**
+  - `may_nha_toi_nay\BAT_THE_BRAIN.bat`: xoá cờ rồi chạy `chay_toi_nay.bat` với mọi bước.
+  - `may_nha_toi_nay\TAT_THE_BRAIN.bat`: tắt êm, theo thứ tự:
+    1. Tạo cờ `TAT_THE_BRAIN.co`. `chay_lien_tuc` ngừng mở việc mới, việc đang chạy có tối đa 20 phút để xong. Hết hạn thì chỉ giết tester do chính nó mở. `dieu_phoi_may_nha` và `vong_phien` thoát vòng.
+    2. Chờ tối đa 30 phút (`-ChoPhut`).
+    3. Chỉ dừng các PID ghi trong `pid_*.txt` và `pid\*.pid` của log phiên, và chỉ khi tiến trình đó là python hoặc powershell.
+
+    Script không bao giờ dừng terminal XM chính hay Claude.
+- **Khoá:** dich_llm và ong_dan nhan dùng chung `may_nha_toi_nay/log/ong_dan_chay.lock` (PID) với bước 6 và `dich_llm_nen.ps1`. Không bao giờ hai tiến trình cùng ghi `trang_thai.sqlite`. Khi bộ điều phối bật, bước 5 không mở thêm `dich_llm_nen.ps1`.
+- **Dọn thô** (`don_tho`), chạy sau khi nhan xong. Xoá các tệp cũ hơn 30 phút thuộc một trong ba loại:
+  - tệp nén/thô `.zip .rar .7z .gz .bi5…`;
+  - nhị phân lớn hơn 5 MB không phải mã;
+  - tệp trùng sha1.
+
+  Không xoá tệp nào là `nguon.tep`, `sets` hoặc `ea_lien_quan` của thẻ trong CSDL.
+- **Ổ HDD E cho Seeker:** dừng Seeker, chuyển `data\seeker_da_nguon\tai_ve` sang `E:\brain2_seeker\tai_ve`, rồi `mklink /J data\seeker_da_nguon\tai_ve E:\brain2_seeker\tai_ve`. Đường dẫn tương đối của thẻ giữ nguyên, và bộ điều phối đo chỗ trống trên ổ thật (realpath).
+- **Nhật ký:**
+  - `data/dieu_phoi/nhat_ky.jsonl`: mỗi quyết định đổi kèm lý do.
+  - `data/dieu_phoi/su_dung.jsonl`: mỗi chu kỳ một mẫu CPU/RAM/ổ/slot bận.
+  - `bao_cao_phien.py` in bảng "Sử dụng tài nguyên 60 phút qua" và 8 quyết định gần nhất.
+- **Cần** `pip install psutil` trên máy nhà. Thiếu psutil thì CPU/RAM ghi CHƯA ĐO ĐƯỢC và giữ mức slot cấu hình.
+- **Thử không chạy gì:** `python may_nha_toi_nay/dieu_phoi_may_nha.py --mot_lan --kho`.
+
+## Lọc MT5 hai tầng, đối chiếu Python↔MT5 (20/10/2026)
+
+- **Tầng 1:**
+  - Model=1 (OHLC M1), tên việc `<ten>_T1`, tối đa `BRAIN_TANG1_SLOT` (5) slot.
+  - Báo cáo đặt ở `reports/ong_dan/ket_qua_mt5/tang1/`, không xuất CSV.
+  - Qua khi net > `BRAIN_TANG1_NET_MIN` (0) **và** DD < `BRAIN_TANG1_DD_MAX` (95%).
+- **Tầng 2:** việc đã qua tầng 1 chạy real tick (Model=4), tối đa `BRAIN_TANG2_SLOT` (3), được cộng +300 điểm ưu tiên.
+- **Lãi MT5 khi đối chiếu** lấy net trong `.htm` (gồm cả stop-out), không cộng từ CSV.
+- **Symbol báo cáo khác symbol việc** (vd `EURUSD#` so với `EURUSDmicro`):
+  - gắn kết luận `SAI_SYMBOL` (CHƯA ĐO ĐƯỢC);
+  - lot quy đổi ×100 (hợp đồng chuẩn so với micro);
+  - việc được ghi vào `reports/ong_dan/chay_lai_mt5.json`, và `sinh_viec` bỏ các dòng sổ cái cũ của nó để chạy lại.
+- **%/năm** tính theo kỳ in trong báo cáo (Period). Thêm cột `lai_kep_pct_nam`.
+- **Mô phỏng Python (MÔ PHỎNG):**
+  - cặp chéo quy đổi lãi về USD bằng `tien_moi_1_gia_lot_min` đo được;
+  - không vào lại trong cùng nến vừa chạm TP/trailing khi bật `mot_ro_moi_chieu`;
+  - đòn bẩy lấy theo `san_mt5.XM.don_bay` (500).
+
+## Model LLM cố định cho dich_llm (20/10/2026)
+
+- `config/llm_dich.json` là cấu hình dịch, thắng `config/qwen.json`. Các trường: `model`, `model_du_phong`, `chi_du_phong_khi_5xx`, `max_tokens` 32000, `timeout_giay` 900, `tran_ma` 60000 ký tự, `temperature` 0, `uu_tien` (regex), `loai_tru`, `ab`. Khi `model` để rỗng, dịch vẫn dùng `qwen.json` (flash).
+- `python nhan/chon_model_llm.py`: GET `/models` (không in khoá) → xếp hạng → A/B 3 ứng viên × 20 EA mẫu cố định (theo thứ tự sha1). Chọn model có số ĐẠT cao nhất; hoà thì chọn model nhanh hơn. Kết quả ghi vào `config/llm_dich.json` và `reports/ong_dan/CHON_MODEL_LLM.{json,md}`. Các tuỳ chọn: `--chi_liet_ke`, `--neu_cu_hon_gio 24`, `--so_mau N`.
+- Bước 13 của `chay_toi_nay.ps1` chạy script này mỗi ngày một lần. `bao_cao_phien.py` in model đang dùng và bảng A/B.
+- Đổi model thì thẻ HONG cũ (nhóm lỗi phía ta) vào lại hàng. Cache spec của model khác bị gọi lại nếu có khoá.
+- Đang khoá (20/10/2026, A/B thật trên box): `qwen3.7-max`, dự phòng 5xx/timeout `kimi-k2.7-code`. Số đo xem `reports/ong_dan/CHON_MODEL_LLM.md`.

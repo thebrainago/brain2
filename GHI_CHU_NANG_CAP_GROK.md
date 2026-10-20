@@ -7,6 +7,83 @@
 > **Tài khoản Grok Bot mới:** đọc `START_HERE.md` → `BAN_GIAO_GROK.md` → `GHI_CHU_NANG_CAP_GROK.md`. Không secret trong git.
 
 
+## 20/10/2026 (giờ VN) — Sửa dich_llm, khớp Python↔MT5, lọc MT5 hai tầng, ổ đĩa, báo cáo phiên, bộ điều phối (Grok Bot)
+
+Mọi số dưới đây là số đo trên box từ dữ liệu có sẵn trong repo. Các số Python là MÔ PHỎNG. Chưa gọi LLM thật, vì khoá chỉ có trên máy nhà.
+
+**A1. Vì sao dich_llm hỏng nhiều (189 lần gọi, 721k token vào / 1,45M token ra, chỉ 1 lần LOI_LLM ⇒ HONG gần như toàn do bộ kiểm phía ta):**
+- Prompt và `kiem_spec` cho phép `cat_len/cat_xuong`, nhưng engine `ngu_phap` chỉ biết `cheo_len/cheo_xuong`. Hậu quả: mọi spec giao cắt đều hỏng với lỗi "phep so sanh khong biet".
+- Các phép biến đổi (zscore/cao_nhat/doi…) thiếu `cua` thì hỏng.
+- Hộp cát cấm chuỗi `'open'` (`df['open']`), các dòng import np/pd, f-string và try.
+- Mã bị cắt đầu 16.000 ký tự: trong 3158 EA dài hơn mức đó, 708 EA mất OnTick. Hàm `rut_gon_ma` mới giữ được OnTick ở 3016/3158 EA.
+- Đã sửa: `PHIEN_PROMPT=2`, `chuan_hoa_spec` (bí danh phép/chiều/chỉ báo, thiếu `cua` thì lấy giá đóng cửa), prompt ghi đúng tên phép, hộp cát nới các điểm trên (vẫn cấm os/io/HDFStore/thuộc tính `.open`…), `rut_gon_ma`.
+- Thống kê hỏng theo nhóm (`nhom_ly_do`). LOI_LLM 3 lần thì chuyển BO_QUA. HONG chỉ quay lại hàng khi phiên prompt mới hơn và lý do thuộc nhóm lỗi phía ta. Không có khoá thì vẫn kiểm lại các thẻ có cache.
+- Hàng chờ lớn lên vì nó gồm mọi EA MQL mà bộ dịch không-LLM bỏ qua (3659/3858 ở lượt 4) và còn tăng mỗi khi Seeker nhận thẻ mới. Mỗi lượt xử lý tối đa 200 thẻ.
+
+**A2/A3. Vì sao Python lệch MT5 khoảng 2 lần:**
+- Cặp chéo không quy đổi lãi về USD. Ví dụ lệnh GBPNZD: Python +303, MT5 +190, NZDUSD ≈ 0,567.
+- Python vào lại ngay tại open của nến vừa chạm TP trong nến (35 lệnh so với 27).
+- Ví dụ od_skea0ca971ac32: Python 12.296 → 5.100 sau sửa, MT5 4.591 (htm 4.533,59).
+- Trên 45 việc:
+
+| Chỉ số | Trước sửa | Sau sửa |
+|---|---|---|
+| Trung vị tỉ lệ khớp | 66,7% | 82,8% |
+| Trung vị Py/MT5 | 1,14 | 0,99 |
+| Trung vị \|lệch lãi\| | 557 USD | 155 USD |
+| Tổng lệch | 52.548 | 17.139 |
+
+- 13 việc có net trong `.htm` âm (cháy, stop-out) trong khi tổng CSV dương. Lãi MT5 giờ lấy net từ `.htm`.
+- 3 việc chạy nhầm `EURUSD#` (hợp đồng chuẩn): od_skst299b0817f66d4096, od_skst48a4616b10a6ff9c, od_skst4ac0c7fd10781af4. Đã gắn SAI_SYMBOL, nhân lot ×100 khi đối chiếu (khớp 55,6/66,7/88,7%), ghi `reports/ong_dan/chay_lai_mt5.json` để chạy lại.
+- %/năm tính theo kỳ trong báo cáo (Period), thêm cột lãi kép.
+- Phần lệch còn lại: tỉ giá quy đổi cố định (~-9%), giỏ/DCA lệch sau stop-out, tài khoản cháy (giá EA xuất ra dừng sớm).
+
+**B/C.** Lọc MT5 hai tầng (`sinh_viec.lay_viec(hai_tang=…)`):
+- Tầng 1 chạy OHLC M1, tối đa 5 slot.
+- Qua tầng 1 thì sang tầng 2 real tick (tối đa 3 slot, +300 điểm). Trượt tầng 1 thì bỏ.
+
+`mt5tools/quan_ly_slot.py` mới:
+- Cấu hình bằng biến môi trường BRAIN_*. Sàn ổ SSD 6 GB, dọn theo bậc, dọn sau mỗi việc.
+- Đầu phiên chuyển htm cũ sang `E:\lanh_tu_D`. Chặn khi RAM < 4 GB.
+
+**D.** `mt5tools/bao_cao_phien.py` sinh `reports/phien/PHIEN_<ngày>.md` và `reports/UNG_VIEN.md`, và chỉ đẩy hai loại tệp này lên git. Bản sinh từ dữ liệu 19/10: 45 hệ, ĐẠT 32, TRƯỢT 10, CHƯA ĐO ĐƯỢC 3 (EURUSD#).
+
+**E.** Robots: `QuyTacRobots` theo RFC 9309. `Disallow: /?` giờ chỉ cấm URL có `?` ngay sau `/`, không còn cấm cả site earnforex. Có tôn trọng Crawl-delay.
+
+**Bộ điều phối (chủ dự án 09:31):** `may_nha_toi_nay/dieu_phoi_may_nha.py` + `config/dieu_phoi.json` thay cho "Seeker mỗi 2 giờ":
+- MT5 được ưu tiên RAM: ghi `data/dieu_phoi/muc_mt5.json`, và `quan_ly_slot.slot_toi_da` lấy mức nhỏ hơn.
+- dich_llm chạy liên tục song song.
+- Seeker chỉ chạy khi hàng MT5 < 20 hoặc thẻ chưa dịch < 40, và ổ thư mục tải về còn > 20 GB. Trần 3 GB/lượt, 60 GB tổng.
+- Sau `nhan` thì xoá tệp thô không thẻ nào trỏ tới.
+- **09:50:** bỏ hẳn giảm tải theo game. Chạy hết sức: ưu tiên Normal, CPU tới 95%, MT5 lấy mọi slot RAM cho phép (chặn 4 GB chỉ để chống swap), dich_llm 8 luồng, gặp 429 thì lùi 5–60 giây.
+- Thêm `BAT_THE_BRAIN.bat` và `TAT_THE_BRAIN.bat`. Tắt êm: đặt cờ, chờ việc MT5 xong (tối đa 20 phút), chỉ dừng PID ống dẫn đã ghi, không đụng terminal XM chính hay Claude.
+- Mọi quyết định ghi `data/dieu_phoi/nhat_ky.jsonl`. % sử dụng hiện trong báo cáo phiên mỗi giờ.
+
+**Model LLM (09:56):** `config/llm_dich.json` + `nhan/chon_model_llm.py`, chạy trên máy nhà ở bước 13, trước bước 5. Tệp `config/qwen.json` vẫn giữ nguyên cho hệ `q`.
+- Script gọi `GET /v1/models` bằng khoá đặt tại chỗ và không in khoá ra. Nó lọc model theo danh sách ưu tiên (deepseek-v3.x/chat → qwen3-coder → qwen3-max/qwen-max → deepseek-r1 → qwen-plus) và loại flash/mini/vl…
+- Sau đó A/B 3 ứng viên trên 20 EA mẫu cố định, rồi khoá model thắng vào cấu hình. Dự phòng là ứng viên thứ hai, chỉ dùng khi model chính lỗi 5xx; hết quota thì không lùi sang model khác.
+- Cấu hình: max_tokens 32000, timeout 900 giây, giữ tối đa 60.000 ký tự mã (trước là 16.000), temperature 0.
+- Thẻ HONG dịch bằng model cũ (flash) mà lý do thuộc nhóm lỗi phía ta sẽ được dịch lại bằng model mới.
+- **A/B thật trên box (10:05–10:20, khoá chủ dự án cấp qua biến môi trường, không ghi ra).** 20 EA từ hàng chờ (10 EA > 16.000 ký tự, 10 EA ngắn), dùng đúng prompt và bộ kiểm của dich_llm:
+
+| Model | ĐẠT | JSON hợp lệ | Thời gian/mẫu |
+|---|---|---|---|
+| qwen3.7-max | 7/20 | 20/20 | 52 giây |
+| kimi-k2.7-code | 7/20 | 19/20 | 90 giây |
+| ds/deepseek-v4-pro | 6/20 | 20/20 | 128 giây |
+
+- **Đã khoá `qwen3.7-max`.** Dự phòng `kimi-k2.7-code`, chỉ dùng khi model chính lỗi 5xx hoặc timeout.
+- Lý do hỏng chủ yếu là IT_LENH (tín hiệu ra 0 lệnh): 6–9 trên 20 mẫu. Thử giá mẫu 12.000 nến cho kết quả y hệt nên đã hoàn lại 3.000 nến. Còn lại là "không biểu diễn được" (grid nhiều cặp, cầu nối, chỉ báo ngoài).
+- Từ đầu ra đã lưu, tìm thêm và sửa một lỗi hộp cát: numpy gọi import từ C (`np.dot`) nên gây KeyError `__import__`. Giờ có `__import__` nội bộ chỉ cho numpy/pandas và thư viện chuẩn an toàn.
+- glm-5.3 và qwen3.7-flash: CHƯA ĐO ĐƯỢC. Lượt A/B thứ hai bị ai-box trả HTTP 403 "insufficient user quota, remaining: 0.0 đ". **Hết quota thì dich_llm trên máy nhà cũng dừng (LOI_LLM) cho tới khi nạp thêm.**
+
+**Chưa làm / CHƯA ĐO ĐƯỢC:**
+- Chưa gọi LLM thật, nên tỉ lệ đạt dịch sau sửa CHƯA ĐO ĐƯỢC.
+- Bộ tải repo/zip/Dukascopy của Seeker không nằm trong repo, nên phần "khử trùng trước khi tải" chưa gắn vào bộ tải. Hiện chỉ khử trùng sau khi tải (sha1).
+- Cần psutil trên máy nhà: thiếu psutil thì RAM/CPU ghi CHƯA ĐO ĐƯỢC.
+- Script PS1 mới kiểm cú pháp bằng PowerShell 7 trên box, chưa chạy thật trên Windows.
+- Test: `test_nang_cap_20_10.py`.
+
 ## 19/10/2026 23:30 (gio VN) - Seeker may nha: nguon EA hoan chinh moi (Grok Bot)
 
 - config/nguon_seeker.json: +8 nguon (303 -> 311): gh_topic_expert_advisor, gh_topic_mt5_ea, gh_search_mql4_ea_backtest, gh_search_mql5_ea_backtest, gh_search_gold_ea, gh_search_pine_backtest_fx (GitHub search API cong khai, khong token), gh_earnforex_repos (api.github.com/users/EarnForex/repos), earnforex_ea (https://www.earnforex.com/metatrader-expert-advisors/).
