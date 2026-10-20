@@ -58,3 +58,24 @@ Ghi bởi Grok Bot (routine "Canh máy nhà đêm 20/10"), mỗi lần kiểm th
 **Bổ sung 21:20 - metatester mồ côi:** QUA GIO chỉ kill terminal64, metatester64 con (PID 8448, p1) chạy tiếp 4 phút sau đó với 5,98 GB RAM, kéo RAM trống xuống 3,9 GB và chặn mọi việc mới (muc tong=0). Ngoài ra p1 bị phóng việc mới (21:10:31) trong khi metatester cũ vẫn chạy trên cùng thư mục. Đã giết đúng PID và sửa mã (giet_cay). Việc tầng 2 dài nhất đo được tối nay: 944 s, 1158 s, và od_skea0e88e1df54 > 1807 s (quá hạn, chạy lại).
 
 6. **Hạn giờ tầng 2 theo độ dài kỳ và số tick** thay cho 1800 s cố định: việc H1 2,77 năm real tick đã chạy 944-1807 s khi 3 tầng 2 chạy song song. Việc quá hạn bị chạy lại từ đầu, mất thêm 30 phút slot mỗi lần.
+
+
+## Lần kiểm 21:31-21:45
+
+**Ảnh chụp tài nguyên 21:31:** RAM trống 13,3 / 31,9 GB, CPU 16 % (21:33, su_dung.jsonl), ổ trống C 13,2 GB, D 20,1 GB, E 192,8 GB. muc_mt5: tong 5, tang2 3. Chỉ 3 metatester chạy (p1 5,99 GB, p7 3,90 GB, p3 2,00 GB).
+
+**Hàng MT5:** sổ cái 710 dòng (21:01) lên 728 (21:31), 18 lượt trong 30 phút. Tầng 2 real tick xong từ 21:02 đến 21:32 (số đo trong chay.log): od_skst4ac0c7fd10781af4 net 6.052,01 / 73 lệnh / DD 49,55 % (64 s); od_mql5e52afb999eca4bd1 net 425,41 (1.221 s); od_mql5b5a04d7c15935f8b net 590,17 (1.051 s); od_skea0b8298aa53 GOLD H1 net 3.196,44 / 16 lệnh / PF 41,38 / DD 34,25 % (238 s); od_skea0c762cdb38 CHFJPY H4 net 859,78 / DD 19,87 % (343 s); od_skea135e93ee32 EURUSD H1 net 555,97 / DD 18,53 % (172 s); od_skea45b39eb1d5 AUDJPY H4 net 1.340,19 / DD 46,01 % (584 s); od_tohop564be9bb91406c57 net 546,97 / DD 26,23 % (188 s). UNG_VIEN.md chưa cập nhật từ 21:02 (ĐẠT 33), lần báo cáo kế ~22:02.
+
+**Slot rỗi dù có việc:** p4 và p6 rỗi 21:07-21:42 (35 phút mỗi slot, tổng 70 phút slot) vì hàng tầng 1 XM chính = 0. Cùng lúc hàng box có 38 việc tầng 1 XM (`lay_viec(chi_tang1=True)` thử khô: BRAIN_HANG_BOX=0 → 0 việc, =1 → 38 việc). Đã chạy lại chay_lien_tuc với BRAIN_HANG_BOX=1 lúc 21:42; 21:43 cả 5 slot chạy.
+
+**Việc quá giờ lặp:** od_skea0e88e1df54_XM_CSV (H4, tầng 2) quá 1.800 s hai lần liền (1.807 s lúc 21:10, 1.812 s lúc 21:41), tổng 60 phút slot p1 không ra kết quả; nay chạm SO_LAN_THU_TOI_DA = 2 nên bị bỏ. Lần 2 vẫn để metatester mồ côi (PID 668, 6 GB) vì tiến trình chạy mã trước bản sửa giet_cay. Dòng sổ cái QUA GIO ghi `slot` rỗng, nên không biết được slot nào từ sổ cái.
+
+**Rủi ro git cuối phiên (đã sửa):** `ket_thuc()` của chay_lien_tuc vẫn dùng `pull --rebase --autostash` lúc 07:00 — đúng lỗi đã làm lùi sổ cái lúc 20:53. Đã đổi sang fetch + merge thường; tiến trình mới (PID 15104) dùng bản sửa.
+
+**LLM:** ai-box vẫn hết quota (lượt 21:27: 8 lần gọi, 8 lỗi, 200 thẻ CHUA_CHAY_DUOC, 0 token). 3.765 thẻ chờ dịch. Nguồn việc mới tối nay chỉ còn từ box (dịch tay).
+
+### Đề xuất
+1. **Bật BRAIN_HANG_BOX=1 mặc định** trong chay_toi_nay.ps1 cho phiên sau (đã bật tay cho phiên này), vì khi LLM máy nhà dừng thì hàng box là nguồn tầng 1 duy nhất.
+2. **Giới hạn tầng 2 theo RAM thật thay vì trần 3:** lúc 21:31 còn 13,3 GB trống với 3 tầng 2 (2,0-6,0 GB mỗi việc), đủ cho việc tầng 2 thứ tư mà vẫn trên sàn 4 GB.
+3. **Ghi `slot` vào dòng QUA GIO** và hạ hạn cho việc đã quá giờ một lần (hoặc đẩy xuống cuối hàng) để không mất thêm 30 phút slot cho lần thử thứ hai.
+4. **Theo dõi metatester mồ côi** bằng canh_metatester_mo_coi.ps1 cho tới khi mọi tiến trình đều chạy bản có giet_cay.

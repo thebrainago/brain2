@@ -295,3 +295,18 @@ Mỗi dòng: giờ máy nhà (UTC+7) + việc. `chay_toi_nay.ps1` và `dich_llm_
 - 2026-10-20 21:43:58     | 
 - 2026-10-20 21:43:58 **Bước 8**: rc=0
 - 2026-10-20 21:43:58 **Bước 11 - Commit reports\ + KET_QUA_SANG.md**: BẮT ĐẦU
+- 2026-10-20 21:44:08     | Created autostash: fb9c3e7f
+- 2026-10-20 21:44:08     | error: Your local changes to the following files would be overwritten by checkout:
+- 2026-10-20 21:44:08     | 	may_nha_toi_nay/NHAT_KY.md
+- 2026-10-20 21:44:08     | Please commit your changes or stash them before you switch branches.
+- 2026-10-20 21:44:08     | Aborting
+- 2026-10-20 21:44:08     | Your local changes are stashed, however applying them
+- 2026-10-20 21:44:08     | resulted in conflicts.  You can either resolve the conflicts
+- 2026-10-20 21:44:08     | and then discard the stash with "git stash drop", or, if you
+- 2026-10-20 21:44:08     | do not want to resolve them now, run "git reset --hard" and
+- 2026-10-20 21:44:08     | apply the local changes later by running "git stash pop".
+- 2026-10-20 21:44:08     | error: could not detach HEAD
+- 2026-10-20 21:44:08 **Bước 11**: commit xong, pull LỖI rc=128 - chưa push
+- 2026-10-20 21:44:08 ## Hết phiên. Tóm tắt: C:\Users\DUNG\brain2\may_nha_toi_nay\KET_QUA_SANG.md | log: E:\brain2_log\toi_nay_20261020 (máy KHÔNG tắt)
+
+- 2026-10-20 21:45 [Grok, máy nhà] Kiểm 21:31: 3/5 slot MT5 chạy (p1, p3, p7 tầng 2); p4 và p6 rỗi từ 21:07 vì hàng tầng 1 XM chính = 0, trong khi hàng MT5 của box (reports/phan_viec/hang_cho_mt5_box.jsonl, sau khi merge origin/main 21:35) có 38 việc tầng 1 XM sẵn sàng nhưng chay_lien_tuc chỉ đọc khi BRAIN_HANG_BOX=1. Việc od_skea0e88e1df54_XM_CSV quá giờ lần 2 lúc 21:41:48 (1812 s) và lại để metatester64 mồ côi PID 668 (mã cũ chưa có giet_cay). Đã: (1) sửa ket_thuc của mt5tools/chay_lien_tuc.py bỏ `pull --rebase --autostash`, thay bằng fetch + merge thường (+test test_ket_thuc_khong_autostash, 46 passed); (2) 21:42 dừng đúng PID chay_lien_tuc 7136/1092 cùng terminal64/metatester64 trong mt5_tester (668, 2680, 11304, 696, 15292, 6216, 2864; không đụng XM chính 680) rồi chạy lại `chay_lien_tuc.py --den 07:00` với BRAIN_SLOTS=p1;p7;p3;p6;p4, BRAIN_UU_TIEN_CSV=1, BRAIN_HANG_BOX=1, PID 15104 (đã ghi vào E:\brain2_log\toi_nay_20261020\pid_mt5.txt). 21:43: 5/5 slot có terminal64 + metatester64, p6 và p4 chạy việc tầng 1 của box (od_skeadd170ac7bf_T1, od_ghep0bf2c31fbfc9dea0_T1). Mất 3 việc tầng 2 đang chạy dở (p3 9 phút, p7 12 phút, p1 vừa phóng) — được phóng lại ngay. (3) Chạy nền may_nha_toi_nay/canh_metatester_mo_coi.ps1 (PID 13708, tới 07:30, log D:\mt5_lien_tuc\canh_mo_coi.log): metatester64 trong *\mt5_tester\* mà cha terminal64 đã chết quá 90 s thì giết đúng PID đó. ai-box vẫn hết quota (lượt 21:27: 8 lần gọi đều lỗi, 200 thẻ CHUA_CHAY_DUOC, 3.765 thẻ chờ).
