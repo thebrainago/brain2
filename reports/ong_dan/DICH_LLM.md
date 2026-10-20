@@ -1,6 +1,6 @@
 # Bước dịch bằng LLM (máy nhà)
 
-Lần chạy 20/10/2026 21:27, 3 giây. Giá mẫu để kiểm: gia AUDCAD H1 (3000 nen).
+Lần chạy 21/10/2026 00:11, 2 giây. Giá mẫu để kiểm: gia AUDCAD H1 (3000 nen).
 
 | Chỉ số | Giá trị |
 |---|---|
