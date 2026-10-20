@@ -186,6 +186,7 @@ def lay_viec(n: int = 1, so_cai: list[dict] | None = None, dang_chay: set[str] |
     if not chi_ong_dan:
         hang += tu_python_box()
     hang += tu_ong_dan(san=san)
+    hang += tu_vong2(san=san)          # vong 2: mac dinh tat (BRAIN_VONG2=1 de bat)
     if not chi_ong_dan:
         hang += ung_vien(random.Random(hat + len(sc) // 500))
     hang.sort(key=lambda v: -v["diem"])
@@ -283,6 +284,19 @@ def tu_ong_dan(p: Path = HANG_CHO_OD, san: str | None = None) -> list[dict]:
                 out.append(v)
                 co.add(v.get("ten"))
     return out
+
+
+HANG_CHO_V2 = GOC / "reports" / "vong2" / "hang_cho_vong2.jsonl"
+
+
+def tu_vong2(p: Path = HANG_CHO_V2, san: str | None = None) -> list[dict]:
+    """20/10/2026: viec MT5 VONG 2 (nhan/vong2.py). MAC DINH TAT: chi lay khi bien moi truong BRAIN_VONG2=1.
+    BRAIN_VONG2_UU_TIEN=1 -> cong 150 diem (chay truoc viec ong dan thuong)."""
+    import os
+    if os.environ.get("BRAIN_VONG2", "0") != "1":
+        return []
+    return [dict(v, diem=float(v.get("diem") or 60) + (150 if os.environ.get("BRAIN_VONG2_UU_TIEN") == "1" else 0))
+            for v in tu_ong_dan(p, san=san)]
 
 
 def file_set_ong_dan(v: dict) -> str:

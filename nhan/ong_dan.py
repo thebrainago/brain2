@@ -405,7 +405,21 @@ def tin_hieu_to_hop(th: dict, df: pd.DataFrame, ma: str = "") -> np.ndarray:
             s = NL.ap_loc(s, cho_ca=NL.bo_loc_gio(df, int(lc["tham"]["tu"]), int(lc["tham"]["den"])))
         elif k == "bien_dong":
             s = NL.ap_loc(s, cho_ca=NL.bo_loc_bien_dong(df, int(lc["tham"].get("n", 14)), float(lc["tham"].get("tran_pct", 1.0))))
+        elif k == "xac_nhan":                   # vong 2: lenh A chi giu khi nguon xac nhan cung chieu trong `cua_so` nen
+            sx = np.sign(np.asarray(tin_hieu({"tin_hieu": lc["nguon"]}, df, {}, ma), float))
+            s = np.where(np.sign(s) == huong_gan_nhat(sx, int(lc["tham"].get("cua_so", 3))), s, 0).astype(int)
     return s
+
+
+def huong_gan_nhat(s: np.ndarray, cua_so: int | None = None) -> np.ndarray:
+    """Chieu tin hieu khac 0 gan nhat tai moi nen (0 neu chua co / qua `cua_so` nen)."""
+    s = np.sign(np.asarray(s, float))
+    idx = np.where(s != 0, np.arange(len(s)), -1)
+    idx = np.maximum.accumulate(idx) if len(idx) else idx
+    h = np.where(idx >= 0, s[np.maximum(idx, 0)], 0.0)
+    if cua_so is not None:
+        h = np.where(np.arange(len(s)) - idx <= cua_so, h, 0.0)
+    return h
 
 
 def quan_li_tu(x: dict, von: float) -> TK.QuanLi:
@@ -469,6 +483,9 @@ def chuan_bi(t: dict, thu: dict, cfg: dict) -> dict:
     ghep = False
     if t.get("tin_hieu", {}).get("kieu") == "to_hop" and t["tin_hieu"].get("nguon_b"):
         sb = tin_hieu({"tin_hieu": t["tin_hieu"]["nguon_b"]}, df, {}, thu["ma"])
+        if t["tin_hieu"].get("kieu_b") == "nguoc":     # vong 2 hedge: B chi vao NGUOC chieu A dang giu (khac phong cach)
+            sa = tin_hieu_to_hop(t["tin_hieu"], df, thu["ma"])
+            sb = np.where(np.sign(sb) == -huong_gan_nhat(sa), sb, 0).astype(int)
         ev += NL.lenh_vao(df, NL.ap_loc(sb, cho_ca=NL.bo_loc_gio(df, den, tu)), t["id"] + "_b", thu["ma"])
         ql.go_cheo = True
         ghep = True
