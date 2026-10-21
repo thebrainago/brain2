@@ -263,6 +263,9 @@ MAU_BOC = """Tra JSON dang:
 {"loai": "he_hoan_thien|co_che|tien_ich|mo_ta",
  "spec": [ {"ten": str, "chieu": 1|-1, "vao": [{"trai": {...}, "phep": ">"|"<"|">="|"<="|"cat_len"|"cat_xuong", "phai": {...}}]} ],
  "python": "def tin_hieu(df):\\n    ...",
+ "luoi": {"che_do": "luoi_hai_chieu|luon_vao|mot_chieu", "chieu": "hai|mua|ban", "loc_python": "", "lot0": 0.01,
+          "buoc_diem": 0, "toi_da": 0, "he_so_lot": 1.0, "tp_diem": 0, "hedge_khi_lo_pct": 0,
+          "cat_lo_tien": 0, "nghi_gio": []},
  "co_che": [ {"vai_tro": "nguon_lenh|bo_loc|moc_vung|quan_li|go_lenh", "ten": str, "mo_ta": str, "tham": {}} ],
  "quan_tri": {"tp": str, "sl": str, "dca": str, "hedge": str, "trailing": str, "chot_ro": str, "go_lenh": str},
  "tham_so": {"ten_input": [gia_tri_thap, mac_dinh, cao]},
@@ -282,7 +285,14 @@ BAT BUOC (20/10/2026, do tren dau ra A/B: 14/30 ket qua OK ra 0 lenh):
 - KHONG tra tin hieu gia (vd `return [0]*len(df)`, np.zeros): neu khong dich duoc thi de python "" va ghi ly do vao chua_dich.
 - KHONG cung gia TUYET DOI cua mot ma (vd muc trung tam 5355.0 cua vang): bo may chay tren NHIEU ma khac thang gia ->
   quy muc gia ve tuong doi (phan tram gia, boi ATR, cao/thap nhat N nen gan nhat).
-- EA luoi / DCA / martingale / theo trang thai lenh: dich DIEU KIEN MO LENH DAU (nguon_lenh) thanh tin hieu; luoi, nhoi,
+- EA LUOI / MARTINGALE / HEDGE KHONG CO TIN HIEU CHIEU (mo lenh vo dieu kien, mo ca mua va ban, luon co lenh): KHONG
+  bia tin hieu - dien 'luoi' (de spec [] va python ""), giu DUNG mac dinh input cua tac gia, don vi nhu tac gia:
+  buoc_diem / tp_diem theo Point (hoac buoc_pct / tp_pct phan cua gia, hoac tp_tien), tp_tien / cat_lo_tien la USD o lot0; toi_da = so lenh NHOI them (khong tinh lenh
+  dau); he_so_lot = he so nhan lot moi tang; chieu "hai" = ro mua va ro ban doc lap; luon_vao = vao lai ngay sau khi
+  chot ro; mot_chieu + chieu "mua"/"ban" khi tac gia chi mo mot chieu; co dieu kien chon chieu (vd gia > EMA) thi
+  dat vao loc_python (ham tin_hieu(df) nhu tren: 1 cho ro mua, -1 cho ro ban). Martingale DAO CHIEU sau lenh lo:
+  chua bieu dien duoc -> ghi chua_dich.
+- EA luoi / DCA / martingale CO dieu kien vao lenh dau: dich DIEU KIEN MO LENH DAU (nguon_lenh) thanh tin hieu; luoi, nhoi,
   hedge, chot ro ghi vao 'quan_tri' (bo may quan li lenh tu lam). Tin hieu phai ra lenh that tren gia H1 thuong
   (it nhat vai lenh moi 1000 nen); dieu kien qua hiem (nhieu bo loc AND, nguong cuc tri) thi noi long ve mac dinh cua EA.
 MA NGUON (%s):
@@ -474,6 +484,8 @@ def boc_tach(ma_nguon: str, ngon_ngu: str = "MQL5", client=None, c: dict | None 
     d["spec"] = spec_ok
     if not isinstance(d.get("python"), str):
         d["python"] = ""
+    if not isinstance(d.get("luoi"), dict):
+        d["luoi"] = {}
     d.update(meta)
     d["trang_thai"] = "OK"
     d["nhan"] = "LLM (%s) - can MT5 xac nhan" % r.get("model")
@@ -499,7 +511,7 @@ def sua_lai(ma_nguon: str, ngon_ngu: str, truoc: dict, chan_doan: list, mo_ta_gi
             c: dict | None = None) -> dict:
     """20/10/2026: hoi lai LLM MOT lan kem chan doan cua bo kiem (0 lenh / nhin truoc / loi chay). Dang tra nhu boc_tach."""
     c = c or cau_hinh()
-    gon = {k: truoc.get(k) for k in ("loai", "spec", "python", "quan_tri", "chua_dich")}
+    gon = {k: truoc.get(k) for k in ("loai", "spec", "python", "luoi", "quan_tri", "chua_dich")}
     nguon, n, lo, hi = mo_ta_gia
     nhac = MAU_SUA % (nguon, n, lo, hi, "\n".join("- " + str(x) for x in chan_doan),
                       json.dumps(gon, ensure_ascii=False)[:12000], ngon_ngu,

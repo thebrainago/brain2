@@ -387,6 +387,10 @@ def tin_hieu(t: dict, df: pd.DataFrame, tham: dict, ma: str = "") -> np.ndarray:
         return tin_hieu_to_hop(th, df, ma)
     if th["kieu"] == "lenh_ngoai":
         return NT.tin_hieu_lenh_ngoai(th, df, ma)
+    if th["kieu"] == "luoi":                         # 20/10/2026: EA luoi / luon vao - tin hieu = bo loc chieu (neu co)
+        from nhan import dich_llm as DL
+        lc = (th.get("luoi") or {}).get("loc_python") or ""
+        return DL.tin_hieu_python(lc, df) if lc else np.ones(len(df), int)
     if th["kieu"] == "python_llm":                   # ma LLM dich: chay trong hop cat (nhan/hop_cat_llm.py), cache
         from nhan import dich_llm as DL
         return DL.tin_hieu_python(th["ma"], df)
@@ -428,7 +432,9 @@ def quan_li_tu(x: dict, von: float) -> TK.QuanLi:
                      dca_toi_da=int(x.get("dca_toi_da", 0)), dca_he_so_lot=float(x.get("dca_he_so_lot", 1.0)),
                      hedge_khi_lo_pct=float(x.get("hedge_khi_lo_pct", 0.0)), mo_khoa_pct=float(x.get("mo_khoa_pct", 0.005)),
                      go_tien=x.get("go_tien", 0.0 if x.get("hedge_khi_lo_pct") else None), go_cheo=bool(x.get("go_cheo", False)),
-                     trail_kich_pct=float(x.get("trail_kich_pct", 0.0)), trail_khoang_pct=float(x.get("trail_khoang_pct", 0.0)))
+                     trail_kich_pct=float(x.get("trail_kich_pct", 0.0)), trail_khoang_pct=float(x.get("trail_khoang_pct", 0.0)),
+                     cat_lo_pct=float(x.get("cat_lo_pct", 0.0) or 0.0),
+                     dca_lot_tuyen_tinh=bool(x.get("dca_lot_tuyen_tinh", False)))
 
 
 def _ma_rieng(t: dict) -> list:
@@ -458,7 +464,23 @@ def mau_thu(t: dict, rng: random.Random, cfg: dict) -> dict | None:
     kg = (t.get("tin_hieu") or {}).get("khoang") or {}
     tham = {k: rng.choice(v) for k, v in kg.items()}
     ql = {k: rng.choice(v) for k, v in KHONG_GIAN_QL.items()}
+    if (t.get("tin_hieu") or {}).get("kieu") == "luoi":
+        ql = ql_luoi(t, ma, kh, cfg)                    # 20/10/2026: quan tri THEO TAC GIA, co dinh - chi doi ma / khung
+        if ql is None:
+            return None
     return {"ma": ma, "khung": kh, "tham": tham, "ql": ql}
+
+
+def ql_luoi(t: dict, ma: str, khung: str, cfg: dict) -> dict | None:
+    """the luoi: tham so tac gia (diem / tien) -> ql (phan cua gia) theo gia tham chieu cua (ma, khung) va ho so phi."""
+    from nhan import luoi_hai_chieu as LH
+    df = gia(ma, khung, cfg)
+    if df is None or not len(df):
+        return None
+    hs = TK.ho_so_phi(ma, cfg.get("san_phi", "XM"))
+    g = float(df["close"].median())
+    return LH.ql_tu_tac_gia(t["tin_hieu"]["luoi"], g, float(hs.point), float(hs.hop_dong), float(hs.qd(g)),
+                            float(cfg.get("von", 1000.0)))
 
 
 def chuan_bi(t: dict, thu: dict, cfg: dict) -> dict:
@@ -474,7 +496,14 @@ def chuan_bi(t: dict, thu: dict, cfg: dict) -> dict:
     s = tin_hieu(t, df, thu.get("tham") or {}, thu["ma"])
     tu, den = GS.cam_doi_ngay(cfg.get("san_phi", "XM"))
     s = NL.ap_loc(s, cho_ca=NL.bo_loc_gio(df, den, tu))       # nhu EA: khong mo ro moi trong gio doi ngay
-    ev = NL.lenh_vao(df, s, t["id"], thu["ma"])
+    if (t.get("tin_hieu") or {}).get("kieu") == "luoi":
+        from nhan import luoi_hai_chieu as LH
+        l, _ = LH.chuan_hoa(t["tin_hieu"]["luoi"])
+        cm, cb_ = LH.cho_phep(l, df, s if l.get("loc_python") else None)
+        cam = np.asarray(NL.bo_loc_gio(df, den, tu), bool)
+        ev = LH.lenh_vao(df, cm & cam, cb_ & cam, t["id"], thu["ma"])
+    else:
+        ev = NL.lenh_vao(df, s, t["id"], thu["ma"])
     von = float(cfg.get("von", 1000.0))
     tk = TK.ho_so_tai_khoan(cfg.get("tai_khoan", "XM_MICRO_TAM"), von)
     tk = don_bay_viec(tk, cfg)
@@ -570,7 +599,7 @@ def buoc_toi_uu(cn, toi_da: int | None = None, ngan_sach: int | None = None, in_
         cac += [x for b in ("toi_uu", "loc", "sinh_mt5") for x in cac_the(cn, b)
                 if dem.get(x[0]["id"], 0) < ngan_sach and not _vo_ich(x[3])]
         cac.sort(key=lambda x: (int(x[0].get("uu_tien", 9)), x[0]["id"]))
-    ds = [x for x in cac if x[0].get("duong_dich") in ("noi_bo", "spec_dsl", "python_llm")
+    ds = [x for x in cac if x[0].get("duong_dich") in ("noi_bo", "spec_dsl", "python_llm", "luoi")
           and x[0].get("loai") == "he_hoan_thien" and (not chi_id or x[0]["id"] == chi_id)]
     if not ma_co_du_lieu(cfg):
         in_ra("toi_uu: KHONG co du lieu gia nao trong config/ong_dan.json -> CHUA_DO_DUOC")
@@ -664,7 +693,7 @@ def set_xu_li_lenh(tham_tin: dict, ql: dict, gia_tc: float, von: float, san: str
          "InpRsiThap": float(tham_tin.get("rsi_thap", 30)), "InpRsiCao": float(tham_tin.get("rsi_cao", 70)),
          "InpChieuKhongTin": 0, "InpChoNen": 0, "InpLot0": q.lot0,
          "InpNhoi": 1 if q.dca_toi_da > 0 else 0, "InpBuocGia": round((q.dca_buoc_pct or 0.0) * gia_tc, 6), "InpBuocATR": 0.0,
-         "InpGianBuoc": 1.0, "InpKieuLot": 0 if q.dca_he_so_lot == 1.0 else 2, "InpHeSoLot": q.dca_he_so_lot,
+         "InpGianBuoc": 1.0, "InpKieuLot": 1 if q.dca_lot_tuyen_tinh else (0 if q.dca_he_so_lot == 1.0 else 2), "InpHeSoLot": q.dca_he_so_lot,
          "InpMaxTang": q.dca_toi_da + 1, "InpTPGia": round((q.tp_pct or 0.0) * gia_tc, 6), "InpTPATR": 0.0,
          "InpTrailKichGia": 0.0, "InpTrailKichATR": 0.0, "InpTrailKhoangGia": 0.0, "InpTrailKhoangATR": 0.0, "InpGiuToiDaNen": 0,
          "InpHedgeKhiLoPct": q.hedge_khi_lo_pct, "InpHedgeTiLe": q.hedge_ti_le, "InpMoKhoaGia": round(q.mo_khoa_pct * gia_tc, 6),
@@ -762,7 +791,7 @@ def set_csv(ql: dict, von: float, san: str, khung: str, tep_csv: str) -> dict:
          "InpChieuKhongTin": 0, "InpChoNen": 0, "InpLot0": q.lot0,
          "InpNhoi": 1 if (q.dca_toi_da > 0 and q.dca_buoc_pct) else 0, "InpBuocGia": 0.0, "InpBuocATR": 0.0,
          "InpBuocPct": float(q.dca_buoc_pct or 0.0), "InpGianBuoc": 1.0,
-         "InpKieuLot": 0 if q.dca_he_so_lot == 1.0 else 2, "InpHeSoLot": q.dca_he_so_lot, "InpMaxTang": q.dca_toi_da + 1,
+         "InpKieuLot": 1 if q.dca_lot_tuyen_tinh else (0 if q.dca_he_so_lot == 1.0 else 2), "InpHeSoLot": q.dca_he_so_lot, "InpMaxTang": q.dca_toi_da + 1,
          "InpTPGia": 0.0, "InpTPATR": 0.0, "InpTPPct": float(q.tp_pct or 0.0),
          "InpTrailKichGia": 0.0, "InpTrailKichATR": 0.0, "InpTrailKhoangGia": 0.0, "InpTrailKhoangATR": 0.0,
          "InpTrailKichPct": float(q.trail_kich_pct), "InpTrailKhoangPct": float(q.trail_khoang_pct), "InpGiuToiDaNen": 0,
@@ -978,6 +1007,11 @@ def viec_csv(t: dict, thu: dict, r: dict, cfg: dict, d: Path) -> list[dict]:
         return []
     df, ev, ql = cb["df"], cb["ev"], cb["ql"]
     von = float(cfg.get("von", 1000.0))
+    if (t.get("tin_hieu") or {}).get("kieu") == "luoi":
+        # 20/10/2026: luoi phat lenh vao MOI nen (bo may bo khi da co ro) -> CSV chi giu nen Python that mo ro (+2 nen)
+        from nhan import luoi_hai_chieu as LH
+        kq0 = TK.chay_tk({thu["ma"]: df}, ev, ql, cb["tk"], {thu["ma"]: cb["hs"]}, ghi_von=False, ghi_lenh=True)
+        ev = LH.rut_gon_csv(ev, kq0.get("lenh"))
     ra = []
     for san, sc in (cfg.get("san_mt5") or {}).items():
         ma_san = _ky_hieu(thu["ma"], san, sc)

@@ -320,3 +320,30 @@ Khoá ai-box chỉ có trên máy nhà. Box **không** giữ khoá, không đọ
   - Việc con quá giờ: giết cây tiến trình con của chính nó theo PID.
 - Tắt riêng từng phần: `vong_lap.bat=false` quay về hành vi cũ (chỉ dich_llm). Có thêm `ghep_cheo.bat` và `suc_khoe.bat`.
 - Test: `test_vong_lap_ghep_cheo.py`.
+
+## Chế độ LƯỚI: EA lưới / martingale hai chiều / luôn vào không có tín hiệu chiều (20/10/2026 tối)
+
+- Trước đây bộ dịch chỉ nhận tín hiệu chiều (-1/0/1), và bộ kiểm đếm số lần đổi tín hiệu. Vì vậy EA mở lệnh vô điều kiện ra KHONG_RA_SPEC_PY hoặc IT_LENH.
+- Bản dịch có thêm trường `luoi`. Prompt v3 (`cau_llm.MAU_BOC`) đã mô tả trường này để ai-box cũng ra được. `PHIEN_PROMPT` vẫn là 3; nếu tăng, mọi thẻ HONG thuộc NHOM_THU_LAI sẽ được gọi LLM lại (tốn tiền). Các trường:
+  - `che_do`: luoi_hai_chieu | luon_vao | mot_chieu.
+  - `chieu`: hai | mua | ban.
+  - `loc_python` (tuỳ chọn), hàm `tin_hieu(df)`: 1 cho rổ mua, -1 cho rổ bán, 2 cho cả hai, 0 thì không.
+  - `lot0`; `buoc_diem` hoặc `buoc_pct`; `toi_da` (số tầng nhồi thêm); `he_so_lot`; `kieu_lot` = nhan | tuyen_tinh.
+  - `tp_diem`, `tp_pct` hoặc `tp_tien` (TP rổ tính từ giá vốn).
+  - `hedge_khi_lo_pct`; `cat_lo_tien`, `cat_lo_diem` hoặc `cat_lo_pct`; `nghi_gio`.
+  - Giữ đúng mặc định input của tác giả. Đơn vị như tác giả: Point, USD ở lot chuẩn 100000.
+- Thẻ đạt kiểm có `duong_dich` = `luoi` và `tin_hieu` = `{"kieu": "luoi", "luoi": {...}}`. Mã ở `nhan/luoi_hai_chieu.py`.
+- Ngữ nghĩa dùng chung một bộ máy quản trị `tai_khoan.chay_tk` (một rổ mỗi chiều):
+  - Ở mỗi nến, phát lệnh vào cho mỗi chiều được phép. Nếu đã có rổ cùng chiều thì bộ máy bỏ lệnh, nên rổ mở lại ngay sau khi chốt.
+  - Nhồi, TP rổ, khoá và cắt lỗ làm theo tham số tác giả. `mau_thu` không bốc `KHONG_GIAN_QL`, chỉ đổi mã và khung.
+- Bộ kiểm `dich_llm.kiem_luoi` không đếm lần đổi tín hiệu. Nó chạy `chay_tk` với tham số tác giả trên giá mẫu, rồi đếm số rổ THẬT (≥ 3). Chống nhìn trước:
+  1. bộ lọc python qua 24 điểm cắt;
+  2. dòng lệnh vào của đoạn đầu phải bằng phần đầu của dòng đầy đủ;
+  3. bộ máy chạy trên đoạn đầu phải mở cùng số lệnh trước điểm cắt.
+- MT5: thẻ đi đường CHO_EA_GHEP → `BRAIN_XuLiLenh` VAO_CSV. Lệnh lưới phát ở mọi nến, nên CSV chỉ giữ các nến mà Python thật mở rổ, cộng thêm 2 nến (`rut_gon_csv`). `.set` mang `InpBuocPct`, `InpTPPct`, `InpMaxTang`, `InpKieuLot` (1 = LOT_TUYEN_TINH, mới có `QuanLi.dca_lot_tuyen_tinh`) và `InpCatLoPct`.
+- Chưa biểu diễn được (ghi `chua_dich`):
+  - zone recovery / martingale đảo chiều sau lệnh lỗ (Zone_Recovery_2, ClassicHedgeStrategyEA, T19HedgeT1, cm_Martini, T12MTGLS);
+  - EA mở cặp lệnh độc lập mỗi nến (yzJohnWester);
+  - lưới lệnh chờ breakout (Pending_order_grid, adaptive_grid, T17/T18);
+  - bước lưới theo ATR (GridMaster Pro).
+- Dịch tay ghi đè thẻ HONG/BO_QUA: `python3 tho_box/dich_tay.py nhan|ghi --ep <bam>...`.
