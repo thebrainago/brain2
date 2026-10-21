@@ -1,0 +1,256 @@
+{
+ "_nhan": "spread giờ = ĐO (tick XM 10/2026); hệ số năm theo nguồn ghi ở nguon_nam; swap = ĐO 06/10/2026 (lịch sử CHƯA ĐO ĐƯỢC); hoa hồng = ĐO",
+ "_hoa_hong_lot": 0.0,
+ "_hoa_hong_do": {
+  "tong_usd": 0.0,
+  "so_deal": 37773
+ },
+ "_luc": "2026-10-21T10:07:38",
+ "EURUSD": {
+  "symbol": "EURUSDmicro",
+  "swap_mode": "POINTS",
+  "swap_mua_diem": -7.48,
+  "swap_ban_diem": 1.23,
+  "ngay_x3": "T4",
+  "spread_p50_gia": 0.00019999999999997797,
+  "spread_p90_gia": 0.00021999999999988695,
+  "spread_nam": {},
+  "nguon_nam": {
+   "*": "CHƯA ĐO ĐƯỢC (hệ số 1.0)"
+  }
+ },
+ "GBPCAD": {
+  "symbol": "GBPCADmicro",
+  "swap_mode": "POINTS",
+  "swap_mua_diem": 0.57,
+  "swap_ban_diem": -16.22,
+  "ngay_x3": "T4",
+  "spread_p50_gia": 0.0005500000000000504,
+  "spread_p90_gia": 0.0005800000000000249,
+  "spread_nam": {},
+  "nguon_nam": {
+   "*": "CHƯA ĐO ĐƯỢC (hệ số 1.0)"
+  }
+ },
+ "GBPNZD": {
+  "symbol": "GBPNZDmicro",
+  "swap_mode": "POINTS",
+  "swap_mua_diem": -3.55,
+  "swap_ban_diem": -19.32,
+  "ngay_x3": "T4",
+  "spread_p50_gia": 0.0007600000000000939,
+  "spread_p90_gia": 0.0008500000000002395,
+  "spread_nam": {},
+  "nguon_nam": {
+   "*": "CHƯA ĐO ĐƯỢC (hệ số 1.0)"
+  }
+ },
+ "EURCHF": {
+  "symbol": "EURCHFmicro",
+  "swap_mode": "POINTS",
+  "swap_mua_diem": 1.73,
+  "swap_ban_diem": -12.18,
+  "ngay_x3": "T4",
+  "spread_p50_gia": 0.00031999999999998696,
+  "spread_p90_gia": 0.00034000000000000696,
+  "spread_nam": {},
+  "nguon_nam": {
+   "*": "CHƯA ĐO ĐƯỢC (hệ số 1.0)"
+  }
+ },
+ "XAUUSD": {
+  "symbol": "GOLDmicro",
+  "swap_mode": "POINTS",
+  "swap_mua_diem": -83.83,
+  "swap_ban_diem": 20.64,
+  "ngay_x3": "T4",
+  "spread_p50_gia": 0.5500000000001819,
+  "spread_p90_gia": 0.569999999999709,
+  "spread_nam": {},
+  "nguon_nam": {
+   "*": "CHƯA ĐO ĐƯỢC (hệ số 1.0)"
+  }
+ },
+ "EURGBP": {
+  "symbol": "EURGBPmicro",
+  "swap_mode": "POINTS",
+  "swap_mua_diem": -5.4,
+  "swap_ban_diem": 0.49,
+  "ngay_x3": "T4",
+  "spread_p50_gia": 0.00023999999999990695,
+  "spread_p90_gia": 0.00024999999999997247,
+  "spread_nam": {},
+  "nguon_nam": {
+   "*": "CHƯA ĐO ĐƯỢC (hệ số 1.0)"
+  }
+ },
+ "USDCAD": {
+  "symbol": "USDCADmicro",
+  "swap_mode": "POINTS",
+  "swap_mua_diem": 2.01,
+  "swap_ban_diem": -11.78,
+  "ngay_x3": "T4",
+  "spread_p50_gia": 0.0002900000000001235,
+  "spread_p90_gia": 0.000320000000000098,
+  "spread_nam": {},
+  "nguon_nam": {
+   "*": "CHƯA ĐO ĐƯỢC (hệ số 1.0)"
+  }
+ },
+ "USDJPY": {
+  "symbol": "USDJPYmicro",
+  "swap_mode": "POINTS",
+  "swap_mua_diem": 2.11,
+  "swap_ban_diem": -29.59,
+  "ngay_x3": "T4",
+  "spread_p50_gia": 0.02400000000000091,
+  "spread_p90_gia": 0.02600000000001046,
+  "spread_nam": {},
+  "nguon_nam": {
+   "*": "CHƯA ĐO ĐƯỢC (hệ số 1.0)"
+  }
+ },
+ "CADJPY": {
+  "symbol": "CADJPYmicro",
+  "swap_mode": "POINTS",
+  "swap_mua_diem": -1.08,
+  "swap_ban_diem": -11.48,
+  "ngay_x3": "T4",
+  "spread_p50_gia": 0.04099999999999682,
+  "spread_p90_gia": 0.044999999999987494,
+  "spread_nam": {},
+  "nguon_nam": {
+   "*": "CHƯA ĐO ĐƯỢC (hệ số 1.0)"
+  }
+ },
+ "AUDUSD": {
+  "symbol": "AUDUSDmicro",
+  "swap_mode": "POINTS",
+  "swap_mua_diem": -1.71,
+  "swap_ban_diem": -3.2,
+  "ngay_x3": "T4",
+  "spread_p50_gia": 0.00022999999999995246,
+  "spread_p90_gia": 0.00024999999999997247,
+  "spread_nam": {},
+  "nguon_nam": {
+   "*": "CHƯA ĐO ĐƯỢC (hệ số 1.0)"
+  }
+ },
+ "AUDJPY": {
+  "symbol": "AUDJPYmicro",
+  "swap_mode": "POINTS",
+  "swap_mua_diem": 3.67,
+  "swap_ban_diem": -16.21,
+  "ngay_x3": "T4",
+  "spread_p50_gia": 0.03499999999999659,
+  "spread_p90_gia": 0.03699999999999193,
+  "spread_nam": {},
+  "nguon_nam": {
+   "*": "CHƯA ĐO ĐƯỢC (hệ số 1.0)"
+  }
+ },
+ "EURCAD": {
+  "symbol": "EURCADmicro",
+  "swap_mode": "POINTS",
+  "swap_mua_diem": -5.05,
+  "swap_ban_diem": -8.14,
+  "ngay_x3": "T4",
+  "spread_p50_gia": 0.00034000000000000696,
+  "spread_p90_gia": 0.0003700000000002035,
+  "spread_nam": {},
+  "nguon_nam": {
+   "*": "CHƯA ĐO ĐƯỢC (hệ số 1.0)"
+  }
+ },
+ "GBPUSD": {
+  "symbol": "GBPUSDmicro",
+  "swap_mode": "POINTS",
+  "swap_mua_diem": -4.35,
+  "swap_ban_diem": -2.96,
+  "ngay_x3": "T4",
+  "spread_p50_gia": 0.00023999999999979593,
+  "spread_p90_gia": 0.000260000000000149,
+  "spread_nam": {},
+  "nguon_nam": {
+   "*": "CHƯA ĐO ĐƯỢC (hệ số 1.0)"
+  }
+ },
+ "CHFJPY": {
+  "symbol": "CHFJPYmicro",
+  "swap_mode": "POINTS",
+  "swap_mua_diem": -17.8,
+  "swap_ban_diem": -4.1,
+  "ngay_x3": "T4",
+  "spread_p50_gia": 0.03900000000001569,
+  "spread_p90_gia": 0.04400000000001114,
+  "spread_nam": {},
+  "nguon_nam": {
+   "*": "CHƯA ĐO ĐƯỢC (hệ số 1.0)"
+  }
+ },
+ "NZDJPY": {
+  "symbol": "NZDJPYmicro",
+  "swap_mode": "POINTS",
+  "swap_mua_diem": -1.51,
+  "swap_ban_diem": -11.91,
+  "ngay_x3": "T4",
+  "spread_p50_gia": 0.03699999999999193,
+  "spread_p90_gia": 0.04099999999999682,
+  "spread_nam": {},
+  "nguon_nam": {
+   "*": "CHƯA ĐO ĐƯỢC (hệ số 1.0)"
+  }
+ },
+ "EURAUD": {
+  "symbol": "EURAUDmicro",
+  "swap_mode": "POINTS",
+  "swap_mua_diem": -15.25,
+  "swap_ban_diem": 1.68,
+  "ngay_x3": "T4",
+  "spread_p50_gia": 0.00036999999999998145,
+  "spread_p90_gia": 0.00039999999999995595,
+  "spread_nam": {},
+  "nguon_nam": {
+   "*": "CHƯA ĐO ĐƯỢC (hệ số 1.0)"
+  }
+ },
+ "AUDNZD": {
+  "symbol": "AUDNZDmicro",
+  "swap_mode": "POINTS",
+  "swap_mua_diem": -0.84,
+  "swap_ban_diem": -12.96,
+  "ngay_x3": "T4",
+  "spread_p50_gia": 0.00039999999999995595,
+  "spread_p90_gia": 0.00045000000000006146,
+  "spread_nam": {},
+  "nguon_nam": {
+   "*": "CHƯA ĐO ĐƯỢC (hệ số 1.0)"
+  }
+ },
+ "EURNZD": {
+  "symbol": "EURNZDmicro",
+  "swap_mode": "POINTS",
+  "swap_mua_diem": -11.49,
+  "swap_ban_diem": -10.57,
+  "ngay_x3": "T4",
+  "spread_p50_gia": 0.0004899999999998794,
+  "spread_p90_gia": 0.0005500000000000504,
+  "spread_nam": {},
+  "nguon_nam": {
+   "*": "CHƯA ĐO ĐƯỢC (hệ số 1.0)"
+  }
+ },
+ "GBPAUD": {
+  "symbol": "GBPAUDmicro",
+  "swap_mode": "POINTS",
+  "swap_mua_diem": -11.78,
+  "swap_ban_diem": -5.1,
+  "ngay_x3": "T4",
+  "spread_p50_gia": 0.00045000000000006146,
+  "spread_p90_gia": 0.0005100000000002325,
+  "spread_nam": {},
+  "nguon_nam": {
+   "*": "CHƯA ĐO ĐƯỢC (hệ số 1.0)"
+  }
+ }
+}

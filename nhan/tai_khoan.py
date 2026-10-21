@@ -240,6 +240,7 @@ class HoSoPhi:
     swap_ban_diem: float = 0.0
     ngay_x3: int = 2                      # thu (0 = thu Hai) cua phien bi tinh x3; FX = thu Tu, chi so thuong thu Sau
     hoa_hong_lot: float = 0.0             # USD / lot / MOT chieu
+    spread_nam: dict = field(default_factory=dict)   # {nam: he so} nhan spread_gio (config/phi_xm_micro.json); rong = 1
     lot_min: float = 0.01
     buoc_lot: float = 0.01
     lot_max: float = 100.0
@@ -292,6 +293,11 @@ def _phi_san_moi_nhat(san: str) -> _Path | None:
 
 
 def ho_so_phi(ma: str, san: str = "XM", phi_san_dir: _Path | None = None) -> HoSoPhi:
+    """Ho so phi (xem _ho_so_phi_goc) + he so spread theo NAM cho XM (backtest du lieu dai)."""
+    return _gan_spread_nam(_ho_so_phi_goc(ma, san, phi_san_dir))
+
+
+def _ho_so_phi_goc(ma: str, san: str = "XM", phi_san_dir: _Path | None = None) -> HoSoPhi:
     """Ho so phi cho ma `ma` (ten goc, vd AUDCAD) tren san `san`.
 
     Uu tien: (1) reports/phi_san/<server>/ma.csv + spread_gio.csv (DO tren tai khoan that, may nha) -> nhan "ĐO";
@@ -373,6 +379,25 @@ def ho_so_phi(ma: str, san: str = "XM", phi_san_dir: _Path | None = None) -> HoS
         hs.nhan += " | QUY ĐỔI TẠM %s->USD %.4f" % (ten_yet, hs.quy_doi_usd)
     if not sw_ok:
         hs.nhan += " | swap CHƯA ĐO ĐƯỢC (=0)"
+    return hs
+
+
+def _he_so_nam(idx, hs) -> np.ndarray:
+    if not getattr(hs, "spread_nam", None):
+        return np.ones(len(idx))
+    from nhan.phi_dai import mang_he_so
+    return mang_he_so(pd.DatetimeIndex(idx), hs.spread_nam)
+
+
+def _gan_spread_nam(hs: "HoSoPhi") -> "HoSoPhi":
+    """21/10/2026: XM -> he so spread theo nam tu config/phi_xm_micro.json (nhan.phi_dai). Khong co tep -> giu nguyen."""
+    if hs.san != "XM" or hs.spread_nam:
+        return hs
+    from nhan.phi_dai import doc
+    r = doc().get(hs.ma) or {}
+    if r.get("spread_nam"):
+        hs.spread_nam = {int(k): float(v) for k, v in r["spread_nam"].items()}
+        hs.nhan += " | spread x hệ số năm (phi_xm_micro.json)"
     return hs
 
 
@@ -484,7 +509,7 @@ def chay_tk(du_lieu: dict | pd.DataFrame, luong: list[LenhVao], ql: QuanLi | dic
         hs = phi[m]
         gio = idx.hour.to_numpy()
         A[m] = dict(o=b["open"].to_numpy(), h=b["high"].to_numpy(), l=b["low"].to_numpy(), c=b["close"].to_numpy(), co=co,
-                    sp=np.asarray(hs.spread_gio, float)[gio], dem=_dem_qua_dem(idx, hs.ngay_x3), hs=hs)
+                    sp=np.asarray(hs.spread_gio, float)[gio] * _he_so_nam(idx, hs), dem=_dem_qua_dem(idx, hs.ngay_x3), hs=hs)
     lay_ql = (lambda nguon: ql.get(nguon) or ql.get("*")) if isinstance(ql, dict) else (lambda nguon: ql)
     su_kien: dict[int, list] = {}
     for e in luong:
