@@ -1,17 +1,17 @@
 # Bước dịch bằng LLM (máy nhà)
 
-Lần chạy 21/10/2026 20:02, 8 giây. Giá mẫu để kiểm: gia AUDCAD H1 (3000 nen).
+Lần chạy 21/10/2026 20:12, 0 giây. Giá mẫu để kiểm: gia AUDCAD H1 (3000 nen).
 
 | Chỉ số | Giá trị |
 |---|---|
-| Thẻ chờ dịch lúc bắt đầu | 18 |
+| Thẻ chờ dịch lúc bắt đầu | 1 |
 | Thẻ thiếu mã trên máy (chưa dịch được) | 0 |
-| Thẻ đã kiểm lần này | 18 |
-| Đạt kiểm tự động → chạy tiếp toi_uu/loc | 17 |
-| Không đạt kiểm (lí do trong thẻ) | 1 |
+| Thẻ đã kiểm lần này | 1 |
+| Đạt kiểm tự động → chạy tiếp toi_uu/loc | 1 |
+| Không đạt kiểm (lí do trong thẻ) | 0 |
 | Lỗi LLM (sẽ thử lại) | 0 |
 | Mã nguồn gọi LLM mới | 0 |
-| Mã nguồn lấy từ cache | 17 |
+| Mã nguồn lấy từ cache | 1 |
 | Số lần gọi API | 0 |
 | Lần gọi lỗi | 0 |
 | Lần chuyển sang model dự phòng | 0 |
@@ -23,15 +23,9 @@ Lần chạy 21/10/2026 20:02, 8 giây. Giá mẫu để kiểm: gia AUDCAD H1 (
 | Câu trả lời chạm trần max_tokens | 0 |
 | CHƯA CHẠY ĐƯỢC (không có khoá) | 0 |
 
-## Lí do hỏng lần này (theo nhóm)
-
-| Nhóm | Số thẻ | Nghĩa |
-|---|---|---|
-| IT_LENH | 1 | Ra < 3 lệnh trên giá mẫu |
-
 ## Cộng dồn trong CSDL (mọi lần dịch)
 
-Trạng thái: DAT 260, HONG 229
+Trạng thái: DAT 276, HONG 229
 
 | Nhóm | Số thẻ HONG/BO_QUA | Ví dụ |
 |---|---|---|
@@ -42,7 +36,7 @@ Trạng thái: DAT 260, HONG 229
 | NHIN_TRUOC | 2 | python: NHIN TRUOC: .roll |
 | PY_CAM_CU_PHAP | 2 | python: cam thuoc tinh .to_datetime |
 
-Còn chờ sau lần chạy: 18 thẻ (LLM: 0, EA bộ dịch không-LLM bỏ qua: 18, top 28: 0).
+Còn chờ sau lần chạy: 1 thẻ (LLM: 0, EA bộ dịch không-LLM bỏ qua: 1, top 28: 0).
 
 Theo model (cộng dồn trong tiến trình): chưa gọi
 
