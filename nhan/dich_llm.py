@@ -143,6 +143,8 @@ def kiem_tra(d: dict, df: pd.DataFrame) -> dict:
     # 20/10/2026: chuan hoa ca spec trong cache cu (cat_len -> cheo_len, thieu "cua", chieu "buy") truoc khi chay
     sp_ds = [LLM.chuan_hoa_spec(x) for x in sp_ds if isinstance(x, dict)]
     sp_ds = [x for x in sp_ds if not LLM.kiem_spec(x)]
+    if isinstance(d.get("luoi"), dict) and d["luoi"]:
+        return kiem_luoi(d, df, cat)          # 20/10/2026: EA luoi / luon vao - dem LENH THAT cua bo may quan tri
     if sp_ds:
         kieu = "spec"
         d = dict(d, spec=sp_ds)
@@ -181,6 +183,58 @@ def kiem_tra(d: dict, df: pd.DataFrame) -> dict:
     return r
 
 
+def kiem_luoi(d: dict, df: pd.DataFrame, cat: list[int]) -> dict:
+    """Kiem ban dich che do luoi (nhan/luoi_hai_chieu.py). Khong dem lan doi tin hieu (luoi khong co tin hieu chieu):
+    chay bo may quan tri `tai_khoan.chay_tk` voi THAM SO TAC GIA tren gia mau va dem ro / lenh THAT. Chong nhin truoc:
+    (1) bo loc chieu python (neu co) qua 24 diem cat nhu python thuong, (2) dong lenh vao cua doan dau == dau dong day du,
+    (3) chay bo may tren doan dau thi so lenh mo truoc diem cat khop ban day du."""
+    from nhan import luoi_hai_chieu as LH
+    from nhan import tai_khoan as TK
+    l, loi = LH.chuan_hoa(d["luoi"])
+    if loi:
+        return {"dat": False, "kieu": "luoi", "ly_do": ["luoi: %s" % "; ".join(loi)], "so_lenh": 0}
+    n = len(df)
+    s, doan = None, {}
+    if l["loc_python"]:
+        r = HC.chay(l["loc_python"], df, cat)
+        if not r.get("ok"):
+            return {"dat": False, "kieu": "luoi", "ly_do": ["python: %s" % r.get("loi")], "so_lenh": 0}
+        s = np.asarray(r["day_du"], int)
+        doan = {int(k): np.asarray(v, int) for k, v in r["doan"].items()}
+    ly = []
+    for k, v in doan.items():
+        if len(v) != k or not np.array_equal(v, s[:k]):
+            ly.append("NHIN TRUOC: bo loc chieu cat o nen %d thi doi tin hieu" % k)
+            break
+    hs = TK.ho_so_phi("AUDCAD")
+    g = float(df["close"].median())
+    ql_d = LH.ql_tu_tac_gia(l, g, float(hs.point), float(hs.hop_dong), float(hs.qd(g)), 1000.0)
+    from nhan import ong_dan as OD
+    ql = OD.quan_li_tu(ql_d, 1000.0)
+    tk = TK.ho_so_tai_khoan("XM_MICRO_TAM", 1000.0)
+
+    def chay(x, sx):
+        m, b = LH.cho_phep(l, x, sx)
+        ev = LH.lenh_vao(x, m, b, "luoi", "")
+        return ev, TK.chay_tk({"": x}, ev, ql, tk, {"": hs}, ghi_von=False, ghi_lenh=True)
+    ev, kq = chay(df, s)
+    for k in (cat[len(cat) // 2], cat[-1]):
+        ev_k, kq_k = chay(df.iloc[:k], s[:k] if s is not None else None)
+        dau = [(e.chi_so, e.chieu) for e in ev if e.chi_so < k - 1]
+        if [(e.chi_so, e.chieu) for e in ev_k if e.chi_so < k - 1] != dau:
+            ly.append("NHIN TRUOC: lenh vao luoi cat o nen %d khac ban day du" % k)
+            break
+        a = kq["lenh"]; b = kq_k["lenh"]
+        if len(a) and len(b) and int((a["mo"] < k - 1).sum()) != int((b["mo"] < k - 1).sum()):
+            ly.append("NHIN TRUOC: bo may quan tri cat o nen %d mo so lenh khac" % k)
+            break
+    so_ro = int(kq.get("so_ro") or 0)
+    if so_ro < SO_LENH_MIN:
+        ly.append("chi ra %d lenh tren gia mau (< %d) (ro luoi that)" % (so_ro, SO_LENH_MIN))
+    return {"dat": not ly, "kieu": "luoi", "ly_do": ly, "so_lenh": so_ro, "so_lenh_tang": int(kq.get("so_lenh") or 0),
+            "so_tp": int(kq.get("so_tp") or 0), "so_doi": 0, "luoi": l, "ql_mau": ql_d}
+
+
 #: Nhom ly do HONG (20/10/2026) - bao cao DICH_LLM.md dem theo nhom de biet hong o dau (LLM, prompt, bo kiem, EA).
 NHOM_LY_DO = [
     ("NHIN_TRUOC", ("NHIN TRUOC",)),                     # truoc "python: " - "python: shift am (nhin truoc)"
@@ -188,13 +242,14 @@ NHOM_LY_DO = [
     ("PY_CAM_CU_PHAP", ("python: cam ", "python: loi cu phap", "python: khong co ham", "python: top-level")),
     ("PY_LOI_CHAY", ("python: ",)),
     ("SPEC_KHONG_CHAY", ("spec khong chay duoc",)),
+    ("LUOI_SAI", ("luoi: ",)),
     ("KHONG_RA_SPEC_PY", ("LLM khong ra spec hay python",)),
     ("IT_LENH", ("chi ra ",)),
     ("SAI_DINH_DANG", ("do dai tin hieu", "tin hieu ngoai")),
     ("KIEM_LOI", ("kiem_tra loi",)),
 ]
 #: Nhom co the do LOI PHIA TA (prompt / chuan hoa / hop cat) -> duoc kiem lai khi PHIEN_PROMPT tang.
-NHOM_THU_LAI = {"PY_CAM_CU_PHAP", "SPEC_KHONG_CHAY", "KHONG_RA_SPEC_PY", "KIEM_LOI", "PY_LOI_CHAY", "LOI_LLM"}
+NHOM_THU_LAI = {"LUOI_SAI", "PY_CAM_CU_PHAP", "SPEC_KHONG_CHAY", "KHONG_RA_SPEC_PY", "KIEM_LOI", "PY_LOI_CHAY", "LOI_LLM"}
 #: So lan that bai (LOI_LLM + HONG o cac phien prompt) toi da; qua -> BO_QUA kem ly do, khong goi LLM nua.
 SO_LAN_TOI_DA = 3
 
@@ -268,7 +323,7 @@ def kiem_tinh(d: dict, df: pd.DataFrame | None = None) -> list[str]:
 
 def can_sua(kt: dict, d: dict) -> bool:
     """Ket qua kiem_tra co dang SUA DUOC bang mot lan hoi lai khong (co ma ma 0-it lenh / nhin truoc / loi chay)."""
-    if kt.get("dat") or not (d.get("spec") or (d.get("python") or "").strip()):
+    if kt.get("dat") or not (d.get("spec") or d.get("luoi") or (d.get("python") or "").strip()):
         return False                       # khong co ma = LLM tu noi khong dich duoc -> hoi lai la phi tien
     return any(("lenh tren gia mau" in x) or ("NHIN TRUOC" in x) or x.startswith("python:") or
                x.startswith("spec khong chay") for x in kt.get("ly_do") or [])
@@ -283,7 +338,7 @@ def dich_mot(vb: str, nn: str, h: str, client=None, c: dict | None = None,
         # voi ban rut gon moi; cache co spec/python -> chi kiem lai (chuan hoa moi), khong ton luot goi.
         cm = str((c or LLM.cau_hinh()).get("model") or "")
         cung_model = not d.get("model") or not cm or d.get("model") == cm or not (client is not None or LLM.co_khoa(c))
-        co_ma = d.get("spec") or (d.get("python") or "").strip()
+        co_ma = d.get("spec") or d.get("luoi") or (d.get("python") or "").strip()
         if cung_model and (int(d.get("phien") or 1) >= LLM.PHIEN_PROMPT or co_ma):
             return d, True                              # khac model + co khoa -> goi lai bang model manh hien tai
         # 20/10/2026 (kiem chi phi): 36 ma DA DAT hom 19/10 bi dich lai vi (1) trang_thai.sqlite tren may nha bi ban
@@ -442,7 +497,7 @@ def _dich_that(vb, nn, h, client, c, df, nguon_gia) -> dict:
                     kt2 = kiem_tra(d2, df)
                 except Exception:  # noqa: BLE001
                     kt2 = {"dat": False}
-                if kt2.get("dat") or not (d2.get("spec") or (d2.get("python") or "").strip()):
+                if kt2.get("dat") or not (d2.get("spec") or d2.get("luoi") or (d2.get("python") or "").strip()):
                     d = dict(d2, da_sua=1, chan_doan_truoc=cd[:6])
                 else:
                     d = dict(d, da_sua=1, chan_doan_truoc=cd[:6])
@@ -583,7 +638,10 @@ def buoc_dich_llm(cn, gioi_han: int | None = None, luong: int = 4, in_ra=print, 
                              "chua_dich": d.get("chua_dich") or []}
             if kt["dat"]:
                 dem["dat"] += 1
-                if kt["kieu"] == "spec":
+                if kt["kieu"] == "luoi":
+                    t["duong_dich"] = "luoi"
+                    t["tin_hieu"] = {"kieu": "luoi", "luoi": kt["luoi"], "khoang": {}}
+                elif kt["kieu"] == "spec":
                     t["duong_dich"] = "spec_dsl"
                     t["tin_hieu"] = {"kieu": "spec", "specs": kt.get("spec") or d["spec"], "khoang": {}}
                 else:

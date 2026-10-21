@@ -158,7 +158,7 @@ def cho_python() -> tuple[int | None, int | None]:
         cn = OD._db()
         try:
             n = cn.execute("SELECT COUNT(*) FROM the WHERE buoc='quyet_dinh' AND loai='he_hoan_thien' AND "
-                           "duong IN ('noi_bo','spec_dsl','python_llm')").fetchone()[0]
+                           "duong IN ('noi_bo','spec_dsl','python_llm','luoi')").fetchone()[0]
             g = cn.execute("SELECT COUNT(*) FROM the WHERE buoc='quyet_dinh' AND trang_thai='GHEP_CHEO'").fetchone()[0]
             return int(n), int(g)
         finally:

@@ -3,6 +3,7 @@
 
 Ban dich: data/tho_box/dich_tay/<bam>.json (data/ git bo qua) dang JSON nhu cau_llm.MAU_BOC (spec/python/quan_tri/tham_so/...).
   python3 tho_box/dich_tay.py thu <bam>...   - chi kiem (kiem_tinh + kiem_tra hop cat + so lenh toi thieu), khong ghi gi
+  them `--ep` (ghi / nhan): ghi de bang tay cho the HONG / BO_QUA (vd EA luoi truoc day KHONG_RA_SPEC_PY o 2 model).
   python3 tho_box/dich_tay.py ghi <bam>...   - nhan viec trong NHAN_VIEC.jsonl (may box), ghi cache dich_llm voi
                                                model "grokbot-tay", roi chay dich_llm.buoc_dich_llm (KHONG khoa, KHONG goi mang:
                                                chi kiem lai tu cache) -> the DAT ve quyet_dinh cho `tho_box.py thu`.
@@ -59,12 +60,30 @@ def thu(hs, df=None):
     return ra, df, ng
 
 
+def danh_sach_ep(cn) -> list[dict]:
+    """GHI DE BANG TAY (20/10/2026, EA luoi): moi the can dich co tep, KE CA the HONG/BO_QUA (IT_LENH, dau 2 model
+    KHONG_RA_SPEC_PY) - chi dung khi nguoi dich da doc ma va viet ban dich moi (vd che do luoi)."""
+    from nhan import ong_dan as OD
+    ra = []
+    for t, b, tt, kq in OD.cac_the(cn):
+        nh = DL.can_dich(t, tt) or ("llm" if (t.get("dich_llm") or {}).get("trang_thai") in ("HONG", "BO_QUA") else "")
+        if not nh:
+            continue
+        tep = DL._tep(t)
+        if tep is None:
+            continue
+        ra.append({"the": t, "buoc": b, "tt": tt, "kq": kq, "nhom": nh, "tep": tep, "top28": False})
+    return ra
+
+
 def ghi(hs):
     import sqlite3
+    ep = "--ep" in hs
+    hs = [h for h in hs if h != "--ep"]
     ra, df, ng = thu(hs)
     so = PV.doc_so("dich")
     cn = sqlite3.connect(str(GOC / "data" / "ong_dan" / "tho_box.sqlite"), timeout=120)
-    ds = [x for x in DL.danh_sach_cho(cn) if x["tep"] is not None]
+    ds = [x for x in (danh_sach_ep(cn) if ep else DL.danh_sach_cho(cn)) if x["tep"] is not None]
     theo = {}
     for x in ds:
         theo.setdefault(DL.bam(x["tep"].read_bytes()[:800000]), []).append(x)
@@ -108,12 +127,14 @@ def ghi(hs):
 
 
 def nhan_truoc(hs):
-    """Nhan viec TRUOC khi doc ma (may khac thay khoa -> bo qua)."""
+    """Nhan viec TRUOC khi doc ma (may khac thay khoa -> bo qua). `--ep`: ca the HONG/BO_QUA (ghi de bang tay)."""
     import sqlite3
+    ep = "--ep" in hs
+    hs = [h for h in hs if h != "--ep"]
     so = PV.doc_so("dich")
     cn = sqlite3.connect(str(GOC / "data" / "ong_dan" / "tho_box.sqlite"), timeout=120)
     theo = {}
-    for x in DL.danh_sach_cho(cn):
+    for x in (danh_sach_ep(cn) if ep else DL.danh_sach_cho(cn)):
         if x["tep"] is not None:
             theo.setdefault(DL.bam(x["tep"].read_bytes()[:800000]), []).append(x["the"]["id"])
     cn.close()

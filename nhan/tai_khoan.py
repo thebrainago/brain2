@@ -60,6 +60,7 @@ class QuanLi:
     hedge_max_lan: int = 3
     go_tien: float | None = None       # GO: ro + lenh khoa + lai da chot cua khoa >= X (tien) -> dong ca ro. None = tat
     cat_lo_pct: float = 0.0            # cat ca ro khi lo >= X % so du (0 = KHONG SL, mac dinh phong cach chu du an)
+    dca_lot_tuyen_tinh: bool = False   # 20/10/2026 (EA luoi): lot tang k = lot0 x (k+1) nhu EA LOT_TUYEN_TINH (bo qua he so)
 
 
 @dataclass
@@ -723,7 +724,7 @@ def chay_tk(du_lieu: dict | pd.DataFrame, luong: list[LenhVao], ql: QuanLi | dic
             if q.dca_buoc_pct and q.dca_toi_da > 0:
                 lt, gv0 = lot0, r.chan[0].gia
                 for k in range(1, q.dca_toi_da + 1):
-                    lt = lt * q.dca_he_so_lot
+                    lt = lot0 * (k + 1) if q.dca_lot_tuyen_tinh else lt * q.dca_he_so_lot
                     r.muc.append((gv0 * (1 - ch * q.dca_buoc_pct * k), lt))
         # 4) cuoi nen: hedge / mo khoa / go / cat lo (gia dong cua)
         for r in list(ro_mo):
