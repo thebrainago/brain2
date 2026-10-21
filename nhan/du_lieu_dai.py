@@ -114,26 +114,93 @@ def lech_mt5(h1: pd.DataFrame, ma: str, thu_muc: Path = KQ_MT5) -> dict | None:
             "ghi_chu": "lệch giờ tốt nhất ≠ 0 → sai múi giờ" if k != 0 else "múi giờ khớp"}
 
 
+def hieu_chinh(phu: pd.DataFrame, chuan: pd.DataFrame, lech_gio=range(-3, 4)) -> dict:
+    """Hieu chinh nguon phu theo nguon chuan tren doan chung (H1): lech gio (gio) lam lech close nho nhat,
+    roi lech gia = median(chuan - phu) sau khi dich gio. Khong du doan chung (< 200 nen H1) -> khong chinh."""
+    hp, hc = sang_khung(phu, "1h")["close"], sang_khung(chuan, "1h")["close"]
+    tot = None
+    for k in lech_gio:
+        x = hp.shift(k, freq="1h")
+        c = x.index.intersection(hc.index)
+        if len(c) < 200:
+            continue
+        d = float((hc[c] - x[c]).abs().median())
+        if tot is None or d < tot[1]:
+            tot = (k, d, c)
+    if tot is None:
+        return {"lech_gio": 0, "lech_gia": 0.0, "so_nen_chung": 0, "da_chinh": False}
+    k, _, c = tot
+    x = hp.shift(k, freq="1h")
+    lg = float((hc[c] - x[c]).median())
+    sau = float((hc[c] - (x[c] + lg)).abs().median())
+    return {"lech_gio": int(k), "lech_gia": lg, "so_nen_chung": int(len(c)), "lech_sau_chinh_p50": sau, "da_chinh": True}
+
+
+def ap_hieu_chinh(df: pd.DataFrame, hc: dict) -> pd.DataFrame:
+    if not hc.get("da_chinh"):
+        return df
+    x = df + hc["lech_gia"]
+    x.index = df.index + pd.Timedelta(hours=hc["lech_gio"])
+    return x
+
+
+def la_xm(ten_server: str) -> bool:
+    return "XM" in ten_server.upper()
+
+
+def nguon_theo_nam(nguon: pd.Series) -> dict:
+    """nguon: Series (index thoi gian M5, gia tri ten nguon) -> {nam: {nguon: % nen}}."""
+    ra = {}
+    for y, s in nguon.groupby(nguon.index.year):
+        v = s.value_counts(normalize=True)
+        ra[str(y)] = {k: round(100 * float(p), 1) for k, p in v.items()}
+    return ra
+
+
+def gop_nhieu(nguon: list[tuple[str, pd.DataFrame]]) -> tuple[pd.DataFrame, pd.Series, dict]:
+    """nguon: [(ten, m1)] theo thu tu UU TIEN (XM truoc). Nguon sau duoc hieu chinh (gio + gia) theo phan da gop, chi lap
+    cho trong. Tra (m1, ten nguon moi nen, hieu chinh)."""
+    m1, ten, hcs = None, None, {}
+    for t, df in nguon:
+        if df is None or not len(df):
+            continue
+        df = df.sort_index()
+        if m1 is None:
+            m1, ten = df, pd.Series(t, index=df.index); hcs[t] = {"chuan": True}; continue
+        hc = hieu_chinh(df, m1); hcs[t] = hc
+        df = ap_hieu_chinh(df, hc)
+        moi = df[~df.index.isin(m1.index)]
+        m1 = pd.concat([m1, moi]).sort_index()
+        ten = pd.concat([ten, pd.Series(t, index=moi.index)]).sort_index()
+    if m1 is None:
+        return pd.DataFrame(columns=["open", "high", "low", "close"]), pd.Series(dtype=str), {}
+    m1 = m1[~m1.index.duplicated(keep="first")]; ten = ten[~ten.index.duplicated(keep="first")]
+    return m1, ten, hcs
+
+
 def dung(ma: list[str], thu: Path = THU) -> dict:
     (thu / "m5").mkdir(parents=True, exist_ok=True); RA.mkdir(parents=True, exist_ok=True)
     ban_do, bc = {}, {}
-    mt5_goc = sorted((thu / "mt5").glob("*")) if (thu / "mt5").exists() else []
+    sv = sorted((thu / "mt5").glob("*")) if (thu / "mt5").exists() else []
+    sv = sorted(sv, key=lambda p: (not la_xm(p.name), p.name))          # XM uu tien
     for m in ma:
-        a = pd.concat([doc_mt5_m1(s / m) for s in mt5_goc if (s / m).exists()] or [pd.DataFrame()])
+        ds = [("MT5:" + s.name, doc_mt5_m1(s / m)) for s in sv if (s / m).exists()]
         hz = sorted((thu / "histdata").glob("%s_M1_*.zip" % m))
-        b = pd.concat([doc_histdata_zip(f) for f in hz]) if hz else pd.DataFrame(columns=["open", "high", "low", "close"])
-        if not len(a) and not len(b):
+        if hz:
+            ds.append(("histdata", pd.concat([doc_histdata_zip(f) for f in hz])))
+        m1, ten, hcs = gop_nhieu(ds)
+        if not len(m1):
             bc[m] = {"trang_thai": "CHƯA CÓ DỮ LIỆU"}; continue
-        m1 = gop(a.sort_index() if len(a) else a, b.sort_index())
         m5 = sang_khung(m1)
+        t5 = ten.groupby(ten.index.floor("5min")).first().reindex(m5.index)
         out = thu / "m5" / ("%s_m5_server.csv" % m.lower())
         m5.to_csv(out, index_label="time", float_format="%.6f")
         ban_do[m] = str(out)
         h1 = sang_khung(m1, "1h")
         bc[m] = {"tu": str(m5.index[0]), "den": str(m5.index[-1]), "so_m5": int(len(m5)),
-                 "nguon_m1": {"mt5_xm": int(len(a)), "histdata": int(len(b))}, "theo_nam": phu_song(m5),
-                 "doi_chieu_mt5": lech_mt5(h1, m)}
-        del a, b, m1, m5, h1
+                 "nguon_m1": {t: int(len(d)) for t, d in ds}, "hieu_chinh": hcs, "nguon_theo_nam": nguon_theo_nam(t5.dropna()),
+                 "theo_nam": phu_song(m5), "doi_chieu_mt5": lech_mt5(h1, m)}
+        del ds, m1, m5, h1
     (thu / "du_lieu_dai.json").write_text(json.dumps(ban_do, indent=1), encoding="utf-8")
     (RA / "PHU_SONG.json").write_text(json.dumps(bc, ensure_ascii=False, indent=1), encoding="utf-8")
     (RA / "PHU_SONG.md").write_text(ghi_md(bc), encoding="utf-8")
@@ -142,7 +209,7 @@ def dung(ma: list[str], thu: Path = THU) -> dict:
 
 def ghi_md(bc: dict) -> str:
     L = ["# Độ phủ dữ liệu dài (tự sinh bởi `python -m nhan.du_lieu_dai --dung`)", "",
-         "| Mã | Từ | Đến | Nến M1 MT5 XM | Nến M1 histdata | Năm phủ ≥ 95 % | Năm phủ thấp | Lệch close vs MT5 p50/p95 (điểm) | Lệch giờ |",
+         "| Mã | Từ | Đến | Nến M1 theo nguồn | Hiệu chỉnh (giờ / giá) | Năm phủ ≥ 95 % | Năm phủ thấp | Lệch close vs MT5 p50/p95 (điểm) | Lệch giờ |",
          "|---|---|---|---|---|---|---|---|---|"]
     for m, r in bc.items():
         if "tu" not in r:
@@ -151,10 +218,17 @@ def ghi_md(bc: dict) -> str:
         tot = [y for y, v in tn.items() if v["phu_pct"] >= 95]
         thap = ["%s (%.0f%%)" % (y, v["phu_pct"]) for y, v in tn.items() if v["phu_pct"] < 95]
         dc = r.get("doi_chieu_mt5") or {}
-        L.append("| %s | %s | %s | %d | %d | %s | %s | %s / %s | %s |" % (
-            m, r["tu"][:10], r["den"][:10], r["nguon_m1"]["mt5_xm"], r["nguon_m1"]["histdata"],
+        hc = "; ".join("%s %+d h / %+.5g" % (t, h["lech_gio"], h["lech_gia"]) for t, h in r.get("hieu_chinh", {}).items()
+                       if h.get("da_chinh")) or "—"
+        L.append("| %s | %s | %s | %s | %s | %s | %s | %s / %s | %s |" % (
+            m, r["tu"][:10], r["den"][:10], ", ".join("%s: %d" % kv for kv in r["nguon_m1"].items()), hc,
             ("%s–%s (%d)" % (tot[0], tot[-1], len(tot))) if tot else "—", ", ".join(thap) or "—",
             dc.get("lech_close_p50_diem", "CHƯA ĐO ĐƯỢC"), dc.get("lech_close_p95_diem", "—"), dc.get("lech_gio_tot", "—")))
+    L += ["", "## Nguồn theo năm (% nến M5)", "", "| Mã | Năm: nguồn % |", "|---|---|"]
+    for m, r in bc.items():
+        if r.get("nguon_theo_nam"):
+            L.append("| %s | %s |" % (m, "; ".join("%s: %s" % (y, ", ".join("%s %.0f%%" % kv for kv in v.items()))
+                                                   for y, v in r["nguon_theo_nam"].items())))
     return "\n".join(L) + "\n"
 
 

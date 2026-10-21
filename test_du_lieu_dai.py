@@ -89,3 +89,37 @@ def test_mt5_tai_lich_su_tien_ich():
     assert M.ten_tren_san("EURUSD", {"EURUSDmicro"}) == "EURUSDmicro" and M.ten_tren_san("X", set()) is None
     assert M.thang("2025-11", dt.date(2026, 2, 3)) == [(2025, 11), (2025, 12), (2026, 1), (2026, 2)]
     assert all(d.weekday() in (1, 2) for d in M.ngay_mau(2020, 5))
+
+
+def test_kiem_terminal_slot_phu():
+    from mt5tools import tai_lich_su_mt5 as M
+    assert M.kiem_terminal(r"C:\Program Files\XM Global MT5\terminal64.exe", None, "phu")
+    assert M.kiem_terminal(r"C:\MT5_lich_su_metaquotes\terminal64.exe", "XMGlobal-MT5 10", "phu")
+    assert M.kiem_terminal(r"C:\MT5_lich_su_metaquotes\terminal64.exe", "MetaQuotes-Demo", "phu") is None
+    assert M.kiem_terminal(r"C:\Program Files\XM Global MT5\terminal64.exe", "XMGlobal-MT5 10", "xm") is None
+    assert M.ten_tren_san("XAUUSD", {"XAUUSD", "EURUSD"}) == "XAUUSD"
+
+
+def _m1(t0, n, gia0, dich_gio=0, cong=0.0):
+    t = pd.date_range(t0, periods=n, freq="1min")
+    rng = np.random.default_rng(3)
+    c = gia0 + np.cumsum(rng.normal(0, 1e-4, n))
+    x = pd.DataFrame({"open": c, "high": c + 1e-4, "low": c - 1e-4, "close": c}, index=t)
+    y = x + cong
+    y.index = t - pd.Timedelta(hours=dich_gio)
+    return x, y
+
+
+def test_gop_nhieu_hieu_chinh_gio_gia_va_nguon_theo_nam():
+    xm, mq = _m1("2024-01-01", 60 * 24 * 20, 1.1, dich_gio=1, cong=0.0005)    # MQ som 1 gio, cao hon 5 diem
+    xm_cat = xm[xm.index >= "2024-01-10"]
+    m1, ten, hc = D.gop_nhieu([("MT5:XM", xm_cat), ("MT5:MetaQuotes-Demo", mq)])
+    h = hc["MT5:MetaQuotes-Demo"]
+    assert h["da_chinh"] and h["lech_gio"] == 1 and abs(h["lech_gia"] + 0.0005) < 1e-6
+    # phan dau (truoc XM) lay tu MQ da chinh -> trung gia XM goc
+    t = pd.Timestamp("2024-01-05 12:00")
+    assert abs(m1.loc[t, "close"] - xm.loc[t, "close"]) < 1e-9 and ten[t] == "MT5:MetaQuotes-Demo"
+    assert ten[pd.Timestamp("2024-01-15")] == "MT5:XM"
+    ny = D.nguon_theo_nam(ten)
+    assert set(ny["2024"]) == {"MT5:XM", "MT5:MetaQuotes-Demo"}
+    assert D.la_xm("XMGlobal-MT5_10") and not D.la_xm("MetaQuotes-Demo")

@@ -1,11 +1,16 @@
 # Tai du lieu dai tren MAY NHA. 1) MT5 XM (uu tien)  2) Dukascopy + histdata (du phong, cham, lich su)  3) gop + kiem tra.
 # Moi buoc tu resume; log o data\du_lieu_dai\*.log. Dung: Ctrl+C (chay lai se tiep tuc).
-param([string]$Terminal = "C:\Program Files\XM Global MT5\terminal64.exe", [switch]$BoDuPhong)
+param([string]$Terminal = "C:\Program Files\XM Global MT5\terminal64.exe", [string]$TerminalPhu = "", [switch]$BoDuPhong)
 $ErrorActionPreference = "Continue"
 Set-Location (Split-Path $PSScriptRoot -Parent)
 New-Item -ItemType Directory -Force -Path data\du_lieu_dai | Out-Null
 $env:PYTHONIOENCODING = "utf-8"
-python mt5tools\tai_lich_su_mt5.py "$Terminal" 2>&1 | Tee-Object -Append data\du_lieu_dai\mt5.log
+python mt5tools\tai_lich_su_mt5.py "$Terminal" --vai xm 2>&1 | Tee-Object -Append data\du_lieu_dai\mt5.log
+# Slot phu MetaQuotes-Demo (lich su dai hon XM). KHONG BAO GIO tro vao terminal XM giao dich.
+if ($TerminalPhu -ne "") {
+  if ($TerminalPhu -like "*XM Global*") { Write-Host "TU CHOI: TerminalPhu la terminal XM"; exit 2 }
+  python mt5tools\tai_lich_su_mt5.py "$TerminalPhu" --vai phu 2>&1 | Tee-Object -Append data\du_lieu_dai\mt5_phu.log
+}
 if (-not $BoDuPhong) {
   python -m nhan.tai_du_lieu --chi-histdata 2>&1 | Tee-Object -Append data\du_lieu_dai\tai_histdata.log
   python -m nhan.tai_du_lieu --chi-duka 2>&1 | Tee-Object -Append data\du_lieu_dai\tai_duka.log

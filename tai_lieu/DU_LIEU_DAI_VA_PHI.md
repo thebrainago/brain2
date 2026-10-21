@@ -7,6 +7,7 @@ Mục tiêu: backtest Python vòng 2 trên lịch sử **2004–2026** (không c
 | # | Nguồn | Nội dung | Giờ | Cách lấy | Ghi chú |
 |---|---|---|---|---|---|
 | 1 | **MT5 XM (server của chính sàn)** | Nến M1 + H1, mẫu tick (bid/ask), `symbol_info` | giờ server XM (GMT+2/+3) | `mt5tools/tai_lich_su_mt5.py` (gói `MetaTrader5`, `copy_rates_range` / `copy_ticks_range`) | Giống hệt dữ liệu tester. Độ dài M1/tick do XM quyết định: **CHƯA ĐO ĐƯỢC** cho tới khi máy nhà chạy (bảng `ma.csv` ghi H1 XM có từ 2016–2017) |
+| 1b | **MT5 MetaQuotes-Demo (slot riêng)** | M1 + H1 + tick, thường dài hơn XM | giờ server MetaQuotes → hiệu chỉnh theo XM | `tai_lich_su_mt5.py <slot> --vai phu` | Chỉ dùng khi XM thiếu lịch sử; xem mục 6 |
 | 2 | **histdata.com** | M1 ASCII, giá bid, từ 2000–2010 tuỳ cặp | EST cố định (UTC−5) → đổi sang giờ server | `nhan/tai_du_lieu.py --chi-histdata`: gửi form tải thường của trang (anh đã cho phép), 1 luồng, nghỉ 6–12 giây | Đã thử trên box 21/10: EURUSD 2000 tải được (143.167 nến M1, từ 31/05/2000); GBPCAD/GBPNZD/EURCHF năm 2000 không có |
 | 3 | **Dukascopy datafeed** | Nến phút **BID + ASK** → spread lịch sử | UTC → giờ server | `nhan/tai_du_lieu.py --chi-duka`: mẫu 2 ngày giữa tuần mỗi tháng, 2004→nay | Box 21/10 bị **429/503** liên tục. Code lùi theo cấp số nhân (60 giây ×2ⁿ, tối đa 1 giờ, theo Retry-After), 1 luồng |
 
@@ -88,3 +89,24 @@ Mọi tệp thô đều nằm trong `data/du_lieu_dai/` (git bỏ qua). Tệp đ
 
 - Box 21/10/2026, khoảng 10:00 (UTC+7): đã dừng mọi tiến trình tải trên box. Đã tải thử 1 tệp histdata (EURUSD 2000); Dukascopy bị 429/503.
 - Chạy lại vòng 2 trên dữ liệu dài cho 20 hệ có tín hiệu Python: **CHƯA ĐO ĐƯỢC**, chờ máy nhà chạy mục 2.
+
+## 6. Nguồn dự phòng MetaQuotes-Demo (slot MT5 riêng)
+
+Khi XM không trả đủ lịch sử dài, lấy lịch sử từ server **MetaQuotes-Demo** bằng một terminal MT5 **riêng**. Slot này **không bao giờ** là terminal XM giao dịch (`C:\Program Files\XM Global MT5\terminal64.exe`). Script tự từ chối nếu: (a) đường dẫn là terminal XM, hoặc (b) slot phụ đang đăng nhập server có chữ "XM".
+
+**Tạo slot (làm một lần, bằng tay, khi máy nhà rảnh):**
+1. Tải bộ cài MT5 gốc của MetaQuotes (`mt5setup.exe` từ metatrader5.com). Khi cài, chọn *Settings* → thư mục **`C:\MT5_lich_su_metaquotes`**. Không cài đè lên thư mục XM.
+2. Chạy ở chế độ portable để dữ liệu nằm trong thư mục slot: tạo lối tắt `C:\MT5_lich_su_metaquotes\terminal64.exe /portable`.
+3. Trong terminal đó: *File → Open an Account* → tìm **MetaQuotes Software Corp.** → chọn **MetaQuotes-Demo** → *Open a demo account* → điền thông tin → *Next*. Đây là hộp thoại thường của MT5; tài khoản demo miễn phí, không có tiền thật.
+4. **Thông tin đăng nhập demo** (số tài khoản, mật khẩu) MT5 tự lưu trong slot. Nếu cần ghi lại, chỉ ghi ở `C:\Users\DUNG\mat_khau_rieng\metaquotes_demo.txt` (ngoài repo). **Không bao giờ** đưa vào `brain2`, git hay chat. Script không đọc mật khẩu: nó gắn vào terminal đang đăng nhập.
+5. *Tools → Options → Charts → Max bars in chart = Unlimited*, rồi khởi động lại slot.
+
+**Chạy:** `mt5tools\TAI_LICH_SU_MT5.bat` tự nhận slot nếu có `C:\MT5_lich_su_metaquotes\terminal64.exe`; đường dẫn khác thì truyền làm tham số thứ 2: `TAI_LICH_SU_MT5.bat "<XM>" "<slot>"`. Có thể chạy riêng: `python mt5tools\tai_lich_su_mt5.py "C:\MT5_lich_su_metaquotes\terminal64.exe" --vai phu`. Dữ liệu lưu theo server: `data\du_lieu_dai\mt5\MetaQuotes-Demo\<MÃ>\`.
+
+**Tên mã:** MetaQuotes dùng tên không hậu tố (`XAUUSD`, `EURUSD`…); XM dùng `GOLDmicro`, `EURUSDmicro`. Script thử lần lượt `GOLDmicro / GOLD / XAUUSDmicro / XAUUSD` và `<MÃ>micro / <MÃ># / <MÃ>`.
+
+**Gộp và hiệu chỉnh (`nhan/du_lieu_dai.py`):**
+- Thứ tự ưu tiên: **MT5 XM** → MT5 server khác (MetaQuotes-Demo) → histdata. Mỗi mã lấy hợp tất cả nguồn; nến nào XM có thì luôn dùng XM, nguồn sau chỉ lấp chỗ trống, nên mã nào cũng được phủ dài nhất có thể.
+- Mỗi nguồn phụ được **hiệu chỉnh trên đoạn chồng lấn** với phần đã gộp (H1, cần ≥ 200 nến chung): (1) **lệch giờ** trong khoảng −3…+3 giờ, chọn mức cho lệch close nhỏ nhất; nếu giờ server MetaQuotes khác XM, bước này tự dịch; (2) **lệch giá** = median(XM − nguồn phụ) sau khi dịch giờ, cộng vào toàn bộ nguồn phụ. Kết quả lưu trong `hieu_chinh` của `reports/du_lieu_dai/PHU_SONG.json`, gồm lệch giờ, lệch giá, số nến chung và lệch còn lại sau hiệu chỉnh.
+- Báo cáo `PHU_SONG.md` có bảng **nguồn theo năm** (% nến M5 của từng nguồn trong mỗi năm), để biết năm nào là dữ liệu XM thật và năm nào là MetaQuotes hay histdata.
+- Lưu ý: spread và swap của MetaQuotes-Demo **không** dùng cho mô hình phí. Phí luôn là phí XM (mục 4).

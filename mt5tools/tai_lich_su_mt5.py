@@ -12,6 +12,8 @@ Gio: MT5 tra thoi gian SERVER (XM = GMT+2/+3, doi theo DST My) -> khong can doi 
 
 Chay (may nha, KHI RANH):  mt5tools\\TAI_LICH_SU_MT5.bat   (hoac)
   python mt5tools/tai_lich_su_mt5.py "C:\\Program Files\\XM Global MT5\\terminal64.exe" [--tu 2004-01] [--ma EURUSD,GBPNZD]
+  python mt5tools/tai_lich_su_mt5.py "C:\\MT5_slot\\metaquotes\\terminal64.exe" --vai phu   (slot rieng, MetaQuotes-Demo)
+Moi server luu rieng data/du_lieu_dai/mt5/<SERVER>/ ; nhan.du_lieu_dai gop: XM uu tien, server khac duoc hieu chinh gio + gia.
 """
 from __future__ import annotations
 
@@ -29,6 +31,23 @@ from nhan.tai_du_lieu import MA  # noqa: E402  (19 ma cua 78 he DAT)
 
 RA = GOC / "data" / "du_lieu_dai" / "mt5"
 TEN_SAN = {"XAUUSD": ["GOLDmicro", "GOLD", "XAUUSDmicro", "XAUUSD"]}
+
+
+XM_GIAO_DICH = r"C:\Program Files\XM Global MT5\terminal64.exe"
+
+
+def kiem_terminal(duong_dan: str, server: str | None, vai: str) -> str | None:
+    """vai 'xm' = terminal XM (chi DOC lich su); vai 'phu' = slot RIENG dang nhap MetaQuotes-Demo (hoac server khac XM).
+    Tra ly do tu choi, hoac None neu duoc chay. Slot phu KHONG BAO GIO duoc la terminal XM giao dich."""
+    p = duong_dan.replace("/", "\\").lower().rstrip("\\")
+    if vai == "phu":
+        if p == XM_GIAO_DICH.lower() or "xm global" in p:
+            return "slot phụ không được là terminal XM giao dịch (%s)" % duong_dan
+        if server is not None and "XM" in server.upper():
+            return "slot phụ đang đăng nhập server XM (%s) — cần đăng nhập MetaQuotes-Demo" % server
+    elif vai == "xm" and server is not None and "XM" not in server.upper():
+        return "vai xm nhưng terminal đăng nhập %s" % server
+    return None
 
 
 def ten_tren_san(goc: str, co: set[str]) -> str | None:
@@ -130,10 +149,18 @@ def main(argv=None) -> int:
     ap.add_argument("terminal")
     ap.add_argument("--tu", default="2004-01")
     ap.add_argument("--ma", default=",".join(MA))
+    ap.add_argument("--vai", choices=["xm", "phu"], default="xm",
+                    help="xm = terminal XM; phu = slot rieng dang nhap MetaQuotes-Demo (khong bao gio la terminal XM giao dich)")
     a = ap.parse_args(argv)
+    ly = kiem_terminal(a.terminal, None, a.vai)
+    if ly:
+        print("TỪ CHỐI:", ly); return 2
     import MetaTrader5 as mt5  # chi co tren Windows
-    assert mt5.initialize(path=a.terminal), mt5.last_error()
+    assert mt5.initialize(path=a.terminal, portable=True if a.vai == "phu" else False), mt5.last_error()
     ai = mt5.account_info()
+    ly = kiem_terminal(a.terminal, ai.server if ai else None, a.vai)
+    if ly:
+        mt5.shutdown(); print("TỪ CHỐI:", ly); return 2
     goc_ra = RA / re.sub(r"[^A-Za-z0-9._-]", "_", ai.server)
     co = {s.name for s in mt5.symbols_get()}
     for g in [x.strip().upper() for x in a.ma.split(",") if x.strip()]:
