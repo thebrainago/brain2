@@ -41,7 +41,11 @@ def main(argv=None) -> int:
     elif b == "toi_uu":
         OD.buoc_toi_uu(cn, a.toi_da, a.ngan_sach, chi_id=a.id, lam_lai=a.lam_lai)
     elif b == "dich_llm":
-        print(json.dumps(OD.buoc_dich_llm(cn, gioi_han=a.gioi_han, luong=a.luong), ensure_ascii=False, indent=1))
+        r = OD.buoc_dich_llm(cn, gioi_han=a.gioi_han, luong=a.luong)
+        print(json.dumps(r, ensure_ascii=False, indent=1))
+        if r.get("het_quota"):                  # 20/10/2026: het quota LLM -> rc 3: dieu_phoi nghi roi lam Python thay
+            OD.ghi_bao_cao(cn)
+            return 3
     elif b == "to_hop":
         OD.buoc_to_hop(cn, a.ngan_sach_to_hop)
     else:

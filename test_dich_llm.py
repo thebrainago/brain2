@@ -263,8 +263,9 @@ def test_goi_may_nha_kem_the_llm_va_db(tmp_path, monkeypatch):
         n = set(z.namelist())
         man = json.loads(z.read("MANIFEST.json"))
         hd = z.read("HUONG_DAN.md").decode("utf-8")
-        db = z.read("data/ong_dan/trang_thai.sqlite")
-    assert {"data/seeker/p1.py", "data/seeker/p2.pine", "data/ong_dan/trang_thai.sqlite"} <= n
+        db = z.read("data/ong_dan/goi_vao/trang_thai_box.sqlite")
+    assert {"data/seeker/p1.py", "data/seeker/p2.pine", "data/ong_dan/goi_vao/trang_thai_box.sqlite"} <= n
+    assert "data/ong_dan/trang_thai.sqlite" not in n                 # 20/10/2026: khong ghi de CSDL may nha
     assert man["so_the_cho_dich_llm"] == 2 and man["the_cho_dich_llm"][0]["the"] == "p1"
     assert "dich_llm" in hd and "git pull" in hd and "ong_dan.py chay" in hd
     p = tmp_path / "chup.sqlite"; p.write_bytes(db)
@@ -343,3 +344,61 @@ def test_giu_cho_hash_khong_dich_trung(tmp_path, monkeypatch):
     d, tu_c = DL.dich_mot("ma", "MQL5", "abc", c=dict(LLM.MAC_DINH))
     assert d["trang_thai"] == "OK" and goi == [1] and not (tmp_path / "abc.dang").exists()
     assert json.loads((tmp_path / "abc.json").read_text(encoding="utf-8"))["token_ra_tong"] == 0
+
+
+def test_cache_khac_model_van_dat_khong_dich_lai(tmp_path, monkeypatch):
+    """20/10/2026: 36 ma DAT hom 19/10 bi tra tien dich lai khi doi model -> nay kiem lai cache truoc."""
+    monkeypatch.setattr(DL, "CACHE", tmp_path)
+    monkeypatch.setenv("AIBOX_API_KEY", KHOA_GIA)
+    c = dict(LLM.MAC_DINH, model="qwen3.7-max")
+    DL._ghi_cache("h1", {"trang_thai": "OK", "model": "qwen3.7-flash", "phien": 3, "spec": [{"x": 1}], "python": ""})
+    goi = []
+    monkeypatch.setattr(LLM, "boc_tach", lambda *a, **k: goi.append(1) or {"trang_thai": "OK", "model": "qwen3.7-max"})
+    monkeypatch.setattr(DL, "kiem_tra", lambda d, df: {"dat": True})
+    d, tu_c = DL.dich_mot("ma", "MQL5", "h1", c=c, df=_gia(100))
+    assert tu_c and goi == [] and d["model"] == "qwen3.7-flash"
+    monkeypatch.setattr(DL, "kiem_tra", lambda d, df: {"dat": False, "ly_do": ["x"]})
+    monkeypatch.setattr(DL, "can_sua", lambda kt, d: False)
+    d, tu_c = DL.dich_mot("ma", "MQL5", "h1", c=c, df=_gia(100))
+    assert not tu_c and goi == [1]                                      # khong dat -> moi goi model moi
+
+
+def test_khong_ra_hai_model_bo_qua_va_ghi_de(tmp_path, monkeypatch):
+    monkeypatch.setattr(DL, "CACHE", tmp_path)
+    monkeypatch.setenv("AIBOX_API_KEY", KHOA_GIA)
+    monkeypatch.delenv("BRAIN_DICH_LAI", raising=False)
+    c = dict(LLM.MAC_DINH, model="kimi-k2.7-code")
+    goi = []
+    monkeypatch.setattr(LLM, "boc_tach", lambda *a, **k: goi.append(1) or {"trang_thai": "OK", "model": "kimi-k2.7-code",
+                                                                            "spec": [], "python": ""})
+    monkeypatch.setattr(DL, "kiem_tra", lambda d, df: {"dat": False, "ly_do": ["x"]})
+    monkeypatch.setattr(DL, "can_sua", lambda kt, d: False)
+    # moi 1 model khong ra -> van goi model moi; lich su duoc giu lai
+    DL._ghi_cache("h2", {"trang_thai": "OK", "model": "qwen3.7-flash", "phien": 3, "spec": [], "python": ""})
+    DL.dich_mot("ma", "MQL5", "h2", c=c, df=_gia(100))
+    assert goi == [1] and DL.model_khong_ra(DL._doc_cache("h2")) == {"qwen3.7-flash", "kimi-k2.7-code"}
+    # 2 model -> khong goi nua, ke ca doi sang model thu 3
+    d, tu_c = DL.dich_mot("ma", "MQL5", "h2", c=dict(c, model="qwen3.7-max"), df=_gia(100))
+    assert tu_c and goi == [1] and "KHONG_RA_SPEC_PY o 2 model" in d["ghi_chu"]
+    # ghi de bang tay: tep dich_lai.txt hoac BRAIN_DICH_LAI=1
+    (tmp_path / "dich_lai.txt").write_text("h2\n", encoding="utf-8")
+    DL.dich_mot("ma", "MQL5", "h2", c=dict(c, model="qwen3.7-max"), df=_gia(100))
+    assert goi == [1, 1]
+    (tmp_path / "dich_lai.txt").unlink()
+    monkeypatch.setenv("BRAIN_DICH_LAI", "1")
+    DL.dich_mot("ma", "MQL5", "h2", c=dict(c, model="glm-5.3"), df=_gia(100))
+    assert goi == [1, 1, 1]
+    # buoc ghi HONG theo model vao cache
+    DL.ghi_hong_theo_model("h2", "glm-5.3", "IT_LENH")
+    assert DL._doc_cache("h2")["hong_theo_model"]["glm-5.3"] == "IT_LENH"
+
+
+def test_bo_sung_lich_su_flash_tu_nhat_ky(tmp_path, monkeypatch):
+    monkeypatch.setattr(DL, "CACHE", tmp_path)
+    DL._ghi_cache("h3", {"trang_thai": "OK", "model": "qwen3.7-max", "spec": [], "python": ""})
+    (tmp_path / "nhat_ky.jsonl").write_text(json.dumps({"luc": "2026-10-19T21:00:00", "the": [
+        {"bam": "h3", "ket_qua": "HONG", "ly_do": ["LLM khong ra spec hay python dung duoc"]}]}) + "\n" + json.dumps(
+        {"luc": "2026-10-20T20:00:00", "the": [{"bam": "h3", "ket_qua": "HONG", "ly_do": ["x"]}]}) + "\n", encoding="utf-8")
+    assert DL.nhom_ly_do(["LLM khong ra spec hay python dung duoc"]) == "KHONG_RA_SPEC_PY"
+    assert DL.bo_sung_lich_su_cu() == 1 and DL.bo_sung_lich_su_cu() == 0
+    assert DL.model_khong_ra(DL._doc_cache("h3")) == {"qwen3.7-flash", "qwen3.7-max"}

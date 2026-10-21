@@ -4,11 +4,11 @@ Kho gốc: `data/kho_co_che/kho.sqlite` (git bỏ qua). Số đo trong kho là M
 
 | Vai trò | Số cơ chế |
 |---|---|
-| nguồn lệnh | 384 |
-| bộ lọc | 274 |
-| mốc/vùng | 41 |
-| quản lí | 351 |
-| gỡ lệnh | 80 |
+| nguồn lệnh | 415 |
+| bộ lọc | 325 |
+| mốc/vùng | 47 |
+| quản lí | 399 |
+| gỡ lệnh | 91 |
 
 Mỗi vai trò liệt kê tối đa 60 cơ chế, cơ chế đã đo đứng trước (lãi cao trước).
 
@@ -85,6 +85,7 @@ Mỗi vai trò liệt kê tối đa 60 cơ chế, cơ chế đã đo đứng tr�
 | bộ lọc | Ban :: {"trai": {"chi_bao": "gia", "cot": "close"}, "phep":  | sk_ea_eb6858cdb6 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "gia", "cot": "close"}, ` | - |
 | bộ lọc | Ban :: {"trai": {"chi_bao": "gia", "cot": "close"}, "phep":  | sk_ea_80294b9f6f | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "gia", "cot": "close"}, ` | - |
 | bộ lọc | Ban :: {"trai": {"chi_bao": "gia", "cot": "close"}, "phep":  | sk_ea_0f24e9cdea | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "gia", "cot": "close"}, ` | - |
+| bộ lọc | Ban :: {"trai": {"chi_bao": "macd", "n": 12}, "phep": "<", " | sk_ea_3f01f6dbb8 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "macd", "n": 12}, "phep"` | - |
 | bộ lọc | Ban :: {"trai": {"chi_bao": "rsi", "n": 10}, "phep": "<=", " | sk_ea_80294b9f6f | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "rsi", "n": 10}, "phep":` | - |
 | bộ lọc | Ban :: {"trai": {"chi_bao": "rsi", "n": 10}, "phep": "<=", " | sk_ea_eb6858cdb6 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "rsi", "n": 10}, "phep":` | - |
 | bộ lọc | Ban :: {"trai": {"chi_bao": "rsi", "n": 10}, "phep": ">=", " | sk_ea_80294b9f6f | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "rsi", "n": 10}, "phep":` | - |
@@ -96,6 +97,8 @@ Mỗi vai trò liệt kê tối đa 60 cơ chế, cơ chế đã đo đứng tr�
 | bộ lọc | Ban :: {"trai": {"chi_bao": "sma", "n": 55}, "phep": "<", "p | sk_ea_034ed9aaa2 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "sma", "n": 55}, "phep":` | - |
 | bộ lọc | Ban :: {"trai": {"chi_bao": "smma", "n": 200}, "phep": ">",  | sk_ea_097203c574 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "smma", "n": 200}, "phep` | - |
 | bộ lọc | Ban :: {"trai": {"chi_bao": "smma", "n": 50}, "phep": ">", " | sk_ea_097203c574 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "smma", "n": 50}, "phep"` | - |
+| bộ lọc | Ban :: {"trai": {"chi_bao": "tre", "n": 1, "cua": {"chi_bao" | sk_ea_3f01f6dbb8 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "tre", "n": 1, "cua": {"` | - |
+| bộ lọc | Ban :: {"trai": {"chi_bao": "wma", "n": 6}, "phep": "<", "ph | sk_ea_3f01f6dbb8 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "wma", "n": 6}, "phep": ` | - |
 | bộ lọc | Buy :: {"trai": {"chi_bao": "gia", "cot": "open"}, "phep": " | sk_ea_06d8321369 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "gia", "cot": "open"}, "` | - |
 | bộ lọc | Buy :: {"trai": {"chi_bao": "rsi", "n": 4}, "phep": "<=", "p | sk_ea_06d8321369 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "rsi", "n": 4}, "phep": ` | - |
 | bộ lọc | Buy :: {"trai": {"chi_bao": "sma", "n": 14}, "phep": ">", "p | sk_ea_3d61f61ddb | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "sma", "n": 14}, "phep":` | - |
@@ -131,16 +134,16 @@ Mỗi vai trò liệt kê tối đa 60 cơ chế, cơ chế đã đo đứng tr�
 | bộ lọc | Mua :: {"trai": {"chi_bao": "gia", "cot": "close"}, "phep":  | sk_ea_80294b9f6f | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "gia", "cot": "close"}, ` | - |
 | bộ lọc | Mua :: {"trai": {"chi_bao": "gia", "cot": "close"}, "phep":  | sk_ea_80294b9f6f | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "gia", "cot": "close"}, ` | - |
 | bộ lọc | Mua :: {"trai": {"chi_bao": "gia", "cot": "close"}, "phep":  | sk_ea_eb6858cdb6 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "gia", "cot": "close"}, ` | - |
-| bộ lọc | Mua :: {"trai": {"chi_bao": "gia", "cot": "close"}, "phep":  | sk_ea_0ac3a4e8e1 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "gia", "cot": "close"}, ` | - |
-| bộ lọc | Mua :: {"trai": {"chi_bao": "gia", "cot": "close"}, "phep":  | sk_ea_eb6858cdb6 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "gia", "cot": "close"}, ` | - |
-| bộ lọc | Mua :: {"trai": {"chi_bao": "gia", "cot": "close"}, "phep":  | sk_ea_034ed9aaa2 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "gia", "cot": "close"}, ` | - |
 | mốc/vùng | Ban :: {"trai": {"chi_bao": "ema", "n": 24, "apply": "low"}, | sk_ea_034ed9aaa2 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "ema", "n": 24, "apply":` | - |
 | mốc/vùng | Ban :: {"trai": {"chi_bao": "ema", "n": 5}, "phep": "<", "ph | sk_ea_034ed9aaa2 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "ema", "n": 5}, "phep": ` | - |
 | mốc/vùng | Ban :: {"trai": {"chi_bao": "gia", "cot": "close"}, "phep":  | sk_ea_7eec0ab393 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "gia", "cot": "close"}, ` | - |
+| mốc/vùng | Ban :: {"trai": {"chi_bao": "tre", "n": 1, "cua": {"chi_bao" | sk_ea_3f01f6dbb8 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "tre", "n": 1, "cua": {"` | - |
 | mốc/vùng | Cycle2_Envelopes :: {"trai": {"chi_bao": "gia", "cot": "clos | sk_ea_09cd843812 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "gia", "cot": "close", "` | - |
 | mốc/vùng | Cycle2_Envelopes :: {"trai": {"chi_bao": "gia", "cot": "clos | sk_ea_09cd843812 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "gia", "cot": "close", "` | - |
 | mốc/vùng | Cycle2_Envelopes :: {"trai": {"chi_bao": "gia", "cot": "open | sk_ea_09cd843812 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "gia", "cot": "open"}, "` | - |
 | mốc/vùng | Cycle2_Envelopes :: {"trai": {"chi_bao": "gia", "cot": "open | sk_ea_09cd843812 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "gia", "cot": "open"}, "` | - |
+| mốc/vùng | Downtrend :: {"trai": {"chi_bao": "tre", "n": 24, "cua": {"c | sk_ea_220129ae18 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "tre", "n": 24, "cua": {` | - |
+| mốc/vùng | Downtrend :: {"trai": {"chi_bao": "tre", "n": 48, "cua": {"c | sk_ea_220129ae18 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "tre", "n": 48, "cua": {` | - |
 | mốc/vùng | Grid_Entry_Buy :: {"trai": {"chi_bao": "bollinger", "n": 10, | sk_ea_dd7af7c0d7 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "bollinger", "n": 10, "d` | - |
 | mốc/vùng | Grid_Entry_Sell :: {"trai": {"chi_bao": "bollinger", "n": 10 | sk_ea_dd7af7c0d7 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "bollinger", "n": 10, "d` | - |
 | mốc/vùng | Long_Momentum :: {"trai": {"chi_bao": "low", "cot": "low"},  | sk_ea_f495219ff1 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "low", "cot": "low"}, "p` | - |
@@ -148,7 +151,10 @@ Mỗi vai trò liệt kê tối đa 60 cơ chế, cơ chế đã đo đứng tr�
 | mốc/vùng | Mua :: {"trai": {"chi_bao": "ema", "n": 24, "apply": "high"} | sk_ea_034ed9aaa2 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "ema", "n": 24, "apply":` | - |
 | mốc/vùng | Mua :: {"trai": {"chi_bao": "ema", "n": 5}, "phep": ">", "ph | sk_ea_034ed9aaa2 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "ema", "n": 5}, "phep": ` | - |
 | mốc/vùng | Mua :: {"trai": {"chi_bao": "gia", "cot": "close"}, "phep":  | sk_ea_7eec0ab393 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "gia", "cot": "close"}, ` | - |
+| mốc/vùng | Mua :: {"trai": {"chi_bao": "tre", "n": 1, "cua": {"chi_bao" | sk_ea_3f01f6dbb8 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "tre", "n": 1, "cua": {"` | - |
 | mốc/vùng | Short_Momentum :: {"trai": {"chi_bao": "high", "cot": "high" | sk_ea_f495219ff1 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "high", "cot": "high"}, ` | - |
+| mốc/vùng | Uptrend :: {"trai": {"chi_bao": "tre", "n": 24, "cua": {"chi | sk_ea_220129ae18 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "tre", "n": 24, "cua": {` | - |
+| mốc/vùng | Uptrend :: {"trai": {"chi_bao": "tre", "n": 48, "cua": {"chi | sk_ea_220129ae18 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "tre", "n": 48, "cua": {` | - |
 | mốc/vùng | ma_ban_close_tre1_duoi_bollinger20_tre1_va_close_tren_bollin | mql5_52c9d59c9315f9ae | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "gia", "cot": "close"}, ` | - |
 | mốc/vùng | ma_ban_close_tre1_duoi_bollinger20_tre1_va_close_tren_bollin | mql5_52c9d59c9315f9ae | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "tre", "cua": {"chi_bao"` | - |
 | mốc/vùng | ma_ban_close_tren_bollinger20_va_close_tren_bollinger20 :: { | mql5_8d29971d65f58552 | `{"kieu": "dieu_kien", "dieu_kien": {"trai": {"chi_bao": "gia", "cot": "close"}, ` | - |
@@ -228,13 +234,13 @@ Mỗi vai trò liệt kê tối đa 60 cơ chế, cơ chế đã đo đứng tr�
 | quản lí | ql tp0.002 dca0.005x5 hs1.6 hedge0.0 | sk_st_bf92700037092f39 | `{"kieu": "ql", "ql": {"tp_pct": 0.002, "dca_buoc_pct": 0.005, "dca_toi_da": 5, "` | lãi 24.8%/năm, sụt 11.0% |
 | quản lí | ql tp0.00254 dca0.003x0 hs1.0 hedge0.0 | sk_st_2523df1774f6d7c7 | `{"kieu": "ql", "ql": {"tp_pct": 0.00254, "dca_buoc_pct": 0.003, "dca_toi_da": 0,` | lãi 24.2%/năm, sụt 12.0% |
 | quản lí | ql tp0.00254 dca0.003x0 hs1.0 hedge0.0 | sk_st_9c33e515b96d9109 | `{"kieu": "ql", "ql": {"tp_pct": 0.00254, "dca_buoc_pct": 0.003, "dca_toi_da": 0,` | lãi 24.2%/năm, sụt 12.0% |
+| quản lí | ql tp0.002 dca0.005x8 hs1.3 hedge0.0 | sk_ea_380b0b4923 | `{"kieu": "ql", "ql": {"tp_pct": 0.002, "dca_buoc_pct": 0.005, "dca_toi_da": 8, "` | lãi 14.9%/năm, sụt 22.7% |
+| quản lí | ql tp0.001 dca0.008x8 hs1.6 hedge0.0 | sk_ea_3f01f6dbb8 | `{"kieu": "ql", "ql": {"tp_pct": 0.001, "dca_buoc_pct": 0.008, "dca_toi_da": 8, "` | lãi 14.5%/năm, sụt 37.0% |
 | quản lí | ql tp0.002 dca0.008x8 hs1.6 hedge0.0 | sk_ea_097203c574 | `{"kieu": "ql", "ql": {"tp_pct": 0.002, "dca_buoc_pct": 0.008, "dca_toi_da": 8, "` | lãi 14.5%/năm, sụt 48.5% |
 | quản lí | ql tp0.003 dca0.005x8 hs1.0 hedge0.0 | sk_st_608078b7f9bc3359 | `{"kieu": "ql", "ql": {"tp_pct": 0.003, "dca_buoc_pct": 0.005, "dca_toi_da": 8, "` | lãi 14.0%/năm, sụt 50.3% |
 | quản lí | ql tp0.001 dca0.012x8 hs1.0 hedge0.0 | mql5_806606e97f803016 | `{"kieu": "ql", "ql": {"tp_pct": 0.001, "dca_buoc_pct": 0.012, "dca_toi_da": 8, "` | lãi 13.7%/năm, sụt 30.6% |
 | quản lí | ql tp0.002 dca0.008x8 hs1.0 hedge0.0 | sk_ea_e8ba790fcd | `{"kieu": "ql", "ql": {"tp_pct": 0.002, "dca_buoc_pct": 0.008, "dca_toi_da": 8, "` | lãi 13.6%/năm, sụt 48.7% |
 | quản lí | ql tp0.005 dca0.012x3 hs1.3 hedge0.0 | mql5_4ed24a41323090d5 | `{"kieu": "ql", "ql": {"tp_pct": 0.005, "dca_buoc_pct": 0.012, "dca_toi_da": 3, "` | lãi 13.6%/năm, sụt 63.2% |
-| quản lí | ql tp0.003 dca0.008x3 hs1.3 hedge0.0 | sk_ea_4a3e22b594 | `{"kieu": "ql", "ql": {"tp_pct": 0.003, "dca_buoc_pct": 0.008, "dca_toi_da": 3, "` | lãi 13.2%/năm, sụt 14.6% |
-| quản lí | ql tp0.002 dca0.012x8 hs1.6 hedge0.0 | 346c3863557fbb06 | `{"kieu": "ql", "ql": {"tp_pct": 0.002, "dca_buoc_pct": 0.012, "dca_toi_da": 8, "` | lãi 13.0%/năm, sụt 63.7% |
 | gỡ lệnh | ql tp0.005 dca0.012x0 hs1.6 hedge20.0 | sk_st_73894331e7575d3e | `{"kieu": "ql", "ql": {"tp_pct": 0.005, "dca_buoc_pct": 0.012, "dca_toi_da": 0, "` | lãi 4570.9%/năm, sụt 91.4% |
 | gỡ lệnh | ql tp0.002 dca0.005x3 hs1.3 hedge10.0 | sk_st_e3a1b4a3a127804b | `{"kieu": "ql", "ql": {"tp_pct": 0.002, "dca_buoc_pct": 0.005, "dca_toi_da": 3, "` | lãi 280.3%/năm, sụt 4.5% |
 | gỡ lệnh | ql tp0.005 dca0.012x0 hs1.0 hedge20.0 | sk_st_89fcf876a73c3867 | `{"kieu": "ql", "ql": {"tp_pct": 0.005, "dca_buoc_pct": 0.012, "dca_toi_da": 0, "` | lãi 265.8%/năm, sụt 18.6% |
@@ -245,6 +251,7 @@ Mỗi vai trò liệt kê tối đa 60 cơ chế, cơ chế đã đo đứng tr�
 | gỡ lệnh | ql tp0.002 dca0.012x3 hs1.0 hedge20.0 | sk_st_781895bc8999398a | `{"kieu": "ql", "ql": {"tp_pct": 0.002, "dca_buoc_pct": 0.012, "dca_toi_da": 3, "` | lãi 24.3%/năm, sụt 7.6% |
 | gỡ lệnh | ql tp0.001 dca0.003x3 hs1.0 hedge10.0 | sk_st_e516b7a5afa1da96 | `{"kieu": "ql", "ql": {"tp_pct": 0.001, "dca_buoc_pct": 0.003, "dca_toi_da": 3, "` | lãi 19.7%/năm, sụt 20.3% |
 | gỡ lệnh | ql tp0.003 dca0.012x0 hs1.6 hedge20.0 | sk_ea_4a8460a59c | `{"kieu": "ql", "ql": {"tp_pct": 0.003, "dca_buoc_pct": 0.012, "dca_toi_da": 0, "` | lãi 14.0%/năm, sụt 64.7% |
+| gỡ lệnh | ql tp0.001 dca0.012x0 hs1.0 hedge20.0 | sk_ea_286bb9e65e | `{"kieu": "ql", "ql": {"tp_pct": 0.001, "dca_buoc_pct": 0.012, "dca_toi_da": 0, "` | lãi 13.9%/năm, sụt 16.1% |
 | gỡ lệnh | ql tp0.002 dca0.012x3 hs1.3 hedge10.0 | sk_ea_83e50813e8 | `{"kieu": "ql", "ql": {"tp_pct": 0.002, "dca_buoc_pct": 0.012, "dca_toi_da": 3, "` | lãi 12.3%/năm, sụt 55.2% |
 | gỡ lệnh | ql tp0.005 dca0.003x0 hs1.3 hedge20.0 | sk_ea_037fb7f0f8 | `{"kieu": "ql", "ql": {"tp_pct": 0.005, "dca_buoc_pct": 0.003, "dca_toi_da": 0, "` | lãi 11.2%/năm, sụt 24.3% |
 | gỡ lệnh | ql tp0.001 dca0.012x8 hs1.6 hedge20.0 | mql5_b794f05d015ba318 | `{"kieu": "ql", "ql": {"tp_pct": 0.001, "dca_buoc_pct": 0.012, "dca_toi_da": 8, "` | lãi 9.9%/năm, sụt 12.1% |
@@ -263,6 +270,7 @@ Mỗi vai trò liệt kê tối đa 60 cơ chế, cơ chế đã đo đứng tr�
 | gỡ lệnh | ql tp0.002 dca0.005x8 hs1.0 hedge10.0 | sk_ea_37d63eef37 | `{"kieu": "ql", "ql": {"tp_pct": 0.002, "dca_buoc_pct": 0.005, "dca_toi_da": 8, "` | lãi 7.8%/năm, sụt 9.3% |
 | gỡ lệnh | ql tp0.005 dca0.003x0 hs1.0 hedge20.0 | sk_ea_00b5bd3d21 | `{"kieu": "ql", "ql": {"tp_pct": 0.005, "dca_buoc_pct": 0.003, "dca_toi_da": 0, "` | lãi 7.2%/năm, sụt 12.6% |
 | gỡ lệnh | ql tp0.005 dca0.012x8 hs1.0 hedge10.0 | mql5_49be307ef02e2e9d | `{"kieu": "ql", "ql": {"tp_pct": 0.005, "dca_buoc_pct": 0.012, "dca_toi_da": 8, "` | lãi 7.0%/năm, sụt 17.0% |
+| gỡ lệnh | ql tp0.005 dca0.012x8 hs1.6 hedge10.0 | sk_ea_3a777ef757 | `{"kieu": "ql", "ql": {"tp_pct": 0.005, "dca_buoc_pct": 0.012, "dca_toi_da": 8, "` | lãi 6.7%/năm, sụt 29.5% |
 | gỡ lệnh | ql tp0.002 dca0.012x3 hs1.3 hedge20.0 | sk_ea_f6ff1d1da1 | `{"kieu": "ql", "ql": {"tp_pct": 0.002, "dca_buoc_pct": 0.012, "dca_toi_da": 3, "` | lãi 5.8%/năm, sụt 63.7% |
 | gỡ lệnh | ql tp0.003 dca0.005x8 hs1.0 hedge10.0 | sk_ea_80294b9f6f | `{"kieu": "ql", "ql": {"tp_pct": 0.003, "dca_buoc_pct": 0.005, "dca_toi_da": 8, "` | lãi 5.2%/năm, sụt 18.5% |
 | gỡ lệnh | ql tp0.003 dca0.003x3 hs1.0 hedge20.0 | to_hop_d5a0048d472a40a1 | `{"kieu": "ql", "ql": {"tp_pct": 0.003, "dca_buoc_pct": 0.003, "dca_toi_da": 3, "` | lãi 5.0%/năm, sụt 24.3% |
@@ -275,6 +283,7 @@ Mỗi vai trò liệt kê tối đa 60 cơ chế, cơ chế đã đo đứng tr�
 | gỡ lệnh | ql tp0.003 dca0.012x0 hs1.0 hedge10.0 | sk_ea_0d20a42b21 | `{"kieu": "ql", "ql": {"tp_pct": 0.003, "dca_buoc_pct": 0.012, "dca_toi_da": 0, "` | lãi 3.1%/năm, sụt 15.3% |
 | gỡ lệnh | ql tp0.003 dca0.008x3 hs1.3 hedge10.0 | sk_ea_010456a618 | `{"kieu": "ql", "ql": {"tp_pct": 0.003, "dca_buoc_pct": 0.008, "dca_toi_da": 3, "` | lãi 2.6%/năm, sụt 28.6% |
 | gỡ lệnh | ql tp0.003 dca0.012x8 hs1.0 hedge10.0 | sk_ea_0c5d466bc5 | `{"kieu": "ql", "ql": {"tp_pct": 0.003, "dca_buoc_pct": 0.012, "dca_toi_da": 8, "` | lãi 2.5%/năm, sụt 15.7% |
+| gỡ lệnh | ql tp0.003 dca0.012x3 hs1.3 hedge20.0 | sk_ea_220129ae18 | `{"kieu": "ql", "ql": {"tp_pct": 0.003, "dca_buoc_pct": 0.012, "dca_toi_da": 3, "` | lãi 2.4%/năm, sụt 52.3% |
 | gỡ lệnh | ql tp0.002 dca0.008x3 hs1.6 hedge20.0 | sk_ea_1b86cbb6e9 | `{"kieu": "ql", "ql": {"tp_pct": 0.002, "dca_buoc_pct": 0.008, "dca_toi_da": 3, "` | lãi 2.4%/năm, sụt 4.5% |
 | gỡ lệnh | ql tp0.005 dca0.003x0 hs1.6 hedge20.0 | sk_ea_0b7bcaeb50 | `{"kieu": "ql", "ql": {"tp_pct": 0.005, "dca_buoc_pct": 0.003, "dca_toi_da": 0, "` | lãi 2.1%/năm, sụt 41.1% |
 | gỡ lệnh | ql tp0.002 dca0.005x8 hs1.0 hedge20.0 | sk_ea_971b8a78a0 | `{"kieu": "ql", "ql": {"tp_pct": 0.002, "dca_buoc_pct": 0.005, "dca_toi_da": 8, "` | lãi 1.0%/năm, sụt 19.6% |
@@ -292,6 +301,3 @@ Mỗi vai trò liệt kê tối đa 60 cơ chế, cơ chế đã đo đứng tr�
 | gỡ lệnh | ql tp0.005 dca0.003x5 hs1.0 hedge20.0 | sk_ea_056a999c5b | `{"kieu": "ql", "ql": {"tp_pct": 0.005, "dca_buoc_pct": 0.003, "dca_toi_da": 5, "` | lãi 0.0%/năm, sụt 0.0% |
 | gỡ lệnh | ql tp0.005 dca0.003x8 hs1.0 hedge10.0 | sk_ea_57ed80f5cf | `{"kieu": "ql", "ql": {"tp_pct": 0.005, "dca_buoc_pct": 0.003, "dca_toi_da": 8, "` | lãi 0.0%/năm, sụt 0.0% |
 | gỡ lệnh | ql tp0.005 dca0.005x8 hs1.6 hedge10.0 | sk_ea_865515ef6c | `{"kieu": "ql", "ql": {"tp_pct": 0.005, "dca_buoc_pct": 0.005, "dca_toi_da": 8, "` | lãi 0.0%/năm, sụt 0.0% |
-| gỡ lệnh | ql tp0.005 dca0.008x5 hs1.6 hedge10.0 | sk_ea_0d00c9727b | `{"kieu": "ql", "ql": {"tp_pct": 0.005, "dca_buoc_pct": 0.008, "dca_toi_da": 5, "` | lãi 0.0%/năm, sụt 0.0% |
-| gỡ lệnh | ql tp0.005 dca0.012x3 hs1.0 hedge20.0 | sk_ea_fd32c052f6 | `{"kieu": "ql", "ql": {"tp_pct": 0.005, "dca_buoc_pct": 0.012, "dca_toi_da": 3, "` | lãi 0.0%/năm, sụt 0.0% |
-| gỡ lệnh | ql tp0.005 dca0.012x8 hs1.6 hedge10.0 | sk_ea_02ab28922e | `{"kieu": "ql", "ql": {"tp_pct": 0.005, "dca_buoc_pct": 0.012, "dca_toi_da": 8, "` | lãi 0.0%/năm, sụt 0.0% |

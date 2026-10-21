@@ -405,7 +405,21 @@ def tin_hieu_to_hop(th: dict, df: pd.DataFrame, ma: str = "") -> np.ndarray:
             s = NL.ap_loc(s, cho_ca=NL.bo_loc_gio(df, int(lc["tham"]["tu"]), int(lc["tham"]["den"])))
         elif k == "bien_dong":
             s = NL.ap_loc(s, cho_ca=NL.bo_loc_bien_dong(df, int(lc["tham"].get("n", 14)), float(lc["tham"].get("tran_pct", 1.0))))
+        elif k == "xac_nhan":                   # vong 2: lenh A chi giu khi nguon xac nhan cung chieu trong `cua_so` nen
+            sx = np.sign(np.asarray(tin_hieu({"tin_hieu": lc["nguon"]}, df, {}, ma), float))
+            s = np.where(np.sign(s) == huong_gan_nhat(sx, int(lc["tham"].get("cua_so", 3))), s, 0).astype(int)
     return s
+
+
+def huong_gan_nhat(s: np.ndarray, cua_so: int | None = None) -> np.ndarray:
+    """Chieu tin hieu khac 0 gan nhat tai moi nen (0 neu chua co / qua `cua_so` nen)."""
+    s = np.sign(np.asarray(s, float))
+    idx = np.where(s != 0, np.arange(len(s)), -1)
+    idx = np.maximum.accumulate(idx) if len(idx) else idx
+    h = np.where(idx >= 0, s[np.maximum(idx, 0)], 0.0)
+    if cua_so is not None:
+        h = np.where(np.arange(len(s)) - idx <= cua_so, h, 0.0)
+    return h
 
 
 def quan_li_tu(x: dict, von: float) -> TK.QuanLi:
@@ -417,9 +431,19 @@ def quan_li_tu(x: dict, von: float) -> TK.QuanLi:
                      trail_kich_pct=float(x.get("trail_kich_pct", 0.0)), trail_khoang_pct=float(x.get("trail_khoang_pct", 0.0)))
 
 
+def _ma_rieng(t: dict) -> list:
+    """Danh sach MA (symbol) rieng cua the. 20/10/2026 21:30: the python_llm luu MA NGUON Python o tin_hieu["ma"]
+    (chuoi) -> truoc day bi hieu la danh sach symbol (tung ky tu) -> mau_thu tra None, MOI the python_llm CHUA_DO_DUOC."""
+    th = t.get("tin_hieu") or {}
+    r = th.get("ma")
+    if th.get("kieu") == "python_llm" or not isinstance(r, (list, tuple)):
+        return []
+    return list(r)
+
+
 def mau_thu(t: dict, rng: random.Random, cfg: dict) -> dict | None:
     co = ma_co_du_lieu(cfg)
-    rieng = (t.get("tin_hieu") or {}).get("ma")          # the gan voi ma cu the (vd statement) -> chi ma do
+    rieng = _ma_rieng(t)                                 # the gan voi ma cu the (vd statement) -> chi ma do
     if rieng:
         co = [m for m in co if m in set(rieng)]
         if not co:
@@ -459,6 +483,9 @@ def chuan_bi(t: dict, thu: dict, cfg: dict) -> dict:
     ghep = False
     if t.get("tin_hieu", {}).get("kieu") == "to_hop" and t["tin_hieu"].get("nguon_b"):
         sb = tin_hieu({"tin_hieu": t["tin_hieu"]["nguon_b"]}, df, {}, thu["ma"])
+        if t["tin_hieu"].get("kieu_b") == "nguoc":     # vong 2 hedge: B chi vao NGUOC chieu A dang giu (khac phong cach)
+            sa = tin_hieu_to_hop(t["tin_hieu"], df, thu["ma"])
+            sb = np.where(np.sign(sb) == -huong_gan_nhat(sa), sb, 0).astype(int)
         ev += NL.lenh_vao(df, NL.ap_loc(sb, cho_ca=NL.bo_loc_gio(df, den, tu)), t["id"] + "_b", thu["ma"])
         ql.go_cheo = True
         ghep = True
@@ -559,7 +586,7 @@ def buoc_toi_uu(cn, toi_da: int | None = None, ngan_sach: int | None = None, in_
             if g.get("ma") in ma_co_du_lieu(cfg):
                 hat.append(json.loads(json.dumps(g)))
         if t.get("ql_goi_y"):                           # phep thu dau: quan li DO NGUOC tu statement
-            for ma in [m for m in ((t.get("tin_hieu") or {}).get("ma") or []) if m in ma_co_du_lieu(cfg)][:2]:
+            for ma in [m for m in _ma_rieng(t) if m in ma_co_du_lieu(cfg)][:2]:
                 q = {k: v[0] for k, v in KHONG_GIAN_QL.items()}
                 q.update(dca_toi_da=0, hedge_khi_lo_pct=0.0, lot_tren_1000=1.0)
                 q.update(t["ql_goi_y"])
@@ -583,9 +610,9 @@ def buoc_toi_uu(cn, toi_da: int | None = None, ngan_sach: int | None = None, in_
             cu[khoa] = {"thu": thu, "kq": r}
             lam += 1
         tot = max(cu.values(), key=lambda z: diem(z["kq"])) if cu else None
-        if tot is None and (t.get("tin_hieu") or {}).get("ma"):
+        if tot is None and _ma_rieng(t):
             tot = {"thu": {"ma": None, "khung": None, "tham": {}, "ql": {}},
-                   "kq": {"loi": "CHUA_DO_DUOC: box khong co du lieu gia cho %s" % ",".join(t["tin_hieu"]["ma"])}}
+                   "kq": {"loi": "CHUA_DO_DUOC: box khong co du lieu gia cho %s" % ",".join(_ma_rieng(t))}}
         with cn:
             _luu(cn, t, "toi_uu", "DA_TOI_UU", {"tot_nhat": tot, "so_thu": len(cu)})
             _ghi_nk(cn, "toi_uu", t["id"], "thu moi %d, tong %d" % (lam, len(cu)))

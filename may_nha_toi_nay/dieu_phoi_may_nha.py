@@ -451,6 +451,17 @@ def _khoa_ranh() -> bool:
     return False
 
 
+def _tha_khoa(pid: int | None) -> None:
+    """20/10/2026 (Grok): chi xoa ong_dan_chay.lock khi no con ghi PID cua ta. Truoc day xoa vo dieu kien -> 20:34
+    chay_toi_nay buoc 6 vua lay khoa (PID 10256) thi bi xoa, dich_llm moi phong cung luc -> 2 tien trinh ong_dan song song."""
+    try:
+        cur = int(KHOA_OD.read_text().split()[0])
+    except (OSError, ValueError, IndexError):
+        cur = None
+    if cur is None or pid is None or cur == pid:
+        KHOA_OD.unlink(missing_ok=True)
+
+
 PID_DIR = LOG_DIR / "pid"
 
 
@@ -556,8 +567,8 @@ class DieuPhoi:
         d.update(cho_python=cho_py, ghep_ton=ton_ghep)
         if self.dich is not None and self.dich.poll() is not None:
             rc, ten = self.dich.returncode, self.od_ten
+            _tha_khoa(self.dich.pid)
             self.dich, self.od_ten = None, None
-            KHOA_OD.unlink(missing_ok=True)
             if ten == "dich":
                 self.nghi_dich = now + float((cfg.get("dich_llm") or {}).get("nghi_khi_het_giay", 900)) if rc != 0 or (cho or 0) == 0 else now
             else:
@@ -654,7 +665,7 @@ class DieuPhoi:
                     self._nhan(now)
                     return
             elif pha == "ong_dan":
-                KHOA_OD.unlink(missing_ok=True)
+                _tha_khoa(p.pid)
                 kq = don_tho(tv, cfg, tep_duoc_tham_chieu(), log=lambda s: self.ghi("don_tho", "loi", s, ep=True)) \
                     if (cfg.get("don_tho") or {}).get("bat", True) and not self.kho else {"xoa": 0, "gb": 0.0, "trung": 0}
                 self.ghi("don_tho", "xong", "xoa %d tep tho (%.2f GB, %d trung noi dung)" % (kq["xoa"], kq["gb"], kq["trung"]), ep=True)
@@ -685,7 +696,9 @@ class DieuPhoi:
         for p in (self.dich, None if self.seeker is None else self.seeker[0]):
             if p is not None and p.poll() is None:
                 p.terminate()
-        KHOA_OD.unlink(missing_ok=True)
+        for p in (self.dich, None if self.seeker is None else self.seeker[0]):
+            if p is not None:
+                _tha_khoa(p.pid)
         self._luu_tt()
 
 

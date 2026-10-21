@@ -5277,3 +5277,38 @@ Máy nhà: `python mt5tools/chay_lien_tuc.py` tự lấy việc `ea=XL` (BRAIN_X
 | od_skeab2b06e2dff_XUAT_LENH | Hybrid_DFA_EA | EURUSD | H1 | XUAT_LENH | - |
 | od_skeab2b3d2ab4e_XUAT_LENH | Multi purpose trade manager | EURUSD | H1 | XUAT_LENH | - |
 | od_skeab2bfc7fc73_XUAT_LENH | DollarTrader_Martingale | XAUUSD | H1 | XUAT_LENH | - |
+| od_skea0b8298aa53_XM_CSV | BRAIN_XuLiLenh | GOLDmicro | H1 | KIEM_CSV | 76.598 · 58.731 · 0 |
+| od_skea0b8298aa53_Exness_CSV | BRAIN_XuLiLenh | XAUUSDc | H1 | KIEM_CSV | 76.598 · 58.731 · 0 |
+| od_skea0c762cdb38_XM_CSV | BRAIN_XuLiLenh | CHFJPYmicro | H4 | KIEM_CSV | 25.16 · 29.86 · 0 |
+| od_skea0c762cdb38_Exness_CSV | BRAIN_XuLiLenh | CHFJPYc | H4 | KIEM_CSV | 25.16 · 29.86 · 0 |
+| od_skea135e93ee32_XM_CSV | BRAIN_XuLiLenh | EURUSDmicro | H1 | KIEM_CSV | 17.178 · 20.028 · 0 |
+| od_skea135e93ee32_Exness_CSV | BRAIN_XuLiLenh | EURUSDc | H1 | KIEM_CSV | 17.178 · 20.028 · 0 |
+| od_skea45b39eb1d5_XM_CSV | BRAIN_XuLiLenh | AUDJPYmicro | H4 | KIEM_CSV | 28.887 · 45.705 · 0 |
+| od_skea45b39eb1d5_Exness_CSV | BRAIN_XuLiLenh | AUDJPYc | H4 | KIEM_CSV | 28.887 · 45.705 · 0 |
+| od_tohop564be9bb91406c57_XM_CSV | BRAIN_XuLiLenh | GBPUSDmicro | H1 | KIEM_CSV | 16.807 · 27.369 · 0 |
+| od_tohop564be9bb91406c57_Exness_CSV | BRAIN_XuLiLenh | GBPUSDc | H1 | KIEM_CSV | 16.807 · 27.369 · 0 |
+| od_tohopc2d52300cc825dff_XM_CSV | BRAIN_XuLiLenh | AUDNZDmicro | H1 | KIEM_CSV | 17.147 · 42.472 · 0 |
+| od_tohopc2d52300cc825dff_Exness_CSV | BRAIN_XuLiLenh | AUDNZDc | H1 | KIEM_CSV | 17.147 · 42.472 · 0 |
+| od_039719980cf03909_XUAT_LENH | PersistentAnti | EURUSD | H1 | XUAT_LENH | - |
+| od_27888fa3eb684a7f_XUAT_LENH | Ultimate_ICT_Gold_Scalper_v3.0 | EURUSD | H1 | XUAT_LENH | - |
+| od_29939544523928bc_XUAT_LENH | RB_XAUUSD_MT5 | EURUSD | H1 | XUAT_LENH | - |
+| od_2d7a47511162166d_XUAT_LENH | HAN | EURUSD | H1 | XUAT_LENH | - |
+| od_2de60cf8fd9dc2d2_XUAT_LENH | bulk-add-signals | EURUSD | H1 | XUAT_LENH | - |
+| od_43e419d1c66cbdc0_XUAT_LENH | SmartMoney_MTF_EA_v2 | EURUSD | H1 | XUAT_LENH | - |
+| od_64c30e0e9fee3a16_XUAT_LENH | Aggressive_Scalper_NonStop | EURUSD | H1 | XUAT_LENH | - |
+| od_68d2e579994d0d0d_XUAT_LENH | GoldScalperM15 | EURUSD | H1 | XUAT_LENH | - |
+| od_6d2ab02340463842_XUAT_LENH | HAN_Z-Score | EURUSD | H1 | XUAT_LENH | - |
+| od_8cc4252b4d10db72_XUAT_LENH | AggressiveScalper | EURUSD | H1 | XUAT_LENH | - |
+| od_9f9a7d6318286475_XUAT_LENH | QuantumMathAI_V6_Guardian | EURUSD | H1 | XUAT_LENH | - |
+| od_a1ba44eb48d21425_XUAT_LENH | zone recovery trading strategy 1.2 | EURUSD | H1 | XUAT_LENH | - |
+| od_a4a9e81f2474bcb1_XUAT_LENH | HAN | EURUSD | H1 | XUAT_LENH | - |
+| od_b0b0399dff8cd614_XUAT_LENH | zone recovery trading strategy 1.4 | EURUSD | H1 | XUAT_LENH | - |
+| od_b14c1b1fb1a36232_XUAT_LENH | LiquiditySweep_SuperScalp(new ver 0.1) | EURUSD | H1 | XUAT_LENH | - |
+| od_c0d7f427cb13f19c_XUAT_LENH | SpikeTrader | EURUSD | H1 | XUAT_LENH | - |
+| od_c2fd2ccc6f676a96_XUAT_LENH | HAN_Z-Score | EURUSD | H1 | XUAT_LENH | - |
+| od_cf663c7e62b4a63b_XUAT_LENH | zone recovery trading strategy 1.1 | EURUSD | H1 | XUAT_LENH | - |
+| od_d11b15cfa29680a1_XUAT_LENH | PersistentAnti | EURUSD | H1 | XUAT_LENH | - |
+| od_d43e50b953a79893_XUAT_LENH | zone recovery trading strategy 1.5 | EURUSD | H1 | XUAT_LENH | - |
+| od_e877e06397d37ac2_XUAT_LENH | PriceAction_EngulfingZone_EA | EURUSD | H1 | XUAT_LENH | - |
+| od_fb6ea0726b3a70f4_XUAT_LENH | SpikeTrader | EURUSD | H1 | XUAT_LENH | - |
+| od_ffcfbf186d09afc8_XUAT_LENH | zone recovery trading strategy 1.3 | EURUSD | H1 | XUAT_LENH | - |

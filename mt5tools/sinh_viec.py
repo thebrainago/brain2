@@ -186,6 +186,7 @@ def lay_viec(n: int = 1, so_cai: list[dict] | None = None, dang_chay: set[str] |
     if not chi_ong_dan:
         hang += tu_python_box()
     hang += tu_ong_dan(san=san)
+    hang += tu_vong2(san=san)          # vong 2: mac dinh tat (BRAIN_VONG2=1 de bat)
     if not chi_ong_dan:
         hang += ung_vien(random.Random(hat + len(sc) // 500))
     hang.sort(key=lambda v: -v["diem"])
@@ -266,7 +267,36 @@ def tu_ong_dan(p: Path = HANG_CHO_OD, san: str | None = None) -> list[dict]:
             if os.environ.get("BRAIN_UU_TIEN_CSV") and v.get("pha") == "KIEM_CSV":
                 v["diem"] = float(v.get("diem") or 60) + 200     # may_nha_toi_nay: viec VAO_CSV cua he dat chay truoc
             out.append(v)
+    # 20/10/2026 toi: viec box sinh (reports/phan_viec/hang_cho_mt5_box.jsonl, nhan/phan_viec.py). CHI khi dat
+    # BRAIN_HANG_BOX=1 (phien sau) - phien dem 20/10 dang chay khong bi doi. Trung ten voi hang chinh -> bo.
+    if os.environ.get("BRAIN_HANG_BOX") == "1" and Path(p) == HANG_CHO_OD:
+        try:
+            from nhan import phan_viec as PV
+        except ImportError:
+            import sys as _s
+            _s.path.insert(0, str(GOC))
+            from nhan import phan_viec as PV
+        co = {v.get("ten") for v in out}
+        for v in PV.doc_hang_box(san=san or None):
+            if v.get("tf") in TF and v.get("ten") not in co:
+                if os.environ.get("BRAIN_UU_TIEN_CSV") and v.get("pha") == "KIEM_CSV":
+                    v["diem"] = float(v.get("diem") or 60) + 200
+                out.append(v)
+                co.add(v.get("ten"))
     return out
+
+
+HANG_CHO_V2 = GOC / "reports" / "vong2" / "hang_cho_vong2.jsonl"
+
+
+def tu_vong2(p: Path = HANG_CHO_V2, san: str | None = None) -> list[dict]:
+    """20/10/2026: viec MT5 VONG 2 (nhan/vong2.py). MAC DINH TAT: chi lay khi bien moi truong BRAIN_VONG2=1.
+    BRAIN_VONG2_UU_TIEN=1 -> cong 150 diem (chay truoc viec ong dan thuong)."""
+    import os
+    if os.environ.get("BRAIN_VONG2", "0") != "1":
+        return []
+    return [dict(v, diem=float(v.get("diem") or 60) + (150 if os.environ.get("BRAIN_VONG2_UU_TIEN") == "1" else 0))
+            for v in tu_ong_dan(p, san=san)]
 
 
 def file_set_ong_dan(v: dict) -> str:

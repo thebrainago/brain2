@@ -10,8 +10,9 @@
  "tang2_slot_toi_thieu": 1,
  "cpu_cao_pct": 95,
  "dich_llm": {
-  "bat": true,
+  "bat": false,
   "gioi_han_moi_luot": 200,
+  "_tam_dung": "21/10/2026 00:20 Grok: bat=false theo lenh Anh 20/10 toi (tam dung dich LLM, ai-box het quota: so du -144,6 d). Co hieu luc tu phien sau (dieu_phoi doc config luc khoi dong). Bat lai khi Anh dong y ke hoach dich moi.",
   "luong": 8,
   "nghi_khi_het_giay": 900,
   "qua_gio_phut": 120,

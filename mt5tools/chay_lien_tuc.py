@@ -123,6 +123,27 @@ def phong(slot: str, v: dict, ten: str) -> subprocess.Popen:
     return subprocess.Popen([slot + r"\terminal64.exe", "/portable", "/config:" + str(ini)], creationflags=0x00000040)  # IDLE_PRIORITY_CLASS
 
 
+def giet_cay(pr) -> None:
+    """20/10/2026 21:10 (may nha): QUA GIO truoc day chi pr.kill() terminal64 -> metatester64 con (agent tester) MO COI chay
+    tiep: od_skea0e88e1df54 bi giet 21:10:30 nhung metatester PID 8448 van an 6 GB RAM + CPU toi 21:14 (RAM trong 3,9 GB,
+    bo dieu phoi ha muc MT5 ve 0). Nay giet ca cay con cua DUNG tien trinh minh phong (khong taskkill theo ten)."""
+    con = []
+    try:
+        import psutil
+        con = psutil.Process(pr.pid).children(recursive=True)
+    except Exception:
+        pass
+    for c in con:
+        try:
+            c.kill()
+        except Exception:
+            pass
+    try:
+        pr.kill()
+    except Exception:
+        pass
+
+
 def san_cua_slot(slot: str) -> str:
     """'XM' / 'Exness' / '' theo dong Server= trong config/common.ini cua slot (KHONG doc Login / mat khau).
     19/10/2026: moi slot lay viec dung san minh dang nhap -> XM va Exness chay SONG SONG ca dem, khong chia doi gio."""
@@ -169,7 +190,14 @@ def ket_thuc():
         if KQ_ONG_DAN.exists():
             g("add", str(KQ_ONG_DAN))
         g("commit", "-m", "May nha chay lien tuc: so cai MT5 (%d lan thu) + tong ket" % len(SV.doc_so_cai()))
-        g("pull", "--rebase", "--autostash"); r = g("push")   # buoc khac dang ghi reports/ -> can autostash
+        # 20/10/2026 21:40 (Grok, may nha): KHONG pull --rebase --autostash (20:53 autostash cat tam so_cai.jsonl dang ghi
+        # -> lui 2 phut, chay lai 4 viec). Chi fetch + merge thuong; upstream cham tep ban thi git tu choi, khong mat gi.
+        g("fetch", "origin")
+        m = g("merge", "--no-edit", "origin/main")
+        if m.returncode:
+            g("merge", "--abort")
+            log("GIT merge loi (bo qua, van push neu duoc): %s" % (m.stderr or m.stdout or "")[-200:])
+        r = g("push")
         log("GIT push rc=%s %s" % (r.returncode, (r.stderr or "")[-200:]))
     except Exception as e:
         log("GIT loi %s" % e)
@@ -275,10 +303,7 @@ def main():
             if pr.poll() is None:
                 if time.time() - t0 <= (HAN_TOI_UU_GIAY if v.get("toi_uu") else HAN_VIEC_GIAY):
                     continue
-                try:
-                    pr.kill()            # giet DUNG tien trinh cua minh, khong taskkill ca may
-                except Exception:
-                    pass
+                giet_cay(pr)             # giet DUNG tien trinh cua minh + metatester con, khong taskkill ca may
                 del chay[s]
                 rec = _ban_ghi(v); rec.update(loi="qua_gio", giay=int(time.time() - t0), luc=now.isoformat(timespec="seconds"))
                 if v.get("tang") == 1:
@@ -301,10 +326,7 @@ def main():
             # ghi `qua_gio` (CHUA_DO_DUOC, dem sau chay lai). Truoc day may chay toi trua hom sau.
             if now >= han + dt.timedelta(minutes=GIA_HAN_PHUT):
                 for s, (pr, v, ten, t0) in list(chay.items()):
-                    try:
-                        pr.kill()
-                    except Exception:
-                        pass
+                    giet_cay(pr)
                     rec = _ban_ghi(v); rec.update(loi="qua_gio_het_han", giay=int(time.time() - t0), luc=now.isoformat(timespec="seconds"))
                     SV.ghi(rec)
                     log("HET HAN + %d phut: giet %s, ghi CHUA_DO_DUOC" % (GIA_HAN_PHUT, ten))

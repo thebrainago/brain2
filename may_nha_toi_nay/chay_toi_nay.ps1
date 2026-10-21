@@ -320,6 +320,15 @@ Buoc 2 "Giải nén gói zip" {
     if (Test-Path (Join-Path $tam "data")) {
         Copy-Item -Path (Join-Path $tam "data\*") -Destination (Join-Path $Repo "data") -Recurse -Force
     } else { throw "gói không có thư mục data\" }
+    # 20/10/2026: gói không còn ghi đè trang_thai.sqlite / cache dịch - gộp từ data\ong_dan\goi_vao\ (thẻ DAT không bị hạ)
+    if (Test-Path (Join-Path $Repo "data\ong_dan\goi_vao")) {
+        Push-Location $Repo
+        try { $o = & (TimPython) -m nhan.gop_csdl --nhap-goi 2>&1 | Out-String } finally { Pop-Location }
+        Add-Content -Path (Join-Path $ThuMucLog "gop_csdl.txt") -Value $o -Encoding UTF8
+        if ($LASTEXITCODE -ne 0) { throw "gộp CSDL lỗi (xem gop_csdl.txt) - bản sao lưu ở brain2_backup" }
+        Remove-Item (Join-Path $Repo "data\ong_dan\goi_vao") -Recurse -Force
+        Ghi "  đã GỘP trạng thái + cache dịch từ gói (gop_csdl.txt)"
+    }
     foreach ($f in @("HUONG_DAN.md", "MANIFEST.json")) {
         if (Test-Path (Join-Path $tam $f)) { Copy-Item (Join-Path $tam $f) (Join-Path $ThuMucLog $f) -Force }
     }
@@ -550,8 +559,11 @@ Buoc 11 "Commit reports\ + KET_QUA_SANG.md" {
         git @id commit -q -m "Máy nhà tối ${Ngay}: báo cáo đo + nhật ký (chay_toi_nay.ps1)" 2>&1 | ForEach-Object { Ghi "    | $_" }
         if ($LASTEXITCODE -ne 0) { return "COMMIT LỖI rc=$LASTEXITCODE - xem nhật ký" }
         if ($KhongPush) { return "commit xong, không push (-KhongPush)" }
-        git pull --rebase --autostash -q 2>&1 | ForEach-Object { Ghi "    | $_" }
-        if ($LASTEXITCODE -ne 0) { git rebase --abort 2>&1 | Out-Null; return "commit xong, pull LỖI rc=$LASTEXITCODE - chưa push" }
+        # 20/10/2026 21:50 (Grok): KHONG pull --rebase --autostash (21:44 autostash cuon ca tep dang sua + chay_lien_tuc dang ghi,
+        # ap lai xung dot -> khong push). Chi fetch + merge thuong; upstream cham tep ban thi git tu choi, khong mat gi.
+        git fetch -q origin 2>&1 | ForEach-Object { Ghi "    | $_" }
+        git merge --no-edit -q origin/main 2>&1 | ForEach-Object { Ghi "    | $_" }
+        if ($LASTEXITCODE -ne 0) { git merge --abort 2>&1 | Out-Null; return "commit xong, pull LỖI rc=$LASTEXITCODE - chưa push" }
         git push -q 2>&1 | ForEach-Object { Ghi "    | $_" }
         if ($LASTEXITCODE -ne 0) { return "commit xong, push LỖI rc=$LASTEXITCODE" }
         "commit + push xong ($(@($staged).Count) tệp)"
