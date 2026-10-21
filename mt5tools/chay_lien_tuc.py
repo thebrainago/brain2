@@ -29,6 +29,7 @@ import dieu_phoi_song_song as DP  # noqa: E402
 import sinh_viec as SV  # noqa: E402
 import an_toan_tester as AT  # noqa: E402
 import quan_ly_slot as QS  # noqa: E402
+import tang_toc as TT  # noqa: E402  (21/10/2026: co BRAIN_GEN / BRAIN_CONG_MOI / BRAIN_RAM_DONG / BRAIN_TICK_CHUNG, mac dinh tat)
 
 # 20/10/2026: slot theo BRAIN_SLOTS (quan_ly_slot.ds_slot). Ban cu: D:p1,p2 E:p3,p4 sua tay tren may nha.
 SLOT = QS.ds_slot()
@@ -231,6 +232,12 @@ def xu_ly_xong(s: str, v: dict, ten: str, t0: float, now: dt.datetime, hong: dic
         rec = _ban_ghi(v); rec.update(file=f.name, giay=int(time.time() - t0), luc=now.isoformat(timespec="seconds"), slot=s)
         SV.ghi(rec)
         log("XONG TOI UU %s -> %s" % (ten, KQ_ONG_DAN / f.name))
+        if v.get("gen") and TT.bat("BRAIN_GEN"):
+            try:
+                moi = TT.sau_toi_uu(REP / f.name, v)
+                log("GEN %s: %d tâm cao nguyên -> việc real tick" % (ten, len(moi)))
+            except Exception as e:  # noqa: BLE001
+                log("GEN doc XML loi %s: %s" % (ten, e))
     elif AT.bao_cao_moi(f, t0):
         r = doc_htm(f)
         tang = v.get("tang")
@@ -249,7 +256,7 @@ def xu_ly_xong(s: str, v: dict, ten: str, t0: float, now: dt.datetime, hong: dic
         rec = _ban_ghi(v); rec.update(r, file=f.name, giay=int(time.time() - t0), luc=now.isoformat(timespec="seconds"), slot=s)
         if tang == 1:
             rec["tang"] = 1
-            qua, ly_t1 = QS.phan_xu_tang1(r)
+            qua, ly_t1 = TT.phan_xu_tang1_moi(r, v) if TT.bat("BRAIN_CONG_MOI") else QS.phan_xu_tang1(r)
             rec["tang1_qua"], rec["tang1_ly_do"] = qua, ly_t1
         ly = AT.phan_xu_ket_qua(r, rec["giay"])
         # 20/10/2026: bao cao chay SAI symbol (vd EURUSD# hop dong chuan thay EURUSDmicro) -> CHUA_DO_DUOC, chay lai
@@ -261,6 +268,13 @@ def xu_ly_xong(s: str, v: dict, ten: str, t0: float, now: dt.datetime, hong: dic
         if cb:
             rec["canh_bao_don_bay"] = cb
         SV.ghi(rec)
+        if tang != 1 and not ly and TT.bat("BRAIN_CONG_MOI"):
+            try:
+                TT.ghi_lech(rec, SV.SO_CAI)
+            except Exception as e:  # noqa: BLE001
+                log("ghi lech OHLC/tick loi %s" % e)
+        if tang != 1 and not ly and TT.bat("BRAIN_TICK_CHUNG") and v.get("ma"):
+            TT.danh_dau_am(v["ma"])
         log("XONG %s %s%s net=%s lenh=%s pf=%s dd=%s %ss%s%s" % (
             ten, v["pha"], " T1" if tang == 1 else "", r["net"], r["lenh"], r["pf"], r.get("dd"), rec["giay"],
             (" CHUA_DO_DUOC " + ly) if ly else "", (" | " + rec["tang1_ly_do"]) if tang == 1 else ""))
@@ -274,6 +288,8 @@ def xu_ly_xong(s: str, v: dict, ten: str, t0: float, now: dt.datetime, hong: dic
         log("HONG %s (lan %d)" % (ten, hong[s]))
         if ngan and hong[s] >= 2:
             bo.add(s); log("BO SLOT %s (fail-fast)" % s)
+    if TT.bat("BRAIN_TICK_CHUNG") and v.get("ma"):
+        TT.tra_khoa(v["ma"], s)
     try:                                    # 20/10/2026: don file lam viec cua viec nay (ket qua da chep xong)
         n = QS.don_sau_viec(s, ten, SV.thu_muc_common() if v.get("csv_vao") else None, v.get("csv_vao"))
         if n:
@@ -309,10 +325,21 @@ def main():
                 if v.get("tang") == 1:
                     rec["tang"] = 1
                 SV.ghi(rec)
+                if TT.bat("BRAIN_TICK_CHUNG") and v.get("ma"):
+                    TT.tra_khoa(v["ma"], s)
                 log("QUA GIO %s (%ss) - giet, ghi CHUA_DO_DUOC" % (ten, rec["giay"]))
                 continue
             del chay[s]
             xu_ly_xong(s, v, ten, t0, now, hong, bo)
+        if TT.bat("BRAIN_RAM_DONG") and chay and TT.ram_gb()[1] < TT._f("BRAIN_RAM_DU_TRU_GB", 4.0) / 2:
+            s_moi = max(chay, key=lambda k: chay[k][3])          # 21/10/2026: RAM can -> giet viec MOI NHAT cua minh
+            pr, v, ten, t0 = chay.pop(s_moi)
+            giet_cay(pr)
+            rec = _ban_ghi(v); rec.update(loi="het_ram", giay=int(time.time() - t0), luc=now.isoformat(timespec="seconds"))
+            SV.ghi(rec)
+            if TT.bat("BRAIN_TICK_CHUNG") and v.get("ma"):
+                TT.tra_khoa(v["ma"], s_moi)
+            log("HET RAM (%.1f GB trong): giet %s, ghi CHUA_DO_DUOC" % (TT.ram_gb()[1], ten))
         if not tat and CO_TAT.exists():
             # 20/10/2026: TAT_THE_BRAIN.bat -> khong phong viec moi; viec dang chay duoc GIA_HAN_PHUT de xong roi moi giet
             # (chi PID tester cua minh - khong bao gio dong terminal XM chinh hay Claude)
@@ -334,6 +361,8 @@ def main():
             time.sleep(15); continue
         # 20/10/2026: muc may (DP) cho n slot real tick; co viec tang 1 thi duoc them toi BRAIN_TANG1_SLOT viec dong thoi
         tong_max, t2_max = QS.slot_toi_da(hai)
+        if TT.bat("BRAIN_RAM_DONG"):
+            t2_max = min(t2_max, TT.slot_toi_da_dong(so_slot=len(SLOT)))
         t2_max = min(t2_max, n)
         tong_max = min(tong_max, len(SLOT)) if n > 0 else 0
         co_san = [s for s in SLOT if s not in chay and s not in bo and Path(s, "terminal64.exe").exists()]
@@ -358,8 +387,16 @@ def main():
                 v = vs[0]
                 if chi_t1 and v.get("tang") != 1:
                     continue
-                ok, ly = QS.du_ram(1 if v.get("tang") == 1 else 2)
+                if TT.bat("BRAIN_GEN") and v.get("gen"):
+                    v = dict(v, so_agent=TT.so_agent())
+                if TT.kiem_slot_an_toan(s):
+                    log(TT.kiem_slot_an_toan(s)); continue
+                if TT.bat("BRAIN_TICK_CHUNG") and not TT.duoc_chay_tick(v, s):
+                    log("CHO KHOA TICK %s: slot khac dang tai" % v.get("ma")); continue
+                ok, ly = TT.du_ram_dong(v) if TT.bat("BRAIN_RAM_DONG") else QS.du_ram(1 if v.get("tang") == 1 else 2)
                 if not ok:
+                    if TT.bat("BRAIN_TICK_CHUNG") and v.get("ma"):
+                        TT.tra_khoa(v["ma"], s)
                     log("CHO RAM: %s - chua phong %s" % (ly, v.get("ten") or v.get("ea")))
                     break
                 dang.add(SV.khoa(v))
@@ -373,6 +410,8 @@ def main():
                 if v.get("tang") == 1:
                     rec["tang"] = 1
                 SV.ghi(rec)
+                if TT.bat("BRAIN_TICK_CHUNG") and v.get("ma"):
+                    TT.tra_khoa(v["ma"], s)
                 log("KHONG PHONG DUOC %s: %s" % (ten, e))
                 continue
             log("PHONG %s %s muc=%s tang=%s %s" % (ten, s, a.muc or "-", v.get("tang", "-"), json.dumps(v["ts"])))

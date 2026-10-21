@@ -75,7 +75,7 @@ def khoa(v: dict) -> str:
 
 def la_viec_hai_tang(v: dict) -> bool:
     """Viec ong dan chay don (khong toi uu) cua BRAIN_XuLiLenh -> qua loc hai tang."""
-    return v.get("nguon") == "ong_dan" and v.get("ea") == "XL" and not v.get("toi_uu")
+    return v.get("nguon") == "ong_dan" and v.get("ea") == "XL" and not v.get("toi_uu") and v.get("pha") != "V2_GEN_KIEM"
 
 
 def doc_so_cai(p: Path = SO_CAI) -> list[dict]:
@@ -295,8 +295,9 @@ def tu_vong2(p: Path = HANG_CHO_V2, san: str | None = None) -> list[dict]:
     import os
     if os.environ.get("BRAIN_VONG2", "0") != "1":
         return []
+    gen = os.environ.get("BRAIN_GEN", "0") == "1"       # 21/10/2026: viec toi uu di truyen chi khi bat co
     return [dict(v, diem=float(v.get("diem") or 60) + (150 if os.environ.get("BRAIN_VONG2_UU_TIEN") == "1" else 0))
-            for v in tu_ong_dan(p, san=san)]
+            for v in tu_ong_dan(p, san=san) if gen or v.get("pha") != "V2_GEN"]
 
 
 def file_set_ong_dan(v: dict) -> str:
@@ -360,7 +361,9 @@ def ini_ong_dan(v: dict, ten: str, don_bay_dong: str) -> str:
     for a, b, c in (v.get("toi_uu") or {}).values():
         n *= int(round((float(c) - float(a)) / float(b))) + 1 if float(b) else 1
     opt = 0 if not v.get("toi_uu") else (1 if n <= 2000 else 2)
-    model = 4
+    if v.get("optimization") is not None and v.get("toi_uu"):
+        opt = int(v["optimization"])            # 21/10/2026 tang_toc: V2_GEN ep di truyen (2)
+    model = int(v.get("model", 4))
     if v.get("tang") == 1:              # 20/10/2026: loc tang 1 nhanh, it RAM (OHLC M1 / gia mo nen)
         try:
             import quan_ly_slot as _QS
@@ -368,9 +371,9 @@ def ini_ong_dan(v: dict, ten: str, don_bay_dong: str) -> str:
         except Exception:
             model = 1
     return ("[Tester]\nExpert=BRAIN\\%s.ex5\nExpertParameters=%s.set\nSymbol=%s\nPeriod=%s\nModel=" + str(model) + "\nExecutionMode=0\n"
-            "Optimization=%d\nOptimizationCriterion=0\nFromDate=%s\nToDate=%s\nForwardMode=0\nDeposit=%d\nCurrency=%s\n%s"
+            "Optimization=%d\nOptimizationCriterion=%d\nFromDate=%s\nToDate=%s\nForwardMode=0\nDeposit=%d\nCurrency=%s\n%s"
             "Report=%s\nReplaceReport=1\nShutdownTerminal=1\nVisual=0\n") % (
-        v.get("ea_file", "BRAIN_XuLiLenh"), ten, v["ma"], v["tf"], opt, v.get("tu") or IS[0], v.get("den") or OOS[1],
+        v.get("ea_file", "BRAIN_XuLiLenh"), ten, v["ma"], v["tf"], opt, int(v.get("tieu_chi") or 0), v.get("tu") or IS[0], v.get("den") or OOS[1],
         int(v.get("von") or 1000), v.get("tien") or "USD", don_bay_dong, ten)
 
 
