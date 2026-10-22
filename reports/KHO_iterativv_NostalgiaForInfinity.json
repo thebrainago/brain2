@@ -1,0 +1,465 @@
+{
+ "kho": "iterativv/NostalgiaForInfinity",
+ "luc": "2026-10-18T16:32:02+00:00",
+ "tong": {
+  "so_tep": 43,
+  "ea": 15,
+  "chien_luoc": 0,
+  "chi_bao": 0,
+  "thu_vien": 24,
+  "nen_tang": {
+   "Python": 43
+  },
+  "ky_thuat_quan_tri": {
+   "dca": 13,
+   "lenh_cho": 13,
+   "trailing": 12,
+   "chot_ro": 10,
+   "dong_mot_phan": 9,
+   "loc_phien": 7,
+   "go_lenh": 5,
+   "hedge": 2
+  }
+ },
+ "tep": [
+  {
+   "tep": ".github/workflows/scripts/comment-ci-results.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 229
+  },
+  {
+   "tep": ".github/workflows/scripts/download-previous-artifacts.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 218
+  },
+  {
+   "tep": "NostalgiaForInfinityX.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "dca",
+    "go_lenh",
+    "hedge",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 38978
+  },
+  {
+   "tep": "NostalgiaForInfinityX2.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "chot_ro",
+    "dca",
+    "dong_mot_phan",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 14445
+  },
+  {
+   "tep": "NostalgiaForInfinityX3.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "chot_ro",
+    "dca",
+    "dong_mot_phan",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 46719
+  },
+  {
+   "tep": "NostalgiaForInfinityX4.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "chot_ro",
+    "dca",
+    "dong_mot_phan",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 46717
+  },
+  {
+   "tep": "legacy/NostalgiaForInfinityNext.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 6636
+  },
+  {
+   "tep": "legacy/NostalgiaForInfinityNextGen.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 7089
+  },
+  {
+   "tep": "legacy/__init__.py",
+   "nen_tang": "Python",
+   "loai": "khac",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 0
+  },
+  {
+   "tep": "tests/__init__.py",
+   "nen_tang": "Python",
+   "loai": "khac",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 0
+  },
+  {
+   "tep": "tests/backtests/__init__.py",
+   "nen_tang": "Python",
+   "loai": "khac",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 0
+  },
+  {
+   "tep": "tests/backtests/helpers.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 266
+  },
+  {
+   "tep": "tests/backtests/test_winrate_and_drawdown.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 253
+  },
+  {
+   "tep": "tests/backtests/test_winrate_and_drawdown_first_controls.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 124
+  },
+  {
+   "tep": "tests/backtests/test_winrate_and_drawdown_quarter.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 165
+  },
+  {
+   "tep": "tests/backtests/test_winrate_and_drawdown_week.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 659
+  },
+  {
+   "tep": "tests/backtests/test_winrate_and_drawdown_year.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 126
+  },
+  {
+   "tep": "tests/conftest.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 18
+  },
+  {
+   "tep": "tests/tools/test_benchmark_merge_informative_pair.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 144
+  },
+  {
+   "tep": "tests/tools/test_compare_backtest_results.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 133
+  },
+  {
+   "tep": "tests/unit/__init__.py",
+   "nen_tang": "Python",
+   "loai": "khac",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 0
+  },
+  {
+   "tep": "tests/unit/conftest.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 424
+  },
+  {
+   "tep": "tests/unit/test_NFIX5.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "chot_ro",
+    "dca",
+    "dong_mot_phan"
+   ],
+   "dong": 316
+  },
+  {
+   "tep": "tests/unit/test_NFIX7_bad_trade_controller.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "chot_ro",
+    "dca"
+   ],
+   "dong": 249
+  },
+  {
+   "tep": "tests/unit/test_NFIX8_custom_exit.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "chot_ro"
+   ],
+   "dong": 105
+  },
+  {
+   "tep": "tests/unit/test_NFIX8_partial_exit.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dca",
+    "dong_mot_phan",
+    "go_lenh",
+    "loc_phien"
+   ],
+   "dong": 277
+  },
+  {
+   "tep": "tests/unit/test_NFIX8_profit_target.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "loc_phien"
+   ],
+   "dong": 216
+  },
+  {
+   "tep": "tests/unit/test_NFIX8_scope_guard.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dca"
+   ],
+   "dong": 165
+  },
+  {
+   "tep": "tests/unit/test_NFIX8_signal174.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 98
+  },
+  {
+   "tep": "tests/unit/test_caches.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 60
+  },
+  {
+   "tep": "tests/unit/test_data/input/Strategy.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 30
+  },
+  {
+   "tep": "tests/unit/test_data/output/Strategy.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 29
+  },
+  {
+   "tep": "tools/benchmark_merge_informative_pair.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 326
+  },
+  {
+   "tep": "tools/bot_report.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "chot_ro",
+    "dca",
+    "lenh_cho"
+   ],
+   "dong": 604
+  },
+  {
+   "tep": "tools/compare_backtest_results.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 177
+  },
+  {
+   "tep": "tools/ho_to_raw_codemod.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 87
+  },
+  {
+   "tep": "tools/ho_to_raw_codemod_nfi4.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 145
+  },
+  {
+   "tep": "user_data/strategies/NostalgiaForInfinityNext.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 6636
+  },
+  {
+   "tep": "user_data/strategies/NostalgiaForInfinityNextGen.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 7089
+  },
+  {
+   "tep": "user_data/strategies/NostalgiaForInfinityX.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "dca",
+    "go_lenh",
+    "hedge",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 38978
+  },
+  {
+   "tep": "user_data/strategies/NostalgiaForInfinityX2.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "chot_ro",
+    "dca",
+    "dong_mot_phan",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 14445
+  },
+  {
+   "tep": "user_data/strategies/NostalgiaForInfinityX3.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "chot_ro",
+    "dca",
+    "dong_mot_phan",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 46719
+  },
+  {
+   "tep": "user_data/strategies/NostalgiaForInfinityX4.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "chot_ro",
+    "dca",
+    "dong_mot_phan",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 46717
+  }
+ ]
+}

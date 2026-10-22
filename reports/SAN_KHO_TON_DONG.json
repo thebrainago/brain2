@@ -1,0 +1,2744 @@
+{
+ "luc": "2026-10-18 23:40",
+ "nguon": "data/nguon_seeker/UNG_VIEN_TU_SINH.json github",
+ "so": 244,
+ "kq": [
+  {
+   "repo": "GeneralTradingSarl/expert-mt5",
+   "nhanh": "main",
+   "so_file_ma": 1188,
+   "so_file_chien_luoc": 1188,
+   "so_file_quan_tri": 67,
+   "so_file_mql": 1188,
+   "so_submodule": 1,
+   "diem": 1985.0,
+   "la_kho": true,
+   "vi_du_quan_tri": [
+    "mql5_experts_mt5/advisor based on rsi and martingale/rsijmartingale1.5.mq5",
+    "mql5_experts_mt5/basic martingale ea v3/basic_martingale_ea_3.mq5",
+    "mql5_experts_mt5/basket closer profit_loss/basket_close_2.mq5",
+    "mql5_experts_mt5/basket manager ea/basket_manager_ea.mq5",
+    "mql5_experts_mt5/beginner programming_ moving average crossover with and without martingale functionality/movingaverage.mq5",
+    "mql5_experts_mt5/breakeven v3/breakeven_v3.mq5",
+    "mql5_experts_mt5/breakout martin gale expert advisor for mt5/martingalebreakout.mq5",
+    "mql5_experts_mt5/classic 2 moving averages crossover ea/moving_averages.mq5"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "QuantConnect/Lean",
+   "nhanh": "master",
+   "so_file_ma": 4233,
+   "so_file_chien_luoc": 131,
+   "so_file_quan_tri": 100,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 431.0,
+   "la_kho": true,
+   "vi_du_quan_tri": [
+    "algorithm.csharp/autoregressiveintegratedmovingaverageregressionalgorithm.cs",
+    "algorithm.csharp/contingenttrailingstoporderregressionalgorithm.cs",
+    "algorithm.csharp/coveredcallcombolimitorderalgorithm.cs",
+    "algorithm.csharp/displacedmovingaverageribbon.cs",
+    "algorithm.csharp/movingaveragecrossalgorithm.cs",
+    "algorithm.csharp/nakedcallstrategyalgorithm.cs",
+    "algorithm.csharp/optionequitycoveredcallregressionalgorithm.cs",
+    "algorithm.csharp/trailingstoporderasyncregressionalgorithm.cs"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "codingfordummies911/EA-MT5",
+   "nhanh": "master",
+   "so_file_ma": 228,
+   "so_file_chien_luoc": 223,
+   "so_file_quan_tri": 2,
+   "so_file_mql": 228,
+   "so_submodule": 0,
+   "diem": 343.0,
+   "la_kho": true,
+   "vi_du_quan_tri": [
+    "mitigation order blocks ea.mq5",
+    "order blocks ea.mq5"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "vllm-project/vllm",
+   "nhanh": "main",
+   "so_file_ma": 3079,
+   "so_file_chien_luoc": 65,
+   "so_file_quan_tri": 22,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 131.0,
+   "la_kho": true,
+   "vi_du_quan_tri": [
+    "benchmarks/benchmark_block_pool.py",
+    "benchmarks/benchmark_prefix_block_hash.py",
+    "benchmarks/fused_kernels/silu_mul_block_quant_benchmark.py",
+    "benchmarks/kernels/benchmark_block_fp8_gemm.py",
+    "benchmarks/kernels/benchmark_moe_align_block_size.py",
+    "benchmarks/kernels/benchmark_w8a8_block_fp8.py",
+    "benchmarks/kernels/deepgemm/benchmark_fp8_block_dense_gemm.py",
+    "examples/disaggregated/kv_load_failure_recovery_offline/load_recovery_example_connector.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "pytorch/pytorch",
+   "nhanh": "main",
+   "so_file_ma": 3196,
+   "so_file_chien_luoc": 13,
+   "so_file_quan_tri": 12,
+   "so_file_mql": 0,
+   "so_submodule": 36,
+   "diem": 121.0,
+   "la_kho": true,
+   "vi_du_quan_tri": [
+    "benchmarks/tensorexpr/broadcast.py",
+    "tools/linter/adapters/_linter/block.py",
+    "tools/linter/adapters/_linter/blocks.py",
+    "torch/_inductor/codegen/block_analysis.py",
+    "torch/_inductor/codegen/cutedsl/compile_lock.py",
+    "torch/_inductor/kernel/vendored_templates/cutedsl/dense_blockscaled_gemm_persistent.py",
+    "torch/_inductor/kernel/vendored_templates/cutedsl/wrappers/dense_blockscaled_gemm_kernel.py",
+    "torch/_inductor/runtime/caching/locks.py"
+   ],
+   "repo_con": [
+    "pybind/pybind11",
+    "google/googletest",
+    "google/benchmark",
+    "protocolbuffers/protobuf",
+    "Maratyszcza/NNPACK",
+    "pytorch/gloo",
+    "google/pthreadpool",
+    "Maratyszcza/FXdiv",
+    "Maratyszcza/FP16",
+    "Maratyszcza/psimd",
+    "pytorch/cpuinfo",
+    "malfet/PeachPy",
+    "onnx/onnx",
+    "shibatch/sleef",
+    "intel/ideep",
+    "google/gemmlowp",
+    "pytorch/fbgemm",
+    "facebookincubator/fbjni",
+    "google/XNNPACK",
+    "fmtlib/fmt",
+    "pytorch/tensorpipe",
+    "NVIDIA/cudnn-frontend",
+    "mreineck/pocketfft",
+    "intel/ittapi",
+    "google/flatbuffers",
+    "nlohmann/json",
+    "GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator",
+    "NVIDIA/cutlass",
+    "microsoft/mimalloc",
+    "yhirose/cpp-httplib",
+    "NVIDIA/NVTX",
+    "ROCm/composable_kernel",
+    "ARM-software/kleidiai",
+    "Dao-AILab/flash-attention",
+    "ROCm/aiter",
+    "meta-pytorch/MSLK"
+   ]
+  },
+  {
+   "repo": "ccxt/ccxt",
+   "nhanh": "master",
+   "so_file_ma": 3761,
+   "so_file_chien_luoc": 2,
+   "so_file_quan_tri": 37,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 113.0,
+   "la_kho": true,
+   "vi_du_quan_tri": [
+    "cs/ccxt/api/blockchaincom.cs",
+    "cs/ccxt/exchanges/blockchaincom.cs",
+    "cs/ccxt/exchanges/pro/blockchaincom.cs",
+    "dist/cjs/src/abstract/blockchaincom.js",
+    "dist/cjs/src/blockchaincom.js",
+    "dist/cjs/src/pro/blockchaincom.js",
+    "examples/cs/examples/create-trailing-amount-order.cs",
+    "examples/cs/examples/create-trailing-percent-order.cs"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "monir71/Meta-Trader-MQL5-MQL4-Programming-Expert-Advisor-Robot",
+   "nhanh": "main",
+   "so_file_ma": 100,
+   "so_file_chien_luoc": 6,
+   "so_file_quan_tri": 13,
+   "so_file_mql": 100,
+   "so_submodule": 0,
+   "diem": 95.0,
+   "la_kho": true,
+   "vi_du_quan_tri": [
+    "adaptivemovingaverage.mq5",
+    "advancedadaptivemovingaverage.mq5",
+    "advancedbbreakevenstop.mq5",
+    "advancedtrailingstop.mq5",
+    "averagedirectionalmovingindex.mq5",
+    "averagetruerange.mq5",
+    "doubleexponentialmovingaverage.mq5",
+    "fractaladaptivemovingaverage.mq5"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "tensorflow/tensorflow",
+   "nhanh": "master",
+   "so_file_ma": 1638,
+   "so_file_chien_luoc": 66,
+   "so_file_quan_tri": 9,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 93.0,
+   "la_kho": true,
+   "vi_du_quan_tri": [
+    "tensorflow/lite/testing/op_tests/broadcast_args.py",
+    "tensorflow/lite/testing/op_tests/broadcast_gradient_args.py",
+    "tensorflow/lite/testing/op_tests/broadcast_to.py",
+    "tensorflow/python/ops/linalg/linear_operator_block_diag.py",
+    "tensorflow/python/ops/linalg/linear_operator_block_lower_triangular.py",
+    "tensorflow/python/ops/sdca_ops.py",
+    "tensorflow/python/ops/weights_broadcast_ops.py",
+    "tensorflow/python/training/moving_averages.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "PopovMP/FSB_Expert_Advisor_Code",
+   "nhanh": "master",
+   "so_file_ma": 128,
+   "so_file_chien_luoc": 7,
+   "so_file_quan_tri": 6,
+   "so_file_mql": 128,
+   "so_submodule": 0,
+   "diem": 89.0,
+   "la_kho": true,
+   "vi_du_quan_tri": [
+    "forexsb.com/custom/movingaverageofoscillator.mqh",
+    "forexsb.com/custom/vidyamovingaverage.mqh",
+    "forexsb.com/indicators/averagetruerange.mqh",
+    "forexsb.com/indicators/movingaveragescrossover.mqh",
+    "forexsb.com/indicators/trailingstop.mqh",
+    "forexsb.com/indicators/trailingstoplimit.mqh"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "discourse/discourse",
+   "nhanh": "main",
+   "so_file_ma": 2656,
+   "so_file_chien_luoc": 19,
+   "so_file_quan_tri": 23,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 88.0,
+   "la_kho": true,
+   "vi_du_quan_tri": [
+    "frontend/discourse-markdown-it/src/features/bbcode-block.js",
+    "frontend/discourse-markdown-it/src/features/image-grid.js",
+    "frontend/discourse/app/initializers/freeze-block-registry.ts",
+    "frontend/discourse/app/instance-initializers/codeblock-buttons.js",
+    "frontend/discourse/app/lib/blocks/-internals/registry/block.ts",
+    "frontend/discourse/app/lib/blocks/-internals/validation/block-args.ts",
+    "frontend/discourse/app/lib/blocks/-internals/validation/block-decorator.ts",
+    "frontend/discourse/app/lib/body-scroll-lock.js"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "EA31337/EA31337-classes",
+   "nhanh": "master",
+   "so_file_ma": 140,
+   "so_file_chien_luoc": 1,
+   "so_file_quan_tri": 1,
+   "so_file_mql": 140,
+   "so_submodule": 0,
+   "diem": 74.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "indicators/indi_custommovingaverage.mqh"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "thebrainago/brain2",
+   "nhanh": "main",
+   "so_file_ma": 677,
+   "so_file_chien_luoc": 18,
+   "so_file_quan_tri": 12,
+   "so_file_mql": 39,
+   "so_submodule": 0,
+   "diem": 73.5,
+   "la_kho": true,
+   "vi_du_quan_tri": [
+    "_audcad_chon_va_xac_nhan.py",
+    "_audcad_chuoi_he.py",
+    "_audcad_gom_cum.py",
+    "_audcad_luan_nguoc.py",
+    "_audcad_placebo.py",
+    "_audcad_them_cap.py",
+    "_hinh_dang_audcad_rsi.py",
+    "_luoi_audcad.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "amap-cvlab/ABot-Recon",
+   "nhanh": "main",
+   "so_file_ma": 66,
+   "so_file_chien_luoc": 61,
+   "so_file_quan_tri": 2,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 67.0,
+   "la_kho": true,
+   "vi_du_quan_tri": [
+    "abot_recon/modeling/pi3/models/dinov2/layers/block.py",
+    "abot_recon/modeling/pi3/models/layers/block.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "EarnForex/PositionSizer",
+   "nhanh": "master",
+   "so_file_ma": 34,
+   "so_file_chien_luoc": 34,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 34,
+   "so_submodule": 0,
+   "diem": 51.0,
+   "la_kho": true,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "mclumd/MIDCA",
+   "nhanh": "master",
+   "so_file_ma": 233,
+   "so_file_chien_luoc": 2,
+   "so_file_quan_tri": 16,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 50.0,
+   "la_kho": true,
+   "vi_du_quan_tri": [
+    "midca/domains/blocksworld/block.py",
+    "midca/domains/blocksworld/blockstate.py",
+    "midca/domains/blocksworld/plan/blocks_world_mortar_examples.py",
+    "midca/domains/blocksworld/plan/methods_midca.py",
+    "midca/domains/blocksworld/plan/operators_midca.py",
+    "midca/domains/construction_domain/block.py",
+    "midca/domains/construction_domain/blockstate.py",
+    "midca/domains/restaurant_domain/block.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "NVlabs/LongLive",
+   "nhanh": "main",
+   "so_file_ma": 548,
+   "so_file_chien_luoc": 46,
+   "so_file_quan_tri": 1,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 49.0,
+   "la_kho": true,
+   "vi_du_quan_tri": [
+    "long-wam/src/longwam/agentic/_vendor/network_recovery.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "geraked/metatrader5",
+   "nhanh": "master",
+   "so_file_ma": 42,
+   "so_file_chien_luoc": 17,
+   "so_file_quan_tri": 3,
+   "so_file_mql": 42,
+   "so_submodule": 0,
+   "diem": 47.0,
+   "la_kho": true,
+   "vi_du_quan_tri": [
+    "indicators/averageforce.mq5",
+    "indicators/grid.mq5",
+    "indicators/orderblock.mq5"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "EverMind-AI/Raven",
+   "nhanh": "main",
+   "so_file_ma": 2224,
+   "so_file_chien_luoc": 14,
+   "so_file_quan_tri": 10,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 44.0,
+   "la_kho": true,
+   "vi_du_quan_tri": [
+    "plugins-dist/ppt-engine/raven_ppt/backends/script/blocks.py",
+    "raven/agent/loop/recovery.py",
+    "raven/gateway/lock.py",
+    "raven/utils/portable_lock.py",
+    "ui-tui/src/__tests__/blockednotice.test.ts",
+    "ui-tui/src/__tests__/uiclock.test.ts",
+    "ui-tui/src/lib/uiclock.ts",
+    "ui-web/src/features/trajectory/blocks.test.ts"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "robbyant/lingbot-map",
+   "nhanh": "main",
+   "so_file_ma": 125,
+   "so_file_chien_luoc": 37,
+   "so_file_quan_tri": 1,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 40.0,
+   "la_kho": true,
+   "vi_du_quan_tri": [
+    "lingbot_map/layers/block.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "UniWAM/UniWAM",
+   "nhanh": "main",
+   "so_file_ma": 71,
+   "so_file_chien_luoc": 33,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 33.0,
+   "la_kho": true,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "cline/cline",
+   "nhanh": "main",
+   "so_file_ma": 2504,
+   "so_file_chien_luoc": 3,
+   "so_file_quan_tri": 9,
+   "so_file_mql": 0,
+   "so_submodule": 1,
+   "diem": 32.0,
+   "la_kho": true,
+   "vi_du_quan_tri": [
+    "apps/vscode/src/core/locks/sqlitelockmanager.ts",
+    "apps/vscode/src/services/mcp/__tests__/settingslock.test.ts",
+    "apps/vscode/src/services/mcp/settingslock.ts",
+    "sdk/examples/plugins/env-blocker.ts",
+    "sdk/packages/core/src/hub/discovery/instance-lock.degraded.test.ts",
+    "sdk/packages/core/src/hub/discovery/instance-lock.test.ts",
+    "sdk/packages/core/src/hub/discovery/instance-lock.ts",
+    "sdk/packages/core/src/runtime/orchestration/oauth-refresh-lock.ts"
+   ],
+   "repo_con": [
+    "cline/cline-bench"
+   ]
+  },
+  {
+   "repo": "robcarver17/pysystemtrade",
+   "nhanh": "develop",
+   "so_file_ma": 565,
+   "so_file_chien_luoc": 24,
+   "so_file_quan_tri": 2,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 30.0,
+   "la_kho": true,
+   "vi_du_quan_tri": [
+    "sysdata/mongodb/mongo_lock_data.py",
+    "sysdata/production/locks.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "alfredomaussa/MQL5",
+   "nhanh": "master",
+   "so_file_ma": 35,
+   "so_file_chien_luoc": 1,
+   "so_file_quan_tri": 3,
+   "so_file_mql": 35,
+   "so_submodule": 0,
+   "diem": 27.5,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "pruebarsitrailingstop.mq5",
+    "pruebastoptrailing.mq5",
+    "trailingstopatr.mq5"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "FlashML-org/FreeToken",
+   "nhanh": "main",
+   "so_file_ma": 480,
+   "so_file_chien_luoc": 3,
+   "so_file_quan_tri": 6,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 21.0,
+   "la_kho": true,
+   "vi_du_quan_tri": [
+    "python/freetoken/kernel/triton/fp8_block_linear.py",
+    "python/freetoken/kernel/triton/fp8_blockscale_moe.py",
+    "python/freetoken/layers/quantization/linear/fp8_block.py",
+    "python/freetoken/layers/quantization/moe/fp8_block.py",
+    "python/freetoken/models/blocks.py",
+    "python/freetoken/moe/fused_fp8_block.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "alphanume-markets/Alphanume-Strategy-Lab",
+   "nhanh": "main",
+   "so_file_ma": 20,
+   "so_file_chien_luoc": 20,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 20.0,
+   "la_kho": true,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "pipbolt/experts",
+   "nhanh": "master",
+   "so_file_ma": 8,
+   "so_file_chien_luoc": 8,
+   "so_file_quan_tri": 2,
+   "so_file_mql": 8,
+   "so_submodule": 0,
+   "diem": 18.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "experts/moving-average-cross-ea.mq5",
+    "experts/moving-average-ea.mq5"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "microsoft/TRELLIS.2",
+   "nhanh": "main",
+   "so_file_ma": 131,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 5,
+   "so_file_mql": 0,
+   "so_submodule": 1,
+   "diem": 17.0,
+   "la_kho": true,
+   "vi_du_quan_tri": [
+    "data_toolkit/dual_grid.py",
+    "o-voxel/o_voxel/convert/flexible_dual_grid.py",
+    "trellis2/datasets/flexi_dual_grid.py",
+    "trellis2/modules/sparse/transformer/blocks.py",
+    "trellis2/modules/transformer/blocks.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "jimtin/build-your-own-mt5-ea",
+   "nhanh": "main",
+   "so_file_ma": 21,
+   "so_file_chien_luoc": 3,
+   "so_file_quan_tri": 1,
+   "so_file_mql": 21,
+   "so_submodule": 0,
+   "diem": 16.5,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "indicators/exponential_moving_average.mq5"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "cfournel/orderBlock",
+   "nhanh": "main",
+   "so_file_ma": 26,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 1,
+   "so_file_mql": 26,
+   "so_submodule": 0,
+   "diem": 16.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "orderblock.mq5"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "phamngocvinh/galaxy-trader",
+   "nhanh": "main",
+   "so_file_ma": 13,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 3,
+   "so_file_mql": 13,
+   "so_submodule": 0,
+   "diem": 15.5,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "archive/trend_catcher/trendcatcher.mq5",
+    "trailing_star/trailing_star_point-v1.0.mq5",
+    "trailing_star/trailing_star_price-v1.0.mq5"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "StuartFarmer/portwine",
+   "nhanh": "main",
+   "so_file_ma": 63,
+   "so_file_chien_luoc": 6,
+   "so_file_quan_tri": 2,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 12.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "portwine/analyzers/gridequitydrawdown.py",
+    "portwine/strategies/simple_moving_average.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "datalab-to/marker",
+   "nhanh": "master",
+   "so_file_ma": 136,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 4,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 12.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "marker/processors/block_relabel.py",
+    "marker/processors/blockquote.py",
+    "marker/processors/llm/llm_mathblock.py",
+    "marker/schema/blocks/chemicalblock.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "stuartfarmer/portwine",
+   "nhanh": "main",
+   "so_file_ma": 63,
+   "so_file_chien_luoc": 6,
+   "so_file_quan_tri": 2,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 12.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "portwine/analyzers/gridequitydrawdown.py",
+    "portwine/strategies/simple_moving_average.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "EarnForex/Account-Protector",
+   "nhanh": "master",
+   "so_file_ma": 7,
+   "so_file_chien_luoc": 7,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 7,
+   "so_submodule": 0,
+   "diem": 10.5,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "huggingface/transformers",
+   "nhanh": "main",
+   "so_file_ma": 3237,
+   "so_file_chien_luoc": 10,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 10.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "PaddlePaddle/PaddleOCR",
+   "nhanh": "main",
+   "so_file_ma": 600,
+   "so_file_chien_luoc": 3,
+   "so_file_quan_tri": 2,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 9.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "ppstructure/recovery/recovery_to_doc.py",
+    "ppstructure/recovery/recovery_to_markdown.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "vercel-labs/skills",
+   "nhanh": "main",
+   "so_file_ma": 59,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 3,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 9.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "src/local-lock.ts",
+    "src/skill-lock.test.ts",
+    "src/skill-lock.ts"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "Microsoft/TRELLIS",
+   "nhanh": "main",
+   "so_file_ma": 117,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 2,
+   "so_file_mql": 0,
+   "so_submodule": 1,
+   "diem": 8.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "trellis/modules/sparse/transformer/blocks.py",
+    "trellis/modules/transformer/blocks.py"
+   ],
+   "repo_con": [
+    "MaxtirError/FlexiCubes"
+   ]
+  },
+  {
+   "repo": "OrchardForexTutorials/220313_fractal_ema_robot",
+   "nhanh": "main",
+   "so_file_ma": 6,
+   "so_file_chien_luoc": 5,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 6,
+   "so_submodule": 0,
+   "diem": 8.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "nano-muse/nanoMuse",
+   "nhanh": "main",
+   "so_file_ma": 386,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 1,
+   "so_file_mql": 0,
+   "so_submodule": 2,
+   "diem": 7.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "nanomuse/server/static/assets/cloudcard-ddvzo4o0.js"
+   ],
+   "repo_con": [
+    "nano-muse/proot",
+    "OpenMinis/ish-arm64"
+   ]
+  },
+  {
+   "repo": "raul-arrabales/crubots",
+   "nhanh": "master",
+   "so_file_ma": 40,
+   "so_file_chien_luoc": 7,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 7.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "ultralytics/ultralytics",
+   "nhanh": "main",
+   "so_file_ma": 243,
+   "so_file_chien_luoc": 1,
+   "so_file_quan_tri": 2,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 7.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "ultralytics/models/sam/modules/blocks.py",
+    "ultralytics/nn/modules/block.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "1ring2rta/Remory",
+   "nhanh": "main",
+   "so_file_ma": 112,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 2,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 6.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "src/remory/pyramid.py",
+    "training/context_compression/qwen38_residual_pyramid.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "Tencent-Hunyuan/Prism",
+   "nhanh": "main",
+   "so_file_ma": 47,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 2,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 6.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "hymm/models/modules/block_sparse_attention/dynamic_block_attention.py",
+    "hymm/models/modules/block_sparse_attention/dynamic_block_shape.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "cgemise971/PropFirmEA",
+   "nhanh": "main",
+   "so_file_ma": 14,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 12,
+   "so_submodule": 0,
+   "diem": 6.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "meituan-longcat/LongCat-Video",
+   "nhanh": "main",
+   "so_file_ma": 34,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 2,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 6.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "longcat_video/modules/avatar/blocks.py",
+    "longcat_video/modules/blocks.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "rampstackco/claude-skills",
+   "nhanh": "main",
+   "so_file_ma": 9,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 2,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 6.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "tools/gen_skills_lock.py",
+    "tools/gen_workflows_lock.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "tech-leads-club/agent-skills",
+   "nhanh": "main",
+   "so_file_ma": 222,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 2,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 6.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "libs/core/src/lib/services/__tests__/lockfile.service.spec.ts",
+    "libs/core/src/lib/services/lockfile.service.ts"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "anthropics/skills",
+   "nhanh": "main",
+   "so_file_ma": 73,
+   "so_file_chien_luoc": 1,
+   "so_file_quan_tri": 1,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 4.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "skills/claude-api/shared/preserved-thinking-migration/drop_block_probe.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "docling-project/docling",
+   "nhanh": "main",
+   "so_file_ma": 301,
+   "so_file_chien_luoc": 1,
+   "so_file_quan_tri": 1,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 4.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "docling/utils/locks.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "tesseract-ocr/tesseract",
+   "nhanh": "main",
+   "so_file_ma": 2,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 2,
+   "diem": 4.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": [
+    "google/googletest",
+    "tesseract-ocr/test"
+   ]
+  },
+  {
+   "repo": "yusufkaraaslan/Skill_Seekers",
+   "nhanh": "development",
+   "so_file_ma": 321,
+   "so_file_chien_luoc": 2,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 1,
+   "diem": 4.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": [
+    "yusufkaraaslan/skill-seekers-configs"
+   ]
+  },
+  {
+   "repo": "Narfinsel/Candlestick-Pattern-Scanner",
+   "nhanh": "main",
+   "so_file_ma": 7,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 7,
+   "so_submodule": 0,
+   "diem": 3.5,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "Zihan-Su/Self_Gradient_Forcing_Plus",
+   "nhanh": "main",
+   "so_file_ma": 91,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 1,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 3.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "demo_utils/vae_block3.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "agentscope-ai/agentscope",
+   "nhanh": "main",
+   "so_file_ma": 625,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 1,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 3.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "src/agentscope/message/_block.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "alpacahq/alpaca-py",
+   "nhanh": "master",
+   "so_file_ma": 63,
+   "so_file_chien_luoc": 3,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 3.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "getzep/graphiti",
+   "nhanh": "main",
+   "so_file_ma": 210,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 1,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 3.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "examples/podcast/podcast_runner.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "jkinlay/research-controls",
+   "nhanh": "main",
+   "so_file_ma": 27,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 1,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 3.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "rw_blocks.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "kandinskylab/kandinsky-6",
+   "nhanh": "main",
+   "so_file_ma": 124,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 1,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 3.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "kandinsky/runtime/offload/block.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "modelscope/agentscope",
+   "nhanh": "main",
+   "so_file_ma": 625,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 1,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 3.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "src/agentscope/message/_block.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "opendatalab/MinerU",
+   "nhanh": "master",
+   "so_file_ma": 352,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 1,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 3.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [
+    "mineru/doclib/instance_lock.py"
+   ],
+   "repo_con": []
+  },
+  {
+   "repo": "6alaile/MetaTrader5-to-Telegram",
+   "nhanh": "main",
+   "so_file_ma": 5,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 5,
+   "so_submodule": 0,
+   "diem": 2.5,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "kyapp69/TelegramTrader-MT4-MT5",
+   "nhanh": "master",
+   "so_file_ma": 5,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 5,
+   "so_submodule": 0,
+   "diem": 2.5,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "byaidu/pdfmathtranslate",
+   "nhanh": "main",
+   "so_file_ma": 23,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 1,
+   "diem": 2.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": [
+    "PDFMathTranslate/PDFMathTranslate-next"
+   ]
+  },
+  {
+   "repo": "mem0ai/mem0",
+   "nhanh": "main",
+   "so_file_ma": 600,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 1,
+   "diem": 2.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": [
+    "mem0ai/memory-benchmarks"
+   ]
+  },
+  {
+   "repo": "microsoft/BitNet",
+   "nhanh": "main",
+   "so_file_ma": 25,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 1,
+   "diem": 2.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": [
+    "isHuangXin/llama.cpp"
+   ]
+  },
+  {
+   "repo": "opendevin/opendevin",
+   "nhanh": "main",
+   "so_file_ma": 1121,
+   "so_file_chien_luoc": 2,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 2.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "LucasMarianoVieira/MT5-MA-Crossover-Bot",
+   "nhanh": "master",
+   "so_file_ma": 1,
+   "so_file_chien_luoc": 1,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 1,
+   "so_submodule": 0,
+   "diem": 1.5,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "brajine/metatrader-live",
+   "nhanh": "master",
+   "so_file_ma": 3,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 3,
+   "so_submodule": 0,
+   "diem": 1.5,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "llihcchill/ICT-Imbalance-Expert-Advisor",
+   "nhanh": "main",
+   "so_file_ma": 1,
+   "so_file_chien_luoc": 1,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 1,
+   "so_submodule": 0,
+   "diem": 1.5,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "ComposioHQ/awesome-claude-skills",
+   "nhanh": "master",
+   "so_file_ma": 62,
+   "so_file_chien_luoc": 1,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 1.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "DLR-RM/stable-baselines3",
+   "nhanh": "master",
+   "so_file_ma": 65,
+   "so_file_chien_luoc": 1,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 1.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "EarnForex/News-Trader",
+   "nhanh": "main",
+   "so_file_ma": 3,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 2,
+   "so_submodule": 0,
+   "diem": 1.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "Edge0-AI/edge0",
+   "nhanh": "main",
+   "so_file_ma": 126,
+   "so_file_chien_luoc": 1,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 1.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "JaidedAI/EasyOCR",
+   "nhanh": "master",
+   "so_file_ma": 74,
+   "so_file_chien_luoc": 1,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 1.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "Unstructured-IO/unstructured",
+   "nhanh": "main",
+   "so_file_ma": 195,
+   "so_file_chien_luoc": 1,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 1.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "joschabach/micropsi2",
+   "nhanh": "master",
+   "so_file_ma": 90,
+   "so_file_chien_luoc": 1,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 1.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "kaiovalente/mql5",
+   "nhanh": "master",
+   "so_file_ma": 2,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 2,
+   "so_submodule": 0,
+   "diem": 1.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "openweb-org/openweb",
+   "nhanh": "main",
+   "so_file_ma": 312,
+   "so_file_chien_luoc": 1,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 1.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "spotify/basic-pitch",
+   "nhanh": "main",
+   "so_file_ma": 28,
+   "so_file_chien_luoc": 1,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 1.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "twbs/bootstrap",
+   "nhanh": "main",
+   "so_file_ma": 149,
+   "so_file_chien_luoc": 1,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 1.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "darula-hpp/ict-ea",
+   "nhanh": "master",
+   "so_file_ma": 1,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 1,
+   "so_submodule": 0,
+   "diem": 0.5,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "11bblandin/quantfiction",
+   "nhanh": "master",
+   "so_file_ma": 0,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "1NickPappas/move-code-quality-skill",
+   "nhanh": "main",
+   "so_file_ma": 0,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "Anjos2/recursive-research",
+   "nhanh": "main",
+   "so_file_ma": 0,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "BuildShipGrowRepeat/nextjs-sanity-blog-skill",
+   "nhanh": "main",
+   "so_file_ma": 0,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "EvianZhow/93b30edb5e1ac44f3dd2de7ef9a543d9",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "Friedrich-M/UniMate",
+   "nhanh": "main",
+   "so_file_ma": 143,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "Keyamoon/svgxuse",
+   "nhanh": "master",
+   "so_file_ma": 4,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "LewisLiu007/full-page-screenshot",
+   "nhanh": "main",
+   "so_file_ma": 0,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "MirroS-Lab/AgentGarten",
+   "nhanh": "main",
+   "so_file_ma": 85,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "NeoLabHQ/context-engineering-kit",
+   "nhanh": "master",
+   "so_file_ma": 7,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "NoizAI/WorldSonus",
+   "nhanh": "main",
+   "so_file_ma": 18,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "PleasePrompto/notebooklm-skill",
+   "nhanh": "master",
+   "so_file_ma": 10,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "PrimeIntellect-ai/prime-agent",
+   "nhanh": "main",
+   "so_file_ma": 73,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "SakanaAI/ShinkaEvolve",
+   "nhanh": "main",
+   "so_file_ma": 144,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "SamsungLabs/LittleBit",
+   "nhanh": "main",
+   "so_file_ma": 16,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "StuartFarmer/massivepull",
+   "nhanh": "main",
+   "so_file_ma": 12,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "TauricResearch/TradingAgents",
+   "nhanh": "main",
+   "so_file_ma": 94,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "TsotsosLab/STAR-FC",
+   "nhanh": "master",
+   "so_file_ma": 0,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "Xapagy/Xapagy",
+   "nhanh": "master",
+   "so_file_ma": 0,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "addyosmani/agent-skills",
+   "nhanh": "main",
+   "so_file_ma": 33,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "airobots/asmo_python",
+   "nhanh": "master",
+   "so_file_ma": 21,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "airobots/asmo_ros",
+   "nhanh": "master",
+   "so_file_ma": 6,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "anandpareek-hub/pixelbin-claude-skill",
+   "nhanh": "main",
+   "so_file_ma": 9,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "avelikiy/great_cto",
+   "nhanh": "main",
+   "so_file_ma": 69,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "baidu/Unlimited-OCR",
+   "nhanh": "main",
+   "so_file_ma": 1,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "bitnami/bitnami-docker-tensorflow-serving",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "bluzername/claude-code-terminal-title",
+   "nhanh": "main",
+   "so_file_ma": 0,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "brohrer/becca",
+   "nhanh": "main",
+   "so_file_ma": 21,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "chrisvoncsefalvay/claude-d3js-skill",
+   "nhanh": "main",
+   "so_file_ma": 0,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "coffeefuelbump/csv-data-summarizer-claude-skill",
+   "nhanh": "main",
+   "so_file_ma": 1,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "conorluddy/ios-simulator-skill",
+   "nhanh": "main",
+   "so_file_ma": 40,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "emaynard/claude-family-history-research-skill",
+   "nhanh": "main",
+   "so_file_ma": 0,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "emory/ASD-AuDHD-PAI-Skills",
+   "nhanh": "main",
+   "so_file_ma": 0,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "en/authentication",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "enterprise/premium-support",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "enterprise/startups",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "epigramai/tfserving-python-predict-client",
+   "nhanh": "master",
+   "so_file_ma": 24,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "facebookresearch/context-language-models",
+   "nhanh": "main",
+   "so_file_ma": 51,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "firmai/machine-learning-asset-management",
+   "nhanh": "master",
+   "so_file_ma": 0,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "get-started/accessibility",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "ghballiet/acs-journal",
+   "nhanh": "master",
+   "so_file_ma": 44,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "github/collect",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "google-research/rrsi",
+   "nhanh": "main",
+   "so_file_ma": 83,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "google/protobuf",
+   "nhanh": "main",
+   "so_file_ma": 291,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "h5bp/html5-boilerplate",
+   "nhanh": "main",
+   "so_file_ma": 8,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "hangukquant/quantpylib",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "haunchen/n8n-skills",
+   "nhanh": "main",
+   "so_file_ma": 61,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "jcgtanakaqi/050d77b9f72094c9c369b24008e3f0ea.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "jcgtanakaqi/097b2f3902daf23174f42d7d1ecc1325.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "jcgtanakaqi/0baf4550594d304176920a5f6df2c1d8.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "jcgtanakaqi/15adbc1fefcb505ee857d7d55bf011d1.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "jcgtanakaqi/1732006ad6b8a832a4e12202b206b15e.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "jcgtanakaqi/1d95bed7d09e7010dfd9b84019b35906.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "jcgtanakaqi/2dddb7fbbdd4cf0313da5db94f658e31.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "jcgtanakaqi/3bf72aaab3c5d33e7b7c7c4cb8c61015.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "jcgtanakaqi/52d451d404fcbcdec8b49dfad200f76f.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "jcgtanakaqi/617cea94a7c0192b188bc7932c793208.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "jcgtanakaqi/a8965858cc4e3d7095461dcb5241c2eb.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "jcgtanakaqi/b858ddc07e7e4779221590f0bf2291f0.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "jcgtanakaqi/bfb40d5c340115c7102b69c70eeba567.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "jcgtanakaqi/c1cc9f048a65dfb5cf150531fd6c9000.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "jcgtanakaqi/e100f493d51b486b58eca445117f411d.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "jcgtanakaqi/f984e02224742d9c5c0a4014819cf3fe.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "jcgtanakaqi/fa5840f60a2c8b3dcca9fb00e7211602.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "jcgtanakaqi/fc29a72a646255a40847dd04b94e9959.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "jkinlay/agent-selection-surface",
+   "nhanh": "master",
+   "so_file_ma": 17,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "jkinlay/transformer_mvo_pipeline",
+   "nhanh": "main",
+   "so_file_ma": 4,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "jonsuh/hamburgers",
+   "nhanh": "master",
+   "so_file_ma": 4,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "jsvine/pdfplumber",
+   "nhanh": "stable",
+   "so_file_ma": 21,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "jthack/ffuf_claude_skill",
+   "nhanh": "main",
+   "so_file_ma": 1,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "jthack/threat-hunting-with-sigma-rules-skill",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "lackeyjb/playwright-skill",
+   "nhanh": "main",
+   "so_file_ma": 2,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "licenses/apache-2.0",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "licenses/gpl-3.0",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "licenses/mit",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "makeev/form4-event-study",
+   "nhanh": "main",
+   "so_file_ma": 13,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "manycore-research/SpatialLM",
+   "nhanh": "main",
+   "so_file_ma": 50,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "mattpocock/skills",
+   "nhanh": "main",
+   "so_file_ma": 0,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "mhattingpete/claude-skills-marketplace",
+   "nhanh": "main",
+   "so_file_ma": 19,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "michalparkola/tapestry-skills-for-claude-code",
+   "nhanh": "main",
+   "so_file_ma": 0,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "microsoft/ResearchStudio",
+   "nhanh": "main",
+   "so_file_ma": 107,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "microsoft/SkillOpt",
+   "nhanh": "main",
+   "so_file_ma": 154,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "mohammadpz/pytorch_forward_forward",
+   "nhanh": "main",
+   "so_file_ma": 1,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "multimodal-art-projection/YuE",
+   "nhanh": "main",
+   "so_file_ma": 29,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "necolas/normalize.css",
+   "nhanh": "master",
+   "so_file_ma": 0,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "obra/superpowers",
+   "nhanh": "main",
+   "so_file_ma": 7,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "omkamal/pypict-claude-skill",
+   "nhanh": "main",
+   "so_file_ma": 1,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "open-source/sponsors",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "opennars/opennars",
+   "nhanh": "master",
+   "so_file_ma": 1,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "parrondo/deeptrading",
+   "nhanh": "master",
+   "so_file_ma": 0,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "parrondo/deeptrading-tfserving-python",
+   "nhanh": "master",
+   "so_file_ma": 24,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "pdfminer/pdfminer.six",
+   "nhanh": "master",
+   "so_file_ma": 43,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "petercrlane/chrest",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "philipperemy/FX-1-Minute-Data",
+   "nhanh": "master",
+   "so_file_ma": 6,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "quantgalore/Time-Series-Momentum",
+   "nhanh": "main",
+   "so_file_ma": 3,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "quantra-go-algo/0124f21cae5326fd6e1d5688cfe5218c.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/0736db299bdf0825e9b6023ea1ee7e35.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/08407576756a98ef15b1b5fe7b45578b.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/0e1cc66073622cd18e820763cba9a5b0.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/0f16f9fa38e019e72ebdc582bab4aeb5.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/0f973599dccad4816c6ad99d640b42e8.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/1a6900bdb8816f9f737a3703521baceb.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/21f2aad8a45f1216dfe8612cf4bfbcba.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/241545a4878fa8b48f06b93ddec0519b.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/24d3d68f088ec2b710e16415da3928cb.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/282bfc311f5550fe8dcf451caae69331.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/3a669d82b1cc9740404626b4c5cf432c.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/3dee9185f9ee544d9e79695f0e4ea72a.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/53f62355df64e49a319b3652356b27ec.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/5558493696f08099515e30882ad62721.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/60cd25e426d2ad1d7d22e63751082b15.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/64e01671ce92979c68c667306da2eb38.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/6cd624008bbc4ca208bc4f144cbefa44.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/6f4d66044c4b8496de8dd0153ff634de.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/76faff848ecec24b2e4750fb148e6bcc.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/779f95cf92a93fc20a04ca76adc0d854.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/7c38ef5ec981c65c3aa46d0e86b64758.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/7d45edfe457fc5ba58fcdbded3861fa3.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/8da0a3ef62bac8247cb538ad24890236.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/9b1e1707e2d089042511f60c34a16049.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/aa95d6eacb280f3ac2d5ec83732f6790.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/b387fe57bab4a5675b46efcb3f1d5d2c.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/b51996237871101a5ed9b2e286cf8359.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/b88fb16696e6f6a8eed83b97d802839a.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "quantra-go-algo/c07ae0757cef943c9fbf410df71e7641.js",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "raul-arrabales/OpenCranium",
+   "nhanh": "master",
+   "so_file_ma": 0,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "repos/6alaile",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "repos/QuantConnect",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "research-team/NEUCOGAR",
+   "nhanh": "master",
+   "so_file_ma": 181,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "resources/articles",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "resources/events",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "resources/whitepapers",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "robcarver17/05c4423589c707767a5b30709bec89ce",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "robcarver17/46a8787c42c148c7ef56ca6c9b8ec403",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "robcarver17/85238b6d538d6e3acedccfc1cc5a76c8",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "robcarver17/c58b9e0f2d6b3ab077b01864849dc22f",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "robcarver17/e3b3784049393e6e473f96d6d8e82e61",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "robcarver17/ea197e15492e75ef345f496fd18454fb",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "rockscy/solo-skills",
+   "nhanh": "main",
+   "so_file_ma": 0,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "ruc-datalab/EvoOntology",
+   "nhanh": "master",
+   "so_file_ma": 166,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "sanjay3290/ai-skills",
+   "nhanh": "main",
+   "so_file_ma": 49,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "santiago-vargas-de-kruijf/claude-overkill",
+   "nhanh": "main",
+   "so_file_ma": 0,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "sboghossian/master-claude-for-legal",
+   "nhanh": "main",
+   "so_file_ma": 0,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "security/advanced-security",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "shiyu-coder/Kronos",
+   "nhanh": "master",
+   "so_file_ma": 27,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "site-policy/github-terms",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "site-policy/privacy-policies",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "smerchek/claude-epub-skill",
+   "nhanh": "main",
+   "so_file_ma": 3,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "snyk/agent-scan",
+   "nhanh": "main",
+   "so_file_ma": 48,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "solutions/executive-insights",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "solutions/industry",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "solutions/use-case",
+   "trang_thai": "CHUA_DO_DUOC"
+  },
+  {
+   "repo": "speridlabs/iris-3b",
+   "nhanh": "main",
+   "so_file_ma": 66,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "tauricresearch/tradingagents",
+   "nhanh": "main",
+   "so_file_ma": 94,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "titanwings/colleague-skill",
+   "nhanh": "dot-skill",
+   "so_file_ma": 25,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "usnistgov/rcslib",
+   "nhanh": "master",
+   "so_file_ma": 0,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "uxKero/anydesign",
+   "nhanh": "main",
+   "so_file_ma": 9,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "vxcontrol/pentagi",
+   "nhanh": "main",
+   "so_file_ma": 267,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "wanshuiyin/Auto-claude-code-research-in-sleep",
+   "nhanh": "main",
+   "so_file_ma": 65,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "wholiver/swiftui-design-skill",
+   "nhanh": "main",
+   "so_file_ma": 0,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "xeb/forex-histdata-etl",
+   "nhanh": "master",
+   "so_file_ma": 2,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  },
+  {
+   "repo": "ykdojo/claude-code-tips",
+   "nhanh": "main",
+   "so_file_ma": 11,
+   "so_file_chien_luoc": 0,
+   "so_file_quan_tri": 0,
+   "so_file_mql": 0,
+   "so_submodule": 0,
+   "diem": 0.0,
+   "la_kho": false,
+   "vi_du_quan_tri": [],
+   "repo_con": []
+  }
+ ]
+}

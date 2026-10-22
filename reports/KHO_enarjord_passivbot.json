@@ -1,0 +1,6383 @@
+{
+ "kho": "enarjord/passivbot",
+ "luc": "2026-10-18T16:31:39+00:00",
+ "tong": {
+  "so_tep": 638,
+  "ea": 16,
+  "chien_luoc": 0,
+  "chi_bao": 5,
+  "thu_vien": 614,
+  "nen_tang": {
+   "Python": 638
+  },
+  "ky_thuat_quan_tri": {
+   "lenh_cho": 186,
+   "go_lenh": 164,
+   "trailing": 142,
+   "dong_mot_phan": 95,
+   "martingale": 87,
+   "loc_phien": 73,
+   "hedge": 64,
+   "luoi": 41,
+   "dca": 7,
+   "loc_spread": 7,
+   "loc_tin": 4,
+   "chot_ro": 3,
+   "hoa_von": 2
+  }
+ },
+ "tep": [
+  {
+   "tep": "container/render_api_keys.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 41
+  },
+  {
+   "tep": "container/render_config.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 124
+  },
+  {
+   "tep": "notebooks/notebook_setup.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 16
+  },
+  {
+   "tep": "pytests/test_gate_entries_by_twel_complex.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 242
+  },
+  {
+   "tep": "pytests/test_unstucking_cases.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho"
+   ],
+   "dong": 117
+  },
+  {
+   "tep": "run_with_logging.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 151
+  },
+  {
+   "tep": "scripts/verify_bitget_ohlcv.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 179
+  },
+  {
+   "tep": "setup.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 77
+  },
+  {
+   "tep": "src/__init__.py",
+   "nen_tang": "Python",
+   "loai": "khac",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 0
+  },
+  {
+   "tep": "src/analysis_visibility.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 160
+  },
+  {
+   "tep": "src/backtest.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "hedge",
+    "lenh_cho",
+    "loc_phien",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 3470
+  },
+  {
+   "tep": "src/backtest_artifacts.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 433
+  },
+  {
+   "tep": "src/backtest_cancellation.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 20
+  },
+  {
+   "tep": "src/backtest_dataset.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 164
+  },
+  {
+   "tep": "src/backtest_dataset_materializer.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "trailing"
+   ],
+   "dong": 590
+  },
+  {
+   "tep": "src/backtest_suite.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 36
+  },
+  {
+   "tep": "src/backtest_universe.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 76
+  },
+  {
+   "tep": "src/binance_ohlcv_archive.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 388
+  },
+  {
+   "tep": "src/bitget_normalization.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "hedge"
+   ],
+   "dong": 300
+  },
+  {
+   "tep": "src/candlestick_manager.py",
+   "nen_tang": "Python",
+   "loai": "chi_bao",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 11053
+  },
+  {
+   "tep": "src/ccxt_contracts.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "hedge",
+    "lenh_cho"
+   ],
+   "dong": 404
+  },
+  {
+   "tep": "src/cli_utils.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 57
+  },
+  {
+   "tep": "src/config/__init__.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 28
+  },
+  {
+   "tep": "src/config/access.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 44
+  },
+  {
+   "tep": "src/config/bot.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho"
+   ],
+   "dong": 998
+  },
+  {
+   "tep": "src/config/coerce.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 299
+  },
+  {
+   "tep": "src/config/entry_cooldown.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 74
+  },
+  {
+   "tep": "src/config/gpu.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 76
+  },
+  {
+   "tep": "src/config/hsl.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 570
+  },
+  {
+   "tep": "src/config/hydrate.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "lenh_cho"
+   ],
+   "dong": 329
+  },
+  {
+   "tep": "src/config/limits.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 579
+  },
+  {
+   "tep": "src/config/load.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 80
+  },
+  {
+   "tep": "src/config/log_output.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 20
+  },
+  {
+   "tep": "src/config/logging_summary.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 84
+  },
+  {
+   "tep": "src/config/metrics.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 324
+  },
+  {
+   "tep": "src/config/migrations/__init__.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 39
+  },
+  {
+   "tep": "src/config/migrations/churn_gate.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 170
+  },
+  {
+   "tep": "src/config/migrations/detect.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 113
+  },
+  {
+   "tep": "src/config/migrations/entry_cooldown.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 110
+  },
+  {
+   "tep": "src/config/migrations/entry_ema.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 119
+  },
+  {
+   "tep": "src/config/migrations/excess_allowance.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 42
+  },
+  {
+   "tep": "src/config/migrations/gpu_screening.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 42
+  },
+  {
+   "tep": "src/config/migrations/legacy_v7.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 304
+  },
+  {
+   "tep": "src/config/migrations/renames.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "trailing"
+   ],
+   "dong": 180
+  },
+  {
+   "tep": "src/config/migrations/trailing_grid_v7.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "luoi",
+    "trailing"
+   ],
+   "dong": 1459
+  },
+  {
+   "tep": "src/config/migrations/unstuck_ema.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 265
+  },
+  {
+   "tep": "src/config/normalize.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 221
+  },
+  {
+   "tep": "src/config/optimize_bounds.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 363
+  },
+  {
+   "tep": "src/config/overrides.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 872
+  },
+  {
+   "tep": "src/config/param_paths.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 344
+  },
+  {
+   "tep": "src/config/parse.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 16
+  },
+  {
+   "tep": "src/config/pnl_lookback.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 83
+  },
+  {
+   "tep": "src/config/project.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 36
+  },
+  {
+   "tep": "src/config/reducers.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 86
+  },
+  {
+   "tep": "src/config/runtime_compile.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 46
+  },
+  {
+   "tep": "src/config/scenario_overrides.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 41
+  },
+  {
+   "tep": "src/config/schema.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "hedge",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 575
+  },
+  {
+   "tep": "src/config/scoring.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 473
+  },
+  {
+   "tep": "src/config/shared_bot.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho"
+   ],
+   "dong": 216
+  },
+  {
+   "tep": "src/config/strategy.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "martingale",
+    "trailing"
+   ],
+   "dong": 375
+  },
+  {
+   "tep": "src/config/strategy_spec.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "martingale",
+    "trailing"
+   ],
+   "dong": 190
+  },
+  {
+   "tep": "src/config/transform_log.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 119
+  },
+  {
+   "tep": "src/config/tree_ops.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 144
+  },
+  {
+   "tep": "src/config/validate.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 384
+  },
+  {
+   "tep": "src/config_transform.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 4
+  },
+  {
+   "tep": "src/config_utils.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "hedge",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 2438
+  },
+  {
+   "tep": "src/custom_endpoint_overrides.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 496
+  },
+  {
+   "tep": "src/data_packets.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 20
+  },
+  {
+   "tep": "src/ema_anchor_analysis.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 427
+  },
+  {
+   "tep": "src/exchanges/__init__.py",
+   "nen_tang": "Python",
+   "loai": "khac",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 0
+  },
+  {
+   "tep": "src/exchanges/binance.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "hedge",
+    "lenh_cho",
+    "loc_phien"
+   ],
+   "dong": 666
+  },
+  {
+   "tep": "src/exchanges/binance_portfolio.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "hedge",
+    "loc_phien"
+   ],
+   "dong": 143
+  },
+  {
+   "tep": "src/exchanges/bitget.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "chot_ro",
+    "hedge",
+    "loc_phien"
+   ],
+   "dong": 903
+  },
+  {
+   "tep": "src/exchanges/bitunix.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "hedge",
+    "lenh_cho",
+    "loc_phien",
+    "trailing"
+   ],
+   "dong": 2426
+  },
+  {
+   "tep": "src/exchanges/bybit.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "hedge",
+    "loc_phien"
+   ],
+   "dong": 605
+  },
+  {
+   "tep": "src/exchanges/ccxt_bot.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "hedge",
+    "lenh_cho",
+    "loc_phien",
+    "trailing"
+   ],
+   "dong": 1432
+  },
+  {
+   "tep": "src/exchanges/defx.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "hedge",
+    "lenh_cho"
+   ],
+   "dong": 209
+  },
+  {
+   "tep": "src/exchanges/fake.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "hedge",
+    "loc_phien"
+   ],
+   "dong": 1193
+  },
+  {
+   "tep": "src/exchanges/gateio.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "hedge",
+    "lenh_cho",
+    "loc_phien"
+   ],
+   "dong": 380
+  },
+  {
+   "tep": "src/exchanges/hyperliquid.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "hedge",
+    "lenh_cho",
+    "loc_phien"
+   ],
+   "dong": 2096
+  },
+  {
+   "tep": "src/exchanges/ipv4_transport.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 34
+  },
+  {
+   "tep": "src/exchanges/kucoin.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "hedge",
+    "loc_phien"
+   ],
+   "dong": 693
+  },
+  {
+   "tep": "src/exchanges/lighter.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "dca",
+    "hedge",
+    "loc_phien",
+    "loc_spread"
+   ],
+   "dong": 369
+  },
+  {
+   "tep": "src/exchanges/lighter_balance.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 33
+  },
+  {
+   "tep": "src/exchanges/lighter_credentials.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 65
+  },
+  {
+   "tep": "src/exchanges/lighter_fill_events.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 253
+  },
+  {
+   "tep": "src/exchanges/okx.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "hedge"
+   ],
+   "dong": 500
+  },
+  {
+   "tep": "src/exchanges/paradex.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "hedge"
+   ],
+   "dong": 199
+  },
+  {
+   "tep": "src/exchanges/weex.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "hedge",
+    "loc_phien"
+   ],
+   "dong": 453
+  },
+  {
+   "tep": "src/fill_events_manager.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dca",
+    "dong_mot_phan",
+    "go_lenh",
+    "hedge",
+    "lenh_cho"
+   ],
+   "dong": 8639
+  },
+  {
+   "tep": "src/freshness_ledger.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 16
+  },
+  {
+   "tep": "src/hlcv_preparation.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "hedge",
+    "lenh_cho",
+    "loc_tin",
+    "trailing"
+   ],
+   "dong": 6237
+  },
+  {
+   "tep": "src/hlcvs_manifest.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 441
+  },
+  {
+   "tep": "src/hlcvs_override.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 362
+  },
+  {
+   "tep": "src/hsl_reporting.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "luoi"
+   ],
+   "dong": 128
+  },
+  {
+   "tep": "src/interactive_plot.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "luoi"
+   ],
+   "dong": 368
+  },
+  {
+   "tep": "src/json_utils.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "trailing"
+   ],
+   "dong": 162
+  },
+  {
+   "tep": "src/legacy_data_migrator.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 764
+  },
+  {
+   "tep": "src/limit_utils.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 248
+  },
+  {
+   "tep": "src/live/__init__.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 2
+  },
+  {
+   "tep": "src/live/balance_composition.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 578
+  },
+  {
+   "tep": "src/live/balance_validation.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 24
+  },
+  {
+   "tep": "src/live/candle_ws.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 434
+  },
+  {
+   "tep": "src/live/candle_ws_health.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh"
+   ],
+   "dong": 70
+  },
+  {
+   "tep": "src/live/console_admission.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 50
+  },
+  {
+   "tep": "src/live/console_health.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "trailing"
+   ],
+   "dong": 173
+  },
+  {
+   "tep": "src/live/data_packets.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 173
+  },
+  {
+   "tep": "src/live/diagnostic_safety.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 477
+  },
+  {
+   "tep": "src/live/diagnostic_valuation.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 99
+  },
+  {
+   "tep": "src/live/ema_timing.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 110
+  },
+  {
+   "tep": "src/live/event_bus.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 4796
+  },
+  {
+   "tep": "src/live/event_emitters.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "hedge",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 5578
+  },
+  {
+   "tep": "src/live/event_file_rows.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 138
+  },
+  {
+   "tep": "src/live/event_query.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 1931
+  },
+  {
+   "tep": "src/live/events.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 124
+  },
+  {
+   "tep": "src/live/exchange_params.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 37
+  },
+  {
+   "tep": "src/live/executor.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "hedge"
+   ],
+   "dong": 1562
+  },
+  {
+   "tep": "src/live/fresh_entry_eligibility.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "lenh_cho"
+   ],
+   "dong": 330
+  },
+  {
+   "tep": "src/live/freshness.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 83
+  },
+  {
+   "tep": "src/live/hsl_candles.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 251
+  },
+  {
+   "tep": "src/live/hsl_diagnostics.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 382
+  },
+  {
+   "tep": "src/live/hsl_inputs.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 230
+  },
+  {
+   "tep": "src/live/hsl_live.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "trailing"
+   ],
+   "dong": 922
+  },
+  {
+   "tep": "src/live/hsl_runtime.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "lenh_cho",
+    "luoi"
+   ],
+   "dong": 714
+  },
+  {
+   "tep": "src/live/incident_bundle.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho"
+   ],
+   "dong": 1582
+  },
+  {
+   "tep": "src/live/log_secret_inventory.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 285
+  },
+  {
+   "tep": "src/live/market_data.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 750
+  },
+  {
+   "tep": "src/live/market_snapshot.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 455
+  },
+  {
+   "tep": "src/live/order_churn_gate.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 606
+  },
+  {
+   "tep": "src/live/performance_report.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 5817
+  },
+  {
+   "tep": "src/live/planning_gates.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "trailing"
+   ],
+   "dong": 400
+  },
+  {
+   "tep": "src/live/planning_snapshot.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 208
+  },
+  {
+   "tep": "src/live/position_fill_sync.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 205
+  },
+  {
+   "tep": "src/live/problem_events.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 23
+  },
+  {
+   "tep": "src/live/reconciler.py",
+   "nen_tang": "Python",
+   "loai": "chi_bao",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 4105
+  },
+  {
+   "tep": "src/live/repository_prepare.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 560
+  },
+  {
+   "tep": "src/live/restart_executor.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "loc_phien"
+   ],
+   "dong": 878
+  },
+  {
+   "tep": "src/live/restart_smoke_collection.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 255
+  },
+  {
+   "tep": "src/live/restart_smoke_evidence.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 460
+  },
+  {
+   "tep": "src/live/restart_smoke_orchestrator.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "loc_phien"
+   ],
+   "dong": 524
+  },
+  {
+   "tep": "src/live/restart_smoke_plan.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 969
+  },
+  {
+   "tep": "src/live/restart_smoke_targets.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 523
+  },
+  {
+   "tep": "src/live/runtime_attribution.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "trailing"
+   ],
+   "dong": 884
+  },
+  {
+   "tep": "src/live/smoke_report.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 11392
+  },
+  {
+   "tep": "src/live/state_refresh.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "trailing"
+   ],
+   "dong": 882
+  },
+  {
+   "tep": "src/live/unilateralness.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dca",
+    "dong_mot_phan",
+    "lenh_cho"
+   ],
+   "dong": 196
+  },
+  {
+   "tep": "src/logging_setup.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 329
+  },
+  {
+   "tep": "src/main.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 76
+  },
+  {
+   "tep": "src/market_snapshot.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 18
+  },
+  {
+   "tep": "src/materialized_cache.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 274
+  },
+  {
+   "tep": "src/metrics_schema.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 218
+  },
+  {
+   "tep": "src/monitor_dev.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 214
+  },
+  {
+   "tep": "src/monitor_publisher.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "trailing"
+   ],
+   "dong": 1261
+  },
+  {
+   "tep": "src/monitor_relay.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 788
+  },
+  {
+   "tep": "src/monitor_tui.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "loc_phien",
+    "trailing"
+   ],
+   "dong": 1730
+  },
+  {
+   "tep": "src/monitor_web.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 109
+  },
+  {
+   "tep": "src/multiprocessing_utils.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 10
+  },
+  {
+   "tep": "src/ohlcv_catalog.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 506
+  },
+  {
+   "tep": "src/ohlcv_download.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 134
+  },
+  {
+   "tep": "src/ohlcv_legacy_import.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 156
+  },
+  {
+   "tep": "src/ohlcv_planner.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 96
+  },
+  {
+   "tep": "src/ohlcv_store.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_tin"
+   ],
+   "dong": 448
+  },
+  {
+   "tep": "src/ohlcv_utils.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan"
+   ],
+   "dong": 392
+  },
+  {
+   "tep": "src/opt_utils.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 143
+  },
+  {
+   "tep": "src/optimization/__init__.py",
+   "nen_tang": "Python",
+   "loai": "khac",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 0
+  },
+  {
+   "tep": "src/optimization/backend_shared.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 274
+  },
+  {
+   "tep": "src/optimization/backends/__init__.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 24
+  },
+  {
+   "tep": "src/optimization/backends/deap_backend.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan"
+   ],
+   "dong": 368
+  },
+  {
+   "tep": "src/optimization/backends/gpu_backend.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "hedge",
+    "lenh_cho",
+    "loc_spread",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 6660
+  },
+  {
+   "tep": "src/optimization/backends/pymoo_backend.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan"
+   ],
+   "dong": 775
+  },
+  {
+   "tep": "src/optimization/bounds.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "luoi"
+   ],
+   "dong": 294
+  },
+  {
+   "tep": "src/optimization/callback.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 50
+  },
+  {
+   "tep": "src/optimization/config_adapter.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho"
+   ],
+   "dong": 308
+  },
+  {
+   "tep": "src/optimization/deap_adapters.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "luoi"
+   ],
+   "dong": 180
+  },
+  {
+   "tep": "src/optimization/evaluation_contract.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "hedge"
+   ],
+   "dong": 144
+  },
+  {
+   "tep": "src/optimization/evaluation_implementation.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 185
+  },
+  {
+   "tep": "src/optimization/evaluation_payload.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 40
+  },
+  {
+   "tep": "src/optimization/fine_tune_anchors.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 15
+  },
+  {
+   "tep": "src/optimization/gpu/__init__.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 5
+  },
+  {
+   "tep": "src/optimization/gpu/autotune.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 579
+  },
+  {
+   "tep": "src/optimization/gpu/cuda_kernel.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "luoi"
+   ],
+   "dong": 207
+  },
+  {
+   "tep": "src/optimization/gpu/decimal.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 79
+  },
+  {
+   "tep": "src/optimization/gpu/exact_autotune.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 660
+  },
+  {
+   "tep": "src/optimization/gpu/hsl.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 49
+  },
+  {
+   "tep": "src/optimization/gpu/metric_registry.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 268
+  },
+  {
+   "tep": "src/optimization/gpu/metrics.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "luoi",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 2414
+  },
+  {
+   "tep": "src/optimization/gpu/model.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 1166
+  },
+  {
+   "tep": "src/optimization/gpu/mps_kernel.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "hedge",
+    "lenh_cho",
+    "loc_spread",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 4039
+  },
+  {
+   "tep": "src/optimization/gpu/replay_progress.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 84
+  },
+  {
+   "tep": "src/optimization/gpu/residency.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 210
+  },
+  {
+   "tep": "src/optimization/gpu/runtime.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 90
+  },
+  {
+   "tep": "src/optimization/gpu/service.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "hedge",
+    "lenh_cho",
+    "loc_spread",
+    "luoi",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 3846
+  },
+  {
+   "tep": "src/optimization/interrupts.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 67
+  },
+  {
+   "tep": "src/optimization/prepared_dataset_identity.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 164
+  },
+  {
+   "tep": "src/optimization/problem.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 303
+  },
+  {
+   "tep": "src/optimization/progress.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 260
+  },
+  {
+   "tep": "src/optimization/random_seed.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 51
+  },
+  {
+   "tep": "src/optimization/repair.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 21
+  },
+  {
+   "tep": "src/optimization/shape.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 41
+  },
+  {
+   "tep": "src/optimization/starting_config_selection.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 128
+  },
+  {
+   "tep": "src/optimization/warmup.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 447
+  },
+  {
+   "tep": "src/optimize.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "loc_phien",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 4290
+  },
+  {
+   "tep": "src/optimize_suite.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 597
+  },
+  {
+   "tep": "src/optimizer_overrides.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "luoi",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 244
+  },
+  {
+   "tep": "src/pareto_analyzer.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 747
+  },
+  {
+   "tep": "src/pareto_compress.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 507
+  },
+  {
+   "tep": "src/pareto_core.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 272
+  },
+  {
+   "tep": "src/pareto_explorer.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 1907
+  },
+  {
+   "tep": "src/pareto_store.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "luoi"
+   ],
+   "dong": 1118
+  },
+  {
+   "tep": "src/passivbot.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "dca",
+    "dong_mot_phan",
+    "go_lenh",
+    "hedge",
+    "lenh_cho",
+    "loc_phien",
+    "loc_spread",
+    "luoi",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 20711
+  },
+  {
+   "tep": "src/passivbot_cli/__init__.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 2
+  },
+  {
+   "tep": "src/passivbot_cli/main.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "luoi",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 611
+  },
+  {
+   "tep": "src/passivbot_exceptions.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 19
+  },
+  {
+   "tep": "src/passivbot_monitor.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "lenh_cho",
+    "luoi",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 2181
+  },
+  {
+   "tep": "src/passivbot_version.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 2
+  },
+  {
+   "tep": "src/planning_snapshot.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 16
+  },
+  {
+   "tep": "src/plotting.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "luoi"
+   ],
+   "dong": 1336
+  },
+  {
+   "tep": "src/procedures.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 973
+  },
+  {
+   "tep": "src/pure_funcs.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh"
+   ],
+   "dong": 288
+  },
+  {
+   "tep": "src/repro_harness.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 405
+  },
+  {
+   "tep": "src/risk_limits.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 38
+  },
+  {
+   "tep": "src/runtime_identity.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "trailing"
+   ],
+   "dong": 176
+  },
+  {
+   "tep": "src/rust_utils.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 650
+  },
+  {
+   "tep": "src/session_artifacts.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 244
+  },
+  {
+   "tep": "src/shared_arrays.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 94
+  },
+  {
+   "tep": "src/simulation_data.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 91
+  },
+  {
+   "tep": "src/strategy_warmup.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 249
+  },
+  {
+   "tep": "src/suite_runner.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "loc_phien"
+   ],
+   "dong": 2460
+  },
+  {
+   "tep": "src/tools/__init__.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 2
+  },
+  {
+   "tep": "src/tools/cache_integrity_doctor.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 1497
+  },
+  {
+   "tep": "src/tools/candle_doctor.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 826
+  },
+  {
+   "tep": "src/tools/capture_ccxt_contracts.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 75
+  },
+  {
+   "tep": "src/tools/capture_optimize_memory.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 327
+  },
+  {
+   "tep": "src/tools/check_ai_docs.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 116
+  },
+  {
+   "tep": "src/tools/clean_config.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan"
+   ],
+   "dong": 440
+  },
+  {
+   "tep": "src/tools/compare_backtests.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 374
+  },
+  {
+   "tep": "src/tools/compose_coin_overrides.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "lenh_cho"
+   ],
+   "dong": 863
+  },
+  {
+   "tep": "src/tools/crash_finder.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 1514
+  },
+  {
+   "tep": "src/tools/diff_ccxt_contracts.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 69
+  },
+  {
+   "tep": "src/tools/event_loop_policy.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 8
+  },
+  {
+   "tep": "src/tools/fetch_balance.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 160
+  },
+  {
+   "tep": "src/tools/fill_events_dash.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 1226
+  },
+  {
+   "tep": "src/tools/fill_events_doctor.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 74
+  },
+  {
+   "tep": "src/tools/generate_live_event_registry.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 66
+  },
+  {
+   "tep": "src/tools/generate_mcap_list.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 197
+  },
+  {
+   "tep": "src/tools/gpu_proxy_benchmark.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "loc_spread",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 721
+  },
+  {
+   "tep": "src/tools/gpu_suite_benchmark.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 81
+  },
+  {
+   "tep": "src/tools/hsl_startup_preview.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 562
+  },
+  {
+   "tep": "src/tools/hyperliquid_probe_common.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 155
+  },
+  {
+   "tep": "src/tools/inspect_ohlcvs.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 354
+  },
+  {
+   "tep": "src/tools/iterative_backtester.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho",
+    "loc_phien"
+   ],
+   "dong": 1271
+  },
+  {
+   "tep": "src/tools/iterative_history_plot.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "loc_phien"
+   ],
+   "dong": 180
+  },
+  {
+   "tep": "src/tools/live_config_preflight.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 1208
+  },
+  {
+   "tep": "src/tools/live_event_query.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 365
+  },
+  {
+   "tep": "src/tools/live_incident_bundle.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 431
+  },
+  {
+   "tep": "src/tools/live_performance_report.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 193
+  },
+  {
+   "tep": "src/tools/live_process_report.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 122
+  },
+  {
+   "tep": "src/tools/live_repository_prepare.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 69
+  },
+  {
+   "tep": "src/tools/live_restart_executor.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 87
+  },
+  {
+   "tep": "src/tools/live_restart_smoke_collection.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 88
+  },
+  {
+   "tep": "src/tools/live_restart_smoke_evidence.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 96
+  },
+  {
+   "tep": "src/tools/live_restart_smoke_plan.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 262
+  },
+  {
+   "tep": "src/tools/live_restart_smoke_run.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 97
+  },
+  {
+   "tep": "src/tools/live_restart_target_report.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 68
+  },
+  {
+   "tep": "src/tools/live_smoke_report.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 286
+  },
+  {
+   "tep": "src/tools/log_secret_inventory.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 56
+  },
+  {
+   "tep": "src/tools/merge_paretos.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 692
+  },
+  {
+   "tep": "src/tools/migrate_config_v7.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "luoi",
+    "trailing"
+   ],
+   "dong": 128
+  },
+  {
+   "tep": "src/tools/migrate_historical_data.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 370
+  },
+  {
+   "tep": "src/tools/migrate_hsl_config.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 372
+  },
+  {
+   "tep": "src/tools/monitor_dev.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 71
+  },
+  {
+   "tep": "src/tools/monitor_relay.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 101
+  },
+  {
+   "tep": "src/tools/monitor_tui.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 99
+  },
+  {
+   "tep": "src/tools/monitor_web.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 61
+  },
+  {
+   "tep": "src/tools/ohlcvs_doctor.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 656
+  },
+  {
+   "tep": "src/tools/pad_historical_daily.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 123
+  },
+  {
+   "tep": "src/tools/pareto_analyzer.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 18
+  },
+  {
+   "tep": "src/tools/pareto_compress.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 18
+  },
+  {
+   "tep": "src/tools/pareto_dash.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 2278
+  },
+  {
+   "tep": "src/tools/pareto_explorer.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 19
+  },
+  {
+   "tep": "src/tools/pareto_plot.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 188
+  },
+  {
+   "tep": "src/tools/pareto_plot_page.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "luoi"
+   ],
+   "dong": 240
+  },
+  {
+   "tep": "src/tools/pareto_transform.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 391
+  },
+  {
+   "tep": "src/tools/probe_ccxt_ticker_endpoints.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho",
+    "loc_phien"
+   ],
+   "dong": 2417
+  },
+  {
+   "tep": "src/tools/probe_hyperliquid_abstraction.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 61
+  },
+  {
+   "tep": "src/tools/probe_hyperliquid_balance.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 55
+  },
+  {
+   "tep": "src/tools/probe_hyperliquid_order_margin.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 211
+  },
+  {
+   "tep": "src/tools/probe_hyperliquid_position_balance.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 334
+  },
+  {
+   "tep": "src/tools/probe_ticker_capabilities.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 308
+  },
+  {
+   "tep": "src/tools/research_entry_timing.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 138
+  },
+  {
+   "tep": "src/tools/run_fake_live.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 994
+  },
+  {
+   "tep": "src/tools/runtime_attribution.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "trailing"
+   ],
+   "dong": 95
+  },
+  {
+   "tep": "src/tools/streamline_json.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 134
+  },
+  {
+   "tep": "src/tools/trailing_diagnostics.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "trailing"
+   ],
+   "dong": 32
+  },
+  {
+   "tep": "src/tools/trailing_inspect.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "hedge",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 1884
+  },
+  {
+   "tep": "src/tools/verify_hlcvs_data.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 745
+  },
+  {
+   "tep": "src/tradfi_data.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 865
+  },
+  {
+   "tep": "src/trailing_diagnostics.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "luoi",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 732
+  },
+  {
+   "tep": "src/trailing_diagnostics_tool.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho",
+    "luoi",
+    "trailing"
+   ],
+   "dong": 841
+  },
+  {
+   "tep": "src/utils.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "lenh_cho",
+    "loc_phien",
+    "trailing"
+   ],
+   "dong": 2179
+  },
+  {
+   "tep": "src/warmup_utils.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho"
+   ],
+   "dong": 563
+  },
+  {
+   "tep": "sync_tar.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 302
+  },
+  {
+   "tep": "test_tradfi_providers.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 266
+  },
+  {
+   "tep": "tests/benchmark_gap_timestamp_cohort.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 69
+  },
+  {
+   "tep": "tests/ccxt_upgrade/test_contract_tools.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 148
+  },
+  {
+   "tep": "tests/ccxt_upgrade/test_fixture_replay.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 34
+  },
+  {
+   "tep": "tests/ccxt_upgrade/test_market_contracts.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 261
+  },
+  {
+   "tep": "tests/ccxt_upgrade/test_order_contracts.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "chot_ro",
+    "hedge",
+    "lenh_cho"
+   ],
+   "dong": 1673
+  },
+  {
+   "tep": "tests/conftest.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "hedge",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 301
+  },
+  {
+   "tep": "tests/exchanges/test_bitunix.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "go_lenh",
+    "hedge",
+    "lenh_cho",
+    "loc_phien",
+    "trailing"
+   ],
+   "dong": 2626
+  },
+  {
+   "tep": "tests/exchanges/test_ccxt_bot.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "dong_mot_phan",
+    "hedge",
+    "loc_phien"
+   ],
+   "dong": 1446
+  },
+  {
+   "tep": "tests/exchanges/test_ccxt_bot_hooks.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho",
+    "loc_phien"
+   ],
+   "dong": 1162
+  },
+  {
+   "tep": "tests/exchanges/test_ccxt_bot_position_side.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 54
+  },
+  {
+   "tep": "tests/exchanges/test_lighter.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "dca",
+    "dong_mot_phan",
+    "hedge",
+    "lenh_cho"
+   ],
+   "dong": 1047
+  },
+  {
+   "tep": "tests/exchanges/test_paradex_websocket.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 437
+  },
+  {
+   "tep": "tests/exchanges/test_staged_exchange_hooks.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 64
+  },
+  {
+   "tep": "tests/exchanges/test_weex.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "hedge",
+    "lenh_cho",
+    "loc_phien"
+   ],
+   "dong": 911
+  },
+  {
+   "tep": "tests/hsl_backtest_benchmark.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 128
+  },
+  {
+   "tep": "tests/hsl_fixture.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 13
+  },
+  {
+   "tep": "tests/hsl_gpu_benchmark.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 134
+  },
+  {
+   "tep": "tests/hsl_live_benchmark.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 152
+  },
+  {
+   "tep": "tests/hsl_reference.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "luoi"
+   ],
+   "dong": 400
+  },
+  {
+   "tep": "tests/hsl_reference_candle_free.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 91
+  },
+  {
+   "tep": "tests/hsl_reference_controller.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 131
+  },
+  {
+   "tep": "tests/hsl_reference_replay.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "luoi"
+   ],
+   "dong": 667
+  },
+  {
+   "tep": "tests/hsl_worker_benchmark.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 131
+  },
+  {
+   "tep": "tests/optimization/test_backend_shared.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 72
+  },
+  {
+   "tep": "tests/optimization/test_backends.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan"
+   ],
+   "dong": 401
+  },
+  {
+   "tep": "tests/optimization/test_bounds.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 205
+  },
+  {
+   "tep": "tests/optimization/test_config_adapter.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 362
+  },
+  {
+   "tep": "tests/optimization/test_coupled_unstuck_ema.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 434
+  },
+  {
+   "tep": "tests/optimization/test_deap_adapters.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "luoi"
+   ],
+   "dong": 72
+  },
+  {
+   "tep": "tests/optimization/test_evaluation_contract.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "hedge",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 649
+  },
+  {
+   "tep": "tests/optimization/test_evaluation_implementation.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 130
+  },
+  {
+   "tep": "tests/optimization/test_gpu_adaptive_timing.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 689
+  },
+  {
+   "tep": "tests/optimization/test_gpu_autotune.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh"
+   ],
+   "dong": 775
+  },
+  {
+   "tep": "tests/optimization/test_gpu_backend.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "hedge",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 8268
+  },
+  {
+   "tep": "tests/optimization/test_gpu_candle_input_validation.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 88
+  },
+  {
+   "tep": "tests/optimization/test_gpu_cuda.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 641
+  },
+  {
+   "tep": "tests/optimization/test_gpu_decimal_metadata.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "martingale",
+    "trailing"
+   ],
+   "dong": 64
+  },
+  {
+   "tep": "tests/optimization/test_gpu_drift_signal.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 308
+  },
+  {
+   "tep": "tests/optimization/test_gpu_entry_sizing_parity.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "lenh_cho",
+    "luoi",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 737
+  },
+  {
+   "tep": "tests/optimization/test_gpu_exact_autotune.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 871
+  },
+  {
+   "tep": "tests/optimization/test_gpu_exact_collection.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 465
+  },
+  {
+   "tep": "tests/optimization/test_gpu_fill_buffer.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 294
+  },
+  {
+   "tep": "tests/optimization/test_gpu_hsl_adaptive_layout.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 116
+  },
+  {
+   "tep": "tests/optimization/test_gpu_hsl_backend.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 136
+  },
+  {
+   "tep": "tests/optimization/test_gpu_hsl_cli.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 329
+  },
+  {
+   "tep": "tests/optimization/test_gpu_hsl_episode_boundaries.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 262
+  },
+  {
+   "tep": "tests/optimization/test_gpu_hsl_multicoin.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 327
+  },
+  {
+   "tep": "tests/optimization/test_gpu_hsl_runner.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 176
+  },
+  {
+   "tep": "tests/optimization/test_gpu_hsl_service.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 139
+  },
+  {
+   "tep": "tests/optimization/test_gpu_hsl_window.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh"
+   ],
+   "dong": 279
+  },
+  {
+   "tep": "tests/optimization/test_gpu_metrics.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "loc_tin",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 2550
+  },
+  {
+   "tep": "tests/optimization/test_gpu_mps.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "chot_ro",
+    "dong_mot_phan",
+    "go_lenh",
+    "hedge",
+    "hoa_von",
+    "lenh_cho",
+    "loc_tin",
+    "luoi",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 20525
+  },
+  {
+   "tep": "tests/optimization/test_gpu_optimizer_calibration.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_spread"
+   ],
+   "dong": 220
+  },
+  {
+   "tep": "tests/optimization/test_gpu_prepared_data.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 124
+  },
+  {
+   "tep": "tests/optimization/test_gpu_proxy_benchmark.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "martingale",
+    "trailing"
+   ],
+   "dong": 338
+  },
+  {
+   "tep": "tests/optimization/test_gpu_replay_progress.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 212
+  },
+  {
+   "tep": "tests/optimization/test_gpu_residency.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "lenh_cho"
+   ],
+   "dong": 434
+  },
+  {
+   "tep": "tests/optimization/test_gpu_screening_cli.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 290
+  },
+  {
+   "tep": "tests/optimization/test_gpu_service.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "hedge",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 3447
+  },
+  {
+   "tep": "tests/optimization/test_gpu_suite_batching.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 145
+  },
+  {
+   "tep": "tests/optimization/test_gpu_suite_benchmark.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 37
+  },
+  {
+   "tep": "tests/optimization/test_gpu_suite_invalid_metrics.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 95
+  },
+  {
+   "tep": "tests/optimization/test_gpu_unstuck_lookback.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "hedge",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 267
+  },
+  {
+   "tep": "tests/optimization/test_gpu_valuation_errors.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 29
+  },
+  {
+   "tep": "tests/optimization/test_interrupts.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 47
+  },
+  {
+   "tep": "tests/optimization/test_legacy_hsl_seeds.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 112
+  },
+  {
+   "tep": "tests/optimization/test_optimize.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "hedge",
+    "lenh_cho",
+    "luoi",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 5801
+  },
+  {
+   "tep": "tests/optimization/test_optimize_suite_contexts.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 654
+  },
+  {
+   "tep": "tests/optimization/test_optimizer_logging.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 344
+  },
+  {
+   "tep": "tests/optimization/test_optimizer_warmup.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 506
+  },
+  {
+   "tep": "tests/optimization/test_prepared_dataset_identity.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 182
+  },
+  {
+   "tep": "tests/optimization/test_problem.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 296
+  },
+  {
+   "tep": "tests/optimization/test_pymoo_backend.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 842
+  },
+  {
+   "tep": "tests/optimization/test_pymoo_integration.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 57
+  },
+  {
+   "tep": "tests/optimization/test_repair.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 19
+  },
+  {
+   "tep": "tests/optimization/test_starting_config_selection.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 595
+  },
+  {
+   "tep": "tests/test_adaptive_entry_cooldown.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dca",
+    "dong_mot_phan",
+    "go_lenh",
+    "lenh_cho"
+   ],
+   "dong": 1679
+  },
+  {
+   "tep": "tests/test_adaptive_optimize_bounds.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 297
+  },
+  {
+   "tep": "tests/test_aggregate_methods.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 419
+  },
+  {
+   "tep": "tests/test_ai_docs.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 83
+  },
+  {
+   "tep": "tests/test_analysis_visibility.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 192
+  },
+  {
+   "tep": "tests/test_auto_unstuck_allowance.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 54
+  },
+  {
+   "tep": "tests/test_backtest_analysis.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho"
+   ],
+   "dong": 1152
+  },
+  {
+   "tep": "tests/test_backtest_artifacts.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 250
+  },
+  {
+   "tep": "tests/test_backtest_dataset_metadata.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 178
+  },
+  {
+   "tep": "tests/test_backtest_directional_eligibility.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "hedge",
+    "lenh_cho"
+   ],
+   "dong": 203
+  },
+  {
+   "tep": "tests/test_backtest_maker_fee_override.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 484
+  },
+  {
+   "tep": "tests/test_backtest_universe.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 194
+  },
+  {
+   "tep": "tests/test_balance_composition.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan"
+   ],
+   "dong": 727
+  },
+  {
+   "tep": "tests/test_balance_observation.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 264
+  },
+  {
+   "tep": "tests/test_balance_validation.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 16
+  },
+  {
+   "tep": "tests/test_binance_ohlcv_archive.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 330
+  },
+  {
+   "tep": "tests/test_binance_ohlcv_archive_network.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 147
+  },
+  {
+   "tep": "tests/test_binance_ohlcv_v2_archive.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 325
+  },
+  {
+   "tep": "tests/test_binance_portfolio.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "go_lenh",
+    "loc_phien"
+   ],
+   "dong": 346
+  },
+  {
+   "tep": "tests/test_bitget_fill_confirmation.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "hedge",
+    "trailing"
+   ],
+   "dong": 354
+  },
+  {
+   "tep": "tests/test_bitget_side_pside.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "hedge"
+   ],
+   "dong": 105
+  },
+  {
+   "tep": "tests/test_broker_codes.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 72
+  },
+  {
+   "tep": "tests/test_build_backtest_payload_purity.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "hedge",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 1098
+  },
+  {
+   "tep": "tests/test_cache_integrity_doctor.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 570
+  },
+  {
+   "tep": "tests/test_cache_lock_races.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 228
+  },
+  {
+   "tep": "tests/test_cache_warmup_reuse.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "lenh_cho"
+   ],
+   "dong": 951
+  },
+  {
+   "tep": "tests/test_candle_fragmented_gaps.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 248
+  },
+  {
+   "tep": "tests/test_candle_gap_scan_performance.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 108
+  },
+  {
+   "tep": "tests/test_candle_ingest_fastpaths.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 109
+  },
+  {
+   "tep": "tests/test_candle_interval.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "hedge",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 404
+  },
+  {
+   "tep": "tests/test_candle_sorted_copy.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 48
+  },
+  {
+   "tep": "tests/test_candlestick_manager.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "lenh_cho",
+    "loc_phien",
+    "trailing"
+   ],
+   "dong": 6028
+  },
+  {
+   "tep": "tests/test_candlestick_manager_edge_cases.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "trailing"
+   ],
+   "dong": 917
+  },
+  {
+   "tep": "tests/test_candlestick_manager_legacy_cache.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan"
+   ],
+   "dong": 250
+  },
+  {
+   "tep": "tests/test_candlestick_manager_locking.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 314
+  },
+  {
+   "tep": "tests/test_candlestick_resolution_boundary.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "trailing"
+   ],
+   "dong": 344
+  },
+  {
+   "tep": "tests/test_ccxt_fetch_ohlcv_current_minute.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 90
+  },
+  {
+   "tep": "tests/test_ccxt_retry_policy.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan"
+   ],
+   "dong": 250
+  },
+  {
+   "tep": "tests/test_clean_config_tool.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 610
+  },
+  {
+   "tep": "tests/test_cm_debug_levels.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 59
+  },
+  {
+   "tep": "tests/test_coin_filtering.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 703
+  },
+  {
+   "tep": "tests/test_coin_overrides.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 168
+  },
+  {
+   "tep": "tests/test_coin_overrides_foundation.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 410
+  },
+  {
+   "tep": "tests/test_coin_overrides_hsl.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 209
+  },
+  {
+   "tep": "tests/test_coin_overrides_paths.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "martingale",
+    "trailing"
+   ],
+   "dong": 137
+  },
+  {
+   "tep": "tests/test_coin_overrides_policy.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 157
+  },
+  {
+   "tep": "tests/test_combined_candidate_frame_lifetime.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 152
+  },
+  {
+   "tep": "tests/test_compare_backtests.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 138
+  },
+  {
+   "tep": "tests/test_compose_coin_overrides_tool.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 919
+  },
+  {
+   "tep": "tests/test_config_cleaning.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "martingale",
+    "trailing"
+   ],
+   "dong": 301
+  },
+  {
+   "tep": "tests/test_config_coin_sources.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 135
+  },
+  {
+   "tep": "tests/test_config_market_settings_sources.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 77
+  },
+  {
+   "tep": "tests/test_config_mixed_type_keys.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 150
+  },
+  {
+   "tep": "tests/test_config_optimize_suite.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 252
+  },
+  {
+   "tep": "tests/test_config_pipeline.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "luoi",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 2592
+  },
+  {
+   "tep": "tests/test_config_preserve_coin_overrides.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho"
+   ],
+   "dong": 41
+  },
+  {
+   "tep": "tests/test_config_scoring.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 298
+  },
+  {
+   "tep": "tests/test_config_utils_helpers.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "hedge",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 2424
+  },
+  {
+   "tep": "tests/test_config_utils_parse_overrides.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "martingale",
+    "trailing"
+   ],
+   "dong": 91
+  },
+  {
+   "tep": "tests/test_console_admission.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "trailing"
+   ],
+   "dong": 356
+  },
+  {
+   "tep": "tests/test_console_health.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "trailing"
+   ],
+   "dong": 173
+  },
+  {
+   "tep": "tests/test_container_runtime_contract.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 190
+  },
+  {
+   "tep": "tests/test_cooldown_review_regressions.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 633
+  },
+  {
+   "tep": "tests/test_crash_finder_tool.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 898
+  },
+  {
+   "tep": "tests/test_custom_endpoints.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 223
+  },
+  {
+   "tep": "tests/test_data_strategy_verification.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 937
+  },
+  {
+   "tep": "tests/test_dated_futures_policy.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 69
+  },
+  {
+   "tep": "tests/test_diagnostic_safety.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 290
+  },
+  {
+   "tep": "tests/test_diagnostic_valuation.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan"
+   ],
+   "dong": 137
+  },
+  {
+   "tep": "tests/test_downloader_daily_padding.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 109
+  },
+  {
+   "tep": "tests/test_ema_anchor_analysis.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 257
+  },
+  {
+   "tep": "tests/test_ema_timing.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 125
+  },
+  {
+   "tep": "tests/test_entries_sizing.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 286
+  },
+  {
+   "tep": "tests/test_entry_cooldown_migration.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "martingale",
+    "trailing"
+   ],
+   "dong": 266
+  },
+  {
+   "tep": "tests/test_entry_ema_migration.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 226
+  },
+  {
+   "tep": "tests/test_entry_timing_research.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 35
+  },
+  {
+   "tep": "tests/test_excess_allowance_migration.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 161
+  },
+  {
+   "tep": "tests/test_exchange_config_refresh_event.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 194
+  },
+  {
+   "tep": "tests/test_exchange_config_updates.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "hedge",
+    "lenh_cho"
+   ],
+   "dong": 1830
+  },
+  {
+   "tep": "tests/test_exchange_name_normalization.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 244
+  },
+  {
+   "tep": "tests/test_execution_owner_lifecycle.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "trailing"
+   ],
+   "dong": 92
+  },
+  {
+   "tep": "tests/test_fake_exchange.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 341
+  },
+  {
+   "tep": "tests/test_fill_events_hyperliquid_mapping.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 15
+  },
+  {
+   "tep": "tests/test_fill_events_manager.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dca",
+    "dong_mot_phan",
+    "go_lenh",
+    "hedge",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 9385
+  },
+  {
+   "tep": "tests/test_fill_fee_resolution.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 431
+  },
+  {
+   "tep": "tests/test_fill_history_completion.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 163
+  },
+  {
+   "tep": "tests/test_fill_refresh_reuse.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 184
+  },
+  {
+   "tep": "tests/test_forager_ws_candles.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "lenh_cho"
+   ],
+   "dong": 1955
+  },
+  {
+   "tep": "tests/test_foreign_passivbot_detection.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "lenh_cho"
+   ],
+   "dong": 1304
+  },
+  {
+   "tep": "tests/test_format_config.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "luoi",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 629
+  },
+  {
+   "tep": "tests/test_fresh_entry_eligibility.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 224
+  },
+  {
+   "tep": "tests/test_fresh_entry_eligibility_integration.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "trailing"
+   ],
+   "dong": 741
+  },
+  {
+   "tep": "tests/test_freshness_ledger.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 35
+  },
+  {
+   "tep": "tests/test_gap_metadata_performance_parity.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 481
+  },
+  {
+   "tep": "tests/test_gap_timestamp_cohort_parity.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "luoi"
+   ],
+   "dong": 259
+  },
+  {
+   "tep": "tests/test_gate_entries_by_twel_complex.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 269
+  },
+  {
+   "tep": "tests/test_gpu_screening_config.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 110
+  },
+  {
+   "tep": "tests/test_hlcv_preparation.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "hedge",
+    "lenh_cho"
+   ],
+   "dong": 3437
+  },
+  {
+   "tep": "tests/test_hlcvs_bundle.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 260
+  },
+  {
+   "tep": "tests/test_hlcvs_cache_roundtrip.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 78
+  },
+  {
+   "tep": "tests/test_hlcvs_dataset_override.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 311
+  },
+  {
+   "tep": "tests/test_hlcvs_manifest.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 358
+  },
+  {
+   "tep": "tests/test_hlcvs_valid_ranges.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "trailing"
+   ],
+   "dong": 209
+  },
+  {
+   "tep": "tests/test_hsl_backtest_config.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 480
+  },
+  {
+   "tep": "tests/test_hsl_best_effort_reference.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "lenh_cho",
+    "luoi"
+   ],
+   "dong": 471
+  },
+  {
+   "tep": "tests/test_hsl_candles.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 493
+  },
+  {
+   "tep": "tests/test_hsl_cli.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 156
+  },
+  {
+   "tep": "tests/test_hsl_config.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho"
+   ],
+   "dong": 787
+  },
+  {
+   "tep": "tests/test_hsl_current_flat.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan"
+   ],
+   "dong": 372
+  },
+  {
+   "tep": "tests/test_hsl_diagnostics.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 972
+  },
+  {
+   "tep": "tests/test_hsl_evaluator.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "lenh_cho"
+   ],
+   "dong": 464
+  },
+  {
+   "tep": "tests/test_hsl_fake_cycle.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho"
+   ],
+   "dong": 524
+  },
+  {
+   "tep": "tests/test_hsl_history.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "hoa_von"
+   ],
+   "dong": 341
+  },
+  {
+   "tep": "tests/test_hsl_history_timing_live.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 153
+  },
+  {
+   "tep": "tests/test_hsl_inputs.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 476
+  },
+  {
+   "tep": "tests/test_hsl_live.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "lenh_cho",
+    "luoi",
+    "trailing"
+   ],
+   "dong": 2598
+  },
+  {
+   "tep": "tests/test_hsl_local_repair.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 81
+  },
+  {
+   "tep": "tests/test_hsl_metric_regression.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 60
+  },
+  {
+   "tep": "tests/test_hsl_monitor_equity.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan"
+   ],
+   "dong": 115
+  },
+  {
+   "tep": "tests/test_hsl_offline_runtime.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 284
+  },
+  {
+   "tep": "tests/test_hsl_optimizer_contract.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho"
+   ],
+   "dong": 406
+  },
+  {
+   "tep": "tests/test_hsl_prices.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "trailing"
+   ],
+   "dong": 275
+  },
+  {
+   "tep": "tests/test_hsl_reconciler.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "martingale"
+   ],
+   "dong": 176
+  },
+  {
+   "tep": "tests/test_hsl_reference_candle_free.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan"
+   ],
+   "dong": 376
+  },
+  {
+   "tep": "tests/test_hsl_reference_controller.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "lenh_cho"
+   ],
+   "dong": 615
+  },
+  {
+   "tep": "tests/test_hsl_reference_fake_exchange.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "luoi"
+   ],
+   "dong": 111
+  },
+  {
+   "tep": "tests/test_hsl_reference_replay.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "luoi"
+   ],
+   "dong": 879
+  },
+  {
+   "tep": "tests/test_hsl_reference_replay_fake_exchange.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan"
+   ],
+   "dong": 84
+  },
+  {
+   "tep": "tests/test_hsl_reporting.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 389
+  },
+  {
+   "tep": "tests/test_hsl_runtime.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "lenh_cho",
+    "luoi"
+   ],
+   "dong": 1522
+  },
+  {
+   "tep": "tests/test_hsl_signal.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 207
+  },
+  {
+   "tep": "tests/test_hsl_snapshot.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan"
+   ],
+   "dong": 769
+  },
+  {
+   "tep": "tests/test_hsl_startup_preview.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 306
+  },
+  {
+   "tep": "tests/test_hsl_status_consumers.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan"
+   ],
+   "dong": 163
+  },
+  {
+   "tep": "tests/test_hsl_trace.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "luoi"
+   ],
+   "dong": 663
+  },
+  {
+   "tep": "tests/test_hyperliquid_balance_cache.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 2136
+  },
+  {
+   "tep": "tests/test_hyperliquid_probe_common.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 88
+  },
+  {
+   "tep": "tests/test_hyperliquid_probe_tools.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 265
+  },
+  {
+   "tep": "tests/test_hyperliquid_tickers.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 134
+  },
+  {
+   "tep": "tests/test_inception_date.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 511
+  },
+  {
+   "tep": "tests/test_init_markets_retry.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "hedge"
+   ],
+   "dong": 843
+  },
+  {
+   "tep": "tests/test_inspect_ohlcvs_tool.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 122
+  },
+  {
+   "tep": "tests/test_iterative_backtester.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 441
+  },
+  {
+   "tep": "tests/test_kucoin_exchange_config.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "hedge",
+    "loc_phien"
+   ],
+   "dong": 465
+  },
+  {
+   "tep": "tests/test_limit_order_fill_buffer.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 166
+  },
+  {
+   "tep": "tests/test_limit_utils.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 224
+  },
+  {
+   "tep": "tests/test_live_candle_budget.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 5941
+  },
+  {
+   "tep": "tests/test_live_candlestick_manager.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 292
+  },
+  {
+   "tep": "tests/test_live_coin_lists.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 988
+  },
+  {
+   "tep": "tests/test_live_coins_reload.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 1442
+  },
+  {
+   "tep": "tests/test_live_config_dependencies.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "martingale",
+    "trailing"
+   ],
+   "dong": 84
+  },
+  {
+   "tep": "tests/test_live_config_preflight.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 682
+  },
+  {
+   "tep": "tests/test_live_event_bus.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "lenh_cho",
+    "luoi",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 4550
+  },
+  {
+   "tep": "tests/test_live_event_query.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 3209
+  },
+  {
+   "tep": "tests/test_live_event_registry_docs.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 12
+  },
+  {
+   "tep": "tests/test_live_incident_bundle.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "loc_phien"
+   ],
+   "dong": 2717
+  },
+  {
+   "tep": "tests/test_live_performance_parity.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "luoi"
+   ],
+   "dong": 404
+  },
+  {
+   "tep": "tests/test_live_performance_report.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 5864
+  },
+  {
+   "tep": "tests/test_live_process_report.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 180
+  },
+  {
+   "tep": "tests/test_live_repository_prepare.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 430
+  },
+  {
+   "tep": "tests/test_live_restart_executor.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "loc_phien"
+   ],
+   "dong": 974
+  },
+  {
+   "tep": "tests/test_live_restart_smoke_collection.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 439
+  },
+  {
+   "tep": "tests/test_live_restart_smoke_evidence.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 641
+  },
+  {
+   "tep": "tests/test_live_restart_smoke_orchestrator.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "loc_phien"
+   ],
+   "dong": 608
+  },
+  {
+   "tep": "tests/test_live_restart_smoke_plan.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 963
+  },
+  {
+   "tep": "tests/test_live_restart_target_report.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 942
+  },
+  {
+   "tep": "tests/test_live_smoke_report.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "loc_phien"
+   ],
+   "dong": 9670
+  },
+  {
+   "tep": "tests/test_live_warmup_windows.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "luoi",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 332
+  },
+  {
+   "tep": "tests/test_log_secret_inventory.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 264
+  },
+  {
+   "tep": "tests/test_logging_setup.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 199
+  },
+  {
+   "tep": "tests/test_maintainer_logging.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 349
+  },
+  {
+   "tep": "tests/test_market_settings_sources.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 226
+  },
+  {
+   "tep": "tests/test_market_settings_sources_e2e.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 95
+  },
+  {
+   "tep": "tests/test_market_settings_sources_separation.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 470
+  },
+  {
+   "tep": "tests/test_market_snapshot.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "lenh_cho"
+   ],
+   "dong": 1600
+  },
+  {
+   "tep": "tests/test_materialized_cache.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh"
+   ],
+   "dong": 161
+  },
+  {
+   "tep": "tests/test_merge_paretos_tool.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 269
+  },
+  {
+   "tep": "tests/test_metrics_schema.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 117
+  },
+  {
+   "tep": "tests/test_migrate_hsl_config.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "hedge",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 1009
+  },
+  {
+   "tep": "tests/test_migrate_hsl_live_only.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 85
+  },
+  {
+   "tep": "tests/test_missing_ema_fix.py",
+   "nen_tang": "Python",
+   "loai": "chi_bao",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 3607
+  },
+  {
+   "tep": "tests/test_monitor_dev.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 223
+  },
+  {
+   "tep": "tests/test_monitor_publisher.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "trailing"
+   ],
+   "dong": 1749
+  },
+  {
+   "tep": "tests/test_monitor_relay.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 540
+  },
+  {
+   "tep": "tests/test_monitor_strategy_reuse.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "martingale",
+    "trailing"
+   ],
+   "dong": 103
+  },
+  {
+   "tep": "tests/test_monitor_tui.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 781
+  },
+  {
+   "tep": "tests/test_monitor_web.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 57
+  },
+  {
+   "tep": "tests/test_ohlcv_data_loading.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 42
+  },
+  {
+   "tep": "tests/test_ohlcv_legacy_import.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 241
+  },
+  {
+   "tep": "tests/test_ohlcv_planner.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 242
+  },
+  {
+   "tep": "tests/test_ohlcv_v2_foundation.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "trailing"
+   ],
+   "dong": 855
+  },
+  {
+   "tep": "tests/test_ohlcv_v2_prepare.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 3747
+  },
+  {
+   "tep": "tests/test_ohlcvs_doctor.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 156
+  },
+  {
+   "tep": "tests/test_ohlcvs_downloader.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 323
+  },
+  {
+   "tep": "tests/test_okx_exchange_config.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 248
+  },
+  {
+   "tep": "tests/test_okx_open_orders.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan"
+   ],
+   "dong": 75
+  },
+  {
+   "tep": "tests/test_opt_utils.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 56
+  },
+  {
+   "tep": "tests/test_optimizer_limits_integration.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 324
+  },
+  {
+   "tep": "tests/test_orchestrator_integration.py",
+   "nen_tang": "Python",
+   "loai": "chi_bao",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 984
+  },
+  {
+   "tep": "tests/test_orchestrator_json_api.py",
+   "nen_tang": "Python",
+   "loai": "chi_bao",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 5509
+  },
+  {
+   "tep": "tests/test_order_churn_cancel_first.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "hedge"
+   ],
+   "dong": 695
+  },
+  {
+   "tep": "tests/test_order_churn_executor.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 311
+  },
+  {
+   "tep": "tests/test_order_churn_gate.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "hedge",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 3829
+  },
+  {
+   "tep": "tests/test_order_orchestration.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 1267
+  },
+  {
+   "tep": "tests/test_order_price_diff.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 31
+  },
+  {
+   "tep": "tests/test_order_price_threshold.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 53
+  },
+  {
+   "tep": "tests/test_order_reconciliation_contract.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "hedge",
+    "lenh_cho"
+   ],
+   "dong": 1320
+  },
+  {
+   "tep": "tests/test_order_rounding.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 465
+  },
+  {
+   "tep": "tests/test_pareto_analyzer.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 215
+  },
+  {
+   "tep": "tests/test_pareto_compress.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 178
+  },
+  {
+   "tep": "tests/test_pareto_core.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 110
+  },
+  {
+   "tep": "tests/test_pareto_dash.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 252
+  },
+  {
+   "tep": "tests/test_pareto_explorer.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 1115
+  },
+  {
+   "tep": "tests/test_pareto_extremes.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 226
+  },
+  {
+   "tep": "tests/test_pareto_limits.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 74
+  },
+  {
+   "tep": "tests/test_pareto_plot.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 358
+  },
+  {
+   "tep": "tests/test_pareto_transform.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 57
+  },
+  {
+   "tep": "tests/test_passivbot_balance_split.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "hedge",
+    "lenh_cho",
+    "loc_phien",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 12319
+  },
+  {
+   "tep": "tests/test_passivbot_cli.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "hedge",
+    "loc_phien",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 1079
+  },
+  {
+   "tep": "tests/test_passivbot_monitor.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "go_lenh",
+    "hedge",
+    "lenh_cho",
+    "luoi",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 7917
+  },
+  {
+   "tep": "tests/test_passivbot_version.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 33
+  },
+  {
+   "tep": "tests/test_position_fill_sync.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 230
+  },
+  {
+   "tep": "tests/test_position_fill_sync_fake_live.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 227
+  },
+  {
+   "tep": "tests/test_position_fill_transport.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 183
+  },
+  {
+   "tep": "tests/test_price_diff_helpers.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 37
+  },
+  {
+   "tep": "tests/test_procedures_first_timestamps.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "loc_phien"
+   ],
+   "dong": 617
+  },
+  {
+   "tep": "tests/test_process_failure_diagnostics.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho"
+   ],
+   "dong": 436
+  },
+  {
+   "tep": "tests/test_protective_close_contract.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan"
+   ],
+   "dong": 355
+  },
+  {
+   "tep": "tests/test_python_support_contract.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 30
+  },
+  {
+   "tep": "tests/test_realized_loss_gate.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "hedge",
+    "lenh_cho"
+   ],
+   "dong": 1032
+  },
+  {
+   "tep": "tests/test_repro_harness.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 58
+  },
+  {
+   "tep": "tests/test_requirements.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 87
+  },
+  {
+   "tep": "tests/test_retired_hsl_controls.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh"
+   ],
+   "dong": 32
+  },
+  {
+   "tep": "tests/test_run_fake_live.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 1255
+  },
+  {
+   "tep": "tests/test_runtime_attribution.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "luoi",
+    "trailing"
+   ],
+   "dong": 521
+  },
+  {
+   "tep": "tests/test_runtime_identity.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 123
+  },
+  {
+   "tep": "tests/test_rust_utils.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 512
+  },
+  {
+   "tep": "tests/test_session_artifacts.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 223
+  },
+  {
+   "tep": "tests/test_setup_bot_fallback.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 138
+  },
+  {
+   "tep": "tests/test_shared_bot.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 29
+  },
+  {
+   "tep": "tests/test_simulation_offline.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "loc_phien",
+    "trailing"
+   ],
+   "dong": 695
+  },
+  {
+   "tep": "tests/test_stock_perps.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien",
+    "trailing"
+   ],
+   "dong": 1374
+  },
+  {
+   "tep": "tests/test_streamlined_json.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 122
+  },
+  {
+   "tep": "tests/test_suite_artifacts.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 129
+  },
+  {
+   "tep": "tests/test_suite_config_sources.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan"
+   ],
+   "dong": 164
+  },
+  {
+   "tep": "tests/test_suite_runner.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "hedge",
+    "lenh_cho",
+    "loc_phien"
+   ],
+   "dong": 1236
+  },
+  {
+   "tep": "tests/test_sync_tar.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 200
+  },
+  {
+   "tep": "tests/test_ticker_probe_tool.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho",
+    "loc_phien"
+   ],
+   "dong": 1648
+  },
+  {
+   "tep": "tests/test_trailing_diagnostics.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "luoi",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 481
+  },
+  {
+   "tep": "tests/test_trailing_inspect_tool.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "hedge",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 1373
+  },
+  {
+   "tep": "tests/test_twel_enforcer.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho"
+   ],
+   "dong": 127
+  },
+  {
+   "tep": "tests/test_unavailable_coin_overrides.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "loc_phien"
+   ],
+   "dong": 145
+  },
+  {
+   "tep": "tests/test_unstuck_ema_backtest.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 171
+  },
+  {
+   "tep": "tests/test_unstuck_ema_spans.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "lenh_cho",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 630
+  },
+  {
+   "tep": "tests/test_unstucking.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "go_lenh",
+    "lenh_cho"
+   ],
+   "dong": 343
+  },
+  {
+   "tep": "tests/test_unstucking_safeguards.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "dong_mot_phan",
+    "go_lenh",
+    "hedge",
+    "lenh_cho",
+    "luoi",
+    "martingale",
+    "trailing"
+   ],
+   "dong": 3958
+  },
+  {
+   "tep": "tests/test_utils_maps.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [],
+   "dong": 903
+  },
+  {
+   "tep": "tests/test_warmup_utils.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "martingale",
+    "trailing"
+   ],
+   "dong": 608
+  },
+  {
+   "tep": "tests/test_wel_auto_reducer.py",
+   "nen_tang": "Python",
+   "loai": "thu_vien",
+   "van_hanh": false,
+   "quan_tri": [
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 101
+  }
+ ]
+}

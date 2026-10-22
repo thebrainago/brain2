@@ -1,40 +1,40 @@
 # EVO - SUC KHOE HE THONG
 
-*2026-10-13 22:44:17*
+*2026-10-21 19:33:55*
 
-TOT 14 · XAU 5 · CHUA DO 1
+TOT 13 · XAU 5 · CHUA DO 2
 
 `CHUA_DO` khong phai `XAU`. Mot chi so khong do duoc thi noi la khong
 do duoc - quy no ve 'xau' la cach mot bo giam sat tu bia ra van de.
 
 | chi so | gia tri | trang thai | bang chung |
 |---|---:|---|---|
-| `seeker.ty_le_doc` | 0.0 | XAU | 0/1655 tai lieu co ban van |
-| `seeker.nguon_rong` | 5 | XAU | rong: facebook, quantconnect, semantic, telegram, x |
+| `seeker.ty_le_doc` | 0.0 | XAU | 0/54 tai lieu co ban van |
+| `seeker.nguon_rong` | 36 | XAU | rong: arxiv, blog, cnblogs_trung, collective2, crossref, darwinex, elitetrader, etoro, fac |
 | `quantlab.kho_co_che` | 4049 | TOT | 4049 co che, 4012 (99%) co truong `co_che` giai thich |
-| `quantlab.ho_so_song` | 26.6 | TOT | HO_SO_SONG.json ghi lan cuoi cach day 27 gio |
-| `quantlab.ho_so_mua_vu` | 26.6 | TOT | HO_SO_MUA_VU.json ghi lan cuoi cach day 27 gio |
-| `quantlab.ho_so_tuong_quan` | 26.6 | TOT | HO_SO_TUONG_QUAN_D1.json ghi lan cuoi cach day 27 gio |
-| `quantlab.ho_so_suy_nguoc` | 26.6 | TOT | SUY_NGUOC.json ghi lan cuoi cach day 27 gio |
-| `quantlab.ho_so_to_hop` | 26.6 | TOT | TO_HOP.json ghi lan cuoi cach day 27 gio |
+| `quantlab.ho_so_song` | 5.2 | TOT | HO_SO_SONG.json ghi lan cuoi cach day 5 gio |
+| `quantlab.ho_so_mua_vu` | 5.1 | TOT | HO_SO_MUA_VU.json ghi lan cuoi cach day 5 gio |
+| `quantlab.ho_so_tuong_quan` | 5.2 | TOT | HO_SO_TUONG_QUAN_D1.json ghi lan cuoi cach day 5 gio |
+| `quantlab.ho_so_suy_nguoc` | 5.2 | TOT | SUY_NGUOC.json ghi lan cuoi cach day 5 gio |
+| `quantlab.ho_so_to_hop` | 5.2 | TOT | TO_HOP.json ghi lan cuoi cach day 5 gio |
 | `quantlab.ket_qua` | 0 | XAU | 0 dong trong ket_qua |
-| `evo.van_de_mo` | 0 | TOT | 0 MO / 1 da sua |
+| `evo.van_de_mo` | 1 | TOT | 1 MO / 32 da sua |
 | `evo.bai_hoc` | 3 | XAU | 3 the bai hoc |
-| `evo.finder` | 26.6 | TOT | san_cong_cu = Finder cua so do |
+| `evo.finder` | 5.1 | TOT | san_cong_cu = Finder cua so do |
 | `xay.hang_doi` | 31 | TOT | {'xong': 23, 'cho': 8} |
 | `xay.viec_hong` | 0 | TOT |  |
-| `may.mo_coi` | 1 | TOT | 1 tien trinh, 0% CPU |
+| `may.mo_coi` | None | CHUA_DO | khong co psutil |
 | `phanh.doc_duoc` | None | CHUA_DO | OperationalError: no such table: he_chay |
-| `thong_luong.tang_cam` | 1 | XAU | doc toan van: 1655 vao -> 0 ra |
-| `dia.con_trong` | 36.5 | TOT | 36.5 GB trong / 111 GB tong (67% da dung) |
-| `dia.nao_db` | 1 | TOT | bang `noi_dung` (toan van tai lieu) chiem phan lon - do la du lieu THAT, khong phai rac; m |
+| `thong_luong.tang_cam` | 1 | XAU | doc toan van: 54 vao -> 0 ra |
+| `dia.con_trong` | 111.0 | TOT | 111.0 GB trong / 127 GB tong (13% da dung) |
+| `dia.nao_db` | 0 | TOT | bang `noi_dung` (toan van tai lieu) chiem phan lon - do la du lieu THAT, khong phai rac; m |
 | `dia.wal` | 0 | TOT | khong co WAL ton dong |
 
 ## Van de + cat nghia + de xuat
 
 ### `seeker.ty_le_doc` — tai lieu da LAY DUOC TOAN VAN
 
-**Do duoc:** 0/1655 tai lieu co ban van
+**Do duoc:** 0/54 tai lieu co ban van
 
 **Cat nghia:** Tai lieu vao kho nhung khau LAY TOAN VAN khong theo kip. Thuong la hang doi doc bi URL chet chiem cho (da xay ra: 406 URL TradingView chet lam bao 'het ton kho').
 
@@ -46,7 +46,7 @@ python -m nhan.day_chuyen boc   # lay toan van cho phan con lai
 
 ### `seeker.nguon_rong` — nguon chua mang ve tai lieu nao
 
-**Do duoc:** rong: facebook, quantconnect, semantic, telegram, x
+**Do duoc:** rong: arxiv, blog, cnblogs_trung, collective2, crossref, darwinex, elitetrader, etoro, facebook, fxblue
 
 **Cat nghia:** Nguon co the bi CHAN tren may nay, hoac bo doc cua no chua tung duoc goi. Hai chuyen khac han nhau - phai do tung nguon truoc khi goi la 'nguon chet'.
 
@@ -72,7 +72,7 @@ python -m nhan.kham_pha_nguon   # do lai tung nguon, tach 'chan' khoi 'chua chay
 
 ### `thong_luong.tang_cam` — tang co dau vao ma KHONG co dau ra
 
-**Do duoc:** doc toan van: 1655 vao -> 0 ra
+**Do duoc:** doc toan van: 54 vao -> 0 ra
 
 **Cat nghia:** Mot tang co dau vao ma khong co dau ra nao. Gan nhu luon la doc sai ten truong / lech quy uoc ma / bo doc chua tung duoc goi - KHONG phai 'nguon khong co gi'. Chay `b im-lang` de biet vi sao tung tang cam.
 
@@ -84,5 +84,6 @@ b im-lang de xem vi sao tung tang cam
 
 ## Chua do duoc (KHONG phai ket luan am)
 
+- `may.mo_coi`: khong co psutil
 - `phanh.doc_duoc`: OperationalError: no such table: he_chay
 

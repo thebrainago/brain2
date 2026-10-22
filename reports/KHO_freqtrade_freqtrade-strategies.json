@@ -1,0 +1,701 @@
+{
+ "kho": "freqtrade/freqtrade-strategies",
+ "luc": "2026-10-18T16:31:55+00:00",
+ "tong": {
+  "so_tep": 69,
+  "ea": 69,
+  "chien_luoc": 0,
+  "chi_bao": 0,
+  "thu_vien": 0,
+  "nen_tang": {
+   "Python": 69
+  },
+  "ky_thuat_quan_tri": {
+   "trailing": 31,
+   "lenh_cho": 26,
+   "chot_ro": 11,
+   "dca": 4,
+   "hoa_von": 3,
+   "dong_mot_phan": 2,
+   "loc_spread": 2,
+   "go_lenh": 1,
+   "loc_phien": 1
+  }
+ },
+ "tep": [
+  {
+   "tep": "user_data/hyperopts/GodStraHo.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 200
+  },
+  {
+   "tep": "user_data/strategies/AlmgrenChrissStrategy.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "dca",
+    "dong_mot_phan",
+    "loc_spread"
+   ],
+   "dong": 234
+  },
+  {
+   "tep": "user_data/strategies/Bandtastic.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "chot_ro",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 164
+  },
+  {
+   "tep": "user_data/strategies/BreakEven.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "hoa_von"
+   ],
+   "dong": 70
+  },
+  {
+   "tep": "user_data/strategies/CustomStoplossWithPSAR.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "trailing"
+   ],
+   "dong": 95
+  },
+  {
+   "tep": "user_data/strategies/Diamond.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "chot_ro",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 156
+  },
+  {
+   "tep": "user_data/strategies/FixedRiskRewardLoss.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "hoa_von"
+   ],
+   "dong": 122
+  },
+  {
+   "tep": "user_data/strategies/GodStra.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "chot_ro",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 179
+  },
+  {
+   "tep": "user_data/strategies/Heracles.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "chot_ro"
+   ],
+   "dong": 122
+  },
+  {
+   "tep": "user_data/strategies/HourBasedStrategy.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "chot_ro"
+   ],
+   "dong": 105
+  },
+  {
+   "tep": "user_data/strategies/InformativeSample.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 133
+  },
+  {
+   "tep": "user_data/strategies/MultiMa.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "chot_ro",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 100
+  },
+  {
+   "tep": "user_data/strategies/PatternRecognition.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "chot_ro",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 89
+  },
+  {
+   "tep": "user_data/strategies/PowerTower.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "chot_ro",
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 105
+  },
+  {
+   "tep": "user_data/strategies/Strategy001.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 123
+  },
+  {
+   "tep": "user_data/strategies/Strategy001_custom_exit.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 144
+  },
+  {
+   "tep": "user_data/strategies/Strategy002.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 137
+  },
+  {
+   "tep": "user_data/strategies/Strategy003.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 154
+  },
+  {
+   "tep": "user_data/strategies/Strategy004.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 159
+  },
+  {
+   "tep": "user_data/strategies/Strategy005.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 186
+  },
+  {
+   "tep": "user_data/strategies/Supertrend.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 157
+  },
+  {
+   "tep": "user_data/strategies/SwingHighToSky.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 111
+  },
+  {
+   "tep": "user_data/strategies/TWAPStrategy.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "dca",
+    "dong_mot_phan"
+   ],
+   "dong": 158
+  },
+  {
+   "tep": "user_data/strategies/TrendRiderStrategy.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "dca",
+    "go_lenh",
+    "hoa_von",
+    "lenh_cho",
+    "loc_phien",
+    "loc_spread",
+    "trailing"
+   ],
+   "dong": 634
+  },
+  {
+   "tep": "user_data/strategies/UniversalMACD.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 114
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/ADXMomentum.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 70
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/ASDTSRockwellTrading.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 87
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/AdxSmas.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 62
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/AverageStrategy.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 80
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/AwesomeMacd.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 68
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/BbandRsi.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 65
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/BinHV27.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 138
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/BinHV45.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 72
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/CCIStrategy.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 121
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/CMCWinner.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 96
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/ClucMay72018.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 85
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/CofiBitStrategy.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 95
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/CombinedBinHAndCluc.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 77
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/DoesNothingStrategy.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 46
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/EMASkipPump.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "trailing"
+   ],
+   "dong": 87
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/Freqtrade_backtest_validation_freqtrade1.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 51
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/Low_BB.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "trailing"
+   ],
+   "dong": 110
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/MACDStrategy.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 104
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/MACDStrategy_crossed.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 79
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/MultiRSI.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 72
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/Quickie.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 79
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/ReinforcedAverageStrategy.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 98
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/ReinforcedQuickie.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 196
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/ReinforcedSmoothScalp.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 139
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/Scalp.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 76
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/Simple.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 77
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/SmoothOperator.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "trailing"
+   ],
+   "dong": 305
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/SmoothScalp.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 103
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/TDSequentialStrategy.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 152
+  },
+  {
+   "tep": "user_data/strategies/berlinguyinca/TechnicalExampleStrategy.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 42
+  },
+  {
+   "tep": "user_data/strategies/futures/FAdxSmaStrategy.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 131
+  },
+  {
+   "tep": "user_data/strategies/futures/FOttStrategy.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 188
+  },
+  {
+   "tep": "user_data/strategies/futures/FReinforcedStrategy.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 145
+  },
+  {
+   "tep": "user_data/strategies/futures/FSampleStrategy.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 163
+  },
+  {
+   "tep": "user_data/strategies/futures/FSupertrendStrategy.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 233
+  },
+  {
+   "tep": "user_data/strategies/futures/TrendFollowingStrategy.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 70
+  },
+  {
+   "tep": "user_data/strategies/futures/VolatilitySystem.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "dca"
+   ],
+   "dong": 158
+  },
+  {
+   "tep": "user_data/strategies/hlhb.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 129
+  },
+  {
+   "tep": "user_data/strategies/lookahead_bias/DevilStra.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "chot_ro"
+   ],
+   "dong": 722
+  },
+  {
+   "tep": "user_data/strategies/lookahead_bias/GodStraNew.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "trailing"
+   ],
+   "dong": 645
+  },
+  {
+   "tep": "user_data/strategies/lookahead_bias/Zeus.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "chot_ro"
+   ],
+   "dong": 149
+  },
+  {
+   "tep": "user_data/strategies/lookahead_bias/wtc.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "chot_ro"
+   ],
+   "dong": 158
+  },
+  {
+   "tep": "user_data/strategies/mabStra.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [],
+   "dong": 98
+  },
+  {
+   "tep": "user_data/strategies/multi_tf.py",
+   "nen_tang": "Python",
+   "loai": "ea",
+   "van_hanh": true,
+   "quan_tri": [
+    "lenh_cho",
+    "trailing"
+   ],
+   "dong": 139
+  }
+ ]
+}

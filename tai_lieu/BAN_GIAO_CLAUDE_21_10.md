@@ -62,3 +62,10 @@ Máy nhà DESKTOP-05PNLGF (Admin), repo `C:\Users\DUNG\brain2`. PID dưới đâ
 - Crazy Dog (chỉ mua nếu có dùng thử).
 - Slot Exness (115 job kẹt).
 - Chọn lại LLM khi Anh báo.
+
+## Cập nhật 21/10 23:00 – dừng toàn bộ máy nhà
+
+- Anh cần máy chơi LoL nên Grok Bot đã dừng hết (taskkill đúng PID 9808, 8856, 15464, 16456). Bộ chạy job 5972/14140 đã tự kết thúc trước đó; sổ cái 955 lần thử đã đẩy (ed8c8be1).
+- Dữ liệu dài: MT5 XM xong 19 cặp từ 2004; histdata dừng ở 09/2026; Dukascopy CHƯA chạy; bước gộp `nhan.du_lieu_dai --dung` bị ngắt giữa chừng, `du_lieu_dai.json` CHƯA có. Lần sau chạy lại `mt5tools\TAI_LICH_SU_MT5.bat` (phần đã tải sẽ bỏ qua), rồi gộp và chạy vòng 2 dữ liệu dài.
+- Grok Bot hết hạn mức tới Chủ nhật: Claude tiếp quản toàn bộ. Tác vụ hẹn giờ TheBrain* vẫn Disabled.
+- Danh mục chiến lược đã lọc: `reports/CHIEN_LUOC_DA_LOC.md`.
