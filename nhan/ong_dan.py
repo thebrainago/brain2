@@ -394,6 +394,9 @@ def tin_hieu(t: dict, df: pd.DataFrame, tham: dict, ma: str = "") -> np.ndarray:
     if th["kieu"] == "python_llm":                   # ma LLM dich: chay trong hop cat (nhan/hop_cat_llm.py), cache
         from nhan import dich_llm as DL
         return DL.tin_hieu_python(th["ma"], df)
+    from nhan import xuong_tin_hieu as XT           # 22/10/2026 XUONG: dao / bo_phieu / chuyen_che_do / khoang_cach
+    if th["kieu"] in XT.KIEU:
+        return XT.tin_hieu(th, df, ma, lambda x, d, m: tin_hieu({"tin_hieu": x}, d, {}, m))
     raise ValueError(th["kieu"])
 
 
@@ -409,6 +412,9 @@ def tin_hieu_to_hop(th: dict, df: pd.DataFrame, ma: str = "") -> np.ndarray:
             s = NL.ap_loc(s, cho_ca=NL.bo_loc_gio(df, int(lc["tham"]["tu"]), int(lc["tham"]["den"])))
         elif k == "bien_dong":
             s = NL.ap_loc(s, cho_ca=NL.bo_loc_bien_dong(df, int(lc["tham"].get("n", 14)), float(lc["tham"].get("tran_pct", 1.0))))
+        elif k == "che_do":                     # 22/10/2026 XUONG: chi vao khi che do thi truong BAT (xuong_tin_hieu.mat_na_che_do)
+            from nhan import xuong_tin_hieu as XT
+            s = NL.ap_loc(s, cho_ca=XT.mat_na_che_do(df, lc["tham"]["che_do"]))
         elif k == "xac_nhan":                   # vong 2: lenh A chi giu khi nguon xac nhan cung chieu trong `cua_so` nen
             sx = np.sign(np.asarray(tin_hieu({"tin_hieu": lc["nguon"]}, df, {}, ma), float))
             s = np.where(np.sign(s) == huong_gan_nhat(sx, int(lc["tham"].get("cua_so", 3))), s, 0).astype(int)
@@ -483,17 +489,23 @@ def ql_luoi(t: dict, ma: str, khung: str, cfg: dict) -> dict | None:
                             float(cfg.get("von", 1000.0)))
 
 
-def chuan_bi(t: dict, thu: dict, cfg: dict) -> dict:
+def chuan_bi(t: dict, thu: dict, cfg: dict, df: pd.DataFrame | None = None, s: np.ndarray | None = None) -> dict:
     """Phan dung chung cua danh_gia va xuat CSV: gia -> tin hieu -> loc gio doi ngay -> LenhVao + QuanLi.
-    -> {"df", "ev", "ql", "tk", "hs", "ghep": bool (to hop co nguon_b -> go_cheo)} hoac {"loi": ...}."""
-    df = gia(thu["ma"], thu["khung"], cfg)
+    -> {"df", "ev", "ql", "tk", "hs", "ghep": bool (to hop co nguon_b -> go_cheo)} hoac {"loi": ...}.
+    `df`, `s` (22/10/2026, XUONG): gia / tin hieu DA CO (cat theo thoi gian, cung do dai) - bo qua buoc doc gia va tinh tin hieu,
+    de bo toi uu khong tinh lai tin hieu moi lan doi mot tham so quan li."""
+    if df is None:
+        df = gia(thu["ma"], thu["khung"], cfg)
     if df is None or len(df) < 300:
         return {"loi": "CHUA_DO_DUOC: thieu du lieu %s %s" % (thu["ma"], thu["khung"])}
     if (t.get("tin_hieu") or {}).get("kieu") == "lenh_ngoai":
         df = _cua_so_lenh(t, df)                        # chi chay trong khoang thoi gian cua statement
         if df is None or len(df) < 48:
             return {"loi": "CHUA_DO_DUOC: statement khong trung khoang du lieu gia %s tren box" % thu["ma"]}
-    s = tin_hieu(t, df, thu.get("tham") or {}, thu["ma"])
+    if s is None:
+        s = tin_hieu(t, df, thu.get("tham") or {}, thu["ma"])
+    elif len(s) != len(df):
+        return {"loi": "CHUA_DO_DUOC: tin hieu dai %d khac gia %d" % (len(s), len(df))}
     tu, den = GS.cam_doi_ngay(cfg.get("san_phi", "XM"))
     s = NL.ap_loc(s, cho_ca=NL.bo_loc_gio(df, den, tu))       # nhu EA: khong mo ro moi trong gio doi ngay
     if (t.get("tin_hieu") or {}).get("kieu") == "luoi":
