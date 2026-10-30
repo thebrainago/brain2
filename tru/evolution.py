@@ -729,11 +729,35 @@ def do_van_hanh() -> dict:
 def phat_hien(vh: dict, sk: dict) -> list[dict]:
     ra = []
 
+    # MT5 khong kha dung tren may nay (box TLS/XM) -> bao RO, khong do loi len SEEKER.
+    mt5_tt = None
+    try:
+        from nhan import mt5_kha_dung as MKD
+        mt5_tt = MKD.trang_thai()
+        if not mt5_tt.get("ok"):
+            ra.append({"ma": "mt5_khong_kha_dung", "muc": "VUA",
+                       "mo_ta": ("MT5 tester khong kha dung tren may nay: %s. "
+                                 "Viec VAO_CSV/tick giu nguyen, danh dau HOAN cho may nha; "
+                                 "SEEKER/CAUKHO khong bi dieu_toc_dung vi terminal treo."
+                                 % (mt5_tt.get("ly_do") or "?"))[:400],
+                       "bc": mt5_tt})
+            try:
+                MKD.danh_dau_hoan_may_nha()
+            except Exception:
+                pass
+    except Exception as e:
+        mt5_tt = {"ok": True, "loi_do": str(e)[:80]}
+
     for t, d in vh["tru"].items():
         if d.get("trang_thai") == "CHUA CHAY LAN NAO":
             ra.append({"ma": f"tru_chua_chay_{t}", "muc": "VUA",
                        "mo_ta": f"Tru {t} chua chay lan nao ke tu khi dung so moi", "bc": d})
         elif d.get("dung_im"):
+            # Neu MT5 khong kha dung va tru bi dieu_toc chan (SEEKER/CAUKHO/NGHI):
+            # dung bao tru_dung_im — da co mt5_khong_kha_dung.
+            if (mt5_tt and not mt5_tt.get("ok")
+                    and t in ("SEEKER", "CAUKHO", "NGHI")):
+                continue
             ra.append({"ma": f"tru_dung_im_{t}", "muc": "NANG",
                        "mo_ta": f"Tru {t} dung im {d['tre_giay']//60} phut "
                                 f"(han {HAN_DUNG_IM.get(t,3600)//60} phut)", "bc": d})
@@ -1308,6 +1332,7 @@ def viet_bao_cao(vh: dict, sk: dict, vd: list, da_sua: list, sau: dict | None = 
 # se hien thi mai nhung thu da sua xong - dung cai lam nguoi dung mat long tin
 # vao danh sach. (Da xay ra that ngay 15/08 voi `dia_thap`.)
 EVO_TU_QUAN = {
+    "mt5_khong_kha_dung",
     "dia_thap", "vong_lap_rong", "quet_nong", "nang_suat_doc_thap",
     "nhieu_viec_loi", "qua_nhieu_pass",
     "so_dut_chuoi", "nguon_khong_thu_hoach", "chua_hieu_chuan_null",
@@ -1395,6 +1420,16 @@ def dong_van_de_het_hieu_luc(dang_kich_hoat: set | None = None) -> list:
         elif ma == "tru_loi_NGHI" and hang_cho_khoe:
             SO.dong_van_de(ma, "hang_cho khoe — khong can OPENAI_API_KEY")
             da_dong.append(ma)
+        elif ma.startswith("tru_dung_im_") and ma.split("tru_dung_im_", 1)[-1] in (
+                "SEEKER", "CAUKHO", "NGHI"):
+            # MT5 khong kha dung giai thich viec dung im (dieu_toc_dung cu)
+            try:
+                from nhan import mt5_kha_dung as MKD
+                if not MKD.trang_thai().get("ok"):
+                    SO.dong_van_de(ma, "mt5_khong_kha_dung — khong do loi len tru quet")
+                    da_dong.append(ma)
+            except Exception:
+                pass
     return da_dong
 
 
