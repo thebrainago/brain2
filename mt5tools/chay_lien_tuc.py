@@ -36,6 +36,17 @@ SLOT = QS.ds_slot()
 CO_TAT = Path(__file__).resolve().parent.parent / "may_nha_toi_nay" / "TAT_THE_BRAIN.co"
 REP = Path(os.environ.get("BRAIN_REP_DIR") or r"D:\mt5_lien_tuc\rep")
 LOG = Path(os.environ.get("BRAIN_LOG_LIEN_TUC") or r"D:\mt5_lien_tuc\chay.log")
+
+
+def _poll_giay(ban: bool) -> float:
+    """Chu ky poll: ~3s khi con viec (dang chay / vua phong / con slot), 15s khi ranh.
+    Cau hinh: BRAIN_MT5_POLL_BAN (mac 3), BRAIN_MT5_POLL_RANH (mac 15)."""
+    ten, mac = ("BRAIN_MT5_POLL_BAN", 3.0) if ban else ("BRAIN_MT5_POLL_RANH", 15.0)
+    try:
+        return max(0.5, min(120.0, float(os.environ.get(ten, mac))))
+    except ValueError:
+        return mac
+
 GOC_SET = Path(__file__).resolve().parent.parent / "ea_demo"
 # Don bay dat cho tester. 18/10/2026: truoc day ghi "Leverage=30" -> tester bo qua, moi bao cao la 1:100.
 DON_BAY = 30
@@ -358,7 +369,7 @@ def main():
                     SV.ghi(rec)
                     log("HET HAN + %d phut: giet %s, ghi CHUA_DO_DUOC" % (GIA_HAN_PHUT, ten))
                 break
-            time.sleep(15); continue
+            time.sleep(_poll_giay(True)); continue  # con viec dang chay qua han
         # 20/10/2026: muc may (DP) cho n slot real tick; co viec tang 1 thi duoc them toi BRAIN_TANG1_SLOT viec dong thoi
         tong_max, t2_max = QS.slot_toi_da(hai)
         if TT.bat("BRAIN_RAM_DONG"):
@@ -417,7 +428,9 @@ def main():
             log("PHONG %s %s muc=%s tang=%s %s" % (ten, s, a.muc or "-", v.get("tang", "-"), json.dumps(v["ts"])))
             time.sleep(3)
         ha_uu_tien()
-        time.sleep(15)
+        # Ban khi dang chay, vua phong, hoac con slot + con cho (hang viec SV khong bao gio can)
+        ban = bool(chay) or bool(cap) or (con_cho > 0 and bool(co_san) and not tat)
+        time.sleep(_poll_giay(ban))
     ket_thuc()
     log("HET HAN - DUNG. %s" % json.dumps(SV.tong_ket(), ensure_ascii=False)[:400])
 
