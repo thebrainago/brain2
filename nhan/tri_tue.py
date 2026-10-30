@@ -6,10 +6,11 @@ dat gia thuyet ve nguyen nhan, de xuat cai tien. KHONG dung de sinh ket luan
 giao dich - moi ket luan ve tien van phai di qua `nhan/cong.py`.
 
 Claude/Anthropic da nghi su dung. Module nay khong tu dong tim CLI va khong co
-duong fallback sang mot nha cung cap khac. Chi co hai trang thai:
-  - `tat` (mac dinh);
-  - `openai`, va chi khi co `OPENAI_API_KEY` trong moi truong cung model duoc
-    khai bao ro trong config.
+duong fallback sang mot nha cung cap khac. Trang thai duong:
+  - `tat` (mac dinh trong config);
+  - `openai` / `anthropic` khi co khoa;
+  - `hang_cho` khi `BRAIN_LLM_PROVIDER=hang_cho` (file queue, khong can API key —
+    Evolution bot xu ly `hang_cho_llm/cho/` theo lich).
 
 VI SAO CAN HAN MUC: day la tien trinh NEN chay 24/7. Mot vong lap goi LLM khong
 co phanh se dot tien va rate limit ma khong ai nhin thay. Nen o day co:
@@ -44,7 +45,7 @@ MAC_DINH = {
     "cach_nhau_giay": 600,
     "cache_gio": 6,
     "timeout_giay": 300,
-    "duong": "tat",         # tat | openai
+    "duong": "tat",         # tat | openai | anthropic | hang_cho
     "_ghi_chu": "Chi bat openai sau khi dat OPENAI_API_KEY va model_openai ro rang.",
 }
 
@@ -278,7 +279,8 @@ def _sua_mojibake(t: str) -> str:
 
 # ------------------------------------------------------------------- CUA RA
 def hoi(nhac: str, he_thong: str = "", bo_qua_han_muc: bool = False,
-        dung_cache: bool = True, ep_json: bool = False, model: str = "") -> dict:
+        dung_cache: bool = True, ep_json: bool = False, model: str = "",
+        loai_viec: str = "", tru: str = "") -> dict:
     """Hoi LLM mot cau. Tra dict co `van_ban` hoac `loi`/`bo_qua`.
 
     `model` de RONG thi lay `model_openai` cua cau hinh. Truyen ten model vao de
@@ -300,13 +302,45 @@ def hoi(nhac: str, he_thong: str = "", bo_qua_han_muc: bool = False,
         if cu and (time.time() - cu.get("luc", 0)) < c["cache_gio"] * 3600:
             return {**cu["ket_qua"], "tu_cache": True}
 
-    if not bo_qua_han_muc:
+    from nhan import hang_cho_llm as _HCL_pre
+    _hang_cho = _HCL_pre.dang_bat() or c.get("duong") == "hang_cho"
+    if not bo_qua_han_muc and not _hang_cho:
         duoc, ly_do = con_duoc_goi(c)
         if not duoc:
             return {"bo_qua": ly_do}
 
     t0 = time.time()
     duong = c.get("duong", "tat")
+    # Provider file-queue: BRAIN_LLM_PROVIDER=hang_cho thang config.duong
+    from nhan import hang_cho_llm as HCL
+    if HCL.dang_bat() or duong == "hang_cho":
+        lv = loai_viec or ("nghi_de_xuat" if ep_json else "tri_tue_hoi")
+        kq = HCL.xep_hang(
+            lv,
+            he_thong or "",
+            nhac or "",
+            tru=tru or "",
+            schema=None,
+            model_goi_y=str(c.get("model_openai") or ""),
+            ep_json=bool(ep_json),
+            max_tokens=int(c.get("max_tokens") or 0) or None,
+        )
+        kq["giay"] = round(time.time() - t0, 1)
+        if kq.get("pending") or kq.get("trang_thai") == "CHO":
+            # Khong dot han muc / cache khi moi xep hang
+            SO.ghi_su_kien("TRI_TUE", "hang_cho", {"id": kq.get("id"), "trang_thai": "CHO"})
+            return kq
+        if kq.get("trang_thai") == "OK" and kq.get("van_ban"):
+            SO.ghi_chi_so("tri_tue_goi", 1, {"duong": "hang_cho", "giay": kq["giay"], "loi": None})
+            SO.ghi_su_kien("TRI_TUE", "goi", {"duong": "hang_cho", "model": "hang_cho",
+                                              "giay": kq["giay"], "co_loi": False})
+            if dung_cache:
+                bn = _bo_nho()
+                bn[khoa] = {"luc": time.time(), "ket_qua": kq}
+                _luu_bo_nho(bn)
+            return kq
+        # LOI tu hang cho
+        return kq
     if duong == "anthropic":
         try:
             kq = _goi_anthropic(nhac, he_thong, c)
@@ -360,8 +394,10 @@ def trang_thai() -> dict:
     duoc, ly_do = con_duoc_goi(c)
     hom_nay = time.strftime("%Y-%m-%d")
     return {
-        "duong_se_dung": (c.get("duong")
-                          if c.get("duong") in ("openai", "anthropic") else "tat"),
+        "duong_se_dung": (
+            "hang_cho" if __import__("nhan.hang_cho_llm", fromlist=["dang_bat"]).dang_bat()
+            else (c.get("duong") if c.get("duong") in ("openai", "anthropic", "hang_cho") else "tat")
+        ),
         "co_openai_api": _co_openai(),
         "co_anthropic_api": _co_anthropic(),
         "model": c.get("model_openai") or None,

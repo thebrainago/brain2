@@ -299,7 +299,10 @@ def _nhac(dc: dict, tl: list[dict]) -> str:
 
 
 def de_xuat_moi(dc: dict, tl: list[dict], ep: bool = False) -> dict:
-    kq = TT.hoi_json(_nhac(dc, tl), HE_THONG, bo_qua_han_muc=ep, dung_cache=False)
+    kq = TT.hoi_json(_nhac(dc, tl), HE_THONG, bo_qua_han_muc=ep, dung_cache=False,
+                     loai_viec="nghi_de_xuat", tru="NGHI")
+    if kq.get("pending") or kq.get("trang_thai") == "CHO":
+        return kq
     if kq.get("json"):
         (REPORTS / "nghi_de_xuat_tho.json").write_text(
             json.dumps(kq["json"], ensure_ascii=False, indent=1), encoding="utf-8")
@@ -379,6 +382,13 @@ def mot_luot(ep: bool = False) -> dict:
     if kq.get("bo_qua"):
         ra["bo_qua"] = kq["bo_qua"]
         SO.nhip_tim(TRU, "nghi", {"bo_qua": kq["bo_qua"], "cho_giay": 3600})
+        return ra
+    if kq.get("pending") or kq.get("trang_thai") == "CHO":
+        ra["pending"] = True
+        ra["cho_llm"] = kq.get("id")
+        ra["duong"] = "hang_cho"
+        # Cho worker; chu ky ngan de nhat tra loi, khong retry storm (cung id)
+        SO.nhip_tim(TRU, "nghi", {"cho_llm": kq.get("id"), "cho_giay": 300})
         return ra
     if not kq.get("json"):
         ra["loi"] = kq.get("loi") or kq.get("loi_phan_tich") or "khong co JSON"
