@@ -548,7 +548,7 @@ def buoc_dich_llm(cn, gioi_han: int | None = None, luong: int = 4, in_ra=print, 
     tk0 = {k: v for k, v in LLM.THONG_KE.items() if k != "theo_model"}
     LLM.HET_QUOTA.clear()
     dem = {"cho": tong_cho, "thieu_ma": len(thieu_ma), "lam": 0, "goi_moi": 0, "tu_cache": 0, "dat": 0, "hong": 0,
-           "loi_llm": 0, "bo_qua": 0, "chua_chay_duoc": 0, "cham_tran_token": 0, "ly_do_hong": {}}
+           "loi_llm": 0, "bo_qua": 0, "chua_chay_duoc": 0, "cho_llm": 0, "cham_tran_token": 0, "ly_do_hong": {}}
     if not co:
         # 20/10/2026: khong co khoa van KIEM LAI duoc the co cache (data/ong_dan/dich_llm/<hash>.json) - khong goi mang
         ds = [x for x in ds if _doc_cache(bam(x["tep"].read_bytes()[:800000])) is not None]
@@ -599,6 +599,9 @@ def buoc_dich_llm(cn, gioi_han: int | None = None, luong: int = 4, in_ra=print, 
         if d.get("trang_thai") == "DANG_DICH":
             dem["dang_dich_noi_khac"] = dem.get("dang_dich_noi_khac", 0) + len(v["the"])
             continue                                     # khong ghi gi: luot sau lay tu cache
+        if d.get("trang_thai") in ("CHO", "PENDING") or d.get("pending"):
+            dem["cho_llm"] = dem.get("cho_llm", 0) + len(v["the"])
+            continue                                     # hang_cho: doi worker, khong LOI_LLM / khong storm
         if d.get("trang_thai") == "CHUA_CHAY_DUOC":
             dem["chua_chay_duoc"] += len(v["the"])
             continue

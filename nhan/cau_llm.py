@@ -135,6 +135,12 @@ def duong(c: dict | None = None) -> dict:
 
 
 def co_khoa(c: dict | None = None) -> bool:
+    try:
+        from nhan import hang_cho_llm as HCL
+        if HCL.dang_bat():
+            return True
+    except Exception:
+        pass
     return bool(duong(c)["nguon"])
 
 
@@ -173,10 +179,27 @@ def _het_quota(ma: int, tho: str) -> bool:
 
 
 def goi(nguoi_dung: str, he_thong: str | None = None, model: str | None = None, max_tokens: int | None = None,
-        han_giay: int | None = None, client=None, c: dict | None = None) -> dict:
-    """-> {"trang_thai": "OK"|"CHUA_CHAY_DUOC"|"LOI", "van_ban", "ghi_chu", "model", "token_vao", "token_ra"}.
-    403 / 402 / 429-het-quota voi model chinh -> thu model du phong. Loi tam (5xx, mang) -> thu lai so_lan_thu_lai."""
+        han_giay: int | None = None, client=None, c: dict | None = None, loai_viec: str = "dich_boc") -> dict:
+    """-> {"trang_thai": "OK"|"CHUA_CHAY_DUOC"|"LOI"|"CHO", "van_ban", "ghi_chu", "model", "token_vao", "token_ra"}.
+    403 / 402 / 429-het-quota voi model chinh -> thu model du phong. Loi tam (5xx, mang) -> thu lai so_lan_thu_lai.
+    BRAIN_LLM_PROVIDER=hang_cho: xep file queue, khong goi mang."""
     c = c or cau_hinh()
+    try:
+        from nhan import hang_cho_llm as HCL
+        if HCL.dang_bat() and client is None:
+            return HCL.xep_hang(
+                loai_viec or "dich_boc",
+                he_thong if he_thong is not None else HE_THONG,
+                nguoi_dung or "",
+                tru="DICH_LLM",
+                model_goi_y=str(model or c.get("model") or ""),
+                ep_json=True,
+                max_tokens=int(max_tokens or c.get("max_tokens") or 0) or None,
+            )
+    except Exception as e:  # noqa: BLE001 - khong de hang_cho pha goi API
+        if (os.environ.get("BRAIN_LLM_PROVIDER") or "").strip().lower() in ("hang_cho", "file", "queue"):
+            return {"trang_thai": "LOI", "van_ban": "", "model": "hang_cho", "token_vao": 0, "token_ra": 0,
+                    "ghi_chu": "hang_cho loi: %s" % str(e)[:160], "pending": False}
     d = duong(c)
     if not d["nguon"]:
         return {"trang_thai": "CHUA_CHAY_DUOC", "van_ban": "", "model": "", "token_vao": 0, "token_ra": 0,
@@ -455,7 +478,7 @@ def rut_gon_ma(vb: str, tran: int = TRAN_MA) -> str:
 def boc_tach(ma_nguon: str, ngon_ngu: str = "MQL5", client=None, c: dict | None = None) -> dict:
     """Ma nguon -> {trang_thai, loai, spec[], python, co_che[], quan_tri{}, tham_so{}, chua_dich[], model, token_*}."""
     c = c or cau_hinh()
-    r = goi(MAU_BOC % (ngon_ngu, rut_gon_ma(ma_nguon or "", int(c.get("tran_ma") or TRAN_MA))), client=client, c=c)
+    r = goi(MAU_BOC % (ngon_ngu, rut_gon_ma(ma_nguon or "", int(c.get("tran_ma") or TRAN_MA))), client=client, c=c, loai_viec="dich_boc")
     meta = {k: r.get(k) for k in ("model", "token_vao", "token_ra", "token_suy_luan", "ghi_chu")}
     if r["trang_thai"] != "OK":
         return dict(meta, trang_thai=r["trang_thai"])
@@ -516,7 +539,7 @@ def sua_lai(ma_nguon: str, ngon_ngu: str, truoc: dict, chan_doan: list, mo_ta_gi
     nhac = MAU_SUA % (nguon, n, lo, hi, "\n".join("- " + str(x) for x in chan_doan),
                       json.dumps(gon, ensure_ascii=False)[:12000], ngon_ngu,
                       rut_gon_ma(ma_nguon or "", int(c.get("tran_ma") or TRAN_MA)))
-    r = goi(nhac, client=client, c=c)
+    r = goi(nhac, client=client, c=c, loai_viec="dich_sua")
     meta = {k: r.get(k) for k in ("model", "token_vao", "token_ra", "token_suy_luan", "ghi_chu")}
     if r["trang_thai"] != "OK":
         return dict(meta, trang_thai=r["trang_thai"])
