@@ -48,6 +48,12 @@ SCHEMA_THEO_LOAI = {
         "bat_buoc": [],
         "mau": {"loai": "co_che", "spec": [], "python": "", "luoi": {}, "chua_dich": []},
     },
+    "dca_go_lenh": {
+        "mo_ta": "Module DCA/recovery (dich_boc loai=dca_go_lenh) trich tu lich su martingale/grid",
+        "kieu": "json_object",
+        "bat_buoc": [],
+        "mau": {"loai": "dca_go_lenh", "spec": [], "python": "", "luoi": {}, "co_che": [], "chua_dich": []},
+    },
     "dich_sua": {
         "mo_ta": "JSON sua lai sau khi bo kiem that bai (cung dang dich_boc)",
         "kieu": "json_object",
@@ -224,7 +230,7 @@ def kiem_tra_loi(loai_viec: str, van_ban: str, ep_json: bool = False) -> list[st
         return ["van_ban rong"]
     sch = SCHEMA_THEO_LOAI.get(loai_viec) or SCHEMA_THEO_LOAI["khac"]
     kieu = sch.get("kieu") or "text"
-    can_json = bool(ep_json) or kieu in ("json_object",) or loai_viec in ("nghi_de_xuat", "dich_boc", "dich_sua")
+    can_json = bool(ep_json) or kieu in ("json_object",) or loai_viec in ("nghi_de_xuat", "dich_boc", "dich_sua", "dca_go_lenh")
     if can_json:
         js = _json_trong_vb(van_ban)
         if js is None:
@@ -325,7 +331,7 @@ def tra_loi(i: str, tep: str) -> int:
            "model": meta.get("model") or "hang_cho"}
     if js is not None:
         out["json"] = js
-    elif ep or loai in ("nghi_de_xuat", "dich_boc", "dich_sua"):
+    elif ep or loai in ("nghi_de_xuat", "dich_boc", "dich_sua", "dca_go_lenh"):
         j2 = _json_trong_vb(vb)
         if isinstance(j2, (dict, list)):
             out["json"] = j2

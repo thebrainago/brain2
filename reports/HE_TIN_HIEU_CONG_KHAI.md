@@ -109,3 +109,15 @@ Tiêu chí: **giá trị × khả thi** — lịch sử lệnh công khai đủ 
 3. CLI: `python tools/dich_nguoc_tin_hieu.py --users example fluidtrader-demo`
 4. Test: `python test_dich_nguoc_tin_hieu.py`
 
+
+## 7. Scale-up 30/10/2026 + dual-track DCA (t23u)
+
+- FXBlue mass: seed 12 user → 11 CSV công khai (~22k closed positions). Discovery: DDG + sitemap + seed.
+- **Track thuong**: không martingale/grid → `dich_boc` entry/spec.
+- **Track dca** (KHÔNG loại martingale/grid): `nhan/phan_tich_dca.py` bóc module recovery
+  (khoảng add-on pips, he_so_lot, max lớp, basket TP, recovery time) → hang_cho `loai=dca_go_lenh`.
+- Pass rule sau test vẫn: lãi sau phí, DD≤80%, ≥10%/năm.
+- MQL5: list public 46 signals (filter age/DD/real). Lịch sử lệnh = export GUI (xem `MQL5_EXPORT_GUI.md`).
+- Myfxbook: thử từ IP nhà (VNPT DNS NXDOMAIN một số host → override 8.8.8.8 / IP CF).
+- Việc tester: `reports/vong2/hang_cho_tin_hieu.jsonl` (không đụng hang_cho_vong2 / ong_dan).
+- Quét đêm: `tools/quet_tin_hieu_dem.py` + Task Scheduler máy nhà.

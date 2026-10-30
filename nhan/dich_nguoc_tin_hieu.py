@@ -7,6 +7,12 @@ Luồng:
   → prompt gọn (text/bảng) → hang_cho_llm loai_viec=dich_boc (cùng schema NGHI)
 
 Không gọi API; dùng BRAIN_LLM_PROVIDER=hang_cho / xep_hang trực tiếp.
+
+Hai track (30/10/2026):
+  - thuong: he KHONG martingale/grid → dich_boc loai he/co_che
+  - dca: he martingale/grid/DCA → KHONG loai; trich module recovery → dich_boc loai=dca_go_lenh
+Pass rule ket qua test van: loi sau phi, DD<=80%, >=10%/nam.
+
 """
 from __future__ import annotations
 
@@ -127,16 +133,70 @@ def phat_hien_martingale_grid(trades: list[dict]) -> dict:
 
 
 def loc_he(trades: list[dict], *, tu_choi_nguy_hiem: bool = True) -> dict:
-    """Trả quyết định: chap_nhan | canh_bao | tu_choi + cờ."""
+    """Trả quyết định: chap_nhan | canh_bao | tu_choi + cờ.
+
+    Lưu ý (t23u): martingale/grid KHÔNG bị loại khỏi pipeline — dùng track DCA.
+    `tu_choi_nguy_hiem=True` chỉ còn ý nghĩa cho track thuong (bỏ qua, chuyển DCA).
+    """
     co = phat_hien_martingale_grid(trades)
     nguy = co["martingale"] or co["grid"] or co["khong_sl"]
     if nguy and tu_choi_nguy_hiem:
-        qd = "tu_choi"
+        qd = "tu_choi"   # track thuong bỏ; caller chuyển sang DCA
     elif nguy:
         qd = "canh_bao"
     else:
         qd = "chap_nhan"
     return {"quyet_dinh": qd, **co}
+
+
+def xep_hang_he(trades: list[dict], *, meta: dict | None = None) -> dict:
+    """Lọc tuổi / DD / số lệnh / lãi ước lượng trước khi dich.
+
+    meta có thể có: tuoi_ngay, dd_pct, growth_pct, real (bool).
+    Ngưỡng: tuoi >= 365n (hoặc suy từ lệnh), DD <= 80% (ưu tiên <30%),
+    so_lenh >= 30, loi ròng > 0 sau commission+swap nếu có.
+    """
+    meta = meta or {}
+    n = len(trades)
+    loi = sum(float(t.get("loi") or 0) for t in trades)
+    phi = sum(float(t.get("commission") or 0) + float(t.get("swap") or 0) for t in trades)
+    loi_sau_phi = loi  # FXBlue Net profit thường đã trừ; cộng thêm nếu commission tách
+    # tuổi từ lệnh
+    lucs = sorted(t.get("luc_vao") for t in trades if t.get("luc_vao"))
+    tuoi_ngay = meta.get("tuoi_ngay")
+    if tuoi_ngay is None and len(lucs) >= 2:
+        from datetime import datetime
+        def _p(s):
+            return datetime.fromisoformat(str(s).replace("Z", "+00:00"))
+        try:
+            tuoi_ngay = (_p(lucs[-1]) - _p(lucs[0])).days
+        except Exception:
+            tuoi_ngay = None
+    dd = meta.get("dd_pct")
+    ly_do = []
+    ok = True
+    if n < 30:
+        ok = False; ly_do.append("so_lenh=%d<30" % n)
+    if tuoi_ngay is not None and tuoi_ngay < 365:
+        ok = False; ly_do.append("tuoi_ngay=%s<365" % tuoi_ngay)
+    if dd is not None and dd > 80:
+        ok = False; ly_do.append("dd=%.1f>80" % dd)
+    if loi_sau_phi <= 0 and n >= 10:
+        ok = False; ly_do.append("loi_sau_phi=%.2f<=0" % loi_sau_phi)
+    uu_tien = 0
+    if dd is not None and dd < 30:
+        uu_tien += 2
+    elif dd is not None and dd < 50:
+        uu_tien += 1
+    if tuoi_ngay and tuoi_ngay >= 365:
+        uu_tien += 1
+    if n >= 100:
+        uu_tien += 1
+    return {
+        "ok": ok, "ly_do": ly_do, "uu_tien": uu_tien,
+        "so_lenh": n, "tuoi_ngay": tuoi_ngay, "dd_pct": dd,
+        "loi_sau_phi": round(loi_sau_phi, 2), "phi": round(phi, 2),
+    }
 
 
 def doc_nen_h1(symbol: str, kho: Path | None = None) -> pd.DataFrame | None:
@@ -358,24 +418,59 @@ def tao_nhac_dich_boc(ho_so: dict, *, nguon: str, he_id: str, url: str = "") -> 
 
 def xep_dich_boc(nguon: str, he_id: str, trades: list[dict] | None = None, *,
                  tu_choi_nguy_hiem: bool = False, kho_gia: Path | None = None,
-                 url: str = "") -> dict:
-    """Tái tạo đặc trưng + xếp hang_cho dich_boc. Mặc định canh_bao vẫn xếp (để Grok ghi luoi)."""
+                 url: str = "", track: str | None = None) -> dict:
+    """Tái tạo đặc trưng + xếp hang_cho dich_boc.
+
+    track=None → tự chọn: nguy hiểm → "dca", ngược lại "thuong".
+    track="thuong": dich entry/spec thường (có thể bỏ nếu tu_choi).
+    track="dca": luôn xếp module DCA (loai=dca_go_lenh), không loại martingale.
+    """
     from nhan import hang_cho_llm as HCL
+    from nhan import phan_tich_dca as DCA
 
     if trades is None:
         trades = TT.doc_he_da_luu(nguon, he_id)
     if not trades:
         return {"trang_thai": "LOI", "ghi_chu": "khong co lenh"}
 
-    loc = loc_he(trades, tu_choi_nguy_hiem=tu_choi_nguy_hiem)
-    if loc["quyet_dinh"] == "tu_choi":
-        return {"trang_thai": "TU_CHOI", "loc": loc, "he_id": he_id, "nguon": nguon}
+    loc = loc_he(trades, tu_choi_nguy_hiem=False)  # luôn lấy cờ, không loại ở đây
+    nguy = loc["martingale"] or loc["grid"]
+    if track is None:
+        track = "dca" if nguy else "thuong"
+
+    thu = TT.thu_muc_goc() / nguon / he_id
+    thu.mkdir(parents=True, exist_ok=True)
+
+    if track == "dca":
+        ho_dca = DCA.thong_ke_dca(trades)
+        (thu / "ho_so_dca.json").write_text(
+            json.dumps(ho_dca, ensure_ascii=False, indent=2, default=str) + "\n",
+            encoding="utf-8")
+        if ho_dca.get("so_multi", 0) < 2:
+            # ít basket multi — vẫn xếp nhưng ghi chú
+            pass
+        nhac = DCA.tao_nhac_dca(ho_dca, nguon=nguon, he_id=he_id, url=url)
+        kq = HCL.xep_hang(
+            "dich_boc", DCA.HE_THONG_DCA, nhac,
+            tru="dich_nguoc_dca",
+            ep_json=True,
+            them={"nguon": nguon, "he_id": he_id, "loc": loc["quyet_dinh"],
+                  "loai": "dca_go_lenh", "track": "dca"},
+        )
+        kq["track"] = "dca"
+        kq["loc"] = loc
+        kq["ho_so_path"] = str(thu / "ho_so_dca.json")
+        kq["so_lenh"] = len(trades)
+        kq["so_multi"] = ho_dca.get("so_multi")
+        return kq
+
+    # track thuong
+    if tu_choi_nguy_hiem and nguy:
+        return {"trang_thai": "CHUYEN_DCA", "loc": loc, "he_id": he_id, "nguon": nguon,
+                "track": "thuong"}
 
     dac = tai_tao_dac_trung(trades, kho_gia=kho_gia)
     ho = tong_hop_ho_so(trades, dac, loc)
-    # lưu hồ sơ cạnh trades
-    thu = TT.thu_muc_goc() / nguon / he_id
-    thu.mkdir(parents=True, exist_ok=True)
     (thu / "ho_so_dich_nguoc.json").write_text(
         json.dumps(ho, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
@@ -384,8 +479,9 @@ def xep_dich_boc(nguon: str, he_id: str, trades: list[dict] | None = None, *,
         "dich_boc", HE_THONG_DICH, nhac,
         tru="dich_nguoc_tin_hieu",
         ep_json=True,
-        them={"nguon": nguon, "he_id": he_id, "loc": loc["quyet_dinh"]},
+        them={"nguon": nguon, "he_id": he_id, "loc": loc["quyet_dinh"], "track": "thuong"},
     )
+    kq["track"] = "thuong"
     kq["loc"] = loc
     kq["ho_so_path"] = str(thu / "ho_so_dich_nguoc.json")
     kq["so_lenh"] = len(trades)
@@ -400,19 +496,43 @@ def chay_ong(
     tu_choi_nguy_hiem: bool = False,
     kho_gia: Path | None = None,
     in_ra=print,
+    ca_hai_track: bool = True,
 ) -> dict:
-    """Thu thập FXBlue → lọc → tái tạo → xếp hang_cho (ít nhất 1 request nếu có hệ đạt)."""
+    """Thu thập FXBlue → lọc xếp hạng → dual-track dich_boc (thuong + dca)."""
     ket_thu = TT.thu_thap_fxblue(users, nghi=nghi, in_ra=in_ra)
-    ra = {"thu_thap": ket_thu, "dich": []}
+    ra = {"thu_thap": ket_thu, "dich": [], "bo_qua": []}
     for h in ket_thu.get("he") or []:
         he_id = h["he_id"]
         url = TT.FXBLUE_CSV.format(user=he_id)
-        kq = xep_dich_boc("fxblue", he_id, tu_choi_nguy_hiem=tu_choi_nguy_hiem,
-                          kho_gia=kho_gia, url=url)
-        ra["dich"].append({"he_id": he_id, **{k: kq.get(k) for k in
-                           ("trang_thai", "id", "ghi_chu", "loc", "so_lenh", "so_mau", "ho_so_path")}})
-        in_ra("[dich_nguoc] %s -> %s id=%s" % (he_id, kq.get("trang_thai"), kq.get("id")))
+        trades = TT.doc_he_da_luu("fxblue", he_id)
+        xh = xep_hang_he(trades)
+        if not xh["ok"]:
+            # vẫn cho DCA nếu có multi-basket; track thuong thì bỏ
+            loc = loc_he(trades, tu_choi_nguy_hiem=False)
+            if not (loc["martingale"] or loc["grid"]):
+                ra["bo_qua"].append({"he_id": he_id, "ly_do": xh["ly_do"], "xep_hang": xh})
+                in_ra("[bo_qua] %s %s" % (he_id, xh["ly_do"]))
+                continue
+        loc = loc_he(trades, tu_choi_nguy_hiem=False)
+        tracks = []
+        if loc["martingale"] or loc["grid"]:
+            tracks.append("dca")
+            if ca_hai_track:
+                # entry đầu vẫn có thể hữu ích nếu muốn — chỉ DCA theo chỉ thị
+                pass
+        else:
+            tracks.append("thuong")
+        for tr in tracks:
+            kq = xep_dich_boc("fxblue", he_id, trades, tu_choi_nguy_hiem=tu_choi_nguy_hiem,
+                              kho_gia=kho_gia, url=url, track=tr)
+            ra["dich"].append({"he_id": he_id, "track": tr,
+                               **{k: kq.get(k) for k in
+                                  ("trang_thai", "id", "ghi_chu", "loc", "so_lenh",
+                                   "so_mau", "so_multi", "ho_so_path")}})
+            in_ra("[dich_nguoc/%s] %s -> %s id=%s" % (
+                tr, he_id, kq.get("trang_thai"), kq.get("id")))
     return ra
+
 
 
 if __name__ == "__main__":
@@ -422,12 +542,14 @@ if __name__ == "__main__":
     ap.add_argument("--tu-choi-nguy-hiem", action="store_true")
     ap.add_argument("--chi-xep", nargs=2, metavar=("NGUON", "HE_ID"),
                     help="Chi xep hang_cho tu he da luu")
+    ap.add_argument("--track", choices=["thuong", "dca", "auto"], default="auto")
     ap.add_argument("--kho-gia", default="", help="Thu muc parquet H1")
     a = ap.parse_args()
     kho = Path(a.kho_gia) if a.kho_gia else None
     if a.chi_xep:
+        tr = None if a.track == "auto" else a.track
         print(json.dumps(xep_dich_boc(a.chi_xep[0], a.chi_xep[1], kho_gia=kho,
-                                      tu_choi_nguy_hiem=a.tu_choi_nguy_hiem),
+                                      tu_choi_nguy_hiem=a.tu_choi_nguy_hiem, track=tr),
                          ensure_ascii=False, indent=2, default=str))
     else:
         print(json.dumps(chay_ong(a.users, tu_choi_nguy_hiem=a.tu_choi_nguy_hiem,

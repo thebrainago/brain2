@@ -187,29 +187,6 @@ def doc_csv_mql5_statement(duong: Path | str, *, he_id: str) -> list[dict]:
     return ra
 
 
-def tai_csv_fxblue(user: str, timeout: int = 45) -> tuple[bytes | None, str]:
-    """Tải CSV công khai. Trả (bytes|None, ly_do). Tôn trọng robots (Allow /users/)."""
-    url = FXBLUE_CSV.format(user=user.strip())
-    try:
-        req = Request(url, headers={"User-Agent": UA, "Accept": "text/csv,*/*"})
-        with urlopen(req, timeout=timeout) as r:
-            data = r.read()
-            ctype = (r.headers.get("Content-Type") or "").lower()
-    except Exception as e:  # noqa: BLE001
-        return None, "loi_mang: %s" % str(e)[:120]
-    if not data:
-        return None, "rong"
-    head = data[:80].lstrip().lower()
-    if head.startswith(b"<!doctype") or b"<html" in head or b"no data published" in data[:2000].lower():
-        return None, "chua_cong_khai_hoac_html"
-    if b"Type,Ticket,Symbol" not in data[:500] and b"Type\tTicket" not in data[:500]:
-        if b"sep=," in data[:20]:
-            pass  # OK
-        else:
-            return None, "khong_phai_csv_fxblue"
-    return data, "ok"
-
-
 def luu_he(nguon: str, he_id: str, trades: list[dict], *, raw: bytes | None = None,
            meta: dict | None = None) -> Path:
     """Ghi raw + trades.jsonl + meta.json dưới thu_muc_goc()/nguon/he_id/."""
@@ -236,7 +213,7 @@ def luu_he(nguon: str, he_id: str, trades: list[dict], *, raw: bytes | None = No
 def thu_thap_fxblue(users: Iterable[str] | None = None, *, nghi: float = NGHI_GIAY,
                     in_ra=print) -> dict:
     """Thu thập CSV FXBlue cho danh sách user. Lưu dưới BRAIN_DATA."""
-    ds = list(users) if users is not None else list(FXBLUE_MAU)
+    ds = list(users) if users is not None else list(FXBLUE_SEED)
     ket = {"nguon": "fxblue", "he": [], "loi": []}
     for i, u in enumerate(ds):
         if i:
@@ -287,15 +264,215 @@ def liet_ke_he() -> list[dict]:
     return ra
 
 
+
+def tai_csv_fxblue(user: str, timeout: int = 45) -> tuple[bytes | None, str]:
+    """Tải CSV công khai (theo api.fxblue.com, fallback www). Tôn trọng robots."""
+    for url in (FXBLUE_CSV_API.format(user=user.strip()),
+                FXBLUE_CSV.format(user=user.strip())):
+        try:
+            req = Request(url, headers={"User-Agent": UA, "Accept": "text/csv,*/*"})
+            with urlopen(req, timeout=timeout) as r:
+                data = r.read()
+        except Exception as e:  # noqa: BLE001
+            last = "loi_mang: %s" % str(e)[:120]
+            continue
+        if not data:
+            last = "rong"
+            continue
+        head = data[:80].lstrip().lower()
+        if head.startswith(b"<!doctype") or b"<html" in head:
+            last = "html"
+            continue
+        if b"no data published" in data[:2000].lower():
+            return None, "chua_cong_khai"
+        if b"Type,Ticket,Symbol" not in data[:800] and b"sep=," not in data[:20]:
+            last = "khong_phai_csv_fxblue"
+            continue
+        return data, "ok"
+    return None, last if "last" in dir() else "loi"
+
+
+def kham_pha_user_fxblue(*, nghi: float = NGHI_GIAY, in_ra=print) -> list[str]:
+    """Khám phá username FXBlue: seed + DuckDuckGo HTML (public) + sitemap."""
+    found: set[str] = set(FXBLUE_SEED)
+    # sitemap
+    try:
+        req = Request("https://www.fxblue.com/sitemap.xml",
+                      headers={"User-Agent": UA})
+        with urlopen(req, timeout=45) as r:
+            sm = r.read().decode("utf-8", "replace")
+        for u in re.findall(r"fxblue\.com/users/([A-Za-z0-9_\-]{2,40})", sm, re.I):
+            if u.lower() not in JUNK_USER:
+                found.add(u)
+    except Exception as e:  # noqa: BLE001
+        in_ra("[kham_pha] sitemap: %s" % e)
+    # DDG HTML (polite)
+    time.sleep(nghi)
+    try:
+        from urllib.parse import quote
+        q = quote("site:fxblue.com/users/")
+        req = Request("https://html.duckduckgo.com/html/?q=" + q,
+                      headers={"User-Agent": UA})
+        with urlopen(req, timeout=30) as r:
+            html = r.read().decode("utf-8", "replace")
+        for u in re.findall(r"fxblue\.com/users/([A-Za-z0-9_\-]{2,40})", html, re.I):
+            if u.lower() not in JUNK_USER:
+                found.add(u)
+    except Exception as e:  # noqa: BLE001
+        in_ra("[kham_pha] ddg: %s" % e)
+    ra = sorted(found)
+    in_ra("[kham_pha] %d user FXBlue" % len(ra))
+    return ra
+
+
+def liet_ke_mql5_signals(*, tuoi_min_ngay: int = 365, dd_max: float = 50.0,
+                         growth_min: float = 0.0, real: bool = True,
+                         nghi: float = NGHI_GIAY, toi_da_trang: int = 3,
+                         in_ra=print) -> list[dict]:
+    """Liệt kê tín hiệu MQL5 công khai (trang /en/signals) — không login.
+
+    Lịch sử lệnh CSV cần session đăng nhập + export GUI (máy nhà); hàm này chỉ
+    lấy danh sách id + meta thô từ HTML public.
+    """
+    base = ("https://www.mql5.com/en/signals?period={period}&risk={risk}"
+            "&profit={profit}&type={typ}&sort=rating&direction=desc&page={page}")
+    period = max(1, tuoi_min_ngay)
+    typ = "real" if real else "demo"
+    ra: list[dict] = []
+    seen: set[str] = set()
+    for page in range(1, toi_da_trang + 1):
+        if page > 1:
+            time.sleep(nghi)
+        url = base.format(period=period, risk=int(dd_max), profit=int(growth_min),
+                          typ=typ, page=page)
+        try:
+            req = Request(url, headers={"User-Agent": UA, "Accept-Language": "en"})
+            with urlopen(req, timeout=45) as r:
+                html = r.read().decode("utf-8", "replace")
+        except Exception as e:  # noqa: BLE001
+            in_ra("[mql5] page %d: %s" % (page, e))
+            break
+        if "Just a moment" in html or "cf-browser" in html.lower():
+            in_ra("[mql5] cloudflare — cần máy nhà/browser")
+            break
+        ids = re.findall(r"/en/signals/(\d+)", html)
+        for i in ids:
+            if i in seen:
+                continue
+            seen.add(i)
+            ra.append({
+                "signal_id": i,
+                "url": "https://www.mql5.com/en/signals/%s" % i,
+                "nguon": "mql5",
+                "filter": {"tuoi_min_ngay": tuoi_min_ngay, "dd_max": dd_max,
+                           "growth_min": growth_min, "real": real},
+            })
+        in_ra("[mql5] page %d: +%d (tong %d)" % (page, len(ids), len(ra)))
+    thu = thu_muc_goc() / "mql5"
+    thu.mkdir(parents=True, exist_ok=True)
+    (thu / "danh_sach_signals.json").write_text(
+        json.dumps({"cap_nhat": time.strftime("%Y-%m-%dT%H:%M:%S"), "he": ra},
+                   ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return ra
+
+
+def tai_myfxbook_public(system_path: str, timeout: int = 45) -> tuple[bytes | None, str]:
+    """Tải trang/export công khai Myfxbook (thử từ IP nhà — box thường bị CF 403).
+
+    system_path ví dụ: 'members/xxx/yyy' hoặc full URL. Không login, không cookie.
+    """
+    if system_path.startswith("http"):
+        url = system_path
+    else:
+        url = "https://www.myfxbook.com/" + system_path.lstrip("/")
+    try:
+        req = Request(url, headers={"User-Agent": UA, "Accept": "text/html,text/csv,*/*"})
+        with urlopen(req, timeout=timeout) as r:
+            data = r.read()
+            code = getattr(r, "status", 200)
+    except Exception as e:  # noqa: BLE001
+        return None, "loi_mang: %s" % str(e)[:160]
+    if not data:
+        return None, "rong"
+    low = data[:500].lower()
+    if b"just a moment" in low or b"cf-browser" in low or b"attention required" in low:
+        return None, "cloudflare"
+    return data, "ok status=%s" % code
+
+
+HUONG_DAN_MQL5_EXPORT = """
+## MQL5 Signals — tải lịch sử lệnh (máy nhà, session đã login)
+
+KHÔNG trích cookie/token từ profile browser. Dùng GUI bình thường:
+
+1. Mở Chrome/Edge đã login https://www.mql5.com (user đã cấp).
+2. Vào từng signal trong `data/tin_hieu_cong_khai/mql5/danh_sach_signals.json`.
+3. Tab **History** (hoặc Trading History) → nút **Export** / **CSV** / **Download**.
+4. Lưu file vào `E:\\brain2_grok_tin_hieu\\data\\mql5_csv\\<signal_id>.csv`.
+5. Chạy: `python -m nhan.thu_thap_tin_hieu_cong_khai --nap-mql5-csv E:\\brain2_grok_tin_hieu\\data\\mql5_csv`
+6. Sau đó: `python -m nhan.dich_nguoc_tin_hieu --chi-xep mql5_csv <signal_id> --track auto`
+
+Nếu trang không có Export CSV: dùng MT5 terminal → Signal → History → Report CSV
+(cùng tài khoản demo/signal đã subscribe — chỉ demo 345930355).
+"""
+
+
+def nap_mql5_csv_thu_muc(thu: Path | str, *, in_ra=print) -> dict:
+    """Nạp các CSV statement MQL5/MT5 đã export thủ công."""
+    thu = Path(thu)
+    ket = {"nguon": "mql5_csv", "he": [], "loi": []}
+    if not thu.exists():
+        return {"loi": [{"ly_do": "khong_co_thu_muc", "thu": str(thu)}]}
+    for p in sorted(thu.glob("*.csv")):
+        he_id = p.stem
+        trades = doc_csv_mql5_statement(p, he_id=he_id)
+        if not trades:
+            ket["loi"].append({"he_id": he_id, "ly_do": "0_lenh"})
+            continue
+        luu_he("mql5_csv", he_id, trades, raw=p.read_bytes(),
+               meta={"file": str(p)})
+        ket["he"].append({"he_id": he_id, "so_lenh": len(trades)})
+        in_ra("[mql5_csv] %s: %d lenh" % (he_id, len(trades)))
+    return ket
+
 if __name__ == "__main__":
     import argparse
     ap = argparse.ArgumentParser(description="Thu thap tin hieu cong khai (FXBlue CSV)")
     ap.add_argument("--users", nargs="*", default=None, help="Danh sach user FXBlue")
     ap.add_argument("--nghi", type=float, default=NGHI_GIAY)
     ap.add_argument("--liet-ke", action="store_true")
+    ap.add_argument("--kham-pha", action="store_true", help="Kham pha user FXBlue roi thu thap")
+    ap.add_argument("--mql5-list", action="store_true", help="Liet ke signal MQL5 public")
+    ap.add_argument("--nap-mql5-csv", default="", help="Thu muc CSV MQL5 da export")
+    ap.add_argument("--seed", action="store_true", help="Dung FXBLUE_SEED")
     a = ap.parse_args()
     if a.liet_ke:
         for h in liet_ke_he():
             print(json.dumps(h, ensure_ascii=False))
+    elif a.mql5_list:
+        liet_ke_mql5_signals(nghi=a.nghi)
+    elif a.nap_mql5_csv:
+        print(json.dumps(nap_mql5_csv_thu_muc(a.nap_mql5_csv), ensure_ascii=False, indent=2))
+    elif a.kham_pha:
+        users = kham_pha_user_fxblue(nghi=a.nghi)
+        thu_thap_fxblue(users, nghi=a.nghi)
     else:
-        thu_thap_fxblue(a.users, nghi=a.nghi)
+        users = list(FXBLUE_SEED) if a.seed and not a.users else a.users
+        thu_thap_fxblue(users, nghi=a.nghi)
+
+
+# =============================================================================
+# Mass discovery + Myfxbook + MQL5 public list (30/10/2026 scale-up)
+# =============================================================================
+
+FXBLUE_CSV_API = "https://api.fxblue.com/users/{user}/csv"
+#: Seed + đã xác nhận có CSV công khai (probe 30/10/2026).
+FXBLUE_SEED = (
+    "example", "fluidtrader-demo", "memberforex42", "673", "demo_20230303",
+    "artificial-quant-1", "66367297", "eshuu2025", "managed-forex", "20429853",
+    "area_bursatil", "forexrobotinfo_160",
+)
+JUNK_USER = frozenset({
+    "account_info", "portfolio", "stats", "widgets", "printable", "rss", "csv",
+    "overviewscript", "banner", "system_isp", "xxxxx",
+})
