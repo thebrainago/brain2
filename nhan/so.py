@@ -105,6 +105,7 @@ CREATE TABLE IF NOT EXISTS noi_dung(
   van_ban TEXT, luc TEXT, da_boc INTEGER DEFAULT 0, ket_boc TEXT);
 
 CREATE INDEX IF NOT EXISTS ix_nd_boc ON noi_dung(da_boc, id);
+CREATE INDEX IF NOT EXISTS ix_nd_kieu ON noi_dung(kieu);
 
 -- HOP DONG SEEKER -> QUANTLAB. Hai bang nay la log CHI-THEM: fingerprint
 -- dam bao retry idempotent; Quantlab doc candidate_queue bang cursor id.
