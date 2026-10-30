@@ -372,6 +372,7 @@ def hoi_json(nhac: str, he_thong: str = "", **kw) -> dict:
     Khong dung `output_config.format` vi duong CLI khong co no - de hai duong
     cho cung mot hinh dang, ta yeu cau JSON bang loi va boc tach phong thu.
     """
+    kw.setdefault("ep_json", True)
     kq = hoi(nhac + "\n\nTra loi CHI bang mot khoi JSON hop le, khong kem giai thich "
                     "ngoai JSON, khong kem dau ```.", he_thong, **kw)
     if not kq.get("van_ban"):
