@@ -1,0 +1,779 @@
+{
+  "luc": "2026-10-30 22:23",
+  "n_dong": 1072,
+  "n_pass": 864,
+  "tong_hop": {
+    "gia_dinh": {
+      "skst": {
+        "n": 40,
+        "pass": 15,
+        "fail": 5,
+        "loi": 20,
+        "ti_le_pass": 0.75,
+        "net_tb": 3273.56,
+        "dd_tb": 44.01,
+        "apy_tb": 250.07
+      },
+      "mql5": {
+        "n": 136,
+        "pass": 73,
+        "fail": 17,
+        "loi": 46,
+        "ti_le_pass": 0.811,
+        "net_tb": 1074.96,
+        "dd_tb": 33.23,
+        "apy_tb": 33.14
+      },
+      "skea": {
+        "n": 158,
+        "pass": 105,
+        "fail": 18,
+        "loi": 35,
+        "ti_le_pass": 0.854,
+        "net_tb": 2032.96,
+        "dd_tb": 38.77,
+        "apy_tb": 71.68
+      },
+      "tohop": {
+        "n": 26,
+        "pass": 17,
+        "fail": 2,
+        "loi": 7,
+        "ti_le_pass": 0.895,
+        "net_tb": 928.96,
+        "dd_tb": 30.15,
+        "apy_tb": 21.2
+      },
+      "brainxlrsi": {
+        "n": 5,
+        "pass": 0,
+        "fail": 2,
+        "loi": 3,
+        "ti_le_pass": 0.0,
+        "net_tb": null,
+        "dd_tb": null,
+        "apy_tb": null
+      },
+      "khac": {
+        "n": 677,
+        "pass": 629,
+        "fail": 40,
+        "loi": 8,
+        "ti_le_pass": 0.94,
+        "net_tb": 230.83,
+        "dd_tb": 3.39,
+        "apy_tb": 44.37
+      },
+      "brainxlmrz": {
+        "n": 6,
+        "pass": 2,
+        "fail": 0,
+        "loi": 4,
+        "ti_le_pass": 1.0,
+        "net_tb": 9306.4,
+        "dd_tb": 38.09,
+        "apy_tb": 86.58
+      },
+      "ghep": {
+        "n": 20,
+        "pass": 19,
+        "fail": 1,
+        "loi": 0,
+        "ti_le_pass": 0.95,
+        "net_tb": 5687.25,
+        "dd_tb": 40.29,
+        "apy_tb": 205.84
+      },
+      "v2cn": {
+        "n": 2,
+        "pass": 2,
+        "fail": 0,
+        "loi": 0,
+        "ti_le_pass": 1.0,
+        "net_tb": 1653.57,
+        "dd_tb": 49.55,
+        "apy_tb": 59.8
+      },
+      "v2tf": {
+        "n": 2,
+        "pass": 2,
+        "fail": 0,
+        "loi": 0,
+        "ti_le_pass": 1.0,
+        "net_tb": 716.04,
+        "dd_tb": 49.86,
+        "apy_tb": 25.89
+      }
+    },
+    "tf": {
+      "H1": {
+        "n": 245,
+        "pass": 134,
+        "fail": 37,
+        "loi": 74,
+        "ti_le_pass": 0.784,
+        "net_tb": 2193.74,
+        "dd_tb": 36.32,
+        "apy_tb": 86.0
+      },
+      "H4": {
+        "n": 194,
+        "pass": 143,
+        "fail": 8,
+        "loi": 43,
+        "ti_le_pass": 0.947,
+        "net_tb": 1704.19,
+        "dd_tb": 37.26,
+        "apy_tb": 59.88
+      },
+      "D1": {
+        "n": 633,
+        "pass": 587,
+        "fail": 40,
+        "loi": 6,
+        "ti_le_pass": 0.936,
+        "net_tb": 163.15,
+        "dd_tb": 1.1,
+        "apy_tb": null
+      }
+    },
+    "ma": {
+      "XAUUSD": {
+        "n": 23,
+        "pass": 10,
+        "fail": 4,
+        "loi": 9,
+        "ti_le_pass": 0.714,
+        "net_tb": 1805.15,
+        "dd_tb": 46.77,
+        "apy_tb": 62.78
+      },
+      "NZDUSD": {
+        "n": 34,
+        "pass": 7,
+        "fail": 11,
+        "loi": 16,
+        "ti_le_pass": 0.389,
+        "net_tb": 1958.98,
+        "dd_tb": 31.64,
+        "apy_tb": 30.02
+      },
+      "EURCAD": {
+        "n": 33,
+        "pass": 16,
+        "fail": 7,
+        "loi": 10,
+        "ti_le_pass": 0.696,
+        "net_tb": 1328.45,
+        "dd_tb": 19.73,
+        "apy_tb": 68.42
+      },
+      "EURGBP": {
+        "n": 95,
+        "pass": 72,
+        "fail": 3,
+        "loi": 20,
+        "ti_le_pass": 0.96,
+        "net_tb": 932.35,
+        "dd_tb": 29.92,
+        "apy_tb": 44.0
+      },
+      "GBPCAD": {
+        "n": 51,
+        "pass": 31,
+        "fail": 7,
+        "loi": 13,
+        "ti_le_pass": 0.816,
+        "net_tb": 5385.26,
+        "dd_tb": 34.6,
+        "apy_tb": 198.9
+      },
+      "EURUSD": {
+        "n": 60,
+        "pass": 35,
+        "fail": 5,
+        "loi": 20,
+        "ti_le_pass": 0.875,
+        "net_tb": 1796.19,
+        "dd_tb": 32.32,
+        "apy_tb": 146.32
+      },
+      "EURCHF": {
+        "n": 14,
+        "pass": 9,
+        "fail": 2,
+        "loi": 3,
+        "ti_le_pass": 0.818,
+        "net_tb": 1401.45,
+        "dd_tb": 38.81,
+        "apy_tb": 52.46
+      },
+      "GBPUSD": {
+        "n": 275,
+        "pass": 269,
+        "fail": 4,
+        "loi": 2,
+        "ti_le_pass": 0.985,
+        "net_tb": 168.1,
+        "dd_tb": 3.19,
+        "apy_tb": 26.87
+      },
+      "CHFJPY": {
+        "n": 9,
+        "pass": 3,
+        "fail": 1,
+        "loi": 5,
+        "ti_le_pass": 0.75,
+        "net_tb": 816.14,
+        "dd_tb": 22.2,
+        "apy_tb": 35.47
+      },
+      "AUDCAD": {
+        "n": 75,
+        "pass": 54,
+        "fail": 6,
+        "loi": 15,
+        "ti_le_pass": 0.9,
+        "net_tb": 526.46,
+        "dd_tb": 2.37,
+        "apy_tb": 86.58
+      },
+      "EURAUD": {
+        "n": 5,
+        "pass": 3,
+        "fail": 0,
+        "loi": 2,
+        "ti_le_pass": 1.0,
+        "net_tb": 694.38,
+        "dd_tb": 41.74,
+        "apy_tb": 22.65
+      },
+      "USDJPY": {
+        "n": 5,
+        "pass": 3,
+        "fail": 0,
+        "loi": 2,
+        "ti_le_pass": 1.0,
+        "net_tb": 954.19,
+        "dd_tb": 48.05,
+        "apy_tb": 57.75
+      },
+      "GBPNZD": {
+        "n": 40,
+        "pass": 38,
+        "fail": 0,
+        "loi": 2,
+        "ti_le_pass": 1.0,
+        "net_tb": 1687.92,
+        "dd_tb": 32.31,
+        "apy_tb": 55.24
+      },
+      "AUDNZD": {
+        "n": 14,
+        "pass": 12,
+        "fail": 0,
+        "loi": 2,
+        "ti_le_pass": 1.0,
+        "net_tb": 711.38,
+        "dd_tb": 22.61,
+        "apy_tb": 25.96
+      },
+      "AUDUSD": {
+        "n": 88,
+        "pass": 87,
+        "fail": 1,
+        "loi": 0,
+        "ti_le_pass": 0.989,
+        "net_tb": 244.65,
+        "dd_tb": 3.93,
+        "apy_tb": 39.94
+      },
+      "EURJPY": {
+        "n": 80,
+        "pass": 80,
+        "fail": 0,
+        "loi": 0,
+        "ti_le_pass": 1.0,
+        "net_tb": 162.6,
+        "dd_tb": 0.71,
+        "apy_tb": null
+      },
+      "GBPJPY": {
+        "n": 15,
+        "pass": 15,
+        "fail": 0,
+        "loi": 0,
+        "ti_le_pass": 1.0,
+        "net_tb": 345.68,
+        "dd_tb": 5.75,
+        "apy_tb": 23.71
+      },
+      "US500CASH": {
+        "n": 24,
+        "pass": 9,
+        "fail": 15,
+        "loi": 0,
+        "ti_le_pass": 0.375,
+        "net_tb": 15.39,
+        "dd_tb": 0.6,
+        "apy_tb": null
+      },
+      "GER40CASH": {
+        "n": 86,
+        "pass": 70,
+        "fail": 16,
+        "loi": 0,
+        "ti_le_pass": 0.814,
+        "net_tb": 352.71,
+        "dd_tb": 3.08,
+        "apy_tb": null
+      },
+      "USDCAD": {
+        "n": 16,
+        "pass": 13,
+        "fail": 1,
+        "loi": 2,
+        "ti_le_pass": 0.929,
+        "net_tb": 2306.24,
+        "dd_tb": 43.55,
+        "apy_tb": 91.93
+      },
+      "EURNZD": {
+        "n": 4,
+        "pass": 4,
+        "fail": 0,
+        "loi": 0,
+        "ti_le_pass": 1.0,
+        "net_tb": 514.91,
+        "dd_tb": 35.46,
+        "apy_tb": 24.85
+      },
+      "AUDJPY": {
+        "n": 4,
+        "pass": 4,
+        "fail": 0,
+        "loi": 0,
+        "ti_le_pass": 1.0,
+        "net_tb": 1002.39,
+        "dd_tb": 26.11,
+        "apy_tb": 36.38
+      },
+      "CADJPY": {
+        "n": 5,
+        "pass": 4,
+        "fail": 1,
+        "loi": 0,
+        "ti_le_pass": 0.8,
+        "net_tb": 1350.95,
+        "dd_tb": 32.87,
+        "apy_tb": 49.02
+      },
+      "GBPAUD": {
+        "n": 6,
+        "pass": 6,
+        "fail": 0,
+        "loi": 0,
+        "ti_le_pass": 1.0,
+        "net_tb": 599.34,
+        "dd_tb": 41.66,
+        "apy_tb": 21.98
+      },
+      "NZDJPY": {
+        "n": 8,
+        "pass": 8,
+        "fail": 0,
+        "loi": 0,
+        "ti_le_pass": 1.0,
+        "net_tb": 712.63,
+        "dd_tb": 41.23,
+        "apy_tb": 26.57
+      },
+      "GBPCHF": {
+        "n": 3,
+        "pass": 2,
+        "fail": 1,
+        "loi": 0,
+        "ti_le_pass": 0.667,
+        "net_tb": 1041.17,
+        "dd_tb": 38.27,
+        "apy_tb": 43.41
+      }
+    },
+    "vao": {
+      "CSV_lenh": {
+        "n": 426,
+        "pass": 273,
+        "fail": 43,
+        "loi": 110,
+        "ti_le_pass": 0.864,
+        "net_tb": 1896.05,
+        "dd_tb": 37.02,
+        "apy_tb": 72.68
+      },
+      "unknown": {
+        "n": 635,
+        "pass": 589,
+        "fail": 40,
+        "loi": 6,
+        "ti_le_pass": 0.936,
+        "net_tb": 165.02,
+        "dd_tb": 1.12,
+        "apy_tb": 38.45
+      },
+      "RSI": {
+        "n": 5,
+        "pass": 0,
+        "fail": 2,
+        "loi": 3,
+        "ti_le_pass": 0.0,
+        "net_tb": null,
+        "dd_tb": null,
+        "apy_tb": null
+      },
+      "MRZ": {
+        "n": 6,
+        "pass": 2,
+        "fail": 0,
+        "loi": 4,
+        "ti_le_pass": 1.0,
+        "net_tb": 9306.4,
+        "dd_tb": 38.09,
+        "apy_tb": 86.58
+      }
+    },
+    "pha": {
+      "KIEM_CSV": {
+        "n": 284,
+        "pass": 154,
+        "fail": 33,
+        "loi": 97,
+        "ti_le_pass": 0.824,
+        "net_tb": 1983.11,
+        "dd_tb": 37.8,
+        "apy_tb": 73.29
+      },
+      "KIEM_CSV_RT": {
+        "n": 5,
+        "pass": 1,
+        "fail": 1,
+        "loi": 3,
+        "ti_le_pass": 0.5,
+        "net_tb": 1032.0,
+        "dd_tb": 5.01,
+        "apy_tb": 37.54
+      },
+      "KIEM_CSV_OOS": {
+        "n": 2,
+        "pass": 0,
+        "fail": 2,
+        "loi": 0,
+        "ti_le_pass": 0.0,
+        "net_tb": null,
+        "dd_tb": null,
+        "apy_tb": null
+      },
+      "KIEM_CSV_IS": {
+        "n": 7,
+        "pass": 1,
+        "fail": 1,
+        "loi": 5,
+        "ti_le_pass": 0.5,
+        "net_tb": 393.21,
+        "dd_tb": 6.42,
+        "apy_tb": 39.35
+      },
+      "KIEM": {
+        "n": 7,
+        "pass": 2,
+        "fail": 2,
+        "loi": 3,
+        "ti_le_pass": 0.5,
+        "net_tb": 9306.4,
+        "dd_tb": 38.09,
+        "apy_tb": 86.58
+      },
+      "KIEM_CSV_IS2": {
+        "n": 1,
+        "pass": 0,
+        "fail": 1,
+        "loi": 0,
+        "ti_le_pass": 0.0,
+        "net_tb": null,
+        "dd_tb": null,
+        "apy_tb": null
+      },
+      "TOI_UU": {
+        "n": 4,
+        "pass": 0,
+        "fail": 0,
+        "loi": 4,
+        "ti_le_pass": 0.0,
+        "net_tb": null,
+        "dd_tb": null,
+        "apy_tb": null
+      },
+      "KIEM_CSV_RT2": {
+        "n": 2,
+        "pass": 0,
+        "fail": 0,
+        "loi": 2,
+        "ti_le_pass": 0.0,
+        "net_tb": null,
+        "dd_tb": null,
+        "apy_tb": null
+      },
+      "IS": {
+        "n": 378,
+        "pass": 342,
+        "fail": 36,
+        "loi": 0,
+        "ti_le_pass": 0.905,
+        "net_tb": 179.19,
+        "dd_tb": 1.25,
+        "apy_tb": null
+      },
+      "OOS": {
+        "n": 255,
+        "pass": 245,
+        "fail": 4,
+        "loi": 6,
+        "ti_le_pass": 0.984,
+        "net_tb": 140.77,
+        "dd_tb": 0.88,
+        "apy_tb": null
+      },
+      "V2_CAO_NGUYEN": {
+        "n": 37,
+        "pass": 35,
+        "fail": 1,
+        "loi": 1,
+        "ti_le_pass": 0.972,
+        "net_tb": 2759.37,
+        "dd_tb": 39.35,
+        "apy_tb": 126.07
+      },
+      "V2_DA_CAP": {
+        "n": 38,
+        "pass": 32,
+        "fail": 4,
+        "loi": 2,
+        "ti_le_pass": 0.889,
+        "net_tb": 1150.82,
+        "dd_tb": 35.03,
+        "apy_tb": 40.6
+      },
+      "V2_GHEP": {
+        "n": 34,
+        "pass": 34,
+        "fail": 0,
+        "loi": 0,
+        "ti_le_pass": 1.0,
+        "net_tb": 1249.95,
+        "dd_tb": 35.01,
+        "apy_tb": 45.57
+      },
+      "V2_KHUNG": {
+        "n": 18,
+        "pass": 18,
+        "fail": 0,
+        "loi": 0,
+        "ti_le_pass": 1.0,
+        "net_tb": 2017.82,
+        "dd_tb": 33.16,
+        "apy_tb": 72.99
+      }
+    },
+    "san": {
+      "XM": {
+        "n": 430,
+        "pass": 277,
+        "fail": 45,
+        "loi": 108,
+        "ti_le_pass": 0.86,
+        "net_tb": 1941.01,
+        "dd_tb": 36.8,
+        "apy_tb": 72.51
+      }
+    },
+    "tp": {
+      "tp_pct_<0.3%": {
+        "n": 138,
+        "pass": 90,
+        "fail": 7,
+        "loi": 41,
+        "ti_le_pass": 0.928,
+        "net_tb": 1911.28,
+        "dd_tb": 40.3,
+        "apy_tb": 75.41
+      },
+      "tp_pct_0.3-0.6%": {
+        "n": 288,
+        "pass": 183,
+        "fail": 36,
+        "loi": 69,
+        "ti_le_pass": 0.836,
+        "net_tb": 1888.57,
+        "dd_tb": 35.41,
+        "apy_tb": 71.36
+      },
+      "tp_none": {
+        "n": 635,
+        "pass": 589,
+        "fail": 40,
+        "loi": 6,
+        "ti_le_pass": 0.936,
+        "net_tb": 165.02,
+        "dd_tb": 1.12,
+        "apy_tb": 38.45
+      },
+      "tpg_<0.0050": {
+        "n": 11,
+        "pass": 2,
+        "fail": 2,
+        "loi": 7,
+        "ti_le_pass": 0.5,
+        "net_tb": 9306.4,
+        "dd_tb": 38.09,
+        "apy_tb": 86.58
+      }
+    },
+    "buoc": {
+      "buoc_>=1%": {
+        "n": 70,
+        "pass": 49,
+        "fail": 11,
+        "loi": 10,
+        "ti_le_pass": 0.817,
+        "net_tb": 1921.92,
+        "dd_tb": 36.23,
+        "apy_tb": 70.49
+      },
+      "buoc_<0.5%": {
+        "n": 65,
+        "pass": 39,
+        "fail": 4,
+        "loi": 22,
+        "ti_le_pass": 0.907,
+        "net_tb": 3790.87,
+        "dd_tb": 37.77,
+        "apy_tb": 144.05
+      },
+      "buoc_0.5-1%": {
+        "n": 207,
+        "pass": 130,
+        "fail": 18,
+        "loi": 59,
+        "ti_le_pass": 0.878,
+        "net_tb": 1662.9,
+        "dd_tb": 38.75,
+        "apy_tb": 66.08
+      },
+      "buoc_gia_or_none": {
+        "n": 730,
+        "pass": 646,
+        "fail": 52,
+        "loi": 32,
+        "ti_le_pass": 0.926,
+        "net_tb": 271.26,
+        "dd_tb": 3.95,
+        "apy_tb": 41.03
+      }
+    }
+  },
+  "trong_so": {
+    "gia_dinh": {
+      "skst": 17,
+      "mql5": 15,
+      "skea": 17,
+      "tohop": 15,
+      "khac": 17,
+      "ghep": 17
+    },
+    "tf": {
+      "H1": 17,
+      "H4": 17,
+      "D1": 15
+    },
+    "ma": {
+      "XAUUSD": 17,
+      "NZDUSD": 12.8,
+      "EURCAD": 17,
+      "EURGBP": 17,
+      "GBPCAD": 17,
+      "EURUSD": 17,
+      "EURCHF": 17,
+      "GBPUSD": 15,
+      "AUDCAD": 17,
+      "GBPNZD": 17,
+      "AUDNZD": 15,
+      "AUDUSD": 15,
+      "EURJPY": 15,
+      "GBPJPY": 15,
+      "US500CASH": 12.5,
+      "GER40CASH": 15,
+      "USDCAD": 17,
+      "CADJPY": 17,
+      "GBPAUD": 15,
+      "NZDJPY": 15
+    },
+    "vao": {
+      "CSV_lenh": 17,
+      "unknown": 15
+    },
+    "pha": {
+      "KIEM_CSV": 17,
+      "IS": 15,
+      "OOS": 15,
+      "V2_CAO_NGUYEN": 17,
+      "V2_DA_CAP": 17,
+      "V2_GHEP": 17,
+      "V2_KHUNG": 17
+    },
+    "san": {
+      "XM": 17
+    },
+    "tp": {
+      "tp_pct_<0.3%": 17,
+      "tp_pct_0.3-0.6%": 17,
+      "tp_none": 15
+    },
+    "buoc": {
+      "buoc_>=1%": 17,
+      "buoc_<0.5%": 17,
+      "buoc_0.5-1%": 17,
+      "buoc_gia_or_none": 17
+    }
+  },
+  "the": [
+    {
+      "ma": "mt5_fam_top_20261030",
+      "loai": "huong_dang_mo",
+      "tieu_de": "Gia dinh MT5 dang an (so_cai)"
+    },
+    {
+      "ma": "mt5_tf_20261030",
+      "loai": "su_that_tai_san",
+      "tieu_de": "Khung thoi gian manh nhat"
+    },
+    {
+      "ma": "mt5_vao_20261030",
+      "loai": "huong_dang_mo",
+      "tieu_de": "Kieu vao (InpVao) dang an"
+    },
+    {
+      "ma": "mt5_ma_20261030",
+      "loai": "su_that_tai_san",
+      "tieu_de": "Cap co nhieu PASS"
+    },
+    {
+      "ma": "mt5_throughput_20261030",
+      "loai": "bay_do_luong",
+      "tieu_de": "Suat PASS so_cai (muc tieu 1000/ngay → ≥5 ung vien)"
+    }
+  ],
+  "muc_tieu": {
+    "strategy_per_day": 1000,
+    "candidates_per_day": 5,
+    "vong2_he_goc": 50
+  }
+}

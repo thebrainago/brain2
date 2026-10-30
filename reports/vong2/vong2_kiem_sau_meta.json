@@ -1,0 +1,24 @@
+{
+  "luc": "2026-10-30 22:22",
+  "so_passer": 124,
+  "so_viec_moi": 644,
+  "so_viec_hang_cho": 644,
+  "theo_loai": {
+    "xac_nhan_tick": 43,
+    "tham_so": 430,
+    "khung": 86,
+    "oos": 83,
+    "cap": 2
+  },
+  "thieu_viec_goc": [
+    "od_v2gth_v2g956f12b953_XM_CSV",
+    "od_v2gng_v2ga27214f900_XM_CSV",
+    "od_v2gxa_v2g648a3f8710_XM_CSV",
+    "od_v2gng_v2g97ad555864_XM_CSV",
+    "od_v2gth_v2g272be354ea_XM_CSV",
+    "od_v2gxa_v2g81a9974944_XM_CSV",
+    "od_v2gxa_v2g08dc8d94a1_XM_CSV"
+  ],
+  "bao_cao": "/workspace/brain2/reports/vong2/VONG2_KIEM_SAU.md",
+  "hang_cho": "/workspace/brain2/reports/vong2/hang_cho_vong2.jsonl"
+}
