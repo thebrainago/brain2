@@ -518,17 +518,21 @@ def ghi_chi_so(ten: str, gia_tri: float, chi_tiet: dict | None = None) -> None:
 
 # ------------------------------------------------------------------- VAN DE
 def bao_van_de(ma: str, muc: str, mo_ta: str, bang_chung: dict | None = None) -> int | None:
-    """EVO bao van de. Trung ma + con MO thi khong nhan ban."""
+    """EVO bao van de. Trung ma + con MO: cap nhat muc/mo_ta/bang_chung (de
+    soft/hard PASS audit ha NANG -> VUA) thay vi im lang giu ban cu."""
+    bc = json.dumps(bang_chung or {}, ensure_ascii=False, default=str)[:3000]
     with ket_noi() as cn:
         r = cn.execute("SELECT id FROM van_de WHERE ma=? AND trang_thai='MO'",
                        (ma,)).fetchone()
         if r:
+            cn.execute(
+                "UPDATE van_de SET muc=?, mo_ta=?, bang_chung=? WHERE id=?",
+                (muc, mo_ta, bc, r["id"]))
             return None
         cur = cn.execute(
             "INSERT INTO van_de(ma,muc,mo_ta,bang_chung,phat_hien_luc,trang_thai) "
             "VALUES(?,?,?,?,?,'MO')",
-            (ma, muc, mo_ta,
-             json.dumps(bang_chung or {}, ensure_ascii=False, default=str)[:3000], bay_gio()))
+            (ma, muc, mo_ta, bc, bay_gio()))
         return int(cur.lastrowid)
 
 

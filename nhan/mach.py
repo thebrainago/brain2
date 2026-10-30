@@ -180,14 +180,21 @@ def c_pheu_ung_vien() -> dict:
 
 
 def c_duong_llm() -> dict:
-    from nhan import tri_tue as TT
+    """Duong LLM. Khi BRAIN_LLM_PROVIDER=hang_cho: KHONG doi OPENAI_API_KEY —
+    do suc khoe hang cho file (cho/ stale, loi/)."""
+    from nhan import hang_cho_llm as HCL, tri_tue as TT
+    if HCL.dang_bat():
+        sk = HCL.suc_khoe()
+        return _kq("duong_llm", "hang_cho", bool(sk.get("ok")),
+                   sk.get("mo_ta") or "hang_cho",
+                   goi_y="python -m nhan.hang_cho_llm thong_ke; tra_loi cho stale / xu ly loi/")
     t = TT.trang_thai()
     ok = bool(t.get("con_duoc_goi"))
     return _kq("duong_llm", t.get("model"), ok,
                "%s | %s | da goi %s/%s" % (t.get("duong_se_dung"), t.get("ly_do"),
                                            t.get("da_goi_hom_nay"),
                                            t.get("tran_moi_ngay")),
-               goi_y="kiem cc-switch provider + OPENAI_API_KEY")
+               goi_y="kiem cc-switch provider + OPENAI_API_KEY, hoac dat BRAIN_LLM_PROVIDER=hang_cho")
 
 
 def c_bang_quan_tri() -> dict:

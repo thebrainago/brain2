@@ -848,16 +848,44 @@ def phat_hien(vh: dict, sk: dict) -> list[dict]:
         ra.append({"ma": "nhieu_viec_loi", "muc": "VUA",
                    "mo_ta": f"{vh['viec_loi']} viec o trang thai LOI", "bc": vh["viec"]})
 
-    # THIET_KE muc 9: qua nhieu PASS trong mot ngay la tin hieu HONG
+    # THIET_KE muc 9: qua nhieu PASS trong mot ngay la tin hieu HONG.
+    # Che do loi_nhuan (config/nguong.json): soft PASS (= fail 4_alpha va/hoac
+    # 5_placebo nhung van PASS vi chi CHAN 11/14/15) KHONG phai bug mid/spread
+    # hay double-count — do la chinh sach. Chi dem HARD PASS (4_alpha+5_placebo
+    # deu True) cho muc NANG; soft chi bao VUA khi rat nhieu.
+    import json as _json_pass
     hom_nay = datetime.now().strftime("%Y-%m-%d")
-    n_pass = SO.mot(KQHD.truy_van(
-        "COUNT(*) n", dieu_kien_them="k.verdict='PASS' AND k.luc LIKE ?"
-    ), hom_nay + "%")["n"]
-    if n_pass > 5:
+    rows_pass = SO.nhieu(
+        "SELECT cong FROM ket_qua WHERE verdict='PASS' AND luc LIKE ?",
+        hom_nay + "%")
+    n_pass = len(rows_pass)
+    n_hard = n_soft = 0
+    for r in rows_pass:
+        try:
+            cong = _json_pass.loads(r["cong"] or "{}")
+        except Exception:
+            cong = {}
+        a4 = cong.get("4_alpha_duong_co_y_nghia")
+        a5 = cong.get("5_song_sot_placebo", cong.get("5_placebo"))
+        if a4 is True and a5 is True:
+            n_hard += 1
+        else:
+            n_soft += 1
+    bc_pass = {"so_pass": n_pass, "so_pass_hard": n_hard, "so_pass_soft": n_soft,
+               "ghi_chu": "soft=PASS loi_nhuan fail 4_alpha/5_placebo; hard=ca hai True"}
+    if n_hard > 5:
         ra.append({"ma": "qua_nhieu_pass", "muc": "NANG",
-                   "mo_ta": f"{n_pass} PASS trong mot ngay. Theo THIET_KE muc 9 day la tin hieu "
-                            "HONG chu khong phai tin vui - phai kiem day chuyen truoc khi duyet",
-                   "bc": {"so_pass": n_pass}})
+                   "mo_ta": f"{n_hard} HARD PASS (+{n_soft} soft) trong mot ngay. "
+                            "Theo THIET_KE muc 9 day la tin hieu HONG chu khong phai tin vui "
+                            "- phai kiem day chuyen (lookahead/FDR/chi phi) truoc khi duyet",
+                   "bc": bc_pass})
+    elif n_soft > 5:
+        ra.append({"ma": "qua_nhieu_pass", "muc": "VUA",
+                   "mo_ta": f"{n_soft} soft PASS / {n_pass} PASS trong mot ngay "
+                            "(che do loi_nhuan: alpha/placebo chi NHAN). "
+                            "Khong phai mid-khong-spread hay double-count confirm/explore — "
+                            "doi che_do_cong='chan' neu muon siet theo THIET_KE muc 9 cu.",
+                   "bc": bc_pass})
 
     if sk.get("null_ty_le_lot") is None and sk.get("so_ket_qua", 0) >= 30:
         ra.append({"ma": "chua_hieu_chuan_null", "muc": "NANG",
@@ -897,6 +925,26 @@ def phat_hien(vh: dict, sk: dict) -> list[dict]:
         ra.append({"ma": "nguon_khong_thu_hoach", "muc": "VUA",
                    "mo_ta": f"Nguon {', '.join(kh)} da goi >=3 lan ma chua thu duoc tai lieu nao",
                    "bc": {"nguon": kh}})
+
+    # Hang cho LLM: khi BRAIN_LLM_PROVIDER=hang_cho thi KHONG bao thieu
+    # OPENAI_API_KEY. Chi bao khi cho/ stale hoac loi/ co file.
+    try:
+        from nhan import hang_cho_llm as HCL
+        if HCL.dang_bat():
+            sk = HCL.suc_khoe()
+            if sk.get("cho_stale_n", 0) > 0:
+                ra.append({"ma": "hang_cho_llm_tre", "muc": "VUA",
+                           "mo_ta": f"hang_cho: {sk['cho_stale_n']} yeu cau trong cho/ "
+                                    f"qua {sk.get('stale_giay')}s chua co tra loi "
+                                    f"(worker Evolution bot?).",
+                           "bc": sk})
+            if sk.get("loi_n", 0) > 0:
+                ra.append({"ma": "hang_cho_llm_loi", "muc": "VUA",
+                           "mo_ta": f"hang_cho: {sk['loi_n']} file trong loi/ "
+                                    "(tra loi khong hop le / worker bao loi).",
+                           "bc": sk})
+    except Exception:
+        pass
     return ra
 
 
@@ -1268,6 +1316,8 @@ EVO_TU_QUAN = {
     # kien het thi chung phai tu dong lai - neu khong danh sach van de chi dai
     # ra va nguoi dung mat long tin vao no (da xay ra that voi `dia_thap`).
     "supervisor_restart_lien_tuc", "watchdog_khong_do_duoc",
+    # hang_cho LLM (BRAIN_LLM_PROVIDER=hang_cho): thay OPENAI_API_KEY.
+    "hang_cho_llm_tre", "hang_cho_llm_loi",
 }
 
 
@@ -1323,6 +1373,14 @@ def dong_van_de_het_hieu_luc(dang_kich_hoat: set | None = None) -> list:
     if dang_kich_hoat is None:
         dang_kich_hoat = {v["ma"] for v in
                           phat_hien(do_van_hanh(), do_suc_khoe_day_chuyen())}
+    # hang_cho khoe -> dong tru_loi_NGHI (thuong do thieu OPENAI_API_KEY).
+    hang_cho_khoe = False
+    try:
+        from nhan import hang_cho_llm as HCL
+        hang_cho_khoe = bool(HCL.dang_bat() and HCL.suc_khoe().get("ok"))
+    except Exception:
+        hang_cho_khoe = False
+
     da_dong = []
     for m in SO.van_de_mo():
         ma = m["ma"]
@@ -1333,6 +1391,9 @@ def dong_van_de_het_hieu_luc(dang_kich_hoat: set | None = None) -> list:
             da_dong.append(ma)
         elif ma in EVO_TU_QUAN:
             SO.dong_van_de(ma, "dieu kien phat hien khong con dung")
+            da_dong.append(ma)
+        elif ma == "tru_loi_NGHI" and hang_cho_khoe:
+            SO.dong_van_de(ma, "hang_cho khoe — khong can OPENAI_API_KEY")
             da_dong.append(ma)
     return da_dong
 
