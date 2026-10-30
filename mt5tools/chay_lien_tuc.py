@@ -101,8 +101,37 @@ def tep_bao_cao(slot: str, v: dict, ten: str) -> Path:
     return Path(slot, ten + (".xml" if v.get("toi_uu") else ".htm"))
 
 
+
+def don_sau_viec(ten: str, rec: dict, slot: str) -> None:
+    """t25u: xoa output khong quan trong sau khi ghi so_cai. Giu ledger + bao cao dat.
+    Uu tien don tren E: (slot), roi Tester cache; khong dung C: neu khong can."""
+    try:
+        dat = (not rec.get("loi")) and float(rec.get("lenh") or 0) > 0 and float(rec.get("net") or 0) != 0
+        # stub / chua do -> xoa htm/png trong slot Reports
+        stub = bool(rec.get("loi")) or str(rec.get("don_bay_bc") or "") == "1:0" or "1970" in str(rec.get("ky_bc") or "")
+        if not stub and dat:
+            return  # giu bao cao dat
+        for sub in ("reports", "Tester\\reports", "Tester\\Agent-127.0.0.1-3000\\reports",
+                    "Tester\\Agent-127.0.0.1-3001\\reports"):
+            d = Path(slot) / sub.replace("\\", os.sep)
+            if not d.is_dir():
+                continue
+            for pat in (f"{ten}.*", f"*{ten}*.htm", f"*{ten}*.png", f"*{ten}*.gif"):
+                for f in d.glob(pat):
+                    try:
+                        if f.is_file() and f.stat().st_size < 50_000_000:
+                            f.unlink()
+                    except Exception:
+                        pass
+    except Exception:
+        pass
+
 def phong(slot: str, v: dict, ten: str) -> subprocess.Popen:
-    if v.get("nguon") == "ong_dan":     # 18/10/2026: viec tu ong dan (BRAIN_XuLiLenh, co the la toi uu)
+    if v.get("nguon") in ("ong_dan", "vong2"):     # 18/10/2026 ong_dan; 30/10 vong2 same BRAIN_XuLiLenh path
+        try:
+            SV.scale_lot_for_hash_demo(v)
+        except Exception:
+            pass
         Path(slot, "MQL5", "Profiles", "Tester").mkdir(parents=True, exist_ok=True)
         Path(slot, "MQL5", "Profiles", "Tester", ten + ".set").write_text(SV.file_set_ong_dan(v), encoding="ascii")
         AT.xoa_bao_cao_cu(Path(slot), ten)
@@ -118,9 +147,9 @@ def phong(slot: str, v: dict, ten: str) -> subprocess.Popen:
     fr, to = SV.IS if v["pha"] == "IS" else SV.OOS
     ini = Path(slot, ten + ".ini")
     AT.xoa_bao_cao_cu(Path(slot), ten)
-    ini.write_text("[Tester]\nExpert=BRAIN\\%s.ex5\nExpertParameters=%s.set\nSymbol=%s\nPeriod=%s\nModel=4\nExecutionMode=0\n"
+    ini.write_text(("[Tester]\nExpert=BRAIN\\%s.ex5\nExpertParameters=%s.set\nSymbol=%s\nPeriod=%s\nModel=4\nExecutionMode=0\n"
                    "Optimization=0\nFromDate=%s\nToDate=%s\nForwardMode=0\nDeposit=10000\nCurrency=USD\n" + AT.dong_don_bay(DON_BAY) +
-                   "Report=%s\nReplaceReport=1\nShutdownTerminal=1\nVisual=0\n" % (ea, ten, v["ma"], v["tf"], fr, to, ten), encoding="ascii")
+                   "Report=%s\nReplaceReport=1\nShutdownTerminal=1\nVisual=0\n") % (ea, ten, v["ma"], v["tf"], fr, to, ten), encoding="ascii")
     return subprocess.Popen([slot + r"\terminal64.exe", "/portable", "/config:" + str(ini)], creationflags=0x00000040)  # IDLE_PRIORITY_CLASS
 
 
@@ -216,7 +245,7 @@ def ha_uu_tien():
 
 
 def ten_viec(v: dict) -> str:
-    if v.get("nguon") == "ong_dan" and v.get("ten"):
+    if v.get("nguon") in ("ong_dan", "vong2") and v.get("ten"):
         return v["ten"] + ("_T1" if v.get("tang") == 1 else "")
     return "lt_%s_%s_%s_%s_%s" % (v["ea"], re.sub(r"[^A-Za-z0-9]", "", v["ma"]), v["tf"], v["pha"],
                                   format(abs(hash(SV.khoa(v))) % 10**8, "08d"))
@@ -231,6 +260,10 @@ def xu_ly_xong(s: str, v: dict, ten: str, t0: float, now: dt.datetime, hong: dic
         shutil.move(str(f), str(REP / f.name)); hong[s] = 0
         rec = _ban_ghi(v); rec.update(file=f.name, giay=int(time.time() - t0), luc=now.isoformat(timespec="seconds"), slot=s)
         SV.ghi(rec)
+        try:
+            don_sau_viec(ten, rec, s)
+        except Exception:
+            pass
         log("XONG TOI UU %s -> %s" % (ten, KQ_ONG_DAN / f.name))
         if v.get("gen") and TT.bat("BRAIN_GEN"):
             try:
@@ -241,7 +274,7 @@ def xu_ly_xong(s: str, v: dict, ten: str, t0: float, now: dt.datetime, hong: dic
     elif AT.bao_cao_moi(f, t0):
         r = doc_htm(f)
         tang = v.get("tang")
-        if v.get("nguon") == "ong_dan":
+        if v.get("nguon") in ("ong_dan", "vong2"):
             # tang 1 -> thu muc con (doc_mt5 chi doc od_* o goc ket_qua_mt5 = ket qua real tick)
             dich = KQ_ONG_DAN / "tang1" if tang == 1 else KQ_ONG_DAN
             dich.mkdir(parents=True, exist_ok=True)
@@ -279,14 +312,14 @@ def xu_ly_xong(s: str, v: dict, ten: str, t0: float, now: dt.datetime, hong: dic
             ten, v["pha"], " T1" if tang == 1 else "", r["net"], r["lenh"], r["pf"], r.get("dd"), rec["giay"],
             (" CHUA_DO_DUOC " + ly) if ly else "", (" | " + rec["tang1_ly_do"]) if tang == 1 else ""))
     else:
-        ngan = time.time() - t0 < 90
+        ngan = time.time() - t0 < 45  # grok 30/10: history warmup can exceed 45s; was 90
         hong[s] = hong.get(s, 0) + 1
         rec = _ban_ghi(v); rec.update(loi="khong_bao_cao", giay=int(time.time() - t0), luc=now.isoformat(timespec="seconds"), slot=s)
         if v.get("tang") == 1:
             rec["tang"] = 1
         SV.ghi(rec)
         log("HONG %s (lan %d)" % (ten, hong[s]))
-        if ngan and hong[s] >= 2:
+        if ngan and hong[s] >= 8:  # grok 30/10: was 2 — too aggressive under parallel Bases lock
             bo.add(s); log("BO SLOT %s (fail-fast)" % s)
     if TT.bat("BRAIN_TICK_CHUNG") and v.get("ma"):
         TT.tra_khoa(v["ma"], s)
@@ -371,6 +404,12 @@ def main():
         cap = []
         if con_cho and co_san:
             dang = {SV.khoa(v) for _, v, _, _ in chay.values()}
+            dang_ten = {ten for _, _, ten, _ in chay.values() if ten}
+            # Symbols already held by in-flight slots (tick lock is 1 slot / ma)
+            ma_khoa = set()
+            for _, vv, _, _ in chay.values():
+                if vv.get("ma"):
+                    ma_khoa.add(str(vv.get("ma")))
             for s in co_san:
                 if len(cap) >= con_cho:
                     break
@@ -381,18 +420,40 @@ def main():
                     continue
                 sn = os.environ.get("BRAIN_SAN_TESTER") or san_cua_slot(s) or None
                 chi_t1 = dang_t2 + sum(1 for c in cap if c[1].get("tang") != 1) >= t2_max
-                vs = SV.lay_viec(1, dang_chay=dang, san=sn, hai_tang=hai, chi_tang1=chi_t1 and hai)
-                if not vs:
+                # grok 31/10: lock-miss used to leave free slots idle while queue head shares one ma
+                # (all GBPCAD). Skip locked symbols and retry lay_viec for a different job.
+                v = None
+                for _try in range(24):
+                    vs = SV.lay_viec(1, dang_chay=dang, san=sn, hai_tang=hai, chi_tang1=chi_t1 and hai, dang_ten=dang_ten)
+                    if not vs:
+                        break
+                    cand = vs[0]
+                    if chi_t1 and cand.get("tang") != 1:
+                        break
+                    if TT.bat("BRAIN_GEN") and cand.get("gen"):
+                        cand = dict(cand, so_agent=TT.so_agent())
+                    if TT.kiem_slot_an_toan(s):
+                        log(TT.kiem_slot_an_toan(s)); break
+                    ma = str(cand.get("ma") or "")
+                    if ma and ma in ma_khoa:
+                        dang.add(SV.khoa(cand))
+                        tn0 = ten_viec(cand)
+                        if tn0:
+                            dang_ten.add(tn0)
+                        continue
+                    if TT.bat("BRAIN_TICK_CHUNG") and not TT.duoc_chay_tick(cand, s):
+                        log("CHO KHOA TICK %s: slot khac dang tai — thu viec khac" % cand.get("ma"))
+                        if ma:
+                            ma_khoa.add(ma)
+                        dang.add(SV.khoa(cand))
+                        tn0 = ten_viec(cand)
+                        if tn0:
+                            dang_ten.add(tn0)
+                        continue
+                    v = cand
+                    break
+                if not v:
                     continue
-                v = vs[0]
-                if chi_t1 and v.get("tang") != 1:
-                    continue
-                if TT.bat("BRAIN_GEN") and v.get("gen"):
-                    v = dict(v, so_agent=TT.so_agent())
-                if TT.kiem_slot_an_toan(s):
-                    log(TT.kiem_slot_an_toan(s)); continue
-                if TT.bat("BRAIN_TICK_CHUNG") and not TT.duoc_chay_tick(v, s):
-                    log("CHO KHOA TICK %s: slot khac dang tai" % v.get("ma")); continue
                 ok, ly = TT.du_ram_dong(v) if TT.bat("BRAIN_RAM_DONG") else QS.du_ram(1 if v.get("tang") == 1 else 2)
                 if not ok:
                     if TT.bat("BRAIN_TICK_CHUNG") and v.get("ma"):
@@ -400,6 +461,11 @@ def main():
                     log("CHO RAM: %s - chua phong %s" % (ly, v.get("ten") or v.get("ea")))
                     break
                 dang.add(SV.khoa(v))
+                tn = ten_viec(v)
+                if tn:
+                    dang_ten.add(tn)
+                if v.get("ma"):
+                    ma_khoa.add(str(v.get("ma")))
                 cap.append((s, v))
         for s, v in cap:
             ten = ten_viec(v)

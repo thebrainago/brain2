@@ -72,6 +72,10 @@ def phan_xu_ket_qua(r: dict, giay: float, giay_toi_thieu: float = 60.0) -> str:
     'da thu, khong lai' vinh vien. Bao cao doc khong ra so (nhan khac ngon ngu...) cung vay."""
     if r.get("net") is None or r.get("lenh") is None:
         return "khong_doc_duoc_bao_cao"
+    ky = str(r.get("ky_bc") or "")
+    # grok 30/10: stub report Period M0 / 1970 = history/init race, not a real result
+    if "1970" in ky or ky.startswith("M0") or (not r.get("symbol_bc") and (r.get("lenh") or 0) == 0):
+        return "stub_bao_cao_M0_1970"
     if (r.get("lenh") or 0) == 0 and giay < giay_toi_thieu:
         return "chua_do_duoc_0_lenh_%ds" % int(giay)
     return ""

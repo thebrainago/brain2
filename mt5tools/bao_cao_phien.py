@@ -55,7 +55,7 @@ def _so_cai() -> list[dict]:
     if not SO_CAI.exists():
         return []
     ra = []
-    for x in SO_CAI.read_text(encoding="utf-8").splitlines():
+    for x in SO_CAI.read_text(encoding="utf-8-sig").splitlines():
         try:
             ra.append(json.loads(x))
         except ValueError:

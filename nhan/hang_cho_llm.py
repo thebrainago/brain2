@@ -29,6 +29,47 @@ CHO = GOC / "cho"
 XONG = GOC / "xong"
 LOI = GOC / "loi"
 
+#: Them thu muc xong/ (worker co the ghi sang lab sibling brain2/hang_cho_llm/xong).
+#: BRAIN_HANG_CHO_XONG_DIRS = pathsep-separated extra xong dirs.
+def _xong_roots() -> list[Path]:
+    roots: list[Path] = [XONG]
+    extra = (os.environ.get("BRAIN_HANG_CHO_XONG_DIRS") or "").strip()
+    for part in extra.split(os.pathsep):
+        part = part.strip()
+        if part:
+            roots.append(Path(part))
+    # Sibling brain2 (tin-hieu checkout ke ben brain2)
+    sib = GOC_LAB.parent / "brain2" / "hang_cho_llm" / "xong"
+    if sib.is_dir():
+        roots.append(sib)
+    # BRAIN_HANG_CHO root (neu mirror/worker dung GOC khac)
+    goc_env = (os.environ.get("BRAIN_HANG_CHO") or "").strip()
+    if goc_env:
+        roots.append(Path(goc_env) / "xong")
+    # unique preserve order
+    seen = set()
+    ra = []
+    for r in roots:
+        try:
+            key = r.resolve()
+        except Exception:
+            key = r
+        if key in seen:
+            continue
+        seen.add(key)
+        ra.append(r)
+    return ra
+
+
+def tim_xong(i: str) -> Path | None:
+    """Tim xong/<id>.json o GOC.xong hoac cac root phu (skip-if-in-xong)."""
+    name = "%s.json" % i
+    for root in _xong_roots():
+        cand = root / name
+        if cand.is_file():
+            return cand
+    return None
+
 #: Ten bien moi truong. Gia tri chap nhan: hang_cho | file | queue
 BIEN_PROVIDER = "BRAIN_LLM_PROVIDER"
 GIA_TRI_HANG_CHO = frozenset({"hang_cho", "file", "queue"})
@@ -48,6 +89,12 @@ SCHEMA_THEO_LOAI = {
         "bat_buoc": [],
         "mau": {"loai": "co_che", "spec": [], "python": "", "luoi": {}, "chua_dich": []},
     },
+    "dca_go_lenh": {
+        "mo_ta": "Module DCA/recovery (dich_boc loai=dca_go_lenh) trich tu lich su martingale/grid",
+        "kieu": "json_object",
+        "bat_buoc": [],
+        "mau": {"loai": "dca_go_lenh", "spec": [], "python": "", "luoi": {}, "co_che": [], "chua_dich": []},
+    },
     "dich_sua": {
         "mo_ta": "JSON sua lai sau khi bo kiem that bai (cung dang dich_boc)",
         "kieu": "json_object",
@@ -58,12 +105,6 @@ SCHEMA_THEO_LOAI = {
         "mo_ta": "Van ban tu do hoac JSON neu ep_json",
         "kieu": "text_or_json",
         "bat_buoc": [],
-    },
-    "evo_chan_doan": {
-        "mo_ta": "JSON chan doan van hanh EVO (chan_doan/de_xuat/cau_hoi_cho_nguoi)",
-        "kieu": "json_object",
-        "bat_buoc": [],
-        "mau": {"chan_doan": [], "de_xuat": [], "cau_hoi_cho_nguoi": []},
     },
     "khac": {"mo_ta": "Van ban tu do", "kieu": "text", "bat_buoc": []},
 }
@@ -130,9 +171,9 @@ def _trich_van_ban(d: dict) -> str:
 
 
 def doc_tra_loi(i: str) -> dict | None:
-    """Doc xong/<id> neu co. Tra dict chuan hoa hoac None."""
-    p = duong_xong(i)
-    if not p.exists():
+    """Doc xong/<id> neu co (GOC.xong + extra roots). Tra dict chuan hoa hoac None."""
+    p = tim_xong(i)
+    if not p:
         return None
     d = _doc_json(p)
     if not d:
@@ -142,9 +183,17 @@ def doc_tra_loi(i: str) -> dict | None:
     if not vb:
         return {"trang_thai": "LOI", "van_ban": "", "id": i, "ghi_chu": "xong/%s.json thieu van_ban/json" % i,
                 "duong": "hang_cho", "pending": False}
+    # Neu cho/ con sot ma xong da co (mirror re-copy) → xoa cho de khong duplicate
+    pc = duong_cho(i)
+    if pc.exists():
+        try:
+            pc.unlink()
+        except OSError:
+            pass
     ra = {"trang_thai": "OK", "van_ban": vb, "id": i, "bam": d.get("bam") or i,
           "duong": "hang_cho", "model": d.get("model") or "hang_cho",
-          "token_vao": 0, "token_ra": 0, "ghi_chu": "tu hang_cho_llm/xong",
+          "token_vao": 0, "token_ra": 0,
+          "ghi_chu": "tu %s" % p.as_posix(),
           "pending": False}
     if isinstance(d.get("json"), (dict, list)):
         ra["json"] = d["json"]
@@ -152,7 +201,7 @@ def doc_tra_loi(i: str) -> dict | None:
 
 
 def dang_cho(i: str) -> bool:
-    return duong_cho(i).exists() and not duong_xong(i).exists()
+    return duong_cho(i).exists() and tim_xong(i) is None
 
 
 def xep_hang(loai_viec: str, he_thong: str, nhac: str, *, tru: str = "",
@@ -169,10 +218,15 @@ def xep_hang(loai_viec: str, he_thong: str, nhac: str, *, tru: str = "",
     x = doc_tra_loi(i)
     if x and x.get("trang_thai") == "OK":
         return x
-    if x and x.get("trang_thai") == "LOI" and duong_xong(i).exists():
+    if x and x.get("trang_thai") == "LOI" and tim_xong(i) is not None:
         return x
 
     pc = duong_cho(i)
+    # Skip-if-in-xong: id da tra loi o root khac → khong giu/ghi lai cho/
+    if tim_xong(i) is not None:
+        x2 = doc_tra_loi(i)
+        if x2:
+            return x2
     if pc.exists():
         return {"trang_thai": "CHO", "van_ban": "", "id": i, "bam": i, "pending": True,
                 "duong": "hang_cho", "model": "hang_cho", "token_vao": 0, "token_ra": 0,
@@ -230,7 +284,7 @@ def kiem_tra_loi(loai_viec: str, van_ban: str, ep_json: bool = False) -> list[st
         return ["van_ban rong"]
     sch = SCHEMA_THEO_LOAI.get(loai_viec) or SCHEMA_THEO_LOAI["khac"]
     kieu = sch.get("kieu") or "text"
-    can_json = bool(ep_json) or kieu in ("json_object",) or loai_viec in ("nghi_de_xuat", "dich_boc", "dich_sua")
+    can_json = bool(ep_json) or kieu in ("json_object",) or loai_viec in ("nghi_de_xuat", "dich_boc", "dich_sua", "dca_go_lenh")
     if can_json:
         js = _json_trong_vb(van_ban)
         if js is None:
@@ -331,7 +385,7 @@ def tra_loi(i: str, tep: str) -> int:
            "model": meta.get("model") or "hang_cho"}
     if js is not None:
         out["json"] = js
-    elif ep or loai in ("nghi_de_xuat", "dich_boc", "dich_sua"):
+    elif ep or loai in ("nghi_de_xuat", "dich_boc", "dich_sua", "dca_go_lenh"):
         j2 = _json_trong_vb(vb)
         if isinstance(j2, (dict, list)):
             out["json"] = j2
@@ -345,51 +399,6 @@ def tra_loi(i: str, tep: str) -> int:
     print(json.dumps({"trang_thai": "OK", "id": i, "ghi": str(duong_xong(i)), "van_ban_ky_tu": len(vb)},
                      ensure_ascii=False, indent=1))
     return 0
-
-
-#: Cho qua lau trong cho/ ma chua co tra loi -> canh bao Evo/mach.
-HAN_CHO_STALE_GIAY = 30 * 60
-
-
-def suc_khoe(stale_giay: int | None = None) -> dict:
-    """Do suc khoe hang cho LLM (thay cho kiem OPENAI_API_KEY).
-
-    Khi `BRAIN_LLM_PROVIDER=hang_cho`, thieu API key KHONG phai loi. Loi that
-    la: (1) yeu cau nam trong `cho/` qua lau (worker khong tra loi), (2) co
-    file trong `loi/` (tra loi khong hop le / worker bao loi).
-    """
-    dam_bao_thu_muc()
-    han = int(HAN_CHO_STALE_GIAY if stale_giay is None else stale_giay)
-    now = time.time()
-    cho, loi, stale = [], [], []
-    for pth in CHO.glob("*.json"):
-        if pth.name.startswith("."):
-            continue
-        cho.append(pth)
-        try:
-            if (now - pth.stat().st_mtime) > han:
-                stale.append(pth.name)
-        except OSError:
-            stale.append(pth.name)
-    for pth in LOI.glob("*.json"):
-        if not pth.name.startswith("."):
-            loi.append(pth.name)
-    ok = (len(stale) == 0 and len(loi) == 0)
-    return {
-        "provider": "hang_cho",
-        "dang_bat": dang_bat(),
-        "cho_n": len(cho),
-        "loi_n": len(loi),
-        "cho_stale_n": len(stale),
-        "stale_giay": han,
-        "cho_stale": stale[:20],
-        "loi": loi[:20],
-        "ok": ok,
-        "mo_ta": ("hang_cho khoe (cho=%d stale=%d loi=%d)" % (len(cho), len(stale), len(loi))
-                  if ok else
-                  "hang_cho HONG: cho=%d stale=%d (>%ds) loi=%d" % (
-                      len(cho), len(stale), han, len(loi))),
-    }
 
 
 def thong_ke() -> int:
