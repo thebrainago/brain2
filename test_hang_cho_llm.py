@@ -52,6 +52,12 @@ def test_tra_loi_va_doc_lai(hang, tmp_path):
     r2 = HCL.xep_hang("nghi_de_xuat", "sys", "prompt-B", tru="NGHI", ep_json=True)
     assert r2["trang_thai"] == "OK" and "de_xuat" in r2["van_ban"]
     assert r2.get("pending") is False
+    # Da tieu thu: chu ky sau (cung loai, prompt khac) phai xep CHO moi, khong
+    # tra lai cung mot orphan.
+    r3 = HCL.xep_hang("nghi_de_xuat", "sys", "prompt-B-vong-2", tru="NGHI", ep_json=True)
+    assert r3["trang_thai"] == "CHO" and r3["pending"] is True
+    # Id on dinh: prompt xoay van cung id
+    assert r3["id"] == i
 
 
 def test_tra_loi_invalid_vao_loi(hang, tmp_path):
@@ -146,3 +152,42 @@ def test_dieu_phoi_khong_fatal_openai_khi_hang_cho(hang, monkeypatch):
         nhip_moi=True)
     assert dg["ok"] is True or dg["status"] == "degraded"
     assert not any("payload.loi" in f for f in dg["fatal"])
+
+
+
+def test_nghi_prompt_xoay_tieu_thu_theo_loai(hang, tmp_path):
+    """Bug 2: prompt NGHI xoay → bam lech; van nhat tra loi chua tieu thu cung loai."""
+    # Gia lap orphan: worker tra loi id CU (bam theo prompt cu, khac id on dinh).
+    orphan_id = "deadbeeforphan0000000001"
+    (HCL.XONG / ("%s.json" % orphan_id)).write_text(json.dumps({
+        "id": orphan_id, "ok": True, "loai_viec": "nghi_de_xuat", "tru": "NGHI",
+        "van_ban": json.dumps({"de_xuat": [{"ten": "co_che_orphan", "ho": "xu_huong",
+                                            "co_che": "ai tra tien khi A khi B",
+                                            "vao": [], "nguon": ""}],
+                               "ly_do_chon": "orphan"}, ensure_ascii=False),
+        "json": {"de_xuat": [{"ten": "co_che_orphan"}], "ly_do_chon": "orphan"},
+        "da_tieu_thu": False,
+    }, ensure_ascii=False), encoding="utf-8")
+    # Prompt MOI (id on dinh khac orphan_id) — phai nhat orphan theo loai
+    r = HCL.xep_hang("nghi_de_xuat", "sys", "prompt-XOAY-tai-lieu-vong-99",
+                     tru="NGHI", ep_json=True)
+    assert r["trang_thai"] == "OK"
+    assert r.get("tieu_thu_theo_loai") is True or "orphan" in (r.get("ghi_chu") or "")
+    assert "co_che_orphan" in r["van_ban"]
+    # Orphan da danh dau tieu thu
+    d = json.loads((HCL.XONG / ("%s.json" % orphan_id)).read_text(encoding="utf-8"))
+    assert d.get("da_tieu_thu") is True
+    # Lan sau khong nhat lai
+    r2 = HCL.xep_hang("nghi_de_xuat", "sys", "prompt-XOAY-tiep", tru="NGHI", ep_json=True)
+    assert r2["trang_thai"] == "CHO"
+
+
+def test_id_on_dinh_nghi_khong_phu_nhac(hang):
+    a = HCL.bam_yeu_cau("nghi_de_xuat", "sys", "prompt-1", tru="NGHI")
+    b = HCL.bam_yeu_cau("nghi_de_xuat", "sys-khac", "prompt-2-xoay", tru="NGHI")
+    assert a == b
+    c = HCL.bam_yeu_cau("dich_boc", "sys", "prompt-1")
+    d = HCL.bam_yeu_cau("dich_boc", "sys", "prompt-2")
+    assert c != d
+
+

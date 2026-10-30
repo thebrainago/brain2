@@ -200,6 +200,19 @@ def doc_tai_lieu(n: int = 8) -> list[dict]:
 _BAN_DO_TOI_DA = 12
 
 
+def _la_phien_nghi_artifact(r: dict) -> bool:
+    """True neu huong dang bi treo nghi artifact phien/mua_qua_dem."""
+    ma = str(r.get("gt_ma") or "").lower()
+    ho = str(r.get("ho") or "").lower()
+    if ho == "phien":
+        return True
+    if "mua_qua_dem" in ma:
+        return True
+    if "audcad" in ma and "phien" in ma:
+        return True
+    return False
+
+
 def _ban_do_quantlab() -> list[str]:
     """Toan canh nhung gi QUANTLAB DA THU - de NGHI khong dao lai va biet dao dau.
 
@@ -255,9 +268,20 @@ def _ban_do_quantlab() -> list[str]:
             "WHERE k.verdict != 'PASS' AND k.alpha > 0 AND k.t_alpha > 1.5 "
             "GROUP BY k.gt_ma ORDER BY MAX(k.t_alpha) DESC LIMIT ?",
             _BAN_DO_TOI_DA * 3)
-        gan = [r for r in tho if r["gt_ma"] not in treo][:_BAN_DO_TOI_DA]
+        # 31/10/2026: ho `phien` / mau mua_qua_dem (AUDCAD.H4...) co alpha
+        # ~12.6x MAD — nghi ARTIFACT chua xac minh bang tick that. Khong day
+        # NGHI dao sau huong nay cho den khi co xac minh.
+        gan = [r for r in tho
+               if r["gt_ma"] not in treo and not _la_phien_nghi_artifact(r)][:_BAN_DO_TOI_DA]
     except Exception:
         gan = []
+    ra += [
+        "== TAM NGUNG HO `phien` / mau `mua_qua_dem` ==",
+        "Alpha ~12.6x MAD (AUDCAD.H4.mua_qua_dem) nghi artifact chua xac minh "
+        "bang tick that. KHONG de xuat bien the phien/mua_qua_dem cho den khi "
+        "co xac minh. Uu tien ho khac.",
+        "",
+    ]
     if gan:
         ra += ["== HUONG CO DAU HIEU (FAIL nhung alpha DUONG va t > 1,5) ==",
                "(KHONG phai 'gan thang' - la huong dang dao sau, dat them dieu "
@@ -342,6 +366,8 @@ def _nhac(dc: dict, tl: list[dict]) -> str:
         "     danh sach ben tren, dat `nguon` = DUNG url cua tai lieu do. Neu la",
         "     y tuong cua rieng ban (khong tu tai lieu nao) thi de `nguon` RONG.",
         "     Dung bia URL - may se loai moi nguon khong khop danh sach.",
+        "  7. CAM de xuat ho `phien` / mau `mua_qua_dem` (ke ca bien the AUDCAD)",
+        "     cho den khi co xac minh bang tick that — alpha cao dang nghi artifact.",
     ]
     return "\n".join(p)
 
@@ -416,6 +442,50 @@ def ghi_de_xuat(spec: dict, r: dict, dieu_kien_sai: str = "") -> None:
 
 
 # ------------------------------------------------------------------ MOT LUOT
+def nap_tra_loi_hang_cho_mo_coi(tl: list[dict] | None = None) -> dict:
+    """Nhat orphan hang_cho_llm/xong (nghi_de_xuat chua tieu thu) vao de_xuat.
+
+    Bug 31/10/2026: bam theo prompt → moi chu ky tai lieu xoay tao id moi;
+    worker tra loi id cu → de_xuat trong. Goi mot lan dau chu ky (va co the
+    thu cong) de nap het orphan dang co.
+    """
+    from nhan import hang_cho_llm as HCL
+    ra = {"nap": 0, "nhan": [], "tu_choi": [], "ids": []}
+    # Lap toi da 20 orphan / lan — moi lan tieu thu 1 file.
+    for _ in range(20):
+        orphan = HCL.tim_tra_loi_chua_tieu_thu("nghi_de_xuat", tru="NGHI")
+        if not orphan:
+            orphan = HCL.tim_tra_loi_chua_tieu_thu("nghi_de_xuat", tru="")
+        if not orphan or orphan.get("trang_thai") != "OK":
+            break
+        HCL.danh_dau_da_tieu_thu(orphan["id"])
+        js = orphan.get("json")
+        if not isinstance(js, dict):
+            try:
+                js = json.loads(orphan.get("van_ban") or "")
+            except Exception:
+                js = None
+        if not isinstance(js, dict):
+            from nhan import hang_cho_llm as _h
+            js = _h._json_trong_vb(orphan.get("van_ban") or "")
+        if not isinstance(js, dict):
+            continue
+        ds = js.get("de_xuat") or []
+        if not isinstance(ds, list) or not ds:
+            continue
+        kiem = kiem_va_nhan(ds, tl)
+        ra["nap"] += 1
+        ra["ids"].append(orphan["id"])
+        ra["nhan"] += kiem.get("nhan") or []
+        ra["tu_choi"] += kiem.get("tu_choi") or []
+    if ra["nap"]:
+        SO.ghi_su_kien(TRU, "nap_hang_cho_mo_coi",
+                       {"nap": ra["nap"], "ids": ra["ids"][:10],
+                        "nhan": ra["nhan"][:20]})
+        NP.nap_vao_mau()
+    return ra
+
+
 def mot_luot(ep: bool = False) -> dict:
     SO.nhip_tim(TRU, "chay")
     t0 = time.time()
@@ -423,10 +493,14 @@ def mot_luot(ep: bool = False) -> dict:
 
     dc = doi_chieu()
     tl = doc_tai_lieu()
+    # Truoc khi xep prompt moi: nap orphan hang_cho (prompt xoay → id lech).
+    orphan_nap = nap_tra_loi_hang_cho_mo_coi(tl)
     kq = de_xuat_moi(dc, tl, ep=ep)
 
     ra = {"doi_chieu": {k: v for k, v in dc.items() if not k.startswith("_")},
           "tai_lieu_doc": len(tl), "duong": kq.get("duong")}
+    if orphan_nap.get("nap"):
+        ra["nap_hang_cho_mo_coi"] = orphan_nap
     if kq.get("bo_qua"):
         ra["bo_qua"] = kq["bo_qua"]
         SO.nhip_tim(TRU, "nghi", {"bo_qua": kq["bo_qua"], "cho_giay": 3600})
