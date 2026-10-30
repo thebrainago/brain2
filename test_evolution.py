@@ -544,3 +544,71 @@ class HaiViecTuSuaMoiPhaiCoRanhGioi(unittest.TestCase):
         import inspect
         nguon = inspect.getsource(EVO.tu_sua)
         self.assertNotIn(".py", nguon, "duong tu sua nhac toi mot file .py")
+
+
+class QuaNhieuPassSoftVsHard(SoTam):
+    """loi_nhuan soft PASS khong duoc bao NANG nhu hard PASS."""
+
+    def _ghi_pass(self, ma, soft=True):
+        cong = {
+            "1_loi_hon_mua_giu": True,
+            "4_alpha_duong_co_y_nghia": (not soft),
+            "5_placebo": (not soft),
+            "11_khong_an_khe_dao_ngay": True,
+            "14_lai_rong_duong": True,
+            "15_lai_10_sut_giam_80": True,
+            "7_chi_phi_do_duoc": True,
+        }
+        SO.ghi_ket_qua(ma, {"he": {}}, cong, "PASS", 0.5, 0.0, 1.0)
+
+    def test_soft_pass_nhieu_bao_VUA_khong_NANG(self):
+        for i in range(8):
+            self._ghi_pass(f"EURUSD.H1.soft_{i}", soft=True)
+        ds = EVO.phat_hien(_van_hanh(), _suc_khoe())
+        by = {d["ma"]: d for d in ds}
+        self.assertIn("qua_nhieu_pass", by)
+        self.assertEqual(by["qua_nhieu_pass"]["muc"], "VUA")
+        self.assertEqual(by["qua_nhieu_pass"]["bc"]["so_pass_soft"], 8)
+        self.assertEqual(by["qua_nhieu_pass"]["bc"]["so_pass_hard"], 0)
+
+    def test_hard_pass_nhieu_bao_NANG(self):
+        for i in range(6):
+            self._ghi_pass(f"EURUSD.H1.hard_{i}", soft=False)
+        ds = EVO.phat_hien(_van_hanh(), _suc_khoe())
+        by = {d["ma"]: d for d in ds}
+        self.assertIn("qua_nhieu_pass", by)
+        self.assertEqual(by["qua_nhieu_pass"]["muc"], "NANG")
+        self.assertEqual(by["qua_nhieu_pass"]["bc"]["so_pass_hard"], 6)
+
+
+class HangChoLlmSucKhoe(SoTam):
+    def test_hang_cho_stale_bao_tre(self):
+        import os, time, tempfile
+        from nhan import hang_cho_llm as HCL
+        td = tempfile.TemporaryDirectory()
+        self.addCleanup(td.cleanup)
+        goc = Path(td.name)
+        HCL.GOC, HCL.CHO, HCL.XONG, HCL.LOI = goc, goc / "cho", goc / "xong", goc / "loi"
+        HCL.dam_bao_thu_muc()
+        os.environ["BRAIN_LLM_PROVIDER"] = "hang_cho"
+        self.addCleanup(lambda: os.environ.pop("BRAIN_LLM_PROVIDER", None))
+        r = HCL.xep_hang("nghi_de_xuat", "s", "p-evo-stale", tru="NGHI")
+        p = HCL.CHO / ("%s.json" % r["id"])
+        cu = time.time() - 7200
+        os.utime(p, (cu, cu))
+        ds = EVO.phat_hien(_van_hanh(), _suc_khoe())
+        self.assertIn("hang_cho_llm_tre", _ma(ds))
+
+    def test_hang_cho_khoe_khong_bao(self):
+        import os, tempfile
+        from nhan import hang_cho_llm as HCL
+        td = tempfile.TemporaryDirectory()
+        self.addCleanup(td.cleanup)
+        goc = Path(td.name)
+        HCL.GOC, HCL.CHO, HCL.XONG, HCL.LOI = goc, goc / "cho", goc / "xong", goc / "loi"
+        HCL.dam_bao_thu_muc()
+        os.environ["BRAIN_LLM_PROVIDER"] = "hang_cho"
+        self.addCleanup(lambda: os.environ.pop("BRAIN_LLM_PROVIDER", None))
+        ds = EVO.phat_hien(_van_hanh(), _suc_khoe())
+        self.assertNotIn("hang_cho_llm_tre", _ma(ds))
+        self.assertNotIn("hang_cho_llm_loi", _ma(ds))

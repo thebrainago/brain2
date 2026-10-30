@@ -341,6 +341,51 @@ def tra_loi(i: str, tep: str) -> int:
     return 0
 
 
+#: Cho qua lau trong cho/ ma chua co tra loi -> canh bao Evo/mach.
+HAN_CHO_STALE_GIAY = 30 * 60
+
+
+def suc_khoe(stale_giay: int | None = None) -> dict:
+    """Do suc khoe hang cho LLM (thay cho kiem OPENAI_API_KEY).
+
+    Khi `BRAIN_LLM_PROVIDER=hang_cho`, thieu API key KHONG phai loi. Loi that
+    la: (1) yeu cau nam trong `cho/` qua lau (worker khong tra loi), (2) co
+    file trong `loi/` (tra loi khong hop le / worker bao loi).
+    """
+    dam_bao_thu_muc()
+    han = int(HAN_CHO_STALE_GIAY if stale_giay is None else stale_giay)
+    now = time.time()
+    cho, loi, stale = [], [], []
+    for pth in CHO.glob("*.json"):
+        if pth.name.startswith("."):
+            continue
+        cho.append(pth)
+        try:
+            if (now - pth.stat().st_mtime) > han:
+                stale.append(pth.name)
+        except OSError:
+            stale.append(pth.name)
+    for pth in LOI.glob("*.json"):
+        if not pth.name.startswith("."):
+            loi.append(pth.name)
+    ok = (len(stale) == 0 and len(loi) == 0)
+    return {
+        "provider": "hang_cho",
+        "dang_bat": dang_bat(),
+        "cho_n": len(cho),
+        "loi_n": len(loi),
+        "cho_stale_n": len(stale),
+        "stale_giay": han,
+        "cho_stale": stale[:20],
+        "loi": loi[:20],
+        "ok": ok,
+        "mo_ta": ("hang_cho khoe (cho=%d stale=%d loi=%d)" % (len(cho), len(stale), len(loi))
+                  if ok else
+                  "hang_cho HONG: cho=%d stale=%d (>%ds) loi=%d" % (
+                      len(cho), len(stale), han, len(loi))),
+    }
+
+
 def thong_ke() -> int:
     dam_bao_thu_muc()
 

@@ -595,7 +595,29 @@ def danh_gia_ket_qua(rc: int, payload: dict | None, nhip: dict | None,
         suy_giam.append("stdout_khong_co_json")
     else:
         if payload.get("loi") not in (None, "", 0, False, [], {}):
-            fatal.append(f"payload.loi={str(payload['loi'])[:120]}")
+            loi_s = str(payload["loi"])
+            # hang_cho: thieu OPENAI_API_KEY khong phai fatal — queue file thay the.
+            _bo_openai = False
+            try:
+                from nhan import hang_cho_llm as _HCL
+                if _HCL.dang_bat() and (
+                        "OPENAI_API_KEY" in loi_s
+                        or "thieu OPENAI" in loi_s
+                        or "cc-switch khong co provider" in loi_s):
+                    sk = _HCL.suc_khoe()
+                    if sk.get("ok"):
+                        suy_giam.append(
+                            "hang_cho_bo_qua_openai_key: " + loi_s[:80])
+                        _bo_openai = True
+                    else:
+                        fatal.append(
+                            "hang_cho_hong+loi=%s|%s"
+                            % (sk.get("mo_ta", "")[:60], loi_s[:60]))
+                        _bo_openai = True
+            except Exception:
+                _bo_openai = False
+            if not _bo_openai:
+                fatal.append(f"payload.loi={loi_s[:120]}")
         if payload.get("bo_qua"):
             bo_qua = str(payload["bo_qua"])[:120]
         nested = [x for x in _duong_loi(payload) if not x.startswith("$.loi=")]

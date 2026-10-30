@@ -101,3 +101,48 @@ def test_cli_liet_ke_thong_ke(hang, capsys):
     out = capsys.readouterr().out
     assert '"cho": 2' in out or '"cho":2' in out.replace(" ", "")
     assert HCL.thong_ke() == 0
+
+
+def test_suc_khoe_ok_khi_rong(hang):
+    sk = HCL.suc_khoe(stale_giay=60)
+    assert sk["ok"] is True
+    assert sk["cho_n"] == 0 and sk["loi_n"] == 0 and sk["cho_stale_n"] == 0
+    assert sk["provider"] == "hang_cho"
+
+
+def test_suc_khoe_phat_stale_va_loi(hang, monkeypatch):
+    import time
+    r = HCL.xep_hang("nghi_de_xuat", "s", "prompt-stale", tru="NGHI")
+    p = HCL.CHO / ("%s.json" % r["id"])
+    # gia lap file cu
+    cu = time.time() - 7200
+    import os as _os
+    _os.utime(p, (cu, cu))
+    sk = HCL.suc_khoe(stale_giay=1800)
+    assert sk["ok"] is False
+    assert sk["cho_stale_n"] == 1
+    # them loi/
+    (HCL.LOI / "x.json").write_text("{}", encoding="utf-8")
+    sk2 = HCL.suc_khoe(stale_giay=1800)
+    assert sk2["loi_n"] == 1 and sk2["ok"] is False
+
+
+def test_mach_c_duong_llm_hang_cho_khong_can_openai(hang, monkeypatch):
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    from nhan import mach
+    kq = mach.c_duong_llm()
+    assert kq["gia_tri"] == "hang_cho"
+    assert kq["trang_thai"] == mach.TOT
+    assert "hang_cho" in (kq.get("mo_ta") or "")
+
+
+def test_dieu_phoi_khong_fatal_openai_khi_hang_cho(hang, monkeypatch):
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    import dieu_phoi as DP
+    # nhip_moi=True de khong them fatal nhip
+    dg = DP.danh_gia_ket_qua(
+        0, {"loi": "thieu OPENAI_API_KEY (va cc-switch khong co provider nao)"},
+        {"trang_thai": "nghi", "luc": "2026-10-30 12:00:00", "chi_tiet_obj": {}},
+        nhip_moi=True)
+    assert dg["ok"] is True or dg["status"] == "degraded"
+    assert not any("payload.loi" in f for f in dg["fatal"])
