@@ -1,0 +1,377 @@
+{
+  "he": [
+    {
+      "he_id": "example",
+      "so_lenh": 313,
+      "thu_muc": "/workspace/brain2-tin-hieu/data/tin_hieu_cong_khai/fxblue/example"
+    },
+    {
+      "he_id": "fluidtrader-demo",
+      "so_lenh": 589,
+      "thu_muc": "/workspace/brain2-tin-hieu/data/tin_hieu_cong_khai/fxblue/fluidtrader-demo"
+    },
+    {
+      "he_id": "memberforex42",
+      "so_lenh": 1571,
+      "thu_muc": "/workspace/brain2-tin-hieu/data/tin_hieu_cong_khai/fxblue/memberforex42"
+    },
+    {
+      "he_id": "673",
+      "so_lenh": 171,
+      "thu_muc": "/workspace/brain2-tin-hieu/data/tin_hieu_cong_khai/fxblue/673"
+    },
+    {
+      "he_id": "demo_20230303",
+      "so_lenh": 2380,
+      "thu_muc": "/workspace/brain2-tin-hieu/data/tin_hieu_cong_khai/fxblue/demo_20230303"
+    },
+    {
+      "he_id": "artificial-quant-1",
+      "so_lenh": 5329,
+      "thu_muc": "/workspace/brain2-tin-hieu/data/tin_hieu_cong_khai/fxblue/artificial-quant-1"
+    },
+    {
+      "he_id": "66367297",
+      "so_lenh": 2107,
+      "thu_muc": "/workspace/brain2-tin-hieu/data/tin_hieu_cong_khai/fxblue/66367297"
+    },
+    {
+      "he_id": "eshuu2025",
+      "so_lenh": 1019,
+      "thu_muc": "/workspace/brain2-tin-hieu/data/tin_hieu_cong_khai/fxblue/eshuu2025"
+    },
+    {
+      "he_id": "managed-forex",
+      "so_lenh": 1325,
+      "thu_muc": "/workspace/brain2-tin-hieu/data/tin_hieu_cong_khai/fxblue/managed-forex"
+    },
+    {
+      "he_id": "20429853",
+      "so_lenh": 6320,
+      "thu_muc": "/workspace/brain2-tin-hieu/data/tin_hieu_cong_khai/fxblue/20429853"
+    },
+    {
+      "he_id": "forexrobotinfo_160",
+      "so_lenh": 887,
+      "thu_muc": "/workspace/brain2-tin-hieu/data/tin_hieu_cong_khai/fxblue/forexrobotinfo_160"
+    }
+  ],
+  "loi": [
+    {
+      "he_id": "area_bursatil",
+      "ly_do": "loi_mang: HTTP Error 404: Not Found"
+    }
+  ],
+  "dich": [
+    {
+      "he_id": "example",
+      "track": "dca",
+      "nguon": "fxblue",
+      "trang_thai": "CHO",
+      "id": "9081ef64973830adf4d63863",
+      "so_lenh": 313,
+      "so_multi": 42,
+      "ho_so_path": "/workspace/brain2-tin-hieu/data/tin_hieu_cong_khai/fxblue/example/ho_so_dca.json",
+      "loc": {
+        "quyet_dinh": "canh_bao",
+        "martingale": true,
+        "grid": true,
+        "khong_sl": false,
+        "chi_tiet": [
+          "martingale EURUSD lot 0.090->0.180 sau lo",
+          "martingale EURCHF lot 0.090->0.180 sau lo",
+          "grid EURCHF chieu=1 3 lenh/6h"
+        ],
+        "ty_le_co_sl": 1.0,
+        "cv_lot": 0.281
+      }
+    },
+    {
+      "he_id": "fluidtrader-demo",
+      "track": "dca",
+      "nguon": "fxblue",
+      "trang_thai": "CHO",
+      "id": "30566ad452d8184e3f5c4cee",
+      "so_lenh": 589,
+      "so_multi": 104,
+      "ho_so_path": "/workspace/brain2-tin-hieu/data/tin_hieu_cong_khai/fxblue/fluidtrader-demo/ho_so_dca.json",
+      "loc": {
+        "quyet_dinh": "canh_bao",
+        "martingale": true,
+        "grid": true,
+        "khong_sl": false,
+        "chi_tiet": [
+          "martingale AUDUSD lot 0.040->0.110 sau lo",
+          "martingale USDCHF lot 0.040->0.110 sau lo",
+          "grid AUDUSD chieu=1 3 lenh/6h"
+        ],
+        "ty_le_co_sl": 0.978,
+        "cv_lot": 1.175
+      }
+    },
+    {
+      "he_id": "memberforex42",
+      "track": "dca",
+      "nguon": "fxblue",
+      "trang_thai": "CHO",
+      "id": "2fe6ce41724bed087010f27e",
+      "so_lenh": 1571,
+      "so_multi": 74,
+      "ho_so_path": "/workspace/brain2-tin-hieu/data/tin_hieu_cong_khai/fxblue/memberforex42/ho_so_dca.json",
+      "loc": {
+        "quyet_dinh": "canh_bao",
+        "martingale": true,
+        "grid": true,
+        "khong_sl": true,
+        "chi_tiet": [
+          "ty_le_sl=0.00 < 0.55",
+          "martingale AUDNZD lot 0.010->0.020 sau lo",
+          "martingale EURCHF lot 0.010->0.020 sau lo",
+          "martingale AUDCHF lot 0.010->0.020 sau lo",
+          "martingale NZDCHF lot 0.010->0.020 sau lo",
+          "grid AUDNZD chieu=1 3 lenh/6h"
+        ],
+        "ty_le_co_sl": 0.0,
+        "cv_lot": 0.494
+      }
+    },
+    {
+      "he_id": "673",
+      "track": "dca",
+      "nguon": "fxblue",
+      "trang_thai": "CHO",
+      "id": "adb151048930a9174f593864",
+      "so_lenh": 171,
+      "so_multi": 26,
+      "ho_so_path": "/workspace/brain2-tin-hieu/data/tin_hieu_cong_khai/fxblue/673/ho_so_dca.json",
+      "loc": {
+        "quyet_dinh": "canh_bao",
+        "martingale": true,
+        "grid": true,
+        "khong_sl": false,
+        "chi_tiet": [
+          "martingale GER30 lot 1.000->3.000 sau lo",
+          "martingale USDJPY lot 0.010->0.020 sau lo",
+          "grid EURUSD chieu=-1 3 lenh/6h"
+        ],
+        "ty_le_co_sl": 0.789,
+        "cv_lot": 0.724
+      }
+    },
+    {
+      "he_id": "demo_20230303",
+      "track": "dca",
+      "nguon": "fxblue",
+      "trang_thai": "CHO",
+      "id": "832bca52ded15828258996a1",
+      "so_lenh": 2380,
+      "so_multi": 372,
+      "ho_so_path": "/workspace/brain2-tin-hieu/data/tin_hieu_cong_khai/fxblue/demo_20230303/ho_so_dca.json",
+      "loc": {
+        "quyet_dinh": "canh_bao",
+        "martingale": true,
+        "grid": true,
+        "khong_sl": true,
+        "chi_tiet": [
+          "ty_le_sl=0.03 < 0.55",
+          "martingale NZDCAD lot 0.020->0.040 sau lo",
+          "martingale AUDNZD lot 0.010->0.400 sau lo",
+          "martingale AUDCAD lot 0.010->0.020 sau lo",
+          "grid GBPAUD chieu=1 5 lenh/6h"
+        ],
+        "ty_le_co_sl": 0.033,
+        "cv_lot": 0.298
+      }
+    },
+    {
+      "he_id": "artificial-quant-1",
+      "track": "dca",
+      "nguon": "fxblue",
+      "trang_thai": "CHO",
+      "id": "ef3d16d189391244d8350d8e",
+      "so_lenh": 5329,
+      "so_multi": 539,
+      "ho_so_path": "/workspace/brain2-tin-hieu/data/tin_hieu_cong_khai/fxblue/artificial-quant-1/ho_so_dca.json",
+      "loc": {
+        "quyet_dinh": "canh_bao",
+        "martingale": true,
+        "grid": true,
+        "khong_sl": true,
+        "chi_tiet": [
+          "ty_le_sl=0.03 < 0.55",
+          "martingale AUDJPY.ptb lot 0.010->0.040 sau lo",
+          "martingale AUDUSD.pri lot 0.010->0.020 sau lo",
+          "martingale EURUSD.pri lot 0.010->0.020 sau lo",
+          "martingale GBPUSD.pri lot 0.010->0.020 sau lo",
+          "martingale EURAUD.pri lot 0.010->0.020 sau lo",
+          "martingale EURGBP.pri lot 0.010->0.020 sau lo",
+          "martingale AUDNZD.pri lot 0.010->0.020 sau lo",
+          "martingale EURNZD.pri lot 0.010->0.020 sau lo",
+          "martingale GBPNZD.pri lot 0.010->0.030 sau lo",
+          "martingale NZDCAD.pri lot 0.010->0.020 sau lo",
+          "martingale EURUSD.prs lot 0.010->0.040 sau lo",
+          "martingale GBPCAD.pri lot 0.010->0.020 sau lo",
+          "martingale USDCAD.pri lot 0.010->0.020 sau lo",
+          "martingale AUDUSD.sp lot 0.010->0.020 sau lo",
+          "martingale EURCAD.sp lot 0.010->0.020 sau lo",
+          "martingale EURGBP.ptb lot 0.030->0.110 sau lo",
+          "martingale NZDUSD.sp lot 0.010->0.020 sau lo",
+          "martingale EURGBP.prs lot 0.010->0.040 sau lo",
+          "grid AUDJPY.ptb chieu=1 3 lenh/6h"
+        ],
+        "ty_le_co_sl": 0.028,
+        "cv_lot": 0.553
+      }
+    },
+    {
+      "he_id": "66367297",
+      "track": "dca",
+      "nguon": "fxblue",
+      "trang_thai": "CHO",
+      "id": "afd5de14cf063e95f87f24c7",
+      "so_lenh": 2107,
+      "so_multi": 176,
+      "ho_so_path": "/workspace/brain2-tin-hieu/data/tin_hieu_cong_khai/fxblue/66367297/ho_so_dca.json",
+      "loc": {
+        "quyet_dinh": "canh_bao",
+        "martingale": true,
+        "grid": true,
+        "khong_sl": true,
+        "chi_tiet": [
+          "ty_le_sl=0.00 < 0.55",
+          "martingale GBPJPY lot 0.010->0.020 sau lo",
+          "martingale GBPAUD lot 0.010->0.020 sau lo",
+          "martingale GBPUSD lot 0.010->0.020 sau lo",
+          "martingale GBPCHF lot 0.010->0.020 sau lo",
+          "martingale GBPCAD lot 0.010->0.020 sau lo",
+          "martingale GBPNZD lot 0.010->0.020 sau lo",
+          "grid GBPJPY chieu=1 3 lenh/6h"
+        ],
+        "ty_le_co_sl": 0.0,
+        "cv_lot": 1.412
+      }
+    },
+    {
+      "he_id": "eshuu2025",
+      "track": "dca",
+      "nguon": "fxblue",
+      "trang_thai": "CHO",
+      "id": "33f6b1e6a8ee4f2d75541f42",
+      "so_lenh": 1019,
+      "so_multi": 234,
+      "ho_so_path": "/workspace/brain2-tin-hieu/data/tin_hieu_cong_khai/fxblue/eshuu2025/ho_so_dca.json",
+      "loc": {
+        "quyet_dinh": "canh_bao",
+        "martingale": true,
+        "grid": true,
+        "khong_sl": true,
+        "chi_tiet": [
+          "ty_le_sl=0.00 < 0.55",
+          "martingale USDCHF lot 0.030->0.760 sau lo",
+          "martingale AUDUSD lot 0.010->2.480 sau lo",
+          "martingale GBPJPY lot 0.030->0.610 sau lo",
+          "martingale EURCHF lot 1.000->5.080 sau lo",
+          "martingale NZDCAD lot 0.420->1.940 sau lo",
+          "martingale AUDJPY lot 0.050->1.170 sau lo",
+          "martingale EURNZD lot 0.030->0.700 sau lo",
+          "martingale USDCAD lot 0.060->0.110 sau lo",
+          "martingale GBPCAD lot 0.040->0.930 sau lo",
+          "martingale GBPNZD lot 0.030->0.280 sau lo",
+          "martingale GBPUSD lot 0.020->0.550 sau lo",
+          "martingale CADCHF lot 0.060->1.360 sau lo",
+          "martingale AUDCAD lot 0.070->1.720 sau lo",
+          "martingale GBPAUD lot 0.040->0.800 sau lo",
+          "martingale EURAUD lot 0.070->1.140 sau lo",
+          "martingale NZDCHF lot 0.090->1.930 sau lo",
+          "martingale EURGBP lot 0.060->1.220 sau lo",
+          "martingale CADJPY lot 0.070->1.240 sau lo",
+          "martingale EURJPY lot 0.020->0.500 sau lo",
+          "martingale EURUSD lot 0.030->0.720 sau lo",
+          "martingale AUDCHF lot 0.160->1.330 sau lo",
+          "martingale USDJPY lot 0.030->0.830 sau lo",
+          "martingale NZDJPY lot 0.060->0.340 sau lo",
+          "martingale AUDNZD lot 0.100->0.370 sau lo",
+          "grid USDCHF chieu=1 3 lenh/6h"
+        ],
+        "ty_le_co_sl": 0.001,
+        "cv_lot": 1.343
+      }
+    },
+    {
+      "he_id": "managed-forex",
+      "track": "dca",
+      "nguon": "fxblue",
+      "trang_thai": "CHO",
+      "id": "a73c74ec54dcbe63aac1cd5a",
+      "so_lenh": 1325,
+      "so_multi": 63,
+      "ho_so_path": "/workspace/brain2-tin-hieu/data/tin_hieu_cong_khai/fxblue/managed-forex/ho_so_dca.json",
+      "loc": {
+        "quyet_dinh": "canh_bao",
+        "martingale": true,
+        "grid": true,
+        "khong_sl": false,
+        "chi_tiet": [
+          "martingale AUDUSD lot 0.050->0.090 sau lo",
+          "martingale USDJPY lot 0.120->0.200 sau lo",
+          "martingale EURUSD lot 0.050->0.090 sau lo",
+          "martingale EURJPY lot 0.050->0.090 sau lo",
+          "grid archived chieu=1 4 lenh/6h"
+        ],
+        "ty_le_co_sl": 0.984,
+        "cv_lot": 4.09
+      }
+    },
+    {
+      "he_id": "20429853",
+      "track": "dca",
+      "nguon": "fxblue",
+      "trang_thai": "CHO",
+      "id": "f0e9203bedcf72839155bc98",
+      "so_lenh": 6320,
+      "so_multi": 2,
+      "ho_so_path": "/workspace/brain2-tin-hieu/data/tin_hieu_cong_khai/fxblue/20429853/ho_so_dca.json",
+      "loc": {
+        "quyet_dinh": "canh_bao",
+        "martingale": true,
+        "grid": true,
+        "khong_sl": true,
+        "chi_tiet": [
+          "ty_le_sl=0.00 < 0.55",
+          "martingale USOIL# lot 0.100->0.250 sau lo",
+          "grid USOIL# chieu=1 547 lenh/6h"
+        ],
+        "ty_le_co_sl": 0.0,
+        "cv_lot": 2.727
+      }
+    },
+    {
+      "he_id": "forexrobotinfo_160",
+      "track": "dca",
+      "nguon": "fxblue",
+      "trang_thai": "CHO",
+      "id": "b5f8ce87eee397293d4faa56",
+      "so_lenh": 887,
+      "so_multi": 88,
+      "ho_so_path": "/workspace/brain2-tin-hieu/data/tin_hieu_cong_khai/fxblue/forexrobotinfo_160/ho_so_dca.json",
+      "loc": {
+        "quyet_dinh": "canh_bao",
+        "martingale": false,
+        "grid": true,
+        "khong_sl": false,
+        "chi_tiet": [
+          "grid EURUSD chieu=1 3 lenh/6h"
+        ],
+        "ty_le_co_sl": 1.0,
+        "cv_lot": 0.278
+      }
+    }
+  ],
+  "bo": [],
+  "viec": {
+    "so_viec": 11,
+    "hang": "/workspace/brain2-tin-hieu/reports/vong2/hang_cho_tin_hieu.jsonl",
+    "viet_luc": "2026-10-30T22:28:51"
+  },
+  "mirror": 14
+}
