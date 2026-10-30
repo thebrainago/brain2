@@ -218,8 +218,8 @@ def tra_khoa(sym: str, chu: str, kho: Path = KHO_TICK) -> None:
 
 
 def duoc_chay_tick(v: dict, chu: str, kho: Path = KHO_TICK) -> bool:
-    """Viec real tick: symbol da am -> chay tu do; chua am -> phai giu khoa symbol (1 slot tai)."""
-    if v.get("tang") == 1 or v.get("gen") or tick_am(v["ma"], kho):
+    """Viec real tick: LUON khoa theo symbol (1 slot / ma). grok 30/10: tick_am bypass caused shared history/ticks writer races -> stub_bao_cao_M0_1970 under multi-slot. OHLC tang1/gen free."""
+    if v.get("tang") == 1 or v.get("gen"):
         return True
     return lay_khoa(v["ma"], chu, kho)
 

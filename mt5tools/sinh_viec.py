@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import itertools
 import json
+import os
 from collections import Counter
 import math
 import random
@@ -50,24 +51,48 @@ def _nam(pha: str) -> float:
     return (int(b[:4]) - int(a[:4])) + (int(b[5:7]) - int(a[5:7])) / 12.0 + (int(b[8:10]) - int(a[8:10])) / 365.0
 
 
+def _nam_tu_ky_bc(ky_bc: str | None) -> float | None:
+    """Parse MT5 Period string e.g. 'H1 (2019.01.01 - 2026.10.01)' -> years."""
+    import re
+    m = re.search(r"(\d{4}\.\d{2}\.\d{2})\s*-\s*(\d{4}\.\d{2}\.\d{2})", str(ky_bc or ""))
+    if not m:
+        return None
+    a, b = m.group(1), m.group(2)
+    yrs = (int(b[:4]) - int(a[:4])) + (int(b[5:7]) - int(a[5:7])) / 12.0 + (int(b[8:10]) - int(a[8:10])) / 365.0
+    return yrs if yrs > 0.01 else None
+
+
 def cot_loi(r: dict) -> dict | None:
-    """Lai %/nam (tren von), sut giam % (tu bao cao MT5), lai %/nam khi tang lot toi sut giam 80 %, dat hay khong."""
+    """Lai %/nam = net/von / years (ky_bc or IS/OOS window). Pass cuoi: net>0, DD<=80%, APY>=10%/yr (lot that)."""
     import re
     m = re.search(r"\(([\d.]+)%\)", str(r.get("dd") or ""))
-    if m is None or r.get("net") is None or r.get("pha") not in ("IS", "OOS"):
+    if r.get("lot_csv_nghi_ngo"):
+        return None  # pre-patch CSV-lot inflate; ignore in learning
+    if m is None or r.get("net") is None:
         return None
-    lai, dd = r["net"] / VON / _nam(r["pha"]) * 100.0, float(m.group(1))
+    pha = str(r.get("pha") or "")
+    nam = _nam_tu_ky_bc(r.get("ky_bc"))
+    if nam is None:
+        if pha in ("IS", "OOS"):
+            nam = _nam(pha)
+        else:
+            return None
+    von = float(r.get("von") or VON) or VON
+    lai = float(r["net"]) / von / nam * 100.0
+    dd = float(m.group(1))
     o80 = lai * SUT_GIAM_TOI_DA / dd if dd > 0 else None
-    return {"lai_pct_nam": round(lai, 3), "sut_giam_pct": dd, "lai_pct_nam_o_dd80": round(o80, 1) if o80 is not None else None,
+    dat_lt = bool(_NG.dat(lai, dd, "cuoi")["dat"] and float(r["net"]) > 0)
+    return {"lai_pct_nam": round(lai, 3), "apy_pct": round(lai, 3), "nam": round(nam, 3), "von": von,
+            "sut_giam_pct": dd, "lai_pct_nam_o_dd80": round(o80, 1) if o80 is not None else None,
             "he_so_lot_dd80": round(SUT_GIAM_TOI_DA / dd, 1) if dd > 0 else None,
-            "dat": bool(lai > 0 and (o80 is None or o80 >= LAI_TOI_THIEU)),
-            "kieu_dat": "nhan_lot_tuyen_tinh (tham khao)",
-            # lot THAT cua lan chay MT5 (0,01 tren von 10.000): tang cuoi 80/10 khong nhan lot
-            "dat_lot_that": _NG.dat(lai, dd, "cuoi")["dat"] and r["net"] > 0}
+            "dat": bool(lai > 0 and dd <= SUT_GIAM_TOI_DA and lai >= LAI_TOI_THIEU),
+            "dat_pass_cuoi": dat_lt,  # net>0, DD<=80, APY>=10 at actual lot
+            "kieu_dat": "net/von/years_ky_bc",
+            "dat_lot_that": dat_lt}
 
 
 def khoa(v: dict) -> str:
-    d = {k: v[k] for k in ("ea", "ma", "tf", "ts", "pha")}
+    d = {k: v.get(k) for k in ("ea", "ma", "tf", "ts", "pha")}
     if v.get("tang") == 1:          # 20/10/2026: viec loc tang 1 (OHLC M1) khac khoa voi viec real tick cung thong so
         d["tang"] = 1
     return json.dumps(d, sort_keys=True)
@@ -79,15 +104,63 @@ def la_viec_hai_tang(v: dict) -> bool:
 
 
 def doc_so_cai(p: Path = SO_CAI) -> list[dict]:
+    """Doc so_cai.jsonl; bo qua / quarantine dong JSON hong (ghi song song / cat nut)."""
     if not p.exists():
         return []
-    return [json.loads(x) for x in p.read_text(encoding="utf-8").splitlines() if x.strip()]
+    out: list[dict] = []
+    bad: list[str] = []
+    try:
+        text = p.read_text(encoding="utf-8-sig")
+    except Exception:
+        text = p.read_bytes().decode("utf-8", "replace")
+        if text.startswith("\ufeff"):
+            text = text[1:]
+    for i, x in enumerate(text.splitlines(), 1):
+        s = x.strip()
+        if not s:
+            continue
+        try:
+            out.append(json.loads(s))
+        except json.JSONDecodeError:
+            bad.append("%d\t%s" % (i, s[:500]))
+    if bad:
+        q = p.with_name(p.stem + "_bad_lines.jsonl")
+        try:
+            with open(q, "a", encoding="utf-8", newline="\n") as fq:
+                for b in bad:
+                    fq.write(b + "\n")
+        except Exception:
+            pass
+    return out
 
 
 def ghi(r: dict, p: Path = SO_CAI) -> None:
+    """Append 1 dong JSON; lock file (Windows msvcrt) de tranh cat dong khi nhieu slot ghi."""
     p.parent.mkdir(parents=True, exist_ok=True)
-    with open(p, "a", encoding="utf-8") as f:
-        f.write(json.dumps(r, ensure_ascii=False, sort_keys=True) + "\n")
+    if p.exists() and p.stat().st_size:
+        raw = p.read_bytes()
+        if raw.startswith(b"\xef\xbb\xbf"):
+            p.write_bytes(raw[3:])
+    line = json.dumps(r, ensure_ascii=False, sort_keys=True) + "\n"
+    with open(p, "a", encoding="utf-8", newline="\n") as f:
+        try:
+            import msvcrt
+            msvcrt.locking(f.fileno(), msvcrt.LK_LOCK, 1)
+            try:
+                f.seek(0, 2)
+                f.write(line)
+                f.flush()
+            finally:
+                try:
+                    f.seek(0, 2)
+                    msvcrt.locking(f.fileno(), msvcrt.LK_UNLCK, 1)
+                except Exception:
+                    pass
+        except Exception:
+            f.write(line)
+            f.flush()
+
+
 
 
 def _ts(ea: str, chon: dict) -> dict:
@@ -146,7 +219,8 @@ SO_LAN_THU_TOI_DA = 2
 
 
 def lay_viec(n: int = 1, so_cai: list[dict] | None = None, dang_chay: set[str] | None = None, hat: int = 27,
-             san: str | None = None, hai_tang: bool | None = None, chi_tang1: bool = False) -> list[dict]:
+             san: str | None = None, hai_tang: bool | None = None, chi_tang1: bool = False,
+             dang_ten: set[str] | None = None) -> list[dict]:
     """`san` (19/10/2026): san cua SLOT se chay viec (doc tu config/common.ini cua slot). Co `san` -> chi lay viec
     ong dan cua san do; viec cu V24 (ma XM `#`) chi cho slot XM - tren slot Exness chung chi sinh loi "khong co ma"."""
     sc = doc_so_cai() if so_cai is None else so_cai
@@ -157,9 +231,35 @@ def lay_viec(n: int = 1, so_cai: list[dict] | None = None, dang_chay: set[str] |
         sc = [r for r in sc if not (r.get("ten") in cl and str(r.get("luc") or "") < str(cl[r["ten"]].get("luc") or ""))]
     # 18/10/2026: dong `loi` la CHUA_DO_DUOC, khong phai "da thu". Truoc day moi dong deu vao `xong` nen mot lan
     # chay hong (moi truong, slot treo) xoa bien the do vinh vien khoi hang viec.
-    hong = Counter(khoa(r) for r in sc if r.get("loi"))
-    xong = {khoa(r) for r in sc if not r.get("loi")} | {k for k, c in hong.items() if c >= SO_LAN_THU_TOI_DA} \
+    hong = Counter(khoa(r) for r in sc if r.get("loi") and all(r.get(k) is not None for k in ("ea", "ma", "tf", "pha")))
+    hong_ten = Counter(r.get("ten") for r in sc if r.get("loi") and r.get("ten"))
+    xong = {khoa(r) for r in sc if not r.get("loi") and not r.get("lot_csv_nghi_ngo")} | {k for k, c in hong.items() if c >= SO_LAN_THU_TOI_DA} \
         | (dang_chay or set())
+    xong_ten = {t for t, c in hong_ten.items() if c >= SO_LAN_THU_TOI_DA}  # grok 30/10: cap retries by ten too (loi rows often miss ts)
+    # grok 30/10 22:53: stub/soft_quarantine -> max 1 retry (shared_bases lock thrash); also lock in-flight by ten
+    stub_ten = Counter(r.get("ten") for r in sc if r.get("ten") and (
+        "stub_bao_cao" in str(r.get("loi") or "") or r.get("soft_quarantine") or str(r.get("don_bay_bc") or "") == "1:0"
+        or "1970" in str(r.get("ky_bc") or "")))
+    xong_ten |= {t for t, c in stub_ten.items() if c >= 1}
+    # grok 30/10 23:22: also lock SUCCESS by ten — khoa() can drift (e.g. InpLot0 3.0 vs 0.03 after scale)
+    xong_ten |= {r.get("ten") for r in sc if r.get("ten") and not r.get("loi") and not r.get("lot_csv_nghi_ngo")}
+    if dang_ten:
+        xong_ten |= set(dang_ten)
+    # quarantine sidecar
+    try:
+        qp = GOC / "reports" / "vong2" / "xac_nhan_stub_quarantine.jsonl"
+        if qp.exists():
+            for line in qp.read_text(encoding="utf-8", errors="replace").splitlines():
+                line = line.strip()
+                if not line: continue
+                try:
+                    qr = json.loads(line)
+                except Exception:
+                    continue
+                if qr.get("ten"):
+                    xong_ten.add(qr["ten"])
+    except Exception:
+        pass
     # 20/10/2026 hai tang: ket qua tang 1 (dong so cai tang=1, khong loi) theo khoa tang 2
     if hai_tang is None:
         try:
@@ -174,6 +274,8 @@ def lay_viec(n: int = 1, so_cai: list[dict] | None = None, dang_chay: set[str] |
     sc = [r for r in sc if not r.get("loi")]
     hang = []
     chi_ong_dan = bool(san) and san.lower() != "xm"
+    if os.environ.get("BRAIN_CHI_ONG_DAN", "").strip() in ("1", "true", "True", "yes"):
+        chi_ong_dan = True  # grok: chi viec ong_dan, bo so_cai/MRZ/python_box
     for r in ([] if chi_ong_dan else sc):   # 1) OOS cho bien the dat IS (cao nhat)
         if r.get("pha") == "IS" and dat(r, NGUONG_IS):
             v = {k: r[k] for k in ("ea", "ma", "tf", "ts")}; v.update(pha="OOS", diem=100 + (r.get("pf") or 0))
@@ -190,6 +292,7 @@ def lay_viec(n: int = 1, so_cai: list[dict] | None = None, dang_chay: set[str] |
     if not chi_ong_dan:
         hang += ung_vien(random.Random(hat + len(sc) // 500))
     hang.sort(key=lambda v: -v["diem"])
+    hang = [v for v in hang if khoa(v) not in xong and v.get("ten") not in xong_ten]
     if hai_tang:
         moi = []
         for v in hang:
@@ -205,14 +308,18 @@ def lay_viec(n: int = 1, so_cai: list[dict] | None = None, dang_chay: set[str] |
             else:
                 moi.append(dict(v, tang=1))
         hang = sorted(moi, key=lambda v: -v["diem"])
-    out, thay = [], set()
+    out, thay, thay_ten = [], set(), set()
     for v in hang:
         if chi_tang1 and v.get("tang") != 1:
             continue
         k = khoa(v)
-        if k in xong or k in thay:
+        t = v.get("ten") or ""
+        if k in xong or k in thay or t in xong_ten or t in thay_ten:
             continue
-        thay.add(k); out.append(v)
+        thay.add(k)
+        if t:
+            thay_ten.add(t)
+        out.append(v)
         if len(out) >= n:
             break
     return out
@@ -321,6 +428,55 @@ def thu_muc_common(common: Path | None = None) -> Path:
     return Path(os.environ.get("APPDATA", ".")) / "MetaQuotes" / "Terminal" / "Common" / "Files"
 
 
+
+
+def scale_lot_for_hash_demo(v: dict, scale: float = 0.01) -> dict:
+    """micro lot notionals on # / GOLD.i# need ~100x less size vs deposit. Idempotent via flag."""
+    if v.get("lot_scaled_for_hash"):
+        return v
+    ma = str(v.get("ma") or "")
+    need = ma.endswith("#") or "GOLD" in ma.upper() or v.get("demo_hash_remap") or v.get("ma_goc")
+    if not need:
+        return v
+    ts = dict(v.get("ts") or {})
+    lot0 = float(ts.get("InpLot0") or 0)
+    if lot0 > 0.5:  # still micro-sized numeric
+        ts["InpLot0"] = round(lot0 * scale, 4)
+        v["ts"] = ts
+        py = dict(v.get("python") or {})
+        if "lot0" in py:
+            py["lot0"] = round(float(py["lot0"]) * scale, 4)
+            v["python"] = py
+        pql = dict(v.get("python_ql") or {})
+        if "lot_tren_1000" in pql:
+            pql["lot_tren_1000"] = round(float(pql["lot_tren_1000"]) * scale, 4)
+            v["python_ql"] = pql
+    try:
+        von = float(v.get("von") or 0)
+    except Exception:
+        von = 0
+    if von < 10000:
+        v["von"] = 10000
+    v["lot_scaled_for_hash"] = True
+    return v
+
+
+def remap_ma_hash_demo(sym: str) -> str:
+    """Demo XM 345930355 chi co # (khong *micro). Map CSV ma -> symbol tester."""
+    s = (sym or "").strip()
+    if not s:
+        return s
+    u = s.upper()
+    if u in ("XAUUSD", "XAUUSDMICRO", "GOLDMICRO", "GOLD", "XAUUSD#", "GOLD#"):
+        return "GOLD.i#"
+    if u.endswith("MICRO"):
+        return s[:-5] + "#"
+    # cent suffix e.g. GBPCADc / EURUSDc -> GBPCAD# (demo hash)
+    if len(s) >= 2 and s[-1] in ("c", "C") and s[-2].isalpha() and not u.endswith("#"):
+        return s[:-1] + "#"
+    return s
+
+
 def dat_csv_vao(v: dict, goc: Path, common: Path | None = None) -> Path | None:
     """19/10/2026: viec VAO_CSV -> chep CSV lenh vao (trong repo) vao Common\\Files, xoa file ra cu cua lan truoc."""
     if not v.get("csv_vao"):
@@ -331,6 +487,44 @@ def dat_csv_vao(v: dict, goc: Path, common: Path | None = None) -> Path | None:
     nguon = Path(goc) / v["csv_vao"]
     dich = c / nguon.name
     shutil.copy2(str(nguon), str(dich))
+    # grok 30/10: remap ma column micro-># for demo hash symbols
+    try:
+        lines = dich.read_text(encoding="utf-8", errors="replace").splitlines()
+        if lines and "," in lines[0]:
+            cols = [c.strip() for c in lines[0].split(",")]
+            if "ma" in cols:
+                ima = cols.index("ma")
+                ilot = cols.index("lot") if "lot" in cols else -1
+                out = [lines[0]]
+                ch = 0
+                # scale CSV lot when tester symbol is hash/# (InpLot0 scale alone is ignored by EA)
+                job_ma = str(v.get("ma") or "")
+                force_scale = job_ma.endswith("#") or "GOLD" in job_ma.upper() or bool(v.get("demo_hash_remap"))
+                for line in lines[1:]:
+                    if not line.strip():
+                        continue
+                    parts = line.split(",")
+                    if len(parts) > ima:
+                        old_ma = parts[ima]
+                        nw = remap_ma_hash_demo(old_ma)
+                        if nw != old_ma:
+                            parts[ima] = nw
+                            ch += 1
+                        if ilot >= 0 and len(parts) > ilot and (force_scale or nw != old_ma):
+                            try:
+                                lv = float(parts[ilot])
+                                if lv > 0.5:
+                                    parts[ilot] = str(round(lv * 0.01, 4))
+                                    ch += 1
+                            except ValueError:
+                                pass
+                        out.append(",".join(parts))
+                    else:
+                        out.append(line)
+                if ch:
+                    dich.write_text("\n".join(out) + "\n", encoding="utf-8", newline="\n")
+    except Exception:
+        pass
     for duoi in ("_lenh_mt5.csv", "_gia.csv"):
         cu = c / (nguon.name + duoi)
         if cu.exists():
@@ -407,7 +601,7 @@ def holm(so_cai: list[dict], alpha: float = 0.05) -> dict:
 def tong_ket(so_cai: list[dict] | None = None) -> dict:
     sc = doc_so_cai() if so_cai is None else so_cai
     h = holm(sc)
-    oos = {khoa({**r, "pha": "IS"}): r for r in sc if r.get("pha") == "OOS" and not r.get("loi")}
+    oos = {khoa({**r, "pha": "IS"}): r for r in sc if r.get("pha") == "OOS" and not r.get("loi") and not r.get("lot_csv_nghi_ngo")}
     ung = []
     for r in sc:
         if r.get("pha") == "IS" and dat(r, NGUONG_IS):

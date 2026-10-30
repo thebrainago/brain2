@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """so.py - SO CAI CUA THE BRAIN. Mot nguon su that duy nhat cho ca 4 tru.
 
 Thay cho: bo_nao.py/thu_vien.db, brain_24h queue, vong_lap_state.json,
@@ -22,7 +22,8 @@ from contextlib import contextmanager
 from pathlib import Path
 
 LAB = Path(__file__).resolve().parent.parent
-DB = LAB / "nao.db"
+# Isolated run: set BRAIN_SO to a separate nao.db path (seeker/quantlab parallel runs).
+DB = Path(os.environ["BRAIN_SO"]) if os.environ.get("BRAIN_SO") else (LAB / "nao.db")
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS su_kien(
@@ -259,7 +260,7 @@ def nhip_ngay(in_ra=print) -> dict:
     r["nen_duoc_gb"] = t["gb_trong"]
     r["nen_ngay_di"] = t["ty_le_trong"] >= 0.30 and t["gb_trong"] >= 0.2
     if in_ra:
-        in_ra("nhip ngay: WAL %.1f MB · DB %.2f GB (%.0f%% trong, thu hoi duoc "
+        in_ra("nhip ngay: WAL %.1f MB Â· DB %.2f GB (%.0f%% trong, thu hoi duoc "
               "%.2f GB)%s" % (r["wal"]["wal_mb"], t["gb"], t["ty_le_trong"] * 100,
                               t["gb_trong"],
                               " -> NEN chay `so.nen_gon()`" if r["nen_ngay_di"] else ""))
@@ -892,7 +893,7 @@ def nen_gon(dich, in_ra=print) -> dict:
     ra = {"nguon_gb": t["gb"], "dich_gb": gb, "tiet_kiem_gb": round(t["gb"] - gb, 3),
           "dich": str(dich)}
     if in_ra:
-        in_ra("nen gon: %.2f GB -> %.2f GB (tiet kiem %.2f GB) · %s"
+        in_ra("nen gon: %.2f GB -> %.2f GB (tiet kiem %.2f GB) Â· %s"
               % (ra["nguon_gb"], gb, ra["tiet_kiem_gb"], dich))
     return ra
 
@@ -927,3 +928,4 @@ if __name__ == "__main__":
     print("viec:", json.dumps(dem_viec(), ensure_ascii=False))
     for n in doc_nhip():
         print(f"  nhip {n['tru']:<10} {n['luc']} {n['trang_thai']}")
+
