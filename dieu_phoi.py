@@ -755,6 +755,66 @@ def _xep_uu_tien(den_han: list[str], da_dung: dict[str, float], ke_tiep: dict[st
     return sorted(den_han, key=khoa)
 
 
+
+def _env_giay(ten: str, mac: float, thap: float, cao: float) -> float:
+    """Doc chu ky (giay) tu bien moi truong, kep trong [thap, cao]."""
+    try:
+        return max(thap, min(cao, float(os.environ.get(ten, mac))))
+    except (TypeError, ValueError):
+        return mac
+
+
+def _co_van_de_nang() -> bool:
+    """EVO giu chu ky ngan khi con van de muc NANG dang MO. Loi doc -> True (an toan)."""
+    try:
+        return any((v.get("muc") or "") == "NANG" for v in SO.van_de_mo())
+    except Exception:
+        return True
+
+
+def _caukho_con_hang() -> bool:
+    """Con EA/trang Code Base de do (TRANG_SAU chua het) -> chu ky ngan.
+    Chua co con tro (lan dau) coi nhu con hang. Het trang / cham TRANG_TOI_DA -> ranh.
+    """
+    goc = Path(os.environ.get("BRAIN_CAU_KHO_DIR") or (Path(__file__).resolve().parent / "data" / "cau_kho"))
+    p = goc / "TRANG_SAU.json"
+    if not p.exists():
+        return True
+    try:
+        ct = json.loads(p.read_text(encoding="utf-8"))
+    except (OSError, ValueError, TypeError):
+        return True
+    ly = (ct.get("ly_do") or "").strip()
+    if ly == "het_trang":
+        return False
+    try:
+        trang = int(ct.get("trang") or 2)
+    except (TypeError, ValueError):
+        return True
+    # TRANG_TOI_DA trong tru/cau_kho.py = 60; cham moc -> ranh
+    return trang < 60
+
+
+def chu_ky_hien_tai(ten: str) -> int:
+    """Chu ky co so (giay) theo trang thai. TRU[] giu mac dinh; day la lop thich ung.
+
+    EVO: NANG van de MO -> BRAIN_EVO_CHU_KY_NANG (mac 900); khong -> BRAIN_EVO_CHU_KY_NHE
+         (mac 2700, kep 1800..3600 = 30-60 phut).
+    CAUKHO: con hang EA/trang -> BRAIN_CAUKHO_CHU_KY_BAN (mac 900); ranh ->
+            BRAIN_CAUKHO_CHU_KY_RANH (mac 6h, >= 3600).
+    Tru khac: TRU[ten]["chu_ky"].
+    """
+    if ten == "EVO":
+        if _co_van_de_nang():
+            return int(_env_giay("BRAIN_EVO_CHU_KY_NANG", 900, 60, 3600))
+        return int(_env_giay("BRAIN_EVO_CHU_KY_NHE", 2700, 1800, 3600))
+    if ten == "CAUKHO":
+        if _caukho_con_hang():
+            return int(_env_giay("BRAIN_CAUKHO_CHU_KY_BAN", 900, 60, 6 * 3600))
+        return int(_env_giay("BRAIN_CAUKHO_CHU_KY_RANH", 6 * 3600, 3600, 24 * 3600))
+    return int(TRU[ten]["chu_ky"])
+
+
 def _cho_rieng(ten: str) -> int:
     try:
         n = SO.mot("SELECT chi_tiet FROM nhip WHERE tru=?", ten)
@@ -978,7 +1038,7 @@ def main() -> int:
                 last[ten] = {k: r[k] for k in (
                     "status", "rc", "giay", "fatal", "degraded", "skip_reason",
                     "nhip", "resource_guard", "stdout_tail", "stderr_tail")}
-                co_so = max(TRU[ten]["chu_ky"], _cho_rieng(ten))
+                co_so = max(chu_ky_hien_tai(ten), _cho_rieng(ten))
                 cooldown = co_so * min(fail[ten], 4)
                 ke_tiep[ten] = time.time() + co_so + cooldown
 
