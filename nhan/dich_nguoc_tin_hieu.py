@@ -416,6 +416,33 @@ def tao_nhac_dich_boc(ho_so: dict, *, nguon: str, he_id: str, url: str = "") -> 
     ) % (nguon, he_id, url or "", bang)
 
 
+
+def _danh_dau_superseded(HCL, *, nguon: str, he_id: str, track: str, id_moi: str) -> list[str]:
+    """Doi cho/ cu cung nguon+he_id+track → superseded/ (tranh worker lam lai)."""
+    da = []
+    thu = HCL.CHO / "superseded"
+    for p in list(HCL.CHO.glob("*.json")):
+        if p.stem == id_moi:
+            continue
+        try:
+            d = json.loads(p.read_text(encoding="utf-8-sig"))
+        except Exception:
+            continue
+        them = d.get("them") or {}
+        if them.get("nguon") == nguon and them.get("he_id") == he_id and them.get("track") == track:
+            thu.mkdir(parents=True, exist_ok=True)
+            dest = thu / p.name
+            try:
+                d["superseded_boi"] = id_moi
+                d["superseded_luc"] = __import__("time").strftime("%Y-%m-%dT%H:%M:%S")
+                dest.write_text(json.dumps(d, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+                p.unlink()
+                da.append(p.stem)
+            except OSError:
+                pass
+    return da
+
+
 def xep_dich_boc(nguon: str, he_id: str, trades: list[dict] | None = None, *,
                  tu_choi_nguy_hiem: bool = False, kho_gia: Path | None = None,
                  url: str = "", track: str | None = None) -> dict:
@@ -446,22 +473,35 @@ def xep_dich_boc(nguon: str, he_id: str, trades: list[dict] | None = None, *,
         (thu / "ho_so_dca.json").write_text(
             json.dumps(ho_dca, ensure_ascii=False, indent=2, default=str) + "\n",
             encoding="utf-8")
-        if ho_dca.get("so_multi", 0) < 2:
-            # ít basket multi — vẫn xếp nhưng ghi chú
-            pass
+        if ho_dca.get("do_tin") == "LOAI" or ho_dca.get("so_multi", 0) < 1:
+            return {
+                "trang_thai": "BO_QUA",
+                "ghi_chu": "ho_so_dca do_tin=%s so_multi=%s sanity=%s" % (
+                    ho_dca.get("do_tin"), ho_dca.get("so_multi"), ho_dca.get("sanity_ly_do")),
+                "track": "dca", "loc": loc,
+                "ho_so_path": str(thu / "ho_so_dca.json"),
+                "so_lenh": len(trades), "so_multi": ho_dca.get("so_multi"),
+                "do_tin": ho_dca.get("do_tin"),
+            }
         nhac = DCA.tao_nhac_dca(ho_dca, nguon=nguon, he_id=he_id, url=url)
         kq = HCL.xep_hang(
             "dich_boc", DCA.HE_THONG_DCA, nhac,
             tru="dich_nguoc_dca",
             ep_json=True,
             them={"nguon": nguon, "he_id": he_id, "loc": loc["quyet_dinh"],
-                  "loai": "dca_go_lenh", "track": "dca"},
+                  "loai": "dca_go_lenh", "track": "dca",
+                  "do_tin": ho_dca.get("do_tin"),
+                  "pip_fix": "xm_per_instrument_v2"},
         )
+        if kq.get("id"):
+            kq["superseded"] = _danh_dau_superseded(
+                HCL, nguon=nguon, he_id=he_id, track="dca", id_moi=kq["id"])
         kq["track"] = "dca"
         kq["loc"] = loc
         kq["ho_so_path"] = str(thu / "ho_so_dca.json")
         kq["so_lenh"] = len(trades)
         kq["so_multi"] = ho_dca.get("so_multi")
+        kq["do_tin"] = ho_dca.get("do_tin")
         return kq
 
     # track thuong

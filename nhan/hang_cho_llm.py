@@ -29,6 +29,47 @@ CHO = GOC / "cho"
 XONG = GOC / "xong"
 LOI = GOC / "loi"
 
+#: Them thu muc xong/ (worker co the ghi sang lab sibling brain2/hang_cho_llm/xong).
+#: BRAIN_HANG_CHO_XONG_DIRS = pathsep-separated extra xong dirs.
+def _xong_roots() -> list[Path]:
+    roots: list[Path] = [XONG]
+    extra = (os.environ.get("BRAIN_HANG_CHO_XONG_DIRS") or "").strip()
+    for part in extra.split(os.pathsep):
+        part = part.strip()
+        if part:
+            roots.append(Path(part))
+    # Sibling brain2 (tin-hieu checkout ke ben brain2)
+    sib = GOC_LAB.parent / "brain2" / "hang_cho_llm" / "xong"
+    if sib.is_dir():
+        roots.append(sib)
+    # BRAIN_HANG_CHO root (neu mirror/worker dung GOC khac)
+    goc_env = (os.environ.get("BRAIN_HANG_CHO") or "").strip()
+    if goc_env:
+        roots.append(Path(goc_env) / "xong")
+    # unique preserve order
+    seen = set()
+    ra = []
+    for r in roots:
+        try:
+            key = r.resolve()
+        except Exception:
+            key = r
+        if key in seen:
+            continue
+        seen.add(key)
+        ra.append(r)
+    return ra
+
+
+def tim_xong(i: str) -> Path | None:
+    """Tim xong/<id>.json o GOC.xong hoac cac root phu (skip-if-in-xong)."""
+    name = "%s.json" % i
+    for root in _xong_roots():
+        cand = root / name
+        if cand.is_file():
+            return cand
+    return None
+
 #: Ten bien moi truong. Gia tri chap nhan: hang_cho | file | queue
 BIEN_PROVIDER = "BRAIN_LLM_PROVIDER"
 GIA_TRI_HANG_CHO = frozenset({"hang_cho", "file", "queue"})
@@ -130,9 +171,9 @@ def _trich_van_ban(d: dict) -> str:
 
 
 def doc_tra_loi(i: str) -> dict | None:
-    """Doc xong/<id> neu co. Tra dict chuan hoa hoac None."""
-    p = duong_xong(i)
-    if not p.exists():
+    """Doc xong/<id> neu co (GOC.xong + extra roots). Tra dict chuan hoa hoac None."""
+    p = tim_xong(i)
+    if not p:
         return None
     d = _doc_json(p)
     if not d:
@@ -142,9 +183,17 @@ def doc_tra_loi(i: str) -> dict | None:
     if not vb:
         return {"trang_thai": "LOI", "van_ban": "", "id": i, "ghi_chu": "xong/%s.json thieu van_ban/json" % i,
                 "duong": "hang_cho", "pending": False}
+    # Neu cho/ con sot ma xong da co (mirror re-copy) → xoa cho de khong duplicate
+    pc = duong_cho(i)
+    if pc.exists():
+        try:
+            pc.unlink()
+        except OSError:
+            pass
     ra = {"trang_thai": "OK", "van_ban": vb, "id": i, "bam": d.get("bam") or i,
           "duong": "hang_cho", "model": d.get("model") or "hang_cho",
-          "token_vao": 0, "token_ra": 0, "ghi_chu": "tu hang_cho_llm/xong",
+          "token_vao": 0, "token_ra": 0,
+          "ghi_chu": "tu %s" % p.as_posix(),
           "pending": False}
     if isinstance(d.get("json"), (dict, list)):
         ra["json"] = d["json"]
@@ -152,7 +201,7 @@ def doc_tra_loi(i: str) -> dict | None:
 
 
 def dang_cho(i: str) -> bool:
-    return duong_cho(i).exists() and not duong_xong(i).exists()
+    return duong_cho(i).exists() and tim_xong(i) is None
 
 
 def xep_hang(loai_viec: str, he_thong: str, nhac: str, *, tru: str = "",
@@ -169,10 +218,15 @@ def xep_hang(loai_viec: str, he_thong: str, nhac: str, *, tru: str = "",
     x = doc_tra_loi(i)
     if x and x.get("trang_thai") == "OK":
         return x
-    if x and x.get("trang_thai") == "LOI" and duong_xong(i).exists():
+    if x and x.get("trang_thai") == "LOI" and tim_xong(i) is not None:
         return x
 
     pc = duong_cho(i)
+    # Skip-if-in-xong: id da tra loi o root khac → khong giu/ghi lai cho/
+    if tim_xong(i) is not None:
+        x2 = doc_tra_loi(i)
+        if x2:
+            return x2
     if pc.exists():
         return {"trang_thai": "CHO", "van_ban": "", "id": i, "bam": i, "pending": True,
                 "duong": "hang_cho", "model": "hang_cho", "token_vao": 0, "token_ra": 0,

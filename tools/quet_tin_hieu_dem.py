@@ -169,12 +169,18 @@ def main(argv=None):
             users = TT.kham_pha_user_fxblue(nghi=a.nghi)[: a.toi_da_he]
         kq = DN.chay_ong(users, nghi=a.nghi, kho_gia=kho, ca_hai_track=True)
         viec = VV.ghi_tu_dich(kq.get("dich") or [], hang=hang)
-        # mirror hang_cho sang workspace neu co
+        # mirror hang_cho sang workspace neu co — skip neu id da co trong xong/
         mirror = Path(os.environ.get("BRAIN_HANG_CHO_MIRROR") or "")
         if mirror:
             mirror.mkdir(parents=True, exist_ok=True)
             from nhan import hang_cho_llm as HCL
+            xong_mirror = mirror.parent / "xong"
             for p in HCL.CHO.glob("*.json"):
+                # skip-if-in-xong (local, sibling, hoac canh mirror)
+                if HCL.tim_xong(p.stem) is not None:
+                    continue
+                if (xong_mirror / p.name).is_file():
+                    continue
                 dest = mirror / p.name
                 if not dest.exists():
                     dest.write_bytes(p.read_bytes())
