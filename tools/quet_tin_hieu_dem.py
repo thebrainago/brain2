@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-"""quet_tin_hieu_dem.py - Vòng quét đêm: FXBlue mass → dual-track dich → việc tester.
+"""quet_tin_hieu_dem.py - Vòng quét đêm: FXBlue + Myfxbook HTML History + MQL5 PW
+→ dual-track dich → việc tester.
 
 Chạy trên máy nhà (E:\\brain2_grok_tin_hieu) hoặc box.
 Lịch sự >=4s; CPU vừa phải; không đụng mt5_slots / ong_dan / mt5_lien_tuc.
@@ -44,7 +45,9 @@ def main(argv=None):
                     help="Playwright: tu dong Export CSV History MQL5 (may nha)")
     ap.add_argument("--mql5-toi-da", type=int, default=100)
     ap.add_argument("--myfxbook-pw", nargs="*", default=None,
-                    help="Playwright Myfxbook system paths (optional)")
+                    help="Playwright Myfxbook HTML History paths; empty = MYFXBOOK_SEED")
+    ap.add_argument("--kiem-tra-mql5-profiles", action="store_true",
+                    help="Probe all Chrome profiles for live mql5.com login")
     ap.add_argument("--hang-viec", default="",
                     help="Mac dinh reports/vong2/hang_cho_tin_hieu.jsonl")
     ap.add_argument("--loop-giay", type=int, default=0,
@@ -58,6 +61,7 @@ def main(argv=None):
         if a.mql5_list:
             TT.liet_ke_mql5_signals(nghi=a.nghi)
         mql5_pw_kq = None
+        myfx_kq = None
         if a.mql5_pw:
             try:
                 from tools import tai_lich_su_trinh_duyet as PW
@@ -97,17 +101,68 @@ def main(argv=None):
                                 tr, hid, kq1.get("trang_thai")))
                     if dich_m:
                         VV.ghi_tu_dich(dich_m, hang=hang)
-                # optional myfxbook paths
-                if a.myfxbook_pw:
-                    from tools import tai_lich_su_trinh_duyet as PW
-                    my = PW.chay_myfxbook(
-                        list(a.myfxbook_pw), nghi=max(float(a.nghi), 5.0), headed=True)
-                    print("[myfxbook_pw]", json.dumps({
-                        k: my.get(k) for k in ("ok", "tong_ok", "tong_loi")
-                    }, ensure_ascii=False))
             except Exception as e:
                 print("[mql5_pw loi]", e)
                 mql5_pw_kq = {"ok": False, "ly_do": str(e)}
+        if a.myfxbook_pw is not None:
+            try:
+                from tools import tai_lich_su_trinh_duyet as PW
+                paths = list(a.myfxbook_pw) if a.myfxbook_pw else list(
+                    getattr(TT, "MYFXBOOK_SEED", ()) or ())
+                if paths:
+                    myfx_kq = PW.chay_myfxbook(
+                        paths, nghi=max(float(a.nghi), 5.0), headed=True,
+                        html=True, csv_export=False)
+                    print("[myfxbook_html]", json.dumps({
+                        k: myfx_kq.get(k) for k in
+                        ("ok", "tong_ok", "tong_loi", "tong_bo_qua")
+                    }, ensure_ascii=False))
+                    myfx_dir = Path(os.environ.get("BRAIN_MYFX_CSV") or
+                                    r"E:\brain2_grok_tin_hieu\data\myfxbook_csv")
+                    if myfx_dir.is_dir():
+                        nap_m = TT.nap_myfxbook_csv_thu_muc(myfx_dir)
+                        dich_fx = []
+                        for h in (nap_m.get("he") or []):
+                            hid = h["he_id"]
+                            trades = TT.doc_he_da_luu("myfxbook", hid)
+                            if not trades:
+                                continue
+                            loc = DN.loc_he(trades, tu_choi_nguy_hiem=False)
+                            tracks = (["dca"] if (loc.get("martingale") or loc.get("grid"))
+                                      else ["thuong"])
+                            url = "https://www.myfxbook.com/members/"
+                            for tr in tracks:
+                                kq1 = DN.xep_dich_boc(
+                                    "myfxbook", hid, trades, kho_gia=kho,
+                                    url=url + hid, track=tr)
+                                dich_fx.append({
+                                    "he_id": hid, "track": tr, "nguon": "myfxbook",
+                                    **{k: kq1.get(k) for k in
+                                       ("trang_thai", "id", "ghi_chu", "so_lenh",
+                                        "so_mau", "so_multi", "ho_so_path")},
+                                })
+                                print("[dich_nguoc/%s] myfxbook %s -> %s" % (
+                                    tr, hid, kq1.get("trang_thai")))
+                        if dich_fx:
+                            VV.ghi_tu_dich(dich_fx, hang=hang)
+            except Exception as e:
+                print("[myfxbook_html loi]", e)
+                myfx_kq = {"ok": False, "ly_do": str(e)}
+        if a.kiem_tra_mql5_profiles:
+            try:
+                from tools import tai_lich_su_trinh_duyet as PW
+                pr = PW.kiem_tra_login_mql5_moi_profile(headed=True)
+                print("[mql5_profiles]", json.dumps({
+                    "co_profile_login": pr.get("co_profile_login"),
+                    "logged": pr.get("logged"),
+                    "profiles": [
+                        {k: x.get(k) for k in
+                         ("name", "prefs_mql5", "login", "goto", "header", "loi", "bo_qua")}
+                        for x in (pr.get("profiles") or [])
+                    ],
+                }, ensure_ascii=False, indent=2))
+            except Exception as e:
+                print("[mql5_profiles loi]", e)
         if a.bo_kham_pha:
             users = list(TT.FXBLUE_SEED)
         else:
@@ -133,6 +188,9 @@ def main(argv=None):
             "mql5_pw": ({k: mql5_pw_kq.get(k) for k in
                         ("ok", "tong_ok", "tong_loi", "tong_bo_qua", "can_dang_nhap", "ly_do")}
                        if mql5_pw_kq else None),
+            "myfxbook_html": ({k: myfx_kq.get(k) for k in
+                               ("ok", "tong_ok", "tong_loi", "tong_bo_qua", "ly_do")}
+                              if myfx_kq else None),
         }
         print(json.dumps(tong, ensure_ascii=False, indent=2))
         log = GOC / "reports" / "vong2" / "quet_tin_hieu_log.jsonl"

@@ -48,3 +48,37 @@ python -u tools\tai_lich_su_trinh_duyet.py --chi-dong-bo-profile --force-profile
 python -u tools\tai_lich_su_trinh_duyet.py --resync-cookies
 python -u tools\tai_lich_su_trinh_duyet.py --kiem-tra-mt5
 ```
+
+## Cập nhật 30/10/2026 — Myfxbook HTML History (không captcha)
+
+CSV export (`#csvStatement`) vẫn bị reCAPTCHA. **Thay thế**: scrape tab History công khai như visitor:
+
+1. Dismiss `#popupAdModal`
+2. Click `a[href="#historyCont"]` / jQuery.tab('show')
+3. Parse `#tradingHistoryTable` theo class `.brokerTime` (không theo thead index — mỗi Open/Close có brokerTime+userTime)
+4. Phân trang bằng link số trang / Next
+5. Ghi `data\myfxbook_csv\<accountOid>_history.csv` + `.jsonl`
+
+```
+# Chỉ Myfxbook HTML (seed)
+python -u tools\tai_lich_su_trinh_duyet.py --chi-myfxbook --myfxbook rodrigo122/13139634/12285522
+
+# Probe mọi Chrome profile xem đã login mql5.com chưa
+python -u tools\tai_lich_su_trinh_duyet.py --kiem-tra-mql5-profiles
+```
+
+Nightly đã gắn `--myfxbook-pw` (dùng `MYFXBOOK_SEED`) + `--kiem-tra-mql5-profiles`.
+
+### MQL5 public Trading history tab
+
+Trang signal công khai: `#tab_content_history` hiện `.need-auth` — **không** có bảng lệnh khi chưa login. Probe tất cả profile Chrome (Default, Profile 1..N); chỉ Profile có Preferences nhắc mql5 mới thử mở copy.
+
+### Nguồn khác (ranked trade-level)
+
+| # | Nguồn | Trade-level public? | Ghi chú |
+|---|---|---|---|
+| 1 | FXBlue | Có CSV | Scale nightly `--toi-da-he 40` |
+| 2 | Myfxbook HTML History | Có (HTML table) | Không login; CF intermittent |
+| 3 | MQL5 | Không (need-auth) | Cần session login |
+| 4 | Darwinex | Không (D-Score only) | Không entry-level |
+| 5 | ZuluTrade / eToro | Ranking / SPA | Không trade thô ổn định |

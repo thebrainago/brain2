@@ -9,17 +9,21 @@ Disk: temp on E: first. BelowNormal priority expected from the caller.
 Polite: --nghi >=5s. Cap: --toi-da 100/night. Filter age>=12m via list JSON.
 
 Known blocks (as of 2026-10-30, Asia/Bangkok):
-- MQL5: Export History requires community login. Home IP returns HTTP 403 on
-  /en and /en/auth_login; signal pages may still load. MT5 Terminal only has
+- MQL5: Export History + Trading history table require community login
+  (.need-auth on public signal pages). Home IP returns HTTP 403 on /en and
+  /en/auth_login; signal pages may still load. MT5 Terminal only has
   bases/signals/signals.dat (catalog) — no trade-history CSV. Needs a logged-in
-  session in the synced Chrome profile (or VPN/other egress for login).
-- Myfxbook: page loads via browser + host-resolver DNS map, but #csvStatement
-  opens a reCAPTCHA modal before getCSVFile(). Fully automated export blocked
-  by captcha (no captcha bypass).
+  session in a synced Chrome profile (or VPN/other egress for login).
+- Myfxbook CSV (#csvStatement): reCAPTCHA before getCSVFile() — no bypass.
+- Myfxbook HTML History tab: WORKS without login. Dismiss #popupAdModal, click
+  a[href="#historyCont"], parse #tradingHistoryTable (brokerTime cells), paginate.
+  Cloudflare may intermittently RST; polite retries. Host-resolver DNS required.
 """
 from __future__ import annotations
 
 import argparse
+import csv
+import io
 import json
 import os
 import re
@@ -417,6 +421,414 @@ def tai_mot_mql5(page, sid: str, url: str, out_dir: Path, tmp: Path) -> dict:
         return {"signal_id": sid, "ok": False, "ly_do": "download_fail:%s" % e}
 
 
+
+def _liet_ke_chrome_profiles() -> list[Path]:
+    """All Chrome profile dirs (Default, Profile N) under User Data."""
+    if not CHROME_USER_DATA.is_dir():
+        return []
+    ra = []
+    for d in sorted(CHROME_USER_DATA.iterdir(), key=lambda x: x.name):
+        if d.is_dir() and (d.name == "Default" or d.name.startswith("Profile ")):
+            ra.append(d)
+    return ra
+
+
+def kiem_tra_login_mql5_moi_profile(*, headed: bool = False, in_ra=print) -> dict:
+    """Open a copy of each Chrome profile and check mql5.com header login state.
+
+    Does not decrypt cookies. Copies Preferences+Cookies into a temp pw dir while
+    Chrome may be running (best effort; locked Cookies are skipped).
+    """
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        return {"ok": False, "ly_do": "thieu_playwright"}
+
+    ket = {"ok": True, "profiles": [], "logged": []}
+    chrome_running = _chrome_dang_chay()
+    for src in _liet_ke_chrome_profiles():
+        prefs = src / "Preferences"
+        has_mql = False
+        if prefs.exists():
+            try:
+                has_mql = "mql5.com" in prefs.read_text(encoding="utf-8", errors="ignore")
+            except OSError:
+                pass
+        entry = {"name": src.name, "path": str(src), "prefs_mql5": has_mql,
+                 "chrome_running": chrome_running}
+        if not has_mql:
+            entry["login"] = False
+            entry["bo_qua"] = "prefs_khong_co_mql5"
+            ket["profiles"].append(entry)
+            continue
+        tmp_prof = TIN_HIEU_GOC / "tmp" / ("pw_probe_" + src.name.replace(" ", "_"))
+        if tmp_prof.exists():
+            shutil.rmtree(tmp_prof, ignore_errors=True)
+        tmp_prof.mkdir(parents=True, exist_ok=True)
+        dest = tmp_prof / "Default"
+        dest.mkdir(parents=True, exist_ok=True)
+        (dest / "Network").mkdir(exist_ok=True)
+        for name in ("Preferences", "Secure Preferences"):
+            f = src / name
+            if f.exists():
+                try:
+                    shutil.copy2(f, dest / name)
+                except OSError as e:
+                    entry["copy_err"] = str(e)
+        for name in ("Cookies", "Cookies-journal"):
+            for base in (src / "Network", src):
+                f = base / name
+                if f.exists():
+                    try:
+                        shutil.copy2(f, dest / "Network" / name)
+                    except OSError as e:
+                        entry["cookies_locked"] = str(e)
+        ls = CHROME_USER_DATA / "Local State"
+        if ls.exists():
+            try:
+                shutil.copy2(ls, tmp_prof / "Local State")
+            except OSError:
+                pass
+        try:
+            with sync_playwright() as p:
+                ctx = p.chromium.launch_persistent_context(
+                    user_data_dir=str(tmp_prof), channel="chrome",
+                    headless=not headed, ignore_https_errors=True,
+                    args=CHROME_ARGS, viewport={"width": 1200, "height": 800},
+                )
+                page = ctx.pages[0] if ctx.pages else ctx.new_page()
+                g = _soft_goto(page, "https://www.mql5.com/en/signals/2265877", retries=3)
+                entry["goto"] = g
+                if g.get("ok"):
+                    need = False
+                    try:
+                        need = page.locator(".need-auth").count() > 0
+                    except Exception:
+                        pass
+                    logged = _check_login(page) and not need
+                    # header hint
+                    hdr = page.evaluate("""() => ({
+                      signIn: [...document.querySelectorAll('a')].some(a =>
+                        /sign in|log in/i.test((a.textContent||'').trim())),
+                      avatar: !!document.querySelector('.avatar, .userpic, .header-profile, [class*=\"UserName\"]'),
+                      needAuth: !!document.querySelector('.need-auth'),
+                    })""")
+                    entry["header"] = hdr
+                    entry["login"] = bool(logged and not hdr.get("needAuth") and hdr.get("avatar"))
+                else:
+                    entry["login"] = False
+                ctx.close()
+        except Exception as e:
+            entry["login"] = False
+            entry["loi"] = str(e)
+        try:
+            shutil.rmtree(tmp_prof, ignore_errors=True)
+        except OSError:
+            pass
+        ket["profiles"].append(entry)
+        if entry.get("login"):
+            ket["logged"].append(src.name)
+        in_ra("[mql5_profile] %s login=%s" % (src.name, entry.get("login")))
+        time.sleep(2.0)
+    ket["ok"] = True
+    ket["co_profile_login"] = len(ket["logged"]) > 0
+    return ket
+
+
+def _dong_popup_myfxbook(page) -> None:
+    """Dismiss ad/cookie modals that intercept History tab clicks (#popupAdModal)."""
+    try:
+        page.evaluate("""() => {
+          for (const id of ['popupAdModal','adModal','cookieModal','newsletterModal']) {
+            const m = document.getElementById(id);
+            if (!m) continue;
+            m.classList.remove('in','show');
+            m.style.display = 'none';
+            m.setAttribute('aria-hidden','true');
+          }
+          document.querySelectorAll('.modal-backdrop, .ad-modal.in').forEach(el => {
+            el.classList.remove('in','show');
+            el.style.display = 'none';
+            try { el.remove(); } catch (e) {}
+          });
+          document.body.classList.remove('modal-open');
+          document.body.style.removeProperty('padding-right');
+        }""")
+        page.wait_for_timeout(200)
+    except Exception:
+        pass
+
+
+_PARSE_HISTORY_ROWS_JS = r"""() => {
+  const tb = document.getElementById('tradingHistoryTable')
+    || document.querySelector('#historyCont table');
+  if (!tb) return {n: 0, rows: []};
+  const out = [];
+  for (const tr of tb.querySelectorAll('tbody tr')) {
+    const cells = [...tr.children];
+    if (cells.length < 8) continue;
+    const brokerTimes = cells.filter(td => td.classList.contains('brokerTime'))
+      .map(td => td.textContent.trim());
+    const openTime = (brokerTimes[0] || '').replace(/\s+/g, ' ');
+    const closeTime = (brokerTimes[1] || '').replace(/\s+/g, ' ');
+    const vals = cells.slice(4).map(td => td.textContent.trim().replace(/\s+/g, ' '));
+    const symbol = vals[0] || '';
+    const action = vals[1] || '';
+    const lots = vals[2] || '';
+    const openPrice = vals[3] || '';
+    const closePrice = vals[4] || '';
+    const pips = vals[5] || '';
+    const profit = vals[6] || '';
+    const duration = vals[7] || '';
+    const gain = vals[8] || '';
+    const al = action.toLowerCase();
+    if (!symbol && (al.includes('withdrawal') || al.includes('deposit') || al.includes('balance'))) {
+      continue;
+    }
+    // Keep rows with a symbol; Action may be Buy/Sell/Long/Short or icon-only
+    if (!symbol) continue;
+    if (al && !(/buy|sell|long|short/.test(al)) && /(withdraw|deposit|balance|credit)/.test(al)) continue;
+    out.push({
+      open_time: openTime, close_time: closeTime, symbol, action, lots,
+      open_price: openPrice, close_price: closePrice, pips, profit, duration, gain,
+    });
+  }
+  const size = document.getElementById('historySize')?.value || null;
+  const pages = [...document.querySelectorAll('#historyCont a.paging-btn, #historyCont .pagination a, #historyCont a')]
+    .map(a => a.textContent.trim()).filter(t => /^\d+$/.test(t) || /next|>|»/i.test(t));
+  return {n: out.length, rows: out, size, pages};
+}"""
+
+
+def _rows_to_csv(rows: list[dict]) -> str:
+    if not rows:
+        return ""
+    fields = ["Open time", "Close time", "Symbol", "Buy/sell", "Lots",
+              "Open price", "Close price", "Pips", "Profit", "Trade duration", "Gain"]
+    buf = io.StringIO()
+    w = csv.DictWriter(buf, fieldnames=fields)
+    w.writeheader()
+    for r in rows:
+        w.writerow({
+            "Open time": r.get("open_time", ""),
+            "Close time": r.get("close_time", ""),
+            "Symbol": r.get("symbol", ""),
+            "Buy/sell": r.get("action", ""),
+            "Lots": r.get("lots", ""),
+            "Open price": r.get("open_price", ""),
+            "Close price": r.get("close_price", ""),
+            "Pips": r.get("pips", ""),
+            "Profit": r.get("profit", ""),
+            "Trade duration": r.get("duration", ""),
+            "Gain": r.get("gain", ""),
+        })
+    return buf.getvalue()
+
+
+def tai_myfxbook_html_history(page, system_path: str, out_dir: Path) -> dict:
+    """Scrape public History tab HTML table (no CSV/captcha). Visitor-equivalent.
+
+    Dismisses #popupAdModal, clicks a[href="#historyCont"], parses
+    #tradingHistoryTable using brokerTime cells, paginates via page links.
+    Stops if a captcha modal appears on the History path.
+    """
+    out_dir.mkdir(parents=True, exist_ok=True)
+    LOGS.mkdir(parents=True, exist_ok=True)
+    sid = re.sub(r"[^\w\-]+", "_", system_path.strip("/"))[-80:]
+    m = re.search(r"(\d+)/?$", system_path.strip())
+    if m:
+        sid = m.group(1)
+    dest = out_dir / ("%s_history.csv" % sid)
+    if dest.exists() and dest.stat().st_size > 50:
+        return {"id": sid, "ok": True, "bo_qua": "da_co", "path": str(dest), "nguon": "html"}
+    url = system_path if system_path.startswith("http") else (
+        "https://www.myfxbook.com/members/" + system_path.lstrip("/"))
+    g = _soft_goto(page, url, retries=5, wait_ms=4000)
+    if not g.get("ok"):
+        return {"id": sid, "ok": False, "ly_do": g.get("ly_do") or "goto_fail",
+                "url": url, "nguon": "html"}
+
+    # Cloudflare challenge page?
+    try:
+        title = page.title() or ""
+        if re.search(r"just a moment|attention required|cloudflare", title, re.I):
+            page.wait_for_timeout(12000)
+            title = page.title() or ""
+            if re.search(r"just a moment|attention required", title, re.I):
+                return {"id": sid, "ok": False, "ly_do": "cloudflare_challenge",
+                        "url": url, "nguon": "html"}
+    except Exception:
+        pass
+
+    _dong_popup_myfxbook(page)
+
+    # Arm listener BEFORE click so we catch systemPageGetHistoryFirstPage.json
+    hist_xhr = {"status": None, "url": None}
+
+    def _on_resp(resp):
+        try:
+            u = resp.url or ""
+            if "systemPageGetHistory" in u or "GetHistory" in u or "tradingHistory" in u:
+                hist_xhr["status"] = resp.status
+                hist_xhr["url"] = u
+        except Exception:
+            pass
+
+    try:
+        page.on("response", _on_resp)
+    except Exception:
+        pass
+
+    try:
+        page.evaluate("""() => {
+          const a = document.querySelector('a[href="#historyCont"], #tabHistory a[name="history"]');
+          if (a) {
+            a.click();
+            if (typeof jQuery !== 'undefined') jQuery(a).tab('show');
+          }
+          // also try direct tab show / filterHistory if exposed
+          try {
+            if (typeof filterHistoryParams !== 'undefined' && typeof loadHistory === 'function') {
+              loadHistory();
+            }
+          } catch (e) {}
+        }""")
+    except Exception as e:
+        return {"id": sid, "ok": False, "ly_do": "click_history_fail:%s" % e,
+                "url": url, "nguon": "html"}
+
+    # Wait for table / first-page XHR (up to ~45s; CF/XHR can be slow)
+    rows_all: list[dict] = []
+    got = None
+    for i in range(90):
+        page.wait_for_timeout(500)
+        # captcha on history? (unusual; CSV path has it)
+        try:
+            if page.evaluate("""() => {
+              const m = document.getElementById('captchaModal');
+              if (!m) return false;
+              const st = getComputedStyle(m);
+              return (st.display !== 'none' && (m.classList.contains('in') || m.classList.contains('show')));
+            }"""):
+                return {"id": sid, "ok": False, "ly_do": "myfxbook_captcha_tren_history",
+                        "url": url, "nguon": "html", "xhr": hist_xhr}
+        except Exception:
+            pass
+        try:
+            got = page.evaluate(_PARSE_HISTORY_ROWS_JS)
+        except Exception:
+            got = None
+        if got and got.get("n", 0) > 0:
+            break
+        # table present with deposit-only / empty tbody after XHR
+        try:
+            meta = page.evaluate("""() => ({
+              size: document.getElementById('historySize')?.value ?? null,
+              hasTb: !!document.getElementById('tradingHistoryTable'),
+              nTr: document.querySelectorAll('#tradingHistoryTable tbody tr').length,
+            })""")
+            if hist_xhr.get("status") == 200 and meta.get("hasTb") and i > 10:
+                # XHR done; accept whatever parser returns (maybe 0 after filter)
+                if got is None:
+                    got = {"n": 0, "rows": [], "size": meta.get("size")}
+                break
+            if meta.get("size") is not None and str(meta.get("size")) == "0":
+                got = {"n": 0, "rows": [], "size": "0"}
+                break
+        except Exception:
+            pass
+    if not got:
+        snap = LOGS / ("myfxbook_no_history_%s.html" % sid)
+        try:
+            snap.write_text(page.content(), encoding="utf-8", errors="replace")
+        except Exception:
+            snap = None
+        return {"id": sid, "ok": False, "ly_do": "khong_thay_tradingHistoryTable",
+                "url": url, "snap": str(snap) if snap else None, "nguon": "html"}
+
+    rows_all.extend(got.get("rows") or [])
+    # Paginate by clicking page numbers / Next (visitor UI)
+    seen = {json.dumps(r, sort_keys=True) for r in rows_all}
+    for pg in range(2, 50):
+        _dong_popup_myfxbook(page)
+        clicked = False
+        try:
+            clicked = page.evaluate("""(pg) => {
+              const links = [...document.querySelectorAll(
+                '#historyCont a, #historyCont .pagination a, #history .pagination a')];
+              let a = links.find(x => x.textContent.trim() === String(pg));
+              if (!a) {
+                a = links.find(x => /^(next|>|»)$/i.test(x.textContent.trim())
+                  && !/disabled|prev/i.test(x.className||''));
+              }
+              if (!a) return false;
+              a.click();
+              return true;
+            }""", pg)
+        except Exception:
+            clicked = False
+        if not clicked:
+            break
+        page.wait_for_timeout(2200)
+        try:
+            cur = page.evaluate(_PARSE_HISTORY_ROWS_JS)
+        except Exception:
+            break
+        new_rows = cur.get("rows") or []
+        if not new_rows:
+            break
+        added = 0
+        for r in new_rows:
+            k = json.dumps(r, sort_keys=True)
+            if k not in seen:
+                rows_all.append(r)
+                seen.add(k)
+                added += 1
+        if added == 0:
+            break
+        time.sleep(1.2)
+
+    if not rows_all:
+        raw_sample = None
+        try:
+            raw_sample = page.evaluate("""() => {
+              const tb = document.getElementById('tradingHistoryTable');
+              if (!tb) return null;
+              const tr = tb.querySelector('tbody tr');
+              if (!tr) return {nTr: tb.querySelectorAll('tbody tr').length};
+              return {
+                nTr: tb.querySelectorAll('tbody tr').length,
+                cells: [...tr.children].map(td => ({
+                  cls: td.className, t: (td.textContent||'').trim().replace(/\\s+/g,' ').slice(0,80)
+                })),
+              };
+            }""")
+        except Exception:
+            pass
+        snap = LOGS / ("myfxbook_empty_hist_%s.html" % sid)
+        try:
+            snap.write_text(page.content(), encoding="utf-8", errors="replace")
+        except Exception:
+            snap = None
+        return {"id": sid, "ok": False, "ly_do": "history_rong_hoac_chi_deposit",
+                "url": url, "size": got.get("size"), "xhr": hist_xhr,
+                "raw_sample": raw_sample, "snap": str(snap) if snap else None,
+                "nguon": "html"}
+
+    csv_text = _rows_to_csv(rows_all)
+    dest.write_text(csv_text, encoding="utf-8")
+    # also jsonl next to csv for debugging
+    jl = out_dir / ("%s_history.jsonl" % sid)
+    with jl.open("w", encoding="utf-8") as f:
+        for r in rows_all:
+            f.write(json.dumps(r, ensure_ascii=False) + "\n")
+    return {
+        "id": sid, "ok": True, "path": str(dest), "jsonl": str(jl),
+        "so_lenh": len(rows_all), "bytes": dest.stat().st_size, "nguon": "html",
+        "url": url,
+    }
+
+
 def tai_myfxbook_mot(page, system_path: str, out_dir: Path, tmp: Path) -> dict:
     """Open a public Myfxbook system page and try Export → CSV (reCAPTCHA gated)."""
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -649,22 +1061,37 @@ def chay_mql5(*, toi_da: int = 100, nghi: float = 5.0, danh_sach: Path | None = 
 
 
 def chay_myfxbook(paths: list[str], *, nghi: float = 5.0, headed: bool = True,
-                  in_ra=print) -> dict:
+                  in_ra=print, html: bool = True, csv_export: bool = False) -> dict:
+    """Fetch Myfxbook histories. Default: HTML History tab (no captcha).
+
+    csv_export=True still tries #csvStatement but expects reCAPTCHA block.
+    """
     try:
         from playwright.sync_api import sync_playwright
     except ImportError:
         return {"ok": False, "ly_do": "thieu_playwright"}
     MYFX_CSV.mkdir(parents=True, exist_ok=True)
     TMP.mkdir(parents=True, exist_ok=True)
-    ket = {"ok": True, "he": [], "loi": [], "bo_qua": []}
+    ket = {"ok": True, "he": [], "loi": [], "bo_qua": [], "phuong_thuc": []}
     with sync_playwright() as p:
         ctx = _launch_ctx(p, headed=headed)
         page = ctx.pages[0] if ctx.pages else ctx.new_page()
         for i, sp in enumerate(paths):
             if i:
                 time.sleep(max(nghi, 5.0))
-            r = tai_myfxbook_mot(page, sp, MYFX_CSV, TMP)
-            in_ra("[myfxbook_csv] %s" % json.dumps(r, ensure_ascii=False))
+            r = None
+            if html:
+                r = tai_myfxbook_html_history(page, sp, MYFX_CSV)
+                in_ra("[myfxbook_html] %s" % json.dumps(r, ensure_ascii=False))
+                ket["phuong_thuc"].append("html")
+            if (r is None or not r.get("ok")) and csv_export:
+                r2 = tai_myfxbook_mot(page, sp, MYFX_CSV, TMP)
+                in_ra("[myfxbook_csv] %s" % json.dumps(r2, ensure_ascii=False))
+                ket["phuong_thuc"].append("csv")
+                if r2.get("ok") or r is None:
+                    r = r2
+            if r is None:
+                r = {"ok": False, "ly_do": "khong_co_phuong_thuc"}
             if r.get("bo_qua"):
                 ket["bo_qua"].append(r)
             elif r.get("ok"):
@@ -674,6 +1101,7 @@ def chay_myfxbook(paths: list[str], *, nghi: float = 5.0, headed: bool = True,
         ctx.close()
     ket["tong_ok"] = len(ket["he"])
     ket["tong_loi"] = len(ket["loi"])
+    ket["tong_bo_qua"] = len(ket["bo_qua"])
     if ket["tong_ok"] == 0 and ket["loi"]:
         ket["ok"] = False
     return ket
@@ -691,11 +1119,21 @@ def main(argv=None):
     ap.add_argument("--resync-cookies", action="store_true")
     ap.add_argument("--kiem-tra-mt5", action="store_true")
     ap.add_argument("--myfxbook", nargs="*", default=None,
-                    help="Optional Myfxbook system paths to also fetch")
+                    help="Myfxbook system paths (HTML History scrape by default)")
+    ap.add_argument("--myfxbook-csv-export", action="store_true",
+                    help="Also try #csvStatement (usually reCAPTCHA-blocked)")
+    ap.add_argument("--kiem-tra-mql5-profiles", action="store_true",
+                    help="Probe every Chrome profile for live mql5.com login")
+    ap.add_argument("--chi-myfxbook", action="store_true",
+                    help="Skip MQL5; only run Myfxbook paths")
     a = ap.parse_args(argv)
 
     if a.kiem_tra_mt5:
         print(json.dumps(_kiem_tra_mt5_signals(), ensure_ascii=False, indent=2))
+        return 0
+    if a.kiem_tra_mql5_profiles:
+        print(json.dumps(kiem_tra_login_mql5_moi_profile(
+            headed=not a.headless), ensure_ascii=False, indent=2))
         return 0
     if a.resync_cookies:
         print(json.dumps(dong_bo_pw_profile(chi_cookies=True), ensure_ascii=False, indent=2))
@@ -704,21 +1142,27 @@ def main(argv=None):
         print(json.dumps(dong_bo_pw_profile(force=a.force_profile), ensure_ascii=False, indent=2))
         return 0
 
-    kq = chay_mql5(
-        toi_da=a.toi_da,
-        nghi=a.nghi,
-        danh_sach=Path(a.danh_sach) if a.danh_sach else None,
-        tuoi_min_ngay=a.tuoi_min_ngay,
-        headed=not a.headless,
-        force_profile=a.force_profile,
-    )
-    print(json.dumps(kq, ensure_ascii=False, indent=2))
+    kq = {"ok": True, "tong_ok": 0}
+    if not a.chi_myfxbook:
+        kq = chay_mql5(
+            toi_da=a.toi_da,
+            nghi=a.nghi,
+            danh_sach=Path(a.danh_sach) if a.danh_sach else None,
+            tuoi_min_ngay=a.tuoi_min_ngay,
+            headed=not a.headless,
+            force_profile=a.force_profile,
+        )
+        print(json.dumps(kq, ensure_ascii=False, indent=2))
 
+    my_ok = 0
     if a.myfxbook is not None:
-        my = chay_myfxbook(a.myfxbook, nghi=a.nghi, headed=not a.headless)
+        my = chay_myfxbook(
+            a.myfxbook, nghi=a.nghi, headed=not a.headless,
+            html=True, csv_export=a.myfxbook_csv_export)
         print(json.dumps({"myfxbook": my}, ensure_ascii=False, indent=2))
+        my_ok = my.get("tong_ok") or 0
 
-    return 0 if kq.get("ok") or kq.get("tong_ok", 0) > 0 else 1
+    return 0 if kq.get("ok") or kq.get("tong_ok", 0) > 0 or my_ok > 0 else 1
 
 
 if __name__ == "__main__":

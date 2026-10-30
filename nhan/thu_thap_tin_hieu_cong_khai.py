@@ -46,7 +46,9 @@ def _parse_luc(s: str) -> str | None:
     if not t or t.startswith("1970"):
         return None
     for fmt in ("%Y/%m/%d %H:%M:%S", "%Y-%m-%d %H:%M:%S",
-                "%Y.%m.%d %H:%M:%S", "%d.%m.%Y %H:%M:%S"):
+                "%Y.%m.%d %H:%M:%S", "%d.%m.%Y %H:%M:%S",
+                "%m.%d.%Y %H:%M", "%m.%d.%Y %H:%M:%S",
+                "%d.%m.%Y %H:%M", "%Y-%m-%d %H:%M"):
         try:
             dt = datetime.strptime(t, fmt).replace(tzinfo=timezone.utc)
             return dt.strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -431,6 +433,62 @@ Nếu trang không có Export CSV: dùng MT5 terminal → Signal → History →
 """
 
 
+
+def doc_csv_myfxbook_history(duong: Path | str, *, he_id: str) -> list[dict]:
+    """Parser CSV rebuilt from Myfxbook HTML History tab (tools/tai_lich_su_trinh_duyet)."""
+    p = Path(duong)
+    raw = p.read_text(encoding="utf-8-sig", errors="replace")
+    lines = [ln for ln in raw.splitlines() if ln.strip()]
+    if not lines:
+        return []
+    rdr = csv.DictReader(lines)
+    ra = []
+    for row in rdr:
+        alias = {
+            "Type": "Closed position",
+            "Ticket": "",
+            "Symbol": row.get("Symbol") or "",
+            "Lots": row.get("Lots") or "",
+            "Buy/sell": row.get("Buy/sell") or row.get("Action") or "",
+            "Open price": row.get("Open price") or "",
+            "Close price": row.get("Close price") or "",
+            "Open time": row.get("Open time") or "",
+            "Close time": row.get("Close time") or "",
+            "Profit": row.get("Profit") or "",
+            "Net profit": row.get("Profit") or "",
+            "Pips": row.get("Pips") or "",
+            "S/L": "",
+            "T/P": "",
+            "Swap": "0",
+            "Commission": "0",
+            "Trade duration (hours)": "",
+        }
+        h = chuan_hoa_hang_fxblue(alias, he_id=he_id, nguon="myfxbook")
+        if h:
+            ra.append(h)
+    return ra
+
+
+def nap_myfxbook_csv_thu_muc(thu: Path | str, *, in_ra=print) -> dict:
+    """Nạp CSV/jsonl lịch sử Myfxbook (HTML History scrape) vào kho chuẩn."""
+    thu = Path(thu)
+    ket = {"nguon": "myfxbook", "he": [], "loi": []}
+    if not thu.exists():
+        return {"loi": [{"ly_do": "khong_co_thu_muc", "thu": str(thu)}]}
+    files = sorted(set(list(thu.glob("*_history.csv")) + list(thu.glob("*.csv"))))
+    for p in files:
+        he_id = p.stem.replace("_history", "")
+        trades = doc_csv_myfxbook_history(p, he_id=he_id)
+        if not trades:
+            ket["loi"].append({"he_id": he_id, "ly_do": "0_lenh", "file": str(p)})
+            continue
+        luu_he("myfxbook", he_id, trades, raw=p.read_bytes(),
+               meta={"file": str(p), "phuong_thuc": "html_history"})
+        ket["he"].append({"he_id": he_id, "so_lenh": len(trades)})
+        in_ra("[myfxbook] %s: %d lenh" % (he_id, len(trades)))
+    return ket
+
+
 def nap_mql5_csv_thu_muc(thu: Path | str, *, in_ra=print) -> dict:
     """Nạp các CSV statement MQL5/MT5 đã export thủ công."""
     thu = Path(thu)
@@ -458,6 +516,7 @@ if __name__ == "__main__":
     ap.add_argument("--kham-pha", action="store_true", help="Kham pha user FXBlue roi thu thap")
     ap.add_argument("--mql5-list", action="store_true", help="Liet ke signal MQL5 public")
     ap.add_argument("--nap-mql5-csv", default="", help="Thu muc CSV MQL5 da export")
+    ap.add_argument("--nap-myfxbook-csv", default="", help="Thu muc CSV Myfxbook HTML history")
     ap.add_argument("--seed", action="store_true", help="Dung FXBLUE_SEED")
     a = ap.parse_args()
     if a.liet_ke:
@@ -467,6 +526,8 @@ if __name__ == "__main__":
         liet_ke_mql5_signals(nghi=a.nghi)
     elif a.nap_mql5_csv:
         print(json.dumps(nap_mql5_csv_thu_muc(a.nap_mql5_csv), ensure_ascii=False, indent=2))
+    elif a.nap_myfxbook_csv:
+        print(json.dumps(nap_myfxbook_csv_thu_muc(a.nap_myfxbook_csv), ensure_ascii=False, indent=2))
     elif a.kham_pha:
         users = kham_pha_user_fxblue(nghi=a.nghi)
         thu_thap_fxblue(users, nghi=a.nghi)
@@ -480,6 +541,11 @@ if __name__ == "__main__":
 # =============================================================================
 
 FXBLUE_CSV_API = "https://api.fxblue.com/users/{user}/csv"
+#: Public Myfxbook system paths (member/system/account) for HTML History scrape.
+MYFXBOOK_SEED = (
+    "rodrigo122/13139634/12285522",
+)
+
 #: Seed + đã xác nhận có CSV công khai (probe 30/10/2026).
 FXBLUE_SEED = (
     "example", "fluidtrader-demo", "memberforex42", "673", "demo_20230303",

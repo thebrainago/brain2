@@ -121,3 +121,14 @@ Tiêu chí: **giá trị × khả thi** — lịch sử lệnh công khai đủ 
 - Myfxbook: thử từ IP nhà (VNPT DNS NXDOMAIN một số host → override 8.8.8.8 / IP CF).
 - Việc tester: `reports/vong2/hang_cho_tin_hieu.jsonl` (không đụng hang_cho_vong2 / ong_dan).
 - Quét đêm: `tools/quet_tin_hieu_dem.py` + Task Scheduler máy nhà.
+
+## 8. Cập nhật pipeline 30/10/2026 (HTML scrape + nightly)
+
+| Nguồn | Histories fetched | Block còn lại |
+|---|---|---|
+| FXBlue | **11** histories (`trades.jsonl` under `data/tin_hieu_cong_khai/fxblue`) | Không — nightly `--toi-da-he 40` |
+| Myfxbook HTML History | **1** history E2E (account 12285522, **8** closed trades → CSV+jsonl+nap kho) | CSV `#csvStatement` = reCAPTCHA; CF intermittent RST; discovery community pages often RST |
+| MQL5 Export / Trading history | **0** | Public tab: "please log in or register" (`.need-auth`); Profiles Default/2/3/4 probed — none live-login (Profile 3 prefs only; Cookies locked while Chrome open); home IP 403 on `/en` + `/auth_login` |
+| Darwinex / ZuluTrade / eToro | **0** trade-level | Ranking/SPA/D-Score only — not reverse-entry quality |
+
+Nightly `chay_quet_dem.ps1`: FXBlue mass + MQL5 list/PW + Myfxbook HTML seed + Chrome profile probe. Temp → E; xoá `tmp` sau chạy.
