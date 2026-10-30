@@ -18,6 +18,15 @@ from pathlib import Path
 GOC = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(GOC))
 
+# VNPT DNS NXDOMAIN → patch getaddrinfo (same process as network calls)
+try:
+    sys.path.insert(0, str(GOC / "tools"))
+    import dns_override as _dns
+    _dns.ensure("api.fxblue.com", "www.fxblue.com", "www.mql5.com",
+                "www.myfxbook.com", "myfxbook.com")
+except Exception as _e:
+    print("[dns_override]", _e)
+
 
 def main(argv=None):
     import argparse

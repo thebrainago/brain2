@@ -233,6 +233,7 @@ def thu_thap_fxblue(users: Iterable[str] | None = None, *, nghi: float = NGHI_GI
         ket["he"].append({"he_id": u, "so_lenh": len(trades), "thu_muc": str(thu)})
         in_ra("[fxblue] %s: %d lenh -> %s" % (u, len(trades), thu))
     tong = thu_muc_goc() / "fxblue" / "tong_hop.json"
+    tong.parent.mkdir(parents=True, exist_ok=True)
     tong.write_text(json.dumps(ket, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return ket
 
