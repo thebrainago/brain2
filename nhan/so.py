@@ -649,6 +649,66 @@ def dang_ky_gia_thuyet(ma: str, co_che: str, template: str, tham_so: dict,
         return int(cur.lastrowid), ph
 
 
+def dang_ky_gia_thuyet_hoac_phien_ban(
+        ma: str, co_che: str, template: str, tham_so: dict,
+        tai_san: str, khung: str, cua_so: str, ho: str,
+        nguon: str = "", tru_sinh: str = "QUANTLAB",
+        ghi_chu: str = "", so_phep_thu: int | None = None,
+        the_he_cong: int | None = None) -> tuple[int | None, str, str]:
+    """Nhu `dang_ky_gia_thuyet`, nhung plan_hash lech KHONG giet chu ky.
+
+    Khi `ma` da ton tai voi plan_hash khac (thuong do `cua_so` doi theo ban
+    du lieu / bo loc chat luong), dang ky duoi ma phien ban `{ma}.v{ph}` va
+    bao van_de. Tra `(id, plan_hash, ma_thuc)` — `ma_thuc` co the khac `ma`.
+
+    Khong im lang ghi de plan_hash cu; cung khong raise ValueError plan_hash.
+    """
+    try:
+        gid, ph = dang_ky_gia_thuyet(
+            ma=ma, co_che=co_che, template=template, tham_so=tham_so,
+            tai_san=tai_san, khung=khung, cua_so=cua_so, ho=ho,
+            nguon=nguon, tru_sinh=tru_sinh, ghi_chu=ghi_chu,
+            so_phep_thu=so_phep_thu, the_he_cong=the_he_cong)
+        return gid, ph, ma
+    except ValueError as e:
+        msg = str(e)
+        if "plan_hash" not in msg:
+            raise
+        ke_hoach = json.dumps(
+            {"co_che": co_che, "template": template, "tham_so": tham_so,
+             "tai_san": tai_san, "khung": khung, "cua_so": cua_so},
+            sort_keys=True, ensure_ascii=False)
+        ph_moi = hashlib.sha256(ke_hoach.encode("utf-8")).hexdigest()[:16]
+        ma_v = f"{ma}.v{ph_moi}"
+        # Tranh de quy vo han neu ma_v trung (cuc hiem): bo qua + bao.
+        if ma_v == ma or ma_v.startswith(ma + ".v") and ma.count(".v") >= 2:
+            bao_van_de(
+                f"plan_hash_lech_{ma[:60]}", "VUA",
+                f"plan_hash lech, khong tao them phien ban: {msg[:180]}",
+                {"ma": ma, "ph_moi": ph_moi, "cua_so": cua_so})
+            return None, ph_moi, ma
+        bao_van_de(
+            f"plan_hash_lech_{ma[:60]}", "VUA",
+            f"gia thuyet `{ma}` doi plan_hash (cua_so/co_che/tham_so); "
+            f"dang ky phien ban `{ma_v}` thay vi huy ca chu ky kham_pha.",
+            {"ma_cu": ma, "ma_moi": ma_v, "ph_moi": ph_moi,
+             "cua_so": cua_so, "loi": msg[:200]})
+        try:
+            gid, ph = dang_ky_gia_thuyet(
+                ma=ma_v, co_che=co_che, template=template, tham_so=tham_so,
+                tai_san=tai_san, khung=khung, cua_so=cua_so, ho=ho,
+                nguon=nguon or "phien_ban_plan_hash", tru_sinh=tru_sinh,
+                ghi_chu=(ghi_chu or "") + f" | phien_ban_tu:{ma}",
+                so_phep_thu=so_phep_thu, the_he_cong=the_he_cong)
+            return gid, ph, ma_v
+        except ValueError as e2:
+            bao_van_de(
+                f"plan_hash_lech_{ma[:60]}", "VUA",
+                f"khong dang ky duoc phien ban `{ma_v}`: {str(e2)[:160]}",
+                {"ma_cu": ma, "ma_moi": ma_v, "ph_moi": ph_moi})
+            return None, ph_moi, ma
+
+
 def _ghi_anh_chup(cn, ma: str) -> None:
     """Ghi van tay TAP DU LIEU da ghim tai thoi diem dang ky.
 

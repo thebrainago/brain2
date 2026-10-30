@@ -78,10 +78,117 @@ def dam_bao_thu_muc() -> None:
         p.mkdir(parents=True, exist_ok=True)
 
 
-def bam_yeu_cau(loai_viec: str, he_thong: str, nhac: str) -> str:
-    """id = sha256(loai|he_thong|nhac)[:24] — cung prompt+task -> cung id."""
-    raw = (str(loai_viec or "") + "\0" + str(he_thong or "") + "\0" + str(nhac or "")).encode("utf-8", "replace")
+#: Loai viec ma id KHONG phu thuoc noi dung prompt (prompt NGHI xoay tai lieu
+#: moi chu ky → bam noi dung se mo coi tra loi). Id on dinh = loai|tru.
+LOAI_ON_DINH = frozenset({"nghi_de_xuat"})
+
+
+def bam_yeu_cau(loai_viec: str, he_thong: str, nhac: str, tru: str = "") -> str:
+    """id hang cho.
+
+    Mac dinh: sha256(loai|he_thong|nhac)[:24] — cung prompt+task -> cung id.
+    Voi `LOAI_ON_DINH` (nghi_de_xuat): sha256(loai|tru|*)[:24] — prompt xoay
+    van cung o; tra loi khong bi mo coi khi danh sach tai lieu doi.
+    """
+    loai = str(loai_viec or "")
+    if loai in LOAI_ON_DINH:
+        raw = (loai + "\0" + str(tru or "") + "\0*").encode("utf-8", "replace")
+    else:
+        raw = (loai + "\0" + str(he_thong or "") + "\0" + str(nhac or "")).encode("utf-8", "replace")
     return hashlib.sha256(raw).hexdigest()[:24]
+
+
+def _da_tieu_thu_file(i: str) -> bool:
+    p = duong_xong(i)
+    if not p.exists():
+        return False
+    d = _doc_json(p) or {}
+    return bool(d.get("da_tieu_thu"))
+
+
+def danh_dau_da_tieu_thu(i: str) -> bool:
+    """Ghi da_tieu_thu=True len xong/<id> (idempotent). Tra True neu ghi duoc."""
+    p = duong_xong(i)
+    if not p.exists():
+        return False
+    d = _doc_json(p)
+    if not d:
+        return False
+    if d.get("da_tieu_thu"):
+        return True
+    d["da_tieu_thu"] = True
+    d["tieu_thu_luc"] = time.strftime("%Y-%m-%dT%H:%M:%S")
+    _ghi_json(p, d)
+    return True
+
+
+def _suy_loai_tu_tra_loi(d: dict) -> str:
+    """Orphan xong/ cu khong luu loai_viec — suy tu noi dung."""
+    if not isinstance(d, dict):
+        return ""
+    if d.get("loai_viec"):
+        return str(d["loai_viec"])
+    js = d.get("json")
+    if isinstance(js, dict) and "de_xuat" in js:
+        return "nghi_de_xuat"
+    vb = _trich_van_ban(d)
+    if vb:
+        try:
+            j = json.loads(vb) if vb.lstrip().startswith("{") else None
+        except Exception:
+            j = None
+        if j is None:
+            j = _json_trong_vb(vb)
+        if isinstance(j, dict) and "de_xuat" in j:
+            return "nghi_de_xuat"
+        if isinstance(j, dict) and any(k in j for k in ("spec", "python", "loai")):
+            return "dich_boc"
+    return ""
+
+
+def tim_tra_loi_chua_tieu_thu(loai_viec: str, *, tru: str = "") -> dict | None:
+    """Tra loi OK moi nhat trong xong/ chua da_tieu_thu, cung loai_viec.
+
+    Dung de nhat orphan khi prompt bam lech (NGHI xoay tai lieu) hoac file cu
+    thieu loai_viec. `tru` chi loc khi file co tru/them.tru.
+    """
+    dam_bao_thu_muc()
+    loai = str(loai_viec or "")
+    ung = []
+    for p in XONG.glob("*.json"):
+        if p.name.startswith("."):
+            continue
+        d = _doc_json(p)
+        if not d or d.get("da_tieu_thu"):
+            continue
+        lv = _suy_loai_tu_tra_loi(d) or str(d.get("loai_viec") or "")
+        if lv != loai:
+            continue
+        if tru:
+            tfile = str(d.get("tru") or (d.get("them") or {}).get("tru") or "")
+            # Orphan cu khong co tru — van chap nhan; chi loai khi CO tru khac.
+            if tfile and tfile != tru:
+                continue
+        vb = _trich_van_ban(d)
+        if not vb:
+            continue
+        try:
+            mt = p.stat().st_mtime
+        except OSError:
+            mt = 0
+        ung.append((mt, p.stem, d, vb))
+    if not ung:
+        return None
+    ung.sort(key=lambda x: x[0], reverse=True)
+    mt, i, d, vb = ung[0]
+    ra = {"trang_thai": "OK", "van_ban": vb, "id": i, "bam": d.get("bam") or i,
+          "duong": "hang_cho", "model": d.get("model") or "hang_cho",
+          "token_vao": 0, "token_ra": 0,
+          "ghi_chu": "tu hang_cho_llm/xong (theo loai_viec, chua tieu thu)",
+          "pending": False, "loai_viec": loai, "tieu_thu_theo_loai": True}
+    if isinstance(d.get("json"), (dict, list)):
+        ra["json"] = d["json"]
+    return ra
 
 
 def _doc_json(p: Path) -> dict | None:
@@ -162,18 +269,44 @@ def xep_hang(loai_viec: str, he_thong: str, nhac: str, *, tru: str = "",
     """Ghi cho/<id>.json neu chua co; neu da co xong -> tra OK; neu dang cho -> CHO.
 
     Khong crash, khong goi mang, khong retry storm (cung id chi ghi 1 lan).
+
+    31/10/2026: voi loai on dinh (nghi_de_xuat) id khong bam theo nhac; va neu
+    id dung miss, van tieu thu tra loi chua dung cua CUNG loai_viec (orphan do
+    prompt xoay). Tra loi OK duoc danh dau da_tieu_thu de chu ky sau xep lai.
     """
     dam_bao_thu_muc()
     loai = str(loai_viec or "khac")
-    i = bam_yeu_cau(loai, he_thong or "", nhac or "")
-    x = doc_tra_loi(i)
-    if x and x.get("trang_thai") == "OK":
-        return x
-    if x and x.get("trang_thai") == "LOI" and duong_xong(i).exists():
-        return x
+    i = bam_yeu_cau(loai, he_thong or "", nhac or "", tru=tru or "")
+
+    # (1) Exact id, chua tieu thu
+    if duong_xong(i).exists() and not _da_tieu_thu_file(i):
+        x = doc_tra_loi(i)
+        if x and x.get("trang_thai") == "OK":
+            danh_dau_da_tieu_thu(i)
+            x["da_tieu_thu_luc_tra"] = True
+            return x
+        if x and x.get("trang_thai") == "LOI":
+            return x
+
+    # (2) Orphan / bam lech: tra loi moi nhat cung loai chua tieu thu
+    orphan = tim_tra_loi_chua_tieu_thu(loai, tru=tru or "")
+    if orphan and orphan.get("trang_thai") == "OK":
+        danh_dau_da_tieu_thu(orphan["id"])
+        orphan["da_tieu_thu_luc_tra"] = True
+        return orphan
 
     pc = duong_cho(i)
     if pc.exists():
+        # Cap nhat nhac moi (prompt xoay) tren cung id on dinh — worker doc ban moi.
+        try:
+            cu = _doc_json(pc) or {}
+            if (cu.get("nhac") or "") != (nhac or "") or (cu.get("he_thong") or "") != (he_thong or ""):
+                cu["nhac"] = nhac or ""
+                cu["he_thong"] = he_thong or ""
+                cu["cap_nhat_luc"] = time.strftime("%Y-%m-%dT%H:%M:%S")
+                _ghi_json(pc, cu)
+        except Exception:
+            pass
         return {"trang_thai": "CHO", "van_ban": "", "id": i, "bam": i, "pending": True,
                 "duong": "hang_cho", "model": "hang_cho", "token_vao": 0, "token_ra": 0,
                 "ghi_chu": "dang cho worker (hang_cho_llm/cho/%s.json)" % i}
@@ -191,6 +324,7 @@ def xep_hang(loai_viec: str, he_thong: str, nhac: str, *, tru: str = "",
         "schema_mong_doi": sch,
         "model_goi_y": model_goi_y or "",
         "max_tokens": int(max_tokens or 0) or None,
+        "id_on_dinh": loai in LOAI_ON_DINH,
     }
     if them:
         yc["them"] = them
@@ -328,7 +462,9 @@ def tra_loi(i: str, tep: str) -> int:
 
     out = {"id": i, "bam": (yc or {}).get("bam") or i, "ok": True, "van_ban": vb,
            "tra_loi_luc": time.strftime("%Y-%m-%dT%H:%M:%S"), "nguoi_tra": meta.get("nguoi_tra") or "evo",
-           "model": meta.get("model") or "hang_cho"}
+           "model": meta.get("model") or "hang_cho",
+           "loai_viec": loai, "tru": (yc or {}).get("tru") or "",
+           "da_tieu_thu": False}
     if js is not None:
         out["json"] = js
     elif ep or loai in ("nghi_de_xuat", "dich_boc", "dich_sua"):

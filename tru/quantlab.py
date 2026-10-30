@@ -369,22 +369,42 @@ def dang_ky_sau_quet(ra: dict) -> dict:
     che_do = ra.get("che_do")
     m_bh = ra.get("mua_giu_train") or {}
     dang_ky = 0
+    bo_qua_dang_ky = []
     for u in ung_vien:
         ma_gt = f"{ma}.{khung}.{u['mau']}." + "_".join(f"{k}{v}" for k, v in u["tham_so"].items())
-        gid, ph = SO.dang_ky_gia_thuyet(
-            ma=ma_gt, co_che=u["co_che"], template=u["mau"], tham_so=u["tham_so"],
-            tai_san=ma, khung=khung, cua_so=ra.get("cua_so"), ho=u["ho"],
-            nguon="kham_pha", tru_sinh=TRU,
-            ghi_chu=f"[{che_do}] train sharpe {u['chi_so'].get('sharpe')} "
-                    f"vs mua-giu {m_bh.get('sharpe')}")
+        # Mot ung vien plan_hash lech (cua_so doi theo data) KHONG duoc giet ca
+        # chu ky kham_pha — dang ky phien ban moi hoac bo qua + van_de.
+        try:
+            gid, ph, ma_thuc = SO.dang_ky_gia_thuyet_hoac_phien_ban(
+                ma=ma_gt, co_che=u["co_che"], template=u["mau"], tham_so=u["tham_so"],
+                tai_san=ma, khung=khung, cua_so=ra.get("cua_so"), ho=u["ho"],
+                nguon="kham_pha", tru_sinh=TRU,
+                ghi_chu=f"[{che_do}] train sharpe {u['chi_so'].get('sharpe')} "
+                        f"vs mua-giu {m_bh.get('sharpe')}")
+        except Exception as e:
+            bo_qua_dang_ky.append({"ma": ma_gt, "loi": f"{type(e).__name__}: {str(e)[:120]}"})
+            try:
+                SO.bao_van_de(
+                    f"dang_ky_sau_quet_{ma_gt[:50]}", "VUA",
+                    f"bo qua ung vien trong dang_ky_sau_quet: {type(e).__name__}: {str(e)[:160]}",
+                    {"ma": ma_gt, "tai_san": ma, "khung": khung})
+            except Exception:
+                pass
+            continue
+        if gid is None:
+            bo_qua_dang_ky.append({"ma": ma_gt, "loi": "plan_hash_lech_bo_qua"})
+            continue
         # DA CO KET QUA thi thoi. Truoc 16/08 moi vong quet lai dat lai viec xac
         # nhan cho chinh nhung gia thuyet da chay -> 1.103 dong ket qua cho 275
         # gia thuyet. Do khong phai kiem dinh lai, do la NHIN LAI CUNG MOT
         # HOLDOUT nhieu lan; holdout mat tinh "chua tung dung" ngay tu lan hai.
-        if SO.mot("SELECT id FROM ket_qua WHERE gt_ma=? AND superseded_by IS NULL", ma_gt):
+        if SO.mot("SELECT id FROM ket_qua WHERE gt_ma=? AND superseded_by IS NULL", ma_thuc):
             continue
-        if SO.them_viec(TRU, "xac_nhan", {"gt_ma": ma_gt}, uu_tien=3):
+        if SO.them_viec(TRU, "xac_nhan", {"gt_ma": ma_thuc}, uu_tien=3):
             dang_ky += 1
+    if bo_qua_dang_ky:
+        ra["bo_qua_dang_ky"] = bo_qua_dang_ky[:20]
+        ra["bo_qua_dang_ky_n"] = len(bo_qua_dang_ky)
 
     # SO BAI HOC (khoi 2, 11/09/2026). Khong CHAN gi - chi ghi ra rang huong
     # nay da tung duoc di, de cai gi lap lai thi lap lai CO Y THUC.
@@ -806,19 +826,26 @@ def kham_pha_theo_mau(ten_mau: str, nguon: str = "") -> dict:
                     continue
             ma_gt = f"{ma}.{khung}.{ten_mau}." + ("_".join(f"{k}{v}" for k, v in ts.items())
                                                  or "mac_dinh")
-            SO.dang_ky_gia_thuyet(
-                ma=ma_gt, co_che=m["co_che"], template=ten_mau, tham_so=ts,
-                tai_san=ma, khung=khung, cua_so=_cua_so(df), ho=m["ho"],
-                nguon=nguon or "kham_pha_theo_mau", tru_sinh=TRU,
-                # SO PHEP THU: ca luoi cua mau nay da duoc quet truoc khi bo
-                # tham so `ts` duoc chon. plan_hash KHONG phu con so do (xem
-                # `so.dang_ky_gia_thuyet`), nen day la cho duy nhat no duoc luu.
-                so_phep_thu=len(m.get("luoi") or [{}]),
-                the_he_cong=CONG.THE_HE_CONG,
-                ghi_chu=f"train sharpe {cs.get('sharpe')} vs mua-giu {m_bh.get('sharpe')}")
-            if SO.mot("SELECT id FROM ket_qua WHERE gt_ma=? AND superseded_by IS NULL", ma_gt):
+            try:
+                _gid, _ph, ma_thuc = SO.dang_ky_gia_thuyet_hoac_phien_ban(
+                    ma=ma_gt, co_che=m["co_che"], template=ten_mau, tham_so=ts,
+                    tai_san=ma, khung=khung, cua_so=_cua_so(df), ho=m["ho"],
+                    nguon=nguon or "kham_pha_theo_mau", tru_sinh=TRU,
+                    # SO PHEP THU: ca luoi cua mau nay da duoc quet truoc khi bo
+                    # tham so `ts` duoc chon. plan_hash KHONG phu con so do (xem
+                    # `so.dang_ky_gia_thuyet`), nen day la cho duy nhat no duoc luu.
+                    so_phep_thu=len(m.get("luoi") or [{}]),
+                    the_he_cong=CONG.THE_HE_CONG,
+                    ghi_chu=f"train sharpe {cs.get('sharpe')} vs mua-giu {m_bh.get('sharpe')}")
+            except Exception as e:
+                ra.setdefault("bo_qua_dang_ky", []).append(
+                    {"ma": ma_gt, "loi": f"{type(e).__name__}: {str(e)[:100]}"})
                 continue
-            if SO.them_viec(TRU, "xac_nhan", {"gt_ma": ma_gt}, uu_tien=2):
+            if _gid is None:
+                continue
+            if SO.mot("SELECT id FROM ket_qua WHERE gt_ma=? AND superseded_by IS NULL", ma_thuc):
+                continue
+            if SO.them_viec(TRU, "xac_nhan", {"gt_ma": ma_thuc}, uu_tien=2):
                 ra["dang_ky_moi"] += 1
             ra["cap"].append({"tai_san": ma, "khung": khung,
                               "sharpe_train": cs.get("sharpe")})
@@ -864,7 +891,7 @@ def kham_pha_gop(ten_mau: str, nguon: str = "") -> dict:
     ma_gt = f"GOP.{ten_mau}.{q['khung']}.{lop}." + (
         "_".join(f"{k}{v}" for k, v in q["tham_so"].items()) or "mac_dinh")
     try:
-        SO.dang_ky_gia_thuyet(
+        _gid, _ph, ma_gt = SO.dang_ky_gia_thuyet_hoac_phien_ban(
             ma=ma_gt, co_che=MAU.MAU[ten_mau].get("co_che", ""), template=ten_mau,
             tham_so=q["tham_so"], tai_san=f"RO:{lop}", khung=q["khung"],
             cua_so=q.get("cua_so_train") or "", ho=ho,
@@ -872,11 +899,12 @@ def kham_pha_gop(ten_mau: str, nguon: str = "") -> dict:
             nguon=nguon or "kham_pha_gop", tru_sinh=TRU,
             ghi_chu=f"RO {q['so_chan']} chan: {','.join(q['chan'])} | "
                     f"train sharpe {q.get('sharpe_train')}")
-    except ValueError as e:
-        # plan_hash lech = cua so train doi = la mot gia thuyet KHAC. Khong duoc
-        # im lang ghi de len ban cu.
+    except Exception as e:
         return {"mau": ten_mau, "ho": ho, "gt": ma_gt,
-                "bo_qua": f"plan_hash lech: {str(e)[:90]}"}
+                "bo_qua": f"dang_ky: {type(e).__name__}: {str(e)[:90]}"}
+    if _gid is None:
+        return {"mau": ten_mau, "ho": ho, "gt": ma_gt,
+                "bo_qua": "plan_hash lech — khong dang ky duoc phien ban"}
 
     ra = {"mau": ten_mau, "ho": ho, "gt": ma_gt, "lop": lop,
           "tham_so": q["tham_so"], "so_chan": q["so_chan"],
