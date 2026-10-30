@@ -472,16 +472,112 @@ def bien_the_cap(viec: dict, goc_ten: str, toi_da: int = 6) -> list[dict]:
     return ra
 
 
+def _parse_ymd(s: str) -> datetime | None:
+    m = re.match(r"(\d{4})[.-](\d{2})[.-](\d{2})", str(s or "").strip())
+    if not m:
+        return None
+    try:
+        return datetime(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+    except ValueError:
+        return None
+
+
+def _csv_pham_vi(viec: dict) -> tuple[str, str] | None:
+    """First/last signal date (YYYY.MM.DD) from csv_vao / InpFileCsv.
+
+    CSV-driven EAs (InpVao=4) produce 0 trades when the OOS window has no overlap
+    with this file. Home tick history is also thin before ~2024, so CSV coverage is
+    the primary gate for V2_OOS windows.
+    """
+    candidates: list[Path] = []
+    cv = viec.get("csv_vao") or ""
+    if cv:
+        candidates.append(Path(cv))
+        if not Path(cv).is_absolute():
+            candidates.append(GOC / cv)
+    ts = viec.get("ts") or {}
+    inp = str(ts.get("InpFileCsv") or "")
+    if inp:
+        candidates.append(Path(inp))
+        if not Path(inp).is_absolute():
+            candidates.append(GOC / inp)
+            # common home layout: MQL5/Files/<name>
+            candidates.append(GOC / "reports" / "phan_viec" / "viec_mt5" / inp)
+    seen: set[str] = set()
+    for path in candidates:
+        key = str(path)
+        if key in seen:
+            continue
+        seen.add(key)
+        if not path.exists() or not path.is_file():
+            continue
+        first = last = None
+        try:
+            with path.open("r", encoding="utf-8", errors="replace") as f:
+                for line in f:
+                    line = line.strip()
+                    if not line or line[0] in "#;":
+                        continue
+                    # skip header
+                    low = line[:24].lower()
+                    if "time" in low or "ngay" in low or "date" in low:
+                        if not line[0].isdigit():
+                            continue
+                    token = line.replace(";", ",").replace("\t", ",").split(",")[0].strip().strip('"')
+                    d = _parse_ymd(token)
+                    if d is None:
+                        continue
+                    stamp = d.strftime("%Y.%m.%d")
+                    if first is None:
+                        first = stamp
+                    last = stamp
+        except OSError:
+            continue
+        if first and last:
+            return first, last
+    return None
+
+
+def _overlap_ok(tu: str, den: str, csv_tu: str, csv_den: str, min_days: int = 30) -> bool:
+    a = _parse_ymd(tu)
+    b = _parse_ymd(den)
+    c0 = _parse_ymd(csv_tu)
+    c1 = _parse_ymd(csv_den)
+    if not all((a, b, c0, c1)):
+        return False
+    lo = max(a, c0)
+    hi = min(b, c1)
+    return (hi - lo).days >= min_days
+
+
 def bien_the_oos(viec: dict, goc_ten: str) -> list[dict]:
-    """Longer history + earlier OOS window (walk-forward style)."""
+    """Longer history + earlier OOS window (walk-forward style).
+
+    Only emit windows that overlap CSV signal coverage (and therefore the
+    tick/history range we actually have on home). Pre-2024 "truoc" windows
+    against CSVs that start in 2024 produced 0% real ticks + 0 trades (~50s waste).
+    """
     ra = []
-    # Longer: from 2016 (or 2019) to 2026.10.01
+    csv_pham = _csv_pham_vi(viec)
+    den_mac = "2026.10.01"
+    # Longer: from 2016 (or 2019) to 2026.10.01 — clamp tu up to CSV start when known
     for tu, tag, diem in (("2016.01.01", "dai16", 74), ("2019.01.01", "dai19", 73)):
+        tu_eff, den_eff = tu, den_mac
+        if csv_pham:
+            csv_tu, csv_den = csv_pham
+            # clamp window into CSV coverage (keep tag name for ledger continuity)
+            if _parse_ymd(tu_eff) and _parse_ymd(csv_tu) and _parse_ymd(tu_eff) < _parse_ymd(csv_tu):
+                tu_eff = csv_tu
+            if not _overlap_ok(tu_eff, den_eff, csv_tu, csv_den):
+                continue
         ten = _ten_v2(goc_ten, "oos", tag)
         vv = _clone(viec, ten=ten, pha="V2_OOS", diem=diem,
                     them={"vong2_goc": goc_ten, "vong2_loai": "oos", "vong2_tag": tag})
-        vv["tu"] = tu
-        vv["den"] = "2026.10.01"
+        vv["tu"] = tu_eff
+        vv["den"] = den_eff
+        if csv_pham:
+            vv["csv_tu"] = csv_pham[0]
+            vv["csv_den"] = csv_pham[1]
         ra.append(vv)
     # Earlier window ending before the original IS start (if known)
     tu0 = str(viec.get("tu") or "")
@@ -489,15 +585,28 @@ def bien_the_oos(viec: dict, goc_ten: str) -> list[dict]:
     if m:
         y = int(m.group(1))
         if y >= 2022:
-            ten = _ten_v2(goc_ten, "oos", "truoc")
-            vv = _clone(viec, ten=ten, pha="V2_OOS", diem=75,
-                        them={"vong2_goc": goc_ten, "vong2_loai": "oos", "vong2_tag": "truoc"})
-            vv["tu"] = "%d.01.01" % (y - 3)
-            # day before original start
-            vv["den"] = "%d.%s.%s" % (y, m.group(2), m.group(3))
-            # bump den back one day roughly via month start of IS
-            vv["den"] = "%04d.%02d.01" % (y, int(m.group(2)))
-            ra.append(vv)
+            tu_t = "%d.01.01" % (y - 3)
+            den_t = "%04d.%02d.01" % (y, int(m.group(2)))
+            # Skip when CSV (typical home signals ~2024+) has no overlap with this window
+            if csv_pham and not _overlap_ok(tu_t, den_t, csv_pham[0], csv_pham[1]):
+                pass  # park: no emit
+            else:
+                # If no CSV info, still emit only when den reaches 2024+ (tick coverage floor)
+                skip = False
+                if csv_pham is None:
+                    den_dt = _parse_ymd(den_t)
+                    if den_dt is None or den_dt < datetime(2024, 1, 1):
+                        skip = True  # already built dai*; skip truoc
+                if not skip:
+                    ten = _ten_v2(goc_ten, "oos", "truoc")
+                    vv = _clone(viec, ten=ten, pha="V2_OOS", diem=75,
+                                them={"vong2_goc": goc_ten, "vong2_loai": "oos", "vong2_tag": "truoc"})
+                    vv["tu"] = tu_t
+                    vv["den"] = den_t
+                    if csv_pham:
+                        vv["csv_tu"] = csv_pham[0]
+                        vv["csv_den"] = csv_pham[1]
+                    ra.append(vv)
     return ra
 
 
@@ -543,7 +652,8 @@ def sinh_cho_passer(passer: dict, goc: dict, gon: bool = False) -> list[dict]:
         ds += bien_the_cap(viec, goc_ten, toi_da=2)
     oos = bien_the_oos(viec, goc_ten)
     if gon:
-        oos = [v for v in oos if v.get("vong2_tag") in ("dai19", "truoc")][:2]
+        # Prefer coverage-clamped dai19; truoc only if generator kept it (CSV overlap)
+        oos = [v for v in oos if v.get("vong2_tag") in ("dai19", "truoc", "dai16")][:2]
     ds += oos
     for v in ds:
         v["vong"] = 2
