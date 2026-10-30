@@ -841,16 +841,21 @@ def xet(df, kq_he, kq_bh, cp, gt_ma: str = "", ho: str = "chung",
                      % (_lai_rong, n["edge_tren_spread_toi_thieu"], _phi_sp))
 
     # ---- 11: khong duoc song bang KHE GIA o moc dao ngay ------------------
-    # Do 30/08/2026: tren FX H4 cua kho nay, bar 00:00 MO THAP gia tao roi hoi
-    # trong than bar (khe -3,16 bps o EURGBP, -2,47 EURCAD, -4,61 AUDCAD; moi
-    # gio khac ~0). Om dung bar do = mua o gia mo BIA, ban o gia dong THAT:
-    # +5,78 bps/ngay ~ 14%/nam hien vat thuan. Mot ung vien
-    # (EURGBP.H4.mua_qua_dem) dat t_alpha = 14,52 va di het cong re nho dung
-    # cai do - khong mot cong nao trong 10 cong cu nhin thay.
+    # Do 30/08/2026: tren FX H4 cua kho nay, bar 00:00 MO THAP gia tao (khe
+    # open vs close bar truoc ~ -3..-5 bps) roi "hoi" sang open bar ke.
+    # Engine tinh loi open[i]->open[i+1], nen LONG dung bar khe = mua o open
+    # bia, ban o open bar sau (da hoi) = hien vat thuan ~ hang chuc %/nam.
     #
-    # Chan CHINH XAC chu khong chan ca nguon: chi loai khi chien luoc DON
-    # phoi nhiem vao gio bi nhiem. Mot co che vo tinh nam gio do bang muc
-    # trung binh thi khong an them gi.
+    # Sua 30/10/2026: bo dem CHỈ theo ti le phoi nhiem (nguong 1.25x) de lot
+    # `mua_qua_dem` sau khi engine dich 1 bar: tin hieu "long 20..14" tren H4
+    # thanh vi_the long o gio 0 (an hoi) va FLAT o gio 20 (ne khe am). Ty le
+    # trong/ngoai ~1.25 dung bien, khong trip, trong khi ~96% PnL den tu gio 0.
+    # Them: (a) thu hoach lech o bar khe (phoi cao khe + thap TRUOC + PnL_khe
+    # >50% tong) — `mua_qua_dem`; (b) thu hoach o bar TRUOC (phoi cao prev +
+    # thap khe + PnL_prev >50% tong) — `dong_thanh` short dung khe am.
+    #
+    # Chan CHINH XAC chu khong chan ca nguon: mua-giu (phoi deu moi gio, gom
+    # ca gio truoc khe) van qua - no nhan ca lo khe lan lai hoi, khong chon loc.
     dk["11_khong_an_khe_dao_ngay"] = True
     try:
         _kh = DL.khe_gio_bat_thuong(df)
@@ -858,7 +863,8 @@ def xet(df, kq_he, kq_bh, cp, gt_ma: str = "", ho: str = "chung",
         # `khe_gio_bat_thuong` nhom theo THU, khong theo gio (chi co mot gio).
         _ten_o = "gio" if _kh.get("theo", "gio") == "gio" else "thu"
         if _kh["do_duoc"] and _kh["gio"]:
-            _v = np.abs(np.nan_to_num(np.asarray(kq_he.vi_the, dtype=float)))
+            _vt = np.nan_to_num(np.asarray(kq_he.vi_the, dtype=float))
+            _v = np.abs(_vt)
             _g = np.asarray(df.index.hour if _ten_o == "gio" else df.index.dayofweek)
             _m = np.isin(_g, _kh["gio"])
             if _m.any() and (~_m).any():
@@ -871,8 +877,60 @@ def xet(df, kq_he, kq_bh, cp, gt_ma: str = "", ho: str = "chung",
                         f"{ {g: round(_kh['khe_bps'][g], 2) for g in _kh['gio']} } bps) "
                         "- dang song bang bao gia luc dao ngay, khong bang co che")
                 else:
-                    ly_do.append(f"co {_ten_o} khe dao ngay {_kh['gio']} nhung phoi "
-                                 f"nhiem khong don vao do ({_trong:.2f} vs {_ngoai:.2f})")
+                    # Thu hoach lech quanh moc khe: cao o bar khe (an hoi
+                    # open->open), thap o bar TRUOC (ne lo khe am).
+                    _o_uniq = sorted(set(int(x) for x in _g.tolist()))
+                    _prev = []
+                    for _h in _kh["gio"]:
+                        if _h not in _o_uniq:
+                            continue
+                        _i = _o_uniq.index(_h)
+                        _prev.append(_o_uniq[_i - 1] if _i > 0 else _o_uniq[-1])
+                    _m_prev = np.isin(_g, _prev) if _prev else np.zeros(len(_g), dtype=bool)
+                    _exp_khe = float(_v[_m].mean())
+                    _exp_prev = float(_v[_m_prev].mean()) if _m_prev.any() else _exp_khe
+                    _o = np.asarray(df["open"], dtype=float)
+                    _r = np.zeros(len(_o))
+                    with np.errstate(divide="ignore", invalid="ignore"):
+                        _r[:-1] = _o[1:] / _o[:-1] - 1.0
+                    _r = np.nan_to_num(_r, nan=0.0, posinf=0.0, neginf=0.0)
+                    _pnl = _vt * _r
+                    _pnl_khe = float(np.nansum(_pnl[_m]))
+                    _pnl_tot = float(np.nansum(_pnl))
+                    _pnl_prev = float(np.nansum(_pnl[_m_prev])) if _m_prev.any() else 0.0
+                    # (a) long bar khe: an hoi open->open sau khe am
+                    _lech_khe = (_exp_khe >= 0.3 and _exp_prev < 0.5 * max(_exp_khe, 1e-9)
+                                 and _pnl_tot > 0 and _pnl_khe > 0.5 * _pnl_tot)
+                    # (b) short (hoac long nguoc) o bar TRUOC: open->open bar
+                    # prev gom dung khe am → PnL don vao prev, phoi cao prev /
+                    # thap o khe. Pattern `dong_thanh` vao15/ra17 tren H4.
+                    _lech_prev = (_exp_prev >= 0.3 and _exp_khe < 0.5 * max(_exp_prev, 1e-9)
+                                  and _pnl_tot > 0 and _pnl_prev > 0.5 * _pnl_tot)
+                    if _lech_khe:
+                        dk["11_khong_an_khe_dao_ngay"] = False
+                        ly_do.append(
+                            f"thu hoach khe dao ngay: phoi {_ten_o} khe {_kh['gio']}="
+                            f"{_exp_khe:.2f} nhung {_ten_o} truoc {_prev}={_exp_prev:.2f}; "
+                            f"PnL open->open o bar khe = {_pnl_khe*100:.1f}% / tong "
+                            f"{_pnl_tot*100:.1f}% (>50%) - artifact dich 1 bar + bao gia "
+                            f"luc dao ngay, khong phai co che")
+                    elif _lech_prev:
+                        dk["11_khong_an_khe_dao_ngay"] = False
+                        ly_do.append(
+                            f"thu hoach khe dao ngay (bar truoc): phoi {_ten_o} truoc "
+                            f"{_prev}={_exp_prev:.2f} nhung {_ten_o} khe {_kh['gio']}="
+                            f"{_exp_khe:.2f}; PnL open->open o bar truoc = "
+                            f"{_pnl_prev*100:.1f}% / tong {_pnl_tot*100:.1f}% (>50%) - "
+                            f"artifact short/long dung khe am luc dao ngay, khong "
+                            f"phai co che")
+                    else:
+                        ly_do.append(
+                            f"co {_ten_o} khe dao ngay {_kh['gio']} nhung phoi "
+                            f"nhiem khong don/lech vao do ({_trong:.2f} vs {_ngoai:.2f}; "
+                            f"prev={_exp_prev:.2f}; pnl_khe/tot="
+                            f"{(_pnl_khe/max(_pnl_tot,1e-12)) if _pnl_tot else 0:.2f}; "
+                            f"pnl_prev/tot="
+                            f"{(_pnl_prev/max(_pnl_tot,1e-12)) if _pnl_tot else 0:.2f})")
         elif not _kh["do_duoc"]:
             ly_do.append("chua do duoc khe theo thoi gian (qua it bar hoac chi mot o) "
                          "- KHONG ket luan la sach")

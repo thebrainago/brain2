@@ -240,5 +240,63 @@ class CongChanDUNGChienLuocAnKhe(unittest.TestCase):
                             "loai oan tren chuoi khong co khe")
 
 
+
+class CongChanThuHoachLechKhe(unittest.TestCase):
+    """Sua 30/10/2026: mau `mua_qua_dem` sau engine dich 1 bar = long o gio khe
+    (an hoi open->open) + flat o gio truoc (ne lo khe). Ty le phoi 1.25x khong
+    trip, nhung ~toan bo PnL den tu bar khe — phai bi cong 11 loai.
+    """
+
+    def setUp(self):
+        from nhan import chi_phi as CP, mo_phong as MP
+        # Khe am o gio 0: open bia thap → open->open bar 0 duong (hoi).
+        self.df = _khung(n_ngay=500, khe_gio=0, khe_bps=-5.0)
+        self.cp = CP.MoHinhChiPhi(ma="T", spread_frac_chung=0.00002,
+                                  truot_gia_frac=0.0, phi_nam_mua=0.0,
+                                  phi_nam_ban=0.0, do_tin="SAN")
+        self.MP = MP
+
+    def _xet(self, v):
+        from nhan import cong as CONG
+        kq = self.MP.chay(self.df, v, self.cp, ma="T", khung="H4")
+        bh = self.MP.mua_giu(self.df, self.cp, ma="T", khung="H4")
+        return CONG.xet(self.df, kq, bh, self.cp, gt_ma="T.x", ho="kiem",
+                        da_dang_ky=True, tren_holdout=True,
+                        chay_placebo=False, ghi_so=False)
+
+    def test_mua_qua_dem_lech_khe_bi_loai(self):
+        """Tin hieu long moi gio tru gio 16 → sau dich: long 0..16, flat 20.
+        Dung pattern AUDCAD.H4.mua_qua_dem da PASS o alpha ~8%."""
+        from nhan import mau as MAU
+        v = MAU.m_mua_qua_dem(self.df, gio_vao=20, gio_ra=14)
+        kt = self._xet(v)
+        self.assertFalse(kt["dieu_kien"]["11_khong_an_khe_dao_ngay"],
+                         "mua_qua_dem lech khe (long gio 0 / flat gio 20) van di qua")
+
+    def test_mua_giu_van_qua(self):
+        """Mua-giu nhan ca lo khe lan lai hoi — khong phai thu hoach lech."""
+        kt = self._xet(np.ones(len(self.df)))
+        self.assertTrue(kt["dieu_kien"]["11_khong_an_khe_dao_ngay"],
+                        "mua-giu bi chan oan boi phep do thu hoach lech")
+
+    def test_long_deu_tru_gio_khe_van_qua(self):
+        """Ne thang bar khe (khong an hoi) — khong phai artifact harvest."""
+        g = np.asarray(self.df.index.hour)
+        # tin hieu flat o gio 20 → sau dich flat o gio 0 (ne khe), long elsewhere
+        v = (g != 20).astype(float)
+        kt = self._xet(v)
+        self.assertTrue(kt["dieu_kien"]["11_khong_an_khe_dao_ngay"])
+
+    def test_short_bar_truoc_khe_bi_loai(self):
+        """Short o gio 16 → sau dich short o gio 20: open->open bar 20 gom khe am.
+        Pattern AUDCAD.H4.tin_hieu_thoi_gian_dong_thanh (alpha ~4% nhung gap-ablate
+        → am) — phai bi cong 11 loai."""
+        g = np.asarray(self.df.index.hour)
+        v = np.where(g == 16, -1.0, 0.0)  # → vi_the short gio 20
+        kt = self._xet(v)
+        self.assertFalse(kt["dieu_kien"]["11_khong_an_khe_dao_ngay"],
+                         "short bar truoc khe (an khe am open->open) van di qua")
+
+
 if __name__ == "__main__":
     unittest.main()
