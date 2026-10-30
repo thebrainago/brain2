@@ -84,3 +84,28 @@ Cập nhật 27/10/2026: đã đọc lại trang công khai của cả 32 hệ. 
 ## 5. Việc tiếp theo
 - ~~Xác nhận server real~~ (xong 27/10, cả 32 là live). Còn lại: xem ảnh đường cong (blow-up).
 - Kiểm chứng giả thuyết bằng backtest trong brain2 (placebo/holdout) trước khi tin.
+
+## 6. Xếp hạng dịch ngược trade-level (cập nhật 30/10/2026)
+
+Tiêu chí: **giá trị × khả thi** — lịch sử lệnh công khai đủ cột (open/close, symbol, chiều, lot, SL/TP), không login bypass, tôn trọng robots/ToS, tốc độ lịch sự.
+
+| # | Nền tảng | Lịch sử lệnh | Cách lấy | Ràng buộc | Bộ lọc sẵn | Verdict |
+|---|---|---|---|---|---|---|
+| 1 | **FXBlue** | Có — CSV đủ cột (Closed position, Lots, Buy/sell, Open/Close time/price, S/L, T/P, MAE/MFE) | `GET https://www.fxblue.com/users/<user>/csv` (public, không login) | robots: Allow `/`, Disallow `/user/` (khác `/users/`); nghỉ ≥4s/request; một số user "No data published" | Không có leaderboard API ổn định; lọc thủ công theo tuổi/DD từ trang user | **LÀM NGAY** — collector đã có |
+| 2 | **MQL5 Signals** | Trade-level CSV **sau đăng nhập**; công khai chỉ style/risk/json + Distribution | Style: HTML + `/signals/charts/risks/json`; CSV: máy nhà đã login | robots Disallow deals pagination `/signals/*/deals/page*`; không scrape deals HTML | Tuổi, growth, DD equity, subscribers, rating | **Máy nhà** — parser CSV sẵn; style vẫn dùng `tin_hieu_mql5` |
+| 3 | **Collective2** | Có qua API `GetStrategyHistoricalOrders` / ClosedTrades | API key (đăng ký); không scrape CSV | robots Disallow `/strategy/csv/*`; cần API key | Age, score, DD, subscribers trên marketplace | **Sau** — khi có key; stub chưa gọi |
+| 4 | **Myfxbook** | Public HTML một phần; CSV chỉ account sở hữu; API history ≤50 lệnh/session | API session + id (của mình) | Cloudflare 403 từ box; ToS hạn chế scrape | Systems ranking (gain, DD, drawdown) | **Chặn box** — thử máy nhà/browser nếu cần |
+| 5 | **ZuluTrade** | Leader history (SPA) | DOM/JS | SPA; không có CSV public ổn | Leaders ranking | Thấp — cần CDP |
+| 6 | **Darwinex DARWIN** | Chỉ số rủi ro chuẩn hóa, không trade thô public | DARWIN API / login | Cần đăng nhập | D-Score | Thấp cho reverse-eng entry |
+| 7 | **eToro Popular Investors** | Ranking API public (gain, DD, trades) — **không** trade-level | `/sapi/rankings/rankings/` (đã có `n_etoro`) | SPA pages; API ranking OK | copiers, weeks, trades min | Ranking only — không đủ reverse entry |
+| 8 | **cTrader Copy** | Strategy list / partial | SPA | SPA | ROI/DD | Thấp |
+| 9 | **TradingView** | Backtest published strategies (không phải account verified) | Pine / strategy report | Không phải live trade history | — | Chỉ khi có Pine source (đã có `tradingview_pine`) |
+| 10 | **FXStat** | Account rankings | — | Timeout từ box | — | Bỏ |
+
+### Pipeline trong brain2 (`seeker/tin-hieu-cong-khai`)
+
+1. `nhan/thu_thap_tin_hieu_cong_khai.py` — thu FXBlue CSV → `BRAIN_DATA/tin_hieu_cong_khai/` (không commit).
+2. `nhan/dich_nguoc_tin_hieu.py` — căn H1 parquet, RSI/SMA/ATR/phien/trend, cờ martingale/grid/không-SL, xếp `hang_cho_llm` `loai_viec=dich_boc` (cùng schema NGHI).
+3. CLI: `python tools/dich_nguoc_tin_hieu.py --users example fluidtrader-demo`
+4. Test: `python test_dich_nguoc_tin_hieu.py`
+
