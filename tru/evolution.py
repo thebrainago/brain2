@@ -726,6 +726,60 @@ def do_van_hanh() -> dict:
 
 
 # ------------------------------------------------------------- PHAT HIEN
+
+def phat_hien_ho_alpha_lech(boi_mad: float = 5.0, toi_thieu_ho: int = 3,
+                            toi_thieu_n_trong_ho: int = 3) -> list[dict]:
+    """Flag ho (family) co mean alpha la extreme outlier vs cac ho khac.
+
+    Dung MAD (median absolute deviation). Neu |alpha_tb - median| > boi_mad * MAD
+    thi bao `nghi_ngo_ro_ri` — thuong la artifact (lookahead, khe dao ngay, don
+    vi alpha sai), khong phai edge that. Khong dung FDR.
+    """
+    ra: list[dict] = []
+    try:
+        ho = SO.nhieu(
+            "SELECT g.ho, COUNT(*) n, "
+            "SUM(CASE WHEN k.verdict='PASS' THEN 1 ELSE 0 END) pass, "
+            "AVG(k.alpha) alpha_tb "
+            "FROM ket_qua k JOIN gia_thuyet g ON g.ma = k.gt_ma "
+            "WHERE g.ho IS NOT NULL AND g.ho != '' "
+            "AND k.alpha IS NOT NULL AND k.superseded_by IS NULL "
+            "GROUP BY g.ho HAVING COUNT(*) >= ?",
+            toi_thieu_n_trong_ho)
+    except Exception:
+        return ra
+    if not ho or len(ho) < toi_thieu_ho:
+        return ra
+    alphas = [float(r["alpha_tb"]) for r in ho]
+    med = sorted(alphas)[len(alphas) // 2]
+    abs_dev = sorted(abs(a - med) for a in alphas)
+    mad = abs_dev[len(abs_dev) // 2]
+    if mad < 1e-9:
+        mad = 1e-9
+    lech = []
+    for r in ho:
+        a = float(r["alpha_tb"])
+        z = abs(a - med) / mad
+        if z > boi_mad:
+            lech.append({**dict(r), "mad_boi": round(z, 2),
+                         "alpha_tb": round(a, 3)})
+    if not lech:
+        return ra
+    lech.sort(key=lambda x: -x["mad_boi"])
+    ten = ", ".join(f"`{x['ho']}` α={x['alpha_tb']} ({x['mad_boi']}×MAD)" for x in lech[:6])
+    ra.append({
+        "ma": "nghi_ngo_ro_ri",
+        "muc": "NANG",
+        "mo_ta": (f"Ho alpha lech bat thuong vs median {med:.3f} (MAD={mad:.3f}, "
+                  f"nguong {boi_mad}×): {ten}. Gan nhu chac artifact "
+                  f"(khe dao ngay / lookahead / don vi) — khong duyet PASS cua "
+                  f"ho nay cho toi khi giai thich duoc."),
+        "bc": {"median": round(med, 3), "mad": round(mad, 3), "boi": boi_mad,
+               "ho_lech": lech},
+    })
+    return ra
+
+
 def phat_hien(vh: dict, sk: dict) -> list[dict]:
     ra = []
 
@@ -872,76 +926,21 @@ def phat_hien(vh: dict, sk: dict) -> list[dict]:
         ra.append({"ma": "nhieu_viec_loi", "muc": "VUA",
                    "mo_ta": f"{vh['viec_loi']} viec o trang thai LOI", "bc": vh["viec"]})
 
-    # THIET_KE muc 9: qua nhieu PASS trong mot ngay la tin hieu HONG.
-    # Che do loi_nhuan (config/nguong.json): soft PASS (= fail 4_alpha va/hoac
-    # 5_placebo nhung van PASS vi chi CHAN 11/14/15) KHONG phai bug mid/spread
-    # hay double-count — do la chinh sach. Chi dem HARD PASS (4_alpha+5_placebo
-    # deu True) cho muc NANG; soft chi bao VUA khi rat nhieu.
-    import json as _json_pass
-    hom_nay = datetime.now().strftime("%Y-%m-%d")
-    rows_pass = SO.nhieu(
-        "SELECT cong FROM ket_qua WHERE verdict='PASS' AND luc LIKE ?",
-        hom_nay + "%")
-    n_pass = len(rows_pass)
-    n_hard = n_soft = 0
-    for r in rows_pass:
-        try:
-            cong = _json_pass.loads(r["cong"] or "{}")
-        except Exception:
-            cong = {}
-        a4 = cong.get("4_alpha_duong_co_y_nghia")
-        a5 = cong.get("5_song_sot_placebo", cong.get("5_placebo"))
-        if a4 is True and a5 is True:
-            n_hard += 1
-        else:
-            n_soft += 1
-    bc_pass = {"so_pass": n_pass, "so_pass_hard": n_hard, "so_pass_soft": n_soft,
-               "ghi_chu": "soft=PASS loi_nhuan fail 4_alpha/5_placebo; hard=ca hai True"}
-    if n_hard > 5:
-        ra.append({"ma": "qua_nhieu_pass", "muc": "NANG",
-                   "mo_ta": f"{n_hard} HARD PASS (+{n_soft} soft) trong mot ngay. "
-                            "Theo THIET_KE muc 9 day la tin hieu HONG chu khong phai tin vui "
-                            "- phai kiem day chuyen (lookahead/FDR/chi phi) truoc khi duyet",
-                   "bc": bc_pass})
-    elif n_soft > 5:
-        ra.append({"ma": "qua_nhieu_pass", "muc": "VUA",
-                   "mo_ta": f"{n_soft} soft PASS / {n_pass} PASS trong mot ngay "
-                            "(che do loi_nhuan: alpha/placebo chi NHAN). "
-                            "Khong phai mid-khong-spread hay double-count confirm/explore — "
-                            "doi che_do_cong='chan' neu muon siet theo THIET_KE muc 9 cu.",
-                   "bc": bc_pass})
+    # 30/10/2026: `qua_nhieu_pass` TAT. FDR/placebo/Holm chi la NHAN; tieu chi
+    # PASS = lai sau phi, DD<=80%, >=10%/nam (che_do_cong=loi_nhuan). So luong
+    # PASS (soft hay hard) KHONG phai tin hieu hong — EVO chi bao artifact that
+    # (lookahead/ro ri, ho alpha lech, du lieu hong, tester sai).
 
-    if sk.get("null_ty_le_lot") is None and sk.get("so_ket_qua", 0) >= 30:
-        ra.append({"ma": "chua_hieu_chuan_null", "muc": "NANG",
-                   "mo_ta": f"Da ghi {sk['so_ket_qua']} ket qua ma CHUA lan nao do ty le lot cua "
-                            "null factory. Khong biet cong dang xa hay chat thi moi ket luan "
-                            "am tinh deu vo nghia.", "bc": {}})
-    elif sk.get("null_ty_le_lot") is not None:
-        import json as _j
-        muc = 0.10
-        if sk["null_ty_le_lot"] > muc * 2:
-            ra.append({"ma": "null_lot_qua_nhieu", "muc": "NANG",
-                       "mo_ta": f"Null factory lot {sk['null_ty_le_lot']:.0%} (muc tieu {muc:.0%}) "
-                                "- cong dang san xuat phat hien sai",
-                       "bc": sk.get("null_chi_tiet", {})})
-        elif sk["null_ty_le_lot"] == 0 and (sk.get("ty_le_qua_cong") or 0) == 0:
-            if sk.get("cong_co_luc") is True:
-                # Da co cau tra loi cho chieu con lai: cong CHO thu co edge di qua.
-                # Vay "null 0% + that 0%" la ket luan THAT, khong phai trieu chung.
-                pass
-            elif sk.get("cong_co_luc") is False:
-                ra.append({"ma": "cong_khong_co_luc", "muc": "NANG",
-                           "mo_ta": "Bai kiem LUC bao cong chan ca thu CO edge that "
-                                    "(p=0,60). Moi ket luan am tinh cua day chuyen "
-                                    "dang vo nghia cho toi khi sua cong.",
-                           "bc": {"ket": sk.get("cong_co_luc_chi_tiet")}})
-            else:
-                ra.append({"ma": "cong_co_the_qua_chat", "muc": "VUA",
-                           "mo_ta": "Null lot 0% VA kham pha that cung 0%, ma CHUA chay bai "
-                                    "kiem LUC. Phai phan biet 'khong co edge' (cau tra loi "
-                                    "dung) voi 'cong tu choi ca that lan gia' (loi phai sua) "
-                                    "- hai truong hop cho so lieu Y HET nhau.",
-                           "bc": {"null_lot": 0, "that_qua_cong": 0}})
+    # 30/10/2026: null-factory / FDR lot alarms TAT (FDR chi NHAN). Chi giu
+    # `cong_khong_co_luc` — do la loi correctness (cong chan ca thu CO edge).
+    if sk.get("null_ty_le_lot") is not None:
+        if (sk["null_ty_le_lot"] == 0 and (sk.get("ty_le_qua_cong") or 0) == 0
+                and sk.get("cong_co_luc") is False):
+            ra.append({"ma": "cong_khong_co_luc", "muc": "NANG",
+                       "mo_ta": "Bai kiem LUC bao cong chan ca thu CO edge that "
+                                "(p=0,60). Moi ket luan am tinh cua day chuyen "
+                                "dang vo nghia cho toi khi sua cong.",
+                       "bc": {"ket": sk.get("cong_co_luc_chi_tiet")}})
 
     kh = [n for n, d in vh["nguon"].items()
           if d["trang_thai"] == "BAT" and d["lan"] >= 3 and d["thu_hoach"] == 0]
@@ -949,6 +948,16 @@ def phat_hien(vh: dict, sk: dict) -> list[dict]:
         ra.append({"ma": "nguon_khong_thu_hoach", "muc": "VUA",
                    "mo_ta": f"Nguon {', '.join(kh)} da goi >=3 lan ma chua thu duoc tai lieu nao",
                    "bc": {"nguon": kh}})
+
+    # Ho (family) alpha la extreme outlier so voi cac ho khac → nghi ro ri /
+    # artifact (vd phien mean alpha ~5 vs khac -0.7..0.45). MAD guard, khong FDR.
+    try:
+        _ro = phat_hien_ho_alpha_lech()
+        ra.extend(_ro)
+    except Exception as _e_ro:
+        ra.append({"ma": "nghi_ngo_ro_ri_loi_do", "muc": "NHE",
+                   "mo_ta": f"khong do duoc MAD ho alpha: {type(_e_ro).__name__}",
+                   "bc": {}})
 
     # Hang cho LLM: khi BRAIN_LLM_PROVIDER=hang_cho thi KHONG bao thieu
     # OPENAI_API_KEY. Chi bao khi cho/ stale hoac loi/ co file.
@@ -1025,15 +1034,19 @@ def tu_sua(vh: dict) -> list[str]:
 HE_THONG_EVO = """Ban la tru EVOLUTION cua mot phong lab nghien cuu tai chinh chay 24/7.
 Viec cua ban KHONG phai de xuat chien luoc giao dich - moi ket luan ve tien deu
 phai di qua cong kiem dinh rieng. Viec cua ban la nhin so lieu VAN HANH va noi:
-day chuyen dang hong o dau, va sua the nao.
+day chuyen dang hong o dau (artifact that), va sua the nao.
 
 Boi canh bat buoc nho:
-- Day chuyen nay da chay 1.758 phep thu truoc day va ra 0 chien luoc dung duoc.
-  "Khong tim thay gi" la ket qua BINH THUONG, khong phai trieu chung hong.
-- Trieu chung hong that su la: qua nhieu PASS trong mot ngay, null factory lot
-  qua nhieu, tru dung im, so bi dut chuoi, hoac vong lap chay ma khong sinh ra gi.
-- Mot cong tu choi TAT CA cho ra so lieu y het mot cong hieu chuan tot. Neu ban
-  thay ca null lan that deu bang 0, hay noi ro rang do la hai gia thuyet khac nhau.
+- Day chuyen nay da chay hang nghin phep thu. "Khong tim thay gi" la ket qua
+  BINH THUONG, khong phai trieu chung hong.
+- FDR / placebo / Holm chi la NHAN tren ket qua — KHONG phai cong, KHONG phai
+  bao dong. KHONG de xuat doi che_do_cong sang 'chan', KHONG de xuat siet FDR,
+  KHONG coi "nhieu PASS" hay "null factory lot" la hong.
+- Tieu chi PASS dang dung: lai sau phi, max DD <= 80%, >= 10%/nam
+  (che_do_cong=loi_nhuan). Nguoi dung quyet che_do_cong — EVO khong doi.
+- Chi bao artifact that: lookahead/ro ri gia thuyet, ho (family) alpha lech
+  bat thuong so voi cac ho khac, du lieu hong, tester/ket qua khong hop le,
+  tru dung im, so bi dut chuoi, vong lap rong.
 
 Tra loi ngan, cu the, bang tieng Viet. Khong khen ngoi, khong dao to bua lon."""
 
@@ -1070,7 +1083,8 @@ def phan_tich_sau(vh: dict, sk: dict, ep: bool = False) -> dict:
                    ensure_ascii=False)[:3000]
     )
     # ep=True (goi tay) bo qua ca han muc chung cua tri_tue, khong chi ky 6 gio
-    kq = TT.hoi_json(nhac, HE_THONG_EVO, bo_qua_han_muc=ep, dung_cache=not ep)
+    kq = TT.hoi_json(nhac, HE_THONG_EVO, bo_qua_han_muc=ep, dung_cache=not ep,
+                     loai_viec="evo_chan_doan", tru="EVO")
     SO.ghi_chi_so("evo_phan_tich_sau", 1, {"co_json": bool(kq.get("json")),
                                            "duong": kq.get("duong")})
     if kq.get("json"):
@@ -1334,9 +1348,10 @@ def viet_bao_cao(vh: dict, sk: dict, vd: list, da_sua: list, sau: dict | None = 
 EVO_TU_QUAN = {
     "mt5_khong_kha_dung",
     "dia_thap", "vong_lap_rong", "quet_nong", "nang_suat_doc_thap",
-    "nhieu_viec_loi", "qua_nhieu_pass",
-    "so_dut_chuoi", "nguon_khong_thu_hoach", "chua_hieu_chuan_null",
-    "null_lot_qua_nhieu", "cong_co_the_qua_chat",
+    "nhieu_viec_loi",
+    "so_dut_chuoi", "nguon_khong_thu_hoach",
+    "cong_khong_co_luc",
+    "nghi_ngo_ro_ri",
     # Them 31/08: ca hai deu suy ra tu mot phep do chay moi luot, nen khi dieu
     # kien het thi chung phai tu dong lai - neu khong danh sach van de chi dai
     # ra va nguoi dung mat long tin vao no (da xay ra that voi `dia_thap`).

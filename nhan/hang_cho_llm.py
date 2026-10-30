@@ -59,6 +59,12 @@ SCHEMA_THEO_LOAI = {
         "kieu": "text_or_json",
         "bat_buoc": [],
     },
+    "evo_chan_doan": {
+        "mo_ta": "JSON chan doan van hanh EVO (chan_doan/de_xuat/cau_hoi_cho_nguoi)",
+        "kieu": "json_object",
+        "bat_buoc": [],
+        "mau": {"chan_doan": [], "de_xuat": [], "cau_hoi_cho_nguoi": []},
+    },
     "khac": {"mo_ta": "Van ban tu do", "kieu": "text", "bat_buoc": []},
 }
 

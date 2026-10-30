@@ -314,7 +314,9 @@ def hoi(nhac: str, he_thong: str = "", bo_qua_han_muc: bool = False,
     # Provider file-queue: BRAIN_LLM_PROVIDER=hang_cho thang config.duong
     from nhan import hang_cho_llm as HCL
     if HCL.dang_bat() or duong == "hang_cho":
-        lv = loai_viec or ("nghi_de_xuat" if ep_json else "tri_tue_hoi")
+        # 30/10/2026: mac dinh KHONG gan nghi_de_xuat (EVO chan doan tung bi dan nham).
+        # NGHI phai truyen loai_viec="nghi_de_xuat" ro; EVO dung evo_chan_doan.
+        lv = loai_viec or "tri_tue_hoi"
         kq = HCL.xep_hang(
             lv,
             he_thong or "",
