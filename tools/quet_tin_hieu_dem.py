@@ -40,6 +40,11 @@ def main(argv=None):
     ap.add_argument("--toi-da-he", type=int, default=40)
     ap.add_argument("--bo-kham-pha", action="store_true")
     ap.add_argument("--mql5-list", action="store_true")
+    ap.add_argument("--mql5-pw", action="store_true",
+                    help="Playwright: tu dong Export CSV History MQL5 (may nha)")
+    ap.add_argument("--mql5-toi-da", type=int, default=100)
+    ap.add_argument("--myfxbook-pw", nargs="*", default=None,
+                    help="Playwright Myfxbook system paths (optional)")
     ap.add_argument("--hang-viec", default="",
                     help="Mac dinh reports/vong2/hang_cho_tin_hieu.jsonl")
     ap.add_argument("--loop-giay", type=int, default=0,
@@ -52,6 +57,57 @@ def main(argv=None):
         t0 = time.time()
         if a.mql5_list:
             TT.liet_ke_mql5_signals(nghi=a.nghi)
+        mql5_pw_kq = None
+        if a.mql5_pw:
+            try:
+                from tools import tai_lich_su_trinh_duyet as PW
+                mql5_pw_kq = PW.chay_mql5(
+                    toi_da=a.mql5_toi_da,
+                    nghi=max(float(a.nghi), 5.0),
+                    tuoi_min_ngay=365,
+                    headed=True,
+                )
+                print("[mql5_pw]", json.dumps({
+                    k: mql5_pw_kq.get(k) for k in
+                    ("ok", "tong_ok", "tong_loi", "tong_bo_qua", "can_dang_nhap", "ly_do")
+                }, ensure_ascii=False))
+                csv_dir = Path(os.environ.get("BRAIN_MQL5_CSV") or
+                               r"E:\brain2_grok_tin_hieu\data\mql5_csv")
+                if csv_dir.is_dir():
+                    nap = TT.nap_mql5_csv_thu_muc(csv_dir)
+                    dich_m = []
+                    for h in (nap.get("he") or []):
+                        hid = h["he_id"]
+                        trades = TT.doc_he_da_luu("mql5_csv", hid)
+                        if not trades:
+                            continue
+                        loc = DN.loc_he(trades, tu_choi_nguy_hiem=False)
+                        tracks = ["dca"] if (loc.get("martingale") or loc.get("grid")) else ["thuong"]
+                        url = "https://www.mql5.com/en/signals/%s" % hid
+                        for tr in tracks:
+                            kq1 = DN.xep_dich_boc(
+                                "mql5_csv", hid, trades, kho_gia=kho, url=url, track=tr)
+                            dich_m.append({
+                                "he_id": hid, "track": tr, "nguon": "mql5_csv",
+                                **{k: kq1.get(k) for k in
+                                   ("trang_thai", "id", "ghi_chu", "so_lenh",
+                                    "so_mau", "so_multi", "ho_so_path")},
+                            })
+                            print("[dich_nguoc/%s] mql5_csv %s -> %s" % (
+                                tr, hid, kq1.get("trang_thai")))
+                    if dich_m:
+                        VV.ghi_tu_dich(dich_m, hang=hang)
+                # optional myfxbook paths
+                if a.myfxbook_pw:
+                    from tools import tai_lich_su_trinh_duyet as PW
+                    my = PW.chay_myfxbook(
+                        list(a.myfxbook_pw), nghi=max(float(a.nghi), 5.0), headed=True)
+                    print("[myfxbook_pw]", json.dumps({
+                        k: my.get(k) for k in ("ok", "tong_ok", "tong_loi")
+                    }, ensure_ascii=False))
+            except Exception as e:
+                print("[mql5_pw loi]", e)
+                mql5_pw_kq = {"ok": False, "ly_do": str(e)}
         if a.bo_kham_pha:
             users = list(TT.FXBLUE_SEED)
         else:
@@ -74,6 +130,9 @@ def main(argv=None):
             "dich": len(kq.get("dich") or []),
             "bo_qua": len(kq.get("bo_qua") or []),
             "viec": viec,
+            "mql5_pw": ({k: mql5_pw_kq.get(k) for k in
+                        ("ok", "tong_ok", "tong_loi", "tong_bo_qua", "can_dang_nhap", "ly_do")}
+                       if mql5_pw_kq else None),
         }
         print(json.dumps(tong, ensure_ascii=False, indent=2))
         log = GOC / "reports" / "vong2" / "quet_tin_hieu_log.jsonl"

@@ -149,13 +149,21 @@ def doc_csv_mql5_statement(duong: Path | str, *, he_id: str) -> list[dict]:
     raw = p.read_text(encoding="utf-8-sig", errors="replace")
     lines = [ln for ln in raw.splitlines() if ln.strip()]
     # Bỏ dòng meta đầu nếu không phải header
-    while lines and not re.search(r"(Symbol|Ticket|Order)", lines[0], re.I):
+    while lines and not re.search(r"(Symbol|Ticket|Order|Volume|Time)", lines[0], re.I):
         lines.pop(0)
     if not lines:
         return []
-    # Thử delimiter
-    delim = "\t" if "\t" in lines[0] else ","
+    # Thử delimiter (MQL5 Export to CSV: History dùng ';')
+    header = lines[0]
+    if "\t" in header:
+        delim = "\t"
+    elif header.count(";") >= max(2, header.count(",")):
+        delim = ";"
+    else:
+        delim = ","
     rdr = csv.DictReader(lines, delimiter=delim)
+    # MQL5 history Export often: Time;Type;Volume;Symbol;Price;...
+    fieldnames = list(rdr.fieldnames or [])
     ra = []
     for row in rdr:
         # map alias
@@ -179,8 +187,13 @@ def doc_csv_mql5_statement(duong: Path | str, *, he_id: str) -> list[dict]:
             "Trade duration (hours)": row.get("Trade duration (hours)") or "",
         }
         # Direction may be in Type for MT5 deals (buy/sell)
-        if alias["Buy/sell"].lower() in ("buy", "sell"):
+        bs = (alias["Buy/sell"] or "").strip().lower()
+        if bs in ("buy", "sell", "buy deal", "sell deal"):
+            alias["Buy/sell"] = "Buy" if bs.startswith("buy") else "Sell"
             alias["Type"] = "Closed position"
+        # Skip pure balance rows (no symbol)
+        if not alias["Symbol"] and bs in ("balance", "credit", "deposit", "withdrawal"):
+            continue
         h = chuan_hoa_hang_fxblue(alias, he_id=he_id, nguon="mql5_csv")
         if h:
             ra.append(h)
