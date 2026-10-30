@@ -169,8 +169,24 @@ def trang_thai(cpu: float | None = -1.0, tien_trinh=None, khoa=None) -> dict:
             dung.append("cpu_%.0f" % cpu)
         elif cpu >= CPU_CHAM:
             cham.append("cpu_%.0f" % cpu)
+    # Khi MT5 tren may nay khong kha dung (TLS/XM die, BRAIN_MT5_KHA_DUNG=0):
+    # terminal64.exe van song nhung khong bao gio xong -> KHONG duoc khoa SEEKER.
+    # Thong tin `mt5_khong_kha_dung` nam trong ly_do nhung KHONG dua muc len cham/dung
+    # (SEEKER can chay du ngan sach tren box).
+    mt5_info = None
+    try:
+        from nhan import mt5_kha_dung as MKD
+        tt_mt5 = MKD.trang_thai(tien_trinh=tien_trinh)
+        if not tt_mt5.get("ok"):
+            dung = MKD.bo_qua_tin_hieu_tester(dung, tt_mt5)
+            mt5_info = "mt5_khong_kha_dung:%s" % str(tt_mt5.get("ly_do") or "")[:60]
+    except Exception:
+        pass
     muc = "dung" if dung else "cham" if cham else "binh_thuong"
-    return {"muc": muc, "ly_do": list(dict.fromkeys(dung + cham))[:12], "cpu": cpu}
+    ly = list(dict.fromkeys(dung + cham))[:12]
+    if mt5_info and mt5_info not in ly:
+        ly = (ly + [mt5_info])[:12]
+    return {"muc": muc, "ly_do": ly, "cpu": cpu}
 
 
 @contextmanager
