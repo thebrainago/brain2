@@ -612,3 +612,15 @@ class HangChoLlmSucKhoe(SoTam):
         ds = EVO.phat_hien(_van_hanh(), _suc_khoe())
         self.assertNotIn("hang_cho_llm_tre", _ma(ds))
         self.assertNotIn("hang_cho_llm_loi", _ma(ds))
+
+
+class BaoVanDeRefresh(SoTam):
+    def test_bao_lai_cap_nhat_muc_mo_ta(self):
+        SO.bao_van_de("qua_nhieu_pass", "NANG", "cu soft khong phan", {"so_pass": 26})
+        SO.bao_van_de("qua_nhieu_pass", "VUA", "moi soft vs hard",
+                      {"so_pass": 26, "so_pass_soft": 26, "so_pass_hard": 0})
+        r = SO.mot("SELECT muc, mo_ta, bang_chung FROM van_de WHERE ma=? AND trang_thai='MO'",
+                   "qua_nhieu_pass")
+        self.assertEqual(r["muc"], "VUA")
+        self.assertIn("soft vs hard", r["mo_ta"])
+        self.assertIn("so_pass_soft", r["bang_chung"])
