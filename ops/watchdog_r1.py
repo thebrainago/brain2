@@ -144,12 +144,12 @@ def adaptive_workers(cpu, free_gb):
     if free_gb < RAM_MIN_FREE_GB:
         return max(2, SEEKER_WORKERS_MIN - 1), max(2, QL_WORKERS_MIN - 1), 30, 25, "ram_protect"
     if free_gb >= 10 and cpu < CPU_TARGET_LO:
-        return SEEKER_WORKERS_MAX, QL_WORKERS_MAX, 55, 50, "boost_hi"
+        return SEEKER_WORKERS_MAX, QL_WORKERS_MAX, 70, 65, "boost_hi"
     if free_gb >= 6 and cpu < CPU_TARGET_LO:
-        return 7, 5, 52, 48, "boost_mid"
+        return 7, 5, 65, 60, "boost_mid"
     if cpu > CPU_TARGET_HI + 5:
         return SEEKER_WORKERS_MIN, QL_WORKERS_MIN, 40, 35, "backoff"
-    return 6, 4, 50, 45, "steady"
+    return 6, 4, 60, 55, "steady"
 
 def _base_env(workers, cpu_lim):
     env = os.environ.copy()
