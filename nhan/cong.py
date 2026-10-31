@@ -119,13 +119,26 @@ NHAN_LOI_NHUAN = {
 
 
 def dat_cot_loi(cs: dict, n: dict = None) -> bool:
-    """BA yeu to cot loi (17/10/2026) tren mot bo chi so `DO.chi_so`: lai rong > 0 VA co mot muc lot cho
-    lai >= `lai_nam_toi_thieu_pct` voi sut giam <= `sut_giam_toi_da_pct` <=> cagr / |sut giam| >= 10 / 80.
-    Dung chung cho cong (dieu kien 15) va sang tho cua quantlab - mot cong thuc, khong hai."""
+    """Yeu to cot loi (chu du an): lai sau phi > 0, sut giam <= 80%, lai >= 10%/nam.
+
+    Tuyet doi theo nguong (khong dung ti so cagr/dd thay the). Holm/FDR/placebo khong o day.
+    """
     n = n or nguong()
-    muc, tran = float(n.get("lai_nam_toi_thieu_pct", 10.0)), float(n.get("sut_giam_toi_da_pct", 80.0))
-    cg, dd = (cs or {}).get("cagr_pct"), abs((cs or {}).get("max_dd_pct") or 0.0)
-    return bool(cg is not None and cg > 0 and (dd <= 1e-9 or cg / dd >= muc / tran))
+    muc = float(n.get("lai_nam_toi_thieu_pct", 10.0))
+    tran = float(n.get("sut_giam_toi_da_pct", 80.0))
+    cg = (cs or {}).get("cagr_pct")
+    if cg is None:
+        cg = (cs or {}).get("tong_lai_pct")
+    dd = abs((cs or {}).get("max_dd_pct") or (cs or {}).get("sut_giam_pct") or 0.0)
+    lai_rong = (cs or {}).get("tong_lai_pct")
+    if lai_rong is None:
+        lai_rong = cg
+    return bool(
+        cg is not None
+        and float(lai_rong) > 0
+        and float(cg) >= muc
+        and float(dd) <= tran
+    )
 
 
 def ti_so_cot_loi(cs: dict) -> float:

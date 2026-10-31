@@ -53,11 +53,14 @@ def _loi_nhuan() -> bool:
 
 
 def _qua_sang_tho(cs: dict, m_bh: dict, so_lenh: int) -> bool:
-    """Sang tho tren TRAN. Che do "loi_nhuan" (17/10/2026): chi BA yeu to cot loi (lai rong, lai/sut giam) -
-    truoc 18/10 o day van doi THANG MUA-GIU ca tong lai lan Sharpe, tuc cong da bo dieu kien nay ma sang tho
-    van loai he co lai truoc khi no toi duoc cong. Che do khac: giu nguyen ban cu."""
+    """Sang tho tren TRAN.
+
+    Che do loi_nhuan: CHI yeu to cot loi (lai sau phi, >=10%/nam, DD<=80%). so_lenh chi la nhan
+    (khong chan) — chu du an 31/10/2026. Che do khac: giu ban cu (thang mua-giu + du lenh).
+    """
     if _loi_nhuan():
-        return so_lenh >= SO_LENH_SANG_THO_LOI_NHUAN and (cs.get("tong_lai_pct") or 0) > 0 and CONG.dat_cot_loi(cs)
+        # so_lenh logged by caller; never gate here
+        return bool((cs.get("tong_lai_pct") or 0) > 0 and CONG.dat_cot_loi(cs))
     return (so_lenh >= CONG.nguong()["so_lenh_toi_thieu"]
             and (cs.get("tong_lai_pct") or -1e9) > (m_bh.get("tong_lai_pct") or 0)
             and (cs.get("sharpe") or -9) > (m_bh.get("sharpe") or 0))
@@ -1187,7 +1190,7 @@ def hieu_chuan_null(so_ca: int = 12, ma: str | None = None, khung: str = "H4") -
 
     Cach sinh null (THIET_KE muc 3): bootstrap khoi tren chinh chuoi vi the cua
     mot chien luoc that, giu nguyen do dai doan giu -> null CUNG CUM THEO CHE DO
-    nhu that. Bốc i.i.d. la sai: null khong cum se cap giay chung nhan cho dung
+    nhu that. BÃ¡Â»â€˜c i.i.d. la sai: null khong cum se cap giay chung nhan cho dung
     bay bien-dong-cum-lai.
 
     Ket qua ghi vao ho FDR RIENG ('null_hieu_chuan') de khong lam ban chuoi
@@ -1250,7 +1253,7 @@ def thu_luc_cong(cac_p=(0.50, 0.55, 0.60), ma: str | None = None,
     `cong-pass-phai-hieu-chuan-hai-chieu`).
 
     Cach do: tin hieu biet truoc dau loi suat sap toi nhung CHI DUNG `p` phan
-    tram so lan, con lai bốc ngau nhien. p = 0,50 khong co edge -> PHAI truot.
+    tram so lan, con lai bÃ¡Â»â€˜c ngau nhien. p = 0,50 khong co edge -> PHAI truot.
     p = 0,60 co edge that va lon -> PHAI qua. Cong nao cho p=0,50 qua thi qua
     xa; cong nao chan p=0,60 thi qua chat va moi ket luan am tinh cua no vo nghia.
     """
@@ -1310,13 +1313,21 @@ def thu_luc_cong(cac_p=(0.50, 0.55, 0.60), ma: str | None = None,
 #: bang thong bo nho chu khong them viec.
 def _so_tien_trinh_quet(xin: int = 0) -> int:
     import os
-    tran = max(1, (os.cpu_count() or 2) // 2)      # ~so nhan vat ly
-    if xin > 0:
-        return max(1, min(xin, tran))
+    # mac dinh cpu//2; BRAIN_QUET_TRAN_MAX (default=cpu_count) cho phep fill CPU khi MT5 it slot
+    nlogic = os.cpu_count() or 2
+    tran_mac = max(1, nlogic // 2)
     try:
-        return max(1, min(int(os.environ.get("BRAIN_QUET_TIEN_TRINH", 0)) or tran, tran))
+        tran_max = int(os.environ.get("BRAIN_QUET_TRAN_MAX", 0)) or nlogic
     except Exception:
-        return tran
+        tran_max = nlogic
+    tran_max = max(1, min(tran_max, nlogic))
+    if xin > 0:
+        return max(1, min(xin, tran_max))
+    try:
+        yc = int(os.environ.get("BRAIN_QUET_TIEN_TRINH", 0)) or tran_mac
+        return max(1, min(yc, tran_max))
+    except Exception:
+        return tran_mac
 
 
 def _quet_mot(cap):

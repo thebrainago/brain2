@@ -139,10 +139,38 @@ def doi_chieu() -> dict:
 
 
 # ---------------------------------------------------------------------- 2. DOC
+#: Tran ky tu NOI DUNG moi tai lieu dua vao loi nhac (sau khi go HTML).
+TRAN_VAN_BAN_MOT = 4000
+#: Tran tong ky tu van_ban cua ca reading-list trong mot loi nhac.
+TRAN_VAN_BAN_TONG = 12000
+#: Tran do dai chuoi "CO CHE DA CO" (ten thuan, khong HTML) — truoc day ~96KB.
+TRAN_DA_CO_KY_TU = 8000
+
+
+def _gon_van_ban_tai_lieu(vb: str, url: str = "") -> str:
+    """Go HTML/script/style + gop khoang trang; giu van ban huu ich cho NGHI."""
+    from nhan import go_html as GH
+    s = vb or ""
+    if GH.la_html_tho(s) or ("<script" in s[:2000].lower()) or ("<style" in s[:2000].lower()):
+        try:
+            s = GH.go(s, url=url) or ""
+        except Exception:
+            # fallback tho: bo the don gian neu bs4 loi
+            import re as _re
+            s = _re.sub(r"(?is)<(script|style|noscript)[^>]*>.*?</\1>", " ", s)
+            s = _re.sub(r"(?s)<[^>]+>", " ", s)
+    s = " ".join(s.split())
+    return s
+
+
 def doc_tai_lieu(n: int = 8) -> list[dict]:
     """Tai lieu HANG A/B con nong. Tra ca NOI DUNG THAT neu da keo ve - de NGHI
     doc duoc chu khong chi nhin tieu de/tom tat (neu chi nhin tom tat thi moi
-    "co che" sinh ra la cua LLM, khong phai cua tai lieu)."""
+    "co che" sinh ra la cua LLM, khong phai cua tai lieu).
+
+    Truoc khi dua vao loi nhac: go HTML/script/style, gop whitespace, cat theo
+    TRAN_VAN_BAN_MOT / TRAN_VAN_BAN_TONG (tranh prompt ~120KB toan HTML tho).
+    """
     rows = SO.nhieu(
         "SELECT t.id, t.tieu_de, t.tom_tat, t.url, t.tu_khoa, t.diem, "
         "       nd.van_ban, nd.so_ky_tu "
@@ -151,10 +179,18 @@ def doc_tai_lieu(n: int = 8) -> list[dict]:
         "WHERE t.tu_khoa IN('A','B') "
         "ORDER BY (nd.so_ky_tu IS NOT NULL AND t.da_khai_thac=0) DESC, "
         "t.da_khai_thac ASC, t.diem DESC, t.id DESC LIMIT ?", n)
+    tong = 0
     for r in rows:
         vb = r.pop("van_ban", None) or ""
-        r["van_ban"] = vb[:12000]
-        r["co_noi_dung"] = bool(vb)
+        url = r.get("url") or ""
+        gon = _gon_van_ban_tai_lieu(vb, url=url)
+        con = max(0, TRAN_VAN_BAN_TONG - tong)
+        lay = min(TRAN_VAN_BAN_MOT, con)
+        r["van_ban"] = gon[:lay] if lay > 0 else ""
+        r["co_noi_dung"] = bool(r["van_ban"])
+        r["van_ban_goc_ky_tu"] = len(vb)
+        r["van_ban_gon_ky_tu"] = len(gon)
+        tong += len(r["van_ban"])
     return rows
 
 
@@ -236,9 +272,21 @@ def _ban_do_quantlab() -> list[str]:
 
 def _nhac(dc: dict, tl: list[dict]) -> str:
     da_co = sorted(set(list(MAU.MAU) + [c.get("ten") for c in NP.doc_kho()]))
+    da_co = [str(x) for x in da_co if x]
+    # Cap kich thuoc: liet ke du ten se phinh prompt (~96KB). Giu dau + dem phan con.
+    ds_ten, n_ky = [], 0
+    for ten in da_co:
+        them = (len(ten) + 2) if ds_ten else len(ten)
+        if n_ky + them > TRAN_DA_CO_KY_TU:
+            break
+        ds_ten.append(ten)
+        n_ky += them
+    dong_da_co = ", ".join(ds_ten)
+    if len(ds_ten) < len(da_co):
+        dong_da_co += f" … (+{len(da_co) - len(ds_ten)} ten khac; tong {len(da_co)})"
     p = [NGU_PHAP_TOM_TAT, "",
          "== CO CHE DA CO (KHONG duoc de xuat lai, ke ca doi ten) ==",
-         ", ".join(str(x) for x in da_co if x), ""]
+         dong_da_co, ""]
 
     if dc["_tu_choi"]:
         p += ["== DE XUAT CUA CHINH BAN DA BI TU CHOI TRUOC KHI KIEM DINH ==",
@@ -271,7 +319,7 @@ def _nhac(dc: dict, tl: list[dict]) -> str:
                 p.append(f"    tom_tat: {str(t['tom_tat'])[:320]}")
             vb = t.get("van_ban") or ""
             if vb and da_them_nd < 3:
-                p.append(f"    NOI DUNG (doc ky truoc khi de xuat):\n    {vb[:6000]}")
+                p.append(f"    NOI DUNG (doc ky truoc khi de xuat):\n    {vb}")
                 da_them_nd += 1
         p.append("")
 
@@ -299,7 +347,10 @@ def _nhac(dc: dict, tl: list[dict]) -> str:
 
 
 def de_xuat_moi(dc: dict, tl: list[dict], ep: bool = False) -> dict:
-    kq = TT.hoi_json(_nhac(dc, tl), HE_THONG, bo_qua_han_muc=ep, dung_cache=False)
+    kq = TT.hoi_json(_nhac(dc, tl), HE_THONG, bo_qua_han_muc=ep, dung_cache=False,
+                     loai_viec="nghi_de_xuat", tru="NGHI")
+    if kq.get("pending") or kq.get("trang_thai") == "CHO":
+        return kq
     if kq.get("json"):
         (REPORTS / "nghi_de_xuat_tho.json").write_text(
             json.dumps(kq["json"], ensure_ascii=False, indent=1), encoding="utf-8")
@@ -379,6 +430,13 @@ def mot_luot(ep: bool = False) -> dict:
     if kq.get("bo_qua"):
         ra["bo_qua"] = kq["bo_qua"]
         SO.nhip_tim(TRU, "nghi", {"bo_qua": kq["bo_qua"], "cho_giay": 3600})
+        return ra
+    if kq.get("pending") or kq.get("trang_thai") == "CHO":
+        ra["pending"] = True
+        ra["cho_llm"] = kq.get("id")
+        ra["duong"] = "hang_cho"
+        # Cho worker; chu ky ngan de nhat tra loi, khong retry storm (cung id)
+        SO.nhip_tim(TRU, "nghi", {"cho_llm": kq.get("id"), "cho_giay": 300})
         return ra
     if not kq.get("json"):
         ra["loi"] = kq.get("loi") or kq.get("loi_phan_tich") or "khong co JSON"

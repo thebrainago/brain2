@@ -1464,7 +1464,16 @@ def quet_telegram_follow(toi_da_kenh: int = 10, so_bai_moi_kenh: int = 6,
                          ngan_sach_giay: int = 60, t0: float | None = None) -> dict:
     t0 = t0 or time.time()
     if not TG:
-        return {"loi": "khong co telethon"}
+        return {"loi": "khong co telethon", "bo_qua": True, "degraded": True}
+    # Telethon cai nhung session/khoa thieu -> bo qua NHANH, khong treo ngan sach.
+    try:
+        from nhan import telegram as TGL
+        ok, ly = TGL.san_sang_mtproto()
+        if not ok:
+            return {"loi": ly, "bo_qua": True, "degraded": True}
+    except Exception as e:
+        return {"loi": "telegram_san_sang: %s" % str(e)[:80],
+                "bo_qua": True, "degraded": True}
     import asyncio
 
     async def _lam():
@@ -2468,8 +2477,11 @@ def mot_luot(ngan_sach_giay: int = 600) -> dict:
                 toi_da_kenh=12, so_bai_moi_kenh=6,
                 ngan_sach_giay=int(ngan_sach_giay * 0.25), t0=t0)
             if telegram.get("loi"):
-                SO.chay("UPDATE nguon SET loi_lien_tuc=loi_lien_tuc+1, "
-                        "ghi_chu=? WHERE ma='telegram'", str(telegram["loi"])[:100])
+                # Degraded (thieu telethon/session): danh dau lan_cuoi ngay de
+                # chu ky * 2^loi_lien_tuc bo qua cac luot sau, khong tieu ngan sach.
+                SO.chay("UPDATE nguon SET lan_cuoi=?, loi_lien_tuc=loi_lien_tuc+1, "
+                        "ghi_chu=? WHERE ma='telegram'",
+                        time.time(), str(telegram["loi"])[:100])
             else:
                 SO.chay("UPDATE nguon SET lan_cuoi=?, so_lan=so_lan+1, "
                         "loi_lien_tuc=0, thu_hoach=thu_hoach+? WHERE ma='telegram'",

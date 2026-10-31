@@ -34,7 +34,17 @@ def main(argv=None) -> int:
     ds = NS.nap()
     NS.GOC.mkdir(parents=True, exist_ok=True)
     p_tt = NS.GOC / "TRANG_THAI.json"
-    tt = json.loads(p_tt.read_text()) if p_tt.exists() else {}
+    tt = {}
+    if p_tt.exists():
+        try:
+            raw = p_tt.read_text(encoding="utf-8-sig").strip()
+            if raw:
+                tt = json.loads(raw)
+            else:
+                print("QUET_NGUON skip empty TRANG_THAI.json -> {}", flush=True)
+        except Exception as e:
+            print("QUET_NGUON skip corrupt TRANG_THAI.json (%s: %s) -> {}" % (type(e).__name__, e), flush=True)
+            tt = {}
     bay = time.time()
     nhom = defaultdict(list)
     ket = []
@@ -56,7 +66,9 @@ def main(argv=None) -> int:
             ket.extend(r)
     for r in ket:
         tt[r["ma"]] = {"luc_s": bay, "trang_thai": r["trang_thai"]}
-    p_tt.write_text(json.dumps(tt, ensure_ascii=False, indent=1))
+    _tmp = p_tt.with_suffix('.json.tmp')
+    _tmp.write_text(json.dumps(tt, ensure_ascii=False, indent=1), encoding='utf-8')
+    _tmp.replace(p_tt)
     # ung vien tu sinh (quy tac kham pha) + link ma
     ung = {"feed": set(), "telegram": set(), "reddit": set(), "youtube": set(), "github": set()}
     lm = set()

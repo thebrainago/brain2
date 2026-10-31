@@ -82,3 +82,9 @@ _thu_ini_server*.sh
 # 20/10/2026: cong tac bat/tat The Brain may nha
 may_nha_toi_nay/TAT_THE_BRAIN.co
 may_nha_toi_nay/PHIEN_HIEN_TAI.txt
+
+# --- HANG CHO LLM (file queue runtime; giu HUONG_DAN.md) --------------------
+hang_cho_llm/cho/*.json
+hang_cho_llm/xong/*.json
+hang_cho_llm/loi/*.json
+hang_cho_llm/**/*.tmp
