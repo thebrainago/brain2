@@ -1,0 +1,17 @@
+# Cấu hình bộ thao tác MXH. Sao chép thành cau_hinh_rieng.yaml (gitignored) để sửa trên máy nhà.
+thu_muc_ho_so: "%USERPROFILE%/brain_trinh_duyet_mxh"   # hồ sơ trình duyệt riêng, NGOÀI git
+kenh_trinh_duyet: "chrome"     # "chrome" (Chrome đã cài) hoặc "chromium" (của Playwright)
+thu_muc_tai_ve: "data/mxh_tai_ve"                 # tệp tải từ Telegram (ex4/ex5/...) — gitignored
+chay_thu: true                 # true = KHÔNG bấm follow/join, chỉ ghi lại "sẽ bấm"
+gioi_han_ngay:                 # trần mỗi ngày, mỗi nền tảng
+  theo_doi: 10
+  xin_vao_nhom: 10
+  trang_doc: 300
+  tai_tep: 50
+nhip:                          # giãn cách kiểu người (giây)
+  giua_thao_tac: [4, 11]
+  sau_follow_join: [45, 120]
+  cuon_trang: [1.5, 4]
+hanh_dong_cho_phep: [tim, doc, cuon, theo_doi, xin_vao_nhom, tai_tep]
+# Các hành động sau KHÔNG BAO GIỜ được phép, kể cả khi sửa cấu hình:
+# dang_bai, binh_luan, nhan_tin, nhap_mat_khau, thich, chia_se

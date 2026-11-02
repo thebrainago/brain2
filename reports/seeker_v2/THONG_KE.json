@@ -1,0 +1,56 @@
+{
+ "cap_nhat": "2026-11-02T17:09:30+00:00",
+ "so_y_tuong": 18,
+ "theo_nguon": {
+  "mql5_codebase": 3,
+  "mql5_forum_en": 4,
+  "mql5_forum_ru": 1,
+  "github_search": 10
+ },
+ "theo_phuong_phap": {
+  "grid": 14,
+  "hedge": 4,
+  "martingale": 5,
+  "mean_reversion": 4,
+  "scalping": 5,
+  "dca": 1
+ },
+ "dem": {
+  "yeu_cau": 35,
+  "ok:telegram": 3,
+  "tg_tin": 59,
+  "tg_trang:tradingview": 3,
+  "ok:mql5_codebase": 3,
+  "y_tuong": 18,
+  "that_bai:reddit_algotrading": 4,
+  "ok:mql5_forum_en": 4,
+  "ok:mql5_forum_ru": 1,
+  "ok:github_search": 15,
+  "that_bai:smartlab": 1,
+  "that_bai:elitetrader": 1,
+  "that_bai:note_com": 3,
+  "giay": 57.7,
+  "tai_tai": 26,
+  "tai_cache": 0,
+  "tai_robots_cam": 4,
+  "tai_bi_chan": 3,
+  "tai_loi": 2
+ },
+ "tu_khoa_tu_kham_pha": 21,
+ "kenh_tg_bien": 6,
+ "mien_moi_top": {
+  "download.terminal.free": 45,
+  "www.metatrader5.com": 30,
+  "www.facebook.com": 6,
+  "x.com": 4,
+  "www.youtube.com": 4,
+  "youtu.be": 3,
+  "web.metatrader.app": 3,
+  "www.tradays.com": 3,
+  "www.linkedin.com": 3,
+  "www.githubstatus.com": 3,
+  "maps.google.com": 2,
+  "rbot.cc": 2,
+  "cloud.mql5.com": 1
+ }
+}

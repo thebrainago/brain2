@@ -1,0 +1,20 @@
+# Danh sách kênh/bot Telegram cho Seeker v2. Anh điền thêm vào mục `kenh`.
+# - ten: username KHÔNG có @ (vd: forexsignals_vn). Kênh công khai đọc được qua https://t.me/s/<ten> (không cần đăng nhập).
+# - cach: "cong_khai" (t.me/s) | "web" (cần Telegram Web trong trình duyệt riêng — kênh riêng tư/nhóm/bot)
+# - ghi_chu: tùy ý
+# Kênh mới tự khám phá (từ tin chuyển tiếp và @nhắc tên) KHÔNG ghi vào file này mà vào
+# data/seeker_state/telegram_frontier.json; file này chỉ chứa danh sách Anh duyệt.
+kenh:
+  # - {ten: "vi_du_kenh", cach: cong_khai, ghi_chu: "kênh EA lưới"}
+  # Ba nguồn Anh cung cấp 03/11/2026 — CHƯA xác định được @username (chỉ có tên hiển thị).
+  # Khi biết username, điền vào `ten` và đổi cach thành cong_khai nếu t.me/s/<ten> đọc được.
+  - {ten_hien_thi: "VŨ TRỤ EAFOREX", ten: null, cach: web}
+  - {ten_hien_thi: "Software & Indicator", ten: null, cach: web}
+  - {ten_hien_thi: "Nhật Hoài Trader Channel", ten: null, cach: web}
+  # Mẫu kiểm tra parser (kênh công khai chính thức, đọc được qua t.me/s) — có thể xóa
+  - {ten: "tradingview", cach: cong_khai, ghi_chu: "mẫu kiểm tra"}
+gioi_han:
+  trang_moi_kenh: 3          # số trang lịch sử (mỗi trang ~20 tin) đọc mỗi lượt
+  kenh_moi_luot: 40          # tối đa kênh đọc mỗi lượt (kể cả kênh tự khám phá)
+  tai_tep_toi_da_mb: 20      # bỏ qua tệp lớn hơn
+  duoi_tep: [".ex4", ".ex5", ".mq4", ".mq5", ".mqh", ".set", ".pdf", ".zip", ".rar"]

@@ -1,0 +1,9 @@
+# Từ khóa hạt giống theo khái niệm -> ngôn ngữ. Đồ thị khái niệm sẽ tự mở rộng từ đây.
+grid: {en: ["grid trading", "grid EA"], vi: ["lưới", "đánh lưới"], zh: ["网格交易"], ru: ["сеточник", "сетка ордеров"], ja: ["グリッドトレード"], es: ["trading en rejilla"], pt: ["grid trading"], id: ["grid trading"], ar: ["تداول الشبكة"]}
+dca: {en: ["DCA averaging", "averaging down"], vi: ["nhồi lệnh", "trung bình giá"], zh: ["加仓 摊平"], ru: ["усреднение"], ja: ["ナンピン"], es: ["promediar"], pt: ["preço médio"], id: ["averaging"], ar: ["تعديل المتوسط"]}
+martingale: {en: ["martingale recovery", "martingale EA"], vi: ["gấp thếp", "martingale"], zh: ["马丁格尔", "马丁策略"], ru: ["мартингейл"], ja: ["マーチンゲール"], es: ["martingala"], pt: ["martingale"], id: ["martingale"], ar: ["مارتينجال"]}
+hedge: {en: ["hedging EA", "lock hedge"], vi: ["hedge", "khóa lệnh"], zh: ["对冲 锁仓"], ru: ["локирование", "хеджирование"], ja: ["両建て"], es: ["cobertura forex"], pt: ["hedge forex"], id: ["hedging"], ar: ["التحوط"]}
+mean_reversion: {en: ["mean reversion"], vi: ["hồi quy về trung bình"], zh: ["均值回归"], ru: ["возврат к среднему"], ja: ["平均回帰"], es: ["reversión a la media"], pt: ["reversão à média"], id: ["mean reversion"], ar: ["الارتداد للمتوسط"]}
+session_breakout: {en: ["session breakout", "london breakout", "asian range breakout"], vi: ["phá vỡ phiên Á"], zh: ["亚盘突破"], ru: ["пробой азиатской сессии"], ja: ["ロンドンブレイクアウト"], es: ["ruptura de sesión"], pt: ["rompimento de sessão"], id: ["breakout sesi"], ar: ["اختراق الجلسة"]}
+scalping: {en: ["scalping EA"], vi: ["scalping"], zh: ["剥头皮"], ru: ["скальпинг"], ja: ["スキャルピング"], es: ["scalping"], pt: ["scalping"], id: ["scalping"], ar: ["سكالبينج"]}
+trend_following: {en: ["trend following"], vi: ["theo xu hướng"], zh: ["趋势跟踪"], ru: ["следование за трендом"], ja: ["トレンドフォロー"], es: ["seguimiento de tendencia"], pt: ["seguidor de tendência"], id: ["trend following"], ar: ["تتبع الاتجاه"]}
