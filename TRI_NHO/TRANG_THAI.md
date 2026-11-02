@@ -1,9 +1,15 @@
-# Trạng thái hiện tại — cập nhật 02/11/2026 23:59 (UTC+7)
+# Trạng thái hiện tại — cập nhật 03/11/2026 01:00 (UTC+7)
 
 ## Tóm tắt
 - **Chưa có hệ nào ĐẠT** theo tiêu chí DD < 80% & CAGR > 10%/năm với kết quả hợp lệ (xem `so_ket_qua/TONG_HOP.md`).
 - Grok Bot làm toàn bộ việc từ 02/11 (bot kia hết token).
 - Máy nhà: tắt/park từ tối 31/10; routine giám sát 30′ tạm dừng.
+
+## Làn lịch sử công khai (03/11/2026, `seeker/cong_khai/`)
+- Quét 03/11 00:2x–00:53 (UTC+7): **MQL5 292 tín hiệu đọc được** (32 ứng viên cũ + 3 trang danh sách mt5/mt4) → **292 ĐẠT** theo DD<80% & CAGR>10% (đều là tài khoản thật theo tên máy chủ; 98 tín hiệu tuổi < 12 tháng). Đã ghi 292 dòng `nguon=CONG_KHAI` vào sổ kết quả. Báo cáo: `reports/NGUON_CONG_KHAI_DAT.md`.
+- Lưu ý: danh sách mặc định MQL5 chỉ hiện tín hiệu xếp hạng cao → thiên lệch sống sót. Đây là ĐẠT theo **lịch sử công khai của người khác**, chưa phải hệ của mình đã chạy MT5 trên dữ liệu dài.
+- Bị chặn: Myfxbook (Cloudflare 403, cả robots.txt), Exness Social Trading và my.litefinance.vn (lỗi TLS từ box), LiteFinance trang chi tiết trader chuyển hướng về danh sách (danh sách chỉ có lợi nhuận + rủi ro 1–10 → 16 trader CHƯA ĐO ĐƯỢC).
+- Dịch ngược: CSV lịch sử MQL5 cần đăng nhập → 0 tín hiệu đưa vào được; đặt CSV tải tay ở `data/cong_khai/csv/<id>.csv` rồi chạy lại.
 
 ## Lỗi lot CSV ~100× — đã vá 31/10/2026 01:53 (UTC+7)
 - Khi EA chạy `VAO_CSV`, lot trong CSV bị phình ~100× → lãi/DD sai hoàn toàn.
@@ -23,4 +29,4 @@
 - CSV tín hiệu chỉ phủ 2024–2026 → kết quả trên CSV đó là **in-sample**; cần tái sinh tín hiệu trên toàn lịch sử.
 - Bộ test đầy đủ (`pytest`) treo ở ~60% và có ~30 lỗi; chạy theo file với `--timeout`. Lỗi cũ: test_dich_llm (403), test_an_toan_tester ×2, test_ghi_an_toan ×3, test_sinh_viec.
 - Repo phình: `reports/phan_viec/viec_mt5` và `reports/KHO_*.json` (đề xuất chuyển ra ngoài git — chờ Anh duyệt).
-- Thư mục `seeker/` và vài file config/report đang sửa dở chưa commit trên box (không thuộc phiên 02/11).
+- Vài file config/report (`config/ma_nguon_con_tro.json`, `config/ngan_sach_nhip.json`, `nhat_ky/kho_co_che_ghi.log`, `reports/EVO_SUC_KHOE.md`, `reports/VONG_DAY_DU.json`) đang thay đổi trên box do tiến trình khác — không commit ở phiên 03/11.

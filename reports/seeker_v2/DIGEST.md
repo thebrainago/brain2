@@ -1,25 +1,35 @@
 # Seeker v2 — bản tóm tắt (digest)
 
-Cập nhật: 2026-11-02T17:09:30+00:00 (UTC). Số liệu dưới đây là ĐO THẬT từ data/seeker_state/.
+Cập nhật: 2026-11-02T17:30:35+00:00 (UTC). Số liệu dưới đây là ĐO THẬT từ data/seeker_state/.
 
-- Ý tưởng (đã khử trùng): **18**
-- Yêu cầu HTTP tích lũy: 35; bị chặn: 3; robots cấm: 4
-- Từ khóa tự khám phá đã thăng cấp: 21
-- Kênh Telegram trong biên khám phá: 6
+- Ý tưởng (đã khử trùng): **62**
+- Yêu cầu HTTP tích lũy: 80; bị chặn: 4; robots cấm: 4
+- Từ khóa tự khám phá đã thăng cấp: 61
+- Kênh Telegram trong biên khám phá: 11
 
 ## Theo nguồn
-- github_search: 10
+- github_search: 19
+- telegram: 15
+- mql5_forum_pt: 7
 - mql5_forum_en: 4
 - mql5_codebase: 3
+- mql5_codebase_ru: 3
+- traderviet: 3
+- mql5_forum_es: 3
+- mql5_signals: 2
 - mql5_forum_ru: 1
+- mql5_forum_zh: 1
+- mql5_forum_ja: 1
 
 ## Theo phương pháp
-- grid: 14
-- martingale: 5
-- scalping: 5
-- hedge: 4
-- mean_reversion: 4
-- dca: 1
+- grid: 43
+- hedge: 17
+- martingale: 13
+- scalping: 10
+- mean_reversion: 5
+- trend_following: 5
+- session_breakout: 4
+- dca: 2
 
 ## Từ khóa tự khám phá
 - `expert advisor` → grid (điểm 1.98)
@@ -43,80 +53,142 @@ Cập nhật: 2026-11-02T17:09:30+00:00 (UTC). Số liệu dưới đây là ĐO
 - `lower half` → grid (điểm 14.82)
 - `half close` → grid (điểm 14.82)
 - `close breakout` → grid (điểm 14.82)
+- `risk controls` → grid (điểm 23.28)
+- `yoshinarium bidirectionalhedginggrid` → grid (điểm 23.18)
+- `bidirectionalhedginggrid mql5` → grid (điểm 23.18)
+- `mql5 bi-directional` → grid (điểm 23.18)
+- `bi-directional hedging` → grid (điểm 23.18)
+- `hedging grid` → grid (điểm 23.18)
+- `grid xauusd` → grid (điểm 23.18)
+- `xauusd prop-firm` → grid (điểm 23.18)
+- `prop-firm risk` → grid (điểm 23.18)
 
 ## Ứng viên từ khóa hàng đầu (chưa thăng cấp)
-- `mt5-grid-trader` (điểm 29.35, 4 tài liệu, gắn ['grid', 'hedge', 'martingale', 'scalping'])
-- `half` (điểm 29.35, 4 tài liệu, gắn ['grid', 'hedge', 'martingale', 'scalping'])
-- `gridea` (điểm 16.94, 3 tài liệu, gắn ['grid', 'hedge', 'martingale', 'scalping'])
-- `bi-directional` (điểm 14.82, 4 tài liệu, gắn ['grid', 'hedge', 'martingale', 'scalping'])
-- `mt5-grid-trader zhangwenwei` (điểm 14.57, 2 tài liệu, gắn ['grid', 'hedge', 'martingale', 'scalping'])
-- `zhangwenwei mt5-grid-trader` (điểm 14.57, 2 tài liệu, gắn ['grid', 'hedge', 'martingale', 'scalping'])
-- `mt5-grid-trader mt5` (điểm 14.57, 2 tài liệu, gắn ['grid', 'hedge', 'martingale', 'scalping'])
-- `grid` (điểm 12.30, 11 tài liệu, gắn ['dca', 'grid', 'hedge', 'martingale', 'mean_reversion', 'scalping'])
-- `upper` (điểm 12.20, 4 tài liệu, gắn ['grid', 'hedge', 'mean_reversion'])
-- `buy lower` (điểm 12.20, 4 tài liệu, gắn ['grid', 'hedge', 'martingale', 'scalping'])
-- `mt5 range bi-directional` (điểm 11.87, 3 tài liệu, gắn ['grid', 'hedge'])
-- `range bi-directional grid` (điểm 11.87, 3 tài liệu, gắn ['grid', 'hedge'])
-- `bi-directional grid sell` (điểm 11.87, 3 tài liệu, gắn ['grid', 'hedge'])
-- `grid sell upper` (điểm 11.87, 3 tài liệu, gắn ['grid', 'hedge'])
-- `sell upper half` (điểm 11.87, 3 tài liệu, gắn ['grid', 'hedge'])
-- `upper half buy` (điểm 11.87, 3 tài liệu, gắn ['grid', 'hedge'])
-- `half buy lower` (điểm 11.87, 3 tài liệu, gắn ['grid', 'hedge'])
-- `buy lower half` (điểm 11.87, 3 tài liệu, gắn ['grid', 'hedge'])
-- `lower half close` (điểm 11.87, 3 tài liệu, gắn ['grid', 'hedge'])
-- `half close breakout` (điểm 11.87, 3 tài liệu, gắn ['grid', 'hedge'])
+- `read` (điểm 117.64, 69 tài liệu, gắn ['grid', 'hedge', 'martingale', 'mean_reversion'])
+- `mql5dev` (điểm 90.16, 60 tài liệu, gắn ['grid', 'hedge', 'martingale', 'mean_reversion'])
+- `mql5` (điểm 69.91, 53 tài liệu, gắn ['dca', 'grid', 'hedge', 'martingale', 'mean_reversion', 'scalping', 'session_breakout', 'trend_following'])
+- `trading` (điểm 65.48, 51 tài liệu, gắn ['dca', 'grid', 'hedge', 'martingale', 'mean_reversion', 'scalping', 'session_breakout', 'trend_following'])
+- `bidirectionalhedginggrid` (điểm 55.66, 5 tài liệu, gắn ['grid', 'hedge', 'martingale', 'scalping'])
+- `trade` (điểm 55.25, 47 tài liệu, gắn ['dca', 'grid', 'hedge', 'martingale', 'mean_reversion', 'scalping', 'session_breakout', 'trend_following'])
+- `metatrader` (điểm 44.84, 42 tài liệu, gắn ['dca', 'grid', 'hedge', 'martingale', 'mean_reversion', 'scalping', 'session_breakout', 'trend_following'])
+- `market` (điểm 41.22, 41 tài liệu, gắn ['grid', 'hedge', 'martingale', 'mean_reversion', 'scalping', 'session_breakout'])
+- `where` (điểm 41.19, 41 tài liệu, gắn ['grid'])
+- `time` (điểm 35.40, 38 tài liệu, gắn ['dca', 'grid', 'hedge', 'martingale', 'mean_reversion', 'scalping', 'session_breakout'])
+- `close` (điểm 32.56, 33 tài liệu, gắn ['grid', 'hedge', 'martingale', 'mean_reversion', 'scalping', 'session_breakout'])
+- `strategy` (điểm 32.54, 36 tài liệu, gắn ['grid', 'hedge', 'martingale', 'mean_reversion', 'scalping', 'session_breakout'])
+- `while` (điểm 31.88, 36 tài liệu, gắn ['grid', 'hedge', 'scalping'])
+- `controls` (điểm 30.85, 12 tài liệu, gắn ['grid', 'hedge', 'martingale', 'scalping'])
+- `mt5-session-breakout-ea` (điểm 30.11, 4 tài liệu, gắn ['grid', 'martingale', 'scalping', 'session_breakout'])
+- `half` (điểm 30.10, 7 tài liệu, gắn ['grid', 'hedge', 'martingale', 'scalping', 'session_breakout'])
+- `mt5-grid-trader` (điểm 29.80, 6 tài liệu, gắn ['grid', 'hedge', 'martingale', 'scalping', 'session_breakout'])
+- `telegram` (điểm 28.85, 34 tài liệu, gắn ['grid', 'hedge', 'martingale', 'scalping', 'session_breakout'])
+- `risk` (điểm 28.83, 32 tài liệu, gắn ['dca', 'grid', 'hedge', 'martingale', 'mean_reversion', 'scalping', 'session_breakout'])
+- `build` (điểm 28.78, 34 tài liệu, gắn ['grid', 'hedge', 'martingale', 'scalping', 'trend_following'])
 
 ## Miền mới được nhắc tới (ứng viên nguồn)
-- download.terminal.free: 45
-- www.metatrader5.com: 30
-- www.facebook.com: 6
-- x.com: 4
-- www.youtube.com: 4
-- youtu.be: 3
-- web.metatrader.app: 3
-- www.tradays.com: 3
-- www.linkedin.com: 3
-- www.githubstatus.com: 3
-- maps.google.com: 2
-- rbot.cc: 2
-- cloud.mql5.com: 1
+- download.terminal.free: 148
+- traderviet.tv: 70
+- www.metatrader5.com: 51
+- bit.ly: 37
+- finfin.vn: 19
+- www.facebook.com: 14
+- youtu.be: 13
+- www.youtube.com: 13
+- x.com: 11
+- web.metatrader.app: 10
+- www.tradays.com: 10
+- www.linkedin.com: 10
+- iux-vn1.com: 9
+- traderviet.org: 7
+- portal.tmgmapac.com: 6
 
 ## Kênh Telegram tự khám phá (top)
-- @mql5dev: điểm 8 (từ )
+- @tapps: điểm 312 (từ trendingapps)
+- @mql5dev: điểm 18 (từ )
 - @tapps_bot: điểm 6 (từ tradingview)
+- @mql5ru: điểm 6 (từ )
+- @durov: điểm 6 (từ trendingapps)
 - @trendingapps: điểm 4 (từ tradingview)
 - @ea_mt5: điểm 4 (từ )
+- @mql5es: điểm 4 (từ )
 - @wwwrbotcc: điểm 2 (từ )
+- @farmedhedge: điểm 2 (từ )
 - @tradingview: điểm 0 (từ )
 
-## 18 ý tưởng tin cậy nhất
+## 40 ý tưởng tin cậy nhất
 
+- [mql5_codebase_ru/ru] grid, hedge, martingale, session_breakout — tin cậy 0.95 — https://www.mql5.com/ru/code/mt5/experts
+  - tham số: {"buoc_luoi_pip": ["60"], "lot": ["0,01"], "ma": ["10", "30"], "khung": ["H4", "M1", "M15"], "cap": ["EURUSD", "US30"]}
 - [github_search/en] grid, hedge — tin cậy 0.85 — https://github.com/zhangwenwei/mt5-grid-trader
   - tham số: {"buoc_luoi_pip": ["1"], "he_so_lot": ["5"], "lot": ["0", "0.0", "0.01", "30"], "tp_pip": ["30"], "khung": ["H1"], "cap": ["EURUSD"]}
 - [mql5_codebase/en] grid, hedge, martingale, mean_reversion, scalping — tin cậy 0.8 — https://www.mql5.com/en/code/mt5/experts
   - tham số: {"tp_pip": ["1", "2", "3", "4", "5"], "khung": ["H1", "M1", "M30"], "cap": ["XAUUSD"]}
+- [github_search/en] grid, martingale, scalping, session_breakout — tin cậy 0.75 — https://api.github.com/search/repositories?q=mt5%20range+language:MQL5&sort=updated
+  - tham số: {"he_so_lot": ["6"], "rui_ro_pct": ["0.5"], "khung": ["H1", "M15", "M30", "M5"], "cap": ["NAS100", "US30", "XAUUSD"]}
+- [mql5_forum_es/es] grid, scalping — tin cậy 0.75 — https://www.mql5.com/es/forum
+  - tham số: {"buoc_luoi_pip": ["1", "30"], "he_so_lot": ["5"], "lot": ["1"], "khung": ["D1"], "cap": ["EURUSD", "GBPUSD"]}
+- [mql5_codebase_ru/ru] dca, grid, martingale, session_breakout — tin cậy 0.65 — https://www.mql5.com/ru/code/78293
+  - tham số: {"he_so_lot": ["2"], "khung": ["H1", "M15", "M5"], "cap": ["EURUSD", "GBPUSD", "XAUUSD"]}
+- [mql5_forum_pt/pt] grid, hedge, martingale, trend_following — tin cậy 0.65 — https://www.mql5.com/pt/forum
+  - tham số: {"he_so_lot": ["1"], "khung": ["M1", "M5"], "cap": ["XAUUSD"]}
 - [mql5_codebase/en] mean_reversion — tin cậy 0.6 — https://www.mql5.com/en/code/78343
   - tham số: {"he_so_lot": ["0.25"], "lot": ["0.10"], "khung": ["D1"]}
+- [mql5_codebase_ru/ru] hedge — tin cậy 0.6 — https://www.mql5.com/ru/code/77845
+  - tham số: {"buoc_luoi_pip": ["20"], "khung": ["M1"], "cap": ["EURUSD", "XAUUSD"]}
+- [mql5_forum_zh/zh] scalping — tin cậy 0.6 — https://www.mql5.com/zh/forum
+  - tham số: {"buoc_luoi_pip": ["10"], "ma": ["10"], "khung": ["H4"]}
+- [mql5_forum_ja/ja] grid — tin cậy 0.6 — https://www.mql5.com/ja/forum
+  - tham số: {"he_so_lot": ["4"], "lot": ["1", "50"], "khung": ["H1", "M1", "M15"], "cap": ["USDJPY", "XAUUSD"]}
 - [mql5_forum_en/en] martingale, scalping — tin cậy 0.55 — https://www.mql5.com/en/forum
   - tham số: {"khung": ["H1", "H4", "M1", "M15"], "cap": ["XAUUSD"]}
 - [github_search/en] grid, hedge, martingale, scalping — tin cậy 0.55 — https://api.github.com/search/repositories?q=grid%20ea+language:MQL5&sort=updated
   - tham số: {"khung": ["M5"], "cap": ["XAUUSD", "xauusd"]}
+- [mql5_signals/en] grid, hedge — tin cậy 0.55 — https://www.mql5.com/en/signals/mt5
+  - tham số: {"he_so_lot": ["1"], "khung": ["H1"], "cap": ["XAUUSD"]}
+- [github_search/en] grid, session_breakout — tin cậy 0.55 — https://github.com/saeed1004/mt5-session-breakout-ea
+  - tham số: {"rui_ro_pct": ["1"], "khung": ["H1", "M15"], "cap": ["XAUUSD"]}
+- [mql5_signals/en] grid, hedge — tin cậy 0.55 — https://www.mql5.com/en/signals/2356376
+  - tham số: {"buoc_luoi_pip": ["612", "974"], "lot": ["0.01", "0.03"], "cap": ["AUDCAD", "AUDNZD", "EURJPY", "EURUSD", "NZDCAD"]}
 - [mql5_forum_ru/ru] grid — tin cậy 0.5 — https://www.mql5.com/ru/forum
   - tham số: {"lot": ["1", "2"], "khung": ["H1", "M1"], "cap": ["EURUSD", "GBPUSD", "XAUUSD"]}
+- [github_search/en] grid, hedge, martingale — tin cậy 0.5 — https://github.com/Yoshinarium/BiDirectionalHedgingGrid
+  - tham số: {"lot": ["1.00"], "cap": ["XAUUSD"]}
+- [traderviet/vi] trend_following — tin cậy 0.5 — https://traderviet.com/
+  - tham số: {"buoc_luoi_pip": ["200", "50"], "ma": ["200"], "cap": ["EURUSD"]}
+- [traderviet/vi] trend_following — tin cậy 0.5 — https://traderviet.com/t/chien-luoc-bat-con-song-lon-theo-xu-huong-dua-vao-chi-bao-adx-ket-hop-ema.42458/
+  - tham số: {"buoc_luoi_pip": ["2", "3"], "ma": ["20", "40"], "khung": ["M5"]}
 - [mql5_forum_en/en] grid, hedge, martingale, mean_reversion — tin cậy 0.45 — https://www.mql5.com/en/forum/502291
   - tham số: {"cap": ["EURUSD", "XAUUSD"]}
 - [github_search/en] dca, grid — tin cậy 0.45 — https://github.com/Anhbacong-Cole/mt5-dca-ma-system
   - tham số: {"he_so_lot": ["5"], "khung": ["H1"]}
+- [github_search/en] grid, hedge — tin cậy 0.45 — https://github.com/Yoshinarium
+  - tham số: {"khung": ["M1"], "cap": ["XAUUSD"]}
 - [mql5_forum_en/en] scalping — tin cậy 0.4 — https://www.mql5.com/en/forum/505145
   - tham số: {"khung": ["H4", "M1", "M15", "M5"], "cap": ["EURUSD"]}
 - [github_search/en] grid — tin cậy 0.4 — https://github.com/ramadanrahmad/GridEA
   - tham số: {"lot": ["0.01"], "cap": ["XAUUSD"]}
+- [telegram:mql5dev/*] grid — tin cậy 0.4 — https://t.me/mql5dev/4623
+  - tham số: {"tp_pip": ["1", "5"], "cap": ["XAUUSD"]}
+- [traderviet/vi] trend_following — tin cậy 0.4 — https://traderviet.com/t/he-thong-giao-dich-di-theo-xu-huong-voi-dai-bang-5-mau-bat-tron-con-song-lon-tren-forex-factory.51845/
+  - tham số: {"ma": ["4"], "khung": ["H1"]}
+- [mql5_forum_es/es] scalping — tin cậy 0.4 — https://www.mql5.com/es/forum/486632
+  - tham số: {"buoc_luoi_pip": ["5"], "khung": ["D1"]}
+- [mql5_forum_pt/pt] grid — tin cậy 0.4 — https://www.mql5.com/pt/forum/ea
+  - tham số: {"khung": ["H1", "M5"], "cap": ["EURJPY"]}
 - [mql5_forum_en/en] martingale, scalping — tin cậy 0.35 — https://www.mql5.com/en/forum/517767
 - [mql5_codebase/en] grid, mean_reversion — tin cậy 0.35 — https://www.mql5.com/en/code/78687
+- [github_search/en] grid, hedge — tin cậy 0.35 — https://api.github.com/search/repositories?q=bi-directional%20grid+language:MQL5&sort=updated
+  - tham số: {"cap": ["XAUUSD"]}
+- [github_search/en] grid, hedge — tin cậy 0.35 — https://api.github.com/repos/Yoshinarium/BiDirectionalHedgingGrid
+  - tham số: {"cap": ["XAUUSD"]}
+- [mql5_forum_pt/pt] grid, martingale — tin cậy 0.35 — https://www.mql5.com/pt/forum/510378
+  - tham số: {"cap": ["EURUSD", "GBPUSD", "USDJPY"]}
 - [github_search/en] grid — tin cậy 0.3 — https://api.github.com/repos/ramadanrahmad/GridEA
   - tham số: {"cap": ["XAUUSD"]}
+- [telegram:mql5dev/*] martingale — tin cậy 0.3 — https://t.me/mql5dev/4617
+  - tham số: {"cap": ["XAUUSD"]}
+- [telegram:mql5dev/*] grid — tin cậy 0.3 — https://t.me/mql5dev/4569
+  - tham số: {"he_so_lot": ["5"]}
 - [github_search/en] grid — tin cậy 0.2 — https://api.github.com/search/repositories?q=dca%20averaging+language:MQL5&sort=updated
 - [github_search/en] grid — tin cậy 0.2 — https://api.github.com/repos/Anhbacong-Cole/mt5-dca-ma-system
 - [github_search/en] grid — tin cậy 0.2 — https://api.github.com/repos/zhangwenwei/mt5-grid-trader
-- [github_search/en] grid — tin cậy 0.2 — https://github.com/Anhbacong-Cole
-- [github_search/en] grid — tin cậy 0.2 — https://github.com/zhangwenwei

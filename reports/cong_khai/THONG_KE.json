@@ -1,0 +1,125 @@
+{
+ "luc": "2026-11-03 00:53",
+ "dem": {
+  "MQL5": {
+   "id_tim_thay": 292,
+   "doc_duoc": 292,
+   "khong_doc": 0
+  },
+  "Myfxbook": {
+   "doc_duoc": 0,
+   "khong_doc": 1
+  },
+  "LiteFinance": {
+   "doc_duoc": 16,
+   "khong_doc": 0,
+   "chi_tiet_khong_cong_khai": 3
+  },
+  "Exness": {
+   "doc_duoc": 0,
+   "khong_doc": 1
+  }
+ },
+ "thu_thap": {
+  "tai": 1,
+  "cache": 301,
+  "robots_cam": 0,
+  "bi_chan": 1,
+  "loi": 1
+ },
+ "so_dat": 292,
+ "so_dong_so_moi": 1,
+ "dich_nguoc": [],
+ "top10": [
+  {
+   "ten": "EA Happy News Eightcap",
+   "url": "https://www.mql5.com/en/signals/1864588",
+   "cagr_pct": 249.18,
+   "dd_pct": 9.14,
+   "tuoi_thang": 44.39,
+   "that_demo": "that",
+   "diem_xep_hang": 87.31
+  },
+  {
+   "ten": "Deux ex machina",
+   "url": "https://www.mql5.com/en/signals/2271402",
+   "cagr_pct": 114.7,
+   "dd_pct": 25.99,
+   "tuoi_thang": 65.78,
+   "that_demo": "that",
+   "diem_xep_hang": 87.11
+  },
+  {
+   "ten": "NoPain MT5",
+   "url": "https://www.mql5.com/en/signals/2262642",
+   "cagr_pct": 86.97,
+   "dd_pct": 20.63,
+   "tuoi_thang": 60.03,
+   "that_demo": "that",
+   "diem_xep_hang": 86.37
+  },
+  {
+   "ten": "ATong",
+   "url": "https://www.mql5.com/en/signals/2327790",
+   "cagr_pct": 136.35,
+   "dd_pct": 38.55,
+   "tuoi_thang": 66.47,
+   "that_demo": "that",
+   "diem_xep_hang": 85.59
+  },
+  {
+   "ten": "TP TRADER",
+   "url": "https://www.mql5.com/en/signals/1932739",
+   "cagr_pct": 63.55,
+   "dd_pct": 19.06,
+   "tuoi_thang": 82.56,
+   "that_demo": "that",
+   "diem_xep_hang": 85.0
+  },
+  {
+   "ten": "JINNIUFX7",
+   "url": "https://www.mql5.com/en/signals/2330430",
+   "cagr_pct": 22.67,
+   "dd_pct": 8.31,
+   "tuoi_thang": 120.97,
+   "that_demo": "that",
+   "diem_xep_hang": 84.62
+  },
+  {
+   "ten": "EansPRO V3 XAUUSD",
+   "url": "https://www.mql5.com/en/signals/2378480",
+   "cagr_pct": 26.61,
+   "dd_pct": 10.25,
+   "tuoi_thang": 59.8,
+   "that_demo": "that",
+   "diem_xep_hang": 84.3
+  },
+  {
+   "ten": "RFactor Portfolio JM",
+   "url": "https://www.mql5.com/en/signals/743742",
+   "cagr_pct": 52.81,
+   "dd_pct": 20.09,
+   "tuoi_thang": 78.19,
+   "that_demo": "that",
+   "diem_xep_hang": 83.94
+  },
+  {
+   "ten": "SCR EURAUD",
+   "url": "https://www.mql5.com/en/signals/2358336",
+   "cagr_pct": 21.29,
+   "dd_pct": 12.21,
+   "tuoi_thang": 93.37,
+   "that_demo": "that",
+   "diem_xep_hang": 83.54
+  },
+  {
+   "ten": "ICTrading Signal 2",
+   "url": "https://www.mql5.com/en/signals/926651",
+   "cagr_pct": 21.53,
+   "dd_pct": 18.91,
+   "tuoi_thang": 109.93,
+   "that_demo": "that",
+   "diem_xep_hang": 81.89
+  }
+ ]
+}

@@ -67,3 +67,23 @@ python -m nhan.dich_nguoc --lich-su statement.htm --gia gia_EURUSD_H1.csv --ten 
 
 Kiểm thử (`test_dich_nguoc.py`): sinh lệnh từ luật biết trước (giờ 7–10, RSI<30 → BUY, DCA 20 pip, lot ×1.5, TP trung bình +15 pip) → module khôi phục: kiểu martingale, hệ số 1.5 (±0.05), bước 20 pip (±0.5), AUC cây > 0.8, RSI lúc vào < 30. Đối chứng ngẫu nhiên: AUC logistic < 0.62.
 Chưa chạy trên lịch sử thật của trader nào: **CHƯA ĐO ĐƯỢC**.
+
+## D. Làn lịch sử công khai (`seeker/cong_khai/`) — 03/11/2026
+
+Song song với Seeker v2: thu tín hiệu có **lịch sử xác minh công khai** rồi chấm theo đúng tiêu chí duy nhất.
+```
+python3 -m seeker.cong_khai.chay --trang 3 --gian-cach 3
+```
+| Tệp | Vai trò |
+|---|---|
+| `mql5.py` | đọc `mql5.com/en/signals/<id>` và danh sách `/en/signals/mt5/list`, `/mt4/list` (robots.txt cho phép; trang `deals/page*` bị cấm nên không đọc) |
+| `myfxbook.py` | đọc `myfxbook.com/systems` + `members/...` — đo 03/11: Cloudflare 403 → BỊ CHẶN, không vượt |
+| `nen_tang_khac.py` | LiteFinance (danh sách công khai, không có DD/tuổi → CHƯA ĐO ĐƯỢC), Exness Social Trading (lỗi TLS từ box) |
+| `cham_diem.py` | `cagr_tu_tang_truong`, `dat()` = DD<80 & CAGR>10 (chỉ hai tiêu chí), `diem_xep_hang()` CHỈ để sắp thứ tự |
+| `chay.py` | quét → `data/cong_khai/tin_hieu.jsonl`, `reports/NGUON_CONG_KHAI_DAT.md`, `reports/cong_khai/THONG_KE.json`, ghi sổ `nguon=CONG_KHAI`, đưa CSV có sẵn vào `nhan.dich_nguoc` |
+
+Lượt đầu 03/11 (đo thật): MQL5 292 tín hiệu → 292 ĐẠT (mẫu thiên lệch sống sót vì danh sách mặc định chỉ hiện tín hiệu xếp hạng cao); LiteFinance 16 trader CHƯA ĐO ĐƯỢC; Myfxbook, Exness: bị chặn. CSV lịch sử MQL5 cần đăng nhập → dịch ngược: CHƯA ĐO ĐƯỢC.
+
+## E. Bộ lọc chất lượng nguồn (`seeker/chat_luong_nguon.py`)
+Bậc `co_lich_su` (EA/chiến lược + lịch sử kiểm chứng: MQL5 Signals/Code Base, GitHub, Myfxbook) ×1.3 ưu tiên; `chien_luoc` ×1.0; `thao_luan` ×0.5 và bị bỏ khi chạy `--chi-chat-luong`. Ghi đè bằng khóa `chat_luong` trong `web.yaml`. Đây là bộ lọc nguồn, không phải tiêu chí ĐẠT.
+Lượt chạy lại 03/11 00:2x (UTC+7): `python3 -m seeker.dong_co --ngan-sach 80 --sau 1 --chi-chat-luong` → 45 yêu cầu, 44 ý tưởng mới (tổng 62), bỏ 11 nguồn thảo luận, elitetrader đọc được sau khi sửa URL; Reddit vẫn bị robots.txt cấm, note.com 403.

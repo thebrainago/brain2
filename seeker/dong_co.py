@@ -61,12 +61,15 @@ class DongCo:
             return
         heapq.heappush(self.hang, (-round(uu_tien, 4), url, nguon, nn, sau, loai))
 
-    def gieo(self, chon: list[str] | None = None, so_truy_van: int = 3, chi_telegram=False):
+    def gieo(self, chon: list[str] | None = None, so_truy_van: int = 3, chi_telegram=False, chi_chat_luong=False):
+        from . import chat_luong_nguon as CL
         if not chi_telegram:
             for nid, n in self.nguon.items():
                 if n["truy_cap"] not in TRUY_CAP_TU_DONG or (chon and nid not in chon) or "{kenh}" in n["url"]:
                     continue
-                p = n.get("uu_tien", 0.5)
+                if not CL.giu(nid, n, chi_chat_luong):
+                    self.dem["bo_chat_luong"] = self.dem.get("bo_chat_luong", 0) + 1; continue
+                p = CL.uu_tien(nid, n, n.get("uu_tien", 0.5))
                 if "{q}" not in n["url"]:
                     self.day(p, n.get("rss") or n["url"], nid, n["ngon_ngu"], 0)
                 mau = n.get("tim_kiem") or (n["url"] if "{q}" in n["url"] else None)
@@ -197,9 +200,10 @@ def main():
     ap.add_argument("--ngan-sach", type=int, default=50); ap.add_argument("--sau", type=int, default=2)
     ap.add_argument("--nguon", default=""); ap.add_argument("--chi-telegram", action="store_true")
     ap.add_argument("--gian-cach", type=float, default=3.0)
+    ap.add_argument("--chi-chat-luong", action="store_true", help="bỏ nguồn chỉ thảo luận (xem seeker/chat_luong_nguon.py)")
     a = ap.parse_args()
     dc = DongCo(gian_cach_s=a.gian_cach)
-    dc.gieo([x for x in a.nguon.split(",") if x] or None, chi_telegram=a.chi_telegram)
+    dc.gieo([x for x in a.nguon.split(",") if x] or None, chi_telegram=a.chi_telegram, chi_chat_luong=a.chi_chat_luong)
     r = dc.chay(a.ngan_sach, a.sau)
     print(json.dumps({**r, **dc.bao_cao()}, ensure_ascii=False, indent=1))
 
