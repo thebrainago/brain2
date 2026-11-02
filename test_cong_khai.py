@@ -78,3 +78,21 @@ def test_chat_luong_nguon():
     assert CL.bac("hn_algolia") == "thao_luan" and not CL.giu("hn_algolia", {}, True) and CL.giu("hn_algolia", {}, False)
     assert CL.uu_tien("mql5_codebase", {}, 0.9) > CL.uu_tien("smartlab", {}, 0.9)
     assert CL.bac("x", {"chat_luong": "co_lich_su"}) == "co_lich_su"
+
+
+def test_duong_cong_va_phong_cach():
+    h = ('<script>x([1730000000,0,1732600000,10.5,1735200000,21]);window.growthChart(document.getElementById("growth_chart"),acc,res,'
+         '{chart:[],table:{years:[{year:2024,yearly:0.21,months:{"10":0.1,"11":-0.02,}},],total:21}})</script>'
+         '<div>Avg holding time:</div><div>3 days</div><div>Max deposit load:</div><div>62.5%</div><p>Works on H1 and H4</p>')
+    dc = mql5.duong_cong(h)
+    assert dc["theo_nam_pct"] == {2024: 21.0} and dc["thang_pct"] == [10.0, -2.0] and dc["thang_am_pct"] == 50.0
+    assert dc["growth_mau"][-1][1] == 21.0 and dc["growth_mau"][0][0].startswith("2024")
+    t = {"giu_lenh": "3 days", "tai_ky_quy_max_pct": 62.5, "kieu": ["grid"], "duong_cong": dc}
+    pc = mql5.phong_cach(t, "Works on H1 and H4")
+    assert pc["khung_nhac_den"] == ["H1", "H4"] and any("swing" in g for g in pc["goi_y"]) and "grid" in pc["goi_y"]
+
+
+def test_url_sap_xep():
+    assert mql5.url_danh_sach("mt5", 1, "") == "https://www.mql5.com/en/signals/mt5/list"
+    assert mql5.url_danh_sach("mt4", 3, "orderby=weeks&dir=up") == "https://www.mql5.com/en/signals/mt4/list/page3?orderby=weeks&dir=up"
+    assert "orderby=drawdown" in mql5.SAP_XEP and "orderby=weeks&dir=up" in mql5.SAP_XEP

@@ -29,21 +29,27 @@ def cham(t: dict) -> dict:
     return t
 
 
-def quet(tt: ThuThap, so_trang: int = 3, them_id=(), log=print) -> tuple[list[dict], dict]:
+def quet(tt: ThuThap, so_trang: int = 3, them_id=(), log=print, muc_tieu: int = 0) -> tuple[list[dict], dict]:
     ra, dem = [], {}
-    # MQL5
+    # MQL5: nhiều cách sắp × mt4/mt5 × nhiều trang, dừng khi đủ muc_tieu id
     ids = list(dict.fromkeys(list(them_id) + id_tu_bao_cao_cu()))
-    for duong in mql5.DS_LIST:
-        for p in range(1, so_trang + 1):
-            h = tt.tai(f"{mql5.GOC}{duong}" + (f"/page{p}" if p > 1 else ""))
-            if h: ids += [i for i in mql5.id_tu_danh_sach(h) if i not in ids]
-    dem["MQL5"] = {"id_tim_thay": len(ids), "doc_duoc": 0, "khong_doc": 0}
+    theo_sap = {}
+    for p in range(1, so_trang + 1):
+        for sap in mql5.SAP_XEP:
+            for mt in ("mt5", "mt4"):
+                if muc_tieu and len(ids) >= muc_tieu: break
+                h = tt.tai(mql5.url_danh_sach(mt, p, sap))
+                if h:
+                    moi = [i for i in mql5.id_tu_danh_sach(h) if i not in ids]; ids += moi
+                    theo_sap[sap or "mac_dinh"] = theo_sap.get(sap or "mac_dinh", 0) + len(moi)
+        log(f"danh sách trang {p}: {len(ids)} id")
+    dem["MQL5"] = {"id_tim_thay": len(ids), "doc_duoc": 0, "khong_doc": 0, "id_moi_theo_cach_sap": theo_sap}
     for i, sid in enumerate(ids):
         h = tt.tai(f"{mql5.GOC}/en/signals/{sid}")
         if not h:
             dem["MQL5"]["khong_doc"] += 1; continue
         ra.append(cham(mql5.phan_tich(h, sid))); dem["MQL5"]["doc_duoc"] += 1
-        if i % 25 == 0: log(f"MQL5 {i}/{len(ids)}")
+        if i % 50 == 0: log(f"MQL5 {i}/{len(ids)}")
     # Myfxbook
     dem["Myfxbook"] = {"doc_duoc": 0, "khong_doc": 0}
     for u in myfxbook.DS:
@@ -104,12 +110,26 @@ def viet_bao_cao(ds: list[dict], dem: dict, chan: list, luc: str, p: Path = BAO_
         L.append(f"| {k} | {', '.join(f'{a}={b}' for a, b in v.items())} |")
     tong = {}
     for t in ds: tong.setdefault(t["nen_tang"], {}).setdefault(t["trang_thai"], 0); tong[t["nen_tang"]][t["trang_thai"]] += 1
-    L += ["", "Trạng thái: " + "; ".join(f"{k}: {v}" for k, v in tong.items()), "",
+    L += ["", "Trạng thái: " + "; ".join(f"{k}: {v}" for k, v in tong.items()), ""]
+    for k, v in tong.items():
+        n = sum(v.values()); co_so = n - v.get("CHUA_DO", 0)
+        L.append(f"- Tỉ lệ ĐẠT {k}: {v.get('DAT', 0)}/{co_so} tín hiệu đo được" + (f" = {100 * v.get('DAT', 0) / co_so:.1f}%" if co_so else " (CHƯA ĐO ĐƯỢC)"))
+    L += ["",
           f"## Tín hiệu ĐẠT ({len(dat_ds)}), sắp theo điểm xếp hạng", "",
           "| # | Tên | Nền tảng | Link | CAGR %/năm | Max DD % | Tuổi (tháng) | Thật/demo | Tăng trưởng % | Số lệnh | Symbol | Kiểu (từ trong trang) | Lệnh cuối | Điểm xếp hạng |",
           "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for i, t in enumerate(dat_ds, 1):
         L.append(f"| {i} | {(t.get('ten') or '').replace('|', '/')} | {t['nen_tang']} | [{t['id']}]({t['url']}) | {_o(t['cagr_pct'])} | {_o(t['dd_pct'])} | {_o(t['tuoi_thang'])} | {t['that_demo']} | {_o(t['tang_truong_pct'])} | {_o(t.get('so_lenh'))} | {' '.join(t.get('symbol') or [])[:40] or 'CHƯA ĐO ĐƯỢC'} | {', '.join(t.get('kieu') or []) or '—'} | {t.get('cap_nhat_cuoi') or 'CHƯA ĐO ĐƯỢC'} | {t['diem_xep_hang']} |")
+    L += ["", "## Phong cách suy từ dữ liệu công khai — 20 tín hiệu ĐẠT đầu bảng", "",
+          "Nguồn: bảng Growth năm/tháng và đường Growth nhúng trong trang công khai, thời gian giữ lệnh, tải ký quỹ tối đa, symbol. "
+          "Khung thời gian chỉ ghi khi trang có nhắc (M1…W1). Gợi ý phong cách là suy luận, KHÔNG phải tiêu chí.", "",
+          "| # | Tên | Growth theo năm % | Tháng âm % | Tháng tệ nhất % | Giữ lệnh | Lệnh/tuần | Tải ký quỹ max % | Symbol | Khung nhắc đến | Gợi ý phong cách |",
+          "|---|---|---|---|---|---|---|---|---|---|---|"]
+    for i, t in enumerate(dat_ds[:20], 1):
+        dc = t.get("duong_cong") or {}; pc = t.get("phong_cach") or {}
+        nam = ", ".join(f"{y}: {v}" for y, v in (dc.get("theo_nam_pct") or {}).items()) or "CHƯA ĐO ĐƯỢC"
+        L.append(f"| {i} | [{(t.get('ten') or '').replace('|', '/')}]({t['url']}) | {nam} | {_o(dc.get('thang_am_pct'), 1)} | {_o(dc.get('thang_te_nhat_pct'))} | {t.get('giu_lenh') or 'CHƯA ĐO ĐƯỢC'} | {_o(t.get('lenh_moi_tuan'), 0)} | {_o(t.get('tai_ky_quy_max_pct'))} | {' '.join(t.get('symbol') or [])[:40] or 'CHƯA ĐO ĐƯỢC'} | {', '.join(pc.get('khung_nhac_den') or []) or 'CHƯA ĐO ĐƯỢC'} | {'; '.join(pc.get('goi_y') or []) or '—'} |")
+    L += ["", "Đường Growth đầy đủ (lấy mẫu ≤ 40 điểm) của mọi tín hiệu nằm trong `reports/cong_khai/DUONG_CONG_TOP.json` (top 50) và `data/cong_khai/tin_hieu.jsonl`.", ""]
     L += ["", "## Chặn / không đọc được", ""]
     for c in chan[:60]:
         L.append(f"- `{c.get('url')}` — {c.get('tt')} {c.get('http', '')}")
@@ -138,12 +158,12 @@ def dua_dich_nguoc(dat_ds: list[dict]) -> list[dict]:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--trang", type=int, default=3); ap.add_argument("--gian-cach", type=float, default=3.0)
-    ap.add_argument("--khong-ghi-so", action="store_true")
+    ap.add_argument("--khong-ghi-so", action="store_true"); ap.add_argument("--muc-tieu", type=int, default=0)
     a = ap.parse_args()
     DATA.mkdir(parents=True, exist_ok=True)
     luc = datetime.now().strftime("%Y-%m-%d %H:%M")
-    tt = ThuThap(DATA / "cache", gian_cach_s=a.gian_cach)
-    ds, dem = quet(tt, a.trang)
+    tt = ThuThap(DATA / "cache", gian_cach_s=a.gian_cach, het_han_cache_s=72 * 3600)  # cache 72h: chạy lại sau gián đoạn không tải lại
+    ds, dem = quet(tt, a.trang, muc_tieu=a.muc_tieu, log=lambda x: print(x, flush=True))
     with open(DATA / "tin_hieu.jsonl", "w", encoding="utf-8") as o:
         for t in ds: o.write(json.dumps(t, ensure_ascii=False) + "\n")
     chan = [x for x in tt.nhat_ky if x.get("tt") != "ok"]
@@ -151,7 +171,9 @@ def main():
     so = [] if a.khong_ghi_so else ghi_so(dat_ds, datetime.now().strftime("%Y%m%d"))
     dn = dua_dich_nguoc(dat_ds)
     tk = {"luc": luc, "dem": dem, "thu_thap": tt.dem, "so_dat": len(dat_ds), "so_dong_so_moi": len(so), "dich_nguoc": dn,
-          "top10": [{k: t.get(k) for k in ("ten", "url", "cagr_pct", "dd_pct", "tuoi_thang", "that_demo", "diem_xep_hang")} for t in dat_ds[:10]]}
+          "ty_le_dat": {k: round(sum(1 for t in ds if t["nen_tang"] == k and t["trang_thai"] == "DAT") / max(1, sum(1 for t in ds if t["nen_tang"] == k and t["trang_thai"] != "CHUA_DO")), 4) for k in dem}, "top10": [{k: t.get(k) for k in ("ten", "url", "cagr_pct", "dd_pct", "tuoi_thang", "that_demo", "diem_xep_hang")} for t in dat_ds[:10]]}
+    THONG_KE.parent.mkdir(parents=True, exist_ok=True)
+    (THONG_KE.parent / "DUONG_CONG_TOP.json").write_text(json.dumps([{k: t.get(k) for k in ("ten", "url", "cagr_pct", "dd_pct", "tuoi_thang", "symbol", "giu_lenh", "tai_ky_quy_max_pct", "phong_cach", "duong_cong")} for t in dat_ds[:50]], ensure_ascii=False, indent=1), encoding="utf-8")
     THONG_KE.parent.mkdir(parents=True, exist_ok=True); THONG_KE.write_text(json.dumps(tk, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps(tk, ensure_ascii=False, indent=1))
 
