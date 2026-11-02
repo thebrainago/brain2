@@ -1,3 +1,5 @@
+> **Phiên mới: đọc `TRI_NHO/00_DOC_TRUOC.md` trước.**
+
 # THE BRAIN
 
 Phong nghien cuu tu dong cho giao dich: thu thap chien luoc tu moi nguon,

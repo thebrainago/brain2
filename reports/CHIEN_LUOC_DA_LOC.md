@@ -1,3 +1,5 @@
+> ⚠️ **BỊ THAY THẾ — kết quả trước khi vá lỗi lot 31/10, chờ chạy lại.** Lỗi lot CSV ~100× được vá 31/10/2026 01:53 (UTC+7); toàn bộ 78 hệ “ĐẠT” dưới đây không còn hiệu lực. Xem `TRI_NHO/TRANG_THAI.md` và `TRI_NHO/so_ket_qua/TONG_HOP.md`.
+
 # Danh mục chiến lược đã qua lọc (brain2)
 
 Tạo ngày 21/10/2026 (giờ Sài Gòn, UTC+7) cho anh Anh. Mọi số liệu lấy từ tệp trong repo; ô nào không có trong mã/dữ liệu ghi **CHƯA RÕ trong mã**. Tài liệu chỉ để đọc nghiên cứu — BACKTEST/DEMO, không phải lời khuyên đầu tư.
