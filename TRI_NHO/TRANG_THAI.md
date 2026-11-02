@@ -6,7 +6,8 @@
 - Máy nhà: tắt/park từ tối 31/10; routine giám sát 30′ tạm dừng.
 
 ## Làn lịch sử công khai (03/11/2026, `seeker/cong_khai/`)
-- Quét 03/11 00:2x–00:53 (UTC+7): **MQL5 292 tín hiệu đọc được** (32 ứng viên cũ + 3 trang danh sách mt5/mt4) → **292 ĐẠT** theo DD<80% & CAGR>10% (đều là tài khoản thật theo tên máy chủ; 98 tín hiệu tuổi < 12 tháng). Đã ghi 292 dòng `nguon=CONG_KHAI` vào sổ kết quả. Báo cáo: `reports/NGUON_CONG_KHAI_DAT.md`.
+- Quét mở rộng 03/11 05:41–06:2x (UTC+7, nền nohup, log `data/cong_khai/run.log`, cache 72h): 9 cách sắp × mt5/mt4 → **1600 id MQL5** (32 ứng viên cũ + 824 mới từ mt5, 744 từ mt4), **1562 đọc được**, 38 không đọc. Kết quả: **1065 ĐẠT / 1561 đo được = 68,2%** (496 KHÔNG ĐẠT, 1 chưa đo) theo chỉ DD<80% & CAGR>10%. 483 tín hiệu ĐẠT có tuổi ≥ 12 tháng (726/1562 tín hiệu ≥ 12 tháng). Sổ kết quả `nguon=CONG_KHAI` nay 1065 dòng (+773). Báo cáo: `reports/NGUON_CONG_KHAI_DAT.md`.
+- Lần quét trước (00:2x–00:53): 292 đọc → 292 ĐẠT (chỉ danh sách mặc định, thiên lệch sống sót mạnh hơn).
 - Lưu ý: danh sách mặc định MQL5 chỉ hiện tín hiệu xếp hạng cao → thiên lệch sống sót. Đây là ĐẠT theo **lịch sử công khai của người khác**, chưa phải hệ của mình đã chạy MT5 trên dữ liệu dài.
 - Bị chặn: Myfxbook (Cloudflare 403, cả robots.txt), Exness Social Trading và my.litefinance.vn (lỗi TLS từ box), LiteFinance trang chi tiết trader chuyển hướng về danh sách (danh sách chỉ có lợi nhuận + rủi ro 1–10 → 16 trader CHƯA ĐO ĐƯỢC).
 - Dịch ngược: CSV lịch sử MQL5 cần đăng nhập → 0 tín hiệu đưa vào được; đặt CSV tải tay ở `data/cong_khai/csv/<id>.csv` rồi chạy lại.

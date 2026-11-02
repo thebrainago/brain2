@@ -1,6 +1,6 @@
 # Nguồn công khai ĐẠT — lịch sử xác minh công khai
 
-Đo lúc 2026-11-03 00:53 (giờ Việt Nam, UTC+7). Sinh bởi `python3 -m seeker.cong_khai.chay`.
+Đo lúc 2026-11-03 05:40 (giờ Việt Nam, UTC+7). Sinh bởi `python3 -m seeker.cong_khai.chay`.
 
 **Tiêu chí ĐẠT duy nhất:** max DD < 80% VÀ CAGR > 10%/năm. Không có tiêu chí nào khác.
 
@@ -15,312 +15,1156 @@
 
 | Nền tảng | Kết quả |
 |---|---|
-| MQL5 | id_tim_thay=292, doc_duoc=292, khong_doc=0 |
+| MQL5 | id_tim_thay=1600, doc_duoc=1562, khong_doc=38, id_moi_theo_cach_sap={'mac_dinh': 226, 'orderby=weeks&dir=up': 245, 'orderby=weeks': 197, 'orderby=drawdown': 220, 'orderby=drawdown&dir=up': 178, 'orderby=gain': 85, 'orderby=trades': 106, 'orderby=activity': 163, 'orderby=balance&dir=up': 148} |
 | Myfxbook | doc_duoc=0, khong_doc=1 |
 | LiteFinance | doc_duoc=16, khong_doc=0, chi_tiet_khong_cong_khai=3 |
 | Exness | doc_duoc=0, khong_doc=1 |
 
-Trạng thái: MQL5: {'DAT': 292}; LiteFinance: {'CHUA_DO': 16}
+Trạng thái: MQL5: {'DAT': 1065, 'KHONG_DAT': 496, 'CHUA_DO': 1}; LiteFinance: {'CHUA_DO': 16}
 
-## Tín hiệu ĐẠT (292), sắp theo điểm xếp hạng
+- Tỉ lệ ĐẠT MQL5: 1065/1561 tín hiệu đo được = 68.2%
+- Tỉ lệ ĐẠT LiteFinance: 0/0 tín hiệu đo được (CHƯA ĐO ĐƯỢC)
+
+## Tín hiệu ĐẠT (1065), sắp theo điểm xếp hạng
 
 | # | Tên | Nền tảng | Link | CAGR %/năm | Max DD % | Tuổi (tháng) | Thật/demo | Tăng trưởng % | Số lệnh | Symbol | Kiểu (từ trong trang) | Lệnh cuối | Điểm xếp hạng |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 1 | EA Happy News Eightcap | MQL5 | [1864588](https://www.mql5.com/en/signals/1864588) | 249.18 | 9.14 | 44.39 | that | 10105.66 | 1688 | GBPUSD.i USDJPY.i EURUSD.i AUDUSD.i | — | 6 days ago | 87.31 |
 | 2 | Deux ex machina | MQL5 | [2271402](https://www.mql5.com/en/signals/2271402) | 114.70 | 25.99 | 65.78 | that | 6492.03 | 1914 | AUDCAD AUDNZD NZDCAD US30 XAUUSD DE40 EU | — | 4 hours ago | 87.11 |
-| 3 | NoPain MT5 | MQL5 | [2262642](https://www.mql5.com/en/signals/2262642) | 86.97 | 20.63 | 60.03 | that | 2188.59 | 5917 | AUDCAD | — | 4 hours ago | 86.37 |
-| 4 | ATong | MQL5 | [2327790](https://www.mql5.com/en/signals/2327790) | 136.35 | 38.55 | 66.47 | that | 11627.12 | 8342 | GBPUSD AUDUSD GBPAUD EURUSD USDCAD AUDCA | — | 5 hours ago | 85.59 |
-| 5 | TP TRADER | MQL5 | [1932739](https://www.mql5.com/en/signals/1932739) | 63.55 | 19.06 | 82.56 | that | 2850.77 | 14751 | EURUSD XAUUSD GBPUSD USDJPY AUDUSD EURJP | — | 9 hours ago | 85.0 |
-| 6 | JINNIUFX7 | MQL5 | [2330430](https://www.mql5.com/en/signals/2330430) | 22.67 | 8.31 | 120.97 | that | 684.52 | 12592 | GBPUSD | — | 10 hours ago | 84.62 |
-| 7 | EansPRO V3 XAUUSD | MQL5 | [2378480](https://www.mql5.com/en/signals/2378480) | 26.61 | 10.25 | 59.80 | that | 224.12 | 1226 | GOLDmicro AUDUSDmicro | — | 3 hours ago | 84.3 |
-| 8 | RFactor Portfolio JM | MQL5 | [743742](https://www.mql5.com/en/signals/743742) | 52.81 | 20.09 | 78.19 | that | 1484.51 | 10202 | GBPUSD EURUSD EURAUD EURCAD USDCAD EURGB | grid | 19 hours ago | 83.94 |
-| 9 | SCR EURAUD | MQL5 | [2358336](https://www.mql5.com/en/signals/2358336) | 21.29 | 12.21 | 93.37 | that | 349.09 | 1843 | EURAUD AUDCAD EURUSD AUDJPY GER30Cash US | — | 4 days ago | 83.54 |
-| 10 | ICTrading Signal 2 | MQL5 | [926651](https://www.mql5.com/en/signals/926651) | 21.53 | 18.91 | 109.93 | that | 496.62 | 5650 | NZDCAD AUDCAD NZDCHF AUDCHF USDCAD AUDUS | — | 5 days ago | 81.89 |
-| 11 | Scalp IC Markets ECN | MQL5 | [683917](https://www.mql5.com/en/signals/683917) | 85.68 | 38.42 | 86.47 | that | 8542.65 | 2689 | GBPCAD EURAUD EURSGD EURCAD GBPUSD CHFJP | martingale | 4 days ago | 81.82 |
-| 12 | NightVisionEA ICM | MQL5 | [731021](https://www.mql5.com/en/signals/731021) | 24.55 | 20.80 | 81.41 | that | 343.34 | 8214 | USDJPY EURCHF USDCHF GBPUSD EURCAD EURGB | — | 12 hours ago | 81.64 |
-| 13 | Anson Account 3 | MQL5 | [2382360](https://www.mql5.com/en/signals/2382360) | 55.51 | 30.98 | 67.85 | that | 1113.85 | 1171 | EURUSD.s USDJPY.s | grid, martingale | 18 hours ago | 81.42 |
-| 14 | Commodity Accumulation Plan | MQL5 | [2270674](https://www.mql5.com/en/signals/2270674) | 17.53 | 19.56 | 116.83 | that | 381.74 | 8512 | WHEAT PLATINUM COPPER COTTON#2 CrudeOIL  | — | 2 hours ago | 81.42 |
-| 15 | SFE Portfolio1 | MQL5 | [138420](https://www.mql5.com/en/signals/138420) | 31.60 | 24.33 | 132.01 | that | 1951.55 | 3344 | LNKUSD BTCUSD ETHUSD EURUSD UNIUSD XAUUS | — | 3 days ago | 81.29 |
-| 16 | FX Fun | MQL5 | [2355082](https://www.mql5.com/en/signals/2355082) | 63.86 | 14.57 | 52.44 | that | 765.57 | 6761 | AUDCADf NZDCADf AUDNZDf XAUUSDf | — | 7 hours ago | 81.11 |
-| 17 | TT ic 001 | MQL5 | [1270954](https://www.mql5.com/en/signals/1270954) | 30.32 | 22.36 | 59.11 | that | 268.59 | 8012 | AUDCAD NZDCAD EURUSD EURGBP AUDNZD USDCA | — | 7 hours ago | 81.09 |
-| 18 | Trade | MQL5 | [2204034](https://www.mql5.com/en/signals/2204034) | 135.59 | 57.48 | 60.03 | that | 7172.98 | 2679 | XAUUSD GBPUSD EURUSD BTCUSD AUDNZD NZDCA | — | 4 days ago | 80.8 |
-| 19 | RAZOR EA | MQL5 | [2300694](https://www.mql5.com/en/signals/2300694) | 125.48 | 22.09 | 47.15 | that | 2340.33 | 1947 | NZDCAD AUDCAD AUDNZD XAGUSD XAUUSD EURUS | grid | 4 hours ago | 80.32 |
-| 20 | Scalp IC Markets MT5 | MQL5 | [1560883](https://www.mql5.com/en/signals/1560883) | 55.76 | 32.86 | 58.88 | that | 779.61 | 2611 | GBPCAD GBPAUD EURSGD EURAUD GBPUSD EURCA | martingale | 4 days ago | 80.22 |
-| 21 | Relax EA | MQL5 | [884935](https://www.mql5.com/en/signals/884935) | 45.90 | 33.30 | 71.76 | that | 857.22 | 2084 | CADJPY EURCAD EURCHF USDCAD GBPUSD EURGB | — | 18 hours ago | 80.12 |
-| 22 | R Factor Broker FPMarkets | MQL5 | [973927](https://www.mql5.com/en/signals/973927) | 24.01 | 26.94 | 67.62 | that | 236.17 | 6225 | AUDCAD.r EURCAD.r EURUSD.r USDCAD.r EURA | — | 5 days ago | 80.07 |
-| 23 | MySingalStart 3 | MQL5 | [1760039](https://www.mql5.com/en/signals/1760039) | 21.96 | 26.42 | 112.23 | that | 540.05 | 12326 | NZDCAD USDCAD NZDCHF AUDUSD AUDCAD AUDNZ | — | 4 hours ago | 80.04 |
-| 24 | R Factor Mean Reversal | MQL5 | [734515](https://www.mql5.com/en/signals/734515) | 69.23 | 40.66 | 81.18 | that | 3413.40 | 34600 | GBPUSD EURGBP EURUSD EURAUD GBPAUD EURCA | — | 2 hours ago | 80.03 |
-| 25 | MySingalStart 2 | MQL5 | [840474](https://www.mql5.com/en/signals/840474) | 30.49 | 29.47 | 80.03 | that | 489.88 | 9285 | NZDCAD AUDCAD AUDNZD NZDCHF AUDCHF SUMMA | — | 6 hours ago | 79.92 |
-| 26 | Pinnacle Alpha | MQL5 | [2274644](https://www.mql5.com/en/signals/2274644) | 34.07 | 23.56 | 57.27 | that | 305.17 | 3156 | AUDCAD-E NZDCAD-E AUDNZD-E | — | 3 days ago | 79.85 |
-| 27 | JINNIUFX3 | MQL5 | [2330426](https://www.mql5.com/en/signals/2330426) | 43.63 | 36.44 | 85.55 | that | 1221.51 | 1447 | XAUUSD GBPUSD | — | 3 days ago | 79.16 |
-| 28 | Multi EA combo | MQL5 | [2376950](https://www.mql5.com/en/signals/2376950) | 36.60 | 35.48 | 62.33 | that | 405.32 | 12835 | NZDCADq AUDCADq EURUSDq USDJPYq GBPAUDq  | — | 7 hours ago | 78.88 |
-| 29 | WolvesVN EU | MQL5 | [2385213](https://www.mql5.com/en/signals/2385213) | 20.79 | 30.87 | 73.36 | that | 217.26 | 2372 | EURUSD.fx AUDCAD.fx USDCAD.fx GBPUSD.fx  | — | 2 hours ago | 78.84 |
-| 30 | Trading Hero 20k | MQL5 | [544163](https://www.mql5.com/en/signals/544163) | 27.39 | 33.82 | 93.60 | that | 560.74 | 18451 | NZDCAD AUDCAD AUDUSD GBPUSD AUDNZD EURUS | — | 4 hours ago | 78.6 |
-| 31 | Trading Hero 10k Conservative | MQL5 | [1042318](https://www.mql5.com/en/signals/1042318) | 19.21 | 31.91 | 81.87 | that | 231.70 | 10603 | AUDUSD NZDCAD AUDCAD AUDNZD GBPUSD GBPCA | — | 6 hours ago | 78.46 |
-| 32 | Sputnik SI Auto | MQL5 | [2331134](https://www.mql5.com/en/signals/2331134) | 32.53 | 37.20 | 64.86 | that | 358.31 | 9882 | EURUSD ETHUSD GBPUSD | — | 9 hours ago | 78.14 |
-| 33 | Disco FIBO Pamm | MQL5 | [2077624](https://www.mql5.com/en/signals/2077624) | 48.69 | 41.61 | 59.57 | that | 616.54 | 2896 | XAUUSD.I GBPCAD.I GBPAUD.I EURAUD.I GBPU | — | 4 hours ago | 77.96 |
-| 34 | Tharos II | MQL5 | [1059619](https://www.mql5.com/en/signals/1059619) | 61.52 | 46.67 | 65.09 | that | 1247.43 | 5725 | NZDCAD AUDCAD AUDNZD NZDUSD AUDUSD USDCA | — | 3 days ago | 77.95 |
-| 35 | Calm Waters Signal | MQL5 | [2339857](https://www.mql5.com/en/signals/2339857) | 32.81 | 38.05 | 76.12 | that | 504.84 | 6664 | AUDNZD NZDCAD AUDCAD GBPUSD EURCAD EURAU | grid, martingale, dca | 4 hours ago | 77.95 |
-| 36 | MySingalStart 4 | MQL5 | [1671156](https://www.mql5.com/en/signals/1671156) | 26.49 | 37.14 | 70.38 | that | 296.88 | 7062 | NZDCAD AUDCAD AUDNZD AUDUSD NZDUSD SUMMA | grid | 4 days ago | 77.7 |
-| 37 | Sputnik2019 | MQL5 | [1922647](https://www.mql5.com/en/signals/1922647) | 50.64 | 45.24 | 87.62 | that | 1891.54 | 15730 | EURUSD XAUUSD USDJPY USDCAD | — | 9 hours ago | 77.49 |
-| 38 | Niguru GBP | MQL5 | [1887334](https://www.mql5.com/en/signals/1887334) | 349.99 | 47.95 | 44.16 | that | 25239.70 | 2294 | GBPUSD XAUUSD | dca | 2 hours ago | 77.45 |
-| 39 | LazyProV2 AUDCAD | MQL5 | [2378478](https://www.mql5.com/en/signals/2378478) | 48.73 | 7.03 | 45.77 | that | 354.50 | 985 | AUDCADmicro | — | 4 hours ago | 77.41 |
-| 40 | OLD SCHOOL | MQL5 | [762818](https://www.mql5.com/en/signals/762818) | 15.94 | 35.66 | 77.27 | that | 159.13 | 2963 | USDJPY BTCUSD XAUUSD EURUSD GBPUSD USTEC | — | 4 hours ago | 77.28 |
-| 41 | Crypto Trading Pepper | MQL5 | [1521998](https://www.mql5.com/en/signals/1521998) | 100.70 | 46.97 | 54.05 | that | 2205.11 | 2111 | BTCUSD ETHUSD GBPUSD XAUUSD AUDNZD NZDCA | — | 9 hours ago | 76.84 |
-| 42 | SteadyRock Growth IFL XAUUSD Tickmill | MQL5 | [1309107](https://www.mql5.com/en/signals/1309107) | 53.64 | 48.11 | 58.88 | that | 722.52 | 2643 | XAUUSD | — | 3 hours ago | 76.25 |
-| 43 | Dudu Whale | MQL5 | [2351032](https://www.mql5.com/en/signals/2351032) | 34.45 | 19.31 | 50.14 | that | 244.53 | 1922 | XAUUSD USDJPY GBPJPY XAUJPY GBPCAD EURJP | — | 4 hours ago | 76.18 |
-| 44 | Gold Reaper Goldtrade Pro Daytrade Pro | MQL5 | [2204998](https://www.mql5.com/en/signals/2204998) | 75.00 | 32.59 | 50.14 | that | 936.39 | 8366 | XAUUSD USTEC US500 US30 BTCUSD GBPAUD EU | — | 2 hours ago | 75.9 |
-| 45 | SteadyRock Growth IFL XAUUSD ICMarkets | MQL5 | [1566312](https://www.mql5.com/en/signals/1566312) | 40.75 | 31.28 | 52.90 | that | 351.30 | 2336 | XAUUSD | — | 3 hours ago | 75.5 |
-| 46 | QImpulse_ValuT | MQL5 | [1857208](https://www.mql5.com/en/signals/1857208) | 39.17 | 22.39 | 48.99 | that | 285.45 | 1316 | XAUUSD USDJPY EURUSD GBPUSD AUDUSD USDCA | grid, martingale | 5 days ago | 75.0 |
-| 47 | MonkeyKing | MQL5 | [1498254](https://www.mql5.com/en/signals/1498254) | 79.67 | 49.56 | 54.28 | that | 1316.04 | 2114 | EURUSD AUDCAD AUDUSD NZDCAD AUDNZD GBPCA | — | 3 days ago | 74.77 |
-| 48 | NightVision Expert Advisor MT5 | MQL5 | [956328](https://www.mql5.com/en/signals/956328) | 23.14 | 48.38 | 71.53 | that | 245.84 | 7288 | USDJPY EURCHF USDCHF EURCAD GBPUSD EURGB | — | 14 hours ago | 74.64 |
-| 49 | Fish n Grid | MQL5 | [1590997](https://www.mql5.com/en/signals/1590997) | 42.82 | 34.87 | 52.21 | that | 371.46 | 5642 | EURJPY GBPUSD NZDCAD AUDCAD AUDCHF EURCA | grid | 43 minutes ago | 74.3 |
-| 50 | Golden System 2 | MQL5 | [2250577](https://www.mql5.com/en/signals/2250577) | 59.25 | 40.17 | 52.21 | that | 657.24 | 456 | XAUUSD | — | 3 days ago | 74.21 |
-| 51 | My Son Trading Account | MQL5 | [1725090](https://www.mql5.com/en/signals/1725090) | 53.88 | 30.29 | 48.99 | that | 481.00 | 1720 | US500 | — | 2 hours ago | 74.13 |
-| 52 | Stable growth pro | MQL5 | [1737977](https://www.mql5.com/en/signals/1737977) | 34.42 | 29.42 | 49.91 | that | 242.22 | 9423 | AUDCAD NZDCAD AUDNZD USDJPY GBPAUD EURAU | — | 7 hours ago | 73.5 |
-| 53 | Steady Yeti | MQL5 | [2294298](https://www.mql5.com/en/signals/2294298) | 35.16 | 40.81 | 54.05 | that | 288.50 | 2950 | AUDCAD.p NZDCAD.p AUDNZD.p EURCAD.p EURA | — | 5 days ago | 73.47 |
-| 54 | PrismaForex | MQL5 | [2042164](https://www.mql5.com/en/signals/2042164) | 53.27 | 37.61 | 50.60 | that | 505.42 | 2203 | AUDCAD EURGBP CADCHF | — | 4 hours ago | 73.33 |
-| 55 | UZUNAMI88 | MQL5 | [2392805](https://www.mql5.com/en/signals/2392805) | 39.57 | 18.35 | 44.85 | that | 247.68 | 623 | XAUUSD GBPJPY | — | 3 hours ago | 73.28 |
-| 56 | DKT007 | MQL5 | [2362458](https://www.mql5.com/en/signals/2362458) | 29.64 | 35.99 | 52.44 | that | 210.94 | 2361 | BTCUSD ETHUSD GBPUSD JP225 GBPJPY XAUUSD | — | 9 hours ago | 73.19 |
-| 57 | MSC Gold Invest Pro | MQL5 | [1988269](https://www.mql5.com/en/signals/1988269) | 99.75 | 26.23 | 40.71 | that | 945.69 | 1791 | XAUUSD AUDCAD | grid | 2 minutes ago | 73.06 |
-| 58 | Harmonizer High Risk | MQL5 | [2394758](https://www.mql5.com/en/signals/2394758) | 482.14 | 14.93 | 24.84 | that | 3733.62 | 1150 | AUDCAD NZDCAD | — | 9 hours ago | 72.83 |
-| 59 | MCA100 | MQL5 | [2153920](https://www.mql5.com/en/signals/2153920) | 171.15 | 35.37 | 35.65 | that | 1836.36 | 432 | XAUUSD EURUSD GBPUSD | — | 3 days ago | 72.76 |
-| 60 | TwoHundredPercentAnnually | MQL5 | [2172246](https://www.mql5.com/en/signals/2172246) | 65.03 | 28.95 | 45.08 | that | 556.63 | 3260 | NZDCAD AUDCAD AUDNZD | — | 4 days ago | 72.69 |
-| 61 | BAS 2 11 | MQL5 | [2325779](https://www.mql5.com/en/signals/2325779) | 116.54 | 21.37 | 36.34 | that | 937.81 | 19665 | S1U6 SVZ5 SVM6 S1H6 SVH6 CRZ4 CRM4 SVU6  | — | 47 minutes ago | 72.62 |
-| 62 | Smart trading | MQL5 | [2329267](https://www.mql5.com/en/signals/2329267) | 168.92 | 30.74 | 33.58 | that | 1493.00 | 2627 | EURUSD AUDUSD XAUUSD GBPCHF NZDUSD AUDNZ | — | 3 hours ago | 72.37 |
-| 63 | Tick Multiprod | MQL5 | [2222743](https://www.mql5.com/en/signals/2222743) | 262.93 | 37.02 | 32.43 | that | 3157.88 | 5927 | XAUUSD US30 USTEC BTCUSD XAUEUR EURUSD D | martingale | 2 hours ago | 72.36 |
-| 64 | Harmonizer Extreme | MQL5 | [2360068](https://www.mql5.com/en/signals/2360068) | 350.43 | 22.42 | 26.68 | that | 2739.46 | 1268 | AUDCAD NZDCAD | — | 9 hours ago | 72.18 |
-| 65 | MSC Gold Stable Pro | MQL5 | [2231030](https://www.mql5.com/en/signals/2231030) | 202.64 | 33.70 | 30.36 | that | 1547.23 | 1192 | XAUUSD | — | 6 days ago | 71.82 |
-| 66 | UpEverest MT4 | MQL5 | [2363323](https://www.mql5.com/en/signals/2363323) | 95.98 | 15.18 | 34.04 | that | 574.36 | 1607 | AUDCAD | — | 4 hours ago | 71.1 |
-| 67 | GenX Multistrategies | MQL5 | [1719023](https://www.mql5.com/en/signals/1719023) | 66.60 | 50.41 | 49.22 | that | 711.49 | 5028 | USDJPY AUDCAD BTCUSD EURUSD ETHUSD EURGB | martingale | 2 hours ago | 70.21 |
-| 68 | LazyPro v23 EURUSD | MQL5 | [2378484](https://www.mql5.com/en/signals/2378484) | 77.47 | 41.61 | 44.39 | that | 734.83 | 1613 | EURUSDmicro | — | 9 hours ago | 70.0 |
-| 69 | EansPRO V3 EURUSD | MQL5 | [2378489](https://www.mql5.com/en/signals/2378489) | 48.51 | 37.73 | 46.00 | that | 355.42 | 1531 | EURUSDmicro | — | 44 minutes ago | 69.87 |
-| 70 | SEA South East EA | MQL5 | [1496203](https://www.mql5.com/en/signals/1496203) | 17.90 | 53.87 | 55.43 | that | 113.94 | 2548 | EURUSD AUDCAD USDCAD USDCHF GBPUSD AUDUS | grid, martingale | 4 hours ago | 69.83 |
-| 71 | Golden Swai | MQL5 | [2389881](https://www.mql5.com/en/signals/2389881) | 518.68 | 19.87 | 21.85 | that | 2661.40 | 996 | XAUUSD | — | 1 hour ago | 69.6 |
-| 72 | Friday Pro | MQL5 | [2344620](https://www.mql5.com/en/signals/2344620) | 90.41 | 33.16 | 39.10 | that | 715.24 | 320 | GBPJPY USDJPY NOKJPY | — | 16 hours ago | 69.56 |
-| 73 | Lenochkin | MQL5 | [2367841](https://www.mql5.com/en/signals/2367841) | 197.24 | 18.78 | 21.62 | that | 611.85 | 497 | EURUSD AUDCAD GBPUSD | — | 4 hours ago | 69.51 |
-| 74 | Tem9 2 | MQL5 | [1905285](https://www.mql5.com/en/signals/1905285) | 42.23 | 46.69 | 49.45 | that | 327.03 | 14440 | EURUSD GBPUSD USDJPY XAUUSD EURJPY USDCH | — | 42 minutes ago | 69.46 |
-| 75 | QImpulse_FPT | MQL5 | [2393631](https://www.mql5.com/en/signals/2393631) | 53.93 | 36.13 | 44.16 | that | 389.10 | 700 | XAUUSD USDJPY EURUSD GBPUSD USDCHF USDCA | — | 4 days ago | 69.45 |
-| 76 | Goldtrade Pro ICM | MQL5 | [2084890](https://www.mql5.com/en/signals/2084890) | 102.36 | 31.95 | 37.03 | that | 780.33 | 792 | XAUUSD | grid, martingale | 12 hours ago | 69.38 |
-| 77 | Rbb robo 4 | MQL5 | [2298455](https://www.mql5.com/en/signals/2298455) | 91.52 | 44.37 | 42.32 | that | 889.13 | 1684 | AUDCAD | grid, martingale | 4 hours ago | 68.98 |
-| 78 | Gold Minion | MQL5 | [2351061](https://www.mql5.com/en/signals/2351061) | 98.92 | 29.66 | 35.88 | that | 681.74 | 766 | XAUUSD | — | 12 hours ago | 68.92 |
-| 79 | HJM1 | MQL5 | [2343251](https://www.mql5.com/en/signals/2343251) | 690.52 | 41.01 | 28.75 | that | 14066.29 | 22838 | XAUUSDc EURNOKc EURUSDc | hedge | 6 hours ago | 68.91 |
-| 80 | Soma PureGold Indexes and Oil | MQL5 | [2268766](https://www.mql5.com/en/signals/2268766) | 219.08 | 28.60 | 23.92 | that | 910.26 | 7224 | USTEC XAUUSD BTCUSD US30 US500 DE40 XTIU | — | 39 minutes ago | 68.8 |
-| 81 | HAN INVEST SISTEM | MQL5 | [2393802](https://www.mql5.com/en/signals/2393802) | 212.98 | 13.91 | 18.40 | that | 475.16 | 179 | GBPUSD EURUSD EURAUD EURCAD AUDUSD USDCA | hedge | 13 days ago | 68.79 |
-| 82 | SolarFlare | MQL5 | [2332166](https://www.mql5.com/en/signals/2332166) | 207.51 | 13.46 | 17.94 | that | 436.24 | 741 | XAUUSD GBPUSD BTCUSD | — | 3 days ago | 68.59 |
-| 83 | ORDER FLOW System | MQL5 | [2348377](https://www.mql5.com/en/signals/2348377) | 178.99 | 9.96 | 18.86 | that | 401.54 | 803 | GBPUSD EURUSD USDJPY GBPAUD EURJPY XAUUS | martingale, dca | 5 days ago | 68.51 |
-| 84 | MetaPro v22 EURUSD | MQL5 | [2378485](https://www.mql5.com/en/signals/2378485) | 77.84 | 52.78 | 45.77 | that | 798.69 | 729 | EURUSDmicro | — | 2 hours ago | 68.16 |
-| 85 | FXtrading | MQL5 | [2356441](https://www.mql5.com/en/signals/2356441) | 535.08 | 14.09 | 17.48 | that | 1377.26 | 395 | NZDCAD USDCAD GBPUSD AUDUSD XAUUSD NZDUS | hedge | 8 hours ago | 68.13 |
-| 86 | Fx Swing | MQL5 | [2384807](https://www.mql5.com/en/signals/2384807) | 143.82 | 35.50 | 31.74 | that | 956.27 | 10433 | EURUSD-P GBPUSD-P GBPCAD-P GBPCHF-P NZDU | — | 6 hours ago | 68.07 |
-| 87 | KaKa 2 | MQL5 | [2379008](https://www.mql5.com/en/signals/2379008) | 71.55 | 23.26 | 35.19 | that | 386.79 | 706 | GBPUSD USDCAD EURNZD NZDUSD AUDUSD EURAU | — | 17 hours ago | 68.01 |
-| 88 | GoldBot1 | MQL5 | [2282234](https://www.mql5.com/en/signals/2282234) | 212.62 | 27.79 | 21.62 | that | 679.59 | 442 | XAUUSD | — | 3 days ago | 67.47 |
-| 89 | EUR Trader | MQL5 | [2367606](https://www.mql5.com/en/signals/2367606) | 690.04 | 21.73 | 19.32 | that | 2687.49 | 295 | EURUSD.a XAUUSD.a GBPUSD.a AUDUSD.a BTCU | — | 3 days ago | 67.45 |
-| 90 | UpFuji MT4 | MQL5 | [2308093](https://www.mql5.com/en/signals/2308093) | 58.54 | 27.15 | 37.26 | that | 318.27 | 1732 | AUDCAD | — | 4 hours ago | 67.44 |
-| 91 | Mon Scalper MT5 | MQL5 | [2361936](https://www.mql5.com/en/signals/2361936) | 284.13 | 28.71 | 21.85 | that | 1059.39 | 566 | XAUUSD | — | 4 hours ago | 67.39 |
-| 92 | SFE Impulse | MQL5 | [2049326](https://www.mql5.com/en/signals/2049326) | 50.54 | 27.95 | 38.18 | that | 267.47 | 971 | ETHUSD BTCUSD | — | 11 hours ago | 67.26 |
-| 93 | GoldWave signal | MQL5 | [2339082](https://www.mql5.com/en/signals/2339082) | 361.87 | 17.52 | 17.25 | that | 802.08 | 309 | XAUUSD CHINA50 | grid, martingale, dca | 4 days ago | 67.12 |
-| 94 | GOLD BR | MQL5 | [2320903](https://www.mql5.com/en/signals/2320903) | 351.47 | 23.14 | 19.09 | that | 1000.02 | 201 | XAUUSD USDJPY | — | 3 days ago | 66.94 |
-| 95 | Kivenara 815m52ff | MQL5 | [2244828](https://www.mql5.com/en/signals/2244828) | 136.55 | 36.81 | 31.28 | that | 843.42 | 616 | NAS100 | — | 2 hours ago | 66.89 |
-| 96 | EA Happy Bitcoin M30 VM | MQL5 | [2317138](https://www.mql5.com/en/signals/2317138) | 557.14 | 16.41 | 16.33 | that | 1196.27 | 372 | BTCUSD | — | 4 hours ago | 66.78 |
-| 97 | NebulaEA | MQL5 | [2332163](https://www.mql5.com/en/signals/2332163) | 181.87 | 8.54 | 15.41 | that | 278.39 | 977 | GBPUSD XAUUSD | — | 3 days ago | 66.78 |
-| 98 | Signalium | MQL5 | [2385151](https://www.mql5.com/en/signals/2385151) | 339.01 | 31.07 | 21.16 | that | 1258.00 | 382 | GBPUSD_o EURUSD_o XAUUSD_o | — | 7 days ago | 66.34 |
-| 99 | Gold Spike | MQL5 | [2349227](https://www.mql5.com/en/signals/2349227) | 297.50 | 8.56 | 11.96 | that | 295.68 | 434 | XAUUSD | — | 3 days ago | 65.83 |
-| 100 | BIGFISH ENT | MQL5 | [2312950](https://www.mql5.com/en/signals/2312950) | 234.86 | 25.75 | 18.17 | that | 523.36 | 627 | AUDCAD GBPUSD EURUSD XAUUSD | — | 7 hours ago | 65.68 |
-| 101 | EA Safe 1 | MQL5 | [1927666](https://www.mql5.com/en/signals/1927666) | 39.43 | 44.11 | 42.78 | that | 227.10 | 12446 | EURUSD GBPUSD USDJPY XAUUSD AUDNZD GBPAU | — | 4 hours ago | 65.45 |
-| 102 | Multi currency Trade | MQL5 | [2317676](https://www.mql5.com/en/signals/2317676) | 37.85 | 43.97 | 42.78 | that | 214.07 | 9860 | EURJPY AUDUSD USDJPY NZDUSD EURUSD | — | 4 hours ago | 65.37 |
-| 103 | Gold Trend X Signal | MQL5 | [2362085](https://www.mql5.com/en/signals/2362085) | 146.44 | 34.29 | 26.91 | that | 655.78 | 1083 | XAUUSD | grid, martingale | 4 hours ago | 65.35 |
-| 104 | Techno Long Term | MQL5 | [2307342](https://www.mql5.com/en/signals/2307342) | 168.83 | 38.63 | 25.76 | that | 735.49 | 4824 | XAUUSD US30 USTEC BTCUSD US500 | grid, martingale, dca | 1 hour ago | 65.18 |
-| 105 | Kenni Trades Gold Breakout | MQL5 | [2306053](https://www.mql5.com/en/signals/2306053) | 1085.11 | 27.88 | 18.17 | that | 4125.21 | 903 | XAUUSD NASUSD | grid, martingale, hedge | 3 days ago | 65.14 |
-| 106 | NoStress MT4 | MQL5 | [2023750](https://www.mql5.com/en/signals/2023750) | 51.75 | 39.40 | 39.10 | that | 289.17 | 2371 | AUDCAD | — | 4 hours ago | 65.1 |
-| 107 | VSA | MQL5 | [2393860](https://www.mql5.com/en/signals/2393860) | 1109.89 | 12.17 | 12.19 | that | 1158.60 | 158 | GBPUSD NZDUSD AUDUSD USDCAD EURUSD XAUUS | hedge | 3 days ago | 65.08 |
-| 108 | DCA Large Cap Stocks | MQL5 | [2236750](https://www.mql5.com/en/signals/2236750) | 34.85 | 33.15 | 38.41 | that | 160.37 | 1717 | NVDA TSLA META WFC AAPL GOOGL AMZN RIO G | dca | 2 hours ago | 64.93 |
-| 109 | Nobu Trap | MQL5 | [2319444](https://www.mql5.com/en/signals/2319444) | 270.23 | 22.96 | 15.87 | that | 464.69 | 711 | XAUUSD XAUJPY USDJPY GBPJPY EURJPY | grid, martingale | 4 hours ago | 64.84 |
-| 110 | Gold Reaper New V2 2 | MQL5 | [2265877](https://www.mql5.com/en/signals/2265877) | 106.91 | 16.89 | 23.92 | that | 326.06 | 905 | XAUUSD | — | 7 days ago | 64.74 |
-| 111 | GOLD HUAT EA | MQL5 | [2376856](https://www.mql5.com/en/signals/2376856) | 63.38 | 44.19 | 38.87 | that | 390.43 | 723 | XAUUSD USDJPY NAS100 GER40 US30 EURUSD A | grid, martingale, dca | 2 hours ago | 64.62 |
-| 112 | GrattMarMic | MQL5 | [2393538](https://www.mql5.com/en/signals/2393538) | 169.55 | 12.56 | 14.95 | that | 243.96 | 3156 | EURUSD EURCHF CADCHF EURNZD XTIUSD USDSG | grid | 2 hours ago | 64.54 |
-| 113 | EA18 | MQL5 | [2299080](https://www.mql5.com/en/signals/2299080) | 216.81 | 36.48 | 20.47 | that | 614.96 | 426 | NAS100 | — | 3 minutes ago | 64.53 |
-| 114 | QuantumStar | MQL5 | [2332164](https://www.mql5.com/en/signals/2332164) | 130.58 | 9.08 | 17.94 | that | 248.68 | 755 | XAUUSD GBPUSD USDJPY | — | 3 days ago | 64.48 |
-| 115 | BreakZone Scalper HFM | MQL5 | [2269966](https://www.mql5.com/en/signals/2269966) | 247.23 | 47.16 | 24.38 | that | 1154.13 | 448 | XAUUSDb | — | 3 days ago | 64.46 |
-| 116 | Dudu 001 MT5 | MQL5 | [2361784](https://www.mql5.com/en/signals/2361784) | 90.67 | 24.81 | 28.29 | that | 357.89 | 1740 | XAUUSD USDJPY GBPJPY XAUJPY EURJPY | — | 4 hours ago | 64.46 |
-| 117 | The Gold Miner | MQL5 | [2265943](https://www.mql5.com/en/signals/2265943) | 190.25 | 44.95 | 24.61 | that | 789.36 | 1203 | GOLDm# | — | 3 hours ago | 64.44 |
-| 118 | NoStress MT5 | MQL5 | [2023752](https://www.mql5.com/en/signals/2023752) | 50.11 | 41.57 | 39.10 | that | 275.66 | 2362 | AUDCAD | — | 4 hours ago | 64.43 |
-| 119 | BTC ICMarkets 50 high risk | MQL5 | [2225567](https://www.mql5.com/en/signals/2225567) | 122.76 | 48.65 | 33.58 | that | 840.52 | 1504 | BTCUSD XAUUSD GBPUSD EURUSD GBPCAD USDJP | grid, martingale | 10 minutes ago | 64.43 |
-| 120 | X117 Taoist nature | MQL5 | [2196457](https://www.mql5.com/en/signals/2196457) | 134.19 | 50.99 | 33.12 | that | 947.17 | 1584 | GOLD# USDCHF# | — | 3 days ago | 64.4 |
-| 121 | GB Trading | MQL5 | [2386818](https://www.mql5.com/en/signals/2386818) | 176.13 | 20.91 | 17.02 | that | 322.32 | 1495 | XAUUSD EURUSD USDJPY US30 BTCUSD AUDUSD  | — | 3 hours ago | 64.33 |
-| 122 | Expert EURUSD Sys02 | MQL5 | [2181186](https://www.mql5.com/en/signals/2181186) | 90.45 | 40.08 | 33.81 | that | 514.13 | 1908 | EURUSD XAUUSD XTIUSD | martingale, hedge | 10 hours ago | 64.3 |
-| 123 | Aether | MQL5 | [2324198](https://www.mql5.com/en/signals/2324198) | 344.28 | 23.93 | 15.18 | that | 559.61 | 1555 | XAUUSD.vip NZDCAD.vip EURUSD.vip AUDCAD. | — | 2 hours ago | 64.14 |
-| 124 | Meaw | MQL5 | [2393078](https://www.mql5.com/en/signals/2393078) | 58.30 | 27.51 | 32.20 | that | 243.00 | 1503 | XAUUSD+ USOUSD XAGUSD UKOUSD EURUSD+ VIX | — | 3 hours ago | 63.96 |
-| 125 | Expert EURUSD Sys01 | MQL5 | [2142461](https://www.mql5.com/en/signals/2142461) | 84.36 | 43.91 | 35.19 | that | 501.31 | 1977 | EURUSDp XAUUSDp BRENT | martingale, hedge | 10 hours ago | 63.81 |
-| 126 | XAU Super Safe Mode Fusion 50501 | MQL5 | [2321576](https://www.mql5.com/en/signals/2321576) | 138.79 | 22.20 | 20.70 | that | 348.81 | 276 | XAUUSD | grid, martingale, dca | 5 days ago | 63.66 |
-| 127 | Gold Important Sniper Level MT4 | MQL5 | [2290292](https://www.mql5.com/en/signals/2290292) | 128.31 | 26.64 | 23.46 | that | 402.25 | 218 | XAUUSD Gold | — | 5 days ago | 63.6 |
-| 128 | Meridian Extreme Risk Mode | MQL5 | [2385675](https://www.mql5.com/en/signals/2385675) | 406.10 | 10.45 | 9.20 | that | 246.67 | 413 | AUDCAD | — | 6 hours ago | 63.52 |
-| 129 | OnlyUJ | MQL5 | [2245675](https://www.mql5.com/en/signals/2245675) | 119.57 | 35.54 | 27.60 | that | 510.40 | 745 | USDJPY | — | 34 minutes ago | 63.48 |
-| 130 | Hari Ke 7 | MQL5 | [2371938](https://www.mql5.com/en/signals/2371938) | 174.81 | 15.38 | 13.80 | that | 219.80 | 367 | AUDNZDr AUDCADr NZDCADr | martingale, dca | 5 days ago | 63.47 |
-| 131 | Ekalaya | MQL5 | [2364632](https://www.mql5.com/en/signals/2364632) | 190.29 | 34.75 | 19.32 | that | 456.10 | 889 | GBPUSD_i EURUSD_i | — | 8 hours ago | 63.46 |
-| 132 | Precise Pair Trading Pro | MQL5 | [2329290](https://www.mql5.com/en/signals/2329290) | 404.51 | 23.84 | 14.03 | that | 563.39 | 948 | EURUSD XAUUSD XAUEUR AUDUSD | grid, martingale | 18 hours ago | 63.39 |
-| 133 | Eightcap 491 | MQL5 | [2294461](https://www.mql5.com/en/signals/2294461) | 209.23 | 42.88 | 21.16 | that | 632.04 | 423 | XAUUSD NDX100 | — | 3 days ago | 63.39 |
-| 134 | GUNS FX V2 | MQL5 | [2376393](https://www.mql5.com/en/signals/2376393) | 1986.05 | 11.63 | 9.43 | that | 988.35 | 294 | XAUUSD | — | 3 days ago | 63.38 |
-| 135 | Asterysc Hunter 3 | MQL5 | [2288774](https://www.mql5.com/en/signals/2288774) | 66.68 | 42.91 | 36.11 | that | 365.22 | 6611 | AUDCAD.. EURUSD.. GBPUSD.. UT100 XAUUSD. | — | 44 minutes ago | 63.35 |
-| 136 | Kefren Portfolio 1 | MQL5 | [2369741](https://www.mql5.com/en/signals/2369741) | 265.20 | 18.55 | 11.96 | that | 263.63 | 2780 | XAUUSD+ BTCUSD DJ30 NAS100 GER40 USDJPY+ | — | 8 hours ago | 63.34 |
-| 137 | AI Aurum Pivot LIVE | MQL5 | [2361796](https://www.mql5.com/en/signals/2361796) | 233.22 | 12.61 | 9.66 | that | 163.51 | 110 | XAUUSD | — | 3 days ago | 63.29 |
-| 138 | Guns FX | MQL5 | [2362532](https://www.mql5.com/en/signals/2362532) | 263.51 | 12.29 | 9.43 | that | 175.72 | 309 | XAUUSD EURUSD GBPUSD | — | 3 days ago | 63.21 |
-| 139 | Solnce | MQL5 | [2288975](https://www.mql5.com/en/signals/2288975) | 81.89 | 13.09 | 23.00 | that | 214.76 | 1145 | XAUUSD GBPUSD USDJPY EURUSD | — | 3 days ago | 63.2 |
-| 140 | Myfx Multiprod | MQL5 | [2343740](https://www.mql5.com/en/signals/2343740) | 398.02 | 27.24 | 14.49 | that | 594.91 | 1283 | XAUUSD | — | 2 hours ago | 62.85 |
-| 141 | Multi EA Trading | MQL5 | [2375343](https://www.mql5.com/en/signals/2375343) | 1350.12 | 33.14 | 16.10 | that | 3515.91 | 589 | XAUUSD GBPUSD EURUSD USDCAD AUDJPY NZDCA | — | 3 days ago | 62.45 |
-| 142 | Nasdaq manual | MQL5 | [2387289](https://www.mql5.com/en/signals/2387289) | 124.75 | 38.27 | 26.45 | that | 495.94 | 3580 | EURUSD NQCash | — | 3 days ago | 62.42 |
-| 143 | FXKINGPIN | MQL5 | [2386148](https://www.mql5.com/en/signals/2386148) | 752.08 | 22.32 | 11.96 | that | 746.02 | 493 | BTCUSDm XAUUSDm | — | 4 hours ago | 62.39 |
-| 144 | MSC SuperGold Pro | MQL5 | [2304847](https://www.mql5.com/en/signals/2304847) | 1354.69 | 53.03 | 23.46 | that | 18659.17 | 3054 | XAUUSD.f AUDCAD.f | dca | 3 days ago | 62.38 |
-| 145 | P820 Climb high and look far | MQL5 | [2204755](https://www.mql5.com/en/signals/2204755) | 86.73 | 43.62 | 32.66 | that | 447.25 | 1871 | GBPUSD USDJPY XAUUSD BTCUSD USDCHF EURUS | — | 3 days ago | 62.37 |
-| 146 | Captain Snail Gold | MQL5 | [2201409](https://www.mql5.com/en/signals/2201409) | 309.62 | 33.45 | 16.10 | that | 563.16 | 601 | XAUUSD | grid | 12 hours ago | 62.37 |
-| 147 | Long Gold 1102 | MQL5 | [2366314](https://www.mql5.com/en/signals/2366314) | 259.29 | 25.53 | 12.88 | that | 294.62 | 986 | XAUUSD GBPUSD BTCUSD USOIL UKOIL ETHUSD  | — | 4 hours ago | 62.2 |
-| 148 | Range Breakout EA Live | MQL5 | [2271995](https://www.mql5.com/en/signals/2271995) | 112.79 | 28.29 | 23.46 | that | 337.67 | 2089 | USDJPY US30 DE40 BTCUSD XAUUSD | grid, martingale | 1 hour ago | 62.03 |
-| 149 | Lunar Express Mission 11M | MQL5 | [2332746](https://www.mql5.com/en/signals/2332746) | 423.54 | 29.02 | 13.80 | that | 571.11 | 4092 | XAUUSD AUDCAD GBPCAD AUDUSD AUDJPY EURUS | — | 18 hours ago | 61.95 |
-| 150 | Fast Turtle | MQL5 | [2344859](https://www.mql5.com/en/signals/2344859) | 317.85 | 22.42 | 11.27 | that | 283.04 | 2010 | GOLDm# GBPUSDm# AUDCADm# AUDNZDm# EURUSD | — | 3 days ago | 61.91 |
-| 151 | EA 3 CurrencyPair MediumRisk | MQL5 | [2261205](https://www.mql5.com/en/signals/2261205) | 52.79 | 43.98 | 35.88 | that | 255.18 | 1303 | NZDCAD AUDNZD AUDCAD | — | 4 days ago | 61.88 |
-| 152 | Kivenara 8315m01f | MQL5 | [2229059](https://www.mql5.com/en/signals/2229059) | 51.71 | 34.62 | 32.43 | that | 208.45 | 659 | NAS100 | — | 1 hour ago | 61.84 |
-| 153 | Combo Profile 2026 | MQL5 | [2362349](https://www.mql5.com/en/signals/2362349) | 1346.94 | 19.34 | 9.89 | that | 804.49 | 861 | GBPUSD+ USDCHF+ USDCAD+ AUDUSD+ GBPAUD+  | — | 12 hours ago | 61.76 |
-| 154 | Mohammed Qandeel | MQL5 | [2359368](https://www.mql5.com/en/signals/2359368) | 60.80 | 34.49 | 31.05 | that | 241.81 | 2894 | WTICASH US100CASH GER30CASH US30CASH STO | — | 3 hours ago | 61.64 |
-| 155 | Hunting Cat Scalper Set C | MQL5 | [2231094](https://www.mql5.com/en/signals/2231094) | 65.00 | 30.92 | 29.21 | that | 238.39 | 1123 | USDJPY | grid | 4 days ago | 61.62 |
-| 156 | World PEACE Multi FX Algo | MQL5 | [2379208](https://www.mql5.com/en/signals/2379208) | 973.81 | 47.44 | 20.01 | that | 5136.84 | 4500 | AUDCADr AUDNZDr GBPUSDr EURJPYr EURUSDr  | grid, hedge | 48 minutes ago | 61.48 |
-| 157 | Xauusd H1 | MQL5 | [2376983](https://www.mql5.com/en/signals/2376983) | 131.85 | 32.60 | 22.08 | that | 369.87 | 1029 | XAUUSD US30 BTCUSD | — | 3 days ago | 61.46 |
-| 158 | XAUUSD AI trade | MQL5 | [2337663](https://www.mql5.com/en/signals/2337663) | 717.85 | 31.67 | 14.03 | that | 1066.99 | 2966 | XAUUSD GBPUSD AUDUSD BTCUSD USDCAD EURAU | — | 4 hours ago | 61.44 |
-| 159 | Eldorium Risk 5 | MQL5 | [2371082](https://www.mql5.com/en/signals/2371082) | 655.60 | 20.34 | 9.66 | that | 409.36 | 278 | XAUUSD | martingale | 3 days ago | 61.36 |
-| 160 | Nano Sentinel | MQL5 | [2388152](https://www.mql5.com/en/signals/2388152) | 456.13 | 19.62 | 9.20 | that | 272.65 | 443 | XAUUSD | — | 4 days ago | 61.23 |
-| 161 | Giaphat GOLD Vantage | MQL5 | [2372538](https://www.mql5.com/en/signals/2372538) | 395.51 | 19.31 | 8.97 | that | 230.79 | 1291 | XAUUSD+ EURUSD+ AUDCAD+ NZDCAD+ AUDNZD+  | — | 1 hour ago | 61.15 |
-| 162 | Algoverse Portfolio | MQL5 | [2377503](https://www.mql5.com/en/signals/2377503) | 875.61 | 25.46 | 11.27 | that | 749.37 | 1405 | XAUUSD GBPUSD EURUSD NZDCAD USDJPY USDCH | martingale | 4 hours ago | 61.15 |
-| 163 | Foxsov Sniper Pro | MQL5 | [2329641](https://www.mql5.com/en/signals/2329641) | 300.15 | 33.84 | 14.26 | that | 419.57 | 821 | XAUUSD+ BTCUSD NAS100.r DJ30.r | — | 4 days ago | 61.05 |
-| 164 | IVOMAS | MQL5 | [2320008](https://www.mql5.com/en/signals/2320008) | 300.69 | 38.61 | 15.87 | that | 526.92 | 818 | XAUUSD EURUSD NZDJPY AUDUSD GBPUSD NZDUS | martingale | 4 hours ago | 60.93 |
-| 165 | IC 026 | MQL5 | [2342068](https://www.mql5.com/en/signals/2342068) | 327.12 | 28.32 | 11.96 | that | 325.06 | 1768 | EURUSD GBPUSD AUDCAD AUDNZD XAUUSD NZDCA | — | 14 hours ago | 60.89 |
-| 166 | MegaGold | MQL5 | [2337490](https://www.mql5.com/en/signals/2337490) | 153.79 | 30.70 | 17.94 | that | 302.43 | 364 | XAUUSD | grid, martingale | 2 hours ago | 60.82 |
-| 167 | A18F52N | MQL5 | [2357382](https://www.mql5.com/en/signals/2357382) | 298.06 | 23.09 | 9.89 | that | 212.22 | 205 | NAS100 | — | 2 hours ago | 60.82 |
-| 168 | XZflow 3 | MQL5 | [2244502](https://www.mql5.com/en/signals/2244502) | 79.74 | 41.99 | 30.36 | that | 340.84 | 873 | BTCUSD ETHUSD USDJPY GBPJPY JP225 USTEC  | — | 9 hours ago | 60.72 |
-| 169 | Autopilot Vibranium Akun Ke 3062 | MQL5 | [2382840](https://www.mql5.com/en/signals/2382840) | 136.48 | 37.61 | 22.31 | that | 395.39 | 369 | GBPUSD | — | 4 days ago | 60.71 |
-| 170 | Live Account Breakout EA | MQL5 | [2283078](https://www.mql5.com/en/signals/2283078) | 79.15 | 19.66 | 21.85 | that | 189.10 | 749 | USDJPY XAUUSD | — | 51 minutes ago | 60.59 |
-| 171 | BIGFISH PREMIUM DOLLARS | MQL5 | [2305053](https://www.mql5.com/en/signals/2305053) | 210.87 | 47.29 | 18.40 | that | 469.23 | 709 | AUDCAD EURUSD GBPUSD US30 XAUUSD | — | 2 hours ago | 60.44 |
-| 172 | TriForce MT5 | MQL5 | [2126101](https://www.mql5.com/en/signals/2126101) | 41.53 | 44.62 | 35.19 | that | 176.95 | 4798 | EURUSD AUDCAD AUDUSD | — | 2 hours ago | 60.42 |
-| 173 | Steady Growth | MQL5 | [2298652](https://www.mql5.com/en/signals/2298652) | 292.96 | 50.30 | 19.32 | that | 805.54 | 850 | GBPJPY_SB USDJPY_SB GBPCHF_SB USDCHF_SB  | — | 1 hour ago | 60.31 |
-| 174 | PeacockFeather GBPUSD | MQL5 | [2286356](https://www.mql5.com/en/signals/2286356) | 104.52 | 27.83 | 21.39 | that | 257.99 | 462 | GBPUSD | hedge | 10 hours ago | 60.14 |
-| 175 | IC 016 | MQL5 | [2350007](https://www.mql5.com/en/signals/2350007) | 213.41 | 30.09 | 11.50 | that | 198.84 | 1495 | EURUSD GBPUSD AUDCAD AUDNZD XAUUSD NZDCA | — | 14 hours ago | 60.14 |
-| 176 | GoldZILLA AI Medium Risk | MQL5 | [2362448](https://www.mql5.com/en/signals/2362448) | 191.07 | 23.28 | 9.89 | that | 141.22 | 419 | XAUUSD | — | 4 hours ago | 60.1 |
-| 177 | AlgoMind DayTrading | MQL5 | [2232206](https://www.mql5.com/en/signals/2232206) | 72.91 | 47.56 | 32.20 | that | 334.69 | 2635 | XAUUSD | — | 3 days ago | 60.04 |
-| 178 | Derek | MQL5 | [2379723](https://www.mql5.com/en/signals/2379723) | 377.58 | 20.22 | 7.59 | that | 168.84 | 203 | BTCUSD XAUUSD | — | 4 days ago | 60.0 |
-| 179 | GARYPRO2500 | MQL5 | [2350542](https://www.mql5.com/en/signals/2350542) | 110.84 | 21.73 | 18.17 | that | 209.39 | 195 | XAUUSD USDJPY | — | 3 days ago | 59.99 |
-| 180 | EA Miracolo et Amazing Brain | MQL5 | [2394150](https://www.mql5.com/en/signals/2394150) | 3794.17 | 19.97 | 7.36 | that | 845.05 | 786 | XAUUSD.r AUDUSD.r EURUSD.r | — | 1 hour ago | 59.91 |
-| 181 | VFCaput Vitual | MQL5 | [2377661](https://www.mql5.com/en/signals/2377661) | 66.79 | 21.89 | 23.00 | that | 166.57 | 2363 | NZDCAD AUDCAD AUDNZD GBPJPY EURAUD CADCH | — | 4 hours ago | 59.87 |
-| 182 | Three whales2 | MQL5 | [2294877](https://www.mql5.com/en/signals/2294877) | 507.94 | 43.45 | 16.10 | that | 1026.37 | 863 | XAUUSD | — | 12 hours ago | 59.87 |
-| 183 | SixtyNine EA | MQL5 | [2361673](https://www.mql5.com/en/signals/2361673) | 5279.92 | 23.29 | 8.51 | that | 1588.14 | 568 | XAUUSD+ | — | 3 days ago | 59.85 |
-| 184 | AUDCAD Smart | MQL5 | [2356497](https://www.mql5.com/en/signals/2356497) | 406.00 | 24.74 | 8.97 | that | 236.01 | 137 | AUDCAD | — | 6 hours ago | 59.8 |
-| 185 | Navi | MQL5 | [2234719](https://www.mql5.com/en/signals/2234719) | 74.99 | 40.10 | 28.75 | that | 282.16 | 1382 | BTCUSD | — | 3 hours ago | 59.77 |
-| 186 | JFX 1 | MQL5 | [2354958](https://www.mql5.com/en/signals/2354958) | 489.90 | 26.12 | 9.43 | that | 303.37 | 948 | EURUSD XAUUSD | martingale | 2 hours ago | 59.76 |
-| 187 | The Gold Reaper Live default settings | MQL5 | [2195619](https://www.mql5.com/en/signals/2195619) | 56.15 | 45.64 | 32.89 | that | 239.19 | 1368 | XAUUSD.p | — | 3 days ago | 59.73 |
-| 188 | Golden Key Classic | MQL5 | [2304448](https://www.mql5.com/en/signals/2304448) | 198.26 | 49.79 | 18.17 | that | 423.15 | 204 | GOLD# | — | 3 days ago | 59.54 |
-| 189 | ConnectGain BR Agressivo | MQL5 | [2376654](https://www.mql5.com/en/signals/2376654) | 172.27 | 28.87 | 13.11 | that | 198.70 | 1366 | NZDCADxx AUDCADxx AUDNZDxx GBPJPYxx GBPN | — | 15 hours ago | 59.44 |
-| 190 | GGSetka | MQL5 | [2366387](https://www.mql5.com/en/signals/2366387) | 112.97 | 20.71 | 16.56 | that | 183.85 | 399 | AUDCAD EURCHF | — | 50 minutes ago | 59.34 |
-| 191 | Guardian FX Pro | MQL5 | [2385674](https://www.mql5.com/en/signals/2385674) | 1527.20 | 15.03 | 4.60 | that | 191.33 | 560 | GBPUSD USDJPY EURJPY BTCUSD.futu EURUSD  | martingale, hedge, dca | 6 hours ago | 59.31 |
-| 192 | EA RDIP HPro 5P | MQL5 | [2336904](https://www.mql5.com/en/signals/2336904) | 406.01 | 38.18 | 13.11 | that | 487.89 | 2272 | GBPJPY USDJPY GBPUSD EURJPY EURUSD XAUUS | hedge, dca | 12 hours ago | 59.2 |
-| 193 | Aura Gold Pro Edition Rbfx | MQL5 | [2366593](https://www.mql5.com/en/signals/2366593) | 985.08 | 24.83 | 8.05 | that | 395.02 | 436 | XAUUSD | — | 47 minutes ago | 59.16 |
-| 194 | Different gold strategies 1 | MQL5 | [2375487](https://www.mql5.com/en/signals/2375487) | 64.39 | 31.69 | 25.76 | that | 190.66 | 267 | XAUUSD | — | 3 days ago | 59.08 |
-| 195 | Vasa Trading Sistem 22 | MQL5 | [2346593](https://www.mql5.com/en/signals/2346593) | 176.50 | 25.87 | 10.81 | that | 149.97 | 799 | XAUUSD | grid, martingale | 3 days ago | 58.98 |
-| 196 | Portifolio IA XP | MQL5 | [2283635](https://www.mql5.com/en/signals/2283635) | 131.56 | 47.42 | 23.92 | that | 433.19 | 1764 | WINJ26 WINM26 WINV26 WINQ26 WINM25 WINV2 | — | 3 days ago | 58.96 |
-| 197 | Metal | MQL5 | [2389070](https://www.mql5.com/en/signals/2389070) | 94513.21 | 12.97 | 3.22 | that | 528.85 | 191 | XAUUSD BTCUSD | — | 4 minutes ago | 58.9 |
-| 198 | Oilman T | MQL5 | [2325346](https://www.mql5.com/en/signals/2325346) | 194.19 | 43.31 | 15.18 | that | 291.57 | 1051 | XAUUSD.min USOIL | grid | 3 hours ago | 58.86 |
-| 199 | Expert EURUSD Sys03 | MQL5 | [2265440](https://www.mql5.com/en/signals/2265440) | 64.10 | 42.15 | 29.21 | that | 233.89 | 1763 | EURUSD+ XAUUSD+ | martingale, hedge | 10 hours ago | 58.74 |
-| 200 | XAUUSD AND XAUEUR | MQL5 | [2340704](https://www.mql5.com/en/signals/2340704) | 214.49 | 42.73 | 14.03 | that | 281.76 | 292 | XAUUSD XAUEUR | — | 19 hours ago | 58.67 |
-| 201 | KiraCat | MQL5 | [2342895](https://www.mql5.com/en/signals/2342895) | 377.23 | 36.70 | 11.73 | that | 360.74 | 604 | US30 NZDCAD US100 XAUUSD USDCAD | grid, dca | 4 days ago | 58.65 |
-| 202 | Jayanthi EA MT5 | MQL5 | [2251746](https://www.mql5.com/en/signals/2251746) | 55.74 | 32.25 | 26.22 | that | 163.27 | 285 | XAUUSD | grid, martingale, hedge | 16 hours ago | 58.6 |
-| 203 | TTS Joyful | MQL5 | [2385587](https://www.mql5.com/en/signals/2385587) | 7738.58 | 14.15 | 2.99 | that | 196.47 | 66 | XAUUSD | — | 2 hours ago | 58.46 |
-| 204 | SNJ | MQL5 | [2317789](https://www.mql5.com/en/signals/2317789) | 154.46 | 37.92 | 17.02 | that | 276.10 | 344 | XAUUSD GBPUSD | — | 3 hours ago | 58.45 |
-| 205 | LONG TERM TRADING | MQL5 | [2311926](https://www.mql5.com/en/signals/2311926) | 106.25 | 32.13 | 20.24 | that | 239.07 | 1038 | XAUUSD AUDCAD EURUSD USDJPY USDCHF EURAU | — | 7 hours ago | 58.43 |
-| 206 | Gold Reaper 100 DD Challenge | MQL5 | [2363636](https://www.mql5.com/en/signals/2363636) | 410.45 | 28.98 | 8.51 | that | 217.73 | 290 | XAUUSD | — | 3 days ago | 58.43 |
-| 207 | Invictus X VANTAGE | MQL5 | [2354834](https://www.mql5.com/en/signals/2354834) | 1302.54 | 31.86 | 9.43 | that | 696.68 | 3515 | BTCUSD XAUUSD+ ETHUSD | — | 2 minutes ago | 58.32 |
-| 208 | ANTS Gold And Crypto | MQL5 | [2356592](https://www.mql5.com/en/signals/2356592) | 265.20 | 39.99 | 12.42 | that | 282.14 | 2851 | XAUUSDp SOLUSD BTCUSD EURUSDp GBPUSDp CH | — | 10 minutes ago | 58.28 |
-| 209 | TOOP1 Swing Live | MQL5 | [2376664](https://www.mql5.com/en/signals/2376664) | 1007.52 | 20.05 | 4.83 | that | 163.24 | 62 | XAUUSD+ | — | 4 hours ago | 58.21 |
-| 210 | ALGO VISION | MQL5 | [2341570](https://www.mql5.com/en/signals/2341570) | 1321.69 | 39.73 | 12.19 | that | 1382.72 | 353 | XAUUSD | grid, martingale | 3 days ago | 58.19 |
-| 211 | Fortune | MQL5 | [2363526](https://www.mql5.com/en/signals/2363526) | 1783.22 | 33.03 | 9.66 | that | 962.42 | 171 | XAUUSD-ECN | grid, martingale, hedge | 3 days ago | 58.18 |
-| 212 | Ultimate Portfolio 2000 | MQL5 | [2324441](https://www.mql5.com/en/signals/2324441) | 210.31 | 47.39 | 14.95 | that | 309.92 | 2705 | XAUUSD DE40 USTEC US30 US500 | — | 3 hours ago | 58.12 |
-| 213 | Zenith Alpha USD | MQL5 | [2374284](https://www.mql5.com/en/signals/2374284) | 623.15 | 28.97 | 8.05 | that | 277.05 | 214 | USDCADb NZDCHFb EURCHFb EURUSDb CADCHFb  | grid | 2 hours ago | 58.12 |
-| 214 | VTS You Only Live Once 7 | MQL5 | [2361280](https://www.mql5.com/en/signals/2361280) | 920.57 | 29.68 | 8.28 | that | 396.71 | 420 | XAUUSD | — | 3 days ago | 58.1 |
-| 215 | MT4 8800983 | MQL5 | [2377259](https://www.mql5.com/en/signals/2377259) | 12067.27 | 21.69 | 5.06 | that | 657.28 | 1265 | XAUUSD.p | — | 4 hours ago | 57.95 |
-| 216 | Survival Gold | MQL5 | [2368076](https://www.mql5.com/en/signals/2368076) | 1996.37 | 33.96 | 9.43 | that | 992.58 | 269 | XAUUSD | — | 3 days ago | 57.8 |
-| 217 | Gold Breakout PRO All Star | MQL5 | [2351091](https://www.mql5.com/en/signals/2351091) | 2948.50 | 35.31 | 9.89 | that | 1571.61 | 122 | XAUUSD BTCUSD | grid, martingale | 3 days ago | 57.77 |
-| 218 | GOLD ARROW | MQL5 | [2380453](https://www.mql5.com/en/signals/2380453) | 219.32 | 41.20 | 11.96 | that | 218.09 | 471 | XAUUSD archived XAGUSD | — | 5 days ago | 57.67 |
-| 219 | ATG EA 31 | MQL5 | [2356340](https://www.mql5.com/en/signals/2356340) | 458.08 | 34.14 | 9.20 | that | 273.65 | 117 | XAUUSD | — | 4 hours ago | 57.6 |
-| 220 | MoonDog EA | MQL5 | [2381309](https://www.mql5.com/en/signals/2381309) | 16622.23 | 20.14 | 3.91 | that | 430.18 | 263 | XAUUSD | — | 3 days ago | 57.57 |
-| 221 | Aura Gold Pro Edition FPMarkets | MQL5 | [2358523](https://www.mql5.com/en/signals/2358523) | 1030.62 | 34.97 | 9.43 | that | 572.56 | 516 | XAUUSD | — | 4 hours ago | 57.54 |
-| 222 | GoldHunterPro | MQL5 | [2365208](https://www.mql5.com/en/signals/2365208) | 1372.90 | 29.95 | 7.36 | that | 420.57 | 255 | GOLD# | — | 3 days ago | 57.42 |
-| 223 | THE CHOSEN ONE from FXGP WMC | MQL5 | [2377696](https://www.mql5.com/en/signals/2377696) | 1316.28 | 24.68 | 5.29 | that | 221.71 | 349 | XAUUSD AUDNZD NZDCAD EURUSD | — | 3 days ago | 57.36 |
-| 224 | WIND PRO | MQL5 | [2342791](https://www.mql5.com/en/signals/2342791) | 261.31 | 43.17 | 12.19 | that | 268.73 | 319 | XAUUSD BTCUSD archived | — | 2 hours ago | 57.33 |
-| 225 | ABGsignals | MQL5 | [2369981](https://www.mql5.com/en/signals/2369981) | 553.45 | 32.85 | 8.28 | that | 265.17 | 992 | XAUUSD.pro GBPJPY.pro EURNZD.pro AUDJPY. | — | 7 hours ago | 57.31 |
-| 226 | The Golden Rocket | MQL5 | [2385842](https://www.mql5.com/en/signals/2385842) | 995.65 | 25.49 | 5.52 | that | 200.78 | 112 | XAUUSD.ecn | grid, martingale | 43 minutes ago | 57.31 |
-| 227 | BalanceDynamic | MQL5 | [2353706](https://www.mql5.com/en/signals/2353706) | 332.58 | 37.27 | 9.89 | that | 234.37 | 2533 | GBPUSD EURUSD USDCHF USDJPY | — | 4 hours ago | 57.28 |
-| 228 | TRG Gold | MQL5 | [2387489](https://www.mql5.com/en/signals/2387489) | 245.94 | 34.41 | 8.74 | that | 146.93 | 183 | AUDNZD.pro XAUUSD.pro NZDCAD.pro AUDCAD. | — | 3 days ago | 57.22 |
-| 229 | EURUSD Algo Trading | MQL5 | [2379670](https://www.mql5.com/en/signals/2379670) | 646.63 | 35.85 | 9.20 | that | 367.07 | 2395 | EURUSD AUDUSD | hedge | 42 minutes ago | 57.17 |
-| 230 | CARRO CAPITAL TRADER GRID 1 | MQL5 | [2373260](https://www.mql5.com/en/signals/2373260) | 506.71 | 41.46 | 11.27 | that | 443.69 | 4463 | GBPNZD EURCAD AUDNZD AUDCAD EURJPY USDCH | grid, martingale | 23 minutes ago | 57.15 |
-| 231 | Experimental Code | MQL5 | [2346983](https://www.mql5.com/en/signals/2346983) | 751.47 | 40.92 | 11.04 | that | 617.39 | 292 | XAUUSD | — | 3 days ago | 57.13 |
-| 232 | AI 6CCY Account 261 | MQL5 | [2386895](https://www.mql5.com/en/signals/2386895) | 185.96 | 44.11 | 13.80 | that | 234.77 | 521 | AUDCAD# GBPCHF# NZDCAD# NZDUSD# USDCAD#  | — | 4 days ago | 57.12 |
-| 233 | GoldExtractor1 | MQL5 | [2381685](https://www.mql5.com/en/signals/2381685) | 854.98 | 42.99 | 11.73 | that | 807.70 | 914 | XAUUSD+ | — | 4 hours ago | 57.07 |
-| 234 | Janus Zone | MQL5 | [2386128](https://www.mql5.com/en/signals/2386128) | 13477.53 | 20.23 | 2.99 | that | 239.96 | 162 | XAUUSD | — | 6 hours ago | 56.94 |
-| 235 | Dynamic Liquidity Intelligence XM100 | MQL5 | [2370969](https://www.mql5.com/en/signals/2370969) | 4906.50 | 29.18 | 6.21 | that | 657.72 | 229 | GOLD# | — | 4 hours ago | 56.84 |
-| 236 | Predator50U | MQL5 | [2381799](https://www.mql5.com/en/signals/2381799) | 25372.18 | 22.56 | 3.68 | that | 446.84 | 261 | XAUUSD | — | 4 hours ago | 56.81 |
-| 237 | IC 327 | MQL5 | [2342579](https://www.mql5.com/en/signals/2342579) | 226.70 | 45.33 | 12.19 | that | 232.88 | 2081 | EURUSD AUDCAD GBPUSD XAUUSD BTCUSD USDJP | — | 14 hours ago | 56.79 |
-| 238 | Quant stategy | MQL5 | [2387834](https://www.mql5.com/en/signals/2387834) | 2198.65 | 29.43 | 6.21 | that | 406.48 | 270 | XAUUSD EURUSD GBPUSD | — | 2 hours ago | 56.78 |
-| 239 | UpEverest MT5 | MQL5 | [2308091](https://www.mql5.com/en/signals/2308091) | 60.50 | 18.92 | 17.94 | that | 102.86 | 559 | AUDCAD | — | 4 hours ago | 56.77 |
-| 240 | Ellita Master | MQL5 | [2349087](https://www.mql5.com/en/signals/2349087) | 143.49 | 35.82 | 14.95 | that | 203.03 | 769 | XAUUSDm USOILm BTCUSDm XAGUSDm USDJPYm E | — | 3 days ago | 56.77 |
-| 241 | Precision BTC AI 2 | MQL5 | [2376777](https://www.mql5.com/en/signals/2376777) | 64395.88 | 27.41 | 5.29 | that | 1631.95 | 883 | BTCUSD XAUUSD-ECN | — | 2 minutes ago | 56.67 |
-| 242 | Complete Portfolio 1 | MQL5 | [2340546](https://www.mql5.com/en/signals/2340546) | 62.32 | 40.69 | 25.76 | that | 182.88 | 5143 | USDJPY XAUUSD WS30 SP500 GDAXI EURUSD ND | grid, martingale | 1 hour ago | 56.67 |
-| 243 | GANN LUNAR | MQL5 | [2358821](https://www.mql5.com/en/signals/2358821) | 212.50 | 47.81 | 12.65 | that | 232.39 | 296 | XAUUSD.pkn GBPJPY.pkn USDJPY.pkn GBPUSD. | — | 4 hours ago | 56.48 |
-| 244 | Vantage Precision BTC AI | MQL5 | [2376778](https://www.mql5.com/en/signals/2376778) | 2235.17 | 27.74 | 5.06 | that | 277.55 | 708 | BTCUSD XAUUSD+ | — | 2 minutes ago | 56.44 |
-| 245 | TradeSentinel Apex | MQL5 | [2363322](https://www.mql5.com/en/signals/2363322) | 778.02 | 43.42 | 10.81 | that | 607.85 | 214 | XAUUSD+ USDJPY+ | — | 3 days ago | 56.35 |
-| 246 | Vatikan | MQL5 | [2385060](https://www.mql5.com/en/signals/2385060) | 450.99 | 34.84 | 7.59 | that | 194.29 | 366 | EURUSD# GBPUSD# USDJPY# GOLD# BRENTCash# | — | 8 hours ago | 56.35 |
-| 247 | VS P4 Portfolio Lmax 1134 | MQL5 | [2360005](https://www.mql5.com/en/signals/2360005) | 446.63 | 37.70 | 8.51 | that | 233.54 | 430 | XAUUSD.lmx CHFJPY.lmx EURUSD.lmx | grid, martingale | 18 hours ago | 56.25 |
-| 248 | Cuan Club Agresif 7575 | MQL5 | [2364335](https://www.mql5.com/en/signals/2364335) | 326.99 | 36.15 | 7.59 | that | 150.46 | 345 | AUDCAD-STD | — | 4 hours ago | 56.02 |
-| 249 | Lucky Cat MT5 | MQL5 | [2359404](https://www.mql5.com/en/signals/2359404) | 421.94 | 41.30 | 9.43 | that | 266.38 | 748 | XAUUSD | grid, martingale | 3 days ago | 55.96 |
-| 250 | RICH ULTIMA OMNI CORE | MQL5 | [2362617](https://www.mql5.com/en/signals/2362617) | 438.63 | 37.63 | 8.05 | that | 209.44 | 491 | USDJPY.s EURJPY.s GBPJPY.s XAUUSD.s | martingale, dca | 3 hours ago | 55.96 |
-| 251 | ECN_Portafolio_46_Aggresive | MQL5 | [2378963](https://www.mql5.com/en/signals/2378963) | 1414.52 | 27.95 | 4.37 | that | 169.04 | 463 | USDJPY XAUUSD EURUSD XAGUSD AUDUSD AMZN  | — | 4 hours ago | 55.93 |
-| 252 | TriForce Engine | MQL5 | [2353870](https://www.mql5.com/en/signals/2353870) | 282.09 | 41.59 | 9.43 | that | 186.74 | 123 | GBPJPY.r EURJPY.r EURUSD.r NZDCAD.r AUDU | — | 4 days ago | 55.89 |
-| 253 | A171 Soar to great heights | MQL5 | [2349987](https://www.mql5.com/en/signals/2349987) | 747.11 | 44.92 | 10.58 | that | 557.86 | 264 | GOLD | — | 3 days ago | 55.82 |
-| 254 | Solo levelling | MQL5 | [2356978](https://www.mql5.com/en/signals/2356978) | 341.72 | 40.86 | 8.97 | that | 203.56 | 2017 | XAUUSD | — | 4 days ago | 55.77 |
-| 255 | Farmed Hedge Yield Zcopy | MQL5 | [2361272](https://www.mql5.com/en/signals/2361272) | 507.85 | 39.47 | 8.28 | that | 247.39 | 1755 | EURAUD GBPAUD USDCHF EURUSD AUDCAD AUDNZ | hedge | 4 hours ago | 55.65 |
-| 256 | Farmed Hedge Yield Copy I | MQL5 | [2356376](https://www.mql5.com/en/signals/2356376) | 1039.17 | 42.20 | 9.20 | that | 545.73 | 2378 | EURAUD.p GBPAUD.p EURUSD.p AUDCAD.p GBPC | hedge | 4 hours ago | 55.58 |
-| 257 | Titan Gravity Strategy | MQL5 | [2362566](https://www.mql5.com/en/signals/2362566) | 1117.17 | 39.92 | 8.28 | that | 460.91 | 656 | AUDCAD NZDCAD AUDNZD XAUUSD | — | 6 hours ago | 55.54 |
-| 258 | Trade With Dre Challenge 500usd | MQL5 | [2363457](https://www.mql5.com/en/signals/2363457) | 3829.13 | 38.77 | 7.82 | that | 993.83 | 1548 | XAUUSD.ecn | — | 3 days ago | 55.52 |
-| 259 | AlfaVova | MQL5 | [2292103](https://www.mql5.com/en/signals/2292103) | 97.99 | 47.42 | 22.54 | that | 260.74 | 851 | GBPUSDrfd EURUSDrfd EURGBPrfd AUDCADrfd  | — | 7 minutes ago | 55.52 |
-| 260 | Pattern Recognition Portfolio | MQL5 | [2340550](https://www.mql5.com/en/signals/2340550) | 101.85 | 27.72 | 14.72 | that | 136.68 | 1410 | USDJPY XAUUSD EURUSD WS30 GDAXI SP500 ND | grid, martingale | 1 hour ago | 55.52 |
-| 261 | Dynamic Liquidity Intelligence HFM50 | MQL5 | [2373900](https://www.mql5.com/en/signals/2373900) | 72294.45 | 32.69 | 5.52 | that | 1967.59 | 201 | XAUUSDr | — | 4 hours ago | 55.51 |
-| 262 | HedGinG GUCJ B | MQL5 | [2365401](https://www.mql5.com/en/signals/2365401) | 1090.37 | 45.00 | 10.12 | that | 707.53 | 1062 | GBPUSD CADJPY | hedge | 9 hours ago | 55.5 |
-| 263 | Basket | MQL5 | [2386274](https://www.mql5.com/en/signals/2386274) | 1430.40 | 35.47 | 6.44 | that | 332.36 | 239 | USDJPY AUDJPY EURJPY GBPJPY JP225 BTCUSD | — | 15 minutes ago | 55.43 |
-| 264 | HedGinG AUAC B | MQL5 | [2365512](https://www.mql5.com/en/signals/2365512) | 354.76 | 35.50 | 6.44 | that | 125.43 | 310 | AUDCAD AUDUSD | hedge | 6 hours ago | 55.42 |
-| 265 | Onyx MT5 | MQL5 | [2369976](https://www.mql5.com/en/signals/2369976) | 6057.25 | 36.58 | 6.44 | that | 812.65 | 80 | XAUUSD+ | — | 4 days ago | 55.15 |
-| 266 | Farmed Hedge Yield VCopy | MQL5 | [2357156](https://www.mql5.com/en/signals/2357156) | 987.31 | 44.36 | 9.20 | that | 523.07 | 2276 | EURAUD+ GBPAUD+ EURUSD+ AUDCAD+ AUDNZD+  | hedge | 4 hours ago | 55.04 |
-| 267 | SynerTrend | MQL5 | [2283124](https://www.mql5.com/en/signals/2283124) | 84.11 | 43.84 | 21.85 | that | 203.86 | 2288 | EURUSD | grid, dca | 2 hours ago | 54.91 |
-| 268 | SMART AI SIGNAL PRIME | MQL5 | [2379924](https://www.mql5.com/en/signals/2379924) | 875.60 | 35.86 | 5.75 | that | 197.87 | 985 | EURUSD | martingale | 7 hours ago | 54.87 |
-| 269 | BV Trader | MQL5 | [2364493](https://www.mql5.com/en/signals/2364493) | 142.58 | 45.03 | 15.64 | that | 217.39 | 1230 | XAUUSD USDJPY CHFJPY GBPJPY GBPUSD EURUS | hedge | 37 minutes ago | 54.86 |
-| 270 | Market Cycles Order Flow Signal | MQL5 | [2362087](https://www.mql5.com/en/signals/2362087) | 123.83 | 44.48 | 17.48 | that | 223.39 | 1960 | USDJPY GBPJPY XAUUSD EURJPY XAUJPY XBRUS | grid, martingale | 51 minutes ago | 54.82 |
-| 271 | Farmed Hedge Showcase II | MQL5 | [2364302](https://www.mql5.com/en/signals/2364302) | 805.09 | 43.53 | 8.51 | that | 376.93 | 1613 | EURAUD GBPAUD AUDNZD USDCHF NZDCAD AUDCA | hedge | 4 hours ago | 54.79 |
-| 272 | XYZ Goldscalper | MQL5 | [2393167](https://www.mql5.com/en/signals/2393167) | 5387.83 | 31.73 | 3.68 | that | 241.52 | 437 | XAUUSD | — | 3 days ago | 54.52 |
-| 273 | UpFuji MT5 | MQL5 | [2308095](https://www.mql5.com/en/signals/2308095) | 70.00 | 31.53 | 17.94 | that | 121.07 | 639 | AUDCAD | grid | 4 hours ago | 54.33 |
-| 274 | GGAccel | MQL5 | [2386131](https://www.mql5.com/en/signals/2386131) | 4101.66 | 47.61 | 8.97 | that | 1534.96 | 182 | AUDCAD EURCHF | — | 49 minutes ago | 54.08 |
-| 275 | GoldCyle I | MQL5 | [2388353](https://www.mql5.com/en/signals/2388353) | 1353.70 | 38.92 | 5.29 | that | 225.43 | 118 | XAUUSD | — | 4 hours ago | 53.8 |
-| 276 | Rudy74 | MQL5 | [2360608](https://www.mql5.com/en/signals/2360608) | 143.94 | 41.08 | 12.19 | that | 147.41 | 3213 | XAUUSD NAS100 US500 US30 GER40 GBPAUD EU | grid, martingale, dca | 12 hours ago | 53.65 |
-| 277 | Gold Biscuits | MQL5 | [2364006](https://www.mql5.com/en/signals/2364006) | 2799.55 | 46.81 | 7.82 | that | 797.33 | 415 | XAUUSD.. | — | 3 days ago | 53.51 |
-| 278 | KS Fx 2 | MQL5 | [2379378](https://www.mql5.com/en/signals/2379378) | 2462.33 | 37.85 | 4.37 | that | 225.82 | 2590 | GBPUSD EURUSD AUDCAD USDCHF AUDUSD CADCH | — | 36 minutes ago | 53.45 |
-| 279 | Gold and GBPUSD | MQL5 | [2383311](https://www.mql5.com/en/signals/2383311) | 1203.37 | 39.17 | 4.83 | that | 181.07 | 1012 | XAUUSD+ GBPUSD+ | — | 4 hours ago | 53.43 |
-| 280 | AurumTrade | MQL5 | [2362353](https://www.mql5.com/en/signals/2362353) | 1211.14 | 50.40 | 8.97 | that | 584.61 | 2024 | EURJPY GOLD USDJPY GBPUSD USDCAD AUDUSD  | — | 8 hours ago | 53.38 |
-| 281 | Gold M1 Pro | MQL5 | [2381033](https://www.mql5.com/en/signals/2381033) | 7407.57 | 36.92 | 3.68 | that | 275.97 | 78 | XAUUSD.r | — | 7 days ago | 53.22 |
-| 282 | GoldenCrown | MQL5 | [2381896](https://www.mql5.com/en/signals/2381896) | 2753.97 | 54.41 | 10.12 | that | 1588.22 | 679 | XAUUSD+ | — | 4 hours ago | 53.14 |
-| 283 | JS Horizon MG | MQL5 | [2378783](https://www.mql5.com/en/signals/2378783) | 2084.48 | 39.23 | 4.37 | that | 207.43 | 871 | BTCUSD XAUUSD | grid, martingale | 1 hour ago | 53.11 |
-| 284 | Dynamic Liquidity Intelligence R300 | MQL5 | [2365514](https://www.mql5.com/en/signals/2365514) | 3585.30 | 47.34 | 7.36 | that | 813.63 | 267 | XAUUSD | — | 4 hours ago | 53.07 |
-| 285 | My AI Gold EA High Risk | MQL5 | [2389616](https://www.mql5.com/en/signals/2389616) | 67445.29 | 43.59 | 5.52 | that | 1902.69 | 117 | XAUUSD | — | 4 days ago | 52.78 |
-| 286 | Farmed Hedge Yield X | MQL5 | [2378337](https://www.mql5.com/en/signals/2378337) | 3880.29 | 42.38 | 4.83 | that | 340.52 | 878 | EURUSD USDCHF NZDCAD EURNZD USDCAD AUDNZ | hedge | 4 hours ago | 52.62 |
-| 287 | Farmed Hedge Yield II | MQL5 | [2356404](https://www.mql5.com/en/signals/2356404) | 2921.67 | 55.49 | 9.20 | that | 1264.13 | 2330 | GBPAUDm EURAUDm EURUSDm AUDCADm NZDCADm  | hedge | 4 hours ago | 52.26 |
-| 288 | Yoni Gold Signal | MQL5 | [2381882](https://www.mql5.com/en/signals/2381882) | 3617.19 | 46.60 | 4.83 | that | 328.56 | 207 | XAUUSD+ | — | 4 hours ago | 51.57 |
-| 289 | Mahmoudsarhan | MQL5 | [2392033](https://www.mql5.com/en/signals/2392033) | 3641.75 | 41.81 | 2.99 | that | 146.58 | 298 | XAUUSD | — | 3 hours ago | 51.54 |
-| 290 | Dynamic Liquidity Intelligence PUP50 | MQL5 | [2373901](https://www.mql5.com/en/signals/2373901) | 15802.06 | 50.22 | 5.52 | that | 929.60 | 199 | XAUUSD.s | — | 4 hours ago | 51.12 |
-| 291 | Dynamic Liquidity Intelligence pep50 | MQL5 | [2384429](https://www.mql5.com/en/signals/2384429) | 133114.00 | 44.66 | 3.22 | that | 589.32 | 116 | XAUUSD | — | 4 hours ago | 50.98 |
-| 292 | Hum reaper | MQL5 | [2385216](https://www.mql5.com/en/signals/2385216) | 7480.78 | 44.59 | 2.99 | that | 194.01 | 377 | XAUUSD | — | 3 days ago | 50.85 |
+| 3 | EA Happy Gold Eightcap | MQL5 | [1862128](https://www.mql5.com/en/signals/1862128) | 237.91 | 11.70 | 44.62 | that | 9152.36 | 744 | XAUUSD.i | — | 8 hours ago | 86.82 |
+| 4 | Gold Trend Following | MQL5 | [2391346](https://www.mql5.com/en/signals/2391346) | 183.27 | 48.13 | 66.01 | that | 30624.73 | 910 | XAUUSD BTCUSD DOW | — | 6 hours ago | 86.71 |
+| 5 | NoPain MT5 | MQL5 | [2262642](https://www.mql5.com/en/signals/2262642) | 86.97 | 20.63 | 60.03 | that | 2188.59 | 5917 | AUDCAD | — | 4 hours ago | 86.37 |
+| 6 | Happy Signal | MQL5 | [2302081](https://www.mql5.com/en/signals/2302081) | 437.63 | 11.29 | 43.70 | that | 45627.48 | 762 | USDJPY.i AUDCAD.i EURGBP.i NZDCHF.i | — | 5 days ago | 86.31 |
+| 7 | ATong | MQL5 | [2327790](https://www.mql5.com/en/signals/2327790) | 136.35 | 38.55 | 66.47 | that | 11627.12 | 8342 | GBPUSD AUDUSD GBPAUD EURUSD USDCAD AUDCA | — | 5 hours ago | 85.59 |
+| 8 | TP TRADER | MQL5 | [1932739](https://www.mql5.com/en/signals/1932739) | 63.55 | 19.06 | 82.56 | that | 2850.77 | 14751 | EURUSD XAUUSD GBPUSD USDJPY AUDUSD EURJP | — | 9 hours ago | 85.0 |
+| 9 | JINNIUFX7 | MQL5 | [2330430](https://www.mql5.com/en/signals/2330430) | 22.67 | 8.31 | 120.97 | that | 684.52 | 12592 | GBPUSD | — | 10 hours ago | 84.62 |
+| 10 | EansPRO V3 XAUUSD | MQL5 | [2378480](https://www.mql5.com/en/signals/2378480) | 26.61 | 10.25 | 59.80 | that | 224.12 | 1226 | GOLDmicro AUDUSDmicro | — | 3 hours ago | 84.3 |
+| 11 | RFactor Portfolio JM | MQL5 | [743742](https://www.mql5.com/en/signals/743742) | 52.81 | 20.09 | 78.19 | that | 1484.51 | 10202 | GBPUSD EURUSD EURAUD EURCAD USDCAD EURGB | grid | 19 hours ago | 83.94 |
+| 12 | ROEN S Gold Strategy Generated by NN | MQL5 | [1313419](https://www.mql5.com/en/signals/1313419) | 13.09 | 8.34 | 65.09 | that | 94.91 | 825 | XAUUSD AUDCAD NZDCAD AUDNZD | — | 3 days ago | 83.9 |
+| 13 | Balanced Blend 2 | MQL5 | [2229611](https://www.mql5.com/en/signals/2229611) | 23.70 | 11.68 | 65.09 | that | 217.04 | 5887 | EURUSD+ USDCAD+ GBPUSD+ NAS100 USDJPY+ G | — | 1 hour ago | 83.86 |
+| 14 | SCR EURAUD | MQL5 | [2358336](https://www.mql5.com/en/signals/2358336) | 21.29 | 12.21 | 93.37 | that | 349.09 | 1843 | EURAUD AUDCAD EURUSD AUDJPY GER30Cash US | — | 4 days ago | 83.54 |
+| 15 | EEVCC Night IC 6 | MQL5 | [2361862](https://www.mql5.com/en/signals/2361862) | 14.95 | 11.80 | 64.40 | that | 111.17 | 6447 | EURUSD XAUUSD EURGBP BTCUSD EURAUD USDJP | — | 6 hours ago | 83.17 |
+| 16 | Night Hunter Pro All Pairs | MQL5 | [856907](https://www.mql5.com/en/signals/856907) | 15.56 | 13.91 | 72.45 | that | 139.43 | 2175 | GBPUSD EURCAD EURUSD CHFJPY AUDCAD EURAU | — | 19 hours ago | 82.69 |
+| 17 | Arsenal | MQL5 | [2373305](https://www.mql5.com/en/signals/2373305) | 14.04 | 13.54 | 68.08 | that | 110.69 | 2248 | AUDCHF AUDUSD NDX EURGBP AUDNZD NZDUSD G | — | 3 days ago | 82.67 |
+| 18 | Low real risk patient signal | MQL5 | [763292](https://www.mql5.com/en/signals/763292) | 11.55 | 14.01 | 88.31 | that | 123.50 | 63552 | AUDNZD NZDCAD GBPCAD EURUSD AUDCAD GBPUS | martingale | 17 minutes ago | 82.36 |
+| 19 | PAI Unique Mode No Limits with AI Filter | MQL5 | [1919885](https://www.mql5.com/en/signals/1919885) | 23.02 | 17.94 | 86.93 | that | 348.46 | 6775 | GBPCHF NZDCAD AUDCAD NZDUSD USDCAD AUDNZ | — | 1 hour ago | 82.24 |
+| 20 | ICTrading Signal 2 | MQL5 | [926651](https://www.mql5.com/en/signals/926651) | 21.53 | 18.91 | 109.93 | that | 496.62 | 5650 | NZDCAD AUDCAD NZDCHF AUDCHF USDCAD AUDUS | — | 5 days ago | 81.89 |
+| 21 | Scalp IC Markets ECN | MQL5 | [683917](https://www.mql5.com/en/signals/683917) | 85.68 | 38.42 | 86.47 | that | 8542.65 | 2689 | GBPCAD EURAUD EURSGD EURCAD GBPUSD CHFJP | martingale | 4 days ago | 81.82 |
+| 22 | NightVisionEA ICM | MQL5 | [731021](https://www.mql5.com/en/signals/731021) | 24.55 | 20.80 | 81.41 | that | 343.34 | 8214 | USDJPY EURCHF USDCHF GBPUSD EURCAD EURGB | — | 12 hours ago | 81.64 |
+| 23 | Anson Account 3 | MQL5 | [2382360](https://www.mql5.com/en/signals/2382360) | 55.51 | 30.98 | 67.85 | that | 1113.85 | 1171 | EURUSD.s USDJPY.s | grid, martingale | 18 hours ago | 81.42 |
+| 24 | Commodity Accumulation Plan | MQL5 | [2270674](https://www.mql5.com/en/signals/2270674) | 17.53 | 19.56 | 116.83 | that | 381.74 | 8512 | WHEAT PLATINUM COPPER COTTON#2 CrudeOIL  | — | 2 hours ago | 81.42 |
+| 25 | SFE Portfolio1 | MQL5 | [138420](https://www.mql5.com/en/signals/138420) | 31.60 | 24.33 | 132.01 | that | 1951.55 | 3344 | LNKUSD BTCUSD ETHUSD EURUSD UNIUSD XAUUS | — | 3 days ago | 81.29 |
+| 26 | FX Fun | MQL5 | [2355082](https://www.mql5.com/en/signals/2355082) | 63.86 | 14.57 | 52.44 | that | 765.57 | 6761 | AUDCADf NZDCADf AUDNZDf XAUUSDf | — | 7 hours ago | 81.11 |
+| 27 | TT ic 001 | MQL5 | [1270954](https://www.mql5.com/en/signals/1270954) | 30.32 | 22.36 | 59.11 | that | 268.59 | 8012 | AUDCAD NZDCAD EURUSD EURGBP AUDNZD USDCA | — | 7 hours ago | 81.09 |
+| 28 | Night Hunter Pro 9 Pairs | MQL5 | [856903](https://www.mql5.com/en/signals/856903) | 19.47 | 21.94 | 72.45 | that | 192.72 | 2570 | EURUSD EURCAD CHFJPY GBPUSD AUDCAD EURAU | — | 19 hours ago | 80.98 |
+| 29 | Trade | MQL5 | [2204034](https://www.mql5.com/en/signals/2204034) | 135.59 | 57.48 | 60.03 | that | 7172.98 | 2679 | XAUUSD GBPUSD EURUSD BTCUSD AUDNZD NZDCA | — | 4 days ago | 80.8 |
+| 30 | COACH VINCENT | MQL5 | [2389163](https://www.mql5.com/en/signals/2389163) | 150.86 | 30.43 | 48.07 | that | 3881.56 | 1843 | XAUUSD.dmb GBPUSD.dmb GBPJPY.dmb USDJPY. | — | 16 hours ago | 80.75 |
+| 31 | Longterm ICM | MQL5 | [1627034](https://www.mql5.com/en/signals/1627034) | 35.39 | 27.70 | 74.74 | that | 560.16 | 9377 | EURUSD AUDCAD NZDCAD AUDNZD XAUUSD GBPUS | — | 6 days ago | 80.73 |
+| 32 | RAZOR EA | MQL5 | [2300694](https://www.mql5.com/en/signals/2300694) | 125.48 | 22.09 | 47.15 | that | 2340.33 | 1947 | NZDCAD AUDCAD AUDNZD XAGUSD XAUUSD EURUS | grid | 4 hours ago | 80.32 |
+| 33 | Scalp IC Markets MT5 | MQL5 | [1560883](https://www.mql5.com/en/signals/1560883) | 55.76 | 32.86 | 58.88 | that | 779.61 | 2611 | GBPCAD GBPAUD EURSGD EURAUD GBPUSD EURCA | martingale | 4 days ago | 80.22 |
+| 34 | Relax EA | MQL5 | [884935](https://www.mql5.com/en/signals/884935) | 45.90 | 33.30 | 71.76 | that | 857.22 | 2084 | CADJPY EURCAD EURCHF USDCAD GBPUSD EURGB | — | 18 hours ago | 80.12 |
+| 35 | R Factor Broker FPMarkets | MQL5 | [973927](https://www.mql5.com/en/signals/973927) | 24.01 | 26.94 | 67.62 | that | 236.17 | 6225 | AUDCAD.r EURCAD.r EURUSD.r USDCAD.r EURA | — | 5 days ago | 80.07 |
+| 36 | MySingalStart 3 | MQL5 | [1760039](https://www.mql5.com/en/signals/1760039) | 21.96 | 26.42 | 112.23 | that | 540.05 | 12326 | NZDCAD USDCAD NZDCHF AUDUSD AUDCAD AUDNZ | — | 4 hours ago | 80.04 |
+| 37 | R Factor Mean Reversal | MQL5 | [734515](https://www.mql5.com/en/signals/734515) | 69.23 | 40.66 | 81.18 | that | 3413.40 | 34600 | GBPUSD EURGBP EURUSD EURAUD GBPAUD EURCA | — | 2 hours ago | 80.03 |
+| 38 | MySingalStart 2 | MQL5 | [840474](https://www.mql5.com/en/signals/840474) | 30.49 | 29.47 | 80.03 | that | 489.88 | 9285 | NZDCAD AUDCAD AUDNZD NZDCHF AUDCHF SUMMA | — | 6 hours ago | 79.92 |
+| 39 | Pinnacle Alpha | MQL5 | [2274644](https://www.mql5.com/en/signals/2274644) | 34.07 | 23.56 | 57.27 | that | 305.17 | 3156 | AUDCAD-E NZDCAD-E AUDNZD-E | — | 3 days ago | 79.85 |
+| 40 | JINNIUFX3 | MQL5 | [2330426](https://www.mql5.com/en/signals/2330426) | 43.63 | 36.44 | 85.55 | that | 1221.51 | 1447 | XAUUSD GBPUSD | — | 3 days ago | 79.16 |
+| 41 | Multi EA combo | MQL5 | [2376950](https://www.mql5.com/en/signals/2376950) | 36.60 | 35.48 | 62.33 | that | 405.32 | 12835 | NZDCADq AUDCADq EURUSDq USDJPYq GBPAUDq  | — | 7 hours ago | 78.88 |
+| 42 | WolvesVN EU | MQL5 | [2385213](https://www.mql5.com/en/signals/2385213) | 20.79 | 30.87 | 73.36 | that | 217.26 | 2372 | EURUSD.fx AUDCAD.fx USDCAD.fx GBPUSD.fx  | — | 2 hours ago | 78.84 |
+| 43 | EA Happy Way FM | MQL5 | [1050933](https://www.mql5.com/en/signals/1050933) | 14.18 | 29.33 | 64.17 | that | 103.18 | 995 | USDCAD.fx AUDUSD.fx AUDCAD.fx CADCHF.fx  | grid, martingale | 4 days ago | 78.73 |
+| 44 | Trading Hero 20k | MQL5 | [544163](https://www.mql5.com/en/signals/544163) | 27.39 | 33.82 | 93.60 | that | 560.74 | 18451 | NZDCAD AUDCAD AUDUSD GBPUSD AUDNZD EURUS | — | 4 hours ago | 78.6 |
+| 45 | Balanced Blend Of EAs | MQL5 | [1724716](https://www.mql5.com/en/signals/1724716) | 33.83 | 36.01 | 66.93 | that | 407.99 | 8724 | EURUSD+ USDCAD+ GBPUSD+ NAS100 NZDCAD+ A | martingale | 1 hour ago | 78.53 |
+| 46 | Trading Hero 10k Conservative | MQL5 | [1042318](https://www.mql5.com/en/signals/1042318) | 19.21 | 31.91 | 81.87 | that | 231.70 | 10603 | AUDUSD NZDCAD AUDCAD AUDNZD GBPUSD GBPCA | — | 6 hours ago | 78.46 |
+| 47 | CP1 | MQL5 | [733875](https://www.mql5.com/en/signals/733875) | 36.58 | 37.17 | 95.21 | that | 1086.31 | 13614 | USDJPY GBPUSD EURUSD archived EURGBP GBP | — | 17 minutes ago | 78.45 |
+| 48 | I288 The present for mother | MQL5 | [2362229](https://www.mql5.com/en/signals/2362229) | 27.59 | 35.11 | 59.80 | that | 236.77 | 12688 | NZDCAD AUDCAD GBPAUD USDCAD AUDNZD USDCH | — | 3 days ago | 78.16 |
+| 49 | Sputnik SI Auto | MQL5 | [2331134](https://www.mql5.com/en/signals/2331134) | 32.53 | 37.20 | 64.86 | that | 358.31 | 9882 | EURUSD ETHUSD GBPUSD | — | 9 hours ago | 78.14 |
+| 50 | GerFX Momentum Capture EA | MQL5 | [302389](https://www.mql5.com/en/signals/302389) | 13.95 | 31.93 | 113.61 | that | 244.24 | 8487 | EURUSD EURAUD GBPUSD EURCAD USDCAD GBPJP | — | 3 days ago | 78.06 |
+| 51 | Disco FIBO Pamm | MQL5 | [2077624](https://www.mql5.com/en/signals/2077624) | 48.69 | 41.61 | 59.57 | that | 616.54 | 2896 | XAUUSD.I GBPCAD.I GBPAUD.I EURAUD.I GBPU | — | 4 hours ago | 77.96 |
+| 52 | Tharos II | MQL5 | [1059619](https://www.mql5.com/en/signals/1059619) | 61.52 | 46.67 | 65.09 | that | 1247.43 | 5725 | NZDCAD AUDCAD AUDNZD NZDUSD AUDUSD USDCA | — | 3 days ago | 77.95 |
+| 53 | Calm Waters Signal | MQL5 | [2339857](https://www.mql5.com/en/signals/2339857) | 32.81 | 38.05 | 76.12 | that | 504.84 | 6664 | AUDNZD NZDCAD AUDCAD GBPUSD EURCAD EURAU | grid, martingale, dca | 4 hours ago | 77.95 |
+| 54 | MySingalStart 4 | MQL5 | [1671156](https://www.mql5.com/en/signals/1671156) | 26.49 | 37.14 | 70.38 | that | 296.88 | 7062 | NZDCAD AUDCAD AUDNZD AUDUSD NZDUSD SUMMA | grid | 4 days ago | 77.7 |
+| 55 | XJA | MQL5 | [2369100](https://www.mql5.com/en/signals/2369100) | 60.47 | 6.88 | 44.62 | that | 480.37 | 5448 | EURUSD USDJPY EURGBP CADCHF GBPCAD GBPAU | — | 47 days ago | 77.56 |
+| 56 | Sputnik2019 | MQL5 | [1922647](https://www.mql5.com/en/signals/1922647) | 50.64 | 45.24 | 87.62 | that | 1891.54 | 15730 | EURUSD XAUUSD USDJPY USDCAD | — | 9 hours ago | 77.49 |
+| 57 | Premium Investment 1 | MQL5 | [938930](https://www.mql5.com/en/signals/938930) | 70.21 | 51.19 | 69.23 | that | 2050.42 | 2025 | EURUSDb NZDUSDb USDCADb GBPUSDb AUDUSDb  | dca | 7 minutes ago | 77.47 |
+| 58 | Niguru GBP | MQL5 | [1887334](https://www.mql5.com/en/signals/1887334) | 349.99 | 47.95 | 44.16 | that | 25239.70 | 2294 | GBPUSD XAUUSD | dca | 2 hours ago | 77.45 |
+| 59 | LazyProV2 AUDCAD | MQL5 | [2378478](https://www.mql5.com/en/signals/2378478) | 48.73 | 7.03 | 45.77 | that | 354.50 | 985 | AUDCADmicro | — | 4 hours ago | 77.41 |
+| 60 | OLD SCHOOL | MQL5 | [762818](https://www.mql5.com/en/signals/762818) | 15.94 | 35.66 | 77.27 | that | 159.13 | 2963 | USDJPY BTCUSD XAUUSD EURUSD GBPUSD USTEC | — | 4 hours ago | 77.28 |
+| 61 | EA Happy Power FM | MQL5 | [1758568](https://www.mql5.com/en/signals/1758568) | 81.68 | 55.75 | 60.26 | that | 1905.26 | 25419 | EURCHF.fx | — | 2 hours ago | 77.19 |
+| 62 | Crypto Trading Pepper | MQL5 | [1521998](https://www.mql5.com/en/signals/1521998) | 100.70 | 46.97 | 54.05 | that | 2205.11 | 2111 | BTCUSD ETHUSD GBPUSD XAUUSD AUDNZD NZDCA | — | 9 hours ago | 76.84 |
+| 63 | ZHANG LI | MQL5 | [2388370](https://www.mql5.com/en/signals/2388370) | 27.39 | 41.36 | 61.41 | that | 245.13 | 1964 | XAUUSD.r USDJPY.r GBPUSD.r EURUSD.r USDC | — | 5 days ago | 76.71 |
+| 64 | ManagmentM | MQL5 | [984972](https://www.mql5.com/en/signals/984972) | 17.18 | 38.50 | 66.93 | that | 142.09 | 1196 | EURUSD | — | 1 hour ago | 76.66 |
+| 65 | Soren Voyager | MQL5 | [2383069](https://www.mql5.com/en/signals/2383069) | 78.35 | 13.27 | 43.47 | that | 713.27 | 10713 | XAUUSD.i BTCUSD.i EURUSD.i US30.i GBPUSD | — | 11 hours ago | 76.54 |
+| 66 | B3 Portfolio Tendencia e Volatilidade | MQL5 | [810657](https://www.mql5.com/en/signals/810657) | 36.56 | 45.34 | 73.13 | that | 567.90 | 52755 | WINV26 WINJ26 WINZ22 WINZ26 WINQ22 WING2 | — | 3 days ago | 76.41 |
+| 67 | Advanced Scalper Live | MQL5 | [2323713](https://www.mql5.com/en/signals/2323713) | 12.24 | 38.02 | 80.49 | that | 116.96 | 8184 | USDJPY EURUSD GBPUSD | — | 12 hours ago | 76.41 |
+| 68 | Oilman | MQL5 | [1342765](https://www.mql5.com/en/signals/1342765) | 32.46 | 43.19 | 59.57 | that | 303.74 | 1338 | USOIL WTI.fs CHINA50.fs Meta+ UKOIL Tesl | — | 9 hours ago | 76.35 |
+| 69 | SteadyRock Growth IFL XAUUSD Tickmill | MQL5 | [1309107](https://www.mql5.com/en/signals/1309107) | 53.64 | 48.11 | 58.88 | that | 722.52 | 2643 | XAUUSD | — | 3 hours ago | 76.25 |
+| 70 | Dudu Whale | MQL5 | [2351032](https://www.mql5.com/en/signals/2351032) | 34.45 | 19.31 | 50.14 | that | 244.53 | 1922 | XAUUSD USDJPY GBPJPY XAUJPY GBPCAD EURJP | — | 4 hours ago | 76.18 |
+| 71 | Hedge Hog | MQL5 | [2322201](https://www.mql5.com/en/signals/2322201) | 11.40 | 38.99 | 61.18 | that | 73.38 | 10768 | AUDUSD XAUUSD AUS200 US500 USDJPY AUDCAD | hedge | 5 hours ago | 76.11 |
+| 72 | Happy MartiGrid EA | MQL5 | [1047527](https://www.mql5.com/en/signals/1047527) | 21.07 | 42.10 | 64.63 | that | 180.02 | 1197 | AUDUSD.fx | grid, martingale | 11 hours ago | 76.06 |
+| 73 | Gold Reaper Goldtrade Pro Daytrade Pro | MQL5 | [2204998](https://www.mql5.com/en/signals/2204998) | 75.00 | 32.59 | 50.14 | that | 936.39 | 8366 | XAUUSD USTEC US500 US30 BTCUSD GBPAUD EU | — | 2 hours ago | 75.9 |
+| 74 | NS eP v3 49109488 | MQL5 | [1412455](https://www.mql5.com/en/signals/1412455) | 24.14 | 34.77 | 56.58 | that | 177.16 | 2099 | EURUSDmicro AUDUSDmicro | — | 4 hours ago | 75.84 |
+| 75 | SteadyRock Growth IFL XAUUSD ICMarkets | MQL5 | [1566312](https://www.mql5.com/en/signals/1566312) | 40.75 | 31.28 | 52.90 | that | 351.30 | 2336 | XAUUSD | — | 3 hours ago | 75.5 |
+| 76 | Mars5 | MQL5 | [854817](https://www.mql5.com/en/signals/854817) | 24.46 | 45.53 | 85.32 | that | 373.81 | 35346 | GBPUSD EURUSD profit | — | 11 hours ago | 75.45 |
+| 77 | QImpulse_ValuT | MQL5 | [1857208](https://www.mql5.com/en/signals/1857208) | 39.17 | 22.39 | 48.99 | that | 285.45 | 1316 | XAUUSD USDJPY EURUSD GBPUSD AUDUSD USDCA | grid, martingale | 5 days ago | 75.0 |
+| 78 | EA HFM FM | MQL5 | [1051498](https://www.mql5.com/en/signals/1051498) | 39.00 | 52.17 | 64.40 | that | 485.40 | 8287 | USDCHF.fx AUDUSD.fx EURCHF.fx | grid, hedge | 1 hour ago | 74.88 |
+| 79 | MonkeyKing | MQL5 | [1498254](https://www.mql5.com/en/signals/1498254) | 79.67 | 49.56 | 54.28 | that | 1316.04 | 2114 | EURUSD AUDCAD AUDUSD NZDCAD AUDNZD GBPCA | — | 3 days ago | 74.77 |
+| 80 | Oilman2 | MQL5 | [1342770](https://www.mql5.com/en/signals/1342770) | 14.84 | 44.89 | 59.80 | that | 99.25 | 1528 | USOIL WTI.fs Tesla+ Meta+ CHINA50.fs BTC | — | 9 hours ago | 74.76 |
+| 81 | Nord Way AI | MQL5 | [2313989](https://www.mql5.com/en/signals/2313989) | 20.53 | 24.77 | 51.52 | that | 122.90 | 7053 | GBPCAD AUDCAD NZDCAD GBPAUD EURSGD EURAU | — | 8 minutes ago | 74.69 |
+| 82 | MG | MQL5 | [1949522](https://www.mql5.com/en/signals/1949522) | 31.75 | 36.84 | 54.74 | that | 251.80 | 2798 | EURUSD USDCAD EURAUD EURGBP AUDUSD GBPCA | grid, martingale | 12 hours ago | 74.66 |
+| 83 | NightVision Expert Advisor MT5 | MQL5 | [956328](https://www.mql5.com/en/signals/956328) | 23.14 | 48.38 | 71.53 | that | 245.84 | 7288 | USDJPY EURCHF USDCHF EURCAD GBPUSD EURGB | — | 14 hours ago | 74.64 |
+| 84 | Luna AI Pro | MQL5 | [1502590](https://www.mql5.com/en/signals/1502590) | 16.87 | 46.76 | 96.59 | that | 250.82 | 2518 | GBPAUD EURAUD AUDCAD EURCAD GBPCHF AUDUS | — | 3 minutes ago | 74.58 |
+| 85 | Bfs trade j2t | MQL5 | [1733379](https://www.mql5.com/en/signals/1733379) | 63.94 | 51.30 | 56.35 | that | 918.85 | 4209 | AUDCAD.c | grid, martingale | 6 hours ago | 74.54 |
+| 86 | Combo Deal Live Longterm | MQL5 | [2363818](https://www.mql5.com/en/signals/2363818) | 36.77 | 52.87 | 77.73 | that | 660.04 | 11570 | USDJPY EURUSD GBPUSD XAUUSD EURAUD GBPAU | — | 11 minutes ago | 74.54 |
+| 87 | Cradle by SecureFX Trader | MQL5 | [1750952](https://www.mql5.com/en/signals/1750952) | 21.64 | 31.33 | 53.59 | that | 139.81 | 5161 | AUDCAD NZDCAD AUDNZD | — | 4 days ago | 74.52 |
+| 88 | Bfs trade robo | MQL5 | [1552352](https://www.mql5.com/en/signals/1552352) | 163.84 | 73.32 | 53.13 | that | 7236.62 | 2328 | AUDCAD | grid, martingale | 3 hours ago | 74.38 |
+| 89 | Firefly MT5 | MQL5 | [2272654](https://www.mql5.com/en/signals/2272654) | 88.85 | 69.22 | 66.70 | that | 3325.30 | 7328 | EURUSD AUDCAD NZDCAD AUDNZD GBPUSD USDCA | dca | 3 hours ago | 74.36 |
+| 90 | Fish n Grid | MQL5 | [1590997](https://www.mql5.com/en/signals/1590997) | 42.82 | 34.87 | 52.21 | that | 371.46 | 5642 | EURJPY GBPUSD NZDCAD AUDCAD AUDCHF EURCA | grid | 43 minutes ago | 74.3 |
+| 91 | Mtrader2 | MQL5 | [2253805](https://www.mql5.com/en/signals/2253805) | 57.31 | 38.81 | 51.98 | that | 611.70 | 2505 | USOIL BTCUSD Meta+ Coinbase+ Tesla+ UKOI | — | 9 hours ago | 74.25 |
+| 92 | RetireNow MT5 | MQL5 | [1018646](https://www.mql5.com/en/signals/1018646) | 54.56 | 59.48 | 65.09 | that | 960.98 | 13036 | EURUSD AUDCAD | — | 6 hours ago | 74.22 |
+| 93 | Golden System 2 | MQL5 | [2250577](https://www.mql5.com/en/signals/2250577) | 59.25 | 40.17 | 52.21 | that | 657.24 | 456 | XAUUSD | — | 3 days ago | 74.21 |
+| 94 | My Son Trading Account | MQL5 | [1725090](https://www.mql5.com/en/signals/1725090) | 53.88 | 30.29 | 48.99 | that | 481.00 | 1720 | US500 | — | 2 hours ago | 74.13 |
+| 95 | ICMarketsSC | MQL5 | [2288982](https://www.mql5.com/en/signals/2288982) | 49.46 | 55.95 | 59.11 | that | 623.94 | 3285 | GBPUSD XAUUSD USDJPY EURUSD USDCHF EURNZ | — | 3 days ago | 74.13 |
+| 96 | IC | MQL5 | [1406390](https://www.mql5.com/en/signals/1406390) | 71.27 | 55.97 | 56.58 | that | 1164.05 | 2195 | EURUSD GBPUSD AUDCAD AUDNZD NZDCAD USDJP | — | 4 days ago | 74.07 |
+| 97 | KUHN | MQL5 | [2342395](https://www.mql5.com/en/signals/2342395) | 199.08 | 48.22 | 38.64 | that | 3304.38 | 8064 | XAUUSD | — | 4 days ago | 73.64 |
+| 98 | ActInvest IC MARKETS | MQL5 | [2384380](https://www.mql5.com/en/signals/2384380) | 23.52 | 53.01 | 60.26 | that | 188.89 | 17824 | EURUSD AUDCAD NZDCAD ETHUSD USTEC US30 G | — | 8 hours ago | 73.51 |
+| 99 | Stable growth pro | MQL5 | [1737977](https://www.mql5.com/en/signals/1737977) | 34.42 | 29.42 | 49.91 | that | 242.22 | 9423 | AUDCAD NZDCAD AUDNZD USDJPY GBPAUD EURAU | — | 7 hours ago | 73.5 |
+| 100 | Steady Yeti | MQL5 | [2294298](https://www.mql5.com/en/signals/2294298) | 35.16 | 40.81 | 54.05 | that | 288.50 | 2950 | AUDCAD.p NZDCAD.p AUDNZD.p EURCAD.p EURA | — | 5 days ago | 73.47 |
+| 101 | PrismaForex | MQL5 | [2042164](https://www.mql5.com/en/signals/2042164) | 53.27 | 37.61 | 50.60 | that | 505.42 | 2203 | AUDCAD EURGBP CADCHF | — | 4 hours ago | 73.33 |
+| 102 | R Factor 1 Hour | MQL5 | [1084082](https://www.mql5.com/en/signals/1084082) | 21.78 | 53.39 | 68.54 | that | 208.19 | 6333 | GBPAUD EURCAD GBPUSD USDCAD GBPCAD AUDCA | — | 4 days ago | 73.29 |
+| 103 | UZUNAMI88 | MQL5 | [2392805](https://www.mql5.com/en/signals/2392805) | 39.57 | 18.35 | 44.85 | that | 247.68 | 623 | XAUUSD GBPJPY | — | 3 hours ago | 73.28 |
+| 104 | MoodVector Navigator | MQL5 | [2211092](https://www.mql5.com/en/signals/2211092) | 22.68 | 53.78 | 66.93 | that | 212.72 | 6026 | USDJPY EURGBP ETHEREUM USDCHF GBPUSD GOL | — | 4 days ago | 73.26 |
+| 105 | DKT007 | MQL5 | [2362458](https://www.mql5.com/en/signals/2362458) | 29.64 | 35.99 | 52.44 | that | 210.94 | 2361 | BTCUSD ETHUSD GBPUSD JP225 GBPJPY XAUUSD | — | 9 hours ago | 73.19 |
+| 106 | Invest low risk | MQL5 | [897232](https://www.mql5.com/en/signals/897232) | 11.46 | 50.74 | 70.15 | that | 88.57 | 30289 | EURUSD GBPUSD USDJPY GBPCAD XAUUSD AUDCA | — | 2 hours ago | 73.17 |
+| 107 | Pacific Way | MQL5 | [2280709](https://www.mql5.com/en/signals/2280709) | 21.77 | 24.84 | 48.99 | that | 123.49 | 6029 | GBPCAD NZDCAD AUDCAD EURSGD GBPAUD XAUUS | — | 14 minutes ago | 73.08 |
+| 108 | MSC Gold Invest Pro | MQL5 | [1988269](https://www.mql5.com/en/signals/1988269) | 99.75 | 26.23 | 40.71 | that | 945.69 | 1791 | XAUUSD AUDCAD | grid | 2 minutes ago | 73.06 |
+| 109 | Stone Bridge | MQL5 | [1436314](https://www.mql5.com/en/signals/1436314) | 20.23 | 43.24 | 55.89 | that | 135.85 | 2716 | AUDCAD GBPCAD GBPAUD EURSGD EURGBP NZDCA | martingale | 9 hours ago | 72.97 |
+| 110 | PureSignals FX | MQL5 | [2237833](https://www.mql5.com/en/signals/2237833) | 52.58 | 64.11 | 75.20 | that | 1312.46 | 27058 | EURUSD GBPUSD GBPCAD AUDCAD USDCAD AUDUS | grid, martingale | 52 minutes ago | 72.92 |
+| 111 | Harmonizer High Risk | MQL5 | [2394758](https://www.mql5.com/en/signals/2394758) | 482.14 | 14.93 | 24.84 | that | 3733.62 | 1150 | AUDCAD NZDCAD | — | 9 hours ago | 72.83 |
+| 112 | MCA100 | MQL5 | [2153920](https://www.mql5.com/en/signals/2153920) | 171.15 | 35.37 | 35.65 | that | 1836.36 | 432 | XAUUSD EURUSD GBPUSD | — | 3 days ago | 72.76 |
+| 113 | Aurum Titan | MQL5 | [2391347](https://www.mql5.com/en/signals/2391347) | 221.59 | 29.34 | 30.13 | that | 1778.23 | 590 | XAUUSD BTCUSD DOW | — | 6 hours ago | 72.75 |
+| 114 | Bfs trade robo mt5 | MQL5 | [1754340](https://www.mql5.com/en/signals/1754340) | 208.63 | 77.44 | 48.07 | that | 9033.14 | 2878 | AUDCAD | grid, martingale | 3 hours ago | 72.69 |
+| 115 | TwoHundredPercentAnnually | MQL5 | [2172246](https://www.mql5.com/en/signals/2172246) | 65.03 | 28.95 | 45.08 | that | 556.63 | 3260 | NZDCAD AUDCAD AUDNZD | — | 4 days ago | 72.69 |
+| 116 | BAS 2 11 | MQL5 | [2325779](https://www.mql5.com/en/signals/2325779) | 116.54 | 21.37 | 36.34 | that | 937.81 | 19665 | S1U6 SVZ5 SVM6 S1H6 SVH6 CRZ4 CRM4 SVU6  | — | 47 minutes ago | 72.62 |
+| 117 | Volna | MQL5 | [847709](https://www.mql5.com/en/signals/847709) | 93.72 | 77.75 | 76.35 | that | 6616.51 | 8909 | GBPUSD EURUSD USDCAD AUDUSD EURGBP NZDUS | — | 11 hours ago | 72.59 |
+| 118 | Smart trading | MQL5 | [2329267](https://www.mql5.com/en/signals/2329267) | 168.92 | 30.74 | 33.58 | that | 1493.00 | 2627 | EURUSD AUDUSD XAUUSD GBPCHF NZDUSD AUDNZ | — | 3 hours ago | 72.37 |
+| 119 | Tick Multiprod | MQL5 | [2222743](https://www.mql5.com/en/signals/2222743) | 262.93 | 37.02 | 32.43 | that | 3157.88 | 5927 | XAUUSD US30 USTEC BTCUSD XAUEUR EURUSD D | martingale | 2 hours ago | 72.36 |
+| 120 | Harmonizer Extreme | MQL5 | [2360068](https://www.mql5.com/en/signals/2360068) | 350.43 | 22.42 | 26.68 | that | 2739.46 | 1268 | AUDCAD NZDCAD | — | 9 hours ago | 72.18 |
+| 121 | The Forex Exchanger | MQL5 | [1416185](https://www.mql5.com/en/signals/1416185) | 87.24 | 73.37 | 58.19 | that | 1993.63 | 902 | GBPCAD EURUSD CHFJPY USDCAD GBPUSD GBPCH | — | 12 hours ago | 71.99 |
+| 122 | Prosilio | MQL5 | [879645](https://www.mql5.com/en/signals/879645) | 27.62 | 60.74 | 89.92 | that | 521.89 | 12930 | USDJPY EURUSD GBPUSD USDCNH XAUUSD GBPJP | — | 1 hour ago | 71.89 |
+| 123 | MSC Gold Stable Pro | MQL5 | [2231030](https://www.mql5.com/en/signals/2231030) | 202.64 | 33.70 | 30.36 | that | 1547.23 | 1192 | XAUUSD | — | 6 days ago | 71.82 |
+| 124 | Multiple currencies mean reversion | MQL5 | [2365398](https://www.mql5.com/en/signals/2365398) | 15.28 | 41.58 | 54.05 | that | 89.71 | 1787 | GBPUSD EURCHF AUDCHF Copper AUDNZD EURGB | — | 6 days ago | 71.78 |
+| 125 | Top G forex | MQL5 | [2093194](https://www.mql5.com/en/signals/2093194) | 37.77 | 58.31 | 57.73 | that | 367.20 | 3298 | AUDCAD NZDCAD AUDNZD XAUUSD GBPUSD EURCH | — | 47 minutes ago | 71.74 |
+| 126 | MSC Gold Fund Pro | MQL5 | [2380604](https://www.mql5.com/en/signals/2380604) | 12.74 | 4.04 | 40.02 | that | 49.15 | 1887 | XAUUSD | — | 3 days ago | 71.63 |
+| 127 | TTM Stable Swing 864 | MQL5 | [2313754](https://www.mql5.com/en/signals/2313754) | 85.76 | 79.63 | 61.64 | that | 2306.94 | 8336 | EURUSD AUDNZD NZDCAD AUDCAD AUDUSD GBPUS | martingale | 5 hours ago | 71.52 |
+| 128 | Web57 | MQL5 | [1847469](https://www.mql5.com/en/signals/1847469) | 22.38 | 22.32 | 45.08 | that | 113.58 | 5908 | AUDCAD | grid | 10 hours ago | 71.15 |
+| 129 | LiquidityMiner Hyperactive n GoldenTrip | MQL5 | [1696414](https://www.mql5.com/en/signals/1696414) | 26.10 | 62.20 | 59.57 | that | 216.21 | 21831 | AUDCAD NZDCAD AUDNZD GBPCAD EURGBP NZDUS | — | 18 hours ago | 71.12 |
+| 130 | UpEverest MT4 | MQL5 | [2363323](https://www.mql5.com/en/signals/2363323) | 95.98 | 15.18 | 34.04 | that | 574.36 | 1607 | AUDCAD | — | 4 hours ago | 71.1 |
+| 131 | DARWIN DNB | MQL5 | [1926813](https://www.mql5.com/en/signals/1926813) | 42.02 | 68.61 | 61.64 | that | 506.13 | 5244 | GDAXI USDJPY GBPAUD AUDJPY EURCAD EURCHF | — | 6 hours ago | 71.0 |
+| 132 | TREND RSI SCALPER | MQL5 | [2297703](https://www.mql5.com/en/signals/2297703) | 26.00 | 63.81 | 60.26 | that | 219.12 | 3702 | NZDUSD EURUSD USDCHF GBPUSD USDJPY EURCH | — | 2 hours ago | 71.0 |
+| 133 | Interstellar | MQL5 | [2303521](https://www.mql5.com/en/signals/2303521) | 49.02 | 53.02 | 53.36 | that | 489.28 | 4062 | AUDCAD. | — | 24 hours ago | 70.99 |
+| 134 | GenX Multistrategies | MQL5 | [1719023](https://www.mql5.com/en/signals/1719023) | 66.60 | 50.41 | 49.22 | that | 711.49 | 5028 | USDJPY AUDCAD BTCUSD EURUSD ETHUSD EURGB | martingale | 2 hours ago | 70.21 |
+| 135 | Vektor | MQL5 | [2300556](https://www.mql5.com/en/signals/2300556) | 28.66 | 68.56 | 123.50 | that | 1237.16 | 4156 | EURUSD GBPUSD USDJPY EURJPY XAUUSD EURGB | — | 5 hours ago | 70.01 |
+| 136 | LazyPro v23 EURUSD | MQL5 | [2378484](https://www.mql5.com/en/signals/2378484) | 77.47 | 41.61 | 44.39 | that | 734.83 | 1613 | EURUSDmicro | — | 9 hours ago | 70.0 |
+| 137 | Boring Pips MEDIUM RISK | MQL5 | [1801317](https://www.mql5.com/en/signals/1801317) | 80.38 | 54.25 | 48.76 | that | 998.91 | 1208 | AUDNZD AUDCAD NZDCAD EURUSD | hedge | 5 days ago | 69.97 |
+| 138 | EansPRO V3 EURUSD | MQL5 | [2378489](https://www.mql5.com/en/signals/2378489) | 48.51 | 37.73 | 46.00 | that | 355.42 | 1531 | EURUSDmicro | — | 44 minutes ago | 69.87 |
+| 139 | Bullion signal | MQL5 | [2320140](https://www.mql5.com/en/signals/2320140) | 44.95 | 36.67 | 46.00 | that | 314.94 | 8430 | EURAUD GBPNZD GBPUSD NZDCAD AUDCHF USDCA | — | 6 days ago | 69.87 |
+| 140 | SEA South East EA | MQL5 | [1496203](https://www.mql5.com/en/signals/1496203) | 17.90 | 53.87 | 55.43 | that | 113.94 | 2548 | EURUSD AUDCAD USDCAD USDCHF GBPUSD AUDUS | grid, martingale | 4 hours ago | 69.83 |
+| 141 | Smart Owl FX MT4 | MQL5 | [2196221](https://www.mql5.com/en/signals/2196221) | 63.35 | 24.61 | 39.33 | that | 399.41 | 528 | USDCAD GBPUSD USDCHF AUDUSD EURAUD EURUS | — | 6 days ago | 69.82 |
+| 142 | Golden Swai | MQL5 | [2389881](https://www.mql5.com/en/signals/2389881) | 518.68 | 19.87 | 21.85 | that | 2661.40 | 996 | XAUUSD | — | 1 hour ago | 69.6 |
+| 143 | XPulse EA | MQL5 | [1612976](https://www.mql5.com/en/signals/1612976) | 57.29 | 56.86 | 51.75 | that | 605.05 | 1835 | AUDCAD AUDNZD NZDCAD | — | 18 hours ago | 69.58 |
+| 144 | Friday Pro | MQL5 | [2344620](https://www.mql5.com/en/signals/2344620) | 90.41 | 33.16 | 39.10 | that | 715.24 | 320 | GBPJPY USDJPY NOKJPY | — | 16 hours ago | 69.56 |
+| 145 | Lenochkin | MQL5 | [2367841](https://www.mql5.com/en/signals/2367841) | 197.24 | 18.78 | 21.62 | that | 611.85 | 497 | EURUSD AUDCAD GBPUSD | — | 4 hours ago | 69.51 |
+| 146 | Tem9 2 | MQL5 | [1905285](https://www.mql5.com/en/signals/1905285) | 42.23 | 46.69 | 49.45 | that | 327.03 | 14440 | EURUSD GBPUSD USDJPY XAUUSD EURJPY USDCH | — | 42 minutes ago | 69.46 |
+| 147 | QImpulse_FPT | MQL5 | [2393631](https://www.mql5.com/en/signals/2393631) | 53.93 | 36.13 | 44.16 | that | 389.10 | 700 | XAUUSD USDJPY EURUSD GBPUSD USDCHF USDCA | — | 4 days ago | 69.45 |
+| 148 | Goldtrade Pro ICM | MQL5 | [2084890](https://www.mql5.com/en/signals/2084890) | 102.36 | 31.95 | 37.03 | that | 780.33 | 792 | XAUUSD | grid, martingale | 12 hours ago | 69.38 |
+| 149 | IcmLowLeverage | MQL5 | [2200565](https://www.mql5.com/en/signals/2200565) | 63.29 | 32.05 | 41.40 | that | 442.89 | 336 | USDZAR USDJPY EURUSD EURJPY NZDCAD AUDUS | — | 52 days ago | 69.33 |
+| 150 | Nord Way | MQL5 | [2304149](https://www.mql5.com/en/signals/2304149) | 23.06 | 48.70 | 51.98 | that | 145.67 | 1931 | GBPCAD EURSGD GBPAUD EURAUD EURCAD GBPUS | — | 8 minutes ago | 69.21 |
+| 151 | SM TT | MQL5 | [1624733](https://www.mql5.com/en/signals/1624733) | 46.87 | 77.52 | 74.97 | that | 1003.76 | 32120 | GBPUSD EURUSD USDJPY USDCAD EURJPY GBPNZ | — | 8 hours ago | 69.14 |
+| 152 | PlumBumWForex FX | MQL5 | [340866](https://www.mql5.com/en/signals/340866) | 15.72 | 68.25 | 109.93 | that | 280.93 | 1516 | GBPUSD EURUSD USDCHF GBPJPY GBPCHF CADJP | — | 12 hours ago | 69.12 |
+| 153 | SFE Fr And Impulse MT4 | MQL5 | [2366584](https://www.mql5.com/en/signals/2366584) | 14.59 | 68.13 | 133.16 | that | 353.16 | 3141 | LNKUSD BTCUSD ETHUSD XAUUSD EURUSD NZDUS | — | 4 days ago | 69.06 |
+| 154 | Rbb robo 4 | MQL5 | [2298455](https://www.mql5.com/en/signals/2298455) | 91.52 | 44.37 | 42.32 | that | 889.13 | 1684 | AUDCAD | grid, martingale | 4 hours ago | 68.98 |
+| 155 | Gold Minion | MQL5 | [2351061](https://www.mql5.com/en/signals/2351061) | 98.92 | 29.66 | 35.88 | that | 681.74 | 766 | XAUUSD | — | 12 hours ago | 68.92 |
+| 156 | HJM1 | MQL5 | [2343251](https://www.mql5.com/en/signals/2343251) | 690.52 | 41.01 | 28.75 | that | 14066.29 | 22838 | XAUUSDc EURNOKc EURUSDc | hedge | 6 hours ago | 68.91 |
+| 157 | Soma PureGold Indexes and Oil | MQL5 | [2268766](https://www.mql5.com/en/signals/2268766) | 219.08 | 28.60 | 23.92 | that | 910.26 | 7224 | USTEC XAUUSD BTCUSD US30 US500 DE40 XTIU | — | 39 minutes ago | 68.8 |
+| 158 | HAN INVEST SISTEM | MQL5 | [2393802](https://www.mql5.com/en/signals/2393802) | 212.98 | 13.91 | 18.40 | that | 475.16 | 179 | GBPUSD EURUSD EURAUD EURCAD AUDUSD USDCA | hedge | 13 days ago | 68.79 |
+| 159 | Winneryu01 | MQL5 | [2333056](https://www.mql5.com/en/signals/2333056) | 272.12 | 65.44 | 37.72 | that | 6121.01 | 850 | XAUUSD XAGUSD EURUSD USDJPY AUDUSD USDCA | — | 4 days ago | 68.79 |
+| 160 | SolarFlare | MQL5 | [2332166](https://www.mql5.com/en/signals/2332166) | 207.51 | 13.46 | 17.94 | that | 436.24 | 741 | XAUUSD GBPUSD BTCUSD | — | 3 days ago | 68.59 |
+| 161 | ORDER FLOW System | MQL5 | [2348377](https://www.mql5.com/en/signals/2348377) | 178.99 | 9.96 | 18.86 | that | 401.54 | 803 | GBPUSD EURUSD USDJPY GBPAUD EURJPY XAUUS | martingale, dca | 5 days ago | 68.51 |
+| 162 | Darwin Swing MT4 | MQL5 | [1608493](https://www.mql5.com/en/signals/1608493) | 16.81 | 49.32 | 51.75 | that | 95.43 | 2776 | CHFJPYx AUDJPYx EURUSDx GBPJPYx NZDCADx  | — | 8 hours ago | 68.43 |
+| 163 | Optimus Long Term | MQL5 | [1739008](https://www.mql5.com/en/signals/1739008) | 135.51 | 77.00 | 48.76 | that | 3148.05 | 2637 | AUDCAD NZDCAD AUDNZD | martingale | 11 hours ago | 68.42 |
+| 164 | BreakoutPTFMT5 | MQL5 | [2291274](https://www.mql5.com/en/signals/2291274) | 11.24 | 69.88 | 86.93 | that | 116.38 | 7264 | GBPJPY GBPUSD CADJPY EURUSD USDJPY XAUUS | — | 12 hours ago | 68.37 |
+| 165 | EA Happy Galaxy FM | MQL5 | [2392608](https://www.mql5.com/en/signals/2392608) | 33.09 | 22.78 | 39.79 | that | 158.03 | 4115 | GBPUSD.fx EURUSD.fx USDCHF.fx EURCHF.fx  | — | 3 hours ago | 68.31 |
+| 166 | Darwin Evolution TURBO MT5 | MQL5 | [1353057](https://www.mql5.com/en/signals/1353057) | 41.81 | 72.80 | 57.50 | that | 433.22 | 1171 | AUDUSDx NZDUSDx AUDCHFx USDCHFx USDJPYx  | — | 8 hours ago | 68.27 |
+| 167 | EA Happy News VM | MQL5 | [2330858](https://www.mql5.com/en/signals/2330858) | 621.51 | 9.27 | 15.87 | that | 1264.67 | 291 | GBPUSD+ USDJPY+ AUDUSD+ EURUSD+ | — | 6 days ago | 68.26 |
+| 168 | Salaryman EA | MQL5 | [1975768](https://www.mql5.com/en/signals/1975768) | 27.15 | 34.76 | 44.85 | that | 145.44 | 5817 | AUDCAD NZDCAD NZDUSD AUDUSD AUDNZD GBPUS | — | 4 days ago | 68.25 |
+| 169 | MetaPro v22 EURUSD | MQL5 | [2378485](https://www.mql5.com/en/signals/2378485) | 77.84 | 52.78 | 45.77 | that | 798.69 | 729 | EURUSDmicro | — | 2 hours ago | 68.16 |
+| 170 | ManhattanPRO | MQL5 | [1738784](https://www.mql5.com/en/signals/1738784) | 47.79 | 54.83 | 49.91 | that | 407.65 | 8420 | EURUSD GBPUSD USDCAD AUDUSD AUDCAD USDCH | — | 2 hours ago | 68.15 |
+| 171 | FXtrading | MQL5 | [2356441](https://www.mql5.com/en/signals/2356441) | 535.08 | 14.09 | 17.48 | that | 1377.26 | 395 | NZDCAD USDCAD GBPUSD AUDUSD XAUUSD NZDUS | hedge | 8 hours ago | 68.13 |
+| 172 | Fx Swing | MQL5 | [2384807](https://www.mql5.com/en/signals/2384807) | 143.82 | 35.50 | 31.74 | that | 956.27 | 10433 | EURUSD-P GBPUSD-P GBPCAD-P GBPCHF-P NZDU | — | 6 hours ago | 68.07 |
+| 173 | B5318344 | MQL5 | [2377593](https://www.mql5.com/en/signals/2377593) | 32.95 | 77.83 | 65.32 | that | 371.31 | 8176 | XAUUSD USDCHF EURUSD USDJPY GBPUSD USDCA | — | 3 days ago | 68.01 |
+| 174 | KaKa 2 | MQL5 | [2379008](https://www.mql5.com/en/signals/2379008) | 71.55 | 23.26 | 35.19 | that | 386.79 | 706 | GBPUSD USDCAD EURNZD NZDUSD AUDUSD EURAU | — | 17 hours ago | 68.01 |
+| 175 | XFX | MQL5 | [1755063](https://www.mql5.com/en/signals/1755063) | 69.07 | 60.71 | 49.22 | that | 761.86 | 8236 | EURUSD SP500 NDX AUDUSD USDCAD GBPUSD NZ | — | 5 hours ago | 67.82 |
+| 176 | AutoScalping V9C | MQL5 | [1798961](https://www.mql5.com/en/signals/1798961) | 65.86 | 61.65 | 49.91 | that | 720.29 | 5035 | EURUSDmicro | — | 60 minutes ago | 67.8 |
+| 177 | TharosLongTerm | MQL5 | [2379915](https://www.mql5.com/en/signals/2379915) | 22.75 | 5.46 | 33.58 | that | 77.48 | 4209 | NZDCAD AUDCAD NZDUSD AUDUSD AUDNZD USDJP | — | 4 days ago | 67.73 |
+| 178 | EQUTI RECUPERACAO PAULO | MQL5 | [2385479](https://www.mql5.com/en/signals/2385479) | 16.51 | 51.59 | 51.52 | that | 92.74 | 11891 | XAUUSD.p AUDCAD.p GBPUSD.p EURCAD.p USDC | — | 14 hours ago | 67.69 |
+| 179 | Dudu Aircraft Carrier | MQL5 | [2197770](https://www.mql5.com/en/signals/2197770) | 186.27 | 57.33 | 34.27 | that | 1915.86 | 2045 | XAUUSD USDJPY GBPJPY XAUJPY EURJPY AUDUS | — | 8 hours ago | 67.48 |
+| 180 | GoldBot1 | MQL5 | [2282234](https://www.mql5.com/en/signals/2282234) | 212.62 | 27.79 | 21.62 | that | 679.59 | 442 | XAUUSD | — | 3 days ago | 67.47 |
+| 181 | Way of the turtle MAIN | MQL5 | [2364456](https://www.mql5.com/en/signals/2364456) | 188.49 | 67.29 | 37.72 | that | 2694.68 | 27861 | US30 XAUUSD JPN225 HK50 GER40 GBPJPY UK1 | — | 28 minutes ago | 67.46 |
+| 182 | EUR Trader | MQL5 | [2367606](https://www.mql5.com/en/signals/2367606) | 690.04 | 21.73 | 19.32 | that | 2687.49 | 295 | EURUSD.a XAUUSD.a GBPUSD.a AUDUSD.a BTCU | — | 3 days ago | 67.45 |
+| 183 | UpFuji MT4 | MQL5 | [2308093](https://www.mql5.com/en/signals/2308093) | 58.54 | 27.15 | 37.26 | that | 318.27 | 1732 | AUDCAD | — | 4 hours ago | 67.44 |
+| 184 | STNDLAG | MQL5 | [2286538](https://www.mql5.com/en/signals/2286538) | 28.58 | 34.23 | 43.24 | that | 147.37 | 12259 | EURUSD GBPUSD USDJPY XAUUSD AUDNZD AUDCA | — | 7 hours ago | 67.41 |
+| 185 | Cultivation | MQL5 | [1997783](https://www.mql5.com/en/signals/1997783) | 143.68 | 60.82 | 40.25 | that | 1883.57 | 3200 | AUDNZD.fx NZDCAD.fx AUDCAD.fx EURCHF.fx  | — | 4 days ago | 67.4 |
+| 186 | Mon Scalper MT5 | MQL5 | [2361936](https://www.mql5.com/en/signals/2361936) | 284.13 | 28.71 | 21.85 | that | 1059.39 | 566 | XAUUSD | — | 4 hours ago | 67.39 |
+| 187 | SFE Impulse | MQL5 | [2049326](https://www.mql5.com/en/signals/2049326) | 50.54 | 27.95 | 38.18 | that | 267.47 | 971 | ETHUSD BTCUSD | — | 11 hours ago | 67.26 |
+| 188 | Eternal Engine Low | MQL5 | [2220467](https://www.mql5.com/en/signals/2220467) | 42.04 | 31.15 | 40.25 | that | 224.53 | 4177 | GBPUSDm# EURUSDm# AUDCADm# AUDNZDm# | — | 10 hours ago | 67.2 |
+| 189 | Family Safe Trading 1 | MQL5 | [1905292](https://www.mql5.com/en/signals/1905292) | 36.37 | 48.75 | 47.38 | that | 240.39 | 14543 | EURUSD GBPUSD USDJPY XAUUSD USDCAD USDCH | — | 6 hours ago | 67.13 |
+| 190 | GoldWave signal | MQL5 | [2339082](https://www.mql5.com/en/signals/2339082) | 361.87 | 17.52 | 17.25 | that | 802.08 | 309 | XAUUSD CHINA50 | grid, martingale, dca | 4 days ago | 67.12 |
+| 191 | FINAMSOF | MQL5 | [2345189](https://www.mql5.com/en/signals/2345189) | 31.72 | 16.50 | 35.65 | that | 126.73 | 22819 | SVM6 SVZ5 S1U6 CRH5 CRZ4 S1H6 SVU6 SVH6  | — | 1 hour ago | 67.02 |
+| 192 | GOLD BR | MQL5 | [2320903](https://www.mql5.com/en/signals/2320903) | 351.47 | 23.14 | 19.09 | that | 1000.02 | 201 | XAUUSD USDJPY | — | 3 days ago | 66.94 |
+| 193 | Kivenara 815m52ff | MQL5 | [2244828](https://www.mql5.com/en/signals/2244828) | 136.55 | 36.81 | 31.28 | that | 843.42 | 616 | NAS100 | — | 2 hours ago | 66.89 |
+| 194 | EA Happy Bitcoin M30 VM | MQL5 | [2317138](https://www.mql5.com/en/signals/2317138) | 557.14 | 16.41 | 16.33 | that | 1196.27 | 372 | BTCUSD | — | 4 hours ago | 66.78 |
+| 195 | NebulaEA | MQL5 | [2332163](https://www.mql5.com/en/signals/2332163) | 181.87 | 8.54 | 15.41 | that | 278.39 | 977 | GBPUSD XAUUSD | — | 3 days ago | 66.78 |
+| 196 | My | MQL5 | [2394377](https://www.mql5.com/en/signals/2394377) | 82.60 | 68.11 | 48.76 | that | 1055.00 | 2484 | GBPUSD EURUSD EURNZD AUDNZD EURGBP EURAU | — | 1 hour ago | 66.67 |
+| 197 | Darwin Swing Evolution | MQL5 | [1689589](https://www.mql5.com/en/signals/1689589) | 28.77 | 55.10 | 49.91 | that | 186.23 | 1206 | AUDUSDx GBPUSDx NZDCHFx AUDNZDx EURGBPx  | — | 15 hours ago | 66.66 |
+| 198 | Ilses Clever Waka | MQL5 | [1999229](https://www.mql5.com/en/signals/1999229) | 139.03 | 68.77 | 42.55 | that | 2097.38 | 3891 | GBPUSD EURUSD AUDCAD NZDCAD AUDNZD GBPCA | martingale | 11 hours ago | 66.6 |
+| 199 | NS eP V3 49120344 | MQL5 | [1436120](https://www.mql5.com/en/signals/1436120) | 51.31 | 78.21 | 55.89 | that | 588.18 | 2493 | EURUSDmicro NZDCADmicro AUDUSDmicro | — | 5 hours ago | 66.56 |
+| 200 | NS lazyPRO 66097110 | MQL5 | [1810556](https://www.mql5.com/en/signals/1810556) | 38.67 | 55.35 | 48.53 | that | 275.18 | 1482 | AUDUSDc AUDCADc | — | 11 hours ago | 66.42 |
+| 201 | MAPLEROO | MQL5 | [1887017](https://www.mql5.com/en/signals/1887017) | 125.60 | 70.63 | 44.39 | that | 1927.90 | 2857 | AUDCAD | — | 7 hours ago | 66.36 |
+| 202 | Signalium | MQL5 | [2385151](https://www.mql5.com/en/signals/2385151) | 339.01 | 31.07 | 21.16 | that | 1258.00 | 382 | GBPUSD_o EURUSD_o XAUUSD_o | — | 7 days ago | 66.34 |
+| 203 | Futures EA FINAM maz | MQL5 | [2332128](https://www.mql5.com/en/signals/2332128) | 17.00 | 17.18 | 36.11 | that | 60.39 | 1843 | SiH5 SiH4 SiU4 SiZ4 SiM4 SiM5 SiZ3 SiH6  | — | 6 hours ago | 66.05 |
+| 204 | Pullenback Stability Growth | MQL5 | [2201396](https://www.mql5.com/en/signals/2201396) | 35.41 | 57.06 | 48.99 | that | 244.72 | 1957 | AUDCAD NZDCAD AUDNZD | — | 11 hours ago | 66.05 |
+| 205 | Multi asset trade | MQL5 | [2278370](https://www.mql5.com/en/signals/2278370) | 381.14 | 70.64 | 35.42 | that | 10224.02 | 2550 | BTCUSD USDJPY XAUUSD US500 JP225 UKOIL A | — | 2 hours ago | 65.95 |
+| 206 | NS lazyPRO 24155959 | MQL5 | [1708760](https://www.mql5.com/en/signals/1708760) | 60.03 | 73.67 | 52.21 | that | 673.55 | 3744 | EURUSDmicro AUDUSDmicro | — | 2 hours ago | 65.89 |
+| 207 | Gold Spike | MQL5 | [2349227](https://www.mql5.com/en/signals/2349227) | 297.50 | 8.56 | 11.96 | that | 295.68 | 434 | XAUUSD | — | 3 days ago | 65.83 |
+| 208 | Adaptive Neural FX | MQL5 | [2395286](https://www.mql5.com/en/signals/2395286) | 2914.42 | 1.51 | 9.20 | that | 1261.62 | 341 | USDCHF AUDUSD AUDCHF EURCHF EURUSD CHFJP | — | 8 hours ago | 65.76 |
+| 209 | Xingli 5108 | MQL5 | [2393522](https://www.mql5.com/en/signals/2393522) | 177.90 | 35.33 | 24.38 | that | 697.70 | 66885 | XAUUSD ETHUSD | — | 16 minutes ago | 65.76 |
+| 210 | Superdog Pro | MQL5 | [1628373](https://www.mql5.com/en/signals/1628373) | 16.65 | 59.34 | 51.52 | that | 93.68 | 1143 | EURUSD | grid | 55 minutes ago | 65.76 |
+| 211 | C120 JPY_GOLD | MQL5 | [1939809](https://www.mql5.com/en/signals/1939809) | 25.65 | 37.18 | 42.09 | that | 122.77 | 1654 | USDJPY XAUUSD | — | 12 hours ago | 65.69 |
+| 212 | BIGFISH ENT | MQL5 | [2312950](https://www.mql5.com/en/signals/2312950) | 234.86 | 25.75 | 18.17 | that | 523.36 | 627 | AUDCAD GBPUSD EURUSD XAUUSD | — | 7 hours ago | 65.68 |
+| 213 | EA Safe 1 | MQL5 | [1927666](https://www.mql5.com/en/signals/1927666) | 39.43 | 44.11 | 42.78 | that | 227.10 | 12446 | EURUSD GBPUSD USDJPY XAUUSD AUDNZD GBPAU | — | 4 hours ago | 65.45 |
+| 214 | Sentinel AutoTrade MT5 | MQL5 | [2309299](https://www.mql5.com/en/signals/2309299) | 18.31 | 18.94 | 35.65 | that | 64.79 | 964 | AUDCAD | grid | 9 hours ago | 65.4 |
+| 215 | Release the Kraken | MQL5 | [1544821](https://www.mql5.com/en/signals/1544821) | 92.05 | 76.75 | 48.99 | that | 1335.69 | 99634 | WINJ25 WINV23 WINZ23 WING25 WINV24 WINQ2 | — | 3 days ago | 65.38 |
+| 216 | Multi currency Trade | MQL5 | [2317676](https://www.mql5.com/en/signals/2317676) | 37.85 | 43.97 | 42.78 | that | 214.07 | 9860 | EURJPY AUDUSD USDJPY NZDUSD EURUSD | — | 4 hours ago | 65.37 |
+| 217 | Axik10qq | MQL5 | [2204623](https://www.mql5.com/en/signals/2204623) | 28.65 | 63.93 | 51.29 | that | 193.48 | 5812 | EURUSD.pro XAUUSD.pro USDJPY.pro GBPUSD. | hedge | 2 hours ago | 65.36 |
+| 218 | Gold Trend X Signal | MQL5 | [2362085](https://www.mql5.com/en/signals/2362085) | 146.44 | 34.29 | 26.91 | that | 655.78 | 1083 | XAUUSD | grid, martingale | 4 hours ago | 65.35 |
+| 219 | XXX OIL | MQL5 | [2198360](https://www.mql5.com/en/signals/2198360) | 24.22 | 66.98 | 52.90 | that | 160.14 | 8664 | BRENT_ecn UKOIL_ecn CL_ecn | — | 7 hours ago | 65.34 |
+| 220 | EA Happy Forex FM | MQL5 | [1670134](https://www.mql5.com/en/signals/1670134) | 27.20 | 62.29 | 50.60 | that | 175.76 | 838 | AUDUSD.fx EURCHF.fx | grid, martingale | 6 hours ago | 65.2 |
+| 221 | Techno Long Term | MQL5 | [2307342](https://www.mql5.com/en/signals/2307342) | 168.83 | 38.63 | 25.76 | that | 735.49 | 4824 | XAUUSD US30 USTEC BTCUSD US500 | grid, martingale, dca | 1 hour ago | 65.18 |
+| 222 | Kenni Trades Gold Breakout | MQL5 | [2306053](https://www.mql5.com/en/signals/2306053) | 1085.11 | 27.88 | 18.17 | that | 4125.21 | 903 | XAUUSD NASUSD | grid, martingale, hedge | 3 days ago | 65.14 |
+| 223 | NoStress MT4 | MQL5 | [2023750](https://www.mql5.com/en/signals/2023750) | 51.75 | 39.40 | 39.10 | that | 289.17 | 2371 | AUDCAD | — | 4 hours ago | 65.1 |
+| 224 | VSA | MQL5 | [2393860](https://www.mql5.com/en/signals/2393860) | 1109.89 | 12.17 | 12.19 | that | 1158.60 | 158 | GBPUSD NZDUSD AUDUSD USDCAD EURUSD XAUUS | hedge | 3 days ago | 65.08 |
+| 225 | Star Ribbean | MQL5 | [2242816](https://www.mql5.com/en/signals/2242816) | 352.70 | 69.23 | 33.58 | that | 6741.80 | 1249 | AUDCAD CADJPY | grid | 11 hours ago | 65.08 |
+| 226 | Samurai AI OG | MQL5 | [2378358](https://www.mql5.com/en/signals/2378358) | 5710.16 | 23.57 | 16.33 | that | 25063.22 | 201 | XAUUSD.p EURUSD.p GBPUSD.p | grid, martingale, hedge | 4 days ago | 64.99 |
+| 227 | Scalpwith20DD | MQL5 | [2277743](https://www.mql5.com/en/signals/2277743) | 27.72 | 77.46 | 55.89 | that | 212.55 | 3015 | EURUSD USDJPY USDCHF GBPUSD AUDUSD EURGB | — | 4 days ago | 64.97 |
+| 228 | EA Happy Gold BB High Risk | MQL5 | [2392590](https://www.mql5.com/en/signals/2392590) | 11939.65 | 19.42 | 14.72 | that | 35563.13 | 183 | XAUUSD.i | — | 8 hours ago | 64.96 |
+| 229 | DCA Large Cap Stocks | MQL5 | [2236750](https://www.mql5.com/en/signals/2236750) | 34.85 | 33.15 | 38.41 | that | 160.37 | 1717 | NVDA TSLA META WFC AAPL GOOGL AMZN RIO G | dca | 2 hours ago | 64.93 |
+| 230 | Nobu Trap | MQL5 | [2319444](https://www.mql5.com/en/signals/2319444) | 270.23 | 22.96 | 15.87 | that | 464.69 | 711 | XAUUSD XAUJPY USDJPY GBPJPY EURJPY | grid, martingale | 4 hours ago | 64.84 |
+| 231 | ICMarkets 1 | MQL5 | [1350008](https://www.mql5.com/en/signals/1350008) | 20.22 | 79.53 | 57.27 | that | 140.82 | 4649 | EURUSD XAUUSD USDJPY USDCAD AUDUSD AUDJP | — | 8 hours ago | 64.81 |
+| 232 | MOEX Nat | MQL5 | [2326520](https://www.mql5.com/en/signals/2326520) | 53.47 | 29.59 | 34.73 | that | 245.44 | 38867 | SVM6 SVU6 SVH6 CRM6 SVZ5 S1U6 CRZ6 SiH5  | — | 1 hour ago | 64.77 |
+| 233 | Gold Reaper New V2 2 | MQL5 | [2265877](https://www.mql5.com/en/signals/2265877) | 106.91 | 16.89 | 23.92 | that | 326.06 | 905 | XAUUSD | — | 7 days ago | 64.74 |
+| 234 | Alpha Print | MQL5 | [2397650](https://www.mql5.com/en/signals/2397650) | 192.60 | 3.57 | 9.20 | that | 127.76 | 379 | AUDCAD | grid | 8 hours ago | 64.69 |
+| 235 | GOLD HUAT EA | MQL5 | [2376856](https://www.mql5.com/en/signals/2376856) | 63.38 | 44.19 | 38.87 | that | 390.43 | 723 | XAUUSD USDJPY NAS100 GER40 US30 EURUSD A | grid, martingale, dca | 2 hours ago | 64.62 |
+| 236 | GetLambo | MQL5 | [2249418](https://www.mql5.com/en/signals/2249418) | 213.05 | 76.62 | 35.65 | that | 2867.54 | 4719 | BTCUSD USDJPY XAUUSD JP225 US500 USTEC E | — | 2 hours ago | 64.61 |
+| 237 | GrattMarMic | MQL5 | [2393538](https://www.mql5.com/en/signals/2393538) | 169.55 | 12.56 | 14.95 | that | 243.96 | 3156 | EURUSD EURCHF CADCHF EURNZD XTIUSD USDSG | grid | 2 hours ago | 64.54 |
+| 238 | EA18 | MQL5 | [2299080](https://www.mql5.com/en/signals/2299080) | 216.81 | 36.48 | 20.47 | that | 614.96 | 426 | NAS100 | — | 3 minutes ago | 64.53 |
+| 239 | QuantumStar | MQL5 | [2332164](https://www.mql5.com/en/signals/2332164) | 130.58 | 9.08 | 17.94 | that | 248.68 | 755 | XAUUSD GBPUSD USDJPY | — | 3 days ago | 64.48 |
+| 240 | Darwinex EITZ | MQL5 | [2389436](https://www.mql5.com/en/signals/2389436) | 98.36 | 22.78 | 26.68 | that | 358.52 | 19119 | WS30 XAUUSD NI225 GDAXI GBPJPY UK100 NDX | — | 31 minutes ago | 64.47 |
+| 241 | BreakZone Scalper HFM | MQL5 | [2269966](https://www.mql5.com/en/signals/2269966) | 247.23 | 47.16 | 24.38 | that | 1154.13 | 448 | XAUUSDb | — | 3 days ago | 64.46 |
+| 242 | Dudu 001 MT5 | MQL5 | [2361784](https://www.mql5.com/en/signals/2361784) | 90.67 | 24.81 | 28.29 | that | 357.89 | 1740 | XAUUSD USDJPY GBPJPY XAUJPY EURJPY | — | 4 hours ago | 64.46 |
+| 243 | The Gold Miner | MQL5 | [2265943](https://www.mql5.com/en/signals/2265943) | 190.25 | 44.95 | 24.61 | that | 789.36 | 1203 | GOLDm# | — | 3 hours ago | 64.44 |
+| 244 | BTC ICMarkets 50 high risk | MQL5 | [2225567](https://www.mql5.com/en/signals/2225567) | 122.76 | 48.65 | 33.58 | that | 840.52 | 1504 | BTCUSD XAUUSD GBPUSD EURUSD GBPCAD USDJP | grid, martingale | 10 minutes ago | 64.43 |
+| 245 | NoStress MT5 | MQL5 | [2023752](https://www.mql5.com/en/signals/2023752) | 50.11 | 41.57 | 39.10 | that | 275.66 | 2362 | AUDCAD | — | 4 hours ago | 64.43 |
+| 246 | FWD Research Fund 1 | MQL5 | [2268176](https://www.mql5.com/en/signals/2268176) | 13.99 | 28.96 | 38.41 | that | 52.06 | 2765 | NAS100.r XAUUSD MSFT LLY VIX.r XAUAUD DJ | hedge | 10 hours ago | 64.42 |
+| 247 | X117 Taoist nature | MQL5 | [2196457](https://www.mql5.com/en/signals/2196457) | 134.19 | 50.99 | 33.12 | that | 947.17 | 1584 | GOLD# USDCHF# | — | 3 days ago | 64.4 |
+| 248 | GB Trading | MQL5 | [2386818](https://www.mql5.com/en/signals/2386818) | 176.13 | 20.91 | 17.02 | that | 322.32 | 1495 | XAUUSD EURUSD USDJPY US30 BTCUSD AUDUSD  | — | 3 hours ago | 64.33 |
+| 249 | Expert EURUSD Sys02 | MQL5 | [2181186](https://www.mql5.com/en/signals/2181186) | 90.45 | 40.08 | 33.81 | that | 514.13 | 1908 | EURUSD XAUUSD XTIUSD | martingale, hedge | 10 hours ago | 64.3 |
+| 250 | Aldebaran | MQL5 | [2205157](https://www.mql5.com/en/signals/2205157) | 39.49 | 21.08 | 32.20 | that | 144.27 | 77434 | WINV24 WINQ24 WINZ24 WINJ25 WING25 WINM2 | — | 3 days ago | 64.16 |
+| 251 | Aether | MQL5 | [2324198](https://www.mql5.com/en/signals/2324198) | 344.28 | 23.93 | 15.18 | that | 559.61 | 1555 | XAUUSD.vip NZDCAD.vip EURUSD.vip AUDCAD. | — | 2 hours ago | 64.14 |
+| 252 | EAs Happy Forex Portfolio | MQL5 | [2393287](https://www.mql5.com/en/signals/2393287) | 71.79 | 20.86 | 28.29 | that | 258.10 | 9202 | USDJPY GBPUSD EURJPY EURCHF AUDUSD USDCA | — | 3 hours ago | 64.03 |
+| 253 | LeVisCapital | MQL5 | [2392567](https://www.mql5.com/en/signals/2392567) | 300.14 | 4.36 | 7.59 | that | 140.38 | 1645 | AUDCAD. NZDCAD. | — | 10 hours ago | 63.97 |
+| 254 | Meaw | MQL5 | [2393078](https://www.mql5.com/en/signals/2393078) | 58.30 | 27.51 | 32.20 | that | 243.00 | 1503 | XAUUSD+ USOUSD XAGUSD UKOUSD EURUSD+ VIX | — | 3 hours ago | 63.96 |
+| 255 | Expert EURUSD Sys01 | MQL5 | [2142461](https://www.mql5.com/en/signals/2142461) | 84.36 | 43.91 | 35.19 | that | 501.31 | 1977 | EURUSDp XAUUSDp BRENT | martingale, hedge | 10 hours ago | 63.81 |
+| 256 | Wibowopratomo77 | MQL5 | [2392894](https://www.mql5.com/en/signals/2392894) | 1460.05 | 3.26 | 6.90 | that | 385.35 | 371 | XAUUSD NZDJPY AUDUSD NZDUSD GBPUSD GBPJP | — | 7 hours ago | 63.79 |
+| 257 | Zigzag Evolution VX3 XM | MQL5 | [2190287](https://www.mql5.com/en/signals/2190287) | 10.79 | 42.87 | 43.01 | that | 44.36 | 4409 | EURUSDmicro GBPUSDmicro AUDUSDmicro USDC | martingale, dca | 6 hours ago | 63.77 |
+| 258 | PrismaForexPro2 | MQL5 | [2043793](https://www.mql5.com/en/signals/2043793) | 34.61 | 72.37 | 51.29 | that | 256.18 | 12719 | AUDNZD AUDCAD EURCAD CADCHF | — | 7 hours ago | 63.7 |
+| 259 | XAU Super Safe Mode Fusion 50501 | MQL5 | [2321576](https://www.mql5.com/en/signals/2321576) | 138.79 | 22.20 | 20.70 | that | 348.81 | 276 | XAUUSD | grid, martingale, dca | 5 days ago | 63.66 |
+| 260 | MajorForce MT5 | MQL5 | [1755222](https://www.mql5.com/en/signals/1755222) | 50.27 | 68.75 | 48.07 | that | 411.15 | 3660 | AUDUSD# USDJPY# NZDUSD# GBPUSD# EURUSD#  | — | 1 hour ago | 63.63 |
+| 261 | Gold Important Sniper Level MT4 | MQL5 | [2290292](https://www.mql5.com/en/signals/2290292) | 128.31 | 26.64 | 23.46 | that | 402.25 | 218 | XAUUSD Gold | — | 5 days ago | 63.6 |
+| 262 | Van PM | MQL5 | [2391620](https://www.mql5.com/en/signals/2391620) | 63.94 | 9.95 | 24.38 | that | 173.02 | 2062 | AUDCAD.std XAUUSD.std EURUSD.std NZDCAD. | — | 8 hours ago | 63.56 |
+| 263 | FF38 KF MKD INTEREST | MQL5 | [2322661](https://www.mql5.com/en/signals/2322661) | 564.53 | 26.84 | 15.41 | that | 1038.27 | 1028 | USDJPY GBPNZD EURAUD AUDCAD GBPCAD AUDJP | — | 8 hours ago | 63.56 |
+| 264 | Copy 9000 | MQL5 | [2372930](https://www.mql5.com/en/signals/2372930) | 12.64 | 4.42 | 28.06 | that | 32.08 | 972 | EURUSD XAUUSD GBPAUD HK50 NZDUSD NZDCAD  | — | 11 hours ago | 63.55 |
+| 265 | Meridian Extreme Risk Mode | MQL5 | [2385675](https://www.mql5.com/en/signals/2385675) | 406.10 | 10.45 | 9.20 | that | 246.67 | 413 | AUDCAD | — | 6 hours ago | 63.52 |
+| 266 | OnlyUJ | MQL5 | [2245675](https://www.mql5.com/en/signals/2245675) | 119.57 | 35.54 | 27.60 | that | 510.40 | 745 | USDJPY | — | 34 minutes ago | 63.48 |
+| 267 | Hari Ke 7 | MQL5 | [2371938](https://www.mql5.com/en/signals/2371938) | 174.81 | 15.38 | 13.80 | that | 219.80 | 367 | AUDNZDr AUDCADr NZDCADr | martingale, dca | 5 days ago | 63.47 |
+| 268 | Ekalaya | MQL5 | [2364632](https://www.mql5.com/en/signals/2364632) | 190.29 | 34.75 | 19.32 | that | 456.10 | 889 | GBPUSD_i EURUSD_i | — | 8 hours ago | 63.46 |
+| 269 | Precise Pair Trading Pro | MQL5 | [2329290](https://www.mql5.com/en/signals/2329290) | 404.51 | 23.84 | 14.03 | that | 563.39 | 948 | EURUSD XAUUSD XAUEUR AUDUSD | grid, martingale | 18 hours ago | 63.39 |
+| 270 | Eightcap 491 | MQL5 | [2294461](https://www.mql5.com/en/signals/2294461) | 209.23 | 42.88 | 21.16 | that | 632.04 | 423 | XAUUSD NDX100 | — | 3 days ago | 63.39 |
+| 271 | GUNS FX V2 | MQL5 | [2376393](https://www.mql5.com/en/signals/2376393) | 1986.05 | 11.63 | 9.43 | that | 988.35 | 294 | XAUUSD | — | 3 days ago | 63.38 |
+| 272 | Asterysc Hunter 3 | MQL5 | [2288774](https://www.mql5.com/en/signals/2288774) | 66.68 | 42.91 | 36.11 | that | 365.22 | 6611 | AUDCAD.. EURUSD.. GBPUSD.. UT100 XAUUSD. | — | 44 minutes ago | 63.35 |
+| 273 | Kefren Portfolio 1 | MQL5 | [2369741](https://www.mql5.com/en/signals/2369741) | 265.20 | 18.55 | 11.96 | that | 263.63 | 2780 | XAUUSD+ BTCUSD DJ30 NAS100 GER40 USDJPY+ | — | 8 hours ago | 63.34 |
+| 274 | KAFUMAN | MQL5 | [2393571](https://www.mql5.com/en/signals/2393571) | 403.18 | 5.82 | 7.13 | that | 161.18 | 411 | XAUUSD | — | 3 days ago | 63.3 |
+| 275 | AI Aurum Pivot LIVE | MQL5 | [2361796](https://www.mql5.com/en/signals/2361796) | 233.22 | 12.61 | 9.66 | that | 163.51 | 110 | XAUUSD | — | 3 days ago | 63.29 |
+| 276 | Guns FX | MQL5 | [2362532](https://www.mql5.com/en/signals/2362532) | 263.51 | 12.29 | 9.43 | that | 175.72 | 309 | XAUUSD EURUSD GBPUSD | — | 3 days ago | 63.21 |
+| 277 | Solnce | MQL5 | [2288975](https://www.mql5.com/en/signals/2288975) | 81.89 | 13.09 | 23.00 | that | 214.76 | 1145 | XAUUSD GBPUSD USDJPY EURUSD | — | 3 days ago | 63.2 |
+| 278 | Kingfisher | MQL5 | [2390208](https://www.mql5.com/en/signals/2390208) | 3216.74 | 3.31 | 5.98 | that | 472.56 | 391 | XAUUSD | — | 7 days ago | 63.16 |
+| 279 | TYLWK | MQL5 | [2051827](https://www.mql5.com/en/signals/2051827) | 91.35 | 64.17 | 40.71 | that | 803.85 | 2740 | AUDCAD NZDCAD AUDNZD | — | 14 hours ago | 62.95 |
+| 280 | Trade For Small Asset | MQL5 | [2288739](https://www.mql5.com/en/signals/2288739) | 257.38 | 69.30 | 30.36 | that | 2408.60 | 854 | BTCUSD XAUUSD USDJPY BTCJPY JP225 USOIL  | — | 4 hours ago | 62.91 |
+| 281 | Myfx Multiprod | MQL5 | [2343740](https://www.mql5.com/en/signals/2343740) | 398.02 | 27.24 | 14.49 | that | 594.91 | 1283 | XAUUSD | — | 2 hours ago | 62.85 |
+| 282 | GBP Daily Trade V1 | MQL5 | [2135908](https://www.mql5.com/en/signals/2135908) | 11.81 | 26.62 | 35.42 | that | 39.02 | 1484 | GBPUSD# EURGBP# | — | 14 hours ago | 62.84 |
+| 283 | Forexexpert | MQL5 | [2392995](https://www.mql5.com/en/signals/2392995) | 700.66 | 8.63 | 7.36 | that | 258.19 | 483 | USDCHF AUDCHF NZDCHF NDX AUDJPY USDSGD C | — | 5 hours ago | 62.75 |
+| 284 | Multi Strategy Engine | MQL5 | [2304885](https://www.mql5.com/en/signals/2304885) | 20.04 | 30.17 | 35.65 | that | 72.05 | 729 | SP500 USDJPY EURUSD NI225 NDX XLP GLD GB | grid, martingale | 2 hours ago | 62.73 |
+| 285 | Imperial Dominator | MQL5 | [2378552](https://www.mql5.com/en/signals/2378552) | 214.66 | 75.00 | 32.20 | that | 2067.06 | 3519 | GBPUSD | — | 3 days ago | 62.72 |
+| 286 | GiaPhat ICMarkets | MQL5 | [1586534](https://www.mql5.com/en/signals/1586534) | 29.74 | 77.25 | 52.21 | that | 210.43 | 43106 | AUDCAD NZDCAD EURUSD AUDNZD AUDUSD GBPUS | — | 6 hours ago | 62.72 |
+| 287 | Alazaizeh Investment | MQL5 | [2263922](https://www.mql5.com/en/signals/2263922) | 52.11 | 35.53 | 34.04 | that | 228.63 | 3752 | US500 USTEC XAUUSD BTCUSD US30 EURUSD GO | — | 22 hours ago | 62.72 |
+| 288 | ZhuJi Great Building | MQL5 | [2370043](https://www.mql5.com/en/signals/2370043) | 294.65 | 69.51 | 29.90 | that | 2958.90 | 4048 | XAUUSD BTCUSD USDJPY GBPJPY ETHUSD CADJP | — | 32 minutes ago | 62.56 |
+| 289 | Dark Nova 3 Pairs | MQL5 | [2312398](https://www.mql5.com/en/signals/2312398) | 276.37 | 51.10 | 23.00 | that | 1168.43 | 1084 | AUDCAD NZDCAD AUDNZD | — | 8 hours ago | 62.56 |
+| 290 | HPCWK | MQL5 | [2051881](https://www.mql5.com/en/signals/2051881) | 91.34 | 64.12 | 40.02 | that | 770.65 | 2705 | AUDCAD NZDCAD AUDNZD | — | 14 hours ago | 62.5 |
+| 291 | Multi EA Trading | MQL5 | [2375343](https://www.mql5.com/en/signals/2375343) | 1350.12 | 33.14 | 16.10 | that | 3515.91 | 589 | XAUUSD GBPUSD EURUSD USDCAD AUDJPY NZDCA | — | 3 days ago | 62.45 |
+| 292 | TirolRisk Der Swinger | MQL5 | [2111391](https://www.mql5.com/en/signals/2111391) | 21.53 | 32.95 | 36.11 | that | 79.83 | 1006 | EURUSD XAUUSD EURNZD USDJPY GBPUSD AUDUS | — | 10 hours ago | 62.45 |
+| 293 | Nasdaq manual | MQL5 | [2387289](https://www.mql5.com/en/signals/2387289) | 124.75 | 38.27 | 26.45 | that | 495.94 | 3580 | EURUSD NQCash | — | 3 days ago | 62.42 |
+| 294 | FXKINGPIN | MQL5 | [2386148](https://www.mql5.com/en/signals/2386148) | 752.08 | 22.32 | 11.96 | that | 746.02 | 493 | BTCUSDm XAUUSDm | — | 4 hours ago | 62.39 |
+| 295 | MSC SuperGold Pro | MQL5 | [2304847](https://www.mql5.com/en/signals/2304847) | 1354.69 | 53.03 | 23.46 | that | 18659.17 | 3054 | XAUUSD.f AUDCAD.f | dca | 3 days ago | 62.38 |
+| 296 | Captain Snail Gold | MQL5 | [2201409](https://www.mql5.com/en/signals/2201409) | 309.62 | 33.45 | 16.10 | that | 563.16 | 601 | XAUUSD | grid | 12 hours ago | 62.37 |
+| 297 | P820 Climb high and look far | MQL5 | [2204755](https://www.mql5.com/en/signals/2204755) | 86.73 | 43.62 | 32.66 | that | 447.25 | 1871 | GBPUSD USDJPY XAUUSD BTCUSD USDCHF EURUS | — | 3 days ago | 62.37 |
+| 298 | Long Gold 1102 | MQL5 | [2366314](https://www.mql5.com/en/signals/2366314) | 259.29 | 25.53 | 12.88 | that | 294.62 | 986 | XAUUSD GBPUSD BTCUSD USOIL UKOIL ETHUSD  | — | 4 hours ago | 62.2 |
+| 299 | IC Trading Signla MT5 | MQL5 | [2320603](https://www.mql5.com/en/signals/2320603) | 19.11 | 18.89 | 30.59 | that | 56.16 | 2201 | NZDCAD AUDCAD AUDNZD | — | 2 hours ago | 62.1 |
+| 300 | EU Zone Arsenal | MQL5 | [2385553](https://www.mql5.com/en/signals/2385553) | 51.28 | 8.99 | 23.23 | that | 122.86 | 941 | GBPUSD-E EURJPY-E EURUSD-E EURAUD-E EURG | — | 5 hours ago | 62.09 |
+| 301 | Rapidgains | MQL5 | [2392994](https://www.mql5.com/en/signals/2392994) | 817.45 | 11.30 | 7.36 | that | 289.39 | 698 | USDCHF USDSGD NDX AUDCHF CADCHF GBPCHF A | — | 5 hours ago | 62.08 |
+| 302 | EA Happy Frequency | MQL5 | [2015911](https://www.mql5.com/en/signals/2015911) | 65.25 | 57.57 | 39.79 | that | 428.81 | 13857 | USDJPY.fx GBPUSD.fx EURJPY.fx EURUSD.fx  | grid, martingale, hedge | 3 hours ago | 62.03 |
+| 303 | Range Breakout EA Live | MQL5 | [2271995](https://www.mql5.com/en/signals/2271995) | 112.79 | 28.29 | 23.46 | that | 337.67 | 2089 | USDJPY US30 DE40 BTCUSD XAUUSD | grid, martingale | 1 hour ago | 62.03 |
+| 304 | Lunar Express Mission 11M | MQL5 | [2332746](https://www.mql5.com/en/signals/2332746) | 423.54 | 29.02 | 13.80 | that | 571.11 | 4092 | XAUUSD AUDCAD GBPCAD AUDUSD AUDJPY EURUS | — | 18 hours ago | 61.95 |
+| 305 | Fast Turtle | MQL5 | [2344859](https://www.mql5.com/en/signals/2344859) | 317.85 | 22.42 | 11.27 | that | 283.04 | 2010 | GOLDm# GBPUSDm# AUDCADm# AUDNZDm# EURUSD | — | 3 days ago | 61.91 |
+| 306 | HJM2 | MQL5 | [2343255](https://www.mql5.com/en/signals/2343255) | 250.23 | 42.16 | 18.63 | that | 600.03 | 7254 | XAUUSDc | hedge | 11 hours ago | 61.88 |
+| 307 | EA 3 CurrencyPair MediumRisk | MQL5 | [2261205](https://www.mql5.com/en/signals/2261205) | 52.79 | 43.98 | 35.88 | that | 255.18 | 1303 | NZDCAD AUDNZD AUDCAD | — | 4 days ago | 61.88 |
+| 308 | XAUUSD SCALPING | MQL5 | [2394667](https://www.mql5.com/en/signals/2394667) | 5316.52 | 0.00 | 2.76 | that | 150.47 | 54 | XAUUSD | — | 3 hours ago | 61.84 |
+| 309 | Kivenara 8315m01f | MQL5 | [2229059](https://www.mql5.com/en/signals/2229059) | 51.71 | 34.62 | 32.43 | that | 208.45 | 659 | NAS100 | — | 1 hour ago | 61.84 |
+| 310 | X097 Many a little makes a mickle | MQL5 | [1909433](https://www.mql5.com/en/signals/1909433) | 40.33 | 60.20 | 43.24 | that | 239.03 | 4861 | NZDCAD# AUDNZD# AUDCAD# GOLD# | — | 3 days ago | 61.8 |
+| 311 | Combo Profile 2026 | MQL5 | [2362349](https://www.mql5.com/en/signals/2362349) | 1346.94 | 19.34 | 9.89 | that | 804.49 | 861 | GBPUSD+ USDCHF+ USDCAD+ AUDUSD+ GBPAUD+  | — | 12 hours ago | 61.76 |
+| 312 | F123 Still water runs long | MQL5 | [1946745](https://www.mql5.com/en/signals/1946745) | 25.69 | 52.38 | 41.86 | that | 122.05 | 1472 | AUDCAD AUDNZD EURUSD XAUUSD USDJPY GBPUS | — | 11 hours ago | 61.74 |
+| 313 | MtraderXM | MQL5 | [2188201](https://www.mql5.com/en/signals/2188201) | 36.79 | 35.69 | 34.27 | that | 144.67 | 2923 | OILCash BTCUSD BRENTCash VIX-SEP25 VIX-O | — | 9 hours ago | 61.68 |
+| 314 | Mohammed Qandeel | MQL5 | [2359368](https://www.mql5.com/en/signals/2359368) | 60.80 | 34.49 | 31.05 | that | 241.81 | 2894 | WTICASH US100CASH GER30CASH US30CASH STO | — | 3 hours ago | 61.64 |
+| 315 | Hunting Cat Scalper Set C | MQL5 | [2231094](https://www.mql5.com/en/signals/2231094) | 65.00 | 30.92 | 29.21 | that | 238.39 | 1123 | USDJPY | grid | 4 days ago | 61.62 |
+| 316 | CARRO CAPITAL TRADER DIV PORTFOLIO | MQL5 | [2373259](https://www.mql5.com/en/signals/2373259) | 208.87 | 32.92 | 14.72 | that | 298.84 | 9816 | BTCUSD XAUUSD USTEC US500 US30 DE40 EURU | grid, martingale | 28 minutes ago | 61.58 |
+| 317 | Lightyear Project 4 | MQL5 | [2280124](https://www.mql5.com/en/signals/2280124) | 23.92 | 30.02 | 33.35 | that | 81.49 | 10841 | XAUUSD EURUSD OILUSD USDCAD EURCAD USDCH | — | 3 hours ago | 61.52 |
+| 318 | World PEACE Multi FX Algo | MQL5 | [2379208](https://www.mql5.com/en/signals/2379208) | 973.81 | 47.44 | 20.01 | that | 5136.84 | 4500 | AUDCADr AUDNZDr GBPUSDr EURJPYr EURUSDr  | grid, hedge | 48 minutes ago | 61.48 |
+| 319 | Xauusd H1 | MQL5 | [2376983](https://www.mql5.com/en/signals/2376983) | 131.85 | 32.60 | 22.08 | that | 369.87 | 1029 | XAUUSD US30 BTCUSD | — | 3 days ago | 61.46 |
+| 320 | XAUUSD AI trade | MQL5 | [2337663](https://www.mql5.com/en/signals/2337663) | 717.85 | 31.67 | 14.03 | that | 1066.99 | 2966 | XAUUSD GBPUSD AUDUSD BTCUSD USDCAD EURAU | — | 4 hours ago | 61.44 |
+| 321 | FX One | MQL5 | [2391064](https://www.mql5.com/en/signals/2391064) | 31.17 | 7.04 | 23.69 | that | 70.85 | 9588 | EURUSDxx USDJPYxx NZDUSDxx USDCHFxx EURC | martingale | 3 hours ago | 61.37 |
+| 322 | Eldorium Risk 5 | MQL5 | [2371082](https://www.mql5.com/en/signals/2371082) | 655.60 | 20.34 | 9.66 | that | 409.36 | 278 | XAUUSD | martingale | 3 days ago | 61.36 |
+| 323 | A dong 30544 xiamen xinjiapo | MQL5 | [2392713](https://www.mql5.com/en/signals/2392713) | 232.35 | 0.44 | 2.07 | that | 23.02 | 329 | USDJPY GBPJPY GBPUSD EURUSD CHFJPY AUDJP | — | 10 hours ago | 61.27 |
+| 324 | Nano Sentinel | MQL5 | [2388152](https://www.mql5.com/en/signals/2388152) | 456.13 | 19.62 | 9.20 | that | 272.65 | 443 | XAUUSD | — | 4 days ago | 61.23 |
+| 325 | JM | MQL5 | [2227935](https://www.mql5.com/en/signals/2227935) | 14.46 | 52.56 | 42.32 | that | 61.01 | 1772 | AUDCAD NZDCAD AUDNZD | — | 12 hours ago | 61.16 |
+| 326 | Giaphat GOLD Vantage | MQL5 | [2372538](https://www.mql5.com/en/signals/2372538) | 395.51 | 19.31 | 8.97 | that | 230.79 | 1291 | XAUUSD+ EURUSD+ AUDCAD+ NZDCAD+ AUDNZD+  | — | 1 hour ago | 61.15 |
+| 327 | Algoverse Portfolio | MQL5 | [2377503](https://www.mql5.com/en/signals/2377503) | 875.61 | 25.46 | 11.27 | that | 749.37 | 1405 | XAUUSD GBPUSD EURUSD NZDCAD USDJPY USDCH | martingale | 4 hours ago | 61.15 |
+| 328 | ForxeShootClassMT5 | MQL5 | [2000089](https://www.mql5.com/en/signals/2000089) | 42.84 | 59.32 | 41.63 | that | 244.50 | 5614 | EURUSD GBPUSD USDCHF | — | 13 hours ago | 61.14 |
+| 329 | Copy Athx ST | MQL5 | [2311870](https://www.mql5.com/en/signals/2311870) | 150.25 | 30.37 | 18.63 | that | 315.41 | 3012 | NZDCADxx AUDCADxx AUDNZDxx | — | 5 days ago | 61.1 |
+| 330 | Foxsov Sniper Pro | MQL5 | [2329641](https://www.mql5.com/en/signals/2329641) | 300.15 | 33.84 | 14.26 | that | 419.57 | 821 | XAUUSD+ BTCUSD NAS100.r DJ30.r | — | 4 days ago | 61.05 |
+| 331 | SMART EA V4 MT4 | MQL5 | [2342314](https://www.mql5.com/en/signals/2342314) | 276.13 | 41.45 | 17.02 | that | 554.66 | 28339 | XAUUSD-P | hedge | 2 hours ago | 60.98 |
+| 332 | MonitoringL | MQL5 | [2372725](https://www.mql5.com/en/signals/2372725) | 17.68 | 21.85 | 30.13 | that | 50.48 | 1408 | XAUUSD GBPUSD GBPJPY USDCAD AUDUSD NZDUS | — | 3 days ago | 60.95 |
+| 333 | IVOMAS | MQL5 | [2320008](https://www.mql5.com/en/signals/2320008) | 300.69 | 38.61 | 15.87 | that | 526.92 | 818 | XAUUSD EURUSD NZDJPY AUDUSD GBPUSD NZDUS | martingale | 4 hours ago | 60.93 |
+| 334 | Harmonizer Mid Risk PAMM | MQL5 | [2388397](https://www.mql5.com/en/signals/2388397) | 74.95 | 20.89 | 23.23 | that | 195.28 | 1146 | AUDCAD NZDCAD XAGUSD | — | 13 hours ago | 60.89 |
+| 335 | IC 026 | MQL5 | [2342068](https://www.mql5.com/en/signals/2342068) | 327.12 | 28.32 | 11.96 | that | 325.06 | 1768 | EURUSD GBPUSD AUDCAD AUDNZD XAUUSD NZDCA | — | 14 hours ago | 60.89 |
+| 336 | Cubes VGold 4 | MQL5 | [2394721](https://www.mql5.com/en/signals/2394721) | 204.91 | 4.47 | 2.99 | that | 32.02 | 169 | XAUUSD.v2 | martingale, dca | 5 hours ago | 60.88 |
+| 337 | MegaGold | MQL5 | [2337490](https://www.mql5.com/en/signals/2337490) | 153.79 | 30.70 | 17.94 | that | 302.43 | 364 | XAUUSD | grid, martingale | 2 hours ago | 60.82 |
+| 338 | A18F52N | MQL5 | [2357382](https://www.mql5.com/en/signals/2357382) | 298.06 | 23.09 | 9.89 | that | 212.22 | 205 | NAS100 | — | 2 hours ago | 60.82 |
+| 339 | Exness GIAPHAT No9 | MQL5 | [2200954](https://www.mql5.com/en/signals/2200954) | 41.42 | 46.11 | 36.34 | that | 185.64 | 34154 | AUDCAD NZDCAD AUDNZD EURUSD USDCAD AUDUS | — | 5 hours ago | 60.81 |
+| 340 | Gold Trader | MQL5 | [2386762](https://www.mql5.com/en/signals/2386762) | 279.71 | 21.37 | 9.20 | that | 178.13 | 9363 | XAUUSD NAS100 US30 BTCUSD | — | 13 hours ago | 60.79 |
+| 341 | Logaby FX | MQL5 | [2388234](https://www.mql5.com/en/signals/2388234) | 199.05 | 3.39 | 2.53 | that | 25.98 | 74 | XAUUSD.p | — | 9 hours ago | 60.77 |
+| 342 | King For Gold | MQL5 | [2396706](https://www.mql5.com/en/signals/2396706) | 9795.87 | 10.02 | 4.83 | that | 535.58 | 14894 | XAUUSD | — | 43 minutes ago | 60.72 |
+| 343 | XZflow 3 | MQL5 | [2244502](https://www.mql5.com/en/signals/2244502) | 79.74 | 41.99 | 30.36 | that | 340.84 | 873 | BTCUSD ETHUSD USDJPY GBPJPY JP225 USTEC  | — | 9 hours ago | 60.72 |
+| 344 | Autopilot Vibranium Akun Ke 3062 | MQL5 | [2382840](https://www.mql5.com/en/signals/2382840) | 136.48 | 37.61 | 22.31 | that | 395.39 | 369 | GBPUSD | — | 4 days ago | 60.71 |
+| 345 | DT EURUSD INTRADAY | MQL5 | [2396960](https://www.mql5.com/en/signals/2396960) | 311.64 | 3.92 | 2.53 | that | 34.76 | 165 | EURUSD | — | 21 hours ago | 60.71 |
+| 346 | Carmine Quaranta | MQL5 | [2151330](https://www.mql5.com/en/signals/2151330) | 57.38 | 47.70 | 34.96 | that | 274.75 | 11657 | GBPCHF GBPJPY USDJPY USDCHF | — | 4 hours ago | 60.69 |
+| 347 | Sina | MQL5 | [2357942](https://www.mql5.com/en/signals/2357942) | 207.73 | 30.48 | 12.42 | that | 220.08 | 19891 | XAUUSD GBPUSD EURUSD USDCHF AUDUSD USDCA | — | 5 hours ago | 60.66 |
+| 348 | MC | MQL5 | [1965624](https://www.mql5.com/en/signals/1965624) | 15.75 | 56.16 | 42.78 | that | 68.46 | 1821 | AUDCAD NZDCAD AUDNZD BTCUSD | — | 12 hours ago | 60.66 |
+| 349 | Live Account Breakout EA | MQL5 | [2283078](https://www.mql5.com/en/signals/2283078) | 79.15 | 19.66 | 21.85 | that | 189.10 | 749 | USDJPY XAUUSD | — | 51 minutes ago | 60.59 |
+| 350 | Antidepressant EA | MQL5 | [2394590](https://www.mql5.com/en/signals/2394590) | 249.43 | 6.93 | 3.45 | that | 43.29 | 75 | XAUUSD | hedge | 8 hours ago | 60.57 |
+| 351 | X677 The power of time | MQL5 | [2149999](https://www.mql5.com/en/signals/2149999) | 107.45 | 63.63 | 34.96 | that | 738.06 | 1098 | GOLD# GBPAUD# EURAUD# EURUSD# EURJPY# GB | — | 3 days ago | 60.46 |
+| 352 | BIGFISH PREMIUM DOLLARS | MQL5 | [2305053](https://www.mql5.com/en/signals/2305053) | 210.87 | 47.29 | 18.40 | that | 469.23 | 709 | AUDCAD EURUSD GBPUSD US30 XAUUSD | — | 2 hours ago | 60.44 |
+| 353 | TriForce MT5 | MQL5 | [2126101](https://www.mql5.com/en/signals/2126101) | 41.53 | 44.62 | 35.19 | that | 176.95 | 4798 | EURUSD AUDCAD AUDUSD | — | 2 hours ago | 60.42 |
+| 354 | Brent Scalping | MQL5 | [2395077](https://www.mql5.com/en/signals/2395077) | 472.46 | 1.60 | 1.15 | that | 18.20 | 16 | BRENT XTIUSD AUDCHF | grid, martingale | 3 days ago | 60.37 |
+| 355 | Bulletride Pacific Pullback dedicated | MQL5 | [2014385](https://www.mql5.com/en/signals/2014385) | 70.03 | 65.11 | 39.56 | that | 475.38 | 1736 | AUDCAD AUDNZD NZDCAD EURUSD GBPUSD USDJP | grid | 4 hours ago | 60.35 |
+| 356 | Steady Growth | MQL5 | [2298652](https://www.mql5.com/en/signals/2298652) | 292.96 | 50.30 | 19.32 | that | 805.54 | 850 | GBPJPY_SB USDJPY_SB GBPCHF_SB USDCHF_SB  | — | 1 hour ago | 60.31 |
+| 357 | Gld Trde Pro | MQL5 | [2100250](https://www.mql5.com/en/signals/2100250) | 117.49 | 71.82 | 36.57 | that | 967.38 | 806 | XAUUSD | — | 17 hours ago | 60.24 |
+| 358 | Dgolden | MQL5 | [2392846](https://www.mql5.com/en/signals/2392846) | 729.48 | 17.43 | 6.90 | that | 237.53 | 608 | USDCHF AUDCHF USDJPY XAUUSD AUDJPY GBPCH | — | 5 hours ago | 60.24 |
+| 359 | FX Trade | MQL5 | [2397330](https://www.mql5.com/en/signals/2397330) | 258.64 | 2.40 | 1.15 | that | 13.02 | 408 | GBPNZD AUDNZD EURJPY EURCAD USDCHF NZDCH | — | 4 hours ago | 60.17 |
+| 360 | Aurum Triad | MQL5 | [2397878](https://www.mql5.com/en/signals/2397878) | 288.50 | 0.58 | 0.46 | that | 5.34 | 67 | XAUUSD | — | 15 hours ago | 60.16 |
+| 361 | Scalper PRO37 | MQL5 | [2392893](https://www.mql5.com/en/signals/2392893) | 591.53 | 2.45 | 1.15 | that | 20.36 | 63 | XAUUSD | — | 4 days ago | 60.15 |
+| 362 | AUDL2ND | MQL5 | [2397267](https://www.mql5.com/en/signals/2397267) | 334.23 | 1.27 | 0.69 | that | 8.81 | 10 | AUDCAD.vip | — | 4 days ago | 60.14 |
+| 363 | PeacockFeather GBPUSD | MQL5 | [2286356](https://www.mql5.com/en/signals/2286356) | 104.52 | 27.83 | 21.39 | that | 257.99 | 462 | GBPUSD | hedge | 10 hours ago | 60.14 |
+| 364 | IC 016 | MQL5 | [2350007](https://www.mql5.com/en/signals/2350007) | 213.41 | 30.09 | 11.50 | that | 198.84 | 1495 | EURUSD GBPUSD AUDCAD AUDNZD XAUUSD NZDCA | — | 14 hours ago | 60.14 |
+| 365 | Levis EA | MQL5 | [2321852](https://www.mql5.com/en/signals/2321852) | 150.32 | 31.87 | 17.71 | that | 287.36 | 24366 | XAUUSDf AUDCADf | — | 10 hours ago | 60.11 |
+| 366 | BuruBiru | MQL5 | [2397297](https://www.mql5.com/en/signals/2397297) | 1032.48 | 0.84 | 0.46 | that | 9.75 | 23 | NQ100.R EURUSD XAUUSD GBPJPY | — | 6 hours ago | 60.1 |
+| 367 | AlmondEA Swing | MQL5 | [2397277](https://www.mql5.com/en/signals/2397277) | 386.23 | 1.44 | 0.69 | that | 9.52 | 12 | XTIUSD | — | 4 days ago | 60.1 |
+| 368 | UnicornFx GSS 60 | MQL5 | [2236796](https://www.mql5.com/en/signals/2236796) | 28.02 | 41.25 | 34.96 | that | 105.38 | 4905 | EURUSDf | — | 12 hours ago | 60.1 |
+| 369 | GoldZILLA AI Medium Risk | MQL5 | [2362448](https://www.mql5.com/en/signals/2362448) | 191.07 | 23.28 | 9.89 | that | 141.22 | 419 | XAUUSD | — | 4 hours ago | 60.1 |
+| 370 | GOLD TREND MASTER | MQL5 | [2397049](https://www.mql5.com/en/signals/2397049) | 2229.62 | 0.34 | 0.23 | that | 6.22 | 9 | XAUUSD | grid, martingale, hedge, dca | 3 days ago | 60.07 |
+| 371 | Odin Core | MQL5 | [2397385](https://www.mql5.com/en/signals/2397385) | 517.82 | 0.94 | 0.46 | that | 7.23 | 8 | XAUUSD-ECN | — | 4 days ago | 60.07 |
+| 372 | AlgoMind DayTrading | MQL5 | [2232206](https://www.mql5.com/en/signals/2232206) | 72.91 | 47.56 | 32.20 | that | 334.69 | 2635 | XAUUSD | — | 3 days ago | 60.04 |
+| 373 | Eurusd Expert | MQL5 | [2388608](https://www.mql5.com/en/signals/2388608) | 195.77 | 4.12 | 2.07 | that | 20.57 | 26 | EURUSD | — | 6 hours ago | 60.03 |
+| 374 | Breakout Paradox | MQL5 | [2397829](https://www.mql5.com/en/signals/2397829) | 264.76 | 2.42 | 0.92 | that | 10.43 | 11 | USDJPY_i USDCAD_i NZDUSD_i AUDUSD_i EURU | — | 1 hour ago | 60.01 |
+| 375 | AntEA | MQL5 | [2369145](https://www.mql5.com/en/signals/2369145) | 453.40 | 30.65 | 11.50 | that | 415.32 | 242 | NZDCADm XAUUSDm US30m USTECm AUDNZDm USD | — | 7 hours ago | 60.0 |
+| 376 | Derek | MQL5 | [2379723](https://www.mql5.com/en/signals/2379723) | 377.58 | 20.22 | 7.59 | that | 168.84 | 203 | BTCUSD XAUUSD | — | 4 days ago | 60.0 |
+| 377 | GARYPRO2500 | MQL5 | [2350542](https://www.mql5.com/en/signals/2350542) | 110.84 | 21.73 | 18.17 | that | 209.39 | 195 | XAUUSD USDJPY | — | 3 days ago | 59.99 |
+| 378 | ICT Edge Gold and Indices | MQL5 | [2397236](https://www.mql5.com/en/signals/2397236) | 348.91 | 0.75 | 0.23 | that | 2.92 | 17 | Gold NAS100 | grid, dca | 4 days ago | 59.97 |
+| 379 | A3Q | MQL5 | [2396228](https://www.mql5.com/en/signals/2396228) | 196.18 | 0.46 | 0.46 | that | 4.25 | 19 | XAUUSD | — | 11 hours ago | 59.91 |
+| 380 | EA Miracolo et Amazing Brain | MQL5 | [2394150](https://www.mql5.com/en/signals/2394150) | 3794.17 | 19.97 | 7.36 | that | 845.05 | 786 | XAUUSD.r AUDUSD.r EURUSD.r | — | 1 hour ago | 59.91 |
+| 381 | Vortex S3 | MQL5 | [2392524](https://www.mql5.com/en/signals/2392524) | 10975.07 | 5.30 | 1.84 | that | 105.81 | 66 | XAUUSD | — | 3 hours ago | 59.9 |
+| 382 | Three whales2 | MQL5 | [2294877](https://www.mql5.com/en/signals/2294877) | 507.94 | 43.45 | 16.10 | that | 1026.37 | 863 | XAUUSD | — | 12 hours ago | 59.87 |
+| 383 | EA KWE JPY | MQL5 | [2397513](https://www.mql5.com/en/signals/2397513) | 1113.22 | 1.12 | 0.23 | that | 4.90 | 101 | GBPJPY EURJPY | hedge | 4 hours ago | 59.87 |
+| 384 | VFCaput Vitual | MQL5 | [2377661](https://www.mql5.com/en/signals/2377661) | 66.79 | 21.89 | 23.00 | that | 166.57 | 2363 | NZDCAD AUDCAD AUDNZD GBPJPY EURAUD CADCH | — | 4 hours ago | 59.87 |
+| 385 | MSP Alpha3 USDJPY | MQL5 | [2397531](https://www.mql5.com/en/signals/2397531) | 10965.46 | 1.17 | 0.23 | that | 9.44 | 17 | USDJPY XAUUSD | — | 3 hours ago | 59.86 |
+| 386 | Golden Swai 4000 USD | MQL5 | [2397046](https://www.mql5.com/en/signals/2397046) | 554.92 | 1.80 | 0.46 | that | 7.47 | 41 | XAUUSD | — | 3 hours ago | 59.86 |
+| 387 | SixtyNine EA | MQL5 | [2361673](https://www.mql5.com/en/signals/2361673) | 5279.92 | 23.29 | 8.51 | that | 1588.14 | 568 | XAUUSD+ | — | 3 days ago | 59.85 |
+| 388 | Marksman Weekly | MQL5 | [2397090](https://www.mql5.com/en/signals/2397090) | 3704915.77 | 1.24 | 0.23 | that | 22.34 | 12 | XAUUSDm | — | 8 hours ago | 59.84 |
+| 389 | Breakout Swing Gold Default | MQL5 | [2397061](https://www.mql5.com/en/signals/2397061) | 5259.90 | 1.32 | 0.23 | that | 7.93 | 8 | XAUUSD | — | 3 days ago | 59.82 |
+| 390 | Live trade 01 | MQL5 | [2397399](https://www.mql5.com/en/signals/2397399) | 1025.94 | 1.38 | 0.23 | that | 4.75 | 11 | XAUUSD | — | 7 hours ago | 59.81 |
+| 391 | StableGrowth Low Capital | MQL5 | [2397700](https://www.mql5.com/en/signals/2397700) | 51076.89 | 1.38 | 0.23 | that | 12.70 | 25 | XAUUSD BTCUSD | grid, martingale | 9 hours ago | 59.81 |
+| 392 | Kyora MT5 | MQL5 | [2396294](https://www.mql5.com/en/signals/2396294) | 450.93 | 2.02 | 0.46 | that | 6.76 | 37 | USDJPY.r | — | 4 days ago | 59.8 |
+| 393 | AUDCAD Smart | MQL5 | [2356497](https://www.mql5.com/en/signals/2356497) | 406.00 | 24.74 | 8.97 | that | 236.01 | 137 | AUDCAD | — | 6 hours ago | 59.8 |
+| 394 | NeoGenesis high risk low risk settings | MQL5 | [2397373](https://www.mql5.com/en/signals/2397373) | 466.45 | 3.27 | 0.92 | that | 14.22 | 29 | EURGBP AUDCAD EURUSD AUDNZD | grid, martingale | 6 hours ago | 59.8 |
+| 395 | From 500 to 5k | MQL5 | [2276442](https://www.mql5.com/en/signals/2276442) | 380.08 | 60.96 | 22.54 | that | 1804.28 | 1233 | US30m USTECm BTCUSDm XAUUSDm ETHUSDm USD | — | 12 days ago | 59.79 |
+| 396 | Aikon Quick Start Recovery | MQL5 | [2393883](https://www.mql5.com/en/signals/2393883) | 252.67 | 2.11 | 0.46 | that | 4.95 | 40 | AUDCAD NZDUSD NZDCAD GBPUSD AUDUSD EURUS | — | 11 hours ago | 59.78 |
+| 397 | Navi | MQL5 | [2234719](https://www.mql5.com/en/signals/2234719) | 74.99 | 40.10 | 28.75 | that | 282.16 | 1382 | BTCUSD | — | 3 hours ago | 59.77 |
+| 398 | JFX 1 | MQL5 | [2354958](https://www.mql5.com/en/signals/2354958) | 489.90 | 26.12 | 9.43 | that | 303.37 | 948 | EURUSD XAUUSD | martingale | 2 hours ago | 59.76 |
+| 399 | TCAP EURUSDCA | MQL5 | [2392974](https://www.mql5.com/en/signals/2392974) | 181.46 | 2.15 | 2.53 | that | 24.38 | 66 | EURUSD US100 XAUUSD XAGUSD NVDA.US | dca | 3 hours ago | 59.76 |
+| 400 | Algorithms | MQL5 | [2396255](https://www.mql5.com/en/signals/2396255) | 774.97 | 2.20 | 0.46 | that | 8.67 | 24 | USDCAD USDJPY EURJPY GBPJPY | grid, martingale | 3 days ago | 59.76 |
+| 401 | The Gold Reaper Live default settings | MQL5 | [2195619](https://www.mql5.com/en/signals/2195619) | 56.15 | 45.64 | 32.89 | that | 239.19 | 1368 | XAUUSD.p | — | 3 days ago | 59.73 |
+| 402 | Goldtrade Pro High Risk | MQL5 | [2242498](https://www.mql5.com/en/signals/2242498) | 150.39 | 60.45 | 27.83 | that | 740.36 | 590 | XAUUSD | — | 3 days ago | 59.72 |
+| 403 | Live trade 02 | MQL5 | [2397400](https://www.mql5.com/en/signals/2397400) | 70268.54 | 1.83 | 0.23 | that | 13.39 | 13 | XAUUSD | — | 6 hours ago | 59.7 |
+| 404 | FASTSCALP GOLD ORTHIS | MQL5 | [2397491](https://www.mql5.com/en/signals/2397491) | 1280.48 | 1.86 | 0.23 | that | 5.16 | 19 | XAUUSD | martingale | 3 hours ago | 59.69 |
+| 405 | FXLAB TRADING RULES MASTER | MQL5 | [2397363](https://www.mql5.com/en/signals/2397363) | 2903738.70 | 1.98 | 0.23 | that | 21.77 | 42 | XAUUSD+ BTCUSD | — | 7 hours ago | 59.66 |
+| 406 | Cuanin Breakout H6120 | MQL5 | [2397143](https://www.mql5.com/en/signals/2397143) | 799.42 | 2.10 | 0.23 | that | 4.30 | 20 | XAUUSD | — | 3 days ago | 59.63 |
+| 407 | Darvinex Onnu | MQL5 | [2344031](https://www.mql5.com/en/signals/2344031) | 11.10 | 19.12 | 27.83 | that | 27.66 | 18399 | NDX EURUSD XAUUSD SP500 GBPUSD WS30 AUDC | — | 2 hours ago | 59.61 |
+| 408 | EA CounterStrike1 | MQL5 | [2397777](https://www.mql5.com/en/signals/2397777) | 27394.43 | 3.39 | 0.69 | that | 38.12 | 5492 | XAUUSD.sv | — | 14 hours ago | 59.61 |
+| 409 | Cuanin Breakout H6123 | MQL5 | [2397145](https://www.mql5.com/en/signals/2397145) | 764.13 | 2.23 | 0.23 | that | 4.22 | 16 | XAUUSD | — | 3 days ago | 59.6 |
+| 410 | Surge BTC | MQL5 | [2397151](https://www.mql5.com/en/signals/2397151) | 319.45 | 2.84 | 0.46 | that | 5.65 | 48 | BTCUSD | — | 5 hours ago | 59.6 |
+| 411 | Gold Vairo | MQL5 | [2397232](https://www.mql5.com/en/signals/2397232) | 524249.55 | 2.30 | 0.23 | that | 17.84 | 17 | GOLD# | — | 4 days ago | 59.58 |
+| 412 | Orz 02 | MQL5 | [2395549](https://www.mql5.com/en/signals/2395549) | 6581.63 | 3.55 | 0.69 | that | 27.33 | 134 | EURUSD CHFJPY CADCHF AUDCHF AUDNZD EURNZ | — | 12 hours ago | 59.57 |
+| 413 | Golden Key Classic | MQL5 | [2304448](https://www.mql5.com/en/signals/2304448) | 198.26 | 49.79 | 18.17 | that | 423.15 | 204 | GOLD# | — | 3 days ago | 59.54 |
+| 414 | EA Happy Gold | MQL5 | [2397924](https://www.mql5.com/en/signals/2397924) | 249.48 | 5.00 | 1.15 | that | 12.74 | 115 | XAUUSD | — | 14 hours ago | 59.52 |
+| 415 | Top Cat S | MQL5 | [2337217](https://www.mql5.com/en/signals/2337217) | 24.52 | 36.38 | 32.66 | that | 81.65 | 778 | EURUSD | — | 14 hours ago | 59.52 |
+| 416 | PAWEA1 | MQL5 | [2397674](https://www.mql5.com/en/signals/2397674) | 229.75 | 3.14 | 0.46 | that | 4.68 | 21 | XAUUSD | — | 9 hours ago | 59.52 |
+| 417 | HFQGAUUS BMS | MQL5 | [2397729](https://www.mql5.com/en/signals/2397729) | 444.09 | 2.65 | 0.23 | that | 3.30 | 19 | XAUUSD | — | 4 days ago | 59.49 |
+| 418 | Noven Conservador | MQL5 | [2373596](https://www.mql5.com/en/signals/2373596) | 19.37 | 6.18 | 21.85 | that | 38.04 | 2908 | GBPUSD-STD EURCAD-STD EURAUD-STD EURUSD- | — | 4 days ago | 59.47 |
+| 419 | Rong Yi A | MQL5 | [2395834](https://www.mql5.com/en/signals/2395834) | 260.05 | 4.62 | 0.92 | that | 10.32 | 18 | EURUSD EURJPY GBPUSD USDCAD | martingale | 3 days ago | 59.46 |
+| 420 | ConnectGain BR Agressivo | MQL5 | [2376654](https://www.mql5.com/en/signals/2376654) | 172.27 | 28.87 | 13.11 | that | 198.70 | 1366 | NZDCADxx AUDCADxx AUDNZDxx GBPJPYxx GBPN | — | 15 hours ago | 59.44 |
+| 421 | Gerald | MQL5 | [2393625](https://www.mql5.com/en/signals/2393625) | 297.96 | 4.68 | 0.92 | that | 11.17 | 188 | EURUSD | — | 8 days ago | 59.44 |
+| 422 | AiX Gold | MQL5 | [2397851](https://www.mql5.com/en/signals/2397851) | 7898732364.38 | 2.95 | 0.23 | that | 41.70 | 9 | XAUUSD | — | 3 days ago | 59.42 |
+| 423 | NABUNG F0REX | MQL5 | [2396717](https://www.mql5.com/en/signals/2396717) | 4735.51 | 3.53 | 0.46 | that | 16.03 | 490 | XAUUSD | — | 1 hour ago | 59.42 |
+| 424 | SMARTT R1 5 | MQL5 | [2397868](https://www.mql5.com/en/signals/2397868) | 2000.50 | 3.66 | 0.46 | that | 12.38 | 12 | XAUUSD | — | 3 hours ago | 59.39 |
+| 425 | Gold Stop Hunt Live | MQL5 | [2397415](https://www.mql5.com/en/signals/2397415) | 56335.32 | 3.71 | 0.46 | that | 27.49 | 16 | XAUUSD | grid, martingale | 4 days ago | 59.38 |
+| 426 | Portfolio1 | MQL5 | [2193106](https://www.mql5.com/en/signals/2193106) | 95.15 | 72.33 | 37.95 | that | 728.54 | 2191 | AUDCAD+ NZDCAD+ USDCAD+ NZDUSD+ AUDNZD+  | — | 11 hours ago | 59.35 |
+| 427 | Cuanin Breakout H6122 | MQL5 | [2397144](https://www.mql5.com/en/signals/2397144) | 1194.20 | 3.25 | 0.23 | that | 5.03 | 8 | XAUUSD | — | 3 days ago | 59.34 |
+| 428 | AURUM Instinct EA MT4 | MQL5 | [2397836](https://www.mql5.com/en/signals/2397836) | 16074197.31 | 3.25 | 0.23 | that | 25.83 | 34 | XAUUSD | — | 3 days ago | 59.34 |
+| 429 | MarcosFX88 | MQL5 | [2397219](https://www.mql5.com/en/signals/2397219) | 297.43 | 3.26 | 0.23 | that | 2.68 | 35 | AUDJPY AUDNZD NZDJPY AUDCHF AUDCAD AUDUS | — | 20 hours ago | 59.34 |
+| 430 | GGSetka | MQL5 | [2366387](https://www.mql5.com/en/signals/2366387) | 112.97 | 20.71 | 16.56 | that | 183.85 | 399 | AUDCAD EURCHF | — | 50 minutes ago | 59.34 |
+| 431 | Master AT TR | MQL5 | [2093630](https://www.mql5.com/en/signals/2093630) | 75.76 | 56.17 | 34.04 | that | 395.16 | 6116 | EURUSD NZDCAD AUDCAD AUDNZD UsaTecSep26  | — | 5 days ago | 59.33 |
+| 432 | Icetrading | MQL5 | [2392847](https://www.mql5.com/en/signals/2392847) | 1496.56 | 16.82 | 5.29 | that | 239.16 | 301 | ETHUSD USDCHF AUDCHF CADCHF USDJPY AUDJP | — | 8 days ago | 59.32 |
+| 433 | Guardian FX Pro | MQL5 | [2385674](https://www.mql5.com/en/signals/2385674) | 1527.20 | 15.03 | 4.60 | that | 191.33 | 560 | GBPUSD USDJPY EURJPY BTCUSD.futu EURUSD  | martingale, hedge, dca | 6 hours ago | 59.31 |
+| 434 | Gold Queen | MQL5 | [2397411](https://www.mql5.com/en/signals/2397411) | 262.67 | 3.42 | 0.23 | that | 2.50 | 8 | XAUUSD | — | 20 hours ago | 59.3 |
+| 435 | FI Target Manager Services | MQL5 | [2282834](https://www.mql5.com/en/signals/2282834) | 23.70 | 31.49 | 30.59 | that | 71.98 | 12037 | XAUUSDx EURUSDx EURJPYx GBPAUDx NZDUSDx  | — | 7 hours ago | 59.3 |
+| 436 | CcF FX VIP | MQL5 | [2392317](https://www.mql5.com/en/signals/2392317) | 194.16 | 14.62 | 5.06 | that | 57.61 | 438 | AUDCAD+ GBPCAD+ GBPAUD+ EURAUD+ NZDCAD+  | — | 2 hours ago | 59.28 |
+| 437 | Pension | MQL5 | [2369942](https://www.mql5.com/en/signals/2369942) | 159.24 | 25.61 | 13.11 | that | 183.12 | 4486 | EURUSD XAUUSD AUDCAD NZDCAD USDCHF CHFSG | — | 6 hours ago | 59.28 |
+| 438 | Headway CT 1000 | MQL5 | [2396683](https://www.mql5.com/en/signals/2396683) | 3455.21 | 4.20 | 0.46 | that | 14.67 | 23 | XAUUSD | — | 7 hours ago | 59.26 |
+| 439 | Osloma Extra | MQL5 | [2397645](https://www.mql5.com/en/signals/2397645) | 29039.53 | 3.58 | 0.23 | that | 11.49 | 12 | XAUUSD | grid | 3 hours ago | 59.26 |
+| 440 | EA RDIP HPro 5P | MQL5 | [2336904](https://www.mql5.com/en/signals/2336904) | 406.01 | 38.18 | 13.11 | that | 487.89 | 2272 | GBPJPY USDJPY GBPUSD EURJPY EURUSD XAUUS | hedge, dca | 12 hours ago | 59.2 |
+| 441 | Trade auto | MQL5 | [2397376](https://www.mql5.com/en/signals/2397376) | 534.57 | 4.58 | 0.46 | that | 7.34 | 1494 | XAUUSD GBPJPY | — | 4 hours ago | 59.16 |
+| 442 | Aura Gold Pro Edition Rbfx | MQL5 | [2366593](https://www.mql5.com/en/signals/2366593) | 985.08 | 24.83 | 8.05 | that | 395.02 | 436 | XAUUSD | — | 47 minutes ago | 59.16 |
+| 443 | Ankit Tomar | MQL5 | [2397965](https://www.mql5.com/en/signals/2397965) | 1119.27 | 4.10 | 0.23 | that | 4.91 | 18 | XAUUSD BTCUSD | — | 3 hours ago | 59.13 |
+| 444 | Black coffee | MQL5 | [2396984](https://www.mql5.com/en/signals/2396984) | 318.02 | 5.97 | 0.92 | that | 11.59 | 12 | XAUUSD | — | 8 hours ago | 59.12 |
+| 445 | Different gold strategies 1 | MQL5 | [2375487](https://www.mql5.com/en/signals/2375487) | 64.39 | 31.69 | 25.76 | that | 190.66 | 267 | XAUUSD | — | 3 days ago | 59.08 |
+| 446 | Account one | MQL5 | [2295882](https://www.mql5.com/en/signals/2295882) | 187.34 | 64.92 | 24.38 | that | 753.69 | 7908 | XAUUSD EURUSD XAGUSD GBPUSD USDJPY | — | 8 hours ago | 59.07 |
+| 447 | Combo Deal Full | MQL5 | [2249161](https://www.mql5.com/en/signals/2249161) | 143.18 | 60.30 | 27.60 | that | 672.04 | 6945 | XAUUSD.ecn UT100 US500 BTCUSD AUDCAD.ecn | — | 2 hours ago | 59.06 |
+| 448 | Real | MQL5 | [2396538](https://www.mql5.com/en/signals/2396538) | 194.70 | 3.43 | 0.46 | that | 4.23 | 18 | EURUSD GBPUSD USDJPY AUDUSD XAUUSD | — | 6 hours ago | 59.05 |
+| 449 | RMPH31 | MQL5 | [1861518](https://www.mql5.com/en/signals/1861518) | 39.52 | 78.94 | 46.23 | that | 260.73 | 4103 | AUDCAD NZDCAD AUDNZD USDNOK USDCAD AUDUS | — | 14 hours ago | 59.05 |
+| 450 | FIB GOLDEN | MQL5 | [2397259](https://www.mql5.com/en/signals/2397259) | 397.09 | 5.11 | 0.46 | that | 6.34 | 63 | XAUUSDm BTCUSDm | — | 3 hours ago | 59.03 |
+| 451 | BITCOIN CAPITAL ULS | MQL5 | [2384554](https://www.mql5.com/en/signals/2384554) | 268.83 | 9.56 | 2.07 | that | 25.25 | 19 | BTCUSD# | — | 31 days ago | 58.99 |
+| 452 | Vasa Trading Sistem 22 | MQL5 | [2346593](https://www.mql5.com/en/signals/2346593) | 176.50 | 25.87 | 10.81 | that | 149.97 | 799 | XAUUSD | grid, martingale | 3 days ago | 58.98 |
+| 453 | Kawan Trader Trading for Living 4 | MQL5 | [2398239](https://www.mql5.com/en/signals/2398239) | 1111798.30 | 4.76 | 0.23 | that | 19.55 | 16 | XAUUSD.pro | — | 15 minutes ago | 58.96 |
+| 454 | Portifolio IA XP | MQL5 | [2283635](https://www.mql5.com/en/signals/2283635) | 131.56 | 47.42 | 23.92 | that | 433.19 | 1764 | WINJ26 WINM26 WINV26 WINQ26 WINM25 WINV2 | — | 3 days ago | 58.96 |
+| 455 | Shafara77 Hw | MQL5 | [2393797](https://www.mql5.com/en/signals/2393797) | 2593.31 | 7.23 | 1.15 | that | 37.11 | 59 | XAUUSD GBPUSD | — | 19 hours ago | 58.96 |
+| 456 | Katd Xau GTC | MQL5 | [2397633](https://www.mql5.com/en/signals/2397633) | 2381.29 | 5.51 | 0.46 | that | 13.10 | 561 | XAUUSD BTCUSDT ZECUSDT | grid, dca | 2 hours ago | 58.93 |
+| 457 | Robotbagus | MQL5 | [2395686](https://www.mql5.com/en/signals/2395686) | 2896.28 | 28.34 | 8.97 | that | 1169.83 | 15300 | XAUUSD | — | 35 minutes ago | 58.9 |
+| 458 | Darwin Light | MQL5 | [2299564](https://www.mql5.com/en/signals/2299564) | 15.13 | 6.60 | 21.62 | that | 28.90 | 15078 | EURUSD GBPUSD XAUUSD USDJPY EURCAD EURJP | — | 1 hour ago | 58.9 |
+| 459 | Metal | MQL5 | [2389070](https://www.mql5.com/en/signals/2389070) | 94513.21 | 12.97 | 3.22 | that | 528.85 | 191 | XAUUSD BTCUSD | — | 4 minutes ago | 58.9 |
+| 460 | Oilman T | MQL5 | [2325346](https://www.mql5.com/en/signals/2325346) | 194.19 | 43.31 | 15.18 | that | 291.57 | 1051 | XAUUSD.min USOIL | grid | 3 hours ago | 58.86 |
+| 461 | Kraken 8X EA | MQL5 | [2395422](https://www.mql5.com/en/signals/2395422) | 24.34 | 2.90 | 19.09 | that | 41.42 | 141 | NZDUSD NZDCAD AUDCAD EURGBP AUDUSD AUDNZ | — | 4 days ago | 58.83 |
+| 462 | Goldwin | MQL5 | [2397994](https://www.mql5.com/en/signals/2397994) | 4203.84 | 6.55 | 0.69 | that | 24.15 | 13 | XAUUSD | grid, martingale | 7 hours ago | 58.82 |
+| 463 | Aurum Gold 40 80 | MQL5 | [2398016](https://www.mql5.com/en/signals/2398016) | 603.50 | 5.51 | 0.23 | that | 3.81 | 36 | XAUUSD | — | 10 hours ago | 58.78 |
+| 464 | PBX Alpha OMEGA S16 | MQL5 | [2397632](https://www.mql5.com/en/signals/2397632) | 584021834.12 | 5.55 | 0.23 | that | 34.80 | 42 | XAUUSD-P | — | 8 hours ago | 58.77 |
+| 465 | Loyal fx portfolio | MQL5 | [2397702](https://www.mql5.com/en/signals/2397702) | 781.60 | 5.63 | 0.23 | that | 4.26 | 52 | GBPAUD+ CHFJPY+ EURCAD+ NZDJPY+ EURUSD+  | — | 35 minutes ago | 58.75 |
+| 466 | Expert EURUSD Sys03 | MQL5 | [2265440](https://www.mql5.com/en/signals/2265440) | 64.10 | 42.15 | 29.21 | that | 233.89 | 1763 | EURUSD+ XAUUSD+ | martingale, hedge | 10 hours ago | 58.74 |
+| 467 | Copy Athx | MQL5 | [2278021](https://www.mql5.com/en/signals/2278021) | 115.76 | 40.53 | 22.77 | that | 330.25 | 3389 | NZDCADxx AUDCADxx AUDNZDxx | — | 5 days ago | 58.73 |
+| 468 | BBMA MASTER | MQL5 | [2397327](https://www.mql5.com/en/signals/2397327) | 183949.52 | 6.40 | 0.46 | that | 33.40 | 48 | GOLD.i# US100Cash# BTCUSD# | — | 1 hour ago | 58.71 |
+| 469 | RTP vantage low risk | MQL5 | [2398120](https://www.mql5.com/en/signals/2398120) | 370700.37 | 5.81 | 0.23 | that | 17.06 | 22 | XAUUSD BTCUSD | — | 3 hours ago | 58.7 |
+| 470 | Sagitta Investor | MQL5 | [2396390](https://www.mql5.com/en/signals/2396390) | 1800.59 | 6.41 | 0.46 | that | 11.95 | 11 | XAUUSD.vcn | — | 9 hours ago | 58.7 |
+| 471 | Piccolo | MQL5 | [2396467](https://www.mql5.com/en/signals/2396467) | 1107.45 | 6.46 | 0.46 | that | 10.02 | 15 | GBPJPY EURUSD XAUUSD | — | 3 days ago | 58.69 |
+| 472 | Gold High Risk | MQL5 | [2396524](https://www.mql5.com/en/signals/2396524) | 40326.57 | 6.52 | 0.46 | that | 25.87 | 15 | XAUUSD EURGBP EURCHF EURUSD EURNZD EURAU | grid, martingale | 15 hours ago | 58.68 |
+| 473 | Alpha Fusion | MQL5 | [2398047](https://www.mql5.com/en/signals/2398047) | 9732.55 | 6.49 | 0.46 | that | 19.23 | 81 | EURUSD GER40 XBRUSD US30 XAUUSD ETHUSD G | — | 3 hours ago | 58.68 |
+| 474 | XAUUSD AND XAUEUR | MQL5 | [2340704](https://www.mql5.com/en/signals/2340704) | 214.49 | 42.73 | 14.03 | that | 281.76 | 292 | XAUUSD XAUEUR | — | 19 hours ago | 58.67 |
+| 475 | KiraCat | MQL5 | [2342895](https://www.mql5.com/en/signals/2342895) | 377.23 | 36.70 | 11.73 | that | 360.74 | 604 | US30 NZDCAD US100 XAUUSD USDCAD | grid, dca | 4 days ago | 58.65 |
+| 476 | Multi Strategy Lab EURUSD | MQL5 | [2388214](https://www.mql5.com/en/signals/2388214) | 313.05 | 11.65 | 2.30 | that | 31.24 | 98 | EURUSD+ | — | 5 days ago | 58.62 |
+| 477 | Jayanthi EA MT5 | MQL5 | [2251746](https://www.mql5.com/en/signals/2251746) | 55.74 | 32.25 | 26.22 | that | 163.27 | 285 | XAUUSD | grid, martingale, hedge | 16 hours ago | 58.6 |
+| 478 | Argo Navis R3 | MQL5 | [2396728](https://www.mql5.com/en/signals/2396728) | 47493.95 | 6.87 | 0.46 | that | 26.66 | 43 | XAUUSD.vcn | — | 9 hours ago | 58.59 |
+| 479 | Swing Trading | MQL5 | [2383675](https://www.mql5.com/en/signals/2383675) | 200.74 | 19.82 | 5.29 | that | 62.48 | 903 | AUDCAD XAUUSD NZDCAD EURCAD GBPAUD EURAU | — | 5 hours ago | 58.57 |
+| 480 | AUDCAD 1 mt4 | MQL5 | [2271699](https://www.mql5.com/en/signals/2271699) | 38.93 | 20.03 | 23.46 | that | 90.19 | 298 | AUDCADm# EURGBPm# AUDCHFm# GBPAUDm# CADC | — | 10 hours ago | 58.55 |
+| 481 | DenkMark | MQL5 | [2395924](https://www.mql5.com/en/signals/2395924) | 290.63 | 7.85 | 0.69 | that | 8.15 | 278 | USDJPY GBPJPY EURUSD GBPUSD EURJPY EURAU | — | 3 hours ago | 58.5 |
+| 482 | Darwinex Wim | MQL5 | [2276617](https://www.mql5.com/en/signals/2276617) | 36.13 | 17.66 | 22.77 | that | 79.54 | 6720 | XAUUSD EURUSD GBPUSD NDX SP500 AUDCAD WS | martingale | 35 minutes ago | 58.47 |
+| 483 | TTS Joyful | MQL5 | [2385587](https://www.mql5.com/en/signals/2385587) | 7738.58 | 14.15 | 2.99 | that | 196.47 | 66 | XAUUSD | — | 2 hours ago | 58.46 |
+| 484 | XAU Rhythm EA Copy Trading HFM | MQL5 | [2396130](https://www.mql5.com/en/signals/2396130) | 210.58 | 7.40 | 0.46 | that | 4.44 | 28 | XAUUSD | — | 4 days ago | 58.46 |
+| 485 | SNJ | MQL5 | [2317789](https://www.mql5.com/en/signals/2317789) | 154.46 | 37.92 | 17.02 | that | 276.10 | 344 | XAUUSD GBPUSD | — | 3 hours ago | 58.45 |
+| 486 | Kraken 8X BETA | MQL5 | [2392539](https://www.mql5.com/en/signals/2392539) | 24.24 | 36.27 | 31.05 | that | 75.36 | 280 | NZDUSD AUDCAD NZDCAD EURGBP AUDUSD AUDNZ | — | 4 days ago | 58.45 |
+| 487 | LONG TERM TRADING | MQL5 | [2311926](https://www.mql5.com/en/signals/2311926) | 106.25 | 32.13 | 20.24 | that | 239.07 | 1038 | XAUUSD AUDCAD EURUSD USDJPY USDCHF EURAU | — | 7 hours ago | 58.43 |
+| 488 | Gold Reaper 100 DD Challenge | MQL5 | [2363636](https://www.mql5.com/en/signals/2363636) | 410.45 | 28.98 | 8.51 | that | 217.73 | 290 | XAUUSD | — | 3 days ago | 58.43 |
+| 489 | Good thing | MQL5 | [2397787](https://www.mql5.com/en/signals/2397787) | 3312.45 | 7.02 | 0.23 | that | 7.00 | 67 | XAUUSD | — | 11 minutes ago | 58.4 |
+| 490 | Breakout Swing Gold HIGH RISK | MQL5 | [2397094](https://www.mql5.com/en/signals/2397094) | 16590737032.70 | 7.09 | 0.23 | that | 43.73 | 8 | XAUUSD | — | 3 days ago | 58.38 |
+| 491 | Copy Athx TKM | MQL5 | [2372382](https://www.mql5.com/en/signals/2372382) | 264.78 | 22.51 | 5.98 | that | 90.58 | 1275 | NZDCAD AUDCAD | — | 5 days ago | 58.36 |
+| 492 | IQea 13Legs | MQL5 | [2396105](https://www.mql5.com/en/signals/2396105) | 182.81 | 3.32 | 0.69 | that | 6.16 | 79 | XAUUSD USDJPY NAS100 BTCUSD USDCHF GER40 | — | 2 hours ago | 58.34 |
+| 493 | Invictus X VANTAGE | MQL5 | [2354834](https://www.mql5.com/en/signals/2354834) | 1302.54 | 31.86 | 9.43 | that | 696.68 | 3515 | BTCUSD XAUUSD+ ETHUSD | — | 2 minutes ago | 58.32 |
+| 494 | Rainy Strategies | MQL5 | [2318638](https://www.mql5.com/en/signals/2318638) | 715.50 | 51.00 | 16.56 | that | 1710.35 | 11671 | XAUUSD BTCUSD US30 NAS100 US500 GER40 GB | — | 25 minutes ago | 58.29 |
+| 495 | ANTS Gold And Crypto | MQL5 | [2356592](https://www.mql5.com/en/signals/2356592) | 265.20 | 39.99 | 12.42 | that | 282.14 | 2851 | XAUUSDp SOLUSD BTCUSD EURUSDp GBPUSDp CH | — | 10 minutes ago | 58.28 |
+| 496 | GoldMonth | MQL5 | [2396221](https://www.mql5.com/en/signals/2396221) | 17346.81 | 8.23 | 0.46 | that | 21.88 | 16 | GOLD# | — | 7 minutes ago | 58.25 |
+| 497 | Zuuro MT4 NAS100 4731 | MQL5 | [2397738](https://www.mql5.com/en/signals/2397738) | 10583.59 | 8.21 | 0.46 | that | 19.61 | 23 | CHƯA ĐO ĐƯỢC | — | 2 hours ago | 58.25 |
+| 498 | Gold 2424 | MQL5 | [2397382](https://www.mql5.com/en/signals/2397382) | 242.91 | 7.62 | 0.23 | that | 2.39 | 81 | XAUUSD.ecn | — | 2 hours ago | 58.25 |
+| 499 | BlueInvestTM | MQL5 | [2384663](https://www.mql5.com/en/signals/2384663) | 218.00 | 15.02 | 2.99 | that | 33.41 | 9496 | XAUUSD WS30 NZDUSD USDMXN EURUSD EURGBP  | — | 44 minutes ago | 58.24 |
+| 500 | PBX Alpha SGL | MQL5 | [2396569](https://www.mql5.com/en/signals/2396569) | 518112.41 | 8.33 | 0.46 | that | 38.80 | 63 | XAUUSD | — | 7 hours ago | 58.22 |
+| 501 | PBX Alpha MFE | MQL5 | [2395571](https://www.mql5.com/en/signals/2395571) | 3746.17 | 8.96 | 0.69 | that | 23.35 | 44 | XAUUSD | — | 9 hours ago | 58.22 |
+| 502 | TOOP1 Swing Live | MQL5 | [2376664](https://www.mql5.com/en/signals/2376664) | 1007.52 | 20.05 | 4.83 | that | 163.24 | 62 | XAUUSD+ | — | 4 hours ago | 58.21 |
+| 503 | Samantha Gold Channel | MQL5 | [2385608](https://www.mql5.com/en/signals/2385608) | 971.68 | 14.54 | 2.76 | that | 72.55 | 42 | XAUUSDs | — | 4 days ago | 58.2 |
+| 504 | ALGO VISION | MQL5 | [2341570](https://www.mql5.com/en/signals/2341570) | 1321.69 | 39.73 | 12.19 | that | 1382.72 | 353 | XAUUSD | grid, martingale | 3 days ago | 58.19 |
+| 505 | Test61 | MQL5 | [2396194](https://www.mql5.com/en/signals/2396194) | 233.05 | 8.48 | 0.46 | that | 4.72 | 11 | XAUUSD | — | 3 days ago | 58.19 |
+| 506 | Fortune | MQL5 | [2363526](https://www.mql5.com/en/signals/2363526) | 1783.22 | 33.03 | 9.66 | that | 962.42 | 171 | XAUUSD-ECN | grid, martingale, hedge | 3 days ago | 58.18 |
+| 507 | Ultimate Portfolio 2000 | MQL5 | [2324441](https://www.mql5.com/en/signals/2324441) | 210.31 | 47.39 | 14.95 | that | 309.92 | 2705 | XAUUSD DE40 USTEC US30 US500 | — | 3 hours ago | 58.12 |
+| 508 | Zenith Alpha USD | MQL5 | [2374284](https://www.mql5.com/en/signals/2374284) | 623.15 | 28.97 | 8.05 | that | 277.05 | 214 | USDCADb NZDCHFb EURCHFb EURUSDb CADCHFb  | grid | 2 hours ago | 58.12 |
+| 509 | VTS You Only Live Once 7 | MQL5 | [2361280](https://www.mql5.com/en/signals/2361280) | 920.57 | 29.68 | 8.28 | that | 396.71 | 420 | XAUUSD | — | 3 days ago | 58.1 |
+| 510 | DevilsWoman | MQL5 | [2396800](https://www.mql5.com/en/signals/2396800) | 2734579.52 | 8.26 | 0.23 | that | 21.63 | 23 | XAUUSD | — | 3 days ago | 58.09 |
+| 511 | ArbiFlow | MQL5 | [2397532](https://www.mql5.com/en/signals/2397532) | 11006882.85 | 8.32 | 0.23 | that | 24.92 | 59 | NZDUSD AUDJPY GBPUSD CHFJPY AUDUSD GBPNZ | grid, martingale, hedge, dca | 3 hours ago | 58.07 |
+| 512 | Aurex Sniper EA | MQL5 | [2396803](https://www.mql5.com/en/signals/2396803) | 1639.27 | 8.99 | 0.46 | that | 11.57 | 9 | XAUUSD.sv | — | 4 days ago | 58.06 |
+| 513 | AFSID FX Hunter I | MQL5 | [2347840](https://www.mql5.com/en/signals/2347840) | 506.30 | 36.64 | 10.81 | that | 407.07 | 15332 | GBPJPY USDJPY EURJPY GBPUSD EURUSD USDCH | — | 4 days ago | 58.05 |
+| 514 | V CcF Way | MQL5 | [2360826](https://www.mql5.com/en/signals/2360826) | 277.23 | 38.15 | 11.27 | that | 247.96 | 5772 | XAUUSD+ BTCUSD USDJPY+ GBPUSD+ AUDCAD+ E | — | 2 hours ago | 57.98 |
+| 515 | Portfolio EA with IC Markets MT5 | MQL5 | [2361858](https://www.mql5.com/en/signals/2361858) | 19.76 | 50.39 | 36.11 | that | 72.05 | 9838 | EURUSD AUDCAD GBPUSD NZDCAD AUDNZD GBPCA | — | 5 minutes ago | 57.96 |
+| 516 | GM GOLD SMART | MQL5 | [2396677](https://www.mql5.com/en/signals/2396677) | 27431.39 | 9.39 | 0.46 | that | 24.03 | 9 | XAUUSD+ | — | 15 hours ago | 57.96 |
+| 517 | MT4 8800983 | MQL5 | [2377259](https://www.mql5.com/en/signals/2377259) | 12067.27 | 21.69 | 5.06 | that | 657.28 | 1265 | XAUUSD.p | — | 4 hours ago | 57.95 |
+| 518 | KRAKATAU ICM | MQL5 | [2397557](https://www.mql5.com/en/signals/2397557) | 1181809.88 | 8.84 | 0.23 | that | 19.69 | 28 | XAUUSD | — | 3 hours ago | 57.94 |
+| 519 | Trust EA IC | MQL5 | [2385705](https://www.mql5.com/en/signals/2385705) | 155.38 | 5.37 | 3.91 | that | 35.73 | 44 | GBPUSD AUDUSD EURGBP GBPAUD EURUSD AUDCA | — | 4 days ago | 57.92 |
+| 520 | Swing Trading Ultima | MQL5 | [2393662](https://www.mql5.com/en/signals/2393662) | 161.93 | 1.79 | 1.84 | that | 15.91 | 93 | EURNZD+ GBPCAD+ AUDCAD+ GBPAUD+ NZDCAD+  | — | 14 hours ago | 57.92 |
+| 521 | Rua Pro | MQL5 | [2337791](https://www.mql5.com/en/signals/2337791) | 204.88 | 57.51 | 18.40 | that | 452.50 | 7125 | AUDCADf EURUSDf AUDNZDf GBPNZDf NZDCADf  | — | 9 hours ago | 57.89 |
+| 522 | Lazarus | MQL5 | [2323749](https://www.mql5.com/en/signals/2323749) | 164.08 | 38.33 | 15.18 | that | 241.59 | 477 | USDJPY GBPJPY USDMXN EURJPY CADJPY CHFJP | — | 3 days ago | 57.84 |
+| 523 | Managed Risk 4XC TR | MQL5 | [2358141](https://www.mql5.com/en/signals/2358141) | 69.23 | 19.78 | 18.86 | that | 128.60 | 3142 | NZDCADxx AUDCADxx AUDNZDxx | — | 5 days ago | 57.82 |
+| 524 | OmniCore Strategy | MQL5 | [2395297](https://www.mql5.com/en/signals/2395297) | 1253.80 | 20.37 | 4.37 | that | 158.27 | 54 | AUDUSD AUDCHF EURUSD CHFJPY EURCHF USDCH | — | 9 hours ago | 57.82 |
+| 525 | Survival Gold | MQL5 | [2368076](https://www.mql5.com/en/signals/2368076) | 1996.37 | 33.96 | 9.43 | that | 992.58 | 269 | XAUUSD | — | 3 days ago | 57.8 |
+| 526 | Gold Breakout PRO All Star | MQL5 | [2351091](https://www.mql5.com/en/signals/2351091) | 2948.50 | 35.31 | 9.89 | that | 1571.61 | 122 | XAUUSD BTCUSD | grid, martingale | 3 days ago | 57.77 |
+| 527 | Copy Athx IFX | MQL5 | [2371912](https://www.mql5.com/en/signals/2371912) | 296.39 | 24.85 | 5.98 | that | 98.64 | 1327 | NZDCAD+ AUDCAD+ | — | 5 days ago | 57.77 |
+| 528 | Steady | MQL5 | [2303631](https://www.mql5.com/en/signals/2303631) | 69.49 | 59.96 | 33.81 | that | 342.23 | 1180 | XAUUSD XBRUSD BTCUSD XAGUSD EURUSD USTEC | — | 4 hours ago | 57.76 |
+| 529 | INVESTOOL 1 | MQL5 | [2395565](https://www.mql5.com/en/signals/2395565) | 55449.89 | 10.98 | 0.69 | that | 43.82 | 17 | AUDUSD AUDJPY AUS200 CADJPY USDCAD EURGB | — | 7 hours ago | 57.72 |
+| 530 | RON ICL1 | MQL5 | [2389106](https://www.mql5.com/en/signals/2389106) | 517.13 | 16.54 | 2.76 | that | 51.98 | 970 | XAUUSD BTCUSD USTEC US500 US30 EURAUD AU | grid, martingale | 11 days ago | 57.7 |
+| 531 | Golden Sentinel Grid EA | MQL5 | [2395675](https://www.mql5.com/en/signals/2395675) | 716.05 | 10.43 | 0.46 | that | 8.38 | 22 | XAUUSD | grid | 22 hours ago | 57.7 |
+| 532 | MC RB | MQL5 | [2270515](https://www.mql5.com/en/signals/2270515) | 22.05 | 68.79 | 42.32 | that | 101.95 | 1103 | AUDNZD AUDCAD NZDCAD | — | 12 hours ago | 57.67 |
+| 533 | GOLD ARROW | MQL5 | [2380453](https://www.mql5.com/en/signals/2380453) | 219.32 | 41.20 | 11.96 | that | 218.09 | 471 | XAUUSD archived XAGUSD | — | 5 days ago | 57.67 |
+| 534 | EA Happy Algorithm PRO FM | MQL5 | [2273171](https://www.mql5.com/en/signals/2273171) | 25.18 | 41.61 | 31.74 | that | 81.12 | 1143 | EURUSD.fx USDCHF.fx | — | 5 hours ago | 57.65 |
+| 535 | EdgeX Live Account | MQL5 | [2396594](https://www.mql5.com/en/signals/2396594) | 3571193.23 | 10.63 | 0.46 | that | 49.46 | 44 | XAUUSD+ | — | 4 days ago | 57.65 |
+| 536 | EG Pamm | MQL5 | [2364382](https://www.mql5.com/en/signals/2364382) | 131.74 | 9.18 | 7.59 | that | 70.16 | 1837 | NZDCADxx AUDCADxx | — | 5 days ago | 57.65 |
+| 537 | RON ICL2 | MQL5 | [2389108](https://www.mql5.com/en/signals/2389108) | 441.37 | 16.82 | 2.76 | that | 47.47 | 982 | XAUUSD BTCUSD USTEC US500 US30 AUDCAD EU | grid, martingale | 11 days ago | 57.64 |
+| 538 | Youhave | MQL5 | [2393904](https://www.mql5.com/en/signals/2393904) | 5639.52 | 25.41 | 5.98 | that | 652.50 | 4380 | XAUUSD. | — | 2 hours ago | 57.63 |
+| 539 | ATG EA 31 | MQL5 | [2356340](https://www.mql5.com/en/signals/2356340) | 458.08 | 34.14 | 9.20 | that | 273.65 | 117 | XAUUSD | — | 4 hours ago | 57.6 |
+| 540 | Array Breakout X Gold Scalp 150 | MQL5 | [2396258](https://www.mql5.com/en/signals/2396258) | 17877.21 | 10.84 | 0.46 | that | 22.02 | 8 | XAUUSD | grid, martingale, dca | 4 days ago | 57.6 |
+| 541 | Stop Loss Forex Trader No Martingale | MQL5 | [2394142](https://www.mql5.com/en/signals/2394142) | 105.12 | 22.34 | 15.41 | that | 151.58 | 292 | USDJPY EURUSD XAUUSD | grid, martingale | 13 hours ago | 57.57 |
+| 542 | MoonDog EA | MQL5 | [2381309](https://www.mql5.com/en/signals/2381309) | 16622.23 | 20.14 | 3.91 | that | 430.18 | 263 | XAUUSD | — | 3 days ago | 57.57 |
+| 543 | Faster Than Turtle | MQL5 | [2396484](https://www.mql5.com/en/signals/2396484) | 1697.11 | 10.94 | 0.46 | that | 11.71 | 522 | XAUUSD | — | 5 hours ago | 57.57 |
+| 544 | EA test | MQL5 | [2397593](https://www.mql5.com/en/signals/2397593) | 2332675.25 | 10.42 | 0.23 | that | 21.26 | 802 | XAUUSD | — | 4 hours ago | 57.55 |
+| 545 | Aura Gold Pro Edition FPMarkets | MQL5 | [2358523](https://www.mql5.com/en/signals/2358523) | 1030.62 | 34.97 | 9.43 | that | 572.56 | 516 | XAUUSD | — | 4 hours ago | 57.54 |
+| 546 | Stormy | MQL5 | [2306187](https://www.mql5.com/en/signals/2306187) | 422.43 | 58.39 | 18.17 | that | 1122.39 | 1130 | AUDNZDb NZDCADb AUDCADb EURCADb EURCHFb  | — | 4 days ago | 57.52 |
+| 547 | TMGM 10585398 | MQL5 | [2392785](https://www.mql5.com/en/signals/2392785) | 474.89 | 23.61 | 5.06 | that | 109.07 | 1075 | XAUUSD GBPCAD GBPCHF AUDCHF EURAUD NZDCA | — | 2 hours ago | 57.47 |
+| 548 | FXLAB TRADING RULES 1 | MQL5 | [2396973](https://www.mql5.com/en/signals/2396973) | 269166.88 | 11.34 | 0.46 | that | 35.36 | 52 | GOLD# BTCUSD# | — | 7 hours ago | 57.47 |
+| 549 | DemTimPar | MQL5 | [2396689](https://www.mql5.com/en/signals/2396689) | 3072.17 | 11.39 | 0.46 | that | 14.17 | 9 | XAUUSD | — | 8 hours ago | 57.46 |
+| 550 | EURO SUPERB | MQL5 | [2396159](https://www.mql5.com/en/signals/2396159) | 186.54 | 8.11 | 0.69 | that | 6.24 | 48 | EURUSD | — | 5 hours ago | 57.42 |
+| 551 | GoldHunterPro | MQL5 | [2365208](https://www.mql5.com/en/signals/2365208) | 1372.90 | 29.95 | 7.36 | that | 420.57 | 255 | GOLD# | — | 3 days ago | 57.42 |
+| 552 | Azazello | MQL5 | [2287453](https://www.mql5.com/en/signals/2287453) | 114.13 | 47.78 | 23.69 | that | 349.57 | 13174 | USDJPY XAUUSD GBPJPY AUDNZD NZDCAD AUDCA | — | 26 minutes ago | 57.41 |
+| 553 | THE CHOSEN ONE from FXGP WMC | MQL5 | [2377696](https://www.mql5.com/en/signals/2377696) | 1316.28 | 24.68 | 5.29 | that | 221.71 | 349 | XAUUSD AUDNZD NZDCAD EURUSD | — | 3 days ago | 57.36 |
+| 554 | PJ 2 | MQL5 | [2183568](https://www.mql5.com/en/signals/2183568) | 40.01 | 57.65 | 35.65 | that | 171.80 | 4091 | OILCash VIX-AUG25 VIX-JUN25 VIX-SEP25 VI | — | 10 days ago | 57.35 |
+| 555 | WIND PRO | MQL5 | [2342791](https://www.mql5.com/en/signals/2342791) | 261.31 | 43.17 | 12.19 | that | 268.73 | 319 | XAUUSD BTCUSD archived | — | 2 hours ago | 57.33 |
+| 556 | Mon01 | MQL5 | [2357751](https://www.mql5.com/en/signals/2357751) | 91.82 | 19.38 | 15.41 | that | 130.83 | 23879 | XAUUSD GBPCAD GBPJPY GBPAUD CADJPY EURJP | — | 13 hours ago | 57.31 |
+| 557 | ABGsignals | MQL5 | [2369981](https://www.mql5.com/en/signals/2369981) | 553.45 | 32.85 | 8.28 | that | 265.17 | 992 | XAUUSD.pro GBPJPY.pro EURNZD.pro AUDJPY. | — | 7 hours ago | 57.31 |
+| 558 | The Golden Rocket | MQL5 | [2385842](https://www.mql5.com/en/signals/2385842) | 995.65 | 25.49 | 5.52 | that | 200.78 | 112 | XAUUSD.ecn | grid, martingale | 43 minutes ago | 57.31 |
+| 559 | BalanceDynamic | MQL5 | [2353706](https://www.mql5.com/en/signals/2353706) | 332.58 | 37.27 | 9.89 | that | 234.37 | 2533 | GBPUSD EURUSD USDCHF USDJPY | — | 4 hours ago | 57.28 |
+| 560 | Alfa 0003 | MQL5 | [2396754](https://www.mql5.com/en/signals/2396754) | 637.44 | 12.31 | 0.46 | that | 7.96 | 41 | EURUSDrfd XAUUSDrfd GBPUSDrfd | — | 2 hours ago | 57.23 |
+| 561 | TRG Gold | MQL5 | [2387489](https://www.mql5.com/en/signals/2387489) | 245.94 | 34.41 | 8.74 | that | 146.93 | 183 | AUDNZD.pro XAUUSD.pro NZDCAD.pro AUDCAD. | — | 3 days ago | 57.22 |
+| 562 | Home Trader | MQL5 | [2397510](https://www.mql5.com/en/signals/2397510) | 269686.30 | 12.38 | 0.46 | that | 35.37 | 50 | XAUUSDu | — | 10 hours ago | 57.21 |
+| 563 | VertexAlphaXM2 | MQL5 | [2397310](https://www.mql5.com/en/signals/2397310) | 183.12 | 7.36 | 0.46 | that | 4.07 | 9 | GOLD# US30Cash# | — | 4 days ago | 57.2 |
+| 564 | EURUSD Algo Trading | MQL5 | [2379670](https://www.mql5.com/en/signals/2379670) | 646.63 | 35.85 | 9.20 | that | 367.07 | 2395 | EURUSD AUDUSD | hedge | 42 minutes ago | 57.17 |
+| 565 | Sydney MT5 | MQL5 | [2354516](https://www.mql5.com/en/signals/2354516) | 25.77 | 63.92 | 39.33 | that | 112.01 | 767 | USDJPY GBPUSD | — | 4 days ago | 57.17 |
+| 566 | CARRO CAPITAL TRADER GRID 1 | MQL5 | [2373260](https://www.mql5.com/en/signals/2373260) | 506.71 | 41.46 | 11.27 | that | 443.69 | 4463 | GBPNZD EURCAD AUDNZD AUDCAD EURJPY USDCH | grid, martingale | 23 minutes ago | 57.15 |
+| 567 | EA GOLD39 | MQL5 | [2382085](https://www.mql5.com/en/signals/2382085) | 556.18 | 37.82 | 9.89 | that | 371.37 | 17075 | XAUUSD GBPCHF GBPCAD GBPUSD EURAUD USDJP | dca | 5 hours ago | 57.14 |
+| 568 | Experimental Code | MQL5 | [2346983](https://www.mql5.com/en/signals/2346983) | 751.47 | 40.92 | 11.04 | that | 617.39 | 292 | XAUUSD | — | 3 days ago | 57.13 |
+| 569 | Vendryy | MQL5 | [2397985](https://www.mql5.com/en/signals/2397985) | 54070.64 | 12.69 | 0.46 | that | 27.29 | 65 | NQ100.R | — | 3 hours ago | 57.13 |
+| 570 | AI 6CCY Account 261 | MQL5 | [2386895](https://www.mql5.com/en/signals/2386895) | 185.96 | 44.11 | 13.80 | that | 234.77 | 521 | AUDCAD# GBPCHF# NZDCAD# NZDUSD# USDCAD#  | — | 4 days ago | 57.12 |
+| 571 | Super Coool | MQL5 | [2208161](https://www.mql5.com/en/signals/2208161) | 46.47 | 61.28 | 35.88 | that | 213.04 | 10442 | USDJPY.s GBPUSD.s EURUSD.s AUDUSD.s NZDU | — | 3 hours ago | 57.09 |
+| 572 | GoldExtractor1 | MQL5 | [2381685](https://www.mql5.com/en/signals/2381685) | 854.98 | 42.99 | 11.73 | that | 807.70 | 914 | XAUUSD+ | — | 4 hours ago | 57.07 |
+| 573 | Forex Autopilot EURUSD | MQL5 | [2074470](https://www.mql5.com/en/signals/2074470) | 30.32 | 60.79 | 37.49 | that | 128.73 | 2769 | EURUSD AUDUSD AUDCAD NZDUSD GBPUSD NZDCA | — | 3 hours ago | 57.07 |
+| 574 | Pivot Grid | MQL5 | [2396092](https://www.mql5.com/en/signals/2396092) | 2664.51 | 13.59 | 0.69 | that | 21.03 | 69 | USDNOK EURJPY GBPUSD EURUSD GBPCAD GBPCH | grid | 2 hours ago | 57.06 |
+| 575 | PP65 | MQL5 | [2360697](https://www.mql5.com/en/signals/2360697) | 41.09 | 18.72 | 20.47 | that | 79.90 | 21073 | XAUUSD | — | 3 hours ago | 57.05 |
+| 576 | MultiCurnC | MQL5 | [2391583](https://www.mql5.com/en/signals/2391583) | 236.69 | 16.78 | 1.84 | that | 20.46 | 708 | EURUSD.r XAUUSD.r USDCHF.r EURJPY.r AUDC | — | 3 hours ago | 57.03 |
+| 577 | BuyCapital | MQL5 | [2367566](https://www.mql5.com/en/signals/2367566) | 88.80 | 6.82 | 10.58 | that | 75.12 | 72 | CHƯA ĐO ĐƯỢC | — | 4 days ago | 57.01 |
+| 578 | Pedro | MQL5 | [2254663](https://www.mql5.com/en/signals/2254663) | 26.58 | 36.07 | 28.52 | that | 75.09 | 8366 | EURUSD+ GBPUSD+ USDJPY+ USDCHF+ AUDNZD+  | — | 4 days ago | 56.99 |
+| 579 | Janus Zone | MQL5 | [2386128](https://www.mql5.com/en/signals/2386128) | 13477.53 | 20.23 | 2.99 | that | 239.96 | 162 | XAUUSD | — | 6 hours ago | 56.94 |
+| 580 | XAUDullis | MQL5 | [2389931](https://www.mql5.com/en/signals/2389931) | 218.01 | 17.20 | 1.84 | that | 19.41 | 75 | XAUUSD.r | — | 3 days ago | 56.93 |
+| 581 | Bitcoin Storm PRO | MQL5 | [2388338](https://www.mql5.com/en/signals/2388338) | 284.95 | 18.56 | 2.30 | that | 29.48 | 37 | BTCUSD | — | 5 days ago | 56.89 |
+| 582 | Dynamic Liquidity Intelligence XM100 | MQL5 | [2370969](https://www.mql5.com/en/signals/2370969) | 4906.50 | 29.18 | 6.21 | that | 657.72 | 229 | GOLD# | — | 4 hours ago | 56.84 |
+| 583 | Predator50U | MQL5 | [2381799](https://www.mql5.com/en/signals/2381799) | 25372.18 | 22.56 | 3.68 | that | 446.84 | 261 | XAUUSD | — | 4 hours ago | 56.81 |
+| 584 | IC 327 | MQL5 | [2342579](https://www.mql5.com/en/signals/2342579) | 226.70 | 45.33 | 12.19 | that | 232.88 | 2081 | EURUSD AUDCAD GBPUSD XAUUSD BTCUSD USDJP | — | 14 hours ago | 56.79 |
+| 585 | Quant stategy | MQL5 | [2387834](https://www.mql5.com/en/signals/2387834) | 2198.65 | 29.43 | 6.21 | that | 406.48 | 270 | XAUUSD EURUSD GBPUSD | — | 2 hours ago | 56.78 |
+| 586 | UpEverest MT5 | MQL5 | [2308091](https://www.mql5.com/en/signals/2308091) | 60.50 | 18.92 | 17.94 | that | 102.86 | 559 | AUDCAD | — | 4 hours ago | 56.77 |
+| 587 | LM | MQL5 | [2397859](https://www.mql5.com/en/signals/2397859) | 3716.98 | 13.54 | 0.23 | that | 7.23 | 12 | CHƯA ĐO ĐƯỢC | — | 2 hours ago | 56.77 |
+| 588 | Ellita Master | MQL5 | [2349087](https://www.mql5.com/en/signals/2349087) | 143.49 | 35.82 | 14.95 | that | 203.03 | 769 | XAUUSDm USOILm BTCUSDm XAGUSDm USDJPYm E | — | 3 days ago | 56.77 |
+| 589 | Precision BTC AI 2 | MQL5 | [2376777](https://www.mql5.com/en/signals/2376777) | 64395.88 | 27.41 | 5.29 | that | 1631.95 | 883 | BTCUSD XAUUSD-ECN | — | 2 minutes ago | 56.67 |
+| 590 | Complete Portfolio 1 | MQL5 | [2340546](https://www.mql5.com/en/signals/2340546) | 62.32 | 40.69 | 25.76 | that | 182.88 | 5143 | USDJPY XAUUSD WS30 SP500 GDAXI EURUSD ND | grid, martingale | 1 hour ago | 56.67 |
+| 591 | Newstrader28 | MQL5 | [2393894](https://www.mql5.com/en/signals/2393894) | 511.49 | 22.03 | 3.22 | that | 62.56 | 128 | USDJPY USDCAD USDCHF NZDUSD EURUSD GBPUS | — | 46 minutes ago | 56.64 |
+| 592 | BOA Scalper MT4 | MQL5 | [2397207](https://www.mql5.com/en/signals/2397207) | 9290.62 | 14.72 | 0.46 | that | 19.02 | 32 | XAUUSD | — | 7 hours ago | 56.63 |
+| 593 | IC 124 | MQL5 | [2391281](https://www.mql5.com/en/signals/2391281) | 994.10 | 17.80 | 1.61 | that | 37.85 | 112 | EURUSD GBPUSD XAUUSD | — | 2 hours ago | 56.62 |
+| 594 | ZOLL CP | MQL5 | [2283067](https://www.mql5.com/en/signals/2283067) | 11.75 | 14.97 | 21.62 | that | 22.16 | 8637 | USDJPY XAUUSD GBPJPY GBPUSD EURUSD NDX N | grid | 53 minutes ago | 56.55 |
+| 595 | PBX Alpha MFL | MQL5 | [2395687](https://www.mql5.com/en/signals/2395687) | 1067.96 | 15.77 | 0.69 | that | 15.18 | 47 | XAUUSD | — | 7 hours ago | 56.52 |
+| 596 | Bitcoin Trader | MQL5 | [2389297](https://www.mql5.com/en/signals/2389297) | 232.35 | 19.59 | 2.07 | that | 23.02 | 30 | BTCUSD | — | 5 days ago | 56.48 |
+| 597 | GANN LUNAR | MQL5 | [2358821](https://www.mql5.com/en/signals/2358821) | 212.50 | 47.81 | 12.65 | that | 232.39 | 296 | XAUUSD.pkn GBPJPY.pkn USDJPY.pkn GBPUSD. | — | 4 hours ago | 56.48 |
+| 598 | Darwin Swing Evo 4K | MQL5 | [2020753](https://www.mql5.com/en/signals/2020753) | 19.19 | 64.80 | 39.33 | that | 77.77 | 1962 | AUDJPYx CHFJPYx EURUSDx GBPJPYx NZDCADx  | — | 7 hours ago | 56.46 |
+| 599 | Vantage Precision BTC AI | MQL5 | [2376778](https://www.mql5.com/en/signals/2376778) | 2235.17 | 27.74 | 5.06 | that | 277.55 | 708 | BTCUSD XAUUSD+ | — | 2 minutes ago | 56.44 |
+| 600 | Autobot 11 | MQL5 | [2370117](https://www.mql5.com/en/signals/2370117) | 409.19 | 32.81 | 6.90 | that | 154.95 | 22781 | XAUUSD.sv | — | 16 hours ago | 56.4 |
+| 601 | B Capital | MQL5 | [2393066](https://www.mql5.com/en/signals/2393066) | 157.84 | 17.75 | 5.98 | that | 60.32 | 880 | AUDCAD | — | 8 hours ago | 56.39 |
+| 602 | TradeSentinel Apex | MQL5 | [2363322](https://www.mql5.com/en/signals/2363322) | 778.02 | 43.42 | 10.81 | that | 607.85 | 214 | XAUUSD+ USDJPY+ | — | 3 days ago | 56.35 |
+| 603 | Vatikan | MQL5 | [2385060](https://www.mql5.com/en/signals/2385060) | 450.99 | 34.84 | 7.59 | that | 194.29 | 366 | EURUSD# GBPUSD# USDJPY# GOLD# BRENTCash# | — | 8 hours ago | 56.35 |
+| 604 | FrankoScalp IC | MQL5 | [2372981](https://www.mql5.com/en/signals/2372981) | 222.40 | 28.79 | 5.29 | that | 67.54 | 85 | GBPCAD GBPCHF GBPUSD EURCHF EURUSD CADCH | — | 20 days ago | 56.33 |
+| 605 | King robot | MQL5 | [2393087](https://www.mql5.com/en/signals/2393087) | 701.76 | 22.15 | 2.76 | that | 61.41 | 1445 | EURJPY CHFJPY NZDUSD EURCHF AUDJPY USDJP | — | 2 hours ago | 56.3 |
+| 606 | Andalan Mods | MQL5 | [2395625](https://www.mql5.com/en/signals/2395625) | 2159181.18 | 17.24 | 0.92 | that | 114.93 | 85 | XAUUSD EURUSD | — | 15 days ago | 56.3 |
+| 607 | FootPrint Live Data | MQL5 | [2397477](https://www.mql5.com/en/signals/2397477) | 808.47 | 15.51 | 0.23 | that | 4.32 | 355 | XAUUSD-ECN BTCUSD ETHUSD | — | 3 minutes ago | 56.28 |
+| 608 | Nasdaq AI Precision | MQL5 | [2397619](https://www.mql5.com/en/signals/2397619) | 4867.68 | 16.13 | 0.46 | that | 16.15 | 56 | NAS100 | grid, martingale | 20 hours ago | 56.27 |
+| 609 | VS P4 Portfolio Lmax 1134 | MQL5 | [2360005](https://www.mql5.com/en/signals/2360005) | 446.63 | 37.70 | 8.51 | that | 233.54 | 430 | XAUUSD.lmx CHFJPY.lmx EURUSD.lmx | grid, martingale | 18 hours ago | 56.25 |
+| 610 | Yuki Fo set2 | MQL5 | [2396080](https://www.mql5.com/en/signals/2396080) | 147.95 | 1.22 | 0.69 | that | 5.36 | 71 | CADJPY+ EURCAD+ NZDCAD+ AUDNZD+ EURUSD+ | — | 6 hours ago | 56.25 |
+| 611 | X107 Dig in at every step | MQL5 | [2159139](https://www.mql5.com/en/signals/2159139) | 41.33 | 59.50 | 34.50 | that | 170.33 | 645 | GOLD# EURUSD# EURJPY# GBPJPY# USDJPY# US | — | 10 hours ago | 56.22 |
+| 612 | ConnectGain BR Moderado | MQL5 | [2376652](https://www.mql5.com/en/signals/2376652) | 80.89 | 14.46 | 13.11 | that | 91.09 | 1366 | NZDCADxx AUDCADxx AUDNZDxx GBPJPYxx GBPN | — | 19 hours ago | 56.19 |
+| 613 | Shunshi | MQL5 | [2395353](https://www.mql5.com/en/signals/2395353) | 232.55 | 17.73 | 0.92 | that | 9.65 | 86 | XAUUSD | — | 17 hours ago | 56.18 |
+| 614 | R MD | MQL5 | [2390594](https://www.mql5.com/en/signals/2390594) | 166.83 | 10.44 | 1.84 | that | 16.24 | 51 | XAUUSD | — | 4 days ago | 56.13 |
+| 615 | FX Premium | MQL5 | [2309189](https://www.mql5.com/en/signals/2309189) | 17.01 | 9.13 | 18.17 | that | 26.85 | 5939 | AUDNZD AUDCAD NZDCAD archived EURUSD | martingale | 2 hours ago | 56.11 |
+| 616 | WE MOVE SAFELY 2 | MQL5 | [2394111](https://www.mql5.com/en/signals/2394111) | 404.75 | 22.30 | 2.53 | that | 40.68 | 789 | XAUUSD.m USDCHF.m EURCHF.m NZDUSD.m AUDU | — | 3 hours ago | 56.11 |
+| 617 | CombiGold1 | MQL5 | [2396819](https://www.mql5.com/en/signals/2396819) | 150.32 | 1.96 | 0.46 | that | 3.58 | 16 | XAUUSD EURAUD EURGBP EURCHF EURUSD EURNZ | grid, martingale | 1 hour ago | 56.09 |
+| 618 | The Forex Exchanger 2 | MQL5 | [2111323](https://www.mql5.com/en/signals/2111323) | 52.91 | 66.08 | 35.42 | that | 250.24 | 381 | USDCAD EURUSD GBPCAD AUDNZD AUDUSD GBPCH | — | 3 days ago | 56.06 |
+| 619 | R47 10eNAS100 Since October 2026 | MQL5 | [2397770](https://www.mql5.com/en/signals/2397770) | 13023.09 | 18.88 | 1.15 | that | 59.58 | 268 | NAS100 | — | 3 hours ago | 56.05 |
+| 620 | Cuan Club Agresif 7575 | MQL5 | [2364335](https://www.mql5.com/en/signals/2364335) | 326.99 | 36.15 | 7.59 | that | 150.46 | 345 | AUDCAD-STD | — | 4 hours ago | 56.02 |
+| 621 | US2000 Missile Test XXI | MQL5 | [2374733](https://www.mql5.com/en/signals/2374733) | 404.18 | 30.78 | 5.52 | that | 110.47 | 6272 | US2000 | grid | 59 minutes ago | 55.98 |
+| 622 | Lucky Cat MT5 | MQL5 | [2359404](https://www.mql5.com/en/signals/2359404) | 421.94 | 41.30 | 9.43 | that | 266.38 | 748 | XAUUSD | grid, martingale | 3 days ago | 55.96 |
+| 623 | RICH ULTIMA OMNI CORE | MQL5 | [2362617](https://www.mql5.com/en/signals/2362617) | 438.63 | 37.63 | 8.05 | that | 209.44 | 491 | USDJPY.s EURJPY.s GBPJPY.s XAUUSD.s | martingale, dca | 3 hours ago | 55.96 |
+| 624 | GodMode | MQL5 | [2393913](https://www.mql5.com/en/signals/2393913) | 1922.90 | 19.33 | 1.15 | that | 33.40 | 88 | NZDCAD EURCHF XAGUSD AUDNZD NZDSGD AUDCH | — | 4 hours ago | 55.93 |
+| 625 | ECN_Portafolio_46_Aggresive | MQL5 | [2378963](https://www.mql5.com/en/signals/2378963) | 1414.52 | 27.95 | 4.37 | that | 169.04 | 463 | USDJPY XAUUSD EURUSD XAGUSD AUDUSD AMZN  | — | 4 hours ago | 55.93 |
+| 626 | TriForce Engine | MQL5 | [2353870](https://www.mql5.com/en/signals/2353870) | 282.09 | 41.59 | 9.43 | that | 186.74 | 123 | GBPJPY.r EURJPY.r EURUSD.r NZDCAD.r AUDU | — | 4 days ago | 55.89 |
+| 627 | GOLD MINER SAFE | MQL5 | [2377026](https://www.mql5.com/en/signals/2377026) | 433.55 | 30.57 | 5.29 | that | 109.20 | 21964 | XAUUSD | — | 2 hours ago | 55.88 |
+| 628 | BBLKS | MQL5 | [2383024](https://www.mql5.com/en/signals/2383024) | 199.30 | 26.12 | 3.68 | that | 39.96 | 272 | AUDCAD+ EURUSD+ USDCAD+ EURGBP+ | — | 3 hours ago | 55.87 |
+| 629 | WE TRADE MULTIASSET | MQL5 | [2396014](https://www.mql5.com/en/signals/2396014) | 525.73 | 18.44 | 0.69 | that | 11.12 | 192 | BTCUSD EURUSD AUDCAD XAUUSD GBPUSD AUDUS | — | 4 hours ago | 55.85 |
+| 630 | DMG GALAXY GOLD INSTAFOREX Scalper | MQL5 | [2392944](https://www.mql5.com/en/signals/2392944) | 136.58 | 1.35 | 1.38 | that | 10.41 | 485 | GOLD.m XAUUSD.m | grid | 5 hours ago | 55.83 |
+| 631 | A171 Soar to great heights | MQL5 | [2349987](https://www.mql5.com/en/signals/2349987) | 747.11 | 44.92 | 10.58 | that | 557.86 | 264 | GOLD | — | 3 days ago | 55.82 |
+| 632 | Sams | MQL5 | [2393341](https://www.mql5.com/en/signals/2393341) | 13952.59 | 19.97 | 1.15 | that | 60.63 | 58 | NZDUSDb Nasdaq100 EuroStoxx50 USDCADb Do | — | 5 days ago | 55.77 |
+| 633 | Solo levelling | MQL5 | [2356978](https://www.mql5.com/en/signals/2356978) | 341.72 | 40.86 | 8.97 | that | 203.56 | 2017 | XAUUSD | — | 4 days ago | 55.77 |
+| 634 | Farmed Hedge Yield Zcopy | MQL5 | [2361272](https://www.mql5.com/en/signals/2361272) | 507.85 | 39.47 | 8.28 | that | 247.39 | 1755 | EURAUD GBPAUD USDCHF EURUSD AUDCAD AUDNZ | hedge | 4 hours ago | 55.65 |
+| 635 | Exness Mean Strategy | MQL5 | [2285019](https://www.mql5.com/en/signals/2285019) | 282.44 | 74.52 | 21.39 | that | 992.48 | 4227 | EURUSDm NZDCADm AUDCADm AUDNZDm EURJPYm  | dca | 43 minutes ago | 55.63 |
+| 636 | INVESTOOL 2 | MQL5 | [2397168](https://www.mql5.com/en/signals/2397168) | 154155.37 | 18.80 | 0.46 | that | 32.50 | 11 | EURGBP NZDCHF GBPUSD EURCHF GBPCHF CADCH | — | 14 hours ago | 55.61 |
+| 637 | Sage 2 Gains | MQL5 | [2395071](https://www.mql5.com/en/signals/2395071) | 2395.70 | 26.14 | 3.22 | that | 137.09 | 461 | USDJPY CADJPY EURJPY XAUUSD USDCAD GBPAU | — | 5 hours ago | 55.61 |
+| 638 | Swing Titan | MQL5 | [2397839](https://www.mql5.com/en/signals/2397839) | 448873.87 | 18.17 | 0.23 | that | 17.49 | 8 | XAUUSD_i | — | 11 hours ago | 55.61 |
+| 639 | EA KWE USD | MQL5 | [2397512](https://www.mql5.com/en/signals/2397512) | 7390713.39 | 18.23 | 0.23 | that | 23.97 | 78 | GBPUSD EURUSD XAUUSD | hedge | 1 hour ago | 55.6 |
+| 640 | Soember Oerip | MQL5 | [2353176](https://www.mql5.com/en/signals/2353176) | 516.66 | 57.51 | 14.95 | that | 864.41 | 2658 | XAUUSDz XAGUSDz | — | 6 hours ago | 55.59 |
+| 641 | Farmed Hedge Yield Copy I | MQL5 | [2356376](https://www.mql5.com/en/signals/2356376) | 1039.17 | 42.20 | 9.20 | that | 545.73 | 2378 | EURAUD.p GBPAUD.p EURUSD.p AUDCAD.p GBPC | hedge | 4 hours ago | 55.58 |
+| 642 | Titan Gravity Strategy | MQL5 | [2362566](https://www.mql5.com/en/signals/2362566) | 1117.17 | 39.92 | 8.28 | that | 460.91 | 656 | AUDCAD NZDCAD AUDNZD XAUUSD | — | 6 hours ago | 55.54 |
+| 643 | Trade With Dre Challenge 500usd | MQL5 | [2363457](https://www.mql5.com/en/signals/2363457) | 3829.13 | 38.77 | 7.82 | that | 993.83 | 1548 | XAUUSD.ecn | — | 3 days ago | 55.52 |
+| 644 | AlfaVova | MQL5 | [2292103](https://www.mql5.com/en/signals/2292103) | 97.99 | 47.42 | 22.54 | that | 260.74 | 851 | GBPUSDrfd EURUSDrfd EURGBPrfd AUDCADrfd  | — | 7 minutes ago | 55.52 |
+| 645 | Pattern Recognition Portfolio | MQL5 | [2340550](https://www.mql5.com/en/signals/2340550) | 101.85 | 27.72 | 14.72 | that | 136.68 | 1410 | USDJPY XAUUSD EURUSD WS30 GDAXI SP500 ND | grid, martingale | 1 hour ago | 55.52 |
+| 646 | Dynamic Liquidity Intelligence HFM50 | MQL5 | [2373900](https://www.mql5.com/en/signals/2373900) | 72294.45 | 32.69 | 5.52 | that | 1967.59 | 201 | XAUUSDr | — | 4 hours ago | 55.51 |
+| 647 | HedGinG GUCJ B | MQL5 | [2365401](https://www.mql5.com/en/signals/2365401) | 1090.37 | 45.00 | 10.12 | that | 707.53 | 1062 | GBPUSD CADJPY | hedge | 9 hours ago | 55.5 |
+| 648 | ICT FX 2 | MQL5 | [2394146](https://www.mql5.com/en/signals/2394146) | 183.18 | 16.06 | 1.15 | that | 10.49 | 91 | AUDCHF CHFJPY EURCAD EURJPY AUDNZD NZDCH | grid | 2 hours ago | 55.49 |
+| 649 | Basket | MQL5 | [2386274](https://www.mql5.com/en/signals/2386274) | 1430.40 | 35.47 | 6.44 | that | 332.36 | 239 | USDJPY AUDJPY EURJPY GBPJPY JP225 BTCUSD | — | 15 minutes ago | 55.43 |
+| 650 | HedGinG AUAC B | MQL5 | [2365512](https://www.mql5.com/en/signals/2365512) | 354.76 | 35.50 | 6.44 | that | 125.43 | 310 | AUDCAD AUDUSD | hedge | 6 hours ago | 55.42 |
+| 651 | Titan Forge EA MT5 | MQL5 | [2388935](https://www.mql5.com/en/signals/2388935) | 142724.51 | 29.96 | 4.37 | that | 1308.88 | 26 | XAUUSD.ls | — | 19 hours ago | 55.42 |
+| 652 | RozaOne MT5 | MQL5 | [2393676](https://www.mql5.com/en/signals/2393676) | 138.27 | 3.63 | 1.38 | that | 10.50 | 32 | XAUUSD | — | 4 days ago | 55.38 |
+| 653 | CHARLES666 | MQL5 | [2397989](https://www.mql5.com/en/signals/2397989) | 643.46 | 19.31 | 0.23 | that | 3.92 | 15 | EURCAD AUDCAD AUDJPY USDCAD BTCUSD EURJP | — | 9 minutes ago | 55.33 |
+| 654 | Yggdrasill | MQL5 | [2397709](https://www.mql5.com/en/signals/2397709) | 55.92 | 0.07 | 9.20 | that | 40.57 | 2629 | OILCash | grid | 4 days ago | 55.31 |
+| 655 | GodTier Phalanx AI | MQL5 | [2398154](https://www.mql5.com/en/signals/2398154) | 320596.07 | 20.46 | 0.46 | that | 36.27 | 31 | XAUUSD-ECN | grid, martingale, dca | 2 hours ago | 55.19 |
+| 656 | Soft Trade Otomatis | MQL5 | [2379018](https://www.mql5.com/en/signals/2379018) | 407.50 | 57.28 | 14.26 | that | 589.12 | 922 | EURUSD archived | — | 6 hours ago | 55.19 |
+| 657 | LANCER | MQL5 | [2356275](https://www.mql5.com/en/signals/2356275) | 10.90 | 42.90 | 30.13 | that | 29.66 | 762 | USDJPY KC_Z6_CFD Coffee_Z4 Coffee_U4 Cof | — | 12 hours ago | 55.18 |
+| 658 | Onyx MT5 | MQL5 | [2369976](https://www.mql5.com/en/signals/2369976) | 6057.25 | 36.58 | 6.44 | that | 812.65 | 80 | XAUUSD+ | — | 4 days ago | 55.15 |
+| 659 | Custard Apple Lee | MQL5 | [2394305](https://www.mql5.com/en/signals/2394305) | 130.26 | 10.18 | 4.37 | that | 35.49 | 95 | EURUSD# EURGBP# USDJPY# USDCAD# NZDCHF# | — | 22 hours ago | 55.14 |
+| 660 | RBS Room M15 | MQL5 | [2398162](https://www.mql5.com/en/signals/2398162) | 173.90 | 12.25 | 0.23 | that | 1.95 | 20 | XAUUSD | grid, martingale, dca | 6 minutes ago | 55.13 |
+| 661 | One Man Army One Shot | MQL5 | [2332504](https://www.mql5.com/en/signals/2332504) | 47.72 | 10.65 | 13.80 | that | 56.62 | 779 | AUDCAD AUDSGD USDCHF GBPCAD CADCHF EURAU | — | 2 hours ago | 55.12 |
+| 662 | Zoo2 Sharpe | MQL5 | [2382757](https://www.mql5.com/en/signals/2382757) | 214.26 | 29.34 | 3.68 | that | 42.07 | 600 | XAUUSD+ | — | 6 hours ago | 55.12 |
+| 663 | MySunnyRetirementMT5 | MQL5 | [2397266](https://www.mql5.com/en/signals/2397266) | 220.91 | 20.12 | 0.23 | that | 2.26 | 22 | BTCUSD US2000 | — | 8 hours ago | 55.12 |
+| 664 | WL Club | MQL5 | [2375859](https://www.mql5.com/en/signals/2375859) | 177.84 | 77.32 | 24.15 | that | 681.88 | 482 | US30 USDJPY SWI20 CHINA50 XAUUSD XTIUSD  | — | 1 hour ago | 55.11 |
+| 665 | PivotTrend Synergy | MQL5 | [2389092](https://www.mql5.com/en/signals/2389092) | 420.48 | 24.58 | 1.84 | that | 28.78 | 501 | XAUUSD DE30 BTCUSD USOIL US30 USDJPY EUR | — | 11 days ago | 55.08 |
+| 666 | COPYFLOW | MQL5 | [2288781](https://www.mql5.com/en/signals/2288781) | 271.81 | 74.33 | 20.47 | that | 839.43 | 3630 | XAGUSD GBPAUD GBPNZD GBPJPY USDJPY CADJP | — | 2 hours ago | 55.06 |
+| 667 | Farmed Hedge Yield VCopy | MQL5 | [2357156](https://www.mql5.com/en/signals/2357156) | 987.31 | 44.36 | 9.20 | that | 523.07 | 2276 | EURAUD+ GBPAUD+ EURUSD+ AUDCAD+ AUDNZD+  | hedge | 4 hours ago | 55.04 |
+| 668 | Weekend | MQL5 | [2394986](https://www.mql5.com/en/signals/2394986) | 109.74 | 10.27 | 6.44 | that | 48.81 | 104 | EURCAD GBPAUD GBPCAD GBPJPY EURAUD USDCH | — | 1 day ago | 54.96 |
+| 669 | SynerTrend | MQL5 | [2283124](https://www.mql5.com/en/signals/2283124) | 84.11 | 43.84 | 21.85 | that | 203.86 | 2288 | EURUSD | grid, dca | 2 hours ago | 54.91 |
+| 670 | Gndouz | MQL5 | [2397435](https://www.mql5.com/en/signals/2397435) | 24630.78 | 21.08 | 0.23 | that | 11.14 | 10 | GOLD US100Cash | — | 2 hours ago | 54.88 |
+| 671 | Reinassence Quant HOME01 140926 | MQL5 | [2393175](https://www.mql5.com/en/signals/2393175) | 159.72 | 13.35 | 1.84 | that | 15.76 | 511 | XAUUSD AUDNZD AUDCAD GBPUSD USDJPY EURJP | — | 4 hours ago | 54.87 |
+| 672 | SMART AI SIGNAL PRIME | MQL5 | [2379924](https://www.mql5.com/en/signals/2379924) | 875.60 | 35.86 | 5.75 | that | 197.87 | 985 | EURUSD | martingale | 7 hours ago | 54.87 |
+| 673 | BV Trader | MQL5 | [2364493](https://www.mql5.com/en/signals/2364493) | 142.58 | 45.03 | 15.64 | that | 217.39 | 1230 | XAUUSD USDJPY CHFJPY GBPJPY GBPUSD EURUS | hedge | 37 minutes ago | 54.86 |
+| 674 | Ekalaya HW | MQL5 | [2394258](https://www.mql5.com/en/signals/2394258) | 417.86 | 23.77 | 1.15 | that | 17.07 | 56 | EURUSD GBPUSD | — | 12 hours ago | 54.82 |
+| 675 | Market Cycles Order Flow Signal | MQL5 | [2362087](https://www.mql5.com/en/signals/2362087) | 123.83 | 44.48 | 17.48 | that | 223.39 | 1960 | USDJPY GBPJPY XAUUSD EURJPY XAUJPY XBRUS | grid, martingale | 51 minutes ago | 54.82 |
+| 676 | Gold Breaker HFM | MQL5 | [2281406](https://www.mql5.com/en/signals/2281406) | 186.58 | 78.09 | 23.00 | that | 652.30 | 466 | XAUUSD | grid, martingale, dca | 3 days ago | 54.8 |
+| 677 | Pips forever | MQL5 | [2395269](https://www.mql5.com/en/signals/2395269) | 229283.18 | 23.91 | 1.15 | that | 109.92 | 66 | EURUSD | — | 3 hours ago | 54.79 |
+| 678 | Farmed Hedge Showcase II | MQL5 | [2364302](https://www.mql5.com/en/signals/2364302) | 805.09 | 43.53 | 8.51 | that | 376.93 | 1613 | EURAUD GBPAUD AUDNZD USDCHF NZDCAD AUDCA | hedge | 4 hours ago | 54.79 |
+| 679 | B4434 Ben12ccy | MQL5 | [2327770](https://www.mql5.com/en/signals/2327770) | 1201.93 | 68.87 | 17.94 | that | 4537.75 | 2785 | GBPJPY USDJPY GBPNZD GBPUSD EURJPY CHFJP | — | 12 hours ago | 54.74 |
+| 680 | ALPHA HERO | MQL5 | [2362896](https://www.mql5.com/en/signals/2362896) | 41.53 | 6.35 | 12.19 | that | 42.31 | 2988 | GBPAUD GBPUSD EURUSD archived | — | 9 hours ago | 54.65 |
+| 681 | Beriv Consulting | MQL5 | [2381445](https://www.mql5.com/en/signals/2381445) | 25.77 | 2.95 | 12.65 | that | 27.34 | 1101 | XAUUSD AUDCAD EURUSD USDJPY AUDUSD | — | 9 hours ago | 54.63 |
+| 682 | Breakthrough one order at a time | MQL5 | [2384416](https://www.mql5.com/en/signals/2384416) | 1747.43 | 36.98 | 5.75 | that | 304.48 | 14790 | XAUUSDecn | grid, martingale, hedge | 3 days ago | 54.59 |
+| 683 | XYZ Goldscalper | MQL5 | [2393167](https://www.mql5.com/en/signals/2393167) | 5387.83 | 31.73 | 3.68 | that | 241.52 | 437 | XAUUSD | — | 3 days ago | 54.52 |
+| 684 | AC INSIDE | MQL5 | [2378210](https://www.mql5.com/en/signals/2378210) | 23.20 | 4.58 | 13.34 | that | 26.10 | 1456 | AUDCAD.s | — | 13 hours ago | 54.49 |
+| 685 | Leto26 | MQL5 | [2388503](https://www.mql5.com/en/signals/2388503) | 128.28 | 6.68 | 2.30 | that | 17.14 | 273 | EURUSD | — | 2 hours ago | 54.48 |
+| 686 | Gold TMGM | MQL5 | [2395375](https://www.mql5.com/en/signals/2395375) | 169.26 | 14.11 | 0.46 | that | 3.87 | 167 | XAUUSD | — | 7 days ago | 54.47 |
+| 687 | Apex QQ | MQL5 | [2397654](https://www.mql5.com/en/signals/2397654) | 733210.87 | 22.84 | 0.23 | that | 18.60 | 39 | XAUUSD-STD | grid | 4 hours ago | 54.44 |
+| 688 | Einstein | MQL5 | [2397226](https://www.mql5.com/en/signals/2397226) | 452.39 | 23.14 | 0.23 | that | 3.33 | 330 | XAUUSD+ | hedge | 4 hours ago | 54.37 |
+| 689 | Sage Master Xo | MQL5 | [2384359](https://www.mql5.com/en/signals/2384359) | 198.35 | 36.23 | 5.29 | that | 61.91 | 784 | EURJPY USDJPY CADJPY GOLD AUDJPY EURUSD  | — | 51 minutes ago | 54.35 |
+| 690 | UpFuji MT5 | MQL5 | [2308095](https://www.mql5.com/en/signals/2308095) | 70.00 | 31.53 | 17.94 | that | 121.07 | 639 | AUDCAD | grid | 4 hours ago | 54.33 |
+| 691 | WhieFX Copy Trade on Headway | MQL5 | [2396202](https://www.mql5.com/en/signals/2396202) | 145.10 | 8.13 | 0.69 | that | 5.29 | 267 | XAUUSD USDJPY GBPUSD EURUSD USDCHF | — | 33 minutes ago | 54.31 |
+| 692 | GapTrading | MQL5 | [2268644](https://www.mql5.com/en/signals/2268644) | 33.39 | 50.08 | 28.98 | that | 100.54 | 1567 | GBPCHF NZDUSD EURUSD EURCAD EURAUD USDCH | — | 3 hours ago | 54.3 |
+| 693 | Goldorah | MQL5 | [2394990](https://www.mql5.com/en/signals/2394990) | 125.15 | 2.79 | 0.92 | that | 6.42 | 46 | XAUUSD | — | 9 hours ago | 54.3 |
+| 694 | MJW Portfolio 1 | MQL5 | [2393383](https://www.mql5.com/en/signals/2393383) | 385.36 | 31.41 | 3.22 | that | 52.79 | 595 | XAUUSDp EURUSDp GBPUSDp AUDCADp USDCADp  | — | 8 minutes ago | 54.29 |
+| 695 | OmniTrend PRO | MQL5 | [2397231](https://www.mql5.com/en/signals/2397231) | 967.07 | 24.20 | 0.46 | that | 9.50 | 46 | AUDUSD USDCHF EURCHF GBPCHF USDJPY USDCA | — | 3 hours ago | 54.26 |
+| 696 | Gold Dream | MQL5 | [2395711](https://www.mql5.com/en/signals/2395711) | 3767.92 | 24.78 | 0.69 | that | 23.39 | 60 | XBRUSD.pro XAUUSD.pro NAS100 | — | 7 hours ago | 54.26 |
+| 697 | Chiroptera Global Prime | MQL5 | [2339732](https://www.mql5.com/en/signals/2339732) | 2525.11 | 56.81 | 12.65 | that | 3033.41 | 3073 | GBPAUD EURCAD AUDCAD GBPUSD GBPCAD EURAU | — | 22 hours ago | 54.23 |
+| 698 | GOLD_HEDGING | MQL5 | [2396480](https://www.mql5.com/en/signals/2396480) | 386.54 | 33.67 | 3.91 | that | 67.45 | 31434 | XAUUSD.s | — | 10 hours ago | 54.19 |
+| 699 | Kp0809 | MQL5 | [2389119](https://www.mql5.com/en/signals/2389119) | 133.87 | 25.65 | 8.28 | that | 79.72 | 10028 | XAUUSD | — | 7 hours ago | 54.15 |
+| 700 | Gold Rash ECN | MQL5 | [2395095](https://www.mql5.com/en/signals/2395095) | 1961.23 | 27.17 | 1.38 | that | 41.62 | 314 | XAUUSD+ | — | 11 hours ago | 54.13 |
+| 701 | Wong2 | MQL5 | [2382266](https://www.mql5.com/en/signals/2382266) | 122.13 | 21.15 | 7.82 | that | 68.22 | 956 | XAGUSD CHFJPY EURJPY EURNZD USDJPY EURAU | — | 1 hour ago | 54.09 |
+| 702 | Cryptowanlanid Multi Vantage | MQL5 | [2323235](https://www.mql5.com/en/signals/2323235) | 626.46 | 63.49 | 14.95 | that | 1082.84 | 7810 | GBPNZD EURCAD AUDNZD EURJPY AUDCAD GBPAU | — | 3 hours ago | 54.09 |
+| 703 | GGAccel | MQL5 | [2386131](https://www.mql5.com/en/signals/2386131) | 4101.66 | 47.61 | 8.97 | that | 1534.96 | 182 | AUDCAD EURCHF | — | 49 minutes ago | 54.08 |
+| 704 | Cuanin AUDCAD V305263 15K | MQL5 | [2396199](https://www.mql5.com/en/signals/2396199) | 127.44 | 3.23 | 0.46 | that | 3.20 | 98 | GBPCAD-STD AUDCAD-STD EURCAD-STD NZDCAD- | — | 6 hours ago | 54.06 |
+| 705 | Luxor Quant Partners | MQL5 | [2396914](https://www.mql5.com/en/signals/2396914) | 119.70 | 0.32 | 0.23 | that | 1.52 | 71 | GOLD.m | — | 3 days ago | 54.05 |
+| 706 | Only Gold | MQL5 | [2372234](https://www.mql5.com/en/signals/2372234) | 181.50 | 34.43 | 5.98 | that | 67.49 | 85 | Gold_i XAUUSD_i EURUSD_i | — | 4 days ago | 53.99 |
+| 707 | OmniTrend Multisignal | MQL5 | [2397234](https://www.mql5.com/en/signals/2397234) | 435128.18 | 24.69 | 0.23 | that | 17.42 | 49 | GBPCHF CHFJPY NZDUSD USDJPY AUDUSD USDCA | — | 3 hours ago | 53.98 |
+| 708 | NoseBleed | MQL5 | [2397496](https://www.mql5.com/en/signals/2397496) | 8384050.08 | 24.72 | 0.23 | that | 24.27 | 14 | XAUUSD | — | 7 hours ago | 53.97 |
+| 709 | Planet FX | MQL5 | [2396312](https://www.mql5.com/en/signals/2396312) | 177.50 | 18.65 | 0.46 | that | 3.99 | 92 | NZDCAD EURCAD AUDUSD | — | 12 hours ago | 53.96 |
+| 710 | Multi Asset Trading | MQL5 | [2328739](https://www.mql5.com/en/signals/2328739) | 10.03 | 4.15 | 13.80 | that | 11.62 | 121 | US500.p GER40.p US2000.p NAS100.p EURUSD | grid, martingale | 15 hours ago | 53.91 |
+| 711 | Vien01 | MQL5 | [2397201](https://www.mql5.com/en/signals/2397201) | 1302050.90 | 25.62 | 0.46 | that | 43.79 | 137 | USDJPY GBPUSD EURUSD BTCUSD NZDUSD USDCA | — | 3 hours ago | 53.9 |
+| 712 | IC Trading 50K Live | MQL5 | [2223417](https://www.mql5.com/en/signals/2223417) | 97.52 | 77.82 | 31.51 | that | 497.31 | 4769 | US30 DE40 USTEC XAUUSD GBPUSD USDJPY EUR | — | 1 hour ago | 53.87 |
+| 713 | XAU FXTRADING | MQL5 | [2384657](https://www.mql5.com/en/signals/2384657) | 147.86 | 22.43 | 5.06 | that | 46.63 | 117 | XAUUSD.sd BTCUSD.sd | — | 4 days ago | 53.86 |
+| 714 | Solyra | MQL5 | [2382688](https://www.mql5.com/en/signals/2382688) | 934.01 | 54.74 | 11.27 | that | 797.03 | 320 | GBPUSD XAUUSD | — | 14 hours ago | 53.83 |
+| 715 | Estrategia SPIA | MQL5 | [2395457](https://www.mql5.com/en/signals/2395457) | 17.63 | 4.45 | 12.88 | that | 19.04 | 141 | XAUUSDp XAUUSD.p | — | 6 days ago | 53.8 |
+| 716 | GoldCyle I | MQL5 | [2388353](https://www.mql5.com/en/signals/2388353) | 1353.70 | 38.92 | 5.29 | that | 225.43 | 118 | XAUUSD | — | 4 hours ago | 53.8 |
+| 717 | STEVE_M RLKS_10YR_1M VT069 | MQL5 | [2308681](https://www.mql5.com/en/signals/2308681) | 37.82 | 24.11 | 17.94 | that | 61.53 | 3975 | GBPAUD-VIP EURJPY-VIP AUDCAD-VIP AUDSGD- | — | 1 hour ago | 53.77 |
+| 718 | Trend Master Zero | MQL5 | [2389315](https://www.mql5.com/en/signals/2389315) | 34.06 | 11.38 | 13.57 | that | 39.30 | 20401 | XAUUSD XTIUSD SP500 EURUSD UK100 XAGUSD  | — | 55 minutes ago | 53.76 |
+| 719 | Smart Multipair Algo | MQL5 | [2394524](https://www.mql5.com/en/signals/2394524) | 3663.81 | 29.89 | 1.84 | that | 74.42 | 792 | USDCHF USDCAD AUDNZD EURUSD GBPCHF AUDCH | — | 2 hours ago | 53.75 |
+| 720 | Jaya bersama XM 1 | MQL5 | [2183815](https://www.mql5.com/en/signals/2183815) | 82.30 | 79.84 | 33.81 | that | 442.95 | 442 | EURUSD BTCUSD | — | 4 hours ago | 53.75 |
+| 721 | TMGM0854 | MQL5 | [2357677](https://www.mql5.com/en/signals/2357677) | 14.78 | 4.45 | 13.11 | that | 16.25 | 218 | XAUUSD | — | 8 hours ago | 53.74 |
+| 722 | Dual DCA | MQL5 | [2326642](https://www.mql5.com/en/signals/2326642) | 96.99 | 40.78 | 17.48 | that | 168.48 | 149 | AUDCADm# NZDCADm# GOLDm# | dca | 10 hours ago | 53.73 |
+| 723 | Fortis | MQL5 | [2397200](https://www.mql5.com/en/signals/2397200) | 410686.99 | 25.86 | 0.23 | that | 17.29 | 24 | XAUUSDm BTCUSDm | — | 3 days ago | 53.69 |
+| 724 | NarCDraficsDefi | MQL5 | [2397853](https://www.mql5.com/en/signals/2397853) | 117.45 | 1.07 | 0.23 | that | 1.50 | 39 | XAUUSD.h | — | 3 hours ago | 53.69 |
+| 725 | Rudy74 | MQL5 | [2360608](https://www.mql5.com/en/signals/2360608) | 143.94 | 41.08 | 12.19 | that | 147.41 | 3213 | XAUUSD NAS100 US500 US30 GER40 GBPAUD EU | grid, martingale, dca | 12 hours ago | 53.65 |
+| 726 | Ultima Aetheris Signal Studio | MQL5 | [2396949](https://www.mql5.com/en/signals/2396949) | 2005.38 | 26.69 | 0.46 | that | 12.39 | 55 | XAUUSD+ | — | 9 hours ago | 53.63 |
+| 727 | Rocketride AN NC | MQL5 | [2303055](https://www.mql5.com/en/signals/2303055) | 34.33 | 66.02 | 33.81 | that | 129.70 | 1369 | NZDCAD AUDNZD EURUSD GBPUSD USDJPY | — | 6 hours ago | 53.61 |
+| 728 | Gold G_Leo_Van | MQL5 | [2396138](https://www.mql5.com/en/signals/2396138) | 136.22 | 7.71 | 0.46 | that | 3.35 | 11 | XAUUSD+ | — | 3 days ago | 53.6 |
+| 729 | SmartBear | MQL5 | [2396335](https://www.mql5.com/en/signals/2396335) | 22001.90 | 26.99 | 0.46 | that | 22.99 | 48 | GBPUSD EURUSD | — | 12 hours ago | 53.56 |
+| 730 | Eriksson Systems Complete Portfolio | MQL5 | [2340542](https://www.mql5.com/en/signals/2340542) | 187.83 | 74.90 | 19.78 | that | 471.23 | 6688 | BTCUSD USDJPY XAUUSD US30 USTEC US500 DE | grid, martingale | 54 minutes ago | 53.55 |
+| 731 | CopySample | MQL5 | [2394639](https://www.mql5.com/en/signals/2394639) | 2606.24 | 28.31 | 0.92 | that | 28.77 | 452 | XAUUSD.n | — | 9 hours ago | 53.54 |
+| 732 | Headway Algo | MQL5 | [2363389](https://www.mql5.com/en/signals/2363389) | 84.70 | 12.17 | 7.82 | that | 49.16 | 1674 | EURUSD | — | 6 hours ago | 53.52 |
+| 733 | WhieFX Copy Trade on Elev8 5K | MQL5 | [2362645](https://www.mql5.com/en/signals/2362645) | 94.52 | 15.78 | 8.05 | that | 56.26 | 1830 | EURUSD USDJPY GBPUSD GBPCAD EURCAD AUDUS | — | 4 days ago | 53.51 |
+| 734 | Gold Biscuits | MQL5 | [2364006](https://www.mql5.com/en/signals/2364006) | 2799.55 | 46.81 | 7.82 | that | 797.33 | 415 | XAUUSD.. | — | 3 days ago | 53.51 |
+| 735 | US2000 Missile Test IX | MQL5 | [2374163](https://www.mql5.com/en/signals/2374163) | 94.93 | 9.25 | 5.52 | that | 35.94 | 604 | US2000 | grid | 7 hours ago | 53.49 |
+| 736 | Flawless 888 | MQL5 | [2396879](https://www.mql5.com/en/signals/2396879) | 3320.24 | 27.31 | 0.46 | that | 14.50 | 72 | GOLDm# | — | 5 hours ago | 53.48 |
+| 737 | ICM Grow | MQL5 | [2251435](https://www.mql5.com/en/signals/2251435) | 29.87 | 46.24 | 26.68 | that | 78.80 | 24752 | XAUUSD GBPUSD USDJPY EURUSD USDCAD USDCH | — | 2 hours ago | 53.47 |
+| 738 | KS Fx 2 | MQL5 | [2379378](https://www.mql5.com/en/signals/2379378) | 2462.33 | 37.85 | 4.37 | that | 225.82 | 2590 | GBPUSD EURUSD AUDCAD USDCHF AUDUSD CADCH | — | 36 minutes ago | 53.45 |
+| 739 | Gold and GBPUSD | MQL5 | [2383311](https://www.mql5.com/en/signals/2383311) | 1203.37 | 39.17 | 4.83 | that | 181.07 | 1012 | XAUUSD+ GBPUSD+ | — | 4 hours ago | 53.43 |
+| 740 | AurumTrade | MQL5 | [2362353](https://www.mql5.com/en/signals/2362353) | 1211.14 | 50.40 | 8.97 | that | 584.61 | 2024 | EURJPY GOLD USDJPY GBPUSD USDCAD AUDUSD  | — | 8 hours ago | 53.38 |
+| 741 | Dual Momentum Swing Strategy | MQL5 | [2217955](https://www.mql5.com/en/signals/2217955) | 10.18 | 59.09 | 33.58 | that | 31.15 | 1081 | US30 XAUUSD EURUSD GBPJPY USDCAD | — | 9 hours ago | 53.38 |
+| 742 | Monton AI Assisted XAUUSD Scalping | MQL5 | [2394527](https://www.mql5.com/en/signals/2394527) | 2214.55 | 28.44 | 0.69 | that | 19.80 | 246 | XAUUSD | — | 22 days ago | 53.35 |
+| 743 | GPBCHF Missile Test IX | MQL5 | [2373966](https://www.mql5.com/en/signals/2373966) | 460.80 | 41.41 | 5.52 | that | 121.03 | 179 | GBPCHF | — | 21 hours ago | 53.33 |
+| 744 | OrionXAU Exness | MQL5 | [2386534](https://www.mql5.com/en/signals/2386534) | 89.87 | 1.06 | 2.76 | that | 15.89 | 70 | BTCUSDz | — | 3 days ago | 53.32 |
+| 745 | TPautomated | MQL5 | [2322019](https://www.mql5.com/en/signals/2322019) | 433.74 | 68.07 | 15.41 | that | 759.04 | 402 | NAS100 US30 GER40 UK100 EURAUD NAS100.Da | — | 4 days ago | 53.26 |
+| 746 | Alexili001 | MQL5 | [2392756](https://www.mql5.com/en/signals/2392756) | 1011624.30 | 30.72 | 1.38 | that | 188.79 | 32 | EURUSD XTIUSD | — | 4 days ago | 53.24 |
+| 747 | VENIQOR Gold Breakout PRO | MQL5 | [2386392](https://www.mql5.com/en/signals/2386392) | 1770.80 | 34.45 | 2.76 | that | 96.14 | 88 | XAUUSD | grid, martingale | 9 hours ago | 53.23 |
+| 748 | Gold M1 Pro | MQL5 | [2381033](https://www.mql5.com/en/signals/2381033) | 7407.57 | 36.92 | 3.68 | that | 275.97 | 78 | XAUUSD.r | — | 7 days ago | 53.22 |
+| 749 | Trader Karawang | MQL5 | [2395555](https://www.mql5.com/en/signals/2395555) | 104.86 | 0.55 | 0.69 | that | 4.21 | 12 | XAUUSD | — | 5 hours ago | 53.19 |
+| 750 | US SPX 500 Buy N Hold on Steroids | MQL5 | [2374068](https://www.mql5.com/en/signals/2374068) | 1447.79 | 44.40 | 6.44 | that | 334.99 | 231 | US500Roll US500M6 NZDCAD | hedge, dca | 22 days ago | 53.19 |
+| 751 | Burning Grid High Risk | MQL5 | [2308454](https://www.mql5.com/en/signals/2308454) | 168.48 | 65.70 | 17.94 | that | 337.75 | 9779 | GBPNZD EURCAD AUDCAD AUDNZD EURJPY AUDJP | grid | 2 hours ago | 53.17 |
+| 752 | Precision BTC XM | MQL5 | [2391524](https://www.mql5.com/en/signals/2391524) | 1618.56 | 32.92 | 2.07 | that | 63.33 | 273 | BTCUSD# GOLDm# | — | 5 hours ago | 53.15 |
+| 753 | GoldenCrown | MQL5 | [2381896](https://www.mql5.com/en/signals/2381896) | 2753.97 | 54.41 | 10.12 | that | 1588.22 | 679 | XAUUSD+ | — | 4 hours ago | 53.14 |
+| 754 | TheCW XM 1 MAIN | MQL5 | [2305350](https://www.mql5.com/en/signals/2305350) | 87.40 | 45.89 | 19.55 | that | 178.21 | 3651 | OILCash NGASCash | — | 3 days ago | 53.12 |
+| 755 | JS Horizon MG | MQL5 | [2378783](https://www.mql5.com/en/signals/2378783) | 2084.48 | 39.23 | 4.37 | that | 207.43 | 871 | BTCUSD XAUUSD | grid, martingale | 1 hour ago | 53.11 |
+| 756 | Dynamic Liquidity Intelligence R300 | MQL5 | [2365514](https://www.mql5.com/en/signals/2365514) | 3585.30 | 47.34 | 7.36 | that | 813.63 | 267 | XAUUSD | — | 4 hours ago | 53.07 |
+| 757 | K5 | MQL5 | [2396143](https://www.mql5.com/en/signals/2396143) | 42.43 | 6.59 | 9.66 | that | 32.94 | 1097 | USDCHFmicro GBPUSDmicro EURJPYmicro NZDU | — | 5 hours ago | 52.97 |
+| 758 | Rbb f4y | MQL5 | [2298449](https://www.mql5.com/en/signals/2298449) | 98.58 | 65.17 | 25.30 | that | 324.76 | 215 | AUDCAD | grid, martingale | 4 days ago | 52.97 |
+| 759 | Vantage RAW XAUFX 1000 | MQL5 | [2379030](https://www.mql5.com/en/signals/2379030) | 163.60 | 28.90 | 4.37 | that | 42.33 | 115 | XAUUSD+ EURJPY+ NZDUSD+ AUDUSD+ USDJPY+  | — | 58 minutes ago | 52.96 |
+| 760 | GOLD123 EA | MQL5 | [2384560](https://www.mql5.com/en/signals/2384560) | 786.38 | 39.28 | 4.14 | that | 112.29 | 248 | GOLD# | — | 31 days ago | 52.94 |
+| 761 | NANO M0NEY CORP from FXGP WMC | MQL5 | [2272380](https://www.mql5.com/en/signals/2272380) | 97.55 | 77.95 | 30.13 | that | 452.55 | 631 | AUDCAD GBPUSD EURUSD | — | 3 hours ago | 52.92 |
+| 762 | Golden Ray | MQL5 | [2397840](https://www.mql5.com/en/signals/2397840) | 62.42 | 3.66 | 6.21 | that | 28.53 | 291 | CHƯA ĐO ĐƯỢC | — | 4 hours ago | 52.91 |
+| 763 | Cuanin Breakout H6119 | MQL5 | [2397142](https://www.mql5.com/en/signals/2397142) | 109.21 | 2.37 | 0.46 | that | 2.87 | 45 | XAUUSD | — | 7 hours ago | 52.9 |
+| 764 | GiaHao One | MQL5 | [2397913](https://www.mql5.com/en/signals/2397913) | 64053105359.37 | 29.31 | 0.23 | that | 47.50 | 29 | XAUUSD BTCUSDT | — | 6 hours ago | 52.83 |
+| 765 | TriSignal by Quantalpha | MQL5 | [2384278](https://www.mql5.com/en/signals/2384278) | 526.34 | 37.31 | 3.22 | that | 63.61 | 694 | AUDCAD GBPNOK EURAUD GBPSEK EURNZD | — | 12 hours ago | 52.82 |
+| 766 | Cotswold Manor Investments Compounder | MQL5 | [2346933](https://www.mql5.com/en/signals/2346933) | 27.43 | 5.81 | 10.81 | that | 24.40 | 624 | NZDCADxx AUDCADxx | — | 4 days ago | 52.81 |
+| 767 | Martingale God | MQL5 | [2390141](https://www.mql5.com/en/signals/2390141) | 254.20 | 34.89 | 2.30 | that | 27.43 | 419 | AUDNZD+ AUDCAD+ USDCAD+ EURUSD+ USDJPY+  | martingale | 2 hours ago | 52.81 |
+| 768 | Gold Easy High | MQL5 | [2378797](https://www.mql5.com/en/signals/2378797) | 179.61 | 33.73 | 4.14 | that | 42.58 | 420 | XAUUSD | — | 17 days ago | 52.8 |
+| 769 | OmniTrend Hybrid | MQL5 | [2397006](https://www.mql5.com/en/signals/2397006) | 902.91 | 30.04 | 0.46 | that | 9.24 | 29 | USDCAD AUDUSD NZDUSD EURUSD USDCHF CHFJP | — | 12 hours ago | 52.8 |
+| 770 | Bitcoin Scalp Pro | MQL5 | [2103795](https://www.mql5.com/en/signals/2103795) | 16.73 | 71.38 | 36.57 | that | 60.22 | 1302 | BTCUSD | — | 9 hours ago | 52.79 |
+| 771 | My AI Gold EA High Risk | MQL5 | [2389616](https://www.mql5.com/en/signals/2389616) | 67445.29 | 43.59 | 5.52 | that | 1902.69 | 117 | XAUUSD | — | 4 days ago | 52.78 |
+| 772 | Forexhacer586 | MQL5 | [2385722](https://www.mql5.com/en/signals/2385722) | 2358.96 | 36.87 | 2.99 | that | 122.09 | 69 | XAUUSD | — | 8 hours ago | 52.78 |
+| 773 | Tivali | MQL5 | [2393356](https://www.mql5.com/en/signals/2393356) | 76.02 | 2.40 | 3.91 | that | 20.23 | 134 | NZDCAD GBPUSD | — | 12 hours ago | 52.71 |
+| 774 | Milbars | MQL5 | [2362329](https://www.mql5.com/en/signals/2362329) | 24.43 | 34.30 | 21.62 | that | 48.25 | 359 | EURUSD | — | 3 hours ago | 52.67 |
+| 775 | Quant Lattice Drive | MQL5 | [2374578](https://www.mql5.com/en/signals/2374578) | 70.55 | 7.14 | 6.21 | that | 31.82 | 458 | AUDCAD | — | 5 hours ago | 52.65 |
+| 776 | Telegram TheBusterEA exness | MQL5 | [2366179](https://www.mql5.com/en/signals/2366179) | 8833.04 | 49.05 | 7.36 | that | 1472.58 | 997 | XAUUSD BTCUSD | — | 4 hours ago | 52.64 |
+| 777 | Purworejo | MQL5 | [2355837](https://www.mql5.com/en/signals/2355837) | 40.64 | 6.16 | 9.20 | that | 29.88 | 360 | GBPCAD AUDCAD | — | 3 days ago | 52.64 |
+| 778 | Farmed Hedge Yield X | MQL5 | [2378337](https://www.mql5.com/en/signals/2378337) | 3880.29 | 42.38 | 4.83 | that | 340.52 | 878 | EURUSD USDCHF NZDCAD EURNZD USDCAD AUDNZ | hedge | 4 hours ago | 52.62 |
+| 779 | BLUE OCEAN FLIPPER 3 | MQL5 | [2388230](https://www.mql5.com/en/signals/2388230) | 1008.92 | 51.08 | 8.05 | that | 402.29 | 190 | GOLD# BTCUSD# | — | 7 hours ago | 52.6 |
+| 780 | Vantage Mean Strategy | MQL5 | [2392752](https://www.mql5.com/en/signals/2392752) | 784.21 | 35.27 | 2.07 | that | 45.64 | 410 | EURUSD AUDCAD NZDCAD AUDNZD XAUUSD UK100 | — | 6 hours ago | 52.56 |
+| 781 | EA Apexi_Aggressive Mode | MQL5 | [2373949](https://www.mql5.com/en/signals/2373949) | 104.81 | 16.72 | 5.75 | that | 40.99 | 551 | GBPNZD# EURCAD# USDJPY# EURUSD# EURCHF#  | — | 18 hours ago | 52.51 |
+| 782 | All in 1 Signal | MQL5 | [2351580](https://www.mql5.com/en/signals/2351580) | 95.01 | 27.95 | 11.04 | that | 84.86 | 1358 | US500 XAUUSD GBPNZD GBPAUD GBPUSD EURJPY | — | 37 minutes ago | 52.5 |
+| 783 | Dynamic Liquidity Intelligence TMGM50 | MQL5 | [2385128](https://www.mql5.com/en/signals/2385128) | 565014.35 | 38.02 | 2.99 | that | 760.81 | 107 | XAUUSD | — | 9 hours ago | 52.49 |
+| 784 | PK 69 | MQL5 | [2376680](https://www.mql5.com/en/signals/2376680) | 67.69 | 3.45 | 4.83 | that | 23.13 | 60 | XAUUSD+ | hedge | 6 days ago | 52.43 |
+| 785 | Scalp netting | MQL5 | [2396698](https://www.mql5.com/en/signals/2396698) | 3023911.43 | 31.62 | 0.46 | that | 48.51 | 106 | BITCOIN GOLD SILVER BRENT EURUSD GBPUSD  | — | 6 hours ago | 52.4 |
+| 786 | Easy strategy safe | MQL5 | [2334650](https://www.mql5.com/en/signals/2334650) | 316.65 | 77.07 | 17.48 | that | 699.47 | 12463 | AUDCAD.pro EURUSD.pro EURCHF.pro GBPCHF. | — | 3 hours ago | 52.39 |
+| 787 | GudamBoss | MQL5 | [2391447](https://www.mql5.com/en/signals/2391447) | 35.29 | 3.15 | 8.28 | that | 23.19 | 569 | EURUSD.pro AUDCAD.pro | — | 8 hours ago | 52.38 |
+| 788 | Nafkah Bangkit | MQL5 | [2364860](https://www.mql5.com/en/signals/2364860) | 46.81 | 4.91 | 7.59 | that | 27.49 | 267 | XAUUSD | — | 3 days ago | 52.34 |
+| 789 | Only XAUUSD | MQL5 | [2386216](https://www.mql5.com/en/signals/2386216) | 413.62 | 40.67 | 3.68 | that | 65.17 | 109 | XAUUSD+ | — | 4 days ago | 52.29 |
+| 790 | Farmed Hedge Yield II | MQL5 | [2356404](https://www.mql5.com/en/signals/2356404) | 2921.67 | 55.49 | 9.20 | that | 1264.13 | 2330 | GBPAUDm EURAUDm EURUSDm AUDCADm NZDCADm  | hedge | 4 hours ago | 52.26 |
+| 791 | Dynamic Liquidity Intelligence VT50 | MQL5 | [2385132](https://www.mql5.com/en/signals/2385132) | 560391.46 | 39.19 | 2.99 | that | 759.05 | 105 | XAUUSD-VIP | — | 9 hours ago | 52.2 |
+| 792 | MinorForce MT5 | MQL5 | [2193151](https://www.mql5.com/en/signals/2193151) | 46.78 | 73.57 | 33.12 | that | 188.39 | 2115 | AUDCAD# NZDCAD# AUDNZD# | — | 10 hours ago | 52.2 |
+| 793 | FJ UNIVERSE MM audusd mprint | MQL5 | [2371041](https://www.mql5.com/en/signals/2371041) | 65.16 | 7.55 | 6.21 | that | 29.65 | 139 | AUDUSD | — | 4 days ago | 52.14 |
+| 794 | Beeling2 | MQL5 | [2349019](https://www.mql5.com/en/signals/2349019) | 20.06 | 22.92 | 17.02 | that | 29.60 | 641 | AUDCAD EURUSD USDCAD NZDCAD AUDUSD EURGB | — | 9 hours ago | 52.12 |
+| 795 | TradesHood Fx2 | MQL5 | [2064569](https://www.mql5.com/en/signals/2064569) | 12.09 | 76.08 | 37.72 | that | 43.16 | 2843 | GOLD SILVER AUDUSD USDCHF NZDUSD GBPUSD  | — | 5 hours ago | 52.03 |
+| 796 | Gold Pro Only Buy | MQL5 | [2377372](https://www.mql5.com/en/signals/2377372) | 860.28 | 50.53 | 6.90 | that | 267.18 | 17420 | XAUUSD-P | — | 41 minutes ago | 51.97 |
+| 797 | FJ UNIVERSE MM nzdusd mprint | MQL5 | [2370046](https://www.mql5.com/en/signals/2370046) | 74.69 | 11.76 | 6.44 | that | 34.90 | 197 | NZDUSD CROUSD EURUSD | — | 3 days ago | 51.96 |
+| 798 | SuperQuant MT5 | MQL5 | [2342394](https://www.mql5.com/en/signals/2342394) | 66.74 | 35.37 | 16.10 | that | 98.57 | 4254 | EURUSD XAUUSD AUDUSD AUDCAD AUDNZD | grid, martingale | 3 hours ago | 51.9 |
+| 799 | EnveloGrid | MQL5 | [2396929](https://www.mql5.com/en/signals/2396929) | 83.05 | 1.14 | 1.38 | that | 7.20 | 35 | AUDCAD+ | grid, martingale, dca | 10 hours ago | 51.86 |
+| 800 | TOP PREMIUM SETUP | MQL5 | [2369448](https://www.mql5.com/en/signals/2369448) | 23.37 | 2.33 | 8.51 | that | 16.06 | 217 | XAUUSD.raw | — | 5 days ago | 51.84 |
+| 801 | Copy RangelFX | MQL5 | [2326342](https://www.mql5.com/en/signals/2326342) | 65.77 | 31.65 | 14.72 | that | 85.89 | 1476 | NZDCADxx AUDCADxx AUDNZDxx GBPJPYxx GBPN | — | 19 hours ago | 51.83 |
+| 802 | Strata FX EURUSD | MQL5 | [2389233](https://www.mql5.com/en/signals/2389233) | 131.26 | 17.81 | 2.07 | that | 15.56 | 45 | EURUSD+ | — | 5 days ago | 51.77 |
+| 803 | Aurum Breakout valverde | MQL5 | [2396432](https://www.mql5.com/en/signals/2396432) | 128.01 | 12.82 | 0.46 | that | 3.21 | 10 | GOLDm# | — | 4 days ago | 51.7 |
+| 804 | Andre Trolezi | MQL5 | [2372461](https://www.mql5.com/en/signals/2372461) | 42.55 | 13.64 | 10.35 | that | 35.77 | 1013 | NZDCADxx AUDCADxx GBPJPYxx AUDNZDxx GBPN | — | 20 hours ago | 51.68 |
+| 805 | OmniTrend EURUSD and others | MQL5 | [2397162](https://www.mql5.com/en/signals/2397162) | 1513.71 | 34.79 | 0.46 | that | 11.25 | 33 | EURUSD USDCHF AUDUSD USDJPY CHFJPY NZDJP | — | 7 hours ago | 51.61 |
+| 806 | Yoni Gold Signal | MQL5 | [2381882](https://www.mql5.com/en/signals/2381882) | 3617.19 | 46.60 | 4.83 | that | 328.56 | 207 | XAUUSD+ | — | 4 hours ago | 51.57 |
+| 807 | Mahmoudsarhan | MQL5 | [2392033](https://www.mql5.com/en/signals/2392033) | 3641.75 | 41.81 | 2.99 | that | 146.58 | 298 | XAUUSD | — | 3 hours ago | 51.54 |
+| 808 | Katd AUDCAD Stable SL170 | MQL5 | [2398149](https://www.mql5.com/en/signals/2398149) | 82.83 | 0.13 | 0.46 | that | 2.34 | 15 | AUDCAD | grid, dca | 8 hours ago | 51.49 |
+| 809 | Oceania Cross Mean Reversion | MQL5 | [2395982](https://www.mql5.com/en/signals/2395982) | 27.15 | 1.31 | 7.13 | that | 15.34 | 112 | AUDCAD AUDNZD NZDCAD | martingale | 5 days ago | 51.46 |
+| 810 | FJ UNIVERSE MM Technology Account | MQL5 | [2323604](https://www.mql5.com/en/signals/2323604) | 18.97 | 19.75 | 14.95 | that | 24.16 | 8089 | GPRO XRX LPL INSG VFS UMC BMBL MBLY ICL  | dca | 4 days ago | 51.45 |
+| 811 | BossTrading | MQL5 | [2397708](https://www.mql5.com/en/signals/2397708) | 52774231.85 | 34.87 | 0.23 | that | 28.73 | 12 | XAUUSD | — | 4 days ago | 51.44 |
+| 812 | GaoPeng 290402 BTCETHXAU | MQL5 | [2393057](https://www.mql5.com/en/signals/2393057) | 523.51 | 71.05 | 13.80 | that | 720.48 | 24789 | XAUUSD ETHUSD BTCUSD XTIUSD XAGUSD | — | 21 minutes ago | 51.44 |
+| 813 | Vitor Andrade Expert | MQL5 | [2396736](https://www.mql5.com/en/signals/2396736) | 484.71 | 37.32 | 1.15 | that | 18.44 | 109 | EURAUD AUDCAD | — | 4 hours ago | 51.44 |
+| 814 | HedGinG AJGJ B | MQL5 | [2380390](https://www.mql5.com/en/signals/2380390) | 4551.27 | 56.46 | 8.28 | that | 1314.57 | 936 | GBPJPY AUDJPY | hedge | 10 hours ago | 51.41 |
+| 815 | Pattern Test 1 | MQL5 | [2389700](https://www.mql5.com/en/signals/2389700) | 76.44 | 2.91 | 2.07 | that | 10.29 | 99 | USDJPY | grid, martingale | 1 hour ago | 51.39 |
+| 816 | Avenor | MQL5 | [2397293](https://www.mql5.com/en/signals/2397293) | 84.42 | 0.45 | 0.23 | that | 1.18 | 14 | AUDJPY USDJPY EURAUD NZDJPY GBPJPY EURJP | — | 19 hours ago | 51.37 |
+| 817 | SMCMasterTradeXRebalanceGoldx2 | MQL5 | [2395677](https://www.mql5.com/en/signals/2395677) | 12734.33 | 36.40 | 0.69 | that | 32.20 | 273 | XAUUSDm | — | 3 hours ago | 51.36 |
+| 818 | RF H 2 | MQL5 | [2339464](https://www.mql5.com/en/signals/2339464) | 69.39 | 28.72 | 12.42 | that | 72.54 | 6279 | GBPNZD AUDCAD EURCAD AUDNZD EURJPY GBPAU | — | 3 hours ago | 51.3 |
+| 819 | Fabulous | MQL5 | [2397127](https://www.mql5.com/en/signals/2397127) | 82.53 | 0.27 | 0.23 | that | 1.16 | 12 | XAUUSD | — | 3 days ago | 51.28 |
+| 820 | Protrader26h | MQL5 | [2398022](https://www.mql5.com/en/signals/2398022) | 169.73 | 26.51 | 0.23 | that | 1.92 | 90 | GOLD | — | 38 minutes ago | 51.26 |
+| 821 | Tuatamur | MQL5 | [2347866](https://www.mql5.com/en/signals/2347866) | 41.08 | 21.01 | 12.65 | that | 43.74 | 766 | EURUSDrfd | — | 3 days ago | 51.26 |
+| 822 | AUDCAD Expert | MQL5 | [2397005](https://www.mql5.com/en/signals/2397005) | 88.11 | 3.25 | 0.69 | that | 3.70 | 8 | AUDCAD | grid, dca | 11 hours ago | 51.26 |
+| 823 | JASON RLKS_10YR_1M VT049 | MQL5 | [2307186](https://www.mql5.com/en/signals/2307186) | 30.08 | 32.68 | 18.17 | that | 48.92 | 4539 | GBPAUD-VIP EURJPY-VIP AUDCAD-VIP GBPNZD- | — | 41 minutes ago | 51.2 |
+| 824 | Rocketride AC NC | MQL5 | [2303056](https://www.mql5.com/en/signals/2303056) | 47.10 | 79.55 | 33.81 | that | 196.67 | 1527 | AUDCAD NZDCAD AUDNZD EURUSD GBPUSD USDJP | — | 5 hours ago | 51.19 |
+| 825 | BENI SARBINI | MQL5 | [2392219](https://www.mql5.com/en/signals/2392219) | 98496.37 | 38.95 | 1.38 | that | 120.95 | 199 | XAUUSD-ECN CalmPulse100 BTCUSD | — | 3 days ago | 51.18 |
+| 826 | Dynamic Liquidity Intelligence PUP50 | MQL5 | [2373901](https://www.mql5.com/en/signals/2373901) | 15802.06 | 50.22 | 5.52 | that | 929.60 | 199 | XAUUSD.s | — | 4 hours ago | 51.12 |
+| 827 | CWDT XKG | MQL5 | [2372630](https://www.mql5.com/en/signals/2372630) | 46.46 | 37.42 | 17.94 | that | 76.91 | 6299 | XAUUSD NDX SP500 WS30 EURAUD GDAXI GBPAU | grid, martingale | 2 hours ago | 51.09 |
+| 828 | Propfund | MQL5 | [2354843](https://www.mql5.com/en/signals/2354843) | 16.33 | 5.72 | 9.43 | that | 12.62 | 367 | AUDCAD EURUSD | — | 9 hours ago | 51.08 |
+| 829 | XM A | MQL5 | [2267391](https://www.mql5.com/en/signals/2267391) | 22.58 | 46.99 | 24.15 | that | 50.65 | 392 | AUDNZDm# NZDCADm# AUDCADm# GBPUSDm# EURU | — | 4 days ago | 51.05 |
+| 830 | AFSID Metal Hunter Pro 2K | MQL5 | [2346553](https://www.mql5.com/en/signals/2346553) | 674.73 | 68.96 | 12.42 | that | 732.28 | 21525 | XAUUSD | — | 5 days ago | 51.04 |
+| 831 | MyRobotMT5 Portifolio Nova York | MQL5 | [2314078](https://www.mql5.com/en/signals/2314078) | 21.89 | 32.31 | 18.63 | that | 35.98 | 5815 | AUDCADxx GBPUSDxx EURUSDxx EURGBPxx USDC | — | 4 hours ago | 50.98 |
+| 832 | Dynamic Liquidity Intelligence pep50 | MQL5 | [2384429](https://www.mql5.com/en/signals/2384429) | 133114.00 | 44.66 | 3.22 | that | 589.32 | 116 | XAUUSD | — | 4 hours ago | 50.98 |
+| 833 | OminPro AC Core | MQL5 | [2365107](https://www.mql5.com/en/signals/2365107) | 22.77 | 6.95 | 8.97 | that | 16.57 | 170 | AUDCAD-VIP | — | 4 days ago | 50.95 |
+| 834 | News Trade EA IC | MQL5 | [2372979](https://www.mql5.com/en/signals/2372979) | 117.65 | 27.47 | 5.98 | that | 47.34 | 44 | GBPUSD | — | 4 days ago | 50.94 |
+| 835 | WhieFX Copy Trade on Justmarkets | MQL5 | [2396211](https://www.mql5.com/en/signals/2396211) | 32.58 | 2.18 | 5.98 | that | 15.09 | 384 | USDJPY.s EURUSD.s USDCHF.s GBPUSD.s EURC | — | 4 hours ago | 50.89 |
+| 836 | Hum reaper | MQL5 | [2385216](https://www.mql5.com/en/signals/2385216) | 7480.78 | 44.59 | 2.99 | that | 194.01 | 377 | XAUUSD | — | 3 days ago | 50.85 |
+| 837 | Hybrid Alpha | MQL5 | [2343772](https://www.mql5.com/en/signals/2343772) | 1035.96 | 73.06 | 13.57 | that | 1461.14 | 7772 | AUDCAD EURUSD US30 GBPUSD EURCAD USDCAD  | — | 2 hours ago | 50.78 |
+| 838 | Quantfolio EA | MQL5 | [2390611](https://www.mql5.com/en/signals/2390611) | 73.85 | 3.94 | 1.84 | that | 8.85 | 846 | USDJPY AUDJPY GBPJPY XAUUSD NZDCAD EURJP | martingale | 3 hours ago | 50.78 |
+| 839 | STEVE_B RLKS_8YR_1M VT029 | MQL5 | [2307163](https://www.mql5.com/en/signals/2307163) | 57.63 | 42.72 | 18.17 | that | 99.18 | 4510 | GBPAUD-VIP EURJPY-VIP GBPNZD-VIP AUDCAD- | — | 5 hours ago | 50.76 |
+| 840 | Swap Cyborg EA | MQL5 | [2394029](https://www.mql5.com/en/signals/2394029) | 75.59 | 1.60 | 0.69 | that | 3.29 | 8 | USDCHF+ AUDNZD+ AUDCAD+ UKOUSD EURGBP+ U | — | 6 days ago | 50.73 |
+| 841 | EAGLE GOLD NEXSUS | MQL5 | [2363278](https://www.mql5.com/en/signals/2363278) | 43.04 | 6.04 | 5.98 | that | 19.53 | 109 | XAUUSD | grid, martingale, dca | 3 days ago | 50.7 |
+| 842 | SmartOwl Rann | MQL5 | [2378529](https://www.mql5.com/en/signals/2378529) | 48.97 | 4.84 | 4.83 | that | 17.40 | 55 | GBPUSD USDCAD USDCHF EURAUD AUDUSD AUDCA | — | 4 days ago | 50.68 |
+| 843 | Alpha Print AMP | MQL5 | [2397653](https://www.mql5.com/en/signals/2397653) | 68.86 | 1.64 | 1.38 | that | 6.21 | 34 | AUDCAD | grid | 9 hours ago | 50.67 |
+| 844 | DR7323935 | MQL5 | [2314465](https://www.mql5.com/en/signals/2314465) | 26.82 | 33.24 | 17.94 | that | 42.65 | 4201 | GBPUSD EURUSD SP500 | — | 12 hours ago | 50.66 |
+| 845 | Burning Grid Medium Risk | MQL5 | [2308452](https://www.mql5.com/en/signals/2308452) | 128.33 | 63.80 | 17.94 | that | 243.59 | 7462 | GBPNZD EURCAD AUDNZD EURJPY GBPCAD AUDCA | grid | 45 minutes ago | 50.63 |
+| 846 | GHOST LIQUIDITY Darwinex | MQL5 | [2396265](https://www.mql5.com/en/signals/2396265) | 73.29 | 0.87 | 0.46 | that | 2.13 | 138 | XAUUSD XAGUSD XTIUSD SP500 UK100 AUS200  | — | 4 days ago | 50.59 |
+| 847 | BG 2026 | MQL5 | [2372323](https://www.mql5.com/en/signals/2372323) | 36.33 | 4.52 | 5.98 | that | 16.70 | 48 | AUDCADb | — | 9 hours ago | 50.58 |
+| 848 | Elvis Supper Scalping MT4 | MQL5 | [2390844](https://www.mql5.com/en/signals/2390844) | 76.16 | 5.42 | 1.84 | that | 9.07 | 64 | AUDCAD | — | 9 hours ago | 50.58 |
+| 849 | Burning Grid High Risk PRIME account | MQL5 | [2320714](https://www.mql5.com/en/signals/2320714) | 226.89 | 79.60 | 15.64 | that | 368.20 | 6195 | GBPNZD EURJPY EURCAD AUDCAD CHFJPY AUDNZ | grid | 3 hours ago | 50.53 |
+| 850 | DOT001 | MQL5 | [2380302](https://www.mql5.com/en/signals/2380302) | 1007.05 | 56.36 | 6.90 | that | 298.47 | 1142 | GBPUSD.r GBPAUD.r AUDNZD.r GBPCAD.r EURC | — | 7 hours ago | 50.51 |
+| 851 | Aurelio520 | MQL5 | [2397390](https://www.mql5.com/en/signals/2397390) | 69.32 | 1.24 | 0.92 | that | 4.12 | 32 | NACUSD.c XAUUSD SPCUSD.c | — | 4 hours ago | 50.5 |
+| 852 | Innolife MT4 | MQL5 | [2374795](https://www.mql5.com/en/signals/2374795) | 25.44 | 4.02 | 6.90 | that | 13.92 | 58 | XAUUSD.min | — | 3 days ago | 50.5 |
+| 853 | German and US Index Opening Range | MQL5 | [2390105](https://www.mql5.com/en/signals/2390105) | 68.61 | 3.52 | 1.84 | that | 8.34 | 398 | DE40 USTEC US30 | hedge, dca | 8 hours ago | 50.49 |
+| 854 | WE MOVE SAFELY 1 | MQL5 | [2389652](https://www.mql5.com/en/signals/2389652) | 83.50 | 19.74 | 6.21 | that | 36.91 | 862 | GBPUSD.sd NZDCAD.sd XAUUSD.sd AUDCAD.sd  | — | 4 hours ago | 50.47 |
+| 855 | Megatron Project Oil 1 | MQL5 | [2391166](https://www.mql5.com/en/signals/2391166) | 76.47 | 6.12 | 1.84 | that | 9.10 | 147 | SpotCrude | — | 5 hours ago | 50.43 |
+| 856 | Infinite Grid Recovery Live | MQL5 | [2387557](https://www.mql5.com/en/signals/2387557) | 62.33 | 3.10 | 2.30 | that | 9.73 | 37 | EURUSD | grid | 12 hours ago | 50.43 |
+| 857 | OpkeeUS Account | MQL5 | [2397441](https://www.mql5.com/en/signals/2397441) | 60.03 | 6.23 | 3.68 | that | 15.51 | 49 | GBPUSD EURUSD | — | 7 hours ago | 50.4 |
+| 858 | Soliman Hanna | MQL5 | [2349921](https://www.mql5.com/en/signals/2349921) | 24.03 | 23.09 | 14.03 | that | 28.63 | 2962 | AUDCAD.t NDX100 | — | 3 days ago | 50.38 |
+| 859 | Proteus | MQL5 | [2397346](https://www.mql5.com/en/signals/2397346) | 72.46 | 1.13 | 0.23 | that | 1.05 | 14 | DJIUSD DAXEUR XAUUSD USDJPY | grid | 8 hours ago | 50.31 |
+| 860 | Darwinpui | MQL5 | [2386338](https://www.mql5.com/en/signals/2386338) | 1715.83 | 46.73 | 2.99 | that | 105.93 | 198 | XAUUSD AUDJPY GBPJPY USDJPY NZDUSD USDCH | — | 5 hours ago | 50.31 |
+| 861 | STEVE_K RTLKS_10YR_1_2M_USDSGD VT597 | MQL5 | [2336346](https://www.mql5.com/en/signals/2336346) | 53.66 | 29.31 | 12.88 | that | 58.58 | 3447 | GBPAUD-VIP EURJPY-VIP GBPNZD-VIP AUDCAD- | — | 41 minutes ago | 50.28 |
+| 862 | Stop Rumoa1milhaocomtradeautomatizado | MQL5 | [2365608](https://www.mql5.com/en/signals/2365608) | 25.36 | 6.26 | 7.36 | that | 14.87 | 409 | AUDCAD.pr | — | 7 hours ago | 50.24 |
+| 863 | Gladiator IV | MQL5 | [2349949](https://www.mql5.com/en/signals/2349949) | 7663.62 | 67.34 | 10.58 | that | 4538.81 | 5170 | XAUUSD.INS XAGUSD.INS GBPUSD.INS USDJPY. | — | 3 days ago | 50.22 |
+| 864 | Adv | MQL5 | [2397140](https://www.mql5.com/en/signals/2397140) | 1414.60 | 40.60 | 0.46 | that | 10.98 | 15 | NZDCAD AUDCAD USDCHF GBPJPY AUDJPY USDCA | — | 5 hours ago | 50.16 |
+| 865 | BISHOP LG954 | MQL5 | [2389511](https://www.mql5.com/en/signals/2389511) | 51.08 | 0.80 | 2.30 | that | 8.23 | 198 | XAUUSD.f NAS100.f US30.f | — | 8 hours ago | 50.16 |
+| 866 | The Hedge Fund Stragetry | MQL5 | [2389466](https://www.mql5.com/en/signals/2389466) | 100.09 | 14.89 | 2.07 | that | 12.71 | 46 | EURJPY AUDNZD AUDCAD GBPUSD GBPNZD USTEC | hedge | 14 hours ago | 50.16 |
+| 867 | AST CARRY | MQL5 | [2381002](https://www.mql5.com/en/signals/2381002) | 6578.83 | 50.52 | 4.14 | that | 326.11 | 668 | AUDNZD AUDCAD GBPNZD EURAUD GBPCAD GBPCH | — | 45 minutes ago | 50.13 |
+| 868 | SANDY RKDM_10YR VT182 | MQL5 | [2345420](https://www.mql5.com/en/signals/2345420) | 24.06 | 16.79 | 11.27 | that | 22.44 | 743 | EURJPY-VIP AUDCAD-VIP NZDCAD-VIP USDCNH- | — | 5 hours ago | 50.12 |
+| 869 | Steady Gold | MQL5 | [2365370](https://www.mql5.com/en/signals/2365370) | 74.54 | 21.53 | 7.36 | that | 40.72 | 238 | XAUUSD | — | 8 hours ago | 50.11 |
+| 870 | AIMS GOLD | MQL5 | [2393376](https://www.mql5.com/en/signals/2393376) | 81.05 | 8.19 | 1.61 | that | 8.29 | 2740 | XAUUSD.ca XAUAUD.ca | — | 3 hours ago | 50.1 |
+| 871 | Trader Sniper | MQL5 | [2391861](https://www.mql5.com/en/signals/2391861) | 64.55 | 3.30 | 1.61 | that | 6.91 | 219 | XAUUSD | — | 6 hours ago | 50.09 |
+| 872 | Lycan MT5 ACY Securities | MQL5 | [2397585](https://www.mql5.com/en/signals/2397585) | 62.29 | 1.53 | 1.15 | that | 4.75 | 19 | AUDNZD EURJPY EURCAD NZDUSD GBPNZD NZDCA | — | 3 days ago | 50.06 |
+| 873 | Mean Forex Beast | MQL5 | [2352087](https://www.mql5.com/en/signals/2352087) | 12.52 | 10.07 | 9.89 | that | 10.21 | 1207 | NZDUSD AUDUSD AUDCAD EURGBP CHFJPY USDCA | — | 8 hours ago | 50.01 |
+| 874 | HILL RLKS_8YR_1M VT488 | MQL5 | [2312492](https://www.mql5.com/en/signals/2312492) | 54.11 | 42.32 | 17.25 | that | 86.22 | 4058 | GBPAUD-VIP EURJPY-VIP GBPNZD-VIP AUDCAD- | — | 5 hours ago | 49.98 |
+| 875 | RESILION 1 | MQL5 | [2388006](https://www.mql5.com/en/signals/2388006) | 29.79 | 22.93 | 12.65 | that | 31.64 | 687 | XAUUSD EURUSD GBPUSD USDCAD USDJPY AUDUS | — | 3 days ago | 49.94 |
+| 876 | DLSM ECN EURUSD H1 OP Strategy | MQL5 | [2370608](https://www.mql5.com/en/signals/2370608) | 141.43 | 42.91 | 7.59 | that | 74.63 | 527 | EURUSD XAUUSD | — | 9 hours ago | 49.94 |
+| 877 | Kutoarjo | MQL5 | [2392369](https://www.mql5.com/en/signals/2392369) | 60.57 | 2.95 | 1.61 | that | 6.56 | 28 | EURUSD | — | 4 days ago | 49.88 |
+| 878 | Kumiko XR | MQL5 | [2396930](https://www.mql5.com/en/signals/2396930) | 45.71 | 1.06 | 2.53 | that | 8.26 | 240 | XAUUSD.r | — | 7 hours ago | 49.85 |
+| 879 | STEVE RLKS_8YR_1M VT056 | MQL5 | [2308052](https://www.mql5.com/en/signals/2308052) | 57.70 | 45.87 | 17.94 | that | 97.58 | 3960 | GBPAUD-VIP EURJPY-VIP GBPNZD-VIP AUDCAD- | — | 5 hours ago | 49.82 |
+| 880 | Cubes VGold 3 | MQL5 | [2391348](https://www.mql5.com/en/signals/2391348) | 68.61 | 6.39 | 1.84 | that | 8.34 | 71 | XAUUSD.fs | — | 5 hours ago | 49.77 |
+| 881 | Buat Jalan Jalan | MQL5 | [2365880](https://www.mql5.com/en/signals/2365880) | 16.20 | 4.91 | 7.13 | that | 9.33 | 321 | XAUUSD | — | 3 days ago | 49.74 |
+| 882 | Multy | MQL5 | [2355376](https://www.mql5.com/en/signals/2355376) | 110.22 | 43.09 | 10.81 | that | 95.29 | 525 | GBPUSDrfd NZDUSDrfd EURUSDrfd | — | 4 days ago | 49.7 |
+| 883 | Fusion Markets Pro Scalper 1 | MQL5 | [2391728](https://www.mql5.com/en/signals/2391728) | 154.13 | 31.78 | 1.61 | that | 13.33 | 96 | XAUUSD | grid, martingale | 9 hours ago | 49.69 |
+| 884 | EnvelopMix MT5 | MQL5 | [2397996](https://www.mql5.com/en/signals/2397996) | 56.41 | 1.26 | 1.15 | that | 4.38 | 28 | CHFJPY AUDCAD GBPCHF GBPUSD | — | 32 minutes ago | 49.68 |
+| 885 | PORTFOLIO OF BREAKOUT | MQL5 | [2384962](https://www.mql5.com/en/signals/2384962) | 42.74 | 2.68 | 3.22 | that | 10.02 | 351 | NDX USDJPY GBPUSD XAUUSD | — | 3 hours ago | 49.68 |
+| 886 | MaxPro 900 Low Risk | MQL5 | [2333760](https://www.mql5.com/en/signals/2333760) | 638.17 | 76.95 | 13.34 | that | 822.79 | 2642 | XAUUSD | hedge | 3 days ago | 49.66 |
+| 887 | Night Train | MQL5 | [2382818](https://www.mql5.com/en/signals/2382818) | 32.00 | 6.32 | 5.75 | that | 14.23 | 108 | GBPUSD EURUSD NZDUSD | — | 13 hours ago | 49.65 |
+| 888 | NICK RLKS_8YR_1M VT890 | MQL5 | [2363666](https://www.mql5.com/en/signals/2363666) | 50.30 | 17.52 | 7.82 | that | 30.41 | 1620 | EURJPY-VIP GBPAUD-VIP GBPNZD-VIP AUDCAD- | — | 5 hours ago | 49.61 |
+| 889 | MR TARIQ HAMDI | MQL5 | [2357974](https://www.mql5.com/en/signals/2357974) | 1973.61 | 66.76 | 9.43 | that | 983.25 | 1275 | XAUUSD | — | 9 hours ago | 49.6 |
+| 890 | Wong3 | MQL5 | [2380116](https://www.mql5.com/en/signals/2380116) | 84.62 | 22.46 | 5.75 | that | 34.15 | 601 | XAGUSD USDJPY CHFJPY EURNZD EURJPY EURAU | — | 6 days ago | 49.56 |
+| 891 | Alpha Nova Recovery on | MQL5 | [2390612](https://www.mql5.com/en/signals/2390612) | 50.05 | 1.67 | 1.84 | that | 6.42 | 24 | XAUUSD.ls GOLD.ls | — | 4 days ago | 49.56 |
+| 892 | Indexor | MQL5 | [2338760](https://www.mql5.com/en/signals/2338760) | 51.15 | 30.31 | 12.42 | that | 53.35 | 934 | AUS200 US500 CA60 US2000 GER40 GBPAUD NA | hedge | 56 minutes ago | 49.54 |
+| 893 | DOUBLE Grid NZDCAD | MQL5 | [2357041](https://www.mql5.com/en/signals/2357041) | 4616.20 | 65.78 | 8.97 | that | 1682.42 | 321 | NZDCAD | grid, martingale, hedge | 13 hours ago | 49.53 |
+| 894 | Cuanin GB 100K | MQL5 | [2394473](https://www.mql5.com/en/signals/2394473) | 79.12 | 8.08 | 0.92 | that | 4.57 | 68 | XAUUSD | — | 8 hours ago | 49.53 |
+| 895 | Dynamic Liquidity Intelligence VTI50 | MQL5 | [2373883](https://www.mql5.com/en/signals/2373883) | 15938.35 | 56.73 | 5.52 | that | 933.65 | 199 | XAUUSD | — | 9 hours ago | 49.5 |
+| 896 | EURJPY Scalper EA | MQL5 | [2288343](https://www.mql5.com/en/signals/2288343) | 49.99 | 52.21 | 20.70 | that | 101.24 | 326 | EURJPY USDJPY | — | 3 days ago | 49.5 |
+| 897 | SANDY RLKS_8YR_1M VT340 | MQL5 | [2345417](https://www.mql5.com/en/signals/2345417) | 51.03 | 27.39 | 11.27 | that | 47.29 | 2363 | GBPAUD-VIP EURJPY-VIP GBPNZD-VIP AUDCAD- | — | 13 hours ago | 49.49 |
+| 898 | Aorus | MQL5 | [2385432](https://www.mql5.com/en/signals/2385432) | 50.16 | 5.16 | 2.99 | that | 10.66 | 109 | AUDCAD | — | 12 hours ago | 49.47 |
+| 899 | HILL RLKS_10YR_1M VT197 | MQL5 | [2366349](https://www.mql5.com/en/signals/2366349) | 29.30 | 10.62 | 7.36 | that | 17.07 | 1700 | EURJPY-VIP GBPAUD-VIP GBPNZD-VIP AUDCAD- | — | 2 hours ago | 49.45 |
+| 900 | BG Low RF 2 G N | MQL5 | [2324399](https://www.mql5.com/en/signals/2324399) | 88.91 | 47.56 | 14.49 | that | 115.57 | 6053 | GBPNZD EURCAD EURJPY AUDNZD AUDCAD GBPAU | — | 17 days ago | 49.44 |
+| 901 | AFSID Metal Hunter Pro 3K | MQL5 | [2347885](https://www.mql5.com/en/signals/2347885) | 627.75 | 76.09 | 12.65 | that | 710.35 | 35636 | XAUUSD GBPJPY USDJPY EURJPY GBPUSD EURUS | — | 2 hours ago | 49.41 |
+| 902 | Xingli 0077 | MQL5 | [2381081](https://www.mql5.com/en/signals/2381081) | 91.16 | 20.94 | 4.14 | that | 25.05 | 8419 | XAUUSD. | — | 11 hours ago | 49.36 |
+| 903 | STEVE_W RLKS_10YR_1M_2M_ VT377 | MQL5 | [2361494](https://www.mql5.com/en/signals/2361494) | 47.99 | 19.16 | 8.28 | that | 31.06 | 2142 | EURJPY-VIP GBPAUD-VIP GBPNZD-VIP AUDCAD- | — | 42 minutes ago | 49.33 |
+| 904 | POliveira26 | MQL5 | [2381182](https://www.mql5.com/en/signals/2381182) | 89.42 | 22.47 | 4.83 | that | 29.32 | 205 | USDCAD CHFJPY USDJPY EURUSD GBPAUD GBPCA | — | 3 days ago | 49.31 |
+| 905 | Imperia Sinteza Innovacii | MQL5 | [2367765](https://www.mql5.com/en/signals/2367765) | 4929.69 | 61.17 | 6.90 | that | 851.45 | 1372 | EURJPY.fx GBPUSD.fx GBPJPY.fx USDJPY.fx  | grid | 14 hours ago | 49.31 |
+| 906 | FM L 6 | MQL5 | [2339463](https://www.mql5.com/en/signals/2339463) | 42.78 | 29.14 | 12.42 | that | 44.57 | 3033 | GBPNZD AUDCAD GBPAUD EURJPY USDCHF AUDNZ | — | 5 hours ago | 49.2 |
+| 907 | GoldEdge Prop Firm 100K Signal1 | MQL5 | [2375791](https://www.mql5.com/en/signals/2375791) | 10.35 | 2.31 | 5.98 | that | 5.03 | 1610 | AUDCAD EURUSD US30.cash EURGBP CADJPY NZ | — | 4 hours ago | 49.19 |
+| 908 | Dmitriy forex | MQL5 | [2393200](https://www.mql5.com/en/signals/2393200) | 1304.03 | 50.64 | 2.76 | that | 83.61 | 36 | GBPCAD GBPUSD GBPAUD NZDUSD EURNZD AUDUS | — | 14 hours ago | 49.18 |
+| 909 | Autonomus EURUSD | MQL5 | [2396179](https://www.mql5.com/en/signals/2396179) | 62.15 | 3.27 | 0.46 | that | 1.87 | 17 | EURUSD | — | 3 days ago | 49.15 |
+| 910 | Super GBP EA | MQL5 | [2336381](https://www.mql5.com/en/signals/2336381) | 498.13 | 79.82 | 13.57 | that | 655.83 | 1533 | GBPUSD | martingale | 12 hours ago | 49.09 |
+| 911 | Heart GT WTI | MQL5 | [2380176](https://www.mql5.com/en/signals/2380176) | 32.47 | 2.63 | 3.45 | that | 8.42 | 177 | OILCash | — | 20 days ago | 49.08 |
+| 912 | Mr BYM | MQL5 | [2385774](https://www.mql5.com/en/signals/2385774) | 49.78 | 6.68 | 2.99 | that | 10.59 | 348 | USDCHF NZDCHF EURGBP GBPCHF AUDCHF GBPCA | — | 18 minutes ago | 49.06 |
+| 913 | Testing Broker Exness with EA AV | MQL5 | [2388345](https://www.mql5.com/en/signals/2388345) | 83.88 | 17.01 | 2.99 | that | 16.39 | 587 | USDJPY EURUSD GBPUSD USDCHF | — | 8 hours ago | 49.03 |
+| 914 | Mox | MQL5 | [2396986](https://www.mql5.com/en/signals/2396986) | 58.04 | 2.65 | 0.46 | that | 1.77 | 8 | USDJPY GBPUSD EURUSD | dca | 13 hours ago | 49.0 |
+| 915 | ElasticGate EA | MQL5 | [2396988](https://www.mql5.com/en/signals/2396988) | 56.03 | 2.28 | 0.46 | that | 1.72 | 17 | XAUUSD.i | grid, martingale | 6 days ago | 48.94 |
+| 916 | A Auto Brake Micro 2610 | MQL5 | [2394057](https://www.mql5.com/en/signals/2394057) | 11636.27 | 46.72 | 0.92 | that | 44.10 | 796 | GOLDmicro | grid, martingale | 3 hours ago | 48.93 |
+| 917 | CHONG RLKS_10YR_1M_2M_ VT939 | MQL5 | [2364718](https://www.mql5.com/en/signals/2364718) | 32.32 | 14.55 | 7.59 | that | 19.38 | 1416 | EURJPY-VIP GBPNZD-VIP GBPAUD-VIP AUDCAD- | — | 15 hours ago | 48.85 |
+| 918 | BreyNT | MQL5 | [2395000](https://www.mql5.com/en/signals/2395000) | 3230.79 | 47.72 | 1.15 | that | 39.93 | 94 | NQ100.R XAUUSD CL.R | — | 4 hours ago | 48.84 |
+| 919 | Ibot | MQL5 | [2389767](https://www.mql5.com/en/signals/2389767) | 42.66 | 3.16 | 2.07 | that | 6.32 | 55 | EURUSDrfd | — | 13 hours ago | 48.79 |
+| 920 | Fortuna | MQL5 | [2388744](https://www.mql5.com/en/signals/2388744) | 43.44 | 3.45 | 2.07 | that | 6.42 | 22 | AUDCAD | dca | 10 hours ago | 48.78 |
+| 921 | Wild Goose | MQL5 | [2397323](https://www.mql5.com/en/signals/2397323) | 62.93 | 4.52 | 0.23 | that | 0.94 | 10 | AUDCAD | — | 12 hours ago | 48.74 |
+| 922 | Nasdaq Level Scalper | MQL5 | [2396175](https://www.mql5.com/en/signals/2396175) | 1653.36 | 57.38 | 4.60 | that | 199.79 | 1121 | USA100 XAUUSDr | — | 14 hours ago | 48.72 |
+| 923 | DKW 69 | MQL5 | [2375227](https://www.mql5.com/en/signals/2375227) | 14.82 | 3.14 | 5.06 | that | 6.00 | 45 | XAUUSDpm | hedge | 6 days ago | 48.7 |
+| 924 | Gold Moment | MQL5 | [2397554](https://www.mql5.com/en/signals/2397554) | 3665287609.71 | 46.13 | 0.23 | that | 39.63 | 83 | XAUUSDm BTCUSDm | — | 15 hours ago | 48.62 |
+| 925 | E8 Market | MQL5 | [2395654](https://www.mql5.com/en/signals/2395654) | 16.70 | 2.92 | 4.60 | that | 6.10 | 160 | XAUUSD.c AUDCAD.c | — | 4 days ago | 48.59 |
+| 926 | SmartOwl 2 Star | MQL5 | [2380115](https://www.mql5.com/en/signals/2380115) | 50.24 | 12.45 | 4.37 | that | 15.98 | 36 | EURAUD+ USDCAD+ AUDCAD+ GBPUSD+ AUDUSD+  | — | 6 days ago | 48.57 |
+| 927 | TiagoLacerda FPMarkets | MQL5 | [2393959](https://www.mql5.com/en/signals/2393959) | 36.48 | 25.03 | 10.58 | that | 31.55 | 148 | XAUUSD.r NZDCAD.r EURGBP.r GBPUSD.r USDJ | — | 6 days ago | 48.53 |
+| 928 | Kongfu Gold KFG | MQL5 | [2398004](https://www.mql5.com/en/signals/2398004) | 53.12 | 2.53 | 0.23 | that | 0.82 | 107 | XAUUSD | — | 3 hours ago | 48.5 |
+| 929 | ANA 69 | MQL5 | [2378843](https://www.mql5.com/en/signals/2378843) | 11.67 | 0.55 | 4.14 | that | 3.88 | 46 | XAUUSD.atfx | hedge | 5 days ago | 48.5 |
+| 930 | Gold Pulse AI | MQL5 | [2372529](https://www.mql5.com/en/signals/2372529) | 12.43 | 5.92 | 5.98 | that | 6.01 | 141 | XAUUSD | — | 3 days ago | 48.44 |
+| 931 | SignalAUDCAD | MQL5 | [2396183](https://www.mql5.com/en/signals/2396183) | 56.33 | 3.84 | 0.23 | that | 0.86 | 20 | AUDCAD | — | 5 days ago | 48.42 |
+| 932 | Aurum Breakout System | MQL5 | [2385558](https://www.mql5.com/en/signals/2385558) | 29.24 | 3.06 | 2.99 | that | 6.60 | 78 | XAUUSD | — | 5 days ago | 48.42 |
+| 933 | TubeRider | MQL5 | [2395908](https://www.mql5.com/en/signals/2395908) | 66486.49 | 47.03 | 0.23 | that | 13.27 | 26 | WINZ26 | — | 3 days ago | 48.4 |
+| 934 | Pair Quant Arbitrage | MQL5 | [2397599](https://www.mql5.com/en/signals/2397599) | 47.68 | 1.33 | 0.23 | that | 0.75 | 30 | XAUUSD EURUSD | — | 22 hours ago | 48.4 |
+| 935 | STEVE_W RLKS_8YR_1M VT924 | MQL5 | [2368161](https://www.mql5.com/en/signals/2368161) | 40.49 | 17.17 | 6.90 | that | 21.59 | 1292 | EURJPY-VIP GBPAUD-VIP GBPNZD-VIP AUDCAD- | — | 6 hours ago | 48.34 |
+| 936 | Dynamic Liquidity Intelligence WET50 | MQL5 | [2373884](https://www.mql5.com/en/signals/2373884) | 15067.08 | 61.43 | 5.52 | that | 907.43 | 202 | XAUUSD.s | — | 9 hours ago | 48.32 |
+| 937 | GoldBaron EA MT5 High risk | MQL5 | [2339244](https://www.mql5.com/en/signals/2339244) | 1812.88 | 79.92 | 12.42 | that | 2021.03 | 223 | XAUUSD | — | 7 hours ago | 48.3 |
+| 938 | Sigma1 | MQL5 | [2395959](https://www.mql5.com/en/signals/2395959) | 8965.57 | 51.12 | 1.61 | that | 83.07 | 69 | XAUUSD EURUSD BTCUSD | — | 7 hours ago | 48.29 |
+| 939 | RA Capital | MQL5 | [2368154](https://www.mql5.com/en/signals/2368154) | 7594.81 | 67.91 | 7.82 | that | 1595.01 | 5632 | XAUUSD EURUSD XAGUSD AUDNZD EURGBP GBPJP | grid, martingale | 2 hours ago | 48.24 |
+| 940 | Leviathan | MQL5 | [2388361](https://www.mql5.com/en/signals/2388361) | 13.77 | 5.34 | 5.29 | that | 5.85 | 202 | GBPUSD AUDNZD GBPCHF CADCHF EURCAD EURNZ | — | 18 hours ago | 48.22 |
+| 941 | SANDY KSKD_8YR VT341 | MQL5 | [2345418](https://www.mql5.com/en/signals/2345418) | 35.61 | 27.94 | 11.27 | that | 33.12 | 1780 | EURJPY-VIP USDCNH-VIP AUDCAD-VIP AUDUSD- | — | 13 hours ago | 48.2 |
+| 942 | JASON RLKS_8YR_1M VT737 | MQL5 | [2368150](https://www.mql5.com/en/signals/2368150) | 39.32 | 16.77 | 6.67 | that | 20.24 | 1245 | EURJPY-VIP GBPAUD-VIP GBPNZD-VIP AUDCAD- | — | 10 days ago | 48.2 |
+| 943 | TigerX15 | MQL5 | [2397642](https://www.mql5.com/en/signals/2397642) | 48.44 | 2.43 | 0.23 | that | 0.76 | 9 | GBPAUD CADJPY AUDUSD | — | 1 hour ago | 48.18 |
+| 944 | GOLD SUPERB | MQL5 | [2396896](https://www.mql5.com/en/signals/2396896) | 2807.94 | 49.19 | 0.46 | that | 13.79 | 127 | XAUUSD | — | 7 minutes ago | 48.01 |
+| 945 | DUITOLOGY | MQL5 | [2385271](https://www.mql5.com/en/signals/2385271) | 20.34 | 1.46 | 2.76 | that | 4.35 | 41 | HK50 | — | 6 days ago | 48.0 |
+| 946 | Cuanin AUDCAD V676459t | MQL5 | [2388169](https://www.mql5.com/en/signals/2388169) | 26.93 | 2.00 | 2.07 | that | 4.20 | 57 | AUDCAD-STD | — | 9 hours ago | 47.9 |
+| 947 | SONY Investment Management | MQL5 | [2391877](https://www.mql5.com/en/signals/2391877) | 27.57 | 0.53 | 1.38 | that | 2.84 | 46 | GOLD# | — | 7 hours ago | 47.86 |
+| 948 | Auscadia EA | MQL5 | [2383806](https://www.mql5.com/en/signals/2383806) | 17.67 | 3.16 | 3.45 | that | 4.79 | 75 | AUDCAD | — | 9 hours ago | 47.84 |
+| 949 | Java Bot | MQL5 | [2389656](https://www.mql5.com/en/signals/2389656) | 19.02 | 1.40 | 2.53 | that | 3.74 | 192 | XAUUSD | — | 6 hours ago | 47.76 |
+| 950 | MysunnyRetirementMT4 | MQL5 | [2397261](https://www.mql5.com/en/signals/2397261) | 73.29 | 12.26 | 0.46 | that | 2.13 | 22 | NAS100 US2000 | — | 4 hours ago | 47.74 |
+| 951 | InfinityFX82 | MQL5 | [2396521](https://www.mql5.com/en/signals/2396521) | 1225.11 | 52.11 | 1.15 | that | 28.10 | 43 | AUDUSD_MRG EURUSD_MRG NZDJPY_MRG EURGBP_ | — | 20 hours ago | 47.74 |
+| 952 | HeroCat XM Master | MQL5 | [2370233](https://www.mql5.com/en/signals/2370233) | 4525.92 | 68.72 | 7.36 | that | 950.32 | 939 | GOLD# AUDUSD# AUDCAD# GBPUSD# EURUSD# US | — | 8 hours ago | 47.73 |
+| 953 | RSI 1H 5M STRATEGY | MQL5 | [2383384](https://www.mql5.com/en/signals/2383384) | 97.22 | 31.95 | 5.06 | that | 33.16 | 242 | AUDJPY USDCAD GBPJPY EURAUD AUDCAD EURNZ | — | 7 hours ago | 47.68 |
+| 954 | Eicho | MQL5 | [2380966](https://www.mql5.com/en/signals/2380966) | 33.90 | 9.91 | 3.91 | that | 9.98 | 908 | XAUUSD.v1 EURUSD.v USDJPY.v GBPUSD.v EUR | — | 1 day ago | 47.67 |
+| 955 | Early Retirement | MQL5 | [2393610](https://www.mql5.com/en/signals/2393610) | 37.84 | 4.35 | 1.38 | that | 3.76 | 116 | USDJPY GBPUSD EURUSD | — | 13 hours ago | 47.67 |
+| 956 | HEDGE PAMM | MQL5 | [2397730](https://www.mql5.com/en/signals/2397730) | 33.82 | 0.35 | 0.23 | that | 0.56 | 31 | XAUUSD.raw AUDCAD.raw | hedge | 10 hours ago | 47.6 |
+| 957 | DhaBass CT | MQL5 | [2360163](https://www.mql5.com/en/signals/2360163) | 17.54 | 31.67 | 13.80 | that | 20.42 | 194 | EURUSD USDJPY GBPUSD USDCHF AUDUSD AUDCA | — | 10 hours ago | 47.6 |
+| 958 | FPG Alpha UTL3 | MQL5 | [2371423](https://www.mql5.com/en/signals/2371423) | 307.00 | 66.22 | 6.21 | that | 106.76 | 1308 | XAUUSD-P | — | 9 hours ago | 47.59 |
+| 959 | E8 Market1 | MQL5 | [2395655](https://www.mql5.com/en/signals/2395655) | 15.37 | 2.90 | 3.22 | that | 3.91 | 200 | XAUUSD.c | — | 4 days ago | 47.57 |
+| 960 | ADRIDEV FP | MQL5 | [2395346](https://www.mql5.com/en/signals/2395346) | 33.84 | 2.40 | 0.92 | that | 2.26 | 16 | EURUSD.r | — | 4 hours ago | 47.55 |
+| 961 | Recovery 1 | MQL5 | [2296769](https://www.mql5.com/en/signals/2296769) | 15.15 | 46.55 | 19.55 | that | 25.83 | 1977 | AUDCADm# AUDNZDm# AUDCHFm# GOLDm# EURCHF | — | 7 hours ago | 47.53 |
+| 962 | MYEA Portfolio | MQL5 | [2341388](https://www.mql5.com/en/signals/2341388) | 39.10 | 34.17 | 12.19 | that | 39.83 | 3822 | BTCUSD XAUUSD ETHUSD XBRUSD US30 USDJPY  | — | 2 hours ago | 47.52 |
+| 963 | FJ UNIVERSE xRADING NZDUSD Account | MQL5 | [2386306](https://www.mql5.com/en/signals/2386306) | 12.90 | 1.32 | 2.76 | that | 2.83 | 123 | NZDUSD.p | dca | 12 hours ago | 47.48 |
+| 964 | Gold6686 | MQL5 | [2361333](https://www.mql5.com/en/signals/2361333) | 50.39 | 32.59 | 10.12 | that | 41.08 | 16519 | XAUUSD_ | — | 42 minutes ago | 47.38 |
+| 965 | No Stop Rumo ao 1 milhao de reais | MQL5 | [2366263](https://www.mql5.com/en/signals/2366263) | 50.76 | 25.41 | 7.36 | that | 28.63 | 481 | AUDCAD EURJPY EURAUD EURUSD CADJPY AUDCH | — | 1 hour ago | 47.36 |
+| 966 | Gold and GBP scalping | MQL5 | [2393791](https://www.mql5.com/en/signals/2393791) | 27.95 | 2.25 | 1.15 | that | 2.39 | 60 | XAUUSD GBPUSD | — | 3 days ago | 47.3 |
+| 967 | Cuanin AUDCAD V868671t | MQL5 | [2390064](https://www.mql5.com/en/signals/2390064) | 20.34 | 2.30 | 1.84 | that | 2.88 | 52 | AUDCAD-STD | — | 9 hours ago | 47.18 |
+| 968 | Portfolio A | MQL5 | [2391040](https://www.mql5.com/en/signals/2391040) | 45.17 | 23.43 | 6.90 | that | 23.90 | 9788 | XAUUSD NDX USDJPY GDAXI WS30 SP500 XAGUS | — | 2 minutes ago | 47.13 |
+| 969 | QZoneFX | MQL5 | [2397564](https://www.mql5.com/en/signals/2397564) | 1688616.03 | 52.71 | 0.46 | that | 45.23 | 44 | XAUUSD NAS100 BTCUSD | — | 7 hours ago | 47.13 |
+| 970 | Balanced Portfolio | MQL5 | [2396823](https://www.mql5.com/en/signals/2396823) | 37.92 | 4.14 | 0.46 | that | 1.24 | 223 | XAUUSD BTCUSD SpotCrude NAS100 US30 EURU | — | 2 hours ago | 47.12 |
+| 971 | LongTrader | MQL5 | [2392418](https://www.mql5.com/en/signals/2392418) | 32.15 | 3.61 | 0.92 | that | 2.16 | 13 | GERMANY40 | — | 5 days ago | 47.12 |
+| 972 | SignShortXAUUSD | MQL5 | [2394638](https://www.mql5.com/en/signals/2394638) | 20.66 | 0.20 | 0.92 | that | 1.45 | 45 | XAUUSD | — | 8 hours ago | 47.11 |
+| 973 | Stablesignal | MQL5 | [2372337](https://www.mql5.com/en/signals/2372337) | 25.91 | 20.38 | 7.82 | that | 16.20 | 273 | GBPUSD EURUSD USDJPY AUDUSD | grid, martingale | 7 hours ago | 47.06 |
+| 974 | SFE Raw Impulse | MQL5 | [2341941](https://www.mql5.com/en/signals/2341941) | 16.48 | 34.19 | 14.03 | that | 19.53 | 1000 | BTCUSD ETHUSD | — | 31 days ago | 47.04 |
+| 975 | EURO 2026 | MQL5 | [2387495](https://www.mql5.com/en/signals/2387495) | 17862.73 | 65.40 | 5.06 | that | 792.47 | 368 | NZDJPY XAUUSD USDJPY CADCHF EURCHF GBPJP | — | 1 hour ago | 47.02 |
+| 976 | Quant Multi Asset Portfolio | MQL5 | [2398019](https://www.mql5.com/en/signals/2398019) | 50.77 | 7.95 | 0.23 | that | 0.79 | 18 | XAUUSD AUDCAD USDJPY | — | 11 minutes ago | 46.97 |
+| 977 | TIM RLKS_10YR_1M_2M AXPM960 | MQL5 | [2382917](https://www.mql5.com/en/signals/2382917) | 21.30 | 8.34 | 3.68 | that | 6.10 | 487 | EURJPY.s GBPAUD.s USDCHF.s AUDSGD AUDUSD | — | 1 hour ago | 46.97 |
+| 978 | DreamBIG DL 05 | MQL5 | [2396366](https://www.mql5.com/en/signals/2396366) | 18.90 | 2.26 | 1.61 | that | 2.35 | 143 | EURUSD AUDCAD AUDNZD NZDCAD | — | 1 hour ago | 46.93 |
+| 979 | STEVE_W RLKS_22YR_1M AX368 | MQL5 | [2396667](https://www.mql5.com/en/signals/2396667) | 24.39 | 1.06 | 0.46 | that | 0.84 | 63 | EURCAD.s CHFJPY.s AUDUSD.s GBPUSD.s NZDC | — | 2 hours ago | 46.87 |
+| 980 | Prophecy EA _ 100K Acocunt | MQL5 | [2394521](https://www.mql5.com/en/signals/2394521) | 18.81 | 1.01 | 0.92 | that | 1.33 | 93 | EURCHF AUDJPY USDCHF USDJPY GBPJPY AUDUS | — | 4 hours ago | 46.77 |
+| 981 | FEI RLKS_22YR_1M VT826 | MQL5 | [2396250](https://www.mql5.com/en/signals/2396250) | 22.15 | 0.87 | 0.46 | that | 0.77 | 56 | EURCAD-VIP CHFJPY-VIP GBPUSD-VIP AUDUSD- | — | 2 hours ago | 46.75 |
+| 982 | Abi Equity | MQL5 | [2394103](https://www.mql5.com/en/signals/2394103) | 14.90 | 1.13 | 1.38 | that | 1.61 | 246 | XAUUSD XAGUSD BTCUSD USDCAD US100 EURUSD | — | 31 days ago | 46.75 |
+| 983 | HyperStorm EA | MQL5 | [2371657](https://www.mql5.com/en/signals/2371657) | 26.38 | 20.69 | 7.36 | that | 15.44 | 3845 | AUDNZD EURCAD EURCHF EURAUD GBPCAD GBPNZ | — | 1 hour ago | 46.71 |
+| 984 | TOBA FX | MQL5 | [2394200](https://www.mql5.com/en/signals/2394200) | 21.59 | 2.22 | 0.92 | that | 1.51 | 21 | AUDCAD-ECN | — | 9 hours ago | 46.68 |
+| 985 | PX KN 73201979 | MQL5 | [2392786](https://www.mql5.com/en/signals/2392786) | 112.13 | 35.51 | 3.22 | that | 22.36 | 593 | XAUUSD USDCAD GBPCAD AUDNZD AUDCAD EURUS | — | 3 hours ago | 46.68 |
+| 986 | S EA portfolio | MQL5 | [2389577](https://www.mql5.com/en/signals/2389577) | 16.27 | 7.54 | 3.45 | that | 4.43 | 874 | BTCUSD XAUUSD USTEC USOIL AUDCAD USDJPY  | — | 3 hours ago | 46.64 |
+| 987 | SlowHorse | MQL5 | [2395911](https://www.mql5.com/en/signals/2395911) | 11.17 | 0.18 | 1.15 | that | 1.02 | 35 | EURUSD EURCHF AUDCHF NZDUSD EURGBP AUDCA | — | 10 hours ago | 46.56 |
+| 988 | Prime market flow | MQL5 | [2392172](https://www.mql5.com/en/signals/2392172) | 40.31 | 33.04 | 10.12 | that | 33.06 | 81 | USDJPY_MRG USDCAD_MRG EURUSD_MRG AUDUSD_ | — | 8 hours ago | 46.51 |
+| 989 | Divimake ToTheMoon | MQL5 | [2396402](https://www.mql5.com/en/signals/2396402) | 15.68 | 0.19 | 0.46 | that | 0.56 | 123 | AUDCAD EURUSD AUDNZD NZDCAD USDCHF AUDUS | — | 7 hours ago | 46.44 |
+| 990 | Spacepips | MQL5 | [2396465](https://www.mql5.com/en/signals/2396465) | 19.03 | 1.20 | 0.46 | that | 0.67 | 15 | NQ100.R GBPJPY XAUUSD | — | 8 hours ago | 46.43 |
+| 991 | GemNanpin LongOnly 3Pair | MQL5 | [2397165](https://www.mql5.com/en/signals/2397165) | 18.81 | 2.46 | 0.92 | that | 1.33 | 56 | USDJPY# US500Cash# AUDCAD# | martingale | 19 hours ago | 46.41 |
+| 992 | Dynamic liquidity intelligence Robo50 | MQL5 | [2379362](https://www.mql5.com/en/signals/2379362) | 35194.75 | 66.03 | 4.37 | that | 746.82 | 158 | XAUUSD | — | 9 hours ago | 46.41 |
+| 993 | Snapback Pro | MQL5 | [2397731](https://www.mql5.com/en/signals/2397731) | 18.75 | 0.74 | 0.23 | that | 0.33 | 11 | NZDCAD NZDUSD | — | 10 hours ago | 46.37 |
+| 994 | Gas funds | MQL5 | [2369881](https://www.mql5.com/en/signals/2369881) | 4643.38 | 72.33 | 6.67 | that | 754.33 | 456 | DJ30 XAUUSD+ UKOUSD CL-OIL | — | 4 hours ago | 46.36 |
+| 995 | DOUBLE Grid EURAUD | MQL5 | [2361793](https://www.mql5.com/en/signals/2361793) | 6796.18 | 76.74 | 8.05 | that | 1611.59 | 327 | EURAUD | grid, martingale, hedge | 1 hour ago | 46.18 |
+| 996 | Red bean | MQL5 | [2394912](https://www.mql5.com/en/signals/2394912) | 949.51 | 57.87 | 0.92 | that | 19.75 | 70 | USDCHF EURUSD | — | 6 hours ago | 46.15 |
+| 997 | Vortex02 | MQL5 | [2389118](https://www.mql5.com/en/signals/2389118) | 52.32 | 27.76 | 6.21 | that | 24.33 | 53 | XAUUSD BTCUSD | — | 4 days ago | 46.12 |
+| 998 | Guardian Grid EA MT4 | MQL5 | [2394028](https://www.mql5.com/en/signals/2394028) | 19.27 | 4.54 | 0.92 | that | 1.36 | 72 | EURUSD | grid | 3 days ago | 45.92 |
+| 999 | Storm MT5 High Risk | MQL5 | [2397604](https://www.mql5.com/en/signals/2397604) | 10.41 | 0.20 | 0.23 | that | 0.19 | 8 | AUDUSD-ECN EURUSD-ECN USDCHF-ECN | — | 12 hours ago | 45.88 |
+| 1000 | EA1 | MQL5 | [2397718](https://www.mql5.com/en/signals/2397718) | 56.36 | 25.78 | 4.60 | that | 18.69 | 492 | XAUUSD EURAUD GBPAUD EURUSD AUDCAD AUDUS | grid | 40 minutes ago | 45.85 |
+| 1001 | LINARESFX | MQL5 | [2397644](https://www.mql5.com/en/signals/2397644) | 22.52 | 4.02 | 0.23 | that | 0.39 | 11 | XAUUSD | — | 7 hours ago | 45.84 |
+| 1002 | Gandoza Pro Trader Ultima | MQL5 | [2374870](https://www.mql5.com/en/signals/2374870) | 9218.49 | 73.94 | 6.44 | that | 1039.94 | 638 | XAUUSD | — | 9 hours ago | 45.81 |
+| 1003 | BG10 Noswap | MQL5 | [2365492](https://www.mql5.com/en/signals/2365492) | 1852.42 | 77.12 | 7.59 | that | 555.07 | 3117 | GBPNZD AUDNZD EURJPY AUDCAD USDCHF CHFJP | — | 11 minutes ago | 45.78 |
+| 1004 | Nasdaq 2 | MQL5 | [2387290](https://www.mql5.com/en/signals/2387290) | 91.55 | 38.56 | 5.29 | that | 33.18 | 1923 | CHƯA ĐO ĐƯỢC | — | 5 hours ago | 45.75 |
+| 1005 | Foundation EA _ Normal TP Version | MQL5 | [2397111](https://www.mql5.com/en/signals/2397111) | 10.98 | 1.76 | 0.46 | that | 0.40 | 13 | CADJPY NZDUSD USDCHF USDCAD USDJPY EURCH | — | 2 hours ago | 45.69 |
+| 1006 | Akun Gideon Start 5 August 2026 | MQL5 | [2385327](https://www.mql5.com/en/signals/2385327) | 48.37 | 19.95 | 2.99 | that | 10.33 | 501 | GBPUSD.m EURUSD.m USDCHF.m USDJPY.m | — | 3 hours ago | 45.63 |
+| 1007 | DSwing | MQL5 | [2355598](https://www.mql5.com/en/signals/2355598) | 21.33 | 28.53 | 9.20 | that | 15.98 | 853 | AUDUSD+ NZDUSD+ USDCAD+ NZDCAD+ EURAUD+  | — | 37 minutes ago | 45.6 |
+| 1008 | TechTrendv2 | MQL5 | [2391253](https://www.mql5.com/en/signals/2391253) | 143.46 | 45.29 | 1.61 | that | 12.68 | 278 | USTEC | — | 9 hours ago | 45.51 |
+| 1009 | FixFx Turtle | MQL5 | [2376214](https://www.mql5.com/en/signals/2376214) | 323.97 | 76.06 | 6.67 | that | 123.20 | 191 | EURUSD USDJPY XAUUSD GBPUSD | — | 4 days ago | 45.43 |
+| 1010 | AutoAce_IC | MQL5 | [2374678](https://www.mql5.com/en/signals/2374678) | 12.78 | 21.40 | 7.13 | that | 7.41 | 303 | GBPUSD EURUSD AUDCAD CHFJPY USDCHF AUDJP | — | 4 hours ago | 45.36 |
+| 1011 | Kenigsberg 39ru | MQL5 | [2385428](https://www.mql5.com/en/signals/2385428) | 53.40 | 21.61 | 2.53 | that | 9.44 | 104 | XAUUSD AUDNZD AUDCAD BTCUSD EURUSD NZDCA | — | 8 days ago | 45.29 |
+| 1012 | Gold Breakout Precise | MQL5 | [2395706](https://www.mql5.com/en/signals/2395706) | 20.58 | 6.39 | 0.46 | that | 0.72 | 8 | XAUUSD | — | 4 days ago | 45.25 |
+| 1013 | VT AutoAce No2 | MQL5 | [2375930](https://www.mql5.com/en/signals/2375930) | 22.87 | 21.84 | 5.98 | that | 10.81 | 363 | AUDCAD+ GBPUSD+ GBPCAD+ AUDJPY+ EURAUD+  | — | 4 hours ago | 45.24 |
+| 1014 | All In One 100 to 1M 1st round | MQL5 | [2396849](https://www.mql5.com/en/signals/2396849) | 117.86 | 35.72 | 0.46 | that | 3.03 | 18 | BTCUSDm EURUSDm EURNZDm AUDCADm NZDJPYm  | grid, martingale, dca | 4 hours ago | 45.22 |
+| 1015 | XAU EBC | MQL5 | [2372658](https://www.mql5.com/en/signals/2372658) | 14.72 | 18.89 | 5.75 | that | 6.80 | 122 | XAUUSD BTCUSD | — | 4 days ago | 45.21 |
+| 1016 | Cyrus ONL 1 | MQL5 | [2365441](https://www.mql5.com/en/signals/2365441) | 54.24 | 46.99 | 11.73 | that | 52.74 | 6163 | XAUUSD GBPUSD US100 US500 USDJPY EURUSD  | grid, martingale, dca | 37 minutes ago | 45.14 |
+| 1017 | Dynamic liquidity intelligence IC50 | MQL5 | [2375333](https://www.mql5.com/en/signals/2375333) | 12514.02 | 73.63 | 5.29 | that | 743.58 | 184 | XAUUSD | — | 9 hours ago | 45.12 |
+| 1018 | JZ005 | MQL5 | [2388055](https://www.mql5.com/en/signals/2388055) | 38.05 | 26.43 | 5.52 | that | 15.99 | 292 | XAUUSD BTCUSD | — | 6 days ago | 44.93 |
+| 1019 | Gold Super Strategies | MQL5 | [2395404](https://www.mql5.com/en/signals/2395404) | 22.79 | 8.37 | 0.46 | that | 0.79 | 11 | XAUUSD | — | 3 days ago | 44.92 |
+| 1020 | Gold Pro Inst Medium Frequency | MQL5 | [2370863](https://www.mql5.com/en/signals/2370863) | 3965.65 | 78.23 | 6.44 | that | 630.41 | 254 | GOLD# | — | 9 hours ago | 44.74 |
+| 1021 | Greezly Bot Pro FX | MQL5 | [2373394](https://www.mql5.com/en/signals/2373394) | 26.99 | 24.53 | 5.75 | that | 12.13 | 667 | EURUSD | — | 50 minutes ago | 44.73 |
+| 1022 | Trading tone | MQL5 | [2383481](https://www.mql5.com/en/signals/2383481) | 14.05 | 14.00 | 3.22 | that | 3.59 | 238 | AUDCAD EURUSD XAUUSD | — | 5 days ago | 44.7 |
+| 1023 | Trade EA CounterStrike | MQL5 | [2382196](https://www.mql5.com/en/signals/2382196) | 4546.70 | 72.56 | 4.14 | that | 275.98 | 22201 | XAUUSD.sv | — | 8 hours ago | 44.62 |
+| 1024 | BTCTrade | MQL5 | [2375224](https://www.mql5.com/en/signals/2375224) | 1543.72 | 75.87 | 5.29 | that | 243.54 | 870 | XAUUSD+ BTCUSD | — | 3 days ago | 44.56 |
+| 1025 | PA WT | MQL5 | [2344524](https://www.mql5.com/en/signals/2344524) | 132.58 | 78.43 | 13.80 | that | 163.97 | 1208 | XAUUSD.pro XAUUSD.s AUDCAD.s NASUSD | — | 4 days ago | 44.54 |
+| 1026 | GTP50K | MQL5 | [2397271](https://www.mql5.com/en/signals/2397271) | 127.60 | 45.37 | 1.84 | that | 13.44 | 8970 | XAUUSD.vip EURUSD.vip | — | 41 minutes ago | 44.45 |
+| 1027 | Kangaroo_1905 | MQL5 | [2396081](https://www.mql5.com/en/signals/2396081) | 59.98 | 28.31 | 2.99 | that | 12.42 | 2374 | US30 GER40 GBPUSD EURUSD USDCAD AUDUSD N | — | 44 minutes ago | 44.41 |
+| 1028 | Piwpiw | MQL5 | [2386099](https://www.mql5.com/en/signals/2386099) | 810.44 | 73.65 | 4.14 | that | 114.26 | 278 | XAUUSD | — | 8 hours ago | 44.35 |
+| 1029 | Beautiful Day | MQL5 | [2371530](https://www.mql5.com/en/signals/2371530) | 788.38 | 79.21 | 6.21 | that | 209.67 | 1106 | XAUUSD USDCAD EURUSD | grid, martingale | 5 hours ago | 44.34 |
+| 1030 | Dynamic liquidity intelligence Vale50 | MQL5 | [2379363](https://www.mql5.com/en/signals/2379363) | 40347.03 | 74.36 | 4.37 | that | 789.90 | 160 | XAUUSD.vx | — | 9 hours ago | 44.32 |
+| 1031 | TriConfluence Multicurrency Strategy | MQL5 | [2391413](https://www.mql5.com/en/signals/2391413) | 85.71 | 32.71 | 1.61 | that | 8.66 | 220 | US100.U26 US30.U26 | grid | 5 hours ago | 44.32 |
+| 1032 | Suryo99ProjectX | MQL5 | [2396542](https://www.mql5.com/en/signals/2396542) | 2280.30 | 63.98 | 0.46 | that | 12.92 | 39 | XAUUSD_MRG | grid, hedge | 5 hours ago | 44.31 |
+| 1033 | MASHRSI | MQL5 | [2367436](https://www.mql5.com/en/signals/2367436) | 188.98 | 79.81 | 7.59 | that | 95.66 | 168 | GBPUSD | — | 14 hours ago | 44.28 |
+| 1034 | Danutza | MQL5 | [2388510](https://www.mql5.com/en/signals/2388510) | 51.96 | 24.87 | 2.30 | that | 8.35 | 104 | EURAUD AUDJPY AUDCAD USDCHF USDCAD EURUS | — | 1 hour ago | 44.21 |
+| 1035 | SML No 2 | MQL5 | [2391056](https://www.mql5.com/en/signals/2391056) | 20.70 | 18.65 | 2.99 | that | 4.80 | 538 | GBPUSD USDCAD EURUSD | grid | 2 hours ago | 43.88 |
+| 1036 | Turtle One XM | MQL5 | [2351355](https://www.mql5.com/en/signals/2351355) | 64.05 | 51.87 | 10.12 | that | 51.81 | 352 | GOLD# GBPUSD# | — | 14 hours ago | 43.58 |
+| 1037 | Botfinance | MQL5 | [2332192](https://www.mql5.com/en/signals/2332192) | 20.29 | 48.80 | 13.57 | that | 23.23 | 473 | XRPUSD SOLUSD USDCNH ORACLE NETFLIX Plat | — | 4 days ago | 43.37 |
+| 1038 | MYSS retirement | MQL5 | [2381021](https://www.mql5.com/en/signals/2381021) | 41.69 | 31.28 | 4.37 | that | 13.53 | 131 | EURUSD | — | 7 hours ago | 43.22 |
+| 1039 | CheatcodesFX Portfolio 1 | MQL5 | [2363663](https://www.mql5.com/en/signals/2363663) | 96.36 | 74.07 | 14.03 | that | 120.10 | 13911 | US30 USTEC XAUUSD DE40 US500 BTCUSD UK10 | — | 43 minutes ago | 43.06 |
+| 1040 | ICMarkets N073 9000 USD | MQL5 | [2361212](https://www.mql5.com/en/signals/2361212) | 36.93 | 41.39 | 8.28 | that | 24.22 | 5623 | AUDNZD AUDCAD NZDCAD | — | 3 hours ago | 42.94 |
+| 1041 | Pulsefire | MQL5 | [2388363](https://www.mql5.com/en/signals/2388363) | 20.20 | 29.99 | 5.52 | that | 8.83 | 965 | GBPUSD GBPCAD AUDCAD EURCAD EURUSD GBPNZ | — | 5 hours ago | 42.7 |
+| 1042 | ReaNel 89 | MQL5 | [2305264](https://www.mql5.com/en/signals/2305264) | 57.37 | 77.04 | 18.40 | that | 100.42 | 1021 | AUDCAD NZDCAD GBPCAD EURJPY NZDCHF CHFJP | grid | 12 hours ago | 42.31 |
+| 1043 | Cadence FX Capital | MQL5 | [2379931](https://www.mql5.com/en/signals/2379931) | 39.62 | 38.28 | 5.29 | that | 15.85 | 195 | EURUSDp | — | 14 hours ago | 41.93 |
+| 1044 | MadTur Vantage | MQL5 | [2382377](https://www.mql5.com/en/signals/2382377) | 22.83 | 29.32 | 3.68 | that | 6.51 | 194 | XAUUSD+ | — | 7 hours ago | 41.84 |
+| 1045 | Trend tickmill | MQL5 | [2316351](https://www.mql5.com/en/signals/2316351) | 71.69 | 78.51 | 16.56 | that | 110.83 | 4654 | BTCUSD XAUUSD US30 US500 USTEC JP225 USD | — | 4 hours ago | 41.79 |
+| 1046 | ICMarkets H308 9000 USD | MQL5 | [2365664](https://www.mql5.com/en/signals/2365664) | 31.62 | 43.67 | 7.59 | that | 18.98 | 4943 | AUDNZD AUDCAD NZDCAD | — | 3 hours ago | 41.51 |
+| 1047 | ICMarkets H200 9001 USD | MQL5 | [2365666](https://www.mql5.com/en/signals/2365666) | 31.78 | 43.74 | 7.59 | that | 19.07 | 4988 | AUDNZD AUDCAD NZDCAD | — | 3 hours ago | 41.51 |
+| 1048 | ICMarkets H310 9000 USD | MQL5 | [2365665](https://www.mql5.com/en/signals/2365665) | 32.11 | 44.24 | 7.59 | that | 19.26 | 5001 | AUDNZD AUDCAD NZDCAD | — | 3 hours ago | 41.41 |
+| 1049 | Uber Gold Machine | MQL5 | [2397278](https://www.mql5.com/en/signals/2397278) | 11.55 | 19.24 | 0.46 | that | 0.42 | 35 | XAUUSD.p | hedge | 8 hours ago | 41.36 |
+| 1050 | Burning Grid HR | MQL5 | [2356804](https://www.mql5.com/en/signals/2356804) | 40.89 | 56.81 | 10.81 | that | 36.18 | 6258 | GBPNZD AUDNZD EURCAD AUDCAD CHFJPY AUDJP | grid | 11 minutes ago | 41.07 |
+| 1051 | Fusion Stable | MQL5 | [2362405](https://www.mql5.com/en/signals/2362405) | 36.74 | 51.89 | 9.43 | that | 27.88 | 233 | USDCAD AUDUSD EURCHF BTCUSD GBPUSD USDJP | — | 1 hour ago | 41.07 |
+| 1052 | Low DD Scalper EURUSD Signal | MQL5 | [2377403](https://www.mql5.com/en/signals/2377403) | 14.82 | 32.55 | 4.60 | that | 5.44 | 24 | EURUSD.m | grid, martingale, hedge, dca | 15 hours ago | 41.04 |
+| 1053 | ICMarkets H552 9000 USD | MQL5 | [2368361](https://www.mql5.com/en/signals/2368361) | 26.98 | 46.14 | 6.90 | that | 14.72 | 4179 | AUDNZD AUDCAD NZDCAD | — | 3 hours ago | 40.09 |
+| 1054 | ICMarkets N737 9000 USD | MQL5 | [2368362](https://www.mql5.com/en/signals/2368362) | 26.21 | 47.17 | 6.90 | that | 14.32 | 4177 | AUDNZD AUDCAD NZDCAD | — | 3 hours ago | 39.77 |
+| 1055 | First | MQL5 | [2391043](https://www.mql5.com/en/signals/2391043) | 159.27 | 79.65 | 3.91 | that | 36.40 | 209 | XAUUSD+ | — | 4 hours ago | 39.64 |
+| 1056 | GRID RSI PRO | MQL5 | [2362527](https://www.mql5.com/en/signals/2362527) | 109.99 | 78.49 | 8.74 | that | 71.66 | 217 | CHƯA ĐO ĐƯỢC | grid | 3 hours ago | 39.45 |
+| 1057 | ETHEREUM SUPERB | MQL5 | [2396164](https://www.mql5.com/en/signals/2396164) | 37.78 | 35.83 | 0.69 | that | 1.86 | 56 | ETHUSD | — | 4 hours ago | 39.34 |
+| 1058 | VincentS | MQL5 | [2318267](https://www.mql5.com/en/signals/2318267) | 26.22 | 79.33 | 17.25 | that | 39.76 | 2896 | XAUUSD GBPJPY USDJPY EURJPY CHFJPY AUDJP | — | 8 hours ago | 38.63 |
+| 1059 | ICMarkets M515 9000 USD | MQL5 | [2379156](https://www.mql5.com/en/signals/2379156) | 23.12 | 47.34 | 4.37 | that | 7.87 | 2627 | AUDNZD AUDCAD NZDCAD | — | 3 hours ago | 37.81 |
+| 1060 | ICMarkets M984 9000 USD | MQL5 | [2379157](https://www.mql5.com/en/signals/2379157) | 22.56 | 48.42 | 4.37 | that | 7.69 | 2605 | AUDNZD AUDCAD NZDCAD | — | 3 hours ago | 37.5 |
+| 1061 | Ichimoku Shogun | MQL5 | [2387440](https://www.mql5.com/en/signals/2387440) | 27.22 | 56.63 | 5.52 | that | 11.71 | 210 | GOLDm# | — | 8 hours ago | 36.56 |
+| 1062 | H4 Daily Breakout | MQL5 | [2384401](https://www.mql5.com/en/signals/2384401) | 12.11 | 67.99 | 11.27 | that | 11.33 | 725 | XAUUSD | — | 8 hours ago | 36.42 |
+| 1063 | Zoomini | MQL5 | [2381994](https://www.mql5.com/en/signals/2381994) | 86.99 | 77.84 | 3.68 | that | 21.16 | 308 | XAUUSD | — | 5 hours ago | 34.52 |
+| 1064 | Gold BTS | MQL5 | [2388274](https://www.mql5.com/en/signals/2388274) | 14.29 | 78.51 | 10.12 | that | 11.92 | 5929 | BTCUSD XAUUSD USDJPY GBPJPY USTEC US500  | — | 1 hour ago | 33.19 |
+| 1065 | Cuanin AUDCAD V985051t | MQL5 | [2371627](https://www.mql5.com/en/signals/2371627) | 41.18 | 5.84 | 1.15 | CHƯA ĐO ĐƯỢC | 3.36 | 41 | AUDCAD-STD | — | 154 days ago | 22.4 |
+
+## Phong cách suy từ dữ liệu công khai — 20 tín hiệu ĐẠT đầu bảng
+
+Nguồn: bảng Growth năm/tháng và đường Growth nhúng trong trang công khai, thời gian giữ lệnh, tải ký quỹ tối đa, symbol. Khung thời gian chỉ ghi khi trang có nhắc (M1…W1). Gợi ý phong cách là suy luận, KHÔNG phải tiêu chí.
+
+| # | Tên | Growth theo năm % | Tháng âm % | Tháng tệ nhất % | Giữ lệnh | Lệnh/tuần | Tải ký quỹ max % | Symbol | Khung nhắc đến | Gợi ý phong cách |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | [EA Happy News Eightcap](https://www.mql5.com/en/signals/1864588) | 2023: 710.61, 2024: 180.74, 2025: 206.54, 2026: 46.3 | 6.7 | -0.66 | 2 minutes | 1 | 13.88 | GBPUSD.i USDJPY.i EURUSD.i AUDUSD.i | CHƯA ĐO ĐƯỢC | scalping |
+| 2 | [Deux ex machina](https://www.mql5.com/en/signals/2271402) | 2021: 111.53, 2022: 268.43, 2023: 232.45, 2024: 95.01, 2025: 5.97, 2026: 23.12 | 4.5 | -7.49 | 2 days | 7 | 36.38 | AUDCAD AUDNZD NZDCAD US30 XAUUSD DE40 EU | CHƯA ĐO ĐƯỢC | swing/giữ nhiều ngày |
+| 3 | [EA Happy Gold Eightcap](https://www.mql5.com/en/signals/1862128) | 2023: 204.94, 2024: 163.62, 2025: 94.96, 2026: 490.35 | 6.5 | -5.76 | 2 minutes | 6 | 10.39 | XAUUSD.i | CHƯA ĐO ĐƯỢC | scalping |
+| 4 | [Gold Trend Following](https://www.mql5.com/en/signals/2391346) | 2021: 194.17, 2022: 458.97, 2023: 120.02, 2024: 77.08, 2025: 86.53, 2026: 157.1 | 9.0 | -6.43 | 3 hours | 42 | 38.57 | XAUUSD BTCUSD DOW | CHƯA ĐO ĐƯỢC | intraday |
+| 5 | [NoPain MT5](https://www.mql5.com/en/signals/2262642) | 2021: 13.43, 2022: 199.63, 2023: 144.27, 2024: 58.56, 2025: 32.98, 2026: 30.74 | 1.6 | -4.29 | 1 day | 6 | 10.03 | AUDCAD | CHƯA ĐO ĐƯỢC | swing/giữ nhiều ngày; tháng hầu như luôn dương nhưng DD vốn ≫ DD số dư — dấu hiệu giữ lệnh âm (lưới/DCA) |
+| 6 | [Happy Signal](https://www.mql5.com/en/signals/2302081) | 2023: 692.81, 2024: 1407.72, 2025: 201.93, 2026: 26.7 | 9.1 | -2.87 | 6 minutes | 4 | 4.57 | USDJPY.i AUDCAD.i EURGBP.i NZDCHF.i | CHƯA ĐO ĐƯỢC | scalping |
+| 7 | [ATong](https://www.mql5.com/en/signals/2327790) | 2021: 450.35, 2022: 55.18, 2023: 126.91, 2024: 23.43, 2025: 118.56, 2026: 124.32 | 7.5 | -14.53 | 1 day | 11 | 7.42 | GBPUSD AUDUSD GBPAUD EURUSD USDCAD AUDCA | CHƯA ĐO ĐƯỢC | swing/giữ nhiều ngày |
+| 8 | [TP TRADER](https://www.mql5.com/en/signals/1932739) | 2019: 0.44, 2020: 16.56, 2021: 26.94, 2022: -3.62, 2023: 23.14, 2024: 157.9, 2025: 163.91, 2026: 145.81 | 29.8 | -9.09 | 3 hours | 27 | 5.98 | EURUSD XAUUSD GBPUSD USDJPY AUDUSD EURJP | CHƯA ĐO ĐƯỢC | intraday |
+| 9 | [JINNIUFX7](https://www.mql5.com/en/signals/2330430) | 2016: 7.68, 2017: 35.56, 2018: 58.16, 2019: 46.18, 2020: 27.69, 2021: 13.41, 2022: 21.26, 2023: 10.37, 2024: 8.25, 2025: 8.45, 2026: 2.16 | 0.8 | -1.62 | 19 hours | 18 | 8.43 | GBPUSD | CHƯA ĐO ĐƯỢC | intraday |
+| 10 | [EansPRO V3 XAUUSD](https://www.mql5.com/en/signals/2378480) | 2021: 1.81, 2022: 17.12, 2023: 9.57, 2024: 25.23, 2025: 21.26, 2026: 63.38 | 0.0 | 0.21 | 2 days | 8 | 2.98 | GOLDmicro AUDUSDmicro | CHƯA ĐO ĐƯỢC | swing/giữ nhiều ngày |
+| 11 | [RFactor Portfolio JM](https://www.mql5.com/en/signals/743742) | 2020: 249.29, 2021: 155.52, 2022: 25.23, 2023: 0.05, 2024: 12.84, 2025: 3.35, 2026: 21.51 | 27.5 | -7.90 | 2 hours | 14 | 44.33 | GBPUSD EURUSD EURAUD EURCAD USDCAD EURGB | CHƯA ĐO ĐƯỢC | intraday; grid |
+| 12 | [ROEN S Gold Strategy Generated by NN](https://www.mql5.com/en/signals/1313419) | 2021: 11.6, 2022: 18.64, 2023: 14.04, 2024: 11.76, 2025: 12.66, 2026: 2.52 | 34.4 | -3.14 | 8 hours | 2 | 7.93 | XAUUSD AUDCAD NZDCAD AUDNZD | CHƯA ĐO ĐƯỢC | intraday |
+| 13 | [Balanced Blend 2](https://www.mql5.com/en/signals/2229611) | 2021: 15.28, 2022: 38.48, 2023: 7.93, 2024: 21.55, 2025: 38.67, 2026: 9.18 | 9.4 | -5.55 | 7 hours | 20 | 6.00 | EURUSD+ USDCAD+ GBPUSD+ NAS100 USDJPY+ G | CHƯA ĐO ĐƯỢC | intraday |
+| 14 | [SCR EURAUD](https://www.mql5.com/en/signals/2358336) | 2019: 40.45, 2020: 34.79, 2021: 29.79, 2022: 34.56, 2023: 12.05, 2024: 5.5, 2025: 3.08, 2026: 11.47 | 17.0 | -4.96 | 3 hours | 5 | 7.98 | EURAUD AUDCAD EURUSD AUDJPY GER30Cash US | CHƯA ĐO ĐƯỢC | intraday |
+| 15 | [EEVCC Night IC 6](https://www.mql5.com/en/signals/2361862) | 2021: 18.82, 2022: 34.65, 2023: 1.94, 2024: 0.92, 2025: 21.87, 2026: 5.27 | 33.3 | -4.48 | 10 hours | 24 | 1.18 | EURUSD XAUUSD EURGBP BTCUSD EURAUD USDJP | CHƯA ĐO ĐƯỢC | intraday |
+| 16 | [Night Hunter Pro All Pairs](https://www.mql5.com/en/signals/856907) | 2020: 9.98, 2021: 65.88, 2022: 13.5, 2023: -1.0, 2024: 13.12, 2025: -1.18, 2026: 4.48 | 25.7 | -7.59 | 11 hours | 19 | 14.08 | GBPUSD EURCAD EURUSD CHFJPY AUDCAD EURAU | CHƯA ĐO ĐƯỢC | intraday |
+| 17 | [Arsenal](https://www.mql5.com/en/signals/2373305) | 2021: 4.26, 2022: 29.3, 2023: 9.04, 2024: 11.49, 2025: 15.79, 2026: 11.04 | 5.8 | -9.65 | 13 days | 4 | 10.85 | AUDCHF AUDUSD NDX EURGBP AUDNZD NZDUSD G | CHƯA ĐO ĐƯỢC | swing/giữ nhiều ngày |
+| 18 | [Low real risk patient signal](https://www.mql5.com/en/signals/763292) | 2019: 13.4, 2020: 17.56, 2021: 14.58, 2022: 21.2, 2023: 4.84, 2024: 7.09, 2025: 6.33, 2026: 1.13 | 20.0 | -7.70 | 11 hours | 85 | 6.06 | AUDNZD NZDCAD GBPCAD EURUSD AUDCAD GBPUS | CHƯA ĐO ĐƯỢC | intraday; martingale |
+| 19 | [PAI Unique Mode No Limits with AI Filter](https://www.mql5.com/en/signals/1919885) | 2019: 19.89, 2020: 43.99, 2021: 30.1, 2022: 28.93, 2023: 14.33, 2024: 17.35, 2025: 9.54, 2026: 5.38 | 0.0 | 0.02 | 19 hours | 15 | 21.16 | GBPCHF NZDCAD AUDCAD NZDUSD USDCAD AUDNZ | CHƯA ĐO ĐƯỢC | intraday |
+| 20 | [ICTrading Signal 2](https://www.mql5.com/en/signals/926651) | 2017: 15.04, 2018: 17.71, 2019: 19.06, 2020: 24.2, 2021: 24.16, 2022: 37.22, 2023: 17.45, 2024: 10.01, 2025: 20.19, 2026: 12.61 | 0.9 | -0.84 | 2 days | 26 | 5.82 | NZDCAD AUDCAD NZDCHF AUDCHF USDCAD AUDUS | CHƯA ĐO ĐƯỢC | swing/giữ nhiều ngày; tháng hầu như luôn dương nhưng DD vốn ≫ DD số dư — dấu hiệu giữ lệnh âm (lưới/DCA) |
+
+Đường Growth đầy đủ (lấy mẫu ≤ 40 điểm) của mọi tín hiệu nằm trong `reports/cong_khai/DUONG_CONG_TOP.json` (top 50) và `data/cong_khai/tin_hieu.jsonl`.
+
 
 ## Chặn / không đọc được
 
+- `https://www.mql5.com/en/signals/2377320` — bi_chan 403
+- `https://www.mql5.com/en/signals/2378175` — bi_chan 403
+- `https://www.mql5.com/en/signals/2390308` — bi_chan 403
+- `https://www.mql5.com/en/signals/2391376` — bi_chan 403
+- `https://www.mql5.com/en/signals/2391854` — bi_chan 403
+- `https://www.mql5.com/en/signals/2395696` — bi_chan 403
+- `https://www.mql5.com/en/signals/1898289` — bi_chan 403
+- `https://www.mql5.com/en/signals/2027599` — loi 
+- `https://www.mql5.com/en/signals/2364242` — bi_chan 403
+- `https://www.mql5.com/en/signals/2370230` — bi_chan 403
+- `https://www.mql5.com/en/signals/2372040` — bi_chan 403
+- `https://www.mql5.com/en/signals/2372088` — bi_chan 403
+- `https://www.mql5.com/en/signals/2378968` — bi_chan 403
+- `https://www.mql5.com/en/signals/2382857` — bi_chan 403
+- `https://www.mql5.com/en/signals/2383619` — bi_chan 403
+- `https://www.mql5.com/en/signals/2384367` — bi_chan 403
+- `https://www.mql5.com/en/signals/2385162` — loi 
+- `https://www.mql5.com/en/signals/2391473` — bi_chan 403
+- `https://www.mql5.com/en/signals/2391755` — bi_chan 403
+- `https://www.mql5.com/en/signals/2392101` — bi_chan 403
+- `https://www.mql5.com/en/signals/2392136` — bi_chan 403
+- `https://www.mql5.com/en/signals/2392235` — bi_chan 403
+- `https://www.mql5.com/en/signals/2392343` — bi_chan 403
+- `https://www.mql5.com/en/signals/2392346` — bi_chan 403
+- `https://www.mql5.com/en/signals/2392367` — bi_chan 403
+- `https://www.mql5.com/en/signals/2392372` — bi_chan 403
+- `https://www.mql5.com/en/signals/2392437` — bi_chan 403
+- `https://www.mql5.com/en/signals/2392463` — bi_chan 403
+- `https://www.mql5.com/en/signals/2392576` — bi_chan 403
+- `https://www.mql5.com/en/signals/2392953` — bi_chan 403
+- `https://www.mql5.com/en/signals/2392960` — bi_chan 403
+- `https://www.mql5.com/en/signals/2393018` — bi_chan 403
+- `https://www.mql5.com/en/signals/2393019` — bi_chan 403
+- `https://www.mql5.com/en/signals/2393253` — bi_chan 403
+- `https://www.mql5.com/en/signals/2393254` — bi_chan 403
+- `https://www.mql5.com/en/signals/2393333` — loi 
+- `https://www.mql5.com/en/signals/2353566` — bi_chan 403
+- `https://www.mql5.com/en/signals/2357227` — loi 
 - `https://www.myfxbook.com/systems` — bi_chan 403
 - `https://social-trading.exness.com/strategy/110170778` — loi 
 
