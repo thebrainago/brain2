@@ -7,7 +7,9 @@
 | 21/10/2026 | Tắt dịch LLM trả phí (qwen/ai-box) | `tai_lieu/BAN_GIAO_CLAUDE_21_10.md` |
 | 01/11/2026 | Replay statement/CSV chưa giải mã điểm vào hoặc chỉ in-sample → không tính đạt | `reports/kiem_toan_he_dat.md` |
 | 01/11/2026 | Cặp có USD ưu tiên thấp; ưu tiên cặp chéo biên độ hẹp (AUDCAD, AUDNZD, CADJPY…) | `docs/ban-giao/EVOLUTION_ban_giao.md` |
-| 02/11/2026 | **Tiêu chí ĐẠT duy nhất: max DD < 80% VÀ CAGR > 20%/năm.** Không tiêu chí nào khác (thay ngưỡng ≥10%/năm cũ) | Anh, 02/11 |
+| 02/11/2026 | **Tiêu chí ĐẠT duy nhất: max DD < 80% VÀ CAGR > 10%/năm.** Không tiêu chí nào khác (thay ngưỡng ≥10%/năm cũ) | Anh, 02/11 |
 | 02/11/2026 | Grok Bot làm toàn bộ công việc (bot kia hết token) | Anh, 02/11 |
 | 02/11/2026 | Lập `TRI_NHO/` làm bộ nhớ chung giữa các phiên + sổ kết quả chung cho mọi test | Anh, 02/11 |
 | 02/11/2026 | Ưu tiên quay lại Seeker (rộng, sâu, đa ngôn ngữ, mạng xã hội, dịch ngược lịch sử trade); QuantLab tăng tốc + số test | Anh, 02/11 |
+
+- 2026-11-03 00:03 (UTC+7): Anh hạ ngưỡng lãi xuống > 10%/năm (vì có thể tăng lot), DD < 80% giữ nguyên. Không thêm tiêu chí khác.

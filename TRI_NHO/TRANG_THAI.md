@@ -1,7 +1,7 @@
 # Trạng thái hiện tại — cập nhật 02/11/2026 23:59 (UTC+7)
 
 ## Tóm tắt
-- **Chưa có hệ nào ĐẠT** theo tiêu chí DD < 80% & CAGR > 20%/năm với kết quả hợp lệ (xem `so_ket_qua/TONG_HOP.md`).
+- **Chưa có hệ nào ĐẠT** theo tiêu chí DD < 80% & CAGR > 10%/năm với kết quả hợp lệ (xem `so_ket_qua/TONG_HOP.md`).
 - Grok Bot làm toàn bộ việc từ 02/11 (bot kia hết token).
 - Máy nhà: tắt/park từ tối 31/10; routine giám sát 30′ tạm dừng.
 

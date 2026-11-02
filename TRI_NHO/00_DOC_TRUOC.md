@@ -6,7 +6,7 @@
 Tìm hệ thống giao dịch chạy được cho **tài khoản XM Micro** của Anh. Phong cách Anh thích: **không SL cứng, TP nhỏ, DCA, hedge, gỡ lệnh (recovery), ghép nhiều hệ** thành một hệ tổ hợp.
 
 ## 2. TIÊU CHÍ ĐẠT — DUY NHẤT
-**Max DD < 80% VÀ lợi nhuận > 20%/năm tính theo CAGR (lãi kép).**
+**Max DD < 80% VÀ lợi nhuận > 10%/năm tính theo CAGR (lãi kép).**
 Không có tiêu chí nào khác (FDR, placebo, Holm, p-value, PF, số lệnh… chỉ là nhãn tham khảo, không bao giờ là cổng). Các tài liệu cũ ghi “≥10%/năm” hay “≤80%” đã bị thay bằng tiêu chí này (xem `QUYET_DINH.md`).
 
 ## 3. Luật cố định

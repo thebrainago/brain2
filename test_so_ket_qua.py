@@ -13,7 +13,7 @@ def test_cagr():
 def test_trang_thai():
     assert s.xet_trang_thai({"luc_chay": "2026-10-30T10:00:00", "cagr_pct": 50, "dd_pct": 10}) == "BI_THAY_THE"
     assert s.xet_trang_thai({"luc_chay": "2026-11-01T10:00:00", "cagr_pct": 25, "dd_pct": 79.9}) == "DAT"
-    assert s.xet_trang_thai({"luc_chay": "2026-11-01T10:00:00", "cagr_pct": 20, "dd_pct": 10}) == "KHONG_DAT"
+    assert s.xet_trang_thai({"luc_chay": "2026-11-01T10:00:00", "cagr_pct": 10, "dd_pct": 10}) == "KHONG_DAT"
     assert s.xet_trang_thai({"luc_chay": "2026-11-01T10:00:00", "cagr_pct": 30, "dd_pct": 80}) == "KHONG_DAT"
     assert s.xet_trang_thai({"luc_chay": "2026-11-01T10:00:00", "cagr_pct": 30}) == "CHUA_DO"
     assert s.xet_trang_thai({"luc_chay": "2026-11-01T10:00:00", "cagr_pct": 30, "dd_pct": 5,

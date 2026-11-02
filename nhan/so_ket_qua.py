@@ -10,7 +10,7 @@ API cho module khác (gọi sau mỗi lần chạy):
 
 Quy tắc: không bịa số. Ô không có dữ liệu để trống. Kết quả trước khi vá lỗi lot CSV
 (2026-10-31 01:53 UTC+7) bị đánh dấu BI_THAY_THE. Tiêu chí ĐẠT duy nhất:
-max DD < 80% VÀ CAGR > 20%/năm.
+max DD < 80% VÀ CAGR > 10%/năm.
 """
 from __future__ import annotations
 
@@ -29,7 +29,7 @@ THU_MUC = GOC / "TRI_NHO" / "so_ket_qua"
 SO = THU_MUC / "ket_qua.csv"
 MOC_VA_LOT = "2026-10-31T01:53:00"  # giờ UTC+7
 DD_MAX = 80.0
-CAGR_MIN = 20.0
+CAGR_MIN = 10.0
 
 COT = ["id", "he", "symbol", "timeframe", "tu", "den", "so_nam", "nguon", "real_tick_pct",
        "net", "von", "cagr_pct", "dd_pct", "so_lenh", "phi", "luc_chay", "phien_bot",
@@ -57,7 +57,7 @@ def tinh_cagr(net, von, so_nam):
 
 
 def xet_trang_thai(d):
-    """Trả về trạng thái theo đúng tiêu chí DD<80 & CAGR>20 và mốc vá lot."""
+    """Trả về trạng thái theo đúng tiêu chí DD<80 & CAGR>10 và mốc vá lot."""
     luc = str(d.get("luc_chay") or "")
     if luc and luc[:19] < MOC_VA_LOT:
         return "BI_THAY_THE"
@@ -336,7 +336,7 @@ def tong_hop(duong=SO, ra=THU_MUC / "TONG_HOP.md"):
     sau = [r for r in ds if r["trang_thai"] in ("DAT", "KHONG_DAT")]
     L = ["# Tổng hợp sổ kết quả", "",
          f"Sinh tự động bởi `python -m nhan.so_ket_qua --tong-hop` lúc {datetime.now():%Y-%m-%d %H:%M} (UTC+7).",
-         "Tiêu chí ĐẠT duy nhất: **max DD < 80% VÀ CAGR > 20%/năm**. Chỉ tính kết quả đo SAU khi vá lỗi lot (31/10/2026 01:53 UTC+7).", "",
+         "Tiêu chí ĐẠT duy nhất: **max DD < 80% VÀ CAGR > 10%/năm**. Chỉ tính kết quả đo SAU khi vá lỗi lot (31/10/2026 01:53 UTC+7).", "",
          f"Tổng số dòng: **{len(ds)}**", "", "| Trạng thái | Số dòng |", "|---|---|"]
     L += [f"| {t} | {dem[t]} |" for t in TRANG_THAI]
     L += ["", "## Danh sách ĐẠT hiện tại", ""]
