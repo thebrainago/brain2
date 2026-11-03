@@ -28,21 +28,122 @@
    "lenh": null,
    "trang_thai_so": "CHUA_DO",
    "k_nang_lot": ""
+  },
+  {
+   "bien_the": "lot_ghep0bf2c31fbfc9dea0_H4",
+   "ma": "GBPCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g2",
+   "k": 1.0,
+   "cagr_pct": 65.079,
+   "dd_pct": 47.16,
+   "pf": 9.45,
+   "lenh": 86.0
+  },
+  {
+   "bien_the": "lot_ghep0bf2c31fbfc9dea0_H4",
+   "ma": "GBPCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g2",
+   "k": 1.5,
+   "cagr_pct": 85.227,
+   "dd_pct": 51.24,
+   "pf": 9.45,
+   "lenh": 86.0
+  },
+  {
+   "bien_the": "lot_ghep0bf2c31fbfc9dea0_H4",
+   "ma": "GBPCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g2",
+   "k": 2.0,
+   "cagr_pct": 102.105,
+   "dd_pct": 53.55,
+   "pf": 9.45,
+   "lenh": 86.0
+  },
+  {
+   "bien_the": "lot_ghep0bf2c31fbfc9dea0_H4",
+   "ma": "GBPCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g2",
+   "k": 2.5,
+   "cagr_pct": 116.805,
+   "dd_pct": 55.04,
+   "pf": 9.45,
+   "lenh": 86.0
+  },
+  {
+   "bien_the": "lot_ghep0bf2c31fbfc9dea0_H4",
+   "ma": "GBPCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g2",
+   "k": 3.0,
+   "cagr_pct": 129.928,
+   "dd_pct": 56.08,
+   "pf": 9.45,
+   "lenh": 86.0
+  },
+  {
+   "bien_the": "lot_ghep0bf2c31fbfc9dea0_H4",
+   "ma": "GBPCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g2",
+   "k": 4.0,
+   "cagr_pct": 152.811,
+   "dd_pct": 57.44,
+   "pf": 9.45,
+   "lenh": 86.0
+  },
+  {
+   "bien_the": "lot_ghep0bf2c31fbfc9dea0_H4",
+   "ma": "GBPCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g2",
+   "k": 5.0,
+   "cagr_pct": 172.526,
+   "dd_pct": 58.29,
+   "pf": 9.45,
+   "lenh": 86.0
+  },
+  {
+   "bien_the": "lot_ghep0bf2c31fbfc9dea0_H4",
+   "ma": "GBPCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g2",
+   "k": 6.0,
+   "cagr_pct": 189.999,
+   "dd_pct": 58.87,
+   "pf": 9.45,
+   "lenh": 86.0
+  },
+  {
+   "bien_the": "lot_ghep0bf2c31fbfc9dea0_H4",
+   "ma": "GBPCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g2",
+   "k": 8.0,
+   "cagr_pct": 220.256,
+   "dd_pct": 59.61,
+   "pf": 9.45,
+   "lenh": 86.0
   }
  ],
  "bi_thay_the": 13,
  "lai_theo_nam": {
-  "2024": 2244.34,
-  "2025": 717.65,
-  "2026": -154.88
+  "2024": 2430.5,
+  "2025": 722.05,
+  "2026": -153.43
  },
- "ti_le_thang_pct": 98.7,
+ "ti_le_thang_pct": 98.8,
  "so_deal": 78,
  "pf_bao_cao": 9.06,
  "bao_cao_htm": "reports/ong_dan/ket_qua_mt5/od_ghep0bf2c31fbfc9dea0_XM_CSV.htm",
  "manh_tot": [
+  "PF >= 1,3 ở ít nhất một biến thể",
+  "chạy có lãi trên: GBPCADmicro H4",
   "tỉ lệ thắng cao (99 %) — điểm vào/TP nhỏ đáng giữ"
  ],
- "ly_do_truot": "CHƯA ĐO ĐƯỢC",
+ "ly_do_truot": null,
  "giai_doan": "2023.12.26–2026.10.01"
 }
