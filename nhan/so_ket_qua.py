@@ -33,7 +33,7 @@ CAGR_MIN = 10.0
 
 COT = ["id", "he", "symbol", "timeframe", "tu", "den", "so_nam", "nguon", "real_tick_pct",
        "net", "von", "cagr_pct", "dd_pct", "so_lenh", "phi", "luc_chay", "phien_bot",
-       "commit", "tep_goc", "trang_thai", "ghi_chu"]
+       "commit", "tep_goc", "trang_thai", "ghi_chu", "k_nang_lot", "nang_lot_ghi_chu"]
 TRANG_THAI = ("DAT", "KHONG_DAT", "BI_THAY_THE", "CHUA_DO", "UNG_VIEN")  # UNG_VIEN: dat so nhung kiem toan ha (03/11)
 
 

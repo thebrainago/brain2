@@ -7,6 +7,7 @@ Tìm hệ thống giao dịch chạy được cho **tài khoản XM Micro** củ
 
 ## 2. TIÊU CHÍ ĐẠT — DUY NHẤT
 **Max DD < 80% VÀ lợi nhuận > 10%/năm tính theo CAGR (lãi kép).**
+**CAGR thấp được nâng lot, miễn DD<80%** (Anh, 03/11/2026): hệ đạt nếu có hệ số lot k cho CAGR > 10% và DD < 80% (cháy = trượt). Đo k bằng `python -m nhan.nang_lot` → `reports/NANG_LOT_DAT.md`, cột `k_nang_lot` trong sổ.
 Không có tiêu chí nào khác (FDR, placebo, Holm, p-value, PF, số lệnh… chỉ là nhãn tham khảo, không bao giờ là cổng). Các tài liệu cũ ghi “≥10%/năm” hay “≤80%” đã bị thay bằng tiêu chí này (xem `QUYET_DINH.md`).
 
 ## 3. Luật cố định
