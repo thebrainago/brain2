@@ -33,5 +33,30 @@
   "luc": "2026-11-03T14:23:34+07:00",
   "may": "desktop-05pnlgf_g10",
   "tom_tat": "CHƯA ĐO ĐƯỢC"
+ },
+ "trang_thai": "HONG",
+ "xong_luc": "2026-11-03T14:26:46+07:00",
+ "ket_qua": {
+  "chay": [
+   {
+    "k": 1.0,
+    "loi": "khong_bao_cao",
+    "giay": 6
+   },
+   {
+    "k": 2.0,
+    "loi": "khong_bao_cao",
+    "giay": 5
+   },
+   {
+    "k": 4.0,
+    "loi": "khong_bao_cao",
+    "giay": 6
+   }
+  ],
+  "dat": false,
+  "k_tot": null,
+  "k_an_toan_max": null,
+  "tom_tat": "CHƯA ĐO ĐƯỢC"
  }
 }
