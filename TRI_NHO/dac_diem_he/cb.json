@@ -1,7 +1,7 @@
 {
  "id": "cb",
- "nguon": "https://www.mql5.com/en/code/62713",
- "kieu": "tham số: StartLots",
+ "nguon": "https://www.mql5.com/en/code/74582",
+ "kieu": "tham số: InpLotSize",
  "chay": [
   {
    "bien_the": "cb_70796",
@@ -288,29 +288,61 @@
    "dd_pct": 51.99,
    "pf": 1.35,
    "lenh": 414.0
+  },
+  {
+   "bien_the": "cb_74582",
+   "ma": "EURUSDmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g1",
+   "k": 1.0,
+   "cagr_pct": -0.005,
+   "dd_pct": 0.8,
+   "pf": 0.99,
+   "lenh": 497.0
+  },
+  {
+   "bien_the": "cb_74582",
+   "ma": "EURUSDmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g1",
+   "k": 2.0,
+   "cagr_pct": -0.009,
+   "dd_pct": 1.6,
+   "pf": 0.99,
+   "lenh": 497.0
+  },
+  {
+   "bien_the": "cb_74582",
+   "ma": "EURUSDmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g1",
+   "k": 4.0,
+   "cagr_pct": -0.019,
+   "dd_pct": 3.19,
+   "pf": 0.99,
+   "lenh": 497.0
   }
  ],
  "lai_theo_nam": {
-  "2016": 222.53,
-  "2017": 121.18,
-  "2018": 211.58,
-  "2019": 120.52,
-  "2020": 271.38,
-  "2021": 115.47,
-  "2022": 41.2,
-  "2023": 170.83,
-  "2024": 161.95,
-  "2025": 307.0,
-  "2026": 130.99
+  "2016": 5.19,
+  "2017": 10.32,
+  "2018": -7.91,
+  "2019": -6.24,
+  "2020": -49.89,
+  "2021": 11.32,
+  "2022": 4.32,
+  "2023": 2.38,
+  "2024": 1.21,
+  "2025": 9.51,
+  "2026": 14.8
  },
- "ti_le_thang_pct": 69.2,
+ "ti_le_thang_pct": 33.8,
  "giai_doan": "2016.01.01–2026.10.01",
  "manh_tot": [
   "PF >= 1,3 ở ít nhất một biến thể",
   "DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot",
-  "có lãi 11/11 năm",
-  "chạy có lãi trên: EURUSDmicro H1",
-  "tỉ lệ thắng cao (69 %) — điểm vào/TP nhỏ đáng giữ"
+  "có lãi 8/11 năm",
+  "chạy có lãi trên: EURUSDmicro H1"
  ],
  "ly_do_truot": "lãi dương nhưng không đủ 10 %/năm trước khi DD chạm 80 % (lợi thế mỏng so với rủi ro)"
 }
