@@ -1,7 +1,7 @@
 {
  "id": "cb",
- "nguon": "https://www.mql5.com/en/code/70796",
- "kieu": "tham số: Fixed_Lot",
+ "nguon": "https://www.mql5.com/en/code/71189",
+ "kieu": "tham số: InpFixedLots",
  "chay": [
   {
    "bien_the": "cb_70796",
@@ -35,19 +35,55 @@
    "dd_pct": 100.01,
    "pf": 0.61,
    "lenh": 603.0
+  },
+  {
+   "bien_the": "cb_71189",
+   "ma": "EURUSDmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g2",
+   "k": 1.0,
+   "cagr_pct": -0.088,
+   "dd_pct": 1.1,
+   "pf": 0.77,
+   "lenh": 512.0
+  },
+  {
+   "bien_the": "cb_71189",
+   "ma": "EURUSDmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g2",
+   "k": 2.0,
+   "cagr_pct": -0.177,
+   "dd_pct": 2.19,
+   "pf": 0.77,
+   "lenh": 512.0
+  },
+  {
+   "bien_the": "cb_71189",
+   "ma": "EURUSDmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g2",
+   "k": 4.0,
+   "cagr_pct": -0.357,
+   "dd_pct": 4.38,
+   "pf": 0.77,
+   "lenh": 512.0
   }
  ],
  "lai_theo_nam": {
-  "2016": -1323.8,
-  "2017": -2799.1,
-  "2018": 1029.8,
-  "2019": -4079.3,
-  "2020": -820.1,
-  "2021": -290.1,
-  "2022": -759.4,
-  "2023": -962.79
+  "2016": -7.82,
+  "2017": -26.64,
+  "2018": 9.18,
+  "2019": -13.87,
+  "2020": 7.58,
+  "2021": -23.46,
+  "2022": -22.61,
+  "2023": 3.92,
+  "2024": -4.77,
+  "2025": -20.75,
+  "2026": 5.07
  },
- "ti_le_thang_pct": 3.9,
+ "ti_le_thang_pct": 64.1,
  "giai_doan": "2016.01.01–2026.10.01",
  "manh_tot": [],
  "ly_do_truot": "lỗ ở mọi mức lot (không có lợi thế sau phí)"
