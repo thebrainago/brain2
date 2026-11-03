@@ -59,3 +59,5 @@
 - Bộ test đầy đủ (`pytest`) treo ở ~60% và có ~30 lỗi; chạy theo file với `--timeout`. Lỗi cũ: test_dich_llm (403), test_an_toan_tester ×2, test_ghi_an_toan ×3, test_sinh_viec.
 - Repo phình: `reports/phan_viec/viec_mt5` và `reports/KHO_*.json` (đề xuất chuyển ra ngoài git — chờ Anh duyệt).
 - Vài file config/report (`config/ma_nguon_con_tro.json`, `config/ngan_sach_nhip.json`, `nhat_ky/kho_co_che_ghi.log`, `reports/EVO_SUC_KHOE.md`, `reports/VONG_DAY_DU.json`) đang thay đổi trên box do tiến trình khác — không commit ở phiên 03/11.
+
+- 04/11/2026: Anh lưu ý cặp chéo (GBPCAD, GBPNZD, EURGBP) cho lợi nhuận tốt hơn; ưu tiên thử cặp chéo. Vòng 2 chạy trước vòng 1.

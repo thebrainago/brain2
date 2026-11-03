@@ -109,3 +109,7 @@ Vẫn IN-SAMPLE; chỉ để xem quản lý nào giữ lãi đều hơn qua 2024
 3. **Đa cặp**: CSV vào gắn với một cặp → không chạy được trên cặp khác; cần thẻ Python tái sinh tín hiệu (`nhan/vong2.py` §1.4).
 4. **Ghép**: GBPCAD có 3 hệ (ghep60ff H1, ghep0bf2 H4, skea154 H4), GBPNZD có 2 (ghepe9b41 H4, 2600ea H1) → ghép danh mục §4 bằng equity tái dựng (cần mục 2); EA gộp một rổ mỗi chiều nên ghép trong một EA chỉ `gan_dung`.
 5. **Lọc chế độ ADX / regime / tin**: `BRAIN_XuLiLenh` **chưa có** input ADX, lọc chế độ hay lịch tin; chỉ có ATR (bước/TP/trailing), giờ cấm, spread tối đa. Cần thêm input (vd `InpAdxMax`, `InpAtrPctMin/Max`, file lịch tin CSV) và biên dịch trên máy nhà.
+
+## 8. Quyết định của Anh (04/11/2026)
+- **Vòng 2 ưu tiên hơn vòng 1**: hệ nào đã qua vòng 1 thì chạy tiếp vòng 2 cho xong hẳn rồi mới quét hệ mới. Trong hàng đợi, việc `v2*` có ưu tiên 88–90, còn việc vòng 1 có ưu tiên ≤ 55. Mọi việc vòng 2 sinh thêm sau này phải giữ ưu tiên cao hơn mọi việc vòng 1.
+- **Cặp chéo có vẻ lời tốt hơn**: các hệ qua vòng 1 mạnh nhất đều chạy trên cặp chéo (GBPCAD# H4/H1, GBPNZD# H4, EURGBP# H1). Khi quét và ghép hệ, ưu tiên thử cặp chéo (GBP/AUD/NZD/CAD/EUR crosses) trước. Cần kiểm chứng thêm ở vòng 2 (ngoài mẫu, phí swap/spread cặp chéo cao hơn) trước khi kết luận.
