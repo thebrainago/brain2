@@ -1,9 +1,9 @@
 # Đặc điểm hệ `skeadd170ac7bf`
 
-- Nguồn: mt5_real_tick
+- Nguồn: sk_ea_dd170ac7bf
 - Kiểu vào / quản lý lệnh: vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 9 tầng, hệ số lot 1.6; TP 0.005 % giá
 - Trạng thái: **TRƯỢT — lãi dương nhưng không đủ 10 %/năm trước khi DD chạm 80 % (lợi thế mỏng so với rủi ro)**
-- Số lần chạy hợp lệ: 2 (bị thay thế do lỗi lot CSV: 6)
+- Số lần chạy hợp lệ: 4 (bị thay thế do lỗi lot CSV: 6)
 - Tỉ lệ thắng: 57,8 %
 - Năm có lãi: 2024 (+489), 2025 (+358), 2026 (+1453)
 - Thời gian giữ lệnh TB: CHƯA ĐO ĐƯỢC
@@ -20,4 +20,6 @@
 | Biến thể | Mã | Khung | Nguồn đo | Lot k | CAGR %/năm | DD % | PF | Lệnh |
 |---|---|---|---|---|---|---|---|---|
 | od_v2r2p_b120_skeadd170ac7bf_XM_CSV | USDCAD# | H1 | mt5_real_tick | 1.0 | 6,63 | 8,60 | 4,42 | 99 |
+| lot_skeadd170ac7bf_H1 | USDCADmicro | H1 | mt5_tho_desktop-05pnlgf_g8 | 5.0 | -67,08 | 96,91 | 0,00 | 6.0 |
 | od_v2r2p_b50_skeadd170ac7bf_XM_CSV | USDCAD# | H1 | mt5_real_tick | 1.0 | -100,00 | 100,00 | 4,42 | 19 |
+| lot_skeadd170ac7bf_H1 | USDCADmicro | H1 | mt5_tho_desktop-05pnlgf_g8 | 2.5 | 0,00 | 0,00 | 0,00 | CHƯA ĐO ĐƯỢC |
