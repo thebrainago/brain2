@@ -61,3 +61,5 @@
 - Vài file config/report (`config/ma_nguon_con_tro.json`, `config/ngan_sach_nhip.json`, `nhat_ky/kho_co_che_ghi.log`, `reports/EVO_SUC_KHOE.md`, `reports/VONG_DAY_DU.json`) đang thay đổi trên box do tiến trình khác — không commit ở phiên 03/11.
 
 - 04/11/2026: Anh lưu ý cặp chéo (GBPCAD, GBPNZD, EURGBP) cho lợi nhuận tốt hơn; ưu tiên thử cặp chéo. Vòng 2 chạy trước vòng 1.
+
+- 04/11/2026: Mở **nhánh chỉ số** (theo xu hướng thiên mua US500/US30/US100/GER40): EA `ea_demo/BRAIN_ChiSo_Trend.mq5` (chưa biên dịch), 24 việc `hang_doi/can_test/cs_*.json` ưu tiên 60, tài liệu `tai_lieu/NHANH_CHI_SO.md`. Chờ máy nhà chạy.
