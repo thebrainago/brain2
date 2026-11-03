@@ -1,10 +1,21 @@
 {
- "luc": "2026-11-03 00:53",
+ "luc": "2026-11-03 05:40",
  "dem": {
   "MQL5": {
-   "id_tim_thay": 292,
-   "doc_duoc": 292,
-   "khong_doc": 0
+   "id_tim_thay": 1600,
+   "doc_duoc": 1562,
+   "khong_doc": 38,
+   "id_moi_theo_cach_sap": {
+    "mac_dinh": 226,
+    "orderby=weeks&dir=up": 245,
+    "orderby=weeks": 197,
+    "orderby=drawdown": 220,
+    "orderby=drawdown&dir=up": 178,
+    "orderby=gain": 85,
+    "orderby=trades": 106,
+    "orderby=activity": 163,
+    "orderby=balance&dir=up": 148
+   }
   },
   "Myfxbook": {
    "doc_duoc": 0,
@@ -21,15 +32,21 @@
   }
  },
  "thu_thap": {
-  "tai": 1,
-  "cache": 301,
+  "tai": 456,
+  "cache": 1155,
   "robots_cam": 0,
-  "bi_chan": 1,
-  "loi": 1
+  "bi_chan": 35,
+  "loi": 5
  },
- "so_dat": 292,
- "so_dong_so_moi": 1,
+ "so_dat": 1065,
+ "so_dong_so_moi": 773,
  "dich_nguoc": [],
+ "ty_le_dat": {
+  "MQL5": 0.6823,
+  "Myfxbook": 0.0,
+  "LiteFinance": 0.0,
+  "Exness": 0.0
+ },
  "top10": [
   {
    "ten": "EA Happy News Eightcap",
@@ -50,6 +67,24 @@
    "diem_xep_hang": 87.11
   },
   {
+   "ten": "EA Happy Gold Eightcap",
+   "url": "https://www.mql5.com/en/signals/1862128",
+   "cagr_pct": 237.91,
+   "dd_pct": 11.7,
+   "tuoi_thang": 44.62,
+   "that_demo": "that",
+   "diem_xep_hang": 86.82
+  },
+  {
+   "ten": "Gold Trend Following",
+   "url": "https://www.mql5.com/en/signals/2391346",
+   "cagr_pct": 183.27,
+   "dd_pct": 48.13,
+   "tuoi_thang": 66.01,
+   "that_demo": "that",
+   "diem_xep_hang": 86.71
+  },
+  {
    "ten": "NoPain MT5",
    "url": "https://www.mql5.com/en/signals/2262642",
    "cagr_pct": 86.97,
@@ -57,6 +92,15 @@
    "tuoi_thang": 60.03,
    "that_demo": "that",
    "diem_xep_hang": 86.37
+  },
+  {
+   "ten": "Happy Signal",
+   "url": "https://www.mql5.com/en/signals/2302081",
+   "cagr_pct": 437.63,
+   "dd_pct": 11.29,
+   "tuoi_thang": 43.7,
+   "that_demo": "that",
+   "diem_xep_hang": 86.31
   },
   {
    "ten": "ATong",
@@ -93,33 +137,6 @@
    "tuoi_thang": 59.8,
    "that_demo": "that",
    "diem_xep_hang": 84.3
-  },
-  {
-   "ten": "RFactor Portfolio JM",
-   "url": "https://www.mql5.com/en/signals/743742",
-   "cagr_pct": 52.81,
-   "dd_pct": 20.09,
-   "tuoi_thang": 78.19,
-   "that_demo": "that",
-   "diem_xep_hang": 83.94
-  },
-  {
-   "ten": "SCR EURAUD",
-   "url": "https://www.mql5.com/en/signals/2358336",
-   "cagr_pct": 21.29,
-   "dd_pct": 12.21,
-   "tuoi_thang": 93.37,
-   "that_demo": "that",
-   "diem_xep_hang": 83.54
-  },
-  {
-   "ten": "ICTrading Signal 2",
-   "url": "https://www.mql5.com/en/signals/926651",
-   "cagr_pct": 21.53,
-   "dd_pct": 18.91,
-   "tuoi_thang": 109.93,
-   "that_demo": "that",
-   "diem_xep_hang": 81.89
   }
  ]
 }
