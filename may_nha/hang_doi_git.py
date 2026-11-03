@@ -33,6 +33,9 @@ TRUONG_BAT_BUOC = {"mt5_backtest": ("ea_file", "ma", "tf", "tu", "den", "he_so_l
                    "mql5_demo_download": ("url_product",), "myfxbook_fetch": ("url",)}
 
 
+SO_LAN_HONG_TOI_DA = 3   # hỏng 3 lần mới vào da_test (vẫn HONG, không phải loại)
+
+
 def bay_gio() -> str:
     return dt.datetime.now().astimezone().isoformat(timespec="seconds")
 
@@ -213,8 +216,14 @@ class HangDoi:
         """Chuyển dang_lam_<may> -> da_test kèm kết quả. tep_them {đường dẫn tương đối: nội dung str}."""
         def ap():
             src = self.hd / ("dang_lam_" + self.may) / (v["id"] + ".json")
-            dst = self.thu_muc("da_test") / (v["id"] + ".json")
             out = dict(v); out.update({"trang_thai": trang_thai, "xong_luc": bay_gio(), "ket_qua": ket_qua})
+            if trang_thai == "HONG" and int(v.get("lan_hong") or 0) + 1 < SO_LAN_HONG_TOI_DA:
+                # 03/11/2026: hỏng (chưa đo được) KHÔNG phải loại -> trả lại can_test, đếm lần hỏng
+                out = dict(v); out["lan_hong"] = int(v.get("lan_hong") or 0) + 1
+                out["hong_cuoi"] = {"luc": bay_gio(), "may": self.may, "tom_tat": ket_qua.get("tom_tat")}
+                dst = self.thu_muc("can_test") / (v["id"] + ".json")
+            else:
+                dst = self.thu_muc("da_test") / (v["id"] + ".json")
             dst.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
             if src.exists():
                 src.unlink()

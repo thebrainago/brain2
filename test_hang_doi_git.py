@@ -158,3 +158,18 @@ def test_dac_diem_he(tmp_path, monkeypatch):
     assert "skeadd170ac7bf" in (tmp_path / "ML.md").read_text(encoding="utf-8") and len(ps) == 3
     D.tu_ket_qua_tho(spec, kq)                               # chạy lại không nhân đôi lần chạy
     assert len(json.loads((tmp_path / "dd" / "skeadd170ac7bf.json").read_text(encoding="utf-8"))["chay"]) == 2
+
+
+
+def test_hong_tra_lai_can_test(tmp_path):
+    a, _ = _repo(tmp_path)
+    h = HD.HangDoi(a, "m", log=lambda s: None)
+    h.them([_spec("h1", 1)])
+    for lan in range(1, HD.SO_LAN_HONG_TOI_DA):
+        v = h.nhan(); assert v["id"] == "h1"
+        assert h.xong(v, {"tom_tat": "CHƯA ĐO ĐƯỢC: x"}, "HONG")
+        assert (a / "hang_doi" / "can_test" / "h1.json").exists() and not (a / "hang_doi" / "da_test" / "h1.json").exists()
+    v = h.nhan(); assert v["lan_hong"] == HD.SO_LAN_HONG_TOI_DA - 1
+    h.xong(v, {"tom_tat": "CHƯA ĐO ĐƯỢC: x"}, "HONG")
+    d = json.loads((a / "hang_doi" / "da_test" / "h1.json").read_text(encoding="utf-8"))
+    assert d["trang_thai"] == "HONG"

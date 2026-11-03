@@ -56,6 +56,44 @@ def dd_pct(chuoi) -> float | None:
     return float(m.group(1).replace(" ", "").replace(",", ".")) if m else None
 
 
+def ky_hieu_slot(slot: Path, ma: str) -> str:
+    """03/11/2026: tài khoản XM của slot có thể chỉ có mã '#' (demo 345930355: không có *micro) -> tester báo
+    'symbol ... not exist'. Dò danh sách symbol của slot (bases/<server>/symbols/symbols-*.dat); thiếu mã gốc -> đổi sang '#'."""
+    if not ma:
+        return ma
+    import glob
+    def co(t: str) -> bool:
+        for f in glob.glob(str(Path(slot) / "bases" / "*" / "symbols" / "symbols-*.dat")):
+            try:
+                b = Path(f).read_bytes()
+            except OSError:
+                continue
+            if t.encode("ascii") + b"\0" in b or t.encode("utf-16-le") + b"\0\0" in b:
+                return True
+        return any(Path(x).is_dir() for x in glob.glob(str(Path(slot) / "bases" / "*" / "history" / t)))
+    if co(ma):
+        return ma
+    sys.path.insert(0, str(GOC / "mt5tools")); from sinh_viec import remap_ma_hash_demo
+    moi = remap_ma_hash_demo(ma)
+    return moi if moi != ma and co(moi) else ma
+
+
+def doi_ma_csv(noi_dung: str, ma_cu: str, ma_moi: str) -> str:
+    """Đổi cột 'ma' của CSV lệnh vào từ mã việc sang mã thật của slot."""
+    if ma_cu == ma_moi:
+        return noi_dung
+    dong = noi_dung.splitlines()
+    if not dong or "ma" not in [c.strip() for c in dong[0].split(",")]:
+        return noi_dung
+    i = [c.strip() for c in dong[0].split(",")].index("ma"); out = [dong[0]]
+    for d in dong[1:]:
+        p = d.split(",")
+        if len(p) > i and p[i].strip() == ma_cu:
+            p[i] = ma_moi
+        out.append(",".join(p))
+    return "\n".join(out) + "\n"
+
+
 def nhan_csv(noi_dung: str, k: float, chia_hash: bool = False) -> str:
     """Nhân cột lot của CSV lệnh vào với k (mã '#': lot micro > 0,5 chia 100 trước, như sinh_viec.dat_csv_vao)."""
     dong = noi_dung.splitlines()
@@ -161,11 +199,14 @@ def chay_mot_k(slot: Path, v: dict, k: float, cho_toi_da: int) -> dict:
     lot_ten = v.get("tham_so_lot")
     if lot_ten and lot_ten in ts:
         ts[lot_ten] = round(float(ts[lot_ten]) * k, 6)
+    ma = ky_hieu_slot(slot, v["ma"])
+    if ma != v["ma"]:
+        log("  mã %s không có trong slot -> dùng %s" % (v["ma"], ma))
     if v.get("che_do") == "ong_dan_csv":
         nguon = GOC / v["csv_vao"].replace("\\", "/")
         ten_csv = ten + "_vao.csv"
         common = SV.thu_muc_common(); common.mkdir(parents=True, exist_ok=True)
-        (common / ten_csv).write_text(nhan_csv(nguon.read_text(encoding="utf-8", errors="replace"), k, str(v["ma"]).endswith("#")),
+        (common / ten_csv).write_text(nhan_csv(doi_ma_csv(nguon.read_text(encoding="utf-8", errors="replace"), v["ma"], ma), k, ma.endswith("#")),
                                       encoding="utf-8", newline="\n")
         for duoi in ("_lenh_mt5.csv", "_gia.csv"):
             (common / (ten_csv + duoi)).unlink(missing_ok=True)
@@ -173,7 +214,7 @@ def chay_mot_k(slot: Path, v: dict, k: float, cho_toi_da: int) -> dict:
     if "InpTF" in ts:
         ts["InpTF"] = SV.TF[v["tf"]] if hasattr(SV, "TF") and v["tf"] in SV.TF else ts["InpTF"]
     vv = {"ea_file": v["ea_file"].replace("/", "\\") if v["ea_file"].lower().startswith("market") else "BRAIN\\" + v["ea_file"],
-          "ma": v["ma"], "tf": v["tf"], "tu": v["tu"], "den": v["den"], "model": int(v.get("model", 4)),
+          "ma": ma, "tf": v["tf"], "tu": v["tu"], "den": v["den"], "model": int(v.get("model", 4)),
           "von": int(v.get("von") or 1000), "tien": v.get("tien") or "USD", "ts": ts}
     (slot / "MQL5" / "Profiles" / "Tester").mkdir(parents=True, exist_ok=True)
     (slot / "MQL5" / "Profiles" / "Tester" / (ten + ".set")).write_text(SV.file_set_ong_dan(vv), encoding="ascii", errors="replace")
