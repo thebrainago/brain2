@@ -188,12 +188,16 @@ def _mt5():
 def tai_ma_nguon(slot: Path, v: dict) -> str | None:
     """Làn A nguồn ngoài (Code Base/GitHub): tải .mq5 công khai về slot MQL5/Experts/BRAIN/<ea_file>.mq5 (không đăng nhập)."""
     dich = slot / "MQL5" / "Experts" / "BRAIN"; dich.mkdir(parents=True, exist_ok=True)
-    f = dich / (v["ea_file"] + ".mq5")
+    url = v.get("url_ex5") or v["url_ma_nguon"]
+    f = dich / (v["ea_file"] + (".ex5" if v.get("url_ex5") else ".mq5"))
     if f.exists():
         return None
     try:
-        rq = urllib.request.Request(v["url_ma_nguon"], headers={"User-Agent": "Mozilla/5.0"})
-        f.write_bytes(urllib.request.urlopen(rq, timeout=60).read())
+        rq = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        b = urllib.request.urlopen(rq, timeout=60).read()
+        if v.get("url_ex5") and not b.startswith(b"EX5"):
+            return "tệp tải về không phải .ex5"
+        f.write_bytes(b)
     except Exception as e:
         return "tải mã nguồn hỏng: %s" % str(e)[:120]
     return None
@@ -291,7 +295,7 @@ def chay_mot_k(slot: Path, v: dict, k: float, cho_toi_da: int) -> dict:
 
 
 def lam_mt5_backtest(slot: Path, v: dict, cho: int) -> tuple[str, dict]:
-    loi = tai_ma_nguon(slot, v) if v.get("url_ma_nguon") else None
+    loi = tai_ma_nguon(slot, v) if (v.get("url_ma_nguon") or v.get("url_ex5")) else None
     loi = loi or chuan_bi_ea(slot, v["ea_file"])
     if loi:
         return "HONG", {"tom_tat": "CHƯA ĐO ĐƯỢC: " + loi}
@@ -341,11 +345,17 @@ def ds_slot_xm() -> list[Path]:
     return [Path(s) for s in QS.ds_slot() if Path(s, "terminal64.exe").exists() and CL.san_cua_slot(s) == "XM"]
 
 
-def so_luong_song_song(yeu_cau: int | None, so_slot: int, so_cpu: int | None) -> int:
-    """Mặc định = số slot XM; trần 4; trần theo CPU (chừa nửa số luồng cho Anh dùng máy)."""
-    tran_cpu = max(1, (so_cpu or 2) // 2)
+def so_luong_song_song(yeu_cau: int | None, so_slot: int, so_cpu: int | None,
+                        tran: int | None = None, ti_le_cpu: float | None = None) -> int:
+    """Mặc định = số slot XM; trần `tran` (env BRAIN_TRAN_SONG_SONG, mặc định 10);
+    trần theo CPU = ti_le_cpu * số luồng (env BRAIN_TI_LE_CPU, mặc định 0.8 -> nhắm 70-80% CPU)."""
+    if tran is None:
+        tran = int(os.environ.get("BRAIN_TRAN_SONG_SONG", "10") or 10)
+    if ti_le_cpu is None:
+        ti_le_cpu = float(os.environ.get("BRAIN_TI_LE_CPU", "0.8") or 0.8)
+    tran_cpu = max(1, int((so_cpu or 2) * ti_le_cpu))
     n = so_slot if not yeu_cau else min(yeu_cau, so_slot)
-    return max(0, min(n, 4, tran_cpu))
+    return max(0, min(n, max(1, tran), tran_cpu))
 
 
 def het_luc(gio_chay: float | None, den_gio: str | None, bay_gio: float | None = None) -> float | None:
@@ -366,7 +376,7 @@ def het_luc(gio_chay: float | None, den_gio: str | None, bay_gio: float | None =
 
 def chay_song_song(a) -> None:
     slots = ds_slot_xm()
-    n = so_luong_song_song(a.song_song or None, len(slots), os.cpu_count())
+    n = so_luong_song_song(a.song_song or None, len(slots), os.cpu_count(), a.tran)
     if n == 0:
         raise SystemExit("Không thấy slot MT5 portable nào đăng nhập XM (BRAIN_SLOTS)")
     moc = het_luc(a.gio_chay, a.den_gio)
@@ -402,7 +412,8 @@ def main() -> None:
     ap.add_argument("--slot"); ap.add_argument("--may", default=socket.gethostname().lower().replace(" ", "_"))
     ap.add_argument("--mot-lan", action="store_true"); ap.add_argument("--cho-toi-da", type=int, default=4 * 3600)
     ap.add_argument("--song-song", type=int, nargs="?", const=0, default=None,
-                    help="chạy N thợ song song, mỗi slot XM một thợ (bỏ N = theo số slot XM, trần 4 và nửa số CPU)")
+                    help="chạy N thợ song song, mỗi slot XM một thợ (bỏ N = theo số slot XM, trần --tran và 80%% số luồng CPU)")
+    ap.add_argument("--tran", type=int, default=None, help="trần số thợ song song (mặc định env BRAIN_TRAN_SONG_SONG hoặc 10)")
     ap.add_argument("--gio-chay", type=float, help="chỉ nhận việc mới trong H giờ"); ap.add_argument("--den-gio", help="HH:MM: ngừng nhận việc mới lúc này")
     ap.add_argument("--het-luc", type=float, help=argparse.SUPPRESS)
     ap.add_argument("--tinh-trang", action="store_true", help="in tiến độ hàng đợi rồi thoát")

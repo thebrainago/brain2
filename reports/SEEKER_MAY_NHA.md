@@ -26,3 +26,10 @@ Mạng máy nhà (ISP VN) chặn các trang này ở tầng DNS/SNI, còn nặng
 ## Đề xuất
 - Dùng nguồn mở được: MQL5 Code Base/Signals (đã có trong `web.yaml`), trang Myfxbook mà người dùng tự mở bằng trình duyệt có VPN do chính họ bật rồi xuất statement vào `data/`.
 - Chi tiết đo: `seeker/nguon/may_nha_truy_cap.yaml`; HTML thô (nếu có) ở `data/seeker_may_nha/` trên máy nhà (gitignore).
+
+## Đợt 2 — 2026-11-03 ~14:05 (UTC+7), BẬT Cloudflare WARP trên máy nhà
+- WARP (miễn phí, đã cài sẵn): `warp-cli connect` -> Connected, trace `warp=on`. MT5 (slot g1/g2/p5) vẫn nối máy chủ XM (3.0.238.104:443), lệnh tester mới phóng bình thường.
+- Myfxbook: 403 trang chặn Cloudflare -> bỏ (không vượt anti-bot). Vì vậy KHÔNG kiểm chứng được lịch sử thật -> làn B: 0.
+- Forex Factory: mở được; quét Platform Tech: 2 thread EA có tệp. Lấy 1 ứng viên làn A: `ff_1408891` (MT5 grid & recovery EA, .ex5). JB-Basket bỏ vì tệp tải về không phải EX5 hợp lệ.
+- forex-station: mở được, chưa trích ứng viên. LiteFinance: mở được, không có file EA. Exness social: vẫn không kết nối.
+- Kết quả: 1 ứng viên vào hang_doi/can_test (làn A), 0 làn B.

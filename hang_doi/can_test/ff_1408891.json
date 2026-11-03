@@ -1,0 +1,24 @@
+{
+ "id": "ff_1408891",
+ "loai": "mt5_backtest",
+ "lan": "co_ma_nguon",
+ "uu_tien": 40,
+ "che_do": "ea_goc",
+ "ea_file": "FF_GridRecovery_1408891",
+ "url_ex5": "https://www.forexfactory.com/attachment/file/5276951?d=1788098056",
+ "ma": "EURUSDmicro",
+ "tf": "H1",
+ "tu": "2016.01.01",
+ "den": "2026.10.01",
+ "model": 4,
+ "von": 10000,
+ "tien": "USD",
+ "don_bay": 500,
+ "ts": {},
+ "uoc_phut": 30,
+ "nguon": "https://www.forexfactory.com/thread/1408891-mt5-grid-and-recovery-ea",
+ "ghi_chu": "Forex Factory (qua WARP từ máy nhà): EA MT5 lưới+phục hồi, chỉ có .ex5 (bản mới nhất trong thread), tham số mặc định; không có lịch sử thật kiểm chứng -> chỉ làn A, bản sao ở data/forexfactory/",
+ "he_so_lot": [
+  1.0
+ ]
+}

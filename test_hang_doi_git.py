@@ -113,8 +113,11 @@ def test_hang_doi_gieo_hop_le():
 
 def test_song_song_va_khung_gio():
     assert T.so_luong_song_song(None, 3, 16) == 3
-    assert T.so_luong_song_song(None, 6, 16) == 4          # trần 4
-    assert T.so_luong_song_song(None, 4, 4) == 2           # chừa nửa CPU
+    assert T.so_luong_song_song(None, 14, 20) == 10        # trần mặc định 10
+    assert T.so_luong_song_song(None, 14, 20, tran=12) == 12
+    assert T.so_luong_song_song(None, 18, 20, tran=20) == 16   # 80% của 20 luồng
+    assert T.so_luong_song_song(None, 4, 4) == 3           # 80% CPU
+    assert T.so_luong_song_song(None, 6, 16, tran=4) == 4
     assert T.so_luong_song_song(2, 4, 16) == 2 and T.so_luong_song_song(9, 1, 16) == 1
     import datetime as dt
     t0 = dt.datetime(2026, 11, 3, 20, 0).timestamp()
