@@ -56,6 +56,23 @@ def dd_pct(chuoi) -> float | None:
     return float(m.group(1).replace(" ", "").replace(",", ".")) if m else None
 
 
+_SLOT_CHI_HASH: set = set()      # slot mà tester đã báo 'symbol ...micro not exist' (tài khoản đang đăng nhập chỉ có '#')
+
+
+def symbol_khong_co(slot: Path, ma: str, t0: float) -> bool:
+    """Journal của slot (logs/*.log, UTF-16) có 'symbol <ma> not exist' ghi sau t0?"""
+    for f in sorted((Path(slot) / "logs").glob("*.log"), key=lambda x: x.stat().st_mtime)[-1:]:
+        if f.stat().st_mtime < t0:
+            continue
+        try:
+            nd = f.read_bytes().decode("utf-16", errors="ignore")
+        except OSError:
+            continue
+        if ("symbol %s not exist" % ma) in nd[-20000:]:
+            return True
+    return False
+
+
 def ky_hieu_slot(slot: Path, ma: str) -> str:
     """03/11/2026: tài khoản XM của slot có thể chỉ có mã '#' (demo 345930355: không có *micro) -> tester báo
     'symbol ... not exist'. Dò danh sách symbol của slot (bases/<server>/symbols/symbols-*.dat); thiếu mã gốc -> đổi sang '#'."""
@@ -71,6 +88,9 @@ def ky_hieu_slot(slot: Path, ma: str) -> str:
             if t.encode("ascii") + b"\0" in b or t.encode("utf-16-le") + b"\0\0" in b:
                 return True
         return any(Path(x).is_dir() for x in glob.glob(str(Path(slot) / "bases" / "*" / "history" / t)))
+    if str(slot) in _SLOT_CHI_HASH and ma.lower().endswith("micro"):
+        sys.path.insert(0, str(GOC / "mt5tools")); from sinh_viec import remap_ma_hash_demo
+        return remap_ma_hash_demo(ma)
     if co(ma):
         return ma
     sys.path.insert(0, str(GOC / "mt5tools")); from sinh_viec import remap_ma_hash_demo
@@ -243,6 +263,10 @@ def chay_mot_k(slot: Path, v: dict, k: float, cho_toi_da: int) -> dict:
         return {"k": k, "loi": "qua_gio", "giay": int(time.time() - t0)}
     f = slot / (ten + ".htm")
     if not AT.bao_cao_moi(f, t0):
+        if ma.lower().endswith("micro") and str(slot) not in _SLOT_CHI_HASH and symbol_khong_co(slot, ma, t0):
+            _SLOT_CHI_HASH.add(str(slot))                       # tài khoản slot chỉ có '#' -> chạy lại k này bằng '#'
+            log("  tester: %s không có trong tài khoản slot -> chạy lại bằng mã '#'" % ma)
+            return chay_mot_k(slot, v, k, cho_toi_da)
         return {"k": k, "loi": "khong_bao_cao", "giay": int(time.time() - t0)}
     r = CL.doc_htm(f)
     deals = CLS.doc_deals(f.read_bytes().decode("utf-16", errors="ignore"))

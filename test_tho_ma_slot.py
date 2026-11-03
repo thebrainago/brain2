@@ -38,3 +38,14 @@ def test_suy_theo_lich_su(tmp_path):
 
 def test_slot_moi_chua_lich_su(tmp_path):
     assert T.ky_hieu_slot(tmp_path, "USDCADmicro") == "USDCAD#"
+
+
+def test_journal_bao_khong_co(tmp_path):
+    import time
+    (tmp_path / "logs").mkdir()
+    (tmp_path / "logs" / "20261103.log").write_bytes("x\tTester\tsymbol USDCADmicro not exist\r\n".encode("utf-16"))
+    assert T.symbol_khong_co(tmp_path, "USDCADmicro", time.time() - 60)
+    (tmp_path / "bases" / "XM" / "history" / "EURUSDmicro").mkdir(parents=True)
+    assert T.ky_hieu_slot(tmp_path, "USDCADmicro") == "USDCADmicro"
+    T._SLOT_CHI_HASH.add(str(tmp_path))
+    assert T.ky_hieu_slot(tmp_path, "USDCADmicro") == "USDCAD#"
