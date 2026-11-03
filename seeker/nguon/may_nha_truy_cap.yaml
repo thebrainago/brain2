@@ -1,0 +1,11 @@
+# Đo truy cập từ MẠNG MÁY NHÀ (Windows, ISP Việt Nam), 2026-11-03 ~14:00 (UTC+7).
+# Kết luận: mạng máy nhà KHÔNG mở được các trang dưới đây -> không dùng máy nhà làm lối vào cho chúng.
+# Không vượt chặn (không proxy/VPN/anti-bot). Kiểm tra lại khi đổi mạng.
+do_may_nha:
+  - {id: myfxbook, host: www.myfxbook.com, ket_qua: chan_mang, chi_tiet: "DNS ISP không phân giải; qua DoH 1.1.1.1 thì TLS bị reset (curl 35)"}
+  - {id: forexfactory, host: www.forexfactory.com, ket_qua: chan_mang, chi_tiet: "DNS ISP không phân giải; DoH -> TLS reset (curl 35)"}
+  - {id: forex_station, host: forex-station.com, ket_qua: chan_mang, chi_tiet: "DNS có IP 104.26.15.237, TLS reset (curl 35 / requests SSLError)"}
+  - {id: litefinance, host: www.litefinance.org, ket_qua: chan_mang, chi_tiet: "DNS có IP, TLS reset (SSLError)"}
+  - {id: exness_social, host: social-trading.exness.com, ket_qua: chan_mang, chi_tiet: "DNS không phân giải cả qua DoH"}
+  - {id: exness_main, host: www.exness.com, ket_qua: mo_duoc, chi_tiet: "HTTP 200, ~96KB trang tiếp thị; không có dữ liệu chiến lược/lịch sử -> không phải nguồn ứng viên"}
+nguon_chat_luong_moi: []   # chưa có nguồn mới đạt chuẩn từ đợt này
