@@ -38,3 +38,10 @@
 - Copy 32 .ex5 vào MQL5\Experts\Market của g1–g12, p5. 32 việc demo_* đã nằm sẵn trong hang_doi/can_test (không phải chuyển).
 - Sửa tho_mt5.py lam_demo: chọn .ex5 khớp tên dài nhất (The Gold Phantom/The Gold Reaper trùng 6 ký tự đầu). Thợ đang chạy dùng code cũ đến khi khởi động lại.
 - g5 không bị tạm dừng (RAM trống ~9GB lúc bắt đầu); không mở g3/g6. Đã đóng terminal demo PID 14004. RAM trống cuối: 6.1 GB.
+
+## 2026-11-03 19:55–20:06 (UTC+7) — Tạm dừng, trả máy cho Anh
+- Kết quả phiên chiều–tối: 8 hệ ĐẠT vòng 1 (in-sample 2024–2026), nổi bật ghepe9b41 GBPNZD# H4, ghep60ff GBPCAD# H1, 2600ea GBPNZD# H1. Đã sinh 38 job vòng 2 (v2qd_*, ưu tiên 90, commit 76acb51e): biến thể atrb1/atrb2/gian13/trailatr/catlo40.
+- Việc còn dở (chưa làm, bị dừng): thêm input ADX/regime/tin vào BRAIN_XuLiLenh; đẩy *_lenh_mt5.csv/*_gia.csv về repo để chạy nhan/vong2.py; tải M1 2008–2023 GBPNZD/GBPCAD/USDCAD/NZDUSD cho OOS.
+- 19:55 Anh cần dùng máy: dừng 14 thợ python + 4 terminal + 4 metatester theo PID; routine canh 30 phút tạm dừng; TheBrain* vẫn Disabled; RAM trống 26,9 GB.
+- 20:00 theo yêu cầu Anh: ngắt WARP, đóng Chrome (giữ Discord), mở Riot Client và bấm Play -> LoL lên.
+- Hàng đợi còn ~79 việc. Chạy lại chỉ khi Anh bảo (xem VAN_HANH_MAY_NHA.md §10).

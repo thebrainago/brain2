@@ -80,7 +80,7 @@ Tham số / biến:
 - Routine canh 30 phút/lần: xem CPU, RAM trống, log thợ, hàng đợi; ghi vào `nhat_ky/van_hanh_may_nha.md`.
 - Nếu RAM trống < 6 GB kéo dài: kiểm tra thợ có chạy code cũ (khởi động trước commit d8e1d3bf, không có chặn RAM) không; dừng đúng PID thợ + terminal + metatester của slot đó, việc dở nằm ở `dang_lam_<may>_<slot>` sẽ được thợ cùng tên chạy lại khi khởi động.
 
-## 8. Quy tắc ổ đĩa (E > D > C) và cách dọn
+## 9. Quy tắc ổ đĩa (E > D > C) và cách dọn
 - Dữ liệu và loại test **không gấp** (lịch sử dài, báo cáo lưu trữ, bases dự phòng, `data/` cũ, thư mục làm việc/tạm mới) đặt ưu tiên **E**, rồi **D**, cuối cùng **C**. Hàm `tho_mt5.thu_muc_lam_viec(ten)` chọn `<ổ>\brain2_tmp\<ten>` trên ổ đầu tiên còn ≥ 10 GB theo thứ tự E>D>C.
 - Lưu trữ chuyển khỏi C nằm ở `E:\luu_tru_brain2\`. Ngày 03/11/2026 đã chuyển 3 thư mục `%APPDATA%\MetaQuotes\Terminal\{504CE…(p5), 28CB…(g2), 95F3…(g1)}` (~9,4 GB, bases do chạy không-portable để lại) sang `E:\luu_tru_brain2\MetaQuotes_Roaming\` và để **junction** (`mklink /J`) ở chỗ cũ.
 - Cách chuyển: `robocopy <nguồn> <đích> /E /COPY:DAT`, so số tệp + tổng byte, khớp mới xoá nguồn, rồi `mklink /J <nguồn> <đích>` nếu cần giữ đường dẫn.
@@ -88,3 +88,21 @@ Tham số / biến:
 - Dọn tay/định kỳ: `python may_nha\don_o_dia.py` (thêm `--thu` để chỉ xem). Script bỏ qua slot có terminal64/metatester64 đang chạy và slot trong `BRAIN_SLOT_BO_QUA` (mặc định `g3;g6`).
 - KHÔNG xoá/chuyển: Bases của slot đang chạy, `accounts.dat`/`config` của slot, repo, Riot/League, Claude, `C:\Program Files\XM Global MT5`. Không chắc thì ghi đề xuất.
 - Phần lớn dung lượng là **Bases của 13 slot trên E (~47 GB mỗi slot, ~315 GB tổng)** — trùng lặp tick. Muốn giảm: dừng hẳn slot thừa rồi xoá Bases của nó, hoặc thay Bases trùng bằng junction tới một bản chung (chỉ làm khi slot đó dừng; chưa thử).
+
+
+## 10. Khi Anh cần dùng máy (chơi game, việc riêng) — BẮT BUỘC
+- Anh nhắn "cần dùng máy" ⇒ dừng NGAY toàn bộ việc brain2:
+  1. Tạm dừng routine canh 30 phút (để nó không tự bật lại thợ).
+  2. Dừng mọi thợ python (CommandLine chứa brain2/tho_mt5/seeker/demo_loop) và terminal64/metatester64 KHÔNG thuộc `C:\Program Files\XM Global MT5`, theo đúng PID.
+  3. Kiểm 3 scheduled task TheBrain* vẫn Disabled; báo RAM trống.
+- Anh có thể nhờ bật LoL: ngắt WARP (`warp-cli disconnect`), đóng Chrome nếu Anh bảo, GIỮ Discord; mở `C:\Riot Games\Riot Client\RiotClientServices.exe --launch-product=league_of_legends --launch-patchline=live`, rồi bấm Play (màn 1920x1080, DPI 125%: phải SetProcessDPIAware trước khi chụp/bấm; nút Play ~ (270,885) vật lý).
+- Chỉ chạy lại thợ khi Anh nói rõ. Khi chạy lại: bật lại WARP, khởi động thợ (mục 3) và resume routine canh 30 phút.
+
+## 11. Yêu cầu của Anh (tổng hợp, giữ nguyên tinh thần)
+- Tự làm, toàn quyền thao tác app trên máy nhà (kể cả bấm trong MT5/MQL5); chỉ giao Anh captcha/mã xác minh/tiền.
+- Ưu tiên dùng lại cái đã cài & đăng nhập sẵn (XM MT5, các slot), không dựng phức tạp.
+- CPU 70–80% ok, RAM trống ≥ 6 GB, dữ liệu E > D > C, xoá rác để luôn có chỗ.
+- Theo dõi 30 phút/lần; mọi phiên ghi nhật ký `nhat_ky/van_hanh_may_nha.md`.
+- Tiêu chí ĐẠT: DD < 80% và CAGR > 10%/năm (cho phép nâng lot).
+- Qua vòng 1 mới là bước đầu: còn thử rộng, thử sâu, out-of-sample, ghép hệ (tai_lieu/VONG_2.md). Không đòi 1 bộ thông số thắng mọi giai đoạn — thêm quản lý lệnh thích nghi (lot, bước DCA, thoát lệnh theo ATR/ADX/regime/tin).
+- Ghi đặc điểm tốt của mọi hệ kể cả hệ trượt (TRI_NHO/dac_diem_he/).
