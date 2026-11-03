@@ -1,9 +1,23 @@
-# Trạng thái hiện tại — cập nhật 03/11/2026 08:30 (UTC+7)
+# Trạng thái hiện tại — cập nhật 03/11/2026 19:40 (UTC+7)
 
 ## Tóm tắt
-- **Chưa có hệ nào ĐẠT** theo tiêu chí DD < 80% & CAGR > 10%/năm với kết quả hợp lệ (xem `so_ket_qua/TONG_HOP.md`).
-- Grok Bot làm toàn bộ việc từ 02/11 (bot kia hết token).
-- Máy nhà: tắt/park từ tối 31/10; routine giám sát 30′ tạm dừng.
+- Máy nhà DESKTOP-05PNLGF đang chạy hàng đợi git (`tho_mt5` / orch): can_test ~40 việc, vài slot dang_lam; WARP Connected; MT5 XM demo; chặn RAM ~11 GB trước mỗi lần phóng real tick.
+- **MT5 nâng lot hôm nay (03/11): 8 hệ ĐẠT** (DD < 80% và CAGR > 10%/năm ở ít nhất một k), đã ghi `TRI_NHO/dac_diem_he/` + mục lục `DAC_DIEM_TOT.md`. Chi tiết ca: `nhat_ky/van_hanh_may_nha.md`.
+- Cửa sổ CSV tín hiệu hầu hết ~2024–2026 → kết quả vẫn **in-sample**; bước tiếp theo tự nhiên: vòng 2 / ghép danh mục (`tai_lieu/VONG_2.md`), không dừng hàng đợi đang chạy.
+- Grok Bot làm toàn bộ việc từ 02/11 (bot kia hết token). Routine canh máy nhà 30′ đang bật.
+
+## MT5 ĐẠT 03/11/2026 (máy nhà, real ticks, nâng lot)
+| Hệ | Mã · khung | k tốt | CAGR %/năm | DD % | PF · lệnh | Ghi chú |
+|---|---|---|---|---|---|---|
+| ghepe9b41c33d4deee54 | GBPNZD# H4 | 10 | 410,17 | 36,40 | 6,41 · 138 | k=1 đã 129,6%/31,5%; lãi 2024–2026 |
+| ghep60ff9350c26c63ee | GBPCAD# H1 | 10 | 253,05 | 27,89 | 3,94 · 334 | k=1: 64,5%/20,2% |
+| ghep0bf2c31fbfc9dea0 | GBPCAD# H4 | 8 | 220,26 | 59,61 | 9,45 · 86 | k=1: 65,1%/47,2%; 2026 âm nhẹ |
+| 2600ea39abbd7b0f | GBPNZD# H1 | 3 | 83,44 | 22,64 | 3,18 · 132 | k≥4 cháy; k_an_toan_max=3 |
+| b0be91a35f43f34a | USDCAD# H4 | 2 | 64,74 | 75,65 | — · 46 | sát trần DD; k≥2,5 vượt 80% |
+| skea154c9fdee7 | GBPCAD# H4 | 1 | 41,37 | 48,38 | 3,28 · 179 | k>1 không báo cáo |
+| mql5e52afb999eca4bd1 | EURGBP# H1 | 10 | 130,68 | 42,53 | 2,15 · 111 | k=1: 26,3%/19,2% |
+| mql5344ed0d8ab12c7f0 | NZDUSD# H1 | 2 | 25,67 | 54,48 | 3,58 · 526 | chỉ ~31% real ticks; 2026 âm ở k≤2 |
+
 
 ## Làn lịch sử công khai (03/11/2026, `seeker/cong_khai/`)
 - Quét mở rộng 03/11 05:41–06:2x (UTC+7, nền nohup, log `data/cong_khai/run.log`, cache 72h): 9 cách sắp × mt5/mt4 → **1600 id MQL5** (32 ứng viên cũ + 824 mới từ mt5, 744 từ mt4), **1562 đọc được**, 38 không đọc. Kết quả: **1065 ĐẠT / 1561 đo được = 68,2%** (496 KHÔNG ĐẠT, 1 chưa đo) theo chỉ DD<80% & CAGR>10%. 483 tín hiệu ĐẠT có tuổi ≥ 12 tháng (726/1562 tín hiệu ≥ 12 tháng). Sổ kết quả `nguon=CONG_KHAI` nay 1065 dòng (+773). Báo cáo: `reports/NGUON_CONG_KHAI_DAT.md`.
