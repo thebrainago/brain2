@@ -1,6 +1,6 @@
 {
  "id": "ghep0bf2c31fbfc9dea0",
- "nguon": "mt5_tester",
+ "nguon": "ghep_0bf2c31fbfc9dea0",
  "kieu": "vào theo CSV lệnh của nguồn; không nhồi; tối đa 1 tầng, hệ số lot 1.0; TP 0.001 % giá",
  "chay": [
   {
@@ -43,5 +43,6 @@
  "manh_tot": [
   "tỉ lệ thắng cao (99 %) — điểm vào/TP nhỏ đáng giữ"
  ],
- "ly_do_truot": "CHƯA ĐO ĐƯỢC"
+ "ly_do_truot": "CHƯA ĐO ĐƯỢC",
+ "giai_doan": "2023.12.26–2026.10.01"
 }

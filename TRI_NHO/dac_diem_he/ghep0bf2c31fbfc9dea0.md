@@ -1,6 +1,6 @@
 # Đặc điểm hệ `ghep0bf2c31fbfc9dea0`
 
-- Nguồn: mt5_tester
+- Nguồn: ghep_0bf2c31fbfc9dea0
 - Kiểu vào / quản lý lệnh: vào theo CSV lệnh của nguồn; không nhồi; tối đa 1 tầng, hệ số lot 1.0; TP 0.001 % giá
 - Trạng thái: **TRƯỢT — CHƯA ĐO ĐƯỢC**
 - Số lần chạy hợp lệ: 2 (bị thay thế do lỗi lot CSV: 13)
