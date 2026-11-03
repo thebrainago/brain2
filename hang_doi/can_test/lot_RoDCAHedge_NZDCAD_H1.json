@@ -1,0 +1,33 @@
+{
+ "id": "lot_RoDCAHedge_NZDCAD_H1",
+ "loai": "mt5_backtest",
+ "uu_tien": 70,
+ "che_do": "ea_goc",
+ "ea_file": "BRAIN_DN_RoDCAHedge",
+ "ma": "NZDCADmicro",
+ "tf": "H1",
+ "tu": "2016.01.01",
+ "den": "2026.10.01",
+ "model": 4,
+ "von": 10000,
+ "tien": "USD",
+ "don_bay": 500,
+ "ts": {
+  "BuocPip": "15",
+  "TPPip": "11",
+  "LotMoi1000": "0.002",
+  "MaxLenhMoiRo": "140",
+  "Magic": "2262642"
+ },
+ "tham_so_lot": "LotMoi1000",
+ "he_so_lot": [
+  0.5,
+  1.0,
+  1.5,
+  2.0,
+  3.0,
+  5.0
+ ],
+ "uoc_phut": 60,
+ "ghi_chu": "EA dịch ngược từ tín hiệu MQL5, dải dài nhất 2016–2026, tick thật"
+}

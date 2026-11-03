@@ -14,3 +14,4 @@
 
 - 2026-11-03 00:03 (UTC+7): Anh hạ ngưỡng lãi xuống > 10%/năm (vì có thể tăng lot), DD < 80% giữ nguyên. Không thêm tiêu chí khác.
 - 2026-11-03 08:40 (UTC+7): **CAGR thấp được nâng lot, miễn DD<80%** (Anh: “Cagr có thể không cao thì nâng lot, miễn sao dd không bị quá là được”). Hệ đạt nếu tồn tại k lot cho CAGR>10% & DD<80%; đo bằng `nhan/nang_lot.py`.
+- 2026-11-03 10:00 (UTC+7): **Hướng mới (Anh duyệt đề xuất 1):** tập trung nguồn có lịch sử thật (tín hiệu MQL5 lọc chặt ≥ 24 tháng + EA Market có demo); máy nhà bật 8–12 giờ/ngày chạy hàng đợi git `hang_doi/` qua `may_nha/tho_mt5.py`, không được hết việc (thợ tự sinh việc dò lot khi cạn).
