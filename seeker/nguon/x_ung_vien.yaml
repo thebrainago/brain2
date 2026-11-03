@@ -1,0 +1,265 @@
+nguon: X API search_posts_all
+ngay_quet: '2026-11-03'
+truy_van:
+- url:myfxbook.com
+- url:mql5.com/en/signals
+- url:fxblue.com
+- EA vàng myfxbook (vi)
+- советник myfxbook (ru)
+- EA 实盘/自動売買 (zh/ja)
+- asesor experto mql5 (es)
+tai_khoan:
+- handle: Kyl_Oren
+  so_bai: 7
+  followers: 175
+  he_thong: r4cks MT5 EA
+  ghi_chu: 'Nghi spam/affiliate: trả lời hàng loạt'
+- handle: Yahto_113
+  so_bai: 7
+  followers: 282
+  he_thong: r4cks MT5 EA
+  ghi_chu: 'Nghi spam/affiliate: trả lời hàng loạt'
+- handle: GoldenTridentfx
+  so_bai: 4
+  followers: 3
+  he_thong: Golden Trident (ORB/EMA/Range-Fade, XAU)
+  ghi_chu: Minh bạch, báo cáo tuần cả khi lỗ
+- handle: hiroakabeast
+  so_bai: 2
+  followers: 15531
+  he_thong: Phoenix Blizzard Turbo
+  ghi_chu: EA Nhật, forward thật; có kênh LINE bán/phát EA
+- handle: ADQuantSystem
+  so_bai: 2
+  followers: 0
+  he_thong: AD BTC Bot
+  ghi_chu: Tài khoản mới, 0 follower, có bán trial
+- handle: navidkoohi1
+  so_bai: 1
+  followers: 803
+  he_thong: NavidKoohi50 (thủ công/không rõ EA)
+  ghi_chu: Tiếng Ba Tư
+- handle: tokorafxcapital
+  so_bai: 1
+  followers: 3
+  he_thong: Trend Flow
+  ghi_chu: Quảng bá cộng đồng
+- handle: tanoshimo888
+  so_bai: 1
+  followers: 577
+  he_thong: GNM (metapon)
+  ghi_chu: EA Nhật, MT4/MT5
+- handle: akademitraderss
+  so_bai: 1
+  followers: 6
+  he_thong: Akademi Traders
+  ghi_chu: Link signal bị cắt, cần kiểm tra
+bai_viet:
+- handle: hiroakabeast
+  post_url: https://x.com/hiroakabeast/status/2106673522248421416
+  ngay: '2026-10-04'
+  ngon_ngu: ja
+  track_record:
+  - https://myfxbook.com/portfolio/phoenix-blizzard-turbo-hfm/12002349
+  he_thong: Phoenix Blizzard Turbo
+  loi_nhuan_dd: PF 2.55-2.88; lợi nhuận năm ~$52-56k; DD không nêu
+- handle: Kyl_Oren
+  post_url: https://x.com/Kyl_Oren/status/2106779289807163694
+  ngay: '2026-10-04'
+  ngon_ngu: en
+  track_record:
+  - https://myfxbook.com/members/r4cks
+  he_thong: r4cks MT5 EA
+  loi_nhuan_dd: không nêu
+- handle: Yahto_113
+  post_url: https://x.com/Yahto_113/status/2106819125360128078
+  ngay: '2026-10-04'
+  ngon_ngu: en
+  track_record:
+  - https://myfxbook.com/members/r4cks
+  he_thong: r4cks MT5 EA
+  loi_nhuan_dd: không nêu
+- handle: Yahto_113
+  post_url: https://x.com/Yahto_113/status/2106735612808368427
+  ngay: '2026-10-04'
+  ngon_ngu: en
+  track_record:
+  - https://myfxbook.com/members/r4cks
+  he_thong: r4cks MT5 EA
+  loi_nhuan_dd: không nêu
+- handle: hiroakabeast
+  post_url: https://x.com/hiroakabeast/status/2116809994888728929
+  ngay: '2026-11-01'
+  ngon_ngu: ja
+  track_record:
+  - https://myfxbook.com/portfolio/phoenix-blizzard-turbo-hfm/12002349
+  he_thong: Phoenix Blizzard Turbo
+  loi_nhuan_dd: PF 2.55-2.88; lợi nhuận năm ~$52-56k; DD không nêu
+- handle: Kyl_Oren
+  post_url: https://x.com/Kyl_Oren/status/2106681469418573856
+  ngay: '2026-10-04'
+  ngon_ngu: en
+  track_record:
+  - https://myfxbook.com/members/r4cks
+  he_thong: r4cks MT5 EA
+  loi_nhuan_dd: không nêu
+- handle: ADQuantSystem
+  post_url: https://x.com/ADQuantSystem/status/2111608376421732720
+  ngay: '2026-10-18'
+  ngon_ngu: en
+  track_record:
+  - https://myfxbook.com/portfolio/ad-btc-bot/12218451
+  he_thong: AD BTC Bot
+  loi_nhuan_dd: không nêu
+- handle: navidkoohi1
+  post_url: https://x.com/navidkoohi1/status/2109013296544178513
+  ngay: '2026-10-10'
+  ngon_ngu: fa
+  track_record:
+  - https://myfxbook.com/members/NavidKoohi/navidkoohi50/11709812
+  he_thong: NavidKoohi50 (thủ công/không rõ EA)
+  loi_nhuan_dd: không nêu
+- handle: ADQuantSystem
+  post_url: https://x.com/ADQuantSystem/status/2108773970510262579
+  ngay: '2026-10-10'
+  ngon_ngu: en
+  track_record:
+  - https://myfxbook.com/portfolio/ad-btc-bot/12218451
+  he_thong: AD BTC Bot
+  loi_nhuan_dd: không nêu
+- handle: tokorafxcapital
+  post_url: https://x.com/tokorafxcapital/status/2106978116019065261
+  ngay: '2026-10-05'
+  ngon_ngu: en
+  track_record:
+  - https://myfxbook.com/portfolio/trend-flow/12150174
+  he_thong: Trend Flow
+  loi_nhuan_dd: không nêu
+- handle: tanoshimo888
+  post_url: https://x.com/tanoshimo888/status/2106940014982819928
+  ngay: '2026-10-05'
+  ngon_ngu: ja
+  track_record:
+  - https://myfxbook.com/members/metapon
+  he_thong: GNM (metapon)
+  loi_nhuan_dd: không nêu
+- handle: Yahto_113
+  post_url: https://x.com/Yahto_113/status/2106842712930398266
+  ngay: '2026-10-04'
+  ngon_ngu: en
+  track_record:
+  - https://myfxbook.com/members/r4cks
+  he_thong: r4cks MT5 EA
+  loi_nhuan_dd: không nêu
+- handle: Kyl_Oren
+  post_url: https://x.com/Kyl_Oren/status/2106836213793513537
+  ngay: '2026-10-04'
+  ngon_ngu: en
+  track_record:
+  - https://myfxbook.com/members/r4cks
+  he_thong: r4cks MT5 EA
+  loi_nhuan_dd: không nêu
+- handle: Kyl_Oren
+  post_url: https://x.com/Kyl_Oren/status/2106810374851113171
+  ngay: '2026-10-04'
+  ngon_ngu: en
+  track_record:
+  - https://myfxbook.com/members/r4cks
+  he_thong: r4cks MT5 EA
+  loi_nhuan_dd: không nêu
+- handle: Yahto_113
+  post_url: https://x.com/Yahto_113/status/2106792845545730190
+  ngay: '2026-10-04'
+  ngon_ngu: en
+  track_record:
+  - https://myfxbook.com/members/r4cks
+  he_thong: r4cks MT5 EA
+  loi_nhuan_dd: không nêu
+- handle: Yahto_113
+  post_url: https://x.com/Yahto_113/status/2106769086592036972
+  ngay: '2026-10-04'
+  ngon_ngu: en
+  track_record:
+  - https://myfxbook.com/members/r4cks
+  he_thong: r4cks MT5 EA
+  loi_nhuan_dd: không nêu
+- handle: Kyl_Oren
+  post_url: https://x.com/Kyl_Oren/status/2106744868022210714
+  ngay: '2026-10-04'
+  ngon_ngu: en
+  track_record:
+  - https://myfxbook.com/members/r4cks
+  he_thong: r4cks MT5 EA
+  loi_nhuan_dd: không nêu
+- handle: Kyl_Oren
+  post_url: https://x.com/Kyl_Oren/status/2106730067267051560
+  ngay: '2026-10-04'
+  ngon_ngu: en
+  track_record:
+  - https://myfxbook.com/members/r4cks
+  he_thong: r4cks MT5 EA
+  loi_nhuan_dd: không nêu
+- handle: Yahto_113
+  post_url: https://x.com/Yahto_113/status/2106718235894968458
+  ngay: '2026-10-04'
+  ngon_ngu: en
+  track_record:
+  - https://myfxbook.com/members/r4cks
+  he_thong: r4cks MT5 EA
+  loi_nhuan_dd: không nêu
+- handle: Kyl_Oren
+  post_url: https://x.com/Kyl_Oren/status/2106708097708560783
+  ngay: '2026-10-04'
+  ngon_ngu: en
+  track_record:
+  - https://myfxbook.com/members/r4cks
+  he_thong: r4cks MT5 EA
+  loi_nhuan_dd: không nêu
+- handle: Yahto_113
+  post_url: https://x.com/Yahto_113/status/2106689696856473677
+  ngay: '2026-10-04'
+  ngon_ngu: en
+  track_record:
+  - https://myfxbook.com/members/r4cks
+  he_thong: r4cks MT5 EA
+  loi_nhuan_dd: không nêu
+- handle: GoldenTridentfx
+  post_url: https://x.com/GoldenTridentfx/status/2112909130747027707
+  ngay: '2026-10-21'
+  ngon_ngu: en
+  track_record:
+  - https://mql5.com/en/signals/2380145
+  he_thong: Golden Trident (ORB/EMA/Range-Fade, XAU)
+  loi_nhuan_dd: Lũy kế -31.98%; Max DD 45.07% (01/11/2026)
+- handle: GoldenTridentfx
+  post_url: https://x.com/GoldenTridentfx/status/2111937428873208164
+  ngay: '2026-10-18'
+  ngon_ngu: en
+  track_record:
+  - https://mql5.com/en/signals/2380145
+  he_thong: Golden Trident (ORB/EMA/Range-Fade, XAU)
+  loi_nhuan_dd: Lũy kế -31.98%; Max DD 45.07% (01/11/2026)
+- handle: GoldenTridentfx
+  post_url: https://x.com/GoldenTridentfx/status/2106833528751116795
+  ngay: '2026-10-04'
+  ngon_ngu: en
+  track_record:
+  - https://mql5.com/en/signals/2380145
+  he_thong: Golden Trident (ORB/EMA/Range-Fade, XAU)
+  loi_nhuan_dd: Lũy kế -31.98%; Max DD 45.07% (01/11/2026)
+- handle: akademitraderss
+  post_url: https://x.com/akademitraderss/status/2117156090874085576
+  ngay: '2026-11-02'
+  ngon_ngu: en
+  track_record:
+  - https://mql5.com/en/signals/239
+  he_thong: Akademi Traders
+  loi_nhuan_dd: không nêu
+- handle: GoldenTridentfx
+  post_url: https://x.com/GoldenTridentfx/status/2116974199608578157
+  ngay: '2026-11-01'
+  ngon_ngu: en
+  track_record:
+  - https://mql5.com/en/signals/2380145
+  he_thong: Golden Trident (ORB/EMA/Range-Fade, XAU)
+  loi_nhuan_dd: Lũy kế -31.98%; Max DD 45.07% (01/11/2026)
