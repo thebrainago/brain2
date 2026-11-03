@@ -81,5 +81,92 @@
   "luc": "2026-11-03T14:23:46+07:00",
   "may": "desktop-05pnlgf_g9",
   "tom_tat": "CHƯA ĐO ĐƯỢC"
+ },
+ "trang_thai": "XONG",
+ "xong_luc": "2026-11-03T14:30:21+07:00",
+ "ket_qua": {
+  "chay": [
+   {
+    "k": 1.0,
+    "loi": "khong_bao_cao",
+    "giay": 7
+   },
+   {
+    "k": 1.5,
+    "loi": "khong_bao_cao",
+    "giay": 5
+   },
+   {
+    "k": 2.0,
+    "loi": "khong_bao_cao",
+    "giay": 6
+   },
+   {
+    "k": 2.5,
+    "loi": "khong_bao_cao",
+    "giay": 5
+   },
+   {
+    "k": 3.0,
+    "loi": "khong_bao_cao",
+    "giay": 5
+   },
+   {
+    "k": 4.0,
+    "loi": "khong_bao_cao",
+    "giay": 5
+   },
+   {
+    "k": 5.0,
+    "lai_theo_nam": {},
+    "ti_le_thang_pct": null,
+    "net": 0.0,
+    "pf": 0.0,
+    "lenh": 0.0,
+    "dd_equity_mt5": "0 (0%)",
+    "dd_pct": 0.0,
+    "cagr_pct": 0.0,
+    "sut_dong_lenh_pct": 0.0,
+    "thang_te_nhat": null,
+    "chat_luong": "100%",
+    "giay": 59,
+    "bao_cao": "hd_lot_skst299b0817f66d4096_H4_k5p0.htm",
+    "loi": "chua_do_duoc_0_lenh_59s",
+    "bao_cao_repo": "D:\\brain2_tho\\hang_doi\\bao_cao\\hd_lot_skst299b0817f66d4096_H4_k5p0.htm"
+   },
+   {
+    "k": 6.0,
+    "lai_theo_nam": {
+     "2025": -886.14
+    },
+    "ti_le_thang_pct": 53.6,
+    "net": -886.14,
+    "pf": 0.91,
+    "lenh": 28.0,
+    "dd_equity_mt5": "6 705.54 (98.33%)",
+    "dd_pct": 98.33,
+    "cagr_pct": -80.268,
+    "sut_dong_lenh_pct": 98.269,
+    "thang_te_nhat": -6197.94,
+    "chat_luong": "100% real ticks",
+    "giay": 175,
+    "bao_cao": "hd_lot_skst299b0817f66d4096_H4_k6p0.htm",
+    "bao_cao_repo": "D:\\brain2_tho\\hang_doi\\bao_cao\\hd_lot_skst299b0817f66d4096_H4_k6p0.htm"
+   },
+   {
+    "k": 8.0,
+    "loi": "khong_bao_cao",
+    "giay": 90
+   },
+   {
+    "k": 10.0,
+    "loi": "khong_bao_cao",
+    "giay": 4
+   }
+  ],
+  "dat": false,
+  "k_tot": null,
+  "k_an_toan_max": null,
+  "tom_tat": "TRƯỢT: không k nào DD<80%% và CAGR>10%%"
  }
 }

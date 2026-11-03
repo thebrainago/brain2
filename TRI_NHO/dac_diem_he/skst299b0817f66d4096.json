@@ -54,6 +54,17 @@
    "lenh": "67",
    "trang_thai_so": "DAT",
    "k_nang_lot": ""
+  },
+  {
+   "bien_the": "lot_skst299b0817f66d4096_H4",
+   "ma": "EURUSDmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g9",
+   "k": 6.0,
+   "cagr_pct": -80.268,
+   "dd_pct": 98.33,
+   "pf": 0.91,
+   "lenh": 28.0
   }
  ],
  "bi_thay_the": 6,
