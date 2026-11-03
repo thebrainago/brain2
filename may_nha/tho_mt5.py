@@ -36,6 +36,104 @@ def log(s: str) -> None:
         f.write(dong + "\n")
 
 
+def ram_trong_gb() -> float | None:
+    """RAM trống thực tế (GB). Windows: GlobalMemoryStatusEx; Linux: /proc/meminfo. None nếu không đo được."""
+    try:
+        if os.name == "nt":
+            import ctypes
+
+            class _MS(ctypes.Structure):
+                _fields_ = [("dwLength", ctypes.c_ulong), ("dwMemoryLoad", ctypes.c_ulong),
+                            ("ullTotalPhys", ctypes.c_ulonglong), ("ullAvailPhys", ctypes.c_ulonglong),
+                            ("ullTotalPageFile", ctypes.c_ulonglong), ("ullAvailPageFile", ctypes.c_ulonglong),
+                            ("ullTotalVirtual", ctypes.c_ulonglong), ("ullAvailVirtual", ctypes.c_ulonglong),
+                            ("ullAvailExtendedVirtual", ctypes.c_ulonglong)]
+            m = _MS(); m.dwLength = ctypes.sizeof(_MS)
+            if not ctypes.windll.kernel32.GlobalMemoryStatusEx(ctypes.byref(m)):
+                return None
+            return m.ullAvailPhys / 1024 ** 3
+        for d in open("/proc/meminfo", encoding="ascii"):
+            if d.startswith("MemAvailable:"):
+                return int(d.split()[1]) / 1024 ** 2
+    except Exception:
+        return None
+    return None
+
+
+def nguong_ram_gb() -> float:
+    """Ngưỡng RAM trống để NHẬN VIỆC MỚI (env BRAIN_RAM_TRONG_MIN_GB, mặc định 8). Anh yêu cầu giữ >= 6 GB."""
+    try:
+        return float(os.environ.get("BRAIN_RAM_TRONG_MIN_GB", "8") or 8)
+    except ValueError:
+        return 8.0
+
+
+def du_ram_nhan_viec(nguong: float | None = None, do=None) -> tuple[bool, float | None]:
+    """True nếu RAM trống > ngưỡng (không đo được -> không chặn)."""
+    g = (do or ram_trong_gb)()
+    n = nguong_ram_gb() if nguong is None else nguong
+    return (g is None or g > n), g
+
+
+def cho_du_ram(log_fn=None, ngu=time.sleep, do=None, buoc: int = 60, toi_da: int | None = None) -> bool:
+    """Chờ tới khi RAM trống > ngưỡng. False nếu quá `toi_da` giây (None = chờ mãi)."""
+    t = 0
+    while True:
+        ok, g = du_ram_nhan_viec(do=do)
+        if ok:
+            return True
+        if log_fn and t % 600 == 0:
+            log_fn("RAM trống %.2f GB <= ngưỡng %.1f GB -> chưa nhận việc mới" % (g, nguong_ram_gb()))
+        if toi_da is not None and t >= toi_da:
+            return False
+        ngu(buoc); t += buoc
+
+
+def gioi_han_maxbars(slot: Path, max_bars: int | None = None) -> bool:
+    """Đặt [Charts] MaxBars trong <slot>/config/common.ini (giảm RAM terminal; không đổi tick/khoảng ngày của tester).
+    env BRAIN_MAX_BARS (mặc định 50000). True nếu đã sửa."""
+    mb = int(max_bars or os.environ.get("BRAIN_MAX_BARS", "50000") or 50000)
+    f = slot / "config" / "common.ini"
+    if not f.exists():
+        return False
+    raw = f.read_bytes()
+    enc = "utf-16" if raw[:2] in (b"\xff\xfe", b"\xfe\xff") else "utf-8"
+    txt = raw.decode(enc, errors="replace").lstrip("\ufeff")
+    out = []; trong = False; da = False; co_charts = False
+    for d in txt.splitlines():
+        s = d.strip()
+        if s.startswith("["):
+            if trong and not da:
+                out.append("MaxBars=%d" % mb); da = True
+            trong = s.lower() == "[charts]"; co_charts = co_charts or trong
+        elif trong and s.lower().startswith("maxbars="):
+            if s == "MaxBars=%d" % mb:
+                return False
+            d = "MaxBars=%d" % mb; da = True
+        out.append(d)
+    if not da:
+        if not trong:
+            out.append("[Charts]")
+        out.append("MaxBars=%d" % mb)
+    f.write_text("\r\n".join(out) + "\r\n", encoding=enc, newline="")
+    return True
+
+
+def don_cache_tester(slot: Path, giu_ngay: float = 2.0, bay_gio: float | None = None) -> int:
+    """Xoá tệp cũ trong <slot>/Tester/cache (chỉ slot thợ đang giữ). Trả số tệp đã xoá."""
+    d = slot / "Tester" / "cache"
+    if not d.is_dir():
+        return 0
+    moc = (bay_gio or time.time()) - giu_ngay * 86400; n = 0
+    for f in d.iterdir():
+        try:
+            if f.is_file() and f.stat().st_mtime < moc:
+                f.unlink(); n += 1
+        except OSError:
+            pass
+    return n
+
+
 # ---------------- hàm thuần (có test) ----------------
 def so_nam(tu: str, den: str) -> float:
     import datetime as dt
@@ -257,6 +355,14 @@ def chay_mot_k(slot: Path, v: dict, k: float, cho_toi_da: int) -> dict:
     ini = ini.replace("Expert=BRAIN\\Market", "Expert=Market")
     (slot / (ten + ".ini")).write_text(ini, encoding="ascii")
     AT.xoa_bao_cao_cu(slot, ten)
+    try:                                                        # giảm RAM mỗi lần test
+        if gioi_han_maxbars(slot):
+            log("  đặt MaxBars=%s cho slot" % os.environ.get("BRAIN_MAX_BARS", "50000"))
+        n_xoa = don_cache_tester(slot)
+        if n_xoa:
+            log("  xoá %d tệp Tester/cache cũ" % n_xoa)
+    except Exception as e:
+        log("  không giảm RAM được: %s" % str(e)[:200])
     t0 = time.time()
     pr = subprocess.Popen([str(slot / "terminal64.exe"), "/portable", "/config:" + str(slot / (ten + ".ini"))], creationflags=0x00000040)
     log("  phóng PID %d (%s k=%s)" % (pr.pid, v["id"], k))
@@ -432,7 +538,10 @@ def main() -> None:
     while True:
         if a.het_luc and time.time() >= a.het_luc and not hd.dang_lam_cua_toi():
             log("hết khung giờ -> dừng (không nhận việc mới)"); sys.exit(3)
-        v = (hd.dang_lam_cua_toi() or [None])[0] or hd.nhan()
+        v = (hd.dang_lam_cua_toi() or [None])[0]
+        if v is None:                                           # chỉ nhận việc MỚI khi RAM trống > ngưỡng
+            cho_du_ram(log)
+            v = hd.nhan()
         if v is None:
             xong = sorted((GOC / "hang_doi" / "da_test").glob("*.json"))
             moi = []
