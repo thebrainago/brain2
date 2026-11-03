@@ -162,3 +162,4 @@
 {"luc": "2026-11-03T18:24:29+07:00", "may": "desktop-05pnlgf_g2", "su_kien": "nhan", "id": "cb_48139", "loai": "mt5_backtest"}
 {"luc": "2026-11-03T18:30:05+07:00", "may": "desktop-05pnlgf_g4", "su_kien": "xong", "id": "lot_mql5e52afb999eca4bd1_H1", "loai": "mt5_backtest", "tom_tat": "ĐẠT: k=10.0 CAGR 130.68%/năm DD 42.53%"}
 {"luc": "2026-11-03T18:30:32+07:00", "may": "desktop-05pnlgf_p5", "su_kien": "nhan", "id": "cb_47584", "loai": "mt5_backtest"}
+{"luc": "2026-11-03T18:34:19+07:00", "may": "desktop-05pnlgf_p5", "su_kien": "xong", "id": "cb_47584", "loai": "mt5_backtest", "tom_tat": "TRƯỢT: không k nào DD<80%% và CAGR>10%%"}

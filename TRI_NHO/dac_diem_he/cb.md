@@ -1,9 +1,9 @@
 # Đặc điểm hệ `cb`
 
-- Nguồn: https://www.mql5.com/en/code/74135
-- Kiểu vào / quản lý lệnh: tham số: InpLotSize
+- Nguồn: https://www.mql5.com/en/code/47584
+- Kiểu vào / quản lý lệnh: tham số: Lots
 - Trạng thái: **TRƯỢT — lãi dương nhưng không đủ 10 %/năm trước khi DD chạm 80 % (lợi thế mỏng so với rủi ro)**
-- Số lần chạy hợp lệ: 20 (bị thay thế do lỗi lot CSV: 0)
+- Số lần chạy hợp lệ: 23 (bị thay thế do lỗi lot CSV: 0)
 - Tỉ lệ thắng: 33,1 %
 - Năm có lãi: 2016 (+456), 2017 (+791), 2018 (+140), 2019 (-112), 2020 (+231), 2021 (+208), 2022 (-959), 2023 (+164), 2024 (-727), 2025 (-693), 2026 (-306)
 - Thời gian giữ lệnh TB: CHƯA ĐO ĐƯỢC
@@ -38,3 +38,6 @@
 | cb_70796 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_g5 | 1.0 | -100,00 | 100,10 | 0,84 | 5974.0 |
 | cb_70796 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_g5 | 2.0 | -100,00 | 100,76 | 0,83 | 2897.0 |
 | cb_71700 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_g8 | 4.0 | -100,00 | 109,84 | 0,72 | 128.0 |
+| cb_47584 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_p5 | 1.0 | 0,00 | 0,00 | 0,00 | CHƯA ĐO ĐƯỢC |
+| cb_47584 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_p5 | 2.0 | 0,00 | 0,00 | 0,00 | CHƯA ĐO ĐƯỢC |
+| cb_47584 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_p5 | 4.0 | 0,00 | 0,00 | 0,00 | CHƯA ĐO ĐƯỢC |

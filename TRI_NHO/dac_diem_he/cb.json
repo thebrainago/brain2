@@ -1,7 +1,7 @@
 {
  "id": "cb",
- "nguon": "https://www.mql5.com/en/code/74135",
- "kieu": "tham số: InpLotSize",
+ "nguon": "https://www.mql5.com/en/code/47584",
+ "kieu": "tham số: Lots",
  "chay": [
   {
    "bien_the": "cb_70796",
@@ -222,6 +222,39 @@
    "dd_pct": 64.77,
    "pf": 0.97,
    "lenh": 1518.0
+  },
+  {
+   "bien_the": "cb_47584",
+   "ma": "EURUSDmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_p5",
+   "k": 1.0,
+   "cagr_pct": 0.0,
+   "dd_pct": 0.0,
+   "pf": 0.0,
+   "lenh": 0.0
+  },
+  {
+   "bien_the": "cb_47584",
+   "ma": "EURUSDmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_p5",
+   "k": 2.0,
+   "cagr_pct": 0.0,
+   "dd_pct": 0.0,
+   "pf": 0.0,
+   "lenh": 0.0
+  },
+  {
+   "bien_the": "cb_47584",
+   "ma": "EURUSDmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_p5",
+   "k": 4.0,
+   "cagr_pct": 0.0,
+   "dd_pct": 0.0,
+   "pf": 0.0,
+   "lenh": 0.0
   }
  ],
  "lai_theo_nam": {
