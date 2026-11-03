@@ -1,6 +1,6 @@
 {
  "id": "b0be91a35f43f34a",
- "nguon": "CHƯA ĐO ĐƯỢC",
+ "nguon": "b0be91a35f43f34a",
  "kieu": "vào theo CSV lệnh của nguồn; không nhồi; tối đa 1 tầng, hệ số lot 1.0; TP 0.001 % giá",
  "chay": [],
  "bi_thay_the": 2,
@@ -16,5 +16,6 @@
   "có lãi 3/3 năm",
   "tỉ lệ thắng cao (100 %) — điểm vào/TP nhỏ đáng giữ"
  ],
- "ly_do_truot": "CHƯA ĐO ĐƯỢC"
+ "ly_do_truot": "CHƯA ĐO ĐƯỢC",
+ "giai_doan": "2024.01.15–2026.10.01"
 }

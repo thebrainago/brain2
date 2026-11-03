@@ -8,14 +8,14 @@ Mỗi hệ đã test (kể cả trượt) có thẻ ở `TRI_NHO/dac_diem_he/<id
 |---|---|---|---|
 | [ghepe9b41c33d4deee54](dac_diem_he/ghepe9b41c33d4deee54.md) | ĐẠT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 6 tầng, h | PF >= 1,3 ở ít nhất một biến thể; DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; có lãi 3/3 năm; chạy có lãi trên: GBPNZD# H4; tỉ lệ thắng cao (82 %) — điểm vào/TP nhỏ đáng giữ |
 | [skea3279057100](dac_diem_he/skea3279057100.md) | ĐẠT | CHƯA ĐO ĐƯỢC | DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; chạy có lãi trên: EURGBP H1, EURGBP# H1; tỉ lệ thắng cao (66 %) — điểm vào/TP nhỏ đáng giữ |
+| [ghep0bf2](dac_diem_he/ghep0bf2.md) | ĐẠT | CHƯA ĐO ĐƯỢC | DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; chạy có lãi trên: GBPCAD H4 |
 | [UV1_luoi_hedge_tp35__2330430_](dac_diem_he/UV1_luoi_hedge_tp35__2330430_.md) | ĐẠT MÔ PHỎNG | CHƯA ĐO ĐƯỢC | DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; chạy có lãi trên: AUDCAD H1, GBPUSD H1 |
 | [UV2_swap_bao_thu](dac_diem_he/UV2_swap_bao_thu.md) | ĐẠT MÔ PHỎNG | CHƯA ĐO ĐƯỢC | DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; chạy có lãi trên: AUDCAD H1, EURGBP H1, NZDCAD H1 |
 | [UV2_swap_do](dac_diem_he/UV2_swap_do.md) | ĐẠT MÔ PHỎNG | CHƯA ĐO ĐƯỢC | DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; chạy có lãi trên: AUDCAD H1, AUDNZD H1, EURCHF H1, EURGBP H1, NZDCAD H1 |
-| [ghep0bf2](dac_diem_he/ghep0bf2.md) | ĐẠT | CHƯA ĐO ĐƯỢC | DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; chạy có lãi trên: GBPCAD H4 |
 | [v2lotscale](dac_diem_he/v2lotscale.md) | ĐẠT | CHƯA ĐO ĐƯỢC | DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; chạy có lãi trên: CADJPY# H4, EURUSD# H1, GBPCAD# H1, GBPCAD# H4, NZDUSD# H1 |
 | [v2verify](dac_diem_he/v2verify.md) | ĐẠT | CHƯA ĐO ĐƯỢC | DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; chạy có lãi trên: GBPCAD# H1, GBPCAD# H4 |
-| [UV2_ro_dca_hedge_15pip__2262642_](dac_diem_he/UV2_ro_dca_hedge_15pip__2262642_.md) | ĐẠT MÔ PHỎNG | CHƯA ĐO ĐƯỢC | chạy có lãi trên: AUDCAD H1, GBPUSD H1 |
 | [skst299b0817f66d4096](dac_diem_he/skst299b0817f66d4096.md) | ĐẠT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 4 tầng, h | chạy có lãi trên: EURUSD# H1 |
+| [UV2_ro_dca_hedge_15pip__2262642_](dac_diem_he/UV2_ro_dca_hedge_15pip__2262642_.md) | ĐẠT MÔ PHỎNG | CHƯA ĐO ĐƯỢC | chạy có lãi trên: AUDCAD H1, GBPUSD H1 |
 | [mql5344ed0d8ab12c7f0](dac_diem_he/mql5344ed0d8ab12c7f0.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 4 tầng, h | PF >= 1,3 ở ít nhất một biến thể; DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; có lãi 8/9 năm; chạy có lãi trên: NZDUSD# H1; tỉ lệ thắng cao (76 %) — điểm vào/TP nhỏ đáng giữ |
 | [skea135e93ee32](dac_diem_he/skea135e93ee32.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 6 tầng, h | PF >= 1,3 ở ít nhất một biến thể; DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; có lãi 3/3 năm; chạy có lãi trên: EURUSD# H1; tỉ lệ thắng cao (84 %) — điểm vào/TP nhỏ đáng giữ |
 | [skea154c9fdee7](dac_diem_he/skea154c9fdee7.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 4 tầng, h | PF >= 1,3 ở ít nhất một biến thể; DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; có lãi 3/3 năm; chạy có lãi trên: GBPCAD# H4; tỉ lệ thắng cao (79 %) — điểm vào/TP nhỏ đáng giữ |
@@ -26,8 +26,6 @@ Mỗi hệ đã test (kể cả trượt) có thẻ ở `TRI_NHO/dac_diem_he/<id
 | [018dcb1347276c97](dac_diem_he/018dcb1347276c97.md) | TRƯỢT | vào theo CSV lệnh của nguồn; không nhồi; tối đa 1 tầng, hệ số lot 1.6; | có lãi 3/3 năm; tỉ lệ thắng cao (96 %) — điểm vào/TP nhỏ đáng giữ |
 | [0557d803384c6211](dac_diem_he/0557d803384c6211.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 9 tầng, h | có lãi 3/3 năm; tỉ lệ thắng cao (83 %) — điểm vào/TP nhỏ đáng giữ |
 | [2600ea39abbd7b0f](dac_diem_he/2600ea39abbd7b0f.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 4 tầng, h | có lãi 3/3 năm; tỉ lệ thắng cao (73 %) — điểm vào/TP nhỏ đáng giữ |
-| [UV1_swap_0_lac_quan](dac_diem_he/UV1_swap_0_lac_quan.md) | TRƯỢT | CHƯA ĐO ĐƯỢC | DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; chạy có lãi trên: AUDCAD H1, AUDNZD H1, EURGBP H1, NZDCAD H1 |
-| [UV2_swap_0_lac_quan](dac_diem_he/UV2_swap_0_lac_quan.md) | TRƯỢT | CHƯA ĐO ĐƯỢC | DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; chạy có lãi trên: AUDCAD H1, AUDNZD H1, EURCHF H1, EURGBP H1, NZDCAD H1 |
 | [b0be91a35f43f34a](dac_diem_he/b0be91a35f43f34a.md) | TRƯỢT | vào theo CSV lệnh của nguồn; không nhồi; tối đa 1 tầng, hệ số lot 1.0; | có lãi 3/3 năm; tỉ lệ thắng cao (100 %) — điểm vào/TP nhỏ đáng giữ |
 | [ghep60ff9350c26c63ee](dac_diem_he/ghep60ff9350c26c63ee.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 4 tầng, h | có lãi 3/3 năm; tỉ lệ thắng cao (74 %) — điểm vào/TP nhỏ đáng giữ |
 | [ghep6f5c193256881f31](dac_diem_he/ghep6f5c193256881f31.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 6 tầng, h | có lãi 3/3 năm; tỉ lệ thắng cao (90 %) — điểm vào/TP nhỏ đáng giữ |
@@ -86,6 +84,8 @@ Mỗi hệ đã test (kể cả trượt) có thẻ ở `TRI_NHO/dac_diem_he/<id
 | [tohop564be9bb91406c57](dac_diem_he/tohop564be9bb91406c57.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 9 tầng, h | có lãi 3/3 năm; tỉ lệ thắng cao (81 %) — điểm vào/TP nhỏ đáng giữ |
 | [tohop63aa4af7710ebb78](dac_diem_he/tohop63aa4af7710ebb78.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 4 tầng, h | có lãi 3/3 năm; tỉ lệ thắng cao (84 %) — điểm vào/TP nhỏ đáng giữ |
 | [tohop9acc6e0d2f784cb9](dac_diem_he/tohop9acc6e0d2f784cb9.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 4 tầng, h | có lãi 3/3 năm; tỉ lệ thắng cao (85 %) — điểm vào/TP nhỏ đáng giữ |
+| [UV1_swap_0_lac_quan](dac_diem_he/UV1_swap_0_lac_quan.md) | TRƯỢT | CHƯA ĐO ĐƯỢC | DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; chạy có lãi trên: AUDCAD H1, AUDNZD H1, EURGBP H1, NZDCAD H1 |
+| [UV2_swap_0_lac_quan](dac_diem_he/UV2_swap_0_lac_quan.md) | TRƯỢT | CHƯA ĐO ĐƯỢC | DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; chạy có lãi trên: AUDCAD H1, AUDNZD H1, EURCHF H1, EURGBP H1, NZDCAD H1 |
 | [v2capeurgbp_tohop09a3b2ddc3e78dc8_XM_CSV](dac_diem_he/v2capeurgbp_tohop09a3b2ddc3e78dc8_XM_CSV.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 6 tầng, h | có lãi 3/3 năm; tỉ lệ thắng cao (70 %) — điểm vào/TP nhỏ đáng giữ |
 | [v2capnzdusd_tohop09a3b2ddc3e78dc8_XM_CSV](dac_diem_he/v2capnzdusd_tohop09a3b2ddc3e78dc8_XM_CSV.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 6 tầng, h | có lãi 7/9 năm; tỉ lệ thắng cao (71 %) — điểm vào/TP nhỏ đáng giữ |
 | [v2cn_nhapcf8073245473d2a1_XM_CSV](dac_diem_he/v2cn_nhapcf8073245473d2a1_XM_CSV.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 6 tầng, h | có lãi 3/3 năm; tỉ lệ thắng cao (70 %) — điểm vào/TP nhỏ đáng giữ |
@@ -110,13 +110,11 @@ Mỗi hệ đã test (kể cả trượt) có thẻ ở `TRI_NHO/dac_diem_he/<id
 | [v2relot_v2r2xt_realtick_b0be91a35f43f34a_XM_CSV](dac_diem_he/v2relot_v2r2xt_realtick_b0be91a35f43f34a_XM_CSV.md) | TRƯỢT | CHƯA ĐO ĐƯỢC | DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; chạy có lãi trên: USDCAD# H4 |
 | [v2tfh1_tohop09a3b2ddc3e78dc8_XM_CSV](dac_diem_he/v2tfh1_tohop09a3b2ddc3e78dc8_XM_CSV.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 6 tầng, h | có lãi 3/3 năm; tỉ lệ thắng cao (78 %) — điểm vào/TP nhỏ đáng giữ |
 | [3304d2fad28adef6](dac_diem_he/3304d2fad28adef6.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 6 tầng, h | tỉ lệ thắng cao (75 %) — điểm vào/TP nhỏ đáng giữ |
+| [brainxlrsi](dac_diem_he/brainxlrsi.md) | TRƯỢT | DCA ngược (nhồi khi lỗ); tối đa 6 tầng, hệ số lot 1.6 | chạy có lãi trên: AUDCAD# H4 |
 | [CLMCA_C_V1_M15_swap_0_lac_quan](dac_diem_he/CLMCA_C_V1_M15_swap_0_lac_quan.md) | TRƯỢT | CHƯA ĐO ĐƯỢC | chạy có lãi trên: XAUUSD M15 |
 | [EA4_MACD_200EMA_H4_swap_0_lac_quan](dac_diem_he/EA4_MACD_200EMA_H4_swap_0_lac_quan.md) | TRƯỢT | CHƯA ĐO ĐƯỢC | chạy có lãi trên: XAUUSD H4 |
 | [EA4_MACD_200EMA_H4_swap_bao_thu](dac_diem_he/EA4_MACD_200EMA_H4_swap_bao_thu.md) | TRƯỢT | CHƯA ĐO ĐƯỢC | chạy có lãi trên: XAUUSD H4 |
 | [EA4_MACD_200EMA_H4_swap_do_XM](dac_diem_he/EA4_MACD_200EMA_H4_swap_do_XM.md) | TRƯỢT | CHƯA ĐO ĐƯỢC | chạy có lãi trên: XAUUSD H4 |
-| [UV1_swap_bao_thu](dac_diem_he/UV1_swap_bao_thu.md) | TRƯỢT | CHƯA ĐO ĐƯỢC | chạy có lãi trên: NZDCAD H1 |
-| [UV1_swap_do](dac_diem_he/UV1_swap_do.md) | TRƯỢT | CHƯA ĐO ĐƯỢC | chạy có lãi trên: AUDCAD H1, EURGBP H1, NZDCAD H1 |
-| [brainxlrsi](dac_diem_he/brainxlrsi.md) | TRƯỢT | DCA ngược (nhồi khi lỗ); tối đa 6 tầng, hệ số lot 1.6 | chạy có lãi trên: AUDCAD# H4 |
 | [ghep0bf2c31fbfc9dea0](dac_diem_he/ghep0bf2c31fbfc9dea0.md) | TRƯỢT | vào theo CSV lệnh của nguồn; không nhồi; tối đa 1 tầng, hệ số lot 1.0; | tỉ lệ thắng cao (99 %) — điểm vào/TP nhỏ đáng giữ |
 | [mql5164edabb0bca1b7d](dac_diem_he/mql5164edabb0bca1b7d.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 6 tầng, h | tỉ lệ thắng cao (73 %) — điểm vào/TP nhỏ đáng giữ |
 | [mql5250fc0146190663c](dac_diem_he/mql5250fc0146190663c.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 9 tầng, h | tỉ lệ thắng cao (70 %) — điểm vào/TP nhỏ đáng giữ |
@@ -148,6 +146,8 @@ Mỗi hệ đã test (kể cả trượt) có thẻ ở `TRI_NHO/dac_diem_he/<id
 | [skstc21c2acd239f3c87](dac_diem_he/skstc21c2acd239f3c87.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 4 tầng, h | tỉ lệ thắng cao (72 %) — điểm vào/TP nhỏ đáng giữ |
 | [tohopc2d52300cc825dff](dac_diem_he/tohopc2d52300cc825dff.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 6 tầng, h | tỉ lệ thắng cao (75 %) — điểm vào/TP nhỏ đáng giữ |
 | [tohopd315744077e1a7aa](dac_diem_he/tohopd315744077e1a7aa.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 9 tầng, h | tỉ lệ thắng cao (68 %) — điểm vào/TP nhỏ đáng giữ |
+| [UV1_swap_bao_thu](dac_diem_he/UV1_swap_bao_thu.md) | TRƯỢT | CHƯA ĐO ĐƯỢC | chạy có lãi trên: NZDCAD H1 |
+| [UV1_swap_do](dac_diem_he/UV1_swap_do.md) | TRƯỢT | CHƯA ĐO ĐƯỢC | chạy có lãi trên: AUDCAD H1, EURGBP H1, NZDCAD H1 |
 | [v2cn_tohop09a3b2ddc3e78dc8_XM_CSV](dac_diem_he/v2cn_tohop09a3b2ddc3e78dc8_XM_CSV.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 8 tầng, h | tỉ lệ thắng cao (81 %) — điểm vào/TP nhỏ đáng giữ |
 | [v2gng_v2g236278a685_XM_CSV](dac_diem_he/v2gng_v2g236278a685_XM_CSV.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 9 tầng, h | tỉ lệ thắng cao (70 %) — điểm vào/TP nhỏ đáng giữ |
 | [v2gth_v2g317e36f61e_XM_CSV](dac_diem_he/v2gth_v2g317e36f61e_XM_CSV.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 9 tầng, h | tỉ lệ thắng cao (70 %) — điểm vào/TP nhỏ đáng giữ |
