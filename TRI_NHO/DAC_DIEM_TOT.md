@@ -2,7 +2,7 @@
 
 Mỗi hệ đã test (kể cả trượt) có thẻ ở `TRI_NHO/dac_diem_he/<id>.md`. Bảng dưới: hệ có ít nhất một mảnh tốt.
 
-- Tổng thẻ: **371**, có mảnh tốt: **148**, đạt tiêu chí: **15**
+- Tổng thẻ: **371**, có mảnh tốt: **149**, đạt tiêu chí: **15**
 
 | Hệ | Trạng thái | Kiểu | Mảnh tốt |
 |---|---|---|---|
@@ -21,6 +21,7 @@ Mỗi hệ đã test (kể cả trượt) có thẻ ở `TRI_NHO/dac_diem_he/<id
 | [v2verify](dac_diem_he/v2verify.md) | ĐẠT | CHƯA ĐO ĐƯỢC | DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; chạy có lãi trên: GBPCAD# H1, GBPCAD# H4 |
 | [skst299b0817f66d4096](dac_diem_he/skst299b0817f66d4096.md) | ĐẠT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 4 tầng, h | chạy có lãi trên: EURUSD# H1 |
 | [UV2_ro_dca_hedge_15pip__2262642_](dac_diem_he/UV2_ro_dca_hedge_15pip__2262642_.md) | ĐẠT MÔ PHỎNG | CHƯA ĐO ĐƯỢC | chạy có lãi trên: AUDCAD H1, GBPUSD H1 |
+| [cb](dac_diem_he/cb.md) | TRƯỢT | tham số: lotStart | PF >= 1,3 ở ít nhất một biến thể; DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; có lãi 10/11 năm; chạy có lãi trên: EURUSDmicro H1; tỉ lệ thắng cao (98 %) — điểm vào/TP nhỏ đáng giữ |
 | [skea135e93ee32](dac_diem_he/skea135e93ee32.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 6 tầng, h | PF >= 1,3 ở ít nhất một biến thể; DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; có lãi 3/3 năm; chạy có lãi trên: EURUSD# H1; tỉ lệ thắng cao (84 %) — điểm vào/TP nhỏ đáng giữ |
 | [skea61c21a2049](dac_diem_he/skea61c21a2049.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 6 tầng, h | PF >= 1,3 ở ít nhất một biến thể; DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; có lãi 3/3 năm; chạy có lãi trên: CADJPY H4, CADJPY# H4; tỉ lệ thắng cao (74 %) — điểm vào/TP nhỏ đáng giữ |
 | [brainxlmrz](dac_diem_he/brainxlmrz.md) | TRƯỢT | DCA ngược (nhồi khi lỗ); tối đa 9 tầng, hệ số lot 1.0 | PF >= 1,3 ở ít nhất một biến thể; có lãi 10/11 năm; chạy có lãi trên: AUDCAD# H4, GBPUSD H4, GBPUSD# H4; tỉ lệ thắng cao (82 %) — điểm vào/TP nhỏ đáng giữ |
