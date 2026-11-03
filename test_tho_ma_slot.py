@@ -34,3 +34,7 @@ def test_suy_theo_lich_su(tmp_path):
     assert T.ky_hieu_slot(tmp_path, "GBPNZDmicro") == "GBPNZD#"
     (tmp_path / "bases" / "XM" / "history" / "EURUSDmicro").mkdir()
     assert T.ky_hieu_slot(tmp_path, "GBPNZDmicro") == "GBPNZDmicro"
+
+
+def test_slot_moi_chua_lich_su(tmp_path):
+    assert T.ky_hieu_slot(tmp_path, "USDCADmicro") == "USDCAD#"

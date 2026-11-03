@@ -82,7 +82,9 @@ def ky_hieu_slot(slot: Path, ma: str) -> str:
     # symbols-*.dat của MT5 được mã hoá -> không dò được tên; suy theo lịch sử đã tải của slot:
     # có mã '#' mà không có mã '*micro' nào => tài khoản chỉ có '#'
     ls = [Path(x).name.lower() for x in glob.glob(str(Path(slot) / "bases" / "*" / "history" / "*"))]
-    if any(x.endswith("#") for x in ls) and not any(x.endswith("micro") for x in ls):
+    # không thấy mã *micro nào trong slot (slot mới chưa tải lịch sử cũng vậy) -> dùng '#' như các ini cũ
+    # D:\mt5_tester\ini (tài khoản demo XM 345930355 chỉ có '#')
+    if not any(x.endswith("micro") for x in ls):
         return moi
     return ma
 
