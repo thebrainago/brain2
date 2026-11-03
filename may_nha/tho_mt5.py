@@ -75,7 +75,16 @@ def ky_hieu_slot(slot: Path, ma: str) -> str:
         return ma
     sys.path.insert(0, str(GOC / "mt5tools")); from sinh_viec import remap_ma_hash_demo
     moi = remap_ma_hash_demo(ma)
-    return moi if moi != ma and co(moi) else ma
+    if moi == ma:
+        return ma
+    if co(moi):
+        return moi
+    # symbols-*.dat của MT5 được mã hoá -> không dò được tên; suy theo lịch sử đã tải của slot:
+    # có mã '#' mà không có mã '*micro' nào => tài khoản chỉ có '#'
+    ls = [Path(x).name.lower() for x in glob.glob(str(Path(slot) / "bases" / "*" / "history" / "*"))]
+    if any(x.endswith("#") for x in ls) and not any(x.endswith("micro") for x in ls):
+        return moi
+    return ma
 
 
 def doi_ma_csv(noi_dung: str, ma_cu: str, ma_moi: str) -> str:

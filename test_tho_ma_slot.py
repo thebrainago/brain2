@@ -26,3 +26,11 @@ def test_doi_ma_csv():
     c = "thoi_gian,ma,chieu,gia,nguon,lot\n2025.01.01 00:00:00,GBPNZDmicro,1,1.1,x,30.0\n"
     o = T.nhan_csv(T.doi_ma_csv(c, "GBPNZDmicro", "GBPNZD#"), 2.0, True)
     assert "GBPNZD#" in o and ",0.6" in o
+
+
+def test_suy_theo_lich_su(tmp_path):
+    for t in ("EURUSD#", "GOLD.i#", "EURUSD"):
+        (tmp_path / "bases" / "XM" / "history" / t).mkdir(parents=True)
+    assert T.ky_hieu_slot(tmp_path, "GBPNZDmicro") == "GBPNZD#"
+    (tmp_path / "bases" / "XM" / "history" / "EURUSDmicro").mkdir()
+    assert T.ky_hieu_slot(tmp_path, "GBPNZDmicro") == "GBPNZDmicro"
