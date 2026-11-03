@@ -1,4 +1,4 @@
-# Trạng thái hiện tại — cập nhật 03/11/2026 08:00 (UTC+7)
+# Trạng thái hiện tại — cập nhật 03/11/2026 08:30 (UTC+7)
 
 ## Tóm tắt
 - **Chưa có hệ nào ĐẠT** theo tiêu chí DD < 80% & CAGR > 10%/năm với kết quả hợp lệ (xem `so_ket_qua/TONG_HOP.md`).
@@ -12,6 +12,7 @@
 - Bị chặn: Myfxbook (Cloudflare 403, cả robots.txt), Exness Social Trading và my.litefinance.vn (lỗi TLS từ box), LiteFinance trang chi tiết trader chuyển hướng về danh sách (danh sách chỉ có lợi nhuận + rủi ro 1–10 → 16 trader CHƯA ĐO ĐƯỢC).
 - Dịch ngược (03/11 07:15–08:00 UTC+7): 10 CSV tải tay đã đưa vào `data/cong_khai/csv/` và chạy `python -m nhan.dich_nguoc.top10` → `reports/DICH_NGUOC_TOP10.md`. Phong cách: 3 bẫy tin (1862128, 1864588, 2302081 — cùng nhà cung cấp), 2 martingale (2327790, 2378480), lưới/DCA hedge (2262642, 2271402, 2330430), 1932739 đa cặp có SL, 2391346 vàng giờ mở phiên Âu. AUC bỏ giờ đều ≤ ~0,63 trừ 2378480 (0,79).
 - EA nháp: `ea_demo/BRAIN_DN_LuoiHedgeTP.mq5` (UV1 từ 2330430) và `ea_demo/BRAIN_DN_RoDCAHedge.mq5` (UV2 từ 2262642), CHƯA chạy Strategy Tester. MÔ PHỎNG Python AUDCAD H1 2008–2026 (không swap): UV1 lô 0,001/1000 USD CAGR 13,8% DD 60,0% (ĐẠT mô phỏng); UV2 không đạt. Việc dở: chạy MT5 real tick + swap XM cho 2 EA.
+- Vòng 2 (03/11 ~08:30): thêm swap (XM/FXCE đo, 3 kịch bản) + margin 1:500 stop-out 20% vào `backtest_luoi.py`; dữ liệu HistData 2008–2023 tải thêm ở `/workspace/du_lieu_fx/hd_dai/`. Có swap: UV1 AUDCAD hết đạt (7,3%/65,9%). Đạt duy nhất với swap đo: **UV2 NZDCAD 2008–2023** lô 0,001/1000 USD CAGR 17,8% DD 33,8% (swap FXCE, không có 2024–2026, nghi chọn may mắn) → cần MT5 real tick. 5 EA vàng Telegram + CLMCA C_V1 trên XAUUSD 2009–2026: **0 đạt**. Báo cáo `reports/DICH_NGUOC_VONG2_SWAP_VANG.md`. Sổ: các dòng ĐẠT ở kịch bản `swap_0_lac_quan` chỉ là tham khảo, không tính.
 
 ## Lỗi lot CSV ~100× — đã vá 31/10/2026 01:53 (UTC+7)
 - Khi EA chạy `VAO_CSV`, lot trong CSV bị phình ~100× → lãi/DD sai hoàn toàn.

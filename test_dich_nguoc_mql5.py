@@ -57,3 +57,30 @@ def test_ea_nhap_va_set():
         ins = set(re.findall(r"^input\s+\w+\s+(\w+)", src, re.M))
         st = {l.split("=")[0] for l in (D / f"{ten}.set").read_text().splitlines() if "=" in l}
         assert st == ins
+
+
+def test_swap_va_stop_out():
+    t = np.arange(3000); c = 1.0 + 0.0040 * np.sin(t / 15)
+    g = pd.DataFrame({"open": np.r_[c[0], c[:-1]], "close": c}, index=pd.date_range("2020", periods=3000, freq="h"))
+    g["high"] = g[["open", "close"]].max(axis=1); g["low"] = g[["open", "close"]].min(axis=1)
+    a = BL.chay(g, "luoi_tp", 1e-4, 10, 10, 1.0, 10.0, lot_moi_1000=0.001)
+    b = BL.chay(g, "luoi_tp", 1e-4, 10, 10, 1.0, 10.0, lot_moi_1000=0.001, swap_mua=-50, swap_ban=-50)
+    assert b["tong_swap"] < 0 and b["equity_cuoi"] < a["equity_cuoi"]
+    # xu hướng mạnh một chiều + lô lớn + đòn bẩy thấp -> có stop-out
+    x = 1.0 + np.linspace(0, 0.3, 3000)
+    g2 = pd.DataFrame({"open": np.r_[x[0], x[:-1]], "close": x, "high": x + 1e-4, "low": np.r_[x[0], x[:-1]] - 1e-4},
+                      index=pd.date_range("2020", periods=3000, freq="h"))
+    k = BL.chay(g2, "ro_dca", 1e-4, 10, 10, 1.0, 10.0, lot_moi_1000=0.05, base_usd=1.0, don_bay=30)
+    assert k["so_stop_out"] >= 1 or k["chay_tai_khoan"]
+
+
+def test_vang_sl_truoc_tp_va_phi():
+    from nhan.dich_nguoc import backtest_vang as BV
+    idx = pd.date_range("2020-01-06", periods=6, freq="h")
+    g = pd.DataFrame({"open": [100, 100, 100, 100, 100, 100.0], "high": [100, 100, 106, 100, 100, 100.0],
+                      "low": [100, 100, 94, 100, 100, 100.0], "close": [100.0] * 6}, index=idx)
+    def th(i, ctx):
+        return [dict(c=1, lot=0.1, sl_fn=lambda p: p - 5, tp_fn=lambda p: p + 5)] if i == 1 and ctx["so_mo"] == 0 else []
+    k = BV.mo_phong(g, th, "t", von=10000, swap_mua=0, swap_ban=0)
+    # vào 100.55, nến 3 chạm cả SL & TP -> SL trước: lỗ 5 USD giá x 0.1 lot x 100 oz = 50
+    assert abs(k["equity_cuoi"] - 9950.0) < 1e-6 and k["so_lenh"] == 1

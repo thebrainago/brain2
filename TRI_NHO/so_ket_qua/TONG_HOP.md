@@ -1,14 +1,14 @@
 # Tổng hợp sổ kết quả
 
-Sinh tự động bởi `python -m nhan.so_ket_qua --tong-hop` lúc 2026-11-03 07:20 (UTC+7).
+Sinh tự động bởi `python -m nhan.so_ket_qua --tong-hop` lúc 2026-11-03 07:50 (UTC+7).
 Tiêu chí ĐẠT duy nhất: **max DD < 80% VÀ CAGR > 10%/năm**. Chỉ tính kết quả đo SAU khi vá lỗi lot (31/10/2026 01:53 UTC+7).
 
-Tổng số dòng: **2291**
+Tổng số dòng: **2432**
 
 | Trạng thái | Số dòng |
 |---|---|
-| DAT | 1073 |
-| KHONG_DAT | 14 |
+| DAT | 1083 |
+| KHONG_DAT | 145 |
 | BI_THAY_THE | 1200 |
 | CHUA_DO | 4 |
 
@@ -1089,6 +1089,16 @@ Tổng số dòng: **2291**
 | DichNguoc:UV2_ro_dca_hedge_15pip_(2262642):lot0.002/1000 | GBPUSD | H1 | 57.57 | 79.35 | data/dich_nguoc/backtest_luoi.json (nhan/dich_nguoc/backtest_luoi.py) |
 | DichNguoc:UV2_ro_dca_hedge_15pip_(2262642):lot0.001/1000 | GBPUSD | H1 | 25.66 | 38.09 | data/dich_nguoc/backtest_luoi.json (nhan/dich_nguoc/backtest_luoi.py) |
 | DichNguoc:UV2_ro_dca_hedge_15pip_(2262642):lot0.0005/1000 | GBPUSD | H1 | 12.16 | 18.03 | data/dich_nguoc/backtest_luoi.json (nhan/dich_nguoc/backtest_luoi.py) |
+| DichNguoc:UV1:swap_0_lac_quan:lot0.001/1000 | AUDCAD | H1 | 13.77 | 59.98 | data/dich_nguoc/backtest_luoi_v2.json |
+| DichNguoc:UV1:swap_0_lac_quan:lot0.001/1000 | EURGBP | H1 | 16.45 | 72.99 | data/dich_nguoc/backtest_luoi_v2.json |
+| DichNguoc:UV2:swap_0_lac_quan:lot0.0005/1000 | EURGBP | H1 | 10.37 | 63.47 | data/dich_nguoc/backtest_luoi_v2.json |
+| DichNguoc:UV2:swap_do:lot0.002/1000 | NZDCAD | H1 | 39.96 | 68.7 | data/dich_nguoc/backtest_luoi_v2.json |
+| DichNguoc:UV2:swap_do:lot0.001/1000 | NZDCAD | H1 | 17.77 | 33.84 | data/dich_nguoc/backtest_luoi_v2.json |
+| DichNguoc:UV2:swap_bao_thu:lot0.002/1000 | NZDCAD | H1 | 39.7 | 68.75 | data/dich_nguoc/backtest_luoi_v2.json |
+| DichNguoc:UV2:swap_bao_thu:lot0.001/1000 | NZDCAD | H1 | 17.39 | 33.71 | data/dich_nguoc/backtest_luoi_v2.json |
+| DichNguoc:UV1:swap_0_lac_quan:lot0.001/1000 | NZDCAD | H1 | 12.04 | 50.89 | data/dich_nguoc/backtest_luoi_v2.json |
+| DichNguoc:UV2:swap_0_lac_quan:lot0.002/1000 | NZDCAD | H1 | 44.97 | 66.91 | data/dich_nguoc/backtest_luoi_v2.json |
+| DichNguoc:UV2:swap_0_lac_quan:lot0.001/1000 | NZDCAD | H1 | 19.89 | 33.06 | data/dich_nguoc/backtest_luoi_v2.json |
 
 ## Kết quả hợp lệ sau vá (DAT/KHONG_DAT)
 
@@ -2181,5 +2191,146 @@ Tổng số dòng: **2291**
 | DichNguoc:UV2_ro_dca_hedge_15pip_(2262642):lot0.002/1000 | GBPUSD | H1 | 57.57 | 79.35 | DAT |
 | DichNguoc:UV2_ro_dca_hedge_15pip_(2262642):lot0.001/1000 | GBPUSD | H1 | 25.66 | 38.09 | DAT |
 | DichNguoc:UV2_ro_dca_hedge_15pip_(2262642):lot0.0005/1000 | GBPUSD | H1 | 12.16 | 18.03 | DAT |
+| DichNguoc:UV1:swap_do:lot0.002/1000 | AUDCAD | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV1:swap_do:lot0.001/1000 | AUDCAD | H1 | 7.27 | 65.87 | KHONG_DAT |
+| DichNguoc:UV1:swap_do:lot0.0005/1000 | AUDCAD | H1 | 2.82 | 33.2 | KHONG_DAT |
+| DichNguoc:UV1:swap_do:lot0.00025/1000 | AUDCAD | H1 | 1.06 | 15.71 | KHONG_DAT |
+| DichNguoc:UV2:swap_do:lot0.002/1000 | AUDCAD | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_do:lot0.001/1000 | AUDCAD | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_do:lot0.0005/1000 | AUDCAD | H1 | 4.63 | 82.52 | KHONG_DAT |
+| DichNguoc:UV2:swap_do:lot0.00025/1000 | AUDCAD | H1 | 2.5 | 42.77 | KHONG_DAT |
+| DichNguoc:UV1:swap_bao_thu:lot0.002/1000 | AUDCAD | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV1:swap_bao_thu:lot0.001/1000 | AUDCAD | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV1:swap_bao_thu:lot0.0005/1000 | AUDCAD | H1 | -5.6 | 74.53 | KHONG_DAT |
+| DichNguoc:UV1:swap_bao_thu:lot0.00025/1000 | AUDCAD | H1 | -1.83 | 38.62 | KHONG_DAT |
+| DichNguoc:UV2:swap_bao_thu:lot0.002/1000 | AUDCAD | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_bao_thu:lot0.001/1000 | AUDCAD | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_bao_thu:lot0.0005/1000 | AUDCAD | H1 | 1.59 | 82.25 | KHONG_DAT |
+| DichNguoc:UV2:swap_bao_thu:lot0.00025/1000 | AUDCAD | H1 | 1.05 | 44.42 | KHONG_DAT |
+| DichNguoc:UV1:swap_0_lac_quan:lot0.002/1000 | AUDCAD | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV1:swap_0_lac_quan:lot0.001/1000 | AUDCAD | H1 | 13.77 | 59.98 | DAT |
+| DichNguoc:UV1:swap_0_lac_quan:lot0.0005/1000 | AUDCAD | H1 | 6.39 | 27.01 | KHONG_DAT |
+| DichNguoc:UV1:swap_0_lac_quan:lot0.00025/1000 | AUDCAD | H1 | 3.09 | 15.41 | KHONG_DAT |
+| DichNguoc:UV2:swap_0_lac_quan:lot0.002/1000 | AUDCAD | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_0_lac_quan:lot0.001/1000 | AUDCAD | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_0_lac_quan:lot0.0005/1000 | AUDCAD | H1 | 7.4 | 82.98 | KHONG_DAT |
+| DichNguoc:UV2:swap_0_lac_quan:lot0.00025/1000 | AUDCAD | H1 | 3.74 | 43.04 | KHONG_DAT |
+| DichNguoc:UV1:swap_do:lot0.002/1000 | AUDNZD | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV1:swap_do:lot0.001/1000 | AUDNZD | H1 | -3.87 | 91.31 | KHONG_DAT |
+| DichNguoc:UV1:swap_do:lot0.0005/1000 | AUDNZD | H1 | -0.33 | 38.51 | KHONG_DAT |
+| DichNguoc:UV1:swap_do:lot0.00025/1000 | AUDNZD | H1 | -0.01 | 18.05 | KHONG_DAT |
+| DichNguoc:UV2:swap_do:lot0.002/1000 | AUDNZD | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_do:lot0.001/1000 | AUDNZD | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_do:lot0.0005/1000 | AUDNZD | H1 | 2.05 | 50.63 | KHONG_DAT |
+| DichNguoc:UV2:swap_do:lot0.00025/1000 | AUDNZD | H1 | 0.99 | 22.24 | KHONG_DAT |
+| DichNguoc:UV1:swap_bao_thu:lot0.002/1000 | AUDNZD | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV1:swap_bao_thu:lot0.001/1000 | AUDNZD | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV1:swap_bao_thu:lot0.0005/1000 | AUDNZD | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV1:swap_bao_thu:lot0.00025/1000 | AUDNZD | H1 | -4.87 | 69.28 | KHONG_DAT |
+| DichNguoc:UV2:swap_bao_thu:lot0.002/1000 | AUDNZD | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_bao_thu:lot0.001/1000 | AUDNZD | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_bao_thu:lot0.0005/1000 | AUDNZD | H1 | -1.35 | 76.23 | KHONG_DAT |
+| DichNguoc:UV2:swap_bao_thu:lot0.00025/1000 | AUDNZD | H1 | -0.58 | 35.53 | KHONG_DAT |
+| DichNguoc:UV1:swap_0_lac_quan:lot0.002/1000 | AUDNZD | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV1:swap_0_lac_quan:lot0.001/1000 | AUDNZD | H1 | 8.21 | 64.88 | KHONG_DAT |
+| DichNguoc:UV1:swap_0_lac_quan:lot0.0005/1000 | AUDNZD | H1 | 4.1 | 29.66 | KHONG_DAT |
+| DichNguoc:UV1:swap_0_lac_quan:lot0.00025/1000 | AUDNZD | H1 | 2.15 | 13.17 | KHONG_DAT |
+| DichNguoc:UV2:swap_0_lac_quan:lot0.002/1000 | AUDNZD | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_0_lac_quan:lot0.001/1000 | AUDNZD | H1 | 10.53 | 93.41 | KHONG_DAT |
+| DichNguoc:UV2:swap_0_lac_quan:lot0.0005/1000 | AUDNZD | H1 | 5.26 | 45.39 | KHONG_DAT |
+| DichNguoc:UV2:swap_0_lac_quan:lot0.00025/1000 | AUDNZD | H1 | 2.63 | 25.12 | KHONG_DAT |
+| DichNguoc:UV1:swap_do:lot0.002/1000 | EURCHF | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV1:swap_do:lot0.001/1000 | EURCHF | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV1:swap_do:lot0.0005/1000 | EURCHF | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV1:swap_do:lot0.00025/1000 | EURCHF | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_do:lot0.002/1000 | EURCHF | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_do:lot0.001/1000 | EURCHF | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_do:lot0.0005/1000 | EURCHF | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_do:lot0.00025/1000 | EURCHF | H1 | 1.74 | 53.02 | KHONG_DAT |
+| DichNguoc:UV1:swap_bao_thu:lot0.002/1000 | EURCHF | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV1:swap_bao_thu:lot0.001/1000 | EURCHF | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV1:swap_bao_thu:lot0.0005/1000 | EURCHF | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV1:swap_bao_thu:lot0.00025/1000 | EURCHF | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_bao_thu:lot0.002/1000 | EURCHF | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_bao_thu:lot0.001/1000 | EURCHF | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_bao_thu:lot0.0005/1000 | EURCHF | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_bao_thu:lot0.00025/1000 | EURCHF | H1 | -2.5 | 55.98 | KHONG_DAT |
+| DichNguoc:UV1:swap_0_lac_quan:lot0.002/1000 | EURCHF | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV1:swap_0_lac_quan:lot0.001/1000 | EURCHF | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV1:swap_0_lac_quan:lot0.0005/1000 | EURCHF | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV1:swap_0_lac_quan:lot0.00025/1000 | EURCHF | H1 | -3.36 | 68.1 | KHONG_DAT |
+| DichNguoc:UV2:swap_0_lac_quan:lot0.002/1000 | EURCHF | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_0_lac_quan:lot0.001/1000 | EURCHF | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_0_lac_quan:lot0.0005/1000 | EURCHF | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_0_lac_quan:lot0.00025/1000 | EURCHF | H1 | 4.74 | 57.49 | KHONG_DAT |
+| DichNguoc:UV1:swap_do:lot0.002/1000 | EURGBP | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV1:swap_do:lot0.001/1000 | EURGBP | H1 | 10.04 | 93.52 | KHONG_DAT |
+| DichNguoc:UV1:swap_do:lot0.0005/1000 | EURGBP | H1 | 4.21 | 45.3 | KHONG_DAT |
+| DichNguoc:UV1:swap_do:lot0.00025/1000 | EURGBP | H1 | 1.87 | 20.8 | KHONG_DAT |
+| DichNguoc:UV2:swap_do:lot0.002/1000 | EURGBP | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_do:lot0.001/1000 | EURGBP | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_do:lot0.0005/1000 | EURGBP | H1 | 7.48 | 63.75 | KHONG_DAT |
+| DichNguoc:UV2:swap_do:lot0.00025/1000 | EURGBP | H1 | 3.74 | 33.37 | KHONG_DAT |
+| DichNguoc:UV1:swap_bao_thu:lot0.002/1000 | EURGBP | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV1:swap_bao_thu:lot0.001/1000 | EURGBP | H1 | -100.0 | 99.95 | KHONG_DAT |
+| DichNguoc:UV1:swap_bao_thu:lot0.0005/1000 | EURGBP | H1 | -1.83 | 55.52 | KHONG_DAT |
+| DichNguoc:UV1:swap_bao_thu:lot0.00025/1000 | EURGBP | H1 | -0.78 | 26.78 | KHONG_DAT |
+| DichNguoc:UV2:swap_bao_thu:lot0.002/1000 | EURGBP | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_bao_thu:lot0.001/1000 | EURGBP | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_bao_thu:lot0.0005/1000 | EURGBP | H1 | 5.74 | 58.63 | KHONG_DAT |
+| DichNguoc:UV2:swap_bao_thu:lot0.00025/1000 | EURGBP | H1 | 2.87 | 34.45 | KHONG_DAT |
+| DichNguoc:UV1:swap_0_lac_quan:lot0.002/1000 | EURGBP | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV1:swap_0_lac_quan:lot0.001/1000 | EURGBP | H1 | 16.45 | 72.99 | DAT |
+| DichNguoc:UV1:swap_0_lac_quan:lot0.0005/1000 | EURGBP | H1 | 7.58 | 36.94 | KHONG_DAT |
+| DichNguoc:UV1:swap_0_lac_quan:lot0.00025/1000 | EURGBP | H1 | 3.6 | 20.75 | KHONG_DAT |
+| DichNguoc:UV2:swap_0_lac_quan:lot0.002/1000 | EURGBP | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_0_lac_quan:lot0.001/1000 | EURGBP | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV2:swap_0_lac_quan:lot0.0005/1000 | EURGBP | H1 | 10.37 | 63.47 | DAT |
+| DichNguoc:UV2:swap_0_lac_quan:lot0.00025/1000 | EURGBP | H1 | 5.12 | 33.3 | KHONG_DAT |
+| DichNguoc:UV1:swap_do:lot0.002/1000 | NZDCAD | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV1:swap_do:lot0.001/1000 | NZDCAD | H1 | 8.33 | 58.08 | KHONG_DAT |
+| DichNguoc:UV1:swap_do:lot0.0005/1000 | NZDCAD | H1 | 3.45 | 30.87 | KHONG_DAT |
+| DichNguoc:UV1:swap_do:lot0.00025/1000 | NZDCAD | H1 | 1.62 | 15.44 | KHONG_DAT |
+| DichNguoc:UV2:swap_do:lot0.002/1000 | NZDCAD | H1 | 39.96 | 68.7 | DAT |
+| DichNguoc:UV2:swap_do:lot0.001/1000 | NZDCAD | H1 | 17.77 | 33.84 | DAT |
+| DichNguoc:UV2:swap_do:lot0.0005/1000 | NZDCAD | H1 | 8.48 | 16.92 | KHONG_DAT |
+| DichNguoc:UV2:swap_do:lot0.00025/1000 | NZDCAD | H1 | 4.22 | 9.44 | KHONG_DAT |
+| DichNguoc:UV1:swap_bao_thu:lot0.002/1000 | NZDCAD | H1 | -100.0 | 100.0 | KHONG_DAT |
+| DichNguoc:UV1:swap_bao_thu:lot0.001/1000 | NZDCAD | H1 | 8.17 | 58.37 | KHONG_DAT |
+| DichNguoc:UV1:swap_bao_thu:lot0.0005/1000 | NZDCAD | H1 | 3.39 | 31.0 | KHONG_DAT |
+| DichNguoc:UV1:swap_bao_thu:lot0.00025/1000 | NZDCAD | H1 | 1.62 | 15.47 | KHONG_DAT |
+| DichNguoc:UV2:swap_bao_thu:lot0.002/1000 | NZDCAD | H1 | 39.7 | 68.75 | DAT |
+| DichNguoc:UV2:swap_bao_thu:lot0.001/1000 | NZDCAD | H1 | 17.39 | 33.71 | DAT |
+| DichNguoc:UV2:swap_bao_thu:lot0.0005/1000 | NZDCAD | H1 | 8.43 | 16.96 | KHONG_DAT |
+| DichNguoc:UV2:swap_bao_thu:lot0.00025/1000 | NZDCAD | H1 | 4.2 | 9.46 | KHONG_DAT |
+| DichNguoc:UV1:swap_0_lac_quan:lot0.002/1000 | NZDCAD | H1 | 27.49 | 84.4 | KHONG_DAT |
+| DichNguoc:UV1:swap_0_lac_quan:lot0.001/1000 | NZDCAD | H1 | 12.04 | 50.89 | DAT |
+| DichNguoc:UV1:swap_0_lac_quan:lot0.0005/1000 | NZDCAD | H1 | 5.4 | 27.57 | KHONG_DAT |
+| DichNguoc:UV1:swap_0_lac_quan:lot0.00025/1000 | NZDCAD | H1 | 2.6 | 13.7 | KHONG_DAT |
+| DichNguoc:UV2:swap_0_lac_quan:lot0.002/1000 | NZDCAD | H1 | 44.97 | 66.91 | DAT |
+| DichNguoc:UV2:swap_0_lac_quan:lot0.001/1000 | NZDCAD | H1 | 19.89 | 33.06 | DAT |
+| DichNguoc:UV2:swap_0_lac_quan:lot0.0005/1000 | NZDCAD | H1 | 9.48 | 16.16 | KHONG_DAT |
+| DichNguoc:UV2:swap_0_lac_quan:lot0.00025/1000 | NZDCAD | H1 | 4.7 | 8.98 | KHONG_DAT |
+| Telegram:EA1_MultiEMA_ATR_H1:swap_do_XM | XAUUSD | H1 | -100.0 | 99.05 | KHONG_DAT |
+| Telegram:EA1_MultiEMA_ATR_H1:swap_bao_thu | XAUUSD | H1 | -100.0 | 99.07 | KHONG_DAT |
+| Telegram:EA1_MultiEMA_ATR_H1:swap_0_lac_quan | XAUUSD | H1 | -100.0 | 99.06 | KHONG_DAT |
+| Telegram:EA2_RSI_BB_H1:swap_do_XM | XAUUSD | H1 | -100.0 | 99.02 | KHONG_DAT |
+| Telegram:EA2_RSI_BB_H1:swap_bao_thu | XAUUSD | H1 | -100.0 | 99.01 | KHONG_DAT |
+| Telegram:EA2_RSI_BB_H1:swap_0_lac_quan | XAUUSD | H1 | -100.0 | 99.01 | KHONG_DAT |
+| Telegram:EA3_London_Breakout_M15:swap_do_XM | XAUUSD | M15 | -100.0 | 99.04 | KHONG_DAT |
+| Telegram:EA3_London_Breakout_M15:swap_bao_thu | XAUUSD | M15 | -100.0 | 99.05 | KHONG_DAT |
+| Telegram:EA3_London_Breakout_M15:swap_0_lac_quan | XAUUSD | M15 | -100.0 | 99.09 | KHONG_DAT |
+| Telegram:EA4_MACD_200EMA_H1:swap_do_XM | XAUUSD | H1 | -10.48 | 89.47 | KHONG_DAT |
+| Telegram:EA4_MACD_200EMA_H1:swap_bao_thu | XAUUSD | H1 | -12.96 | 94.73 | KHONG_DAT |
+| Telegram:EA4_MACD_200EMA_H1:swap_0_lac_quan | XAUUSD | H1 | -8.47 | 83.24 | KHONG_DAT |
+| Telegram:EA4_MACD_200EMA_H4:swap_do_XM | XAUUSD | H4 | 3.92 | 24.24 | KHONG_DAT |
+| Telegram:EA4_MACD_200EMA_H4:swap_bao_thu | XAUUSD | H4 | 2.3 | 30.32 | KHONG_DAT |
+| Telegram:EA4_MACD_200EMA_H4:swap_0_lac_quan | XAUUSD | H4 | 5.21 | 20.9 | KHONG_DAT |
+| Telegram:EA5_Stoch_Pivot_M15:swap_do_XM | XAUUSD | M15 | -0.03 | 2.03 | KHONG_DAT |
+| Telegram:EA5_Stoch_Pivot_M15:swap_bao_thu | XAUUSD | M15 | -0.03 | 2.03 | KHONG_DAT |
+| Telegram:EA5_Stoch_Pivot_M15:swap_0_lac_quan | XAUUSD | M15 | -0.03 | 2.03 | KHONG_DAT |
+| Telegram:CLMCA_C_V1_M15:swap_do_XM | XAUUSD | M15 | -100.0 | 99.11 | KHONG_DAT |
+| Telegram:CLMCA_C_V1_M15:swap_bao_thu | XAUUSD | M15 | -100.0 | 99.11 | KHONG_DAT |
+| Telegram:CLMCA_C_V1_M15:swap_0_lac_quan | XAUUSD | M15 | 5.07 | 73.07 | KHONG_DAT |
 
 Ghi chú: BI_THAY_THE = đo trước vá lot, phải chạy lại; CHUA_DO = thiếu số/không rõ lúc chạy, hoặc chỉ là MÔ PHỎNG Python.

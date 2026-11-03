@@ -125,7 +125,7 @@
 
 Điểm vào của UV1/UV2 không dùng điều kiện chỉ báo vì AUC bỏ giờ chỉ ~0,6 (yếu). 2378480 có điểm vào rõ nhất (mua vàng sau đà tăng, AUC 0,79) nhưng quản lý martingale 2,2× → để sau.
 
-## MÔ PHỎNG Python (`nhan/dich_nguoc/backtest_luoi.py`)
+## MÔ PHỎNG Python (`nhan/dich_nguoc/backtest_luoi.py`) — BỊ THAY THẾ bởi `reports/DICH_NGUOC_VONG2_SWAP_VANG.md` (có swap + margin)
 
 Giả định: H1 BID, đường đi trong nến O→L→H→C (nến tăng) / O→H→L→C (nến giảm), chèn mọi mức lưới; spread cố định AUDCAD 2,5 pip, GBPUSD 1,5 pip; giá trị pip/lot AUDCAD ≈ 7,3 USD (cố định); **KHÔNG tính swap** (với lưới hedge giữ lâu, swap âm hai chiều có thể đáng kể — CHƯA ĐO ĐƯỢC); không mô phỏng margin/stop-out ngoài equity ≤ 0; vốn 1.000 USD, lô lãi kép theo số dư. DD = equity xấu nhất trong nến (H/L) so với đỉnh. Đây chưa phải Strategy Tester real tick.
 
