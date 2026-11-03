@@ -1,0 +1,29 @@
+{
+ "id": "cb_72278",
+ "loai": "mt5_backtest",
+ "lan": "co_ma_nguon",
+ "uu_tien": 55.38,
+ "che_do": "ea_goc",
+ "ea_file": "CB_72278",
+ "url_ma_nguon": "https://www.mql5.com/en/code/download/72278/XANDER_Gold_Recovery.mq5",
+ "ma": "GOLDmicro",
+ "tf": "H1",
+ "tu": "2016.01.01",
+ "den": "2026.10.01",
+ "model": 4,
+ "von": 10000,
+ "tien": "USD",
+ "don_bay": 500,
+ "ts": {
+  "xr_FixedLot": 0.01
+ },
+ "tham_so_lot": "xr_FixedLot",
+ "he_so_lot": [
+  1.0,
+  2.0,
+  4.0
+ ],
+ "uoc_phut": 30,
+ "nguon": "https://www.mql5.com/en/code/72278",
+ "ghi_chu": "MQL5 Code Base 'XANDER Gold Recovery' rating 4.75, 1716 lượt tải; tham số mặc định của tác giả"
+}

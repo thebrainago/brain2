@@ -23,14 +23,17 @@ def doc(p):
 
 
 def chay(g, kieu, pip, buoc, tp, spread, gia_tri_pip_lot, von=1000.0, lot_moi_1000=0.01, max_lenh=60, dong_ro_khi=6,
-         swap_mua=0.0, swap_ban=0.0, diem=1e-5, base_usd=None, don_bay=500.0, stop_out=0.2):
+         swap_mua=0.0, swap_ban=0.0, diem=1e-5, base_usd=None, don_bay=500.0, stop_out=0.2, ghi_vao=None):
     """kieu='luoi_tp' (2330430): mỗi lệnh TP = tp pip; mở BUY/SELL mới khi không có lệnh cùng chiều trong ±buoc quanh giá;
                                   đóng tất cả khi tổng lãi nổi >= 0 và số lệnh mở >= dong_ro_khi.
        kieu='ro_dca' (2262642): hai rổ BUY/SELL độc lập; thêm lệnh khi giá đi ngược buoc pip từ lệnh cuối;
                                   đóng cả rổ khi giá về giá-trung-bình ± tp pip."""
     bal = von; mo = []   # (chieu +1/-1, gia, lot)
     eq_min_ratio = 1.0; dinh = von; dd = 0.0; duong = []; chet = False
-    def lot_moi():
+    t_hien = [0]
+    def lot_moi(c=0):
+        if ghi_vao is not None:
+            ghi_vao.append((t_hien[0], c))   # 03/11: (chỉ số nến, chiều) mỗi lệnh vào — đo khớp với lệnh thật
         return max(0.0001, round(lot_moi_1000 * bal / 1000, 4))   # XM Micro: 0.01 lot micro = 0.0001 lot chuẩn
     def noi(p):
         return sum(c * (p - x) / pip * l * gia_tri_pip_lot for c, x, l in mo)
@@ -50,18 +53,18 @@ def chay(g, kieu, pip, buoc, tp, spread, gia_tri_pip_lot, von=1000.0, lot_moi_10
                 mo = []
             for c in (1, -1):
                 if len([1 for cc, x, l in mo if cc == c]) < max_lenh and not any(cc == c and abs(x - p) < buoc * pip * 0.999 for cc, x, l in mo):
-                    mo.append((c, p, lot_moi()))
+                    mo.append((c, p, lot_moi(c)))
         else:
             for c in (1, -1):
                 ro = [(cc, x, l) for cc, x, l in mo if cc == c]
                 if not ro:
-                    mo.append((c, p, lot_moi())); continue
+                    mo.append((c, p, lot_moi(c))); continue
                 tb = sum(x * l for _, x, l in ro) / sum(l for *_, l in ro)
                 if c * (p - tb) >= tp * pip:
                     for cc, x, l in ro: bal += (c * (p - x) / pip - spread) * l * gia_tri_pip_lot
-                    mo = [m for m in mo if m[0] != c]; mo.append((c, p, lot_moi()))
+                    mo = [m for m in mo if m[0] != c]; mo.append((c, p, lot_moi(c)))
                 elif len(ro) < max_lenh and c * (ro[-1][1] - p) >= buoc * pip:
-                    mo.append((c, p, lot_moi()))
+                    mo.append((c, p, lot_moi(c)))
     O, H, L, C = (g[k].values for k in ("open", "high", "low", "close"))
     ngay = g.index.normalize(); thu = g.index.dayofweek; so_stop_out = 0; tong_swap = 0.0
     sw_usd = {1: swap_mua * diem / pip * gia_tri_pip_lot, -1: swap_ban * diem / pip * gia_tri_pip_lot}
@@ -70,6 +73,7 @@ def chay(g, kieu, pip, buoc, tp, spread, gia_tri_pip_lot, von=1000.0, lot_moi_10
         b = sum(l for c, x, l in mo if c == 1); s_ = sum(l for c, x, l in mo if c == -1)
         return max(b, s_) * 100000 * base_usd / don_bay
     for t in range(len(g)):
+        t_hien[0] = t
         if t > 0 and ngay[t] != ngay[t - 1] and mo:
             k3 = 3 if thu[t - 1] == 2 else 1
             sw = sum(sw_usd[c] * l for c, x, l in mo) * k3; bal += sw; tong_swap += sw

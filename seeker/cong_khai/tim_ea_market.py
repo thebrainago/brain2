@@ -25,6 +25,18 @@ def product_links(t: str) -> list[str]:
     return sorted({m for m in re.findall(r"mql5\.com/[a-z]{2}/market/product/(\d+|[a-z0-9_-]+)", t) + re.findall(r'href="/[a-z]{2}/market/product/([a-z0-9_-]+)', t)})
 
 
+TU_LOAI = re.compile(r"\b(tool|manager|copier|copy|panel|utility|utilities|indicator|library|dashboard|calculator|sizer|"
+                     r"account details|info|spread|trade assistant|assistant|closer|news filter|telegram|equity protector|risk manager)\b", re.I)
+
+
+def la_ea_giao_dich(tieu_de: str) -> bool:
+    """Chỉ giữ mục Experts thật sự vào lệnh: tiêu đề MQL5 'Trading Robot (Expert Advisor)' và tên không là công cụ."""
+    if not re.search(r"Trading Robot \(Expert Advisor\)", tieu_de):
+        return False
+    ten = tieu_de.split("|")[0]
+    return not TU_LOAI.search(ten)
+
+
 def doc_product(pid: str) -> dict:
     t = tai("https://www.mql5.com/en/market/product/%s" % pid)
     tit = re.search(r"<title>([^<]*)", t)
@@ -32,7 +44,7 @@ def doc_product(pid: str) -> dict:
     demo = bool(re.search(r"Free Demo|Download demo|Demo version", t, re.I))
     ti = tit.group(1) if tit else ""
     loai = "MT5" if "MetaTrader 5" in ti else ("MT4" if "MetaTrader 4" in ti else "CHƯA ĐO ĐƯỢC")
-    ea = bool(re.search(r"Expert Advisor|Trading Robot", ti))
+    ea = la_ea_giao_dich(ti)
     return {"url": "https://www.mql5.com/en/market/product/%s" % pid, "ten": html.unescape(tit.group(1).strip()) if tit else "CHƯA ĐO ĐƯỢC",
             "gia_usd": gia.group(1) if gia else "CHƯA ĐO ĐƯỢC", "free_demo": demo, "nen_tang": loai, "la_ea": ea}
 
@@ -44,8 +56,7 @@ def kiem(sig: dict) -> dict:
     tac_gia = u.group(1) if u else None
     if tac_gia:
         ids = sorted(set(ids) | set(product_links(tai("https://www.mql5.com/en/users/%s/seller" % tac_gia))))
-    sp = [doc_product(p) for p in ids[:6]]
-    sp = [p for p in sp if p["la_ea"]] or sp
+    sp = [p for p in (doc_product(x) for x in ids[:40]) if p["la_ea"]]
     return {"id": sig["id"], "ten": sig["ten"], "tac_gia": tac_gia, "san_pham": sp,
             "co_ea": bool(sp), "co_demo_mt5": any(p["free_demo"] and p["nen_tang"] == "MT5" for p in sp)}
 

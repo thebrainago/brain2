@@ -112,9 +112,7 @@ Tiêu chí: tuổi >= 24 tháng, tài khoản thật, <= 3 mã, DD < 80 %, CAGR 
 
 | ID tín hiệu | Tên | Tác giả | EA Market | Free Demo | Giá USD | Nền tảng |
 |---|---|---|---|---|---|---|
-| 1862128 | EA Happy Gold Eightcap | happyforex | [Free Account Details / Free Download Trading Utility for Met](https://www.mql5.com/en/market/product/3509) | có | 0.00 | MT4 |
-| 1862128 | EA Happy Gold Eightcap | happyforex | [Info Spread / Free Download Trading Indicator for MetaTrader](https://www.mql5.com/en/market/product/4033) | không thấy | 0.00 | MT4 |
-| 1862128 | EA Happy Gold Eightcap | happyforex | [AutomaticEquityManager / Free Download Trading Utility for M](https://www.mql5.com/en/market/product/74969) | có | 0.00 | MT4 |
+| 1862128 | EA Happy Gold Eightcap | happyforex | không thấy | — | — | — |
 | 2394758 | Harmonizer High Risk | mnimoos | [Night Swimmer / Free Download Trading Robot (Expert Advisor)](https://www.mql5.com/en/market/product/108979) | không thấy | 0.00 | MT5 |
 | 2394758 | Harmonizer High Risk | mnimoos | [Night Swimmer MT4 / Free Download Trading Robot (Expert Advi](https://www.mql5.com/en/market/product/113684) | không thấy | 0.00 | MT4 |
 | 2394758 | Harmonizer High Risk | mnimoos | [Harmonizer EA MT5 / Buy Trading Robot (Expert Advisor) for M](https://www.mql5.com/en/market/product/96759) | có | 870.00 | MT5 |
@@ -141,6 +139,11 @@ Tiêu chí: tuổi >= 24 tháng, tài khoản thật, <= 3 mã, DD < 80 %, CAGR 
 | 2342395 | KUHN | jcw2018 | [Ares Hunter / Buy Trading Robot (Expert Advisor) for MetaTra](https://www.mql5.com/en/market/product/154343) | có | 120.00 | MT4 |
 | 2342395 | KUHN | jcw2018 | [Valkyrie Gold / Buy Trading Robot (Expert Advisor) for MetaT](https://www.mql5.com/en/market/product/154646) | có | 120.00 | MT4 |
 | 2342395 | KUHN | jcw2018 | [Zeus Hedge AI / Buy Trading Robot (Expert Advisor) for MetaT](https://www.mql5.com/en/market/product/154802) | có | 120.00 | MT4 |
+| 2342395 | KUHN | jcw2018 | [Ares Quantum / Buy Trading Robot (Expert Advisor) for MetaTr](https://www.mql5.com/en/market/product/154808) | có | 120.00 | MT4 |
+| 2342395 | KUHN | jcw2018 | [Thunder Breaker / Buy Trading Robot (Expert Advisor) for Met](https://www.mql5.com/en/market/product/155279) | có | 120.00 | MT4 |
+| 2342395 | KUHN | jcw2018 | [Neural Hedge AI / Buy Trading Robot (Expert Advisor) for Met](https://www.mql5.com/en/market/product/155793) | có | 120.00 | MT4 |
+| 2342395 | KUHN | jcw2018 | [Vector AI / Buy Trading Robot (Expert Advisor) for MetaTrade](https://www.mql5.com/en/market/product/155977) | có | 200.00 | MT4 |
+| 2342395 | KUHN | jcw2018 | [Gold Overlord / Buy Trading Robot (Expert Advisor) for MetaT](https://www.mql5.com/en/market/product/158160) | có | 200.00 | MT4 |
 | 2393522 | Xingli 5108 | z0922638424 | không thấy | — | — | — |
 | 2244828 | Kivenara 815m52ff | jurnaltrading | không thấy | — | — | — |
 | 2265943 | The Gold Miner | lucaslucci | không thấy | — | — | — |
@@ -149,8 +152,19 @@ Tiêu chí: tuổi >= 24 tháng, tài khoản thật, <= 3 mã, DD < 80 %, CAGR 
 | 2269966 | BreakZone Scalper HFM | tomosie | [Dark Eagle MT4 / Buy Trading Robot (Expert Advisor) for Meta](https://www.mql5.com/en/market/product/121472) | có | 30.00 | MT4 |
 | 2269966 | BreakZone Scalper HFM | tomosie | [Angel Eyes / Free Download Trading Robot (Expert Advisor) fo](https://www.mql5.com/en/market/product/122948) | không thấy | 0.00 | MT4 |
 | 2269966 | BreakZone Scalper HFM | tomosie | [Neuro Edge / Free Download Trading Robot (Expert Advisor) fo](https://www.mql5.com/en/market/product/154414) | không thấy | 0.00 | MT5 |
+| 2269966 | BreakZone Scalper HFM | tomosie | [Zone Breakout / Buy Trading Robot (Expert Advisor) for MetaT](https://www.mql5.com/en/market/product/163777) | có | 455.00 | MT5 |
+| 2269966 | BreakZone Scalper HFM | tomosie | [Gold Nexus Prime / Buy Trading Robot (Expert Advisor) for Me](https://www.mql5.com/en/market/product/180323) | có | 75.00 | MT5 |
+| 2269966 | BreakZone Scalper HFM | tomosie | [Gold Dominion / Buy Trading Robot (Expert Advisor) for MetaT](https://www.mql5.com/en/market/product/181267) | có | 75.00 | MT5 |
+| 2269966 | BreakZone Scalper HFM | tomosie | [GoldSession / Buy Trading Robot (Expert Advisor) for MetaTra](https://www.mql5.com/en/market/product/193341) | có | 150.00 | MT4 |
+| 2269966 | BreakZone Scalper HFM | tomosie | [Zone Breakout Limited / Free Download Trading Robot (Expert ](https://www.mql5.com/en/market/product/202470) | không thấy | 0.00 | MT5 |
+| 2269966 | BreakZone Scalper HFM | tomosie | [EA Mata Elang Pro / Buy Trading Robot (Expert Advisor) for M](https://www.mql5.com/en/market/product/49608) | có | 50.00 | MT4 |
+| 2269966 | BreakZone Scalper HFM | tomosie | [EA AutoGreen / Buy Trading Robot (Expert Advisor) for MetaTr](https://www.mql5.com/en/market/product/68514) | có | 50.00 | MT4 |
+| 2269966 | BreakZone Scalper HFM | tomosie | [ScalperGhost / Free Download Trading Robot (Expert Advisor) ](https://www.mql5.com/en/market/product/78275) | không thấy | 0.00 | MT4 |
+| 2269966 | BreakZone Scalper HFM | tomosie | [ScalperGhost Pro / Buy Trading Robot (Expert Advisor) for Me](https://www.mql5.com/en/market/product/79675) | có | 55.00 | MT4 |
+| 2269966 | BreakZone Scalper HFM | tomosie | [Super MataELang Pro / Buy Trading Robot (Expert Advisor) for](https://www.mql5.com/en/market/product/87076) | có | 50.00 | MT4 |
+| 2269966 | BreakZone Scalper HFM | tomosie | [Super MataELang Limited / Free Download Trading Robot (Exper](https://www.mql5.com/en/market/product/87200) | không thấy | 0.00 | MT4 |
 | 2378480 | EansPRO V3 XAUUSD | 38177933 | không thấy | — | — | — |
-| 2351061 | Gold Minion | riyo | [Forex Sizer / Buy Trading Utility for MetaTrader 5](https://www.mql5.com/en/market/product/114407) | có | 30.00 | MT5 |
+| 2351061 | Gold Minion | riyo | không thấy | — | — | — |
 | 2245675 | OnlyUJ | jamesnguyen230215 | [OnlyTime / Buy Trading Robot (Expert Advisor) for MetaTrader](https://www.mql5.com/en/market/product/156366) | có | 1000.00 | MT5 |
 | 2344620 | Friday Pro | mingtrader | [Universal Tradebot MT5 / Buy Trading Robot (Expert Advisor) ](https://www.mql5.com/en/market/product/101424) | có | 199.00 | MT5 |
 | 2344620 | Friday Pro | mingtrader | [Universal Tradebot MT4 / Buy Trading Robot (Expert Advisor) ](https://www.mql5.com/en/market/product/101425) | có | 199.00 | MT4 |
@@ -158,6 +172,12 @@ Tiêu chí: tuổi >= 24 tháng, tài khoản thật, <= 3 mã, DD < 80 %, CAGR 
 | 2344620 | Friday Pro | mingtrader | [Friday Pro MT5 / Buy Trading Robot (Expert Advisor) for Meta](https://www.mql5.com/en/market/product/102893) | có | 399.00 | MT5 |
 | 2344620 | Friday Pro | mingtrader | [AI Momentum Scalper MT5 / Buy Trading Robot (Expert Advisor)](https://www.mql5.com/en/market/product/111154) | có | 699.00 | MT5 |
 | 2344620 | Friday Pro | mingtrader | [MA Momentum Scalper / Buy Trading Robot (Expert Advisor) for](https://www.mql5.com/en/market/product/135576) | có | 499.00 | MT5 |
+| 2344620 | Friday Pro | mingtrader | [RSI Momentum Scalper / Buy Trading Robot (Expert Advisor) fo](https://www.mql5.com/en/market/product/138801) | có | 199.00 | MT5 |
+| 2344620 | Friday Pro | mingtrader | [Extreme Reversion Trader / Buy Trading Robot (Expert Advisor](https://www.mql5.com/en/market/product/149373) | có | 499.00 | MT5 |
+| 2344620 | Friday Pro | mingtrader | [Trade Strike / Buy Trading Robot (Expert Advisor) for MetaTr](https://www.mql5.com/en/market/product/152688) | có | 399.00 | MT5 |
+| 2344620 | Friday Pro | mingtrader | [GridIron / Buy Trading Robot (Expert Advisor) for MetaTrader](https://www.mql5.com/en/market/product/181969) | có | 299.00 | MT5 |
+| 2344620 | Friday Pro | mingtrader | [MingTraderAUDCAD for MT4 / Buy Trading Robot (Expert Advisor](https://www.mql5.com/en/market/product/73946) | có | 299.00 | MT4 |
+| 2344620 | Friday Pro | mingtrader | [MingTraderAUDCAD for MT5 / Buy Trading Robot (Expert Advisor](https://www.mql5.com/en/market/product/73947) | có | 299.00 | MT5 |
 | 2387289 | Nasdaq manual | rubicon2016 | không thấy | — | — | — |
 | 2380604 | MSC Gold Fund Pro | datbh | [MSC SuperGold Pro EA / Buy Trading Robot (Expert Advisor) fo](https://www.mql5.com/en/market/product/204099) | có | 1099.00 | MT5 |
 | 2380604 | MSC Gold Fund Pro | datbh | [MSC Line EA / Buy Trading Robot (Expert Advisor) for MetaTra](https://www.mql5.com/en/market/product/93601) | có | 299.00 | MT4 |
@@ -175,12 +195,32 @@ Tiêu chí: tuổi >= 24 tháng, tài khoản thật, <= 3 mã, DD < 80 %, CAGR 
 | 2242498 | Goldtrade Pro High Risk | strueli | [Gold Trade Pro / Buy Trading Robot (Expert Advisor) for Meta](https://www.mql5.com/en/market/product/102746) | có | 649.00 | MT4 |
 | 2242498 | Goldtrade Pro High Risk | strueli | [Stability Pro MT4 / Buy Trading Robot (Expert Advisor) for M](https://www.mql5.com/en/market/product/105029) | có | 499.00 | MT4 |
 | 2242498 | Goldtrade Pro High Risk | strueli | [Stability Pro MT5 / Buy Trading Robot (Expert Advisor) for M](https://www.mql5.com/en/market/product/105030) | có | 499.00 | MT5 |
+| 2242498 | Goldtrade Pro High Risk | strueli | [The Gold Reaper MT5 / Buy Trading Robot (Expert Advisor) for](https://www.mql5.com/en/market/product/111357) | có | 949.00 | MT5 |
+| 2242498 | Goldtrade Pro High Risk | strueli | [The Gold Reaper MT4 / Buy Trading Robot (Expert Advisor) for](https://www.mql5.com/en/market/product/111467) | có | 949.00 | MT4 |
+| 2242498 | Goldtrade Pro High Risk | strueli | [Indicement MT5 / Buy Trading Robot (Expert Advisor) for Meta](https://www.mql5.com/en/market/product/122529) | có | 549.00 | MT5 |
+| 2242498 | Goldtrade Pro High Risk | strueli | [Indicement MT4 / Buy Trading Robot (Expert Advisor) for Meta](https://www.mql5.com/en/market/product/122651) | có | 549.00 | MT4 |
+| 2242498 | Goldtrade Pro High Risk | strueli | [Goldbot One MT5 / Buy Trading Robot (Expert Advisor) for Met](https://www.mql5.com/en/market/product/127379) | có | 649.00 | MT5 |
+| 2242498 | Goldtrade Pro High Risk | strueli | [Goldbot One MT4 / Buy Trading Robot (Expert Advisor) for Met](https://www.mql5.com/en/market/product/127380) | có | 649.00 | MT4 |
+| 2242498 | Goldtrade Pro High Risk | strueli | [Ultimate Breakout System / Buy Trading Robot (Expert Advisor](https://www.mql5.com/en/market/product/133653) | có | 1699.00 | MT5 |
+| 2242498 | Goldtrade Pro High Risk | strueli | [The Bitcoin Reaper / Buy Trading Robot (Expert Advisor) for ](https://www.mql5.com/en/market/product/142178) | có | 549.00 | MT5 |
+| 2242498 | Goldtrade Pro High Risk | strueli | [The ORB Master / Buy Trading Robot (Expert Advisor) for Meta](https://www.mql5.com/en/market/product/150079) | có | 499.00 | MT5 |
+| 2242498 | Goldtrade Pro High Risk | strueli | [The Gold Phantom / Buy Trading Robot (Expert Advisor) for Me](https://www.mql5.com/en/market/product/161561) | có | 649.00 | MT5 |
+| 2242498 | Goldtrade Pro High Risk | strueli | [Advanced Scalper / Buy Trading Robot (Expert Advisor) for Me](https://www.mql5.com/en/market/product/24254) | có | 549.00 | MT4 |
+| 2242498 | Goldtrade Pro High Risk | strueli | [Advanced Scalper MT5 / Buy Trading Robot (Expert Advisor) fo](https://www.mql5.com/en/market/product/31243) | có | 599.00 | MT5 |
+| 2242498 | Goldtrade Pro High Risk | strueli | [Gecko / Buy Trading Robot (Expert Advisor) for MetaTrader 4](https://www.mql5.com/en/market/product/49052) | có | 149.00 | MT4 |
+| 2242498 | Goldtrade Pro High Risk | strueli | [Gecko EA MT5 / Buy Trading Robot (Expert Advisor) for MetaTr](https://www.mql5.com/en/market/product/68347) | có | 149.00 | MT5 |
+| 2242498 | Goldtrade Pro High Risk | strueli | [Bitcoin Scalp Pro / Buy Trading Robot (Expert Advisor) for M](https://www.mql5.com/en/market/product/87947) | có | 399.00 | MT4 |
+| 2242498 | Goldtrade Pro High Risk | strueli | [Bitcoin Scalp Pro MT5 / Buy Trading Robot (Expert Advisor) f](https://www.mql5.com/en/market/product/87972) | có | 399.00 | MT5 |
+| 2242498 | Goldtrade Pro High Risk | strueli | [Apex Trader MT5 / Buy Trading Robot (Expert Advisor) for Met](https://www.mql5.com/en/market/product/92659) | có | 499.00 | MT5 |
+| 2242498 | Goldtrade Pro High Risk | strueli | [Apex Trader MT4 / Buy Trading Robot (Expert Advisor) for Met](https://www.mql5.com/en/market/product/92662) | có | 499.00 | MT4 |
+| 2242498 | Goldtrade Pro High Risk | strueli | [Daytrade Pro Algo / Buy Trading Robot (Expert Advisor) for M](https://www.mql5.com/en/market/product/97854) | có | 599.00 | MT4 |
+| 2242498 | Goldtrade Pro High Risk | strueli | [Daytrade Pro Algo MT5 / Buy Trading Robot (Expert Advisor) f](https://www.mql5.com/en/market/product/97855) | có | 599.00 | MT5 |
 | 1725090 | My Son Trading Account | tkhg | không thấy | — | — | — |
 | 2378484 | LazyPro v23 EURUSD | 38177933 | không thấy | — | — | — |
 | 1887017 | MAPLEROO | rfsoftware | [Shogun RX / Buy Trading Robot (Expert Advisor) for MetaTrade](https://www.mql5.com/en/market/product/94000) | có | 99.00 | MT4 |
 | 1887017 | MAPLEROO | rfsoftware | [Barbarian / Buy Trading Robot (Expert Advisor) for MetaTrade](https://www.mql5.com/en/market/product/94100) | có | 99.00 | MT4 |
 | 1887017 | MAPLEROO | rfsoftware | [Dark Knight RX / Buy Trading Robot (Expert Advisor) for Meta](https://www.mql5.com/en/market/product/94244) | có | 129.99 | MT4 |
 | 1887017 | MAPLEROO | rfsoftware | [Mapleroo / Buy Trading Robot (Expert Advisor) for MetaTrader](https://www.mql5.com/en/market/product/95630) | có | 99.00 | MT4 |
-| 1758568 | EA Happy Power FM | happyforex | [Free Account Details / Free Download Trading Utility for Met](https://www.mql5.com/en/market/product/3509) | có | 0.00 | MT4 |
-| 1758568 | EA Happy Power FM | happyforex | [Info Spread / Free Download Trading Indicator for MetaTrader](https://www.mql5.com/en/market/product/4033) | không thấy | 0.00 | MT4 |
-| 1758568 | EA Happy Power FM | happyforex | [AutomaticEquityManager / Free Download Trading Utility for M](https://www.mql5.com/en/market/product/74969) | có | 0.00 | MT4 |
+| 1758568 | EA Happy Power FM | happyforex | không thấy | — | — | — |
+
+Ghi chú 03/11/2026 (bản lọc lại): chỉ giữ sản phẩm có tiêu đề MQL5 "Trading Robot (Expert Advisor)" và tên không phải công cụ (tool/manager/copier/panel/utility/indicator/library…). Tác giả EA Happy Gold (happyforex): trang seller công khai chỉ hiện 3 sản phẩm miễn phí đều là tiện ích → không có EA giao dịch đọc được từ box; sản phẩm trả phí (nếu có) nạp bằng JS — CHƯA ĐO ĐƯỢC. 12/30 tác giả có EA giao dịch, 10/30 có EA MT5 kèm Free Demo; 33 sản phẩm demo MT5 đã xếp hàng.

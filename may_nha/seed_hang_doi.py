@@ -51,15 +51,18 @@ def specs() -> list[dict]:
         if not ten:
             print("KHÔNG thấy việc ống dẫn cho", tien_to); continue
         v = od[ten]
-        out.append({"id": "lot_%s_%s" % (ten[3:-7], tf), "loai": "mt5_backtest", "uu_tien": 80, "che_do": "ong_dan_csv",
+        out.append({"id": "lot_%s_%s" % (ten[3:-7], tf), "loai": "mt5_backtest", "uu_tien": 80, "lan": "co_ma_nguon", "che_do": "ong_dan_csv",
                     "ea_file": v.get("ea_file", "BRAIN_XuLiLenh"), "ma": v["ma"], "tf": tf, "tu": v.get("tu"), "den": v.get("den") or "2026.10.01",
                     "model": 4, "von": int(v.get("von") or 1000), "tien": "USD", "don_bay": int(v.get("don_bay") or 500),
                     "ts": v["ts"], "tham_so_lot": "InpLot0", "csv_vao": v["csv_vao"].replace("\\", "/"), "he_so_lot": K_CSV,
                     "uoc_phut": max(5, round(gd.get(ten, 600) / 60 * 1.2)), "nguon": v.get("the_id"),
                     "ghi_chu": "chạy lại nâng lot trên toàn dải CSV (dài nhất có), tick thật, XM"})
+    kv = {r["ea"]: r.get("khop_pct") for r in json.loads((GOC / "data/khop_vao.json").read_text(encoding="utf-8"))} if (GOC / "data/khop_vao.json").exists() else {}
     for ea, ma in DN:
+        if (kv.get(ea) or 0) < HD.NGUONG_KHOP:          # làn B chưa khớp >= 70 % -> không xếp test dài
+            print("loại làn B", ea, ma, "khớp", kv.get(ea)); continue
         ts = dict(x.split("=", 1) for x in (GOC / "ea_demo" / (ea + ".set")).read_text(encoding="utf-8").split() if "=" in x)
-        out.append({"id": "lot_%s_%s_H1" % (ea[9:], ma[:6]), "loai": "mt5_backtest", "uu_tien": 70, "che_do": "ea_goc", "ea_file": ea,
+        out.append({"id": "lot_%s_%s_H1" % (ea[9:], ma[:6]), "loai": "mt5_backtest", "uu_tien": 70, "lan": "dich_phuong_phap", "khop_vao_pct": kv.get(ea), "che_do": "ea_goc", "ea_file": ea,
                     "ma": ma, "tf": "H1", "tu": "2016.01.01", "den": "2026.10.01", "model": 4, "von": 10000, "tien": "USD",
                     "don_bay": 500, "ts": ts, "tham_so_lot": "LotMoi1000", "he_so_lot": K_DN, "uoc_phut": 60,
                     "ghi_chu": "EA dịch ngược từ tín hiệu MQL5, dải dài nhất 2016–2026, tick thật"})
@@ -76,9 +79,31 @@ def specs() -> list[dict]:
                 continue
             da.add(p["url"]); pid = p["url"].rstrip("/").split("/")[-1]
             ma = (loc.get(s["id"], {}).get("ma") or ["EURUSD"])[0]
-            out.append({"id": "demo_%s" % re.sub(r"[^A-Za-z0-9]", "", pid), "loai": "mql5_demo_download", "uu_tien": 60 - i,
+            out.append({"id": "demo_%s" % re.sub(r"[^A-Za-z0-9]", "", pid), "loai": "mql5_demo_download", "lan": "co_ma_nguon", "uu_tien": 60 - i,
                         "url_product": p["url"], "ten_product": p["ten"].split("|")[0].strip(), "gia_usd": p["gia_usd"],
                         "tin_hieu_id": s["id"], "ma": ma + "micro" if len(ma) == 6 else ma, "tf": "H1", "uoc_phut": 2})
+    out += viec_codebase()
+    return out
+
+
+def viec_codebase(toi_da: int = 30) -> list[dict]:
+    """Làn A nguồn ngoài: EA MQL5 Code Base 1 tệp, có input lot, xếp theo điểm (rating × log tải về). Chạy 2016–2026 tick thật."""
+    f = GOC / "seeker/nguon/nguon_file.json"
+    if not f.exists():
+        return []
+    ds = [x for x in json.loads(f.read_text(encoding="utf-8")) if x["nguon"] == "mql5_codebase" and x["lan"] == "co_ma_nguon"
+          and x.get("tham_so_lot") and x.get("url_ma_nguon")]
+    out = []
+    for x in sorted(ds, key=lambda x: -x["diem"])[:toi_da]:
+        vang = bool(re.search(r"gold|xau", x["ten"], re.I))
+        ma = Path(x["tep"][0]).read_text(encoding="utf-8", errors="ignore") if x.get("tep") and (GOC / x["tep"][0]).exists() else ""
+        m = re.search(r"(?:input|sinput)\s+double\s+%s\s*=\s*([\d.]+)" % re.escape(x["tham_so_lot"]), ma)
+        out.append({"id": "cb_%s" % x["id"][2:], "loai": "mt5_backtest", "lan": "co_ma_nguon", "uu_tien": round(40 + x["diem"], 2),
+                    "che_do": "ea_goc", "ea_file": "CB_%s" % x["id"][2:], "url_ma_nguon": x["url_ma_nguon"],
+                    "ma": "GOLDmicro" if vang else "EURUSDmicro", "tf": "H1", "tu": "2016.01.01", "den": "2026.10.01", "model": 4,
+                    "von": 10000, "tien": "USD", "don_bay": 500, "ts": {x["tham_so_lot"]: float(m.group(1)) if m else 0.01},
+                    "tham_so_lot": x["tham_so_lot"], "he_so_lot": [1.0, 2.0, 4.0], "uoc_phut": 30, "nguon": x["url"],
+                    "ghi_chu": "MQL5 Code Base '%s' rating %s, %s lượt tải; tham số mặc định của tác giả" % (x["ten"], x.get("rating"), x.get("tai_ve"))})
     return out
 
 

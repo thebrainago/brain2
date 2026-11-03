@@ -1,0 +1,29 @@
+{
+ "id": "cb_48961",
+ "loai": "mt5_backtest",
+ "lan": "co_ma_nguon",
+ "uu_tien": 56.46,
+ "che_do": "ea_goc",
+ "ea_file": "CB_48961",
+ "url_ma_nguon": "https://www.mql5.com/en/code/download/48961/yy_cross_ma.mq5",
+ "ma": "EURUSDmicro",
+ "tf": "H1",
+ "tu": "2016.01.01",
+ "den": "2026.10.01",
+ "model": 4,
+ "von": 10000,
+ "tien": "USD",
+ "don_bay": 500,
+ "ts": {
+  "lotStart": 0.01
+ },
+ "tham_so_lot": "lotStart",
+ "he_so_lot": [
+  1.0,
+  2.0,
+  4.0
+ ],
+ "uoc_phut": 30,
+ "nguon": "https://www.mql5.com/en/code/48961",
+ "ghi_chu": "MQL5 Code Base 'YY_Cross_2_Ma' rating 4.777777777777778, 2776 lượt tải; tham số mặc định của tác giả"
+}

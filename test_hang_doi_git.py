@@ -24,7 +24,7 @@ def _repo(tmp):
 
 
 def _spec(i, ut=1):
-    return {"id": i, "loai": "myfxbook_fetch", "url": "https://x", "uu_tien": ut}
+    return {"id": i, "loai": "myfxbook_fetch", "lan": "co_ma_nguon", "url": "https://x", "uu_tien": ut}
 
 
 def test_kiem_spec():
@@ -33,6 +33,30 @@ def test_kiem_spec():
     assert any("he_so_lot" in x for x in HD.kiem_spec({"id": "a", "loai": "mt5_backtest", "ea_file": "E", "ma": "M", "tf": "H1",
                                                         "tu": "2020.01.01", "den": "2021.01.01", "he_so_lot": [0]}))
     assert HD.kiem_spec({"id": "../x", "loai": "myfxbook_fetch", "url": "u"})
+    b = {"id": "b1", "loai": "mt5_backtest", "lan": "dich_phuong_phap", "ea_file": "E", "ma": "M", "tf": "H1", "tu": "2020.01.01",
+         "den": "2021.01.01", "he_so_lot": [1], "lich_su_dat": True}
+    assert any("70" in x for x in HD.kiem_spec(b))                       # làn B chưa đo khớp -> loại
+    assert any("70" in x for x in HD.kiem_spec({**b, "khop_vao_pct": 69.9}))
+    assert HD.kiem_spec({**b, "khop_vao_pct": 70}) == []
+    assert HD.kiem_spec({**b, "lan": None})
+    assert any("lịch sử" in x for x in HD.kiem_spec({**b, "khop_vao_pct": 90, "lich_su_dat": False}))
+
+
+def test_lan_a_truoc(tmp_path):
+    a, _ = _repo(tmp_path)
+    h = HD.HangDoi(a, "m", log=lambda s: None)
+    h.them([{**_spec("b1", 99), "lan": "dich_phuong_phap"}, _spec("a1", 1)])
+    assert h.nhan()["id"] == "a1"
+
+
+def test_khop_vao():
+    from nhan.dich_nguoc.khop_vao import ty_le_khop, dat
+    that = [(0, 1), (10000, -1), (20000, 1), (30000, 1)]
+    assert ty_le_khop(that, [(100, 1), (10500, -1), (20000, -1)]) == 50.0
+    from nhan.dich_nguoc.khop_vao import cong_lich_su
+    assert cong_lich_su(30, 15)[0] and not cong_lich_su(85, 50)[0] and not cong_lich_su(None, 20)[0]
+    assert cong_lich_su(10, 3)[0] and not cong_lich_su(40, -5)[0] and not cong_lich_su(20, 30, that=False)[0]
+    assert ty_le_khop([], []) is None and not dat(None) and dat(70.0) and not dat(69.99)
 
 
 def test_nhan_hai_may_khong_trung(tmp_path):

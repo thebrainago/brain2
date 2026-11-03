@@ -72,5 +72,6 @@
  ],
  "uoc_phut": 24,
  "nguon": "mql5_e52afb999eca4bd1",
- "ghi_chu": "chạy lại nâng lot trên toàn dải CSV (dài nhất có), tick thật, XM"
+ "ghi_chu": "chạy lại nâng lot trên toàn dải CSV (dài nhất có), tick thật, XM",
+ "lan": "co_ma_nguon"
 }

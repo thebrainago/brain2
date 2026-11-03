@@ -116,6 +116,20 @@ def _mt5():
     return SV, AT, CL, CLS
 
 
+def tai_ma_nguon(slot: Path, v: dict) -> str | None:
+    """Làn A nguồn ngoài (Code Base/GitHub): tải .mq5 công khai về slot MQL5/Experts/BRAIN/<ea_file>.mq5 (không đăng nhập)."""
+    dich = slot / "MQL5" / "Experts" / "BRAIN"; dich.mkdir(parents=True, exist_ok=True)
+    f = dich / (v["ea_file"] + ".mq5")
+    if f.exists():
+        return None
+    try:
+        rq = urllib.request.Request(v["url_ma_nguon"], headers={"User-Agent": "Mozilla/5.0"})
+        f.write_bytes(urllib.request.urlopen(rq, timeout=60).read())
+    except Exception as e:
+        return "tải mã nguồn hỏng: %s" % str(e)[:120]
+    return None
+
+
 def chuan_bi_ea(slot: Path, ea_file: str) -> str | None:
     """EA của repo (ea_demo/<ea>.mq5) -> slot MQL5/Experts/BRAIN, biên dịch nếu thiếu/cũ. Market\\X: phải có sẵn .ex5."""
     _, AT, _, _ = _mt5()
@@ -125,9 +139,12 @@ def chuan_bi_ea(slot: Path, ea_file: str) -> str | None:
     for f in (GOC / "ea_demo").glob("*.mqh"):
         shutil.copy2(f, dich / f.name)
     mq = GOC / "ea_demo" / (ea_file + ".mq5")
+    if not mq.exists() and (dich / (ea_file + ".mq5")).exists():          # mã ngoài đã tải vào slot
+        mq = dich / (ea_file + ".mq5")
     if not mq.exists():
         return None if (dich / (ea_file + ".ex5")).exists() else "thiếu %s" % mq.name
-    shutil.copy2(mq, dich / mq.name)
+    if mq.parent != dich:
+        shutil.copy2(mq, dich / mq.name)
     ex5 = dich / (ea_file + ".ex5")
     if ex5.exists() and ex5.stat().st_mtime >= mq.stat().st_mtime:
         return None
@@ -194,7 +211,8 @@ def chay_mot_k(slot: Path, v: dict, k: float, cho_toi_da: int) -> dict:
 
 
 def lam_mt5_backtest(slot: Path, v: dict, cho: int) -> tuple[str, dict]:
-    loi = chuan_bi_ea(slot, v["ea_file"])
+    loi = tai_ma_nguon(slot, v) if v.get("url_ma_nguon") else None
+    loi = loi or chuan_bi_ea(slot, v["ea_file"])
     if loi:
         return "HONG", {"tom_tat": "CHƯA ĐO ĐƯỢC: " + loi}
     chay = [chay_mot_k(slot, v, float(k), cho) for k in v["he_so_lot"]]
@@ -213,7 +231,7 @@ def lam_demo(slot: Path, v: dict) -> tuple[str, dict]:
         return "CHO_ANH", {"tom_tat": "CHƯA ĐO ĐƯỢC: chưa có .ex5 demo — Anh mở %s trong terminal (tab Market) bấm Free Demo" % v["url_product"]}
     ex = hop[0]
     return "XONG", {"tom_tat": "có demo %s" % ex.name, "ex5": ex.name, "sinh": [{
-        "id": "bt_" + v["id"], "loai": "mt5_backtest", "uu_tien": int(v.get("uu_tien") or 5), "che_do": "ea_goc",
+        "id": "bt_" + v["id"], "loai": "mt5_backtest", "lan": "co_ma_nguon", "uu_tien": int(v.get("uu_tien") or 5), "che_do": "ea_goc",
         "ea_file": "Market\\" + ex.stem, "ma": v.get("ma") or "EURUSD", "tf": v.get("tf") or "H1", "tu": "2016.01.01",
         "den": "2026.10.01", "model": 4, "von": 10000, "tien": "USD", "don_bay": 500, "ts": {}, "he_so_lot": [1.0],
         "uoc_phut": 45, "nguon": v.get("tin_hieu_id")}]}

@@ -25,6 +25,10 @@ import time
 from pathlib import Path
 
 LOAI = ("mt5_backtest", "mql5_demo_download", "myfxbook_fetch")
+# Hai làn (Anh 03/11): A 'co_ma_nguon' (có EA/.set/mã) -> test dài MT5 tick thật ngay, ưu tiên cao nhất;
+# B 'dich_phuong_phap' (chỉ mô tả + lịch sử lệnh) -> dựng EA, khớp điểm vào >= 70 % với lệnh thật mới được test dài; dưới -> loại.
+LAN = ("co_ma_nguon", "dich_phuong_phap")
+NGUONG_KHOP = 70.0
 TRUONG_BAT_BUOC = {"mt5_backtest": ("ea_file", "ma", "tf", "tu", "den", "he_so_lot"),
                    "mql5_demo_download": ("url_product",), "myfxbook_fetch": ("url",)}
 
@@ -41,6 +45,14 @@ def kiem_spec(v: dict) -> list[str]:
         loi.append("loai lạ: %s" % v.get("loai"))
         return loi
     loi += ["thiếu %s" % k for k in TRUONG_BAT_BUOC[v["loai"]] if v.get(k) in (None, "", [])]
+    if v.get("lan") not in LAN:
+        loi.append("lan phải là co_ma_nguon | dich_phuong_phap")
+    elif v["lan"] == "dich_phuong_phap" and v["loai"] == "mt5_backtest":
+        if not v.get("lich_su_dat"):
+            loi.append("làn B cần lịch sử thật đã kiểm chứng đạt DD<80%% & CAGR>10%%/năm (lich_su_dat)")
+        k = v.get("khop_vao_pct")
+        if k is None or float(k) < NGUONG_KHOP:
+            loi.append("làn B cần khop_vao_pct >= %.0f (đang %s)" % (NGUONG_KHOP, k))
     if v["loai"] == "mt5_backtest":
         if any(float(k) <= 0 for k in v.get("he_so_lot") or []):
             loi.append("he_so_lot phải > 0")
@@ -113,7 +125,7 @@ class HangDoi:
                 continue
             if not kiem_spec(v):
                 out.append(v)
-        return sorted(out, key=lambda v: (-float(v.get("uu_tien") or 0), v["id"]))
+        return sorted(out, key=lambda v: (v.get("lan") != "co_ma_nguon", -float(v.get("uu_tien") or 0), v["id"]))
 
     def dang_lam_cua_toi(self) -> list[dict]:
         return [json.loads(f.read_text(encoding="utf-8")) for f in sorted(self.thu_muc("dang_lam_" + self.may).glob("*.json"))]

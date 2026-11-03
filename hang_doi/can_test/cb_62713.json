@@ -1,0 +1,29 @@
+{
+ "id": "cb_62713",
+ "loai": "mt5_backtest",
+ "lan": "co_ma_nguon",
+ "uu_tien": 56.18,
+ "che_do": "ea_goc",
+ "ea_file": "CB_62713",
+ "url_ma_nguon": "https://www.mql5.com/en/code/download/62713/TarantellaV1_37.mq5",
+ "ma": "EURUSDmicro",
+ "tf": "H1",
+ "tu": "2016.01.01",
+ "den": "2026.10.01",
+ "model": 4,
+ "von": 10000,
+ "tien": "USD",
+ "don_bay": 500,
+ "ts": {
+  "StartLots": 0.01
+ },
+ "tham_so_lot": "StartLots",
+ "he_so_lot": [
+  1.0,
+  2.0,
+  4.0
+ ],
+ "uoc_phut": 30,
+ "nguon": "https://www.mql5.com/en/code/62713",
+ "ghi_chu": "MQL5 Code Base 'Tarantella' rating 4.666666666666667, 2918 lượt tải; tham số mặc định của tác giả"
+}

@@ -1,10 +1,10 @@
 {
- "id": "lot_RoDCAHedge_NZDCAD_H1",
+ "id": "lot_RoDCAHedge_AUDCAD_H1",
  "loai": "mt5_backtest",
  "uu_tien": 70,
  "che_do": "ea_goc",
  "ea_file": "BRAIN_DN_RoDCAHedge",
- "ma": "NZDCADmicro",
+ "ma": "AUDCADmicro",
  "tf": "H1",
  "tu": "2016.01.01",
  "den": "2026.10.01",
@@ -29,5 +29,9 @@
   5.0
  ],
  "uoc_phut": 60,
- "ghi_chu": "EA dịch ngược từ tín hiệu MQL5, dải dài nhất 2016–2026, tick thật"
+ "ghi_chu": "EA dịch ngược từ tín hiệu MQL5, dải dài nhất 2016–2026, tick thật",
+ "lan": "dich_phuong_phap",
+ "khop_vao_pct": 8.11,
+ "trang_thai": "LOAI",
+ "ly_do": "làn B: khớp điểm vào 8.11% < 70% (reports/KHOP_VAO_LAN_B.md)"
 }

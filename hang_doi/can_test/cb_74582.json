@@ -1,0 +1,29 @@
+{
+ "id": "cb_74582",
+ "loai": "mt5_backtest",
+ "lan": "co_ma_nguon",
+ "uu_tien": 55.59,
+ "che_do": "ea_goc",
+ "ea_file": "CB_74582",
+ "url_ma_nguon": "https://www.mql5.com/en/code/download/74582/KCI_Embeded_EA_Sniper_Ver_1.mq5",
+ "ma": "EURUSDmicro",
+ "tf": "H1",
+ "tu": "2016.01.01",
+ "den": "2026.10.01",
+ "model": 4,
+ "von": 10000,
+ "tien": "USD",
+ "don_bay": 500,
+ "ts": {
+  "InpLotSize": 0.01
+ },
+ "tham_so_lot": "InpLotSize",
+ "he_so_lot": [
+  1.0,
+  2.0,
+  4.0
+ ],
+ "uoc_phut": 30,
+ "nguon": "https://www.mql5.com/en/code/74582",
+ "ghi_chu": "MQL5 Code Base 'EA KCI Embeded Sniper' rating 4.666666666666667, 2185 lượt tải; tham số mặc định của tác giả"
+}

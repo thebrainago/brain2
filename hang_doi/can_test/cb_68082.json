@@ -1,0 +1,29 @@
+{
+ "id": "cb_68082",
+ "loai": "mt5_backtest",
+ "lan": "co_ma_nguon",
+ "uu_tien": 55.21,
+ "che_do": "ea_goc",
+ "ea_file": "CB_68082",
+ "url_ma_nguon": "https://www.mql5.com/en/code/download/68082/DataTraderH4Breakout.mq5",
+ "ma": "EURUSDmicro",
+ "tf": "H1",
+ "tu": "2016.01.01",
+ "den": "2026.10.01",
+ "model": 4,
+ "von": 10000,
+ "tien": "USD",
+ "don_bay": 500,
+ "ts": {
+  "Lots": 0.1
+ },
+ "tham_so_lot": "Lots",
+ "he_so_lot": [
+  1.0,
+  2.0,
+  4.0
+ ],
+ "uoc_phut": 30,
+ "nguon": "https://www.mql5.com/en/code/68082",
+ "ghi_chu": "MQL5 Code Base 'Viral (1M+ views) 4 Hour Range Strategy coded and tested' rating 4.916666666666667, 1228 lượt tải; tham số mặc định của tác giả"
+}
