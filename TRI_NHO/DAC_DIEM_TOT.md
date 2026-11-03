@@ -2,7 +2,7 @@
 
 Mỗi hệ đã test (kể cả trượt) có thẻ ở `TRI_NHO/dac_diem_he/<id>.md`. Bảng dưới: hệ có ít nhất một mảnh tốt.
 
-- Tổng thẻ: **370**, có mảnh tốt: **148**, đạt tiêu chí: **12**
+- Tổng thẻ: **371**, có mảnh tốt: **148**, đạt tiêu chí: **12**
 
 | Hệ | Trạng thái | Kiểu | Mảnh tốt |
 |---|---|---|---|
