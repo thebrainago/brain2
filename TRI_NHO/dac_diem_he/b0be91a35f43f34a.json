@@ -2,20 +2,132 @@
  "id": "b0be91a35f43f34a",
  "nguon": "b0be91a35f43f34a",
  "kieu": "vào theo CSV lệnh của nguồn; không nhồi; tối đa 1 tầng, hệ số lot 1.0; TP 0.001 % giá",
- "chay": [],
+ "chay": [
+  {
+   "bien_the": "lot_b0be91a35f43f34a_H4",
+   "ma": "USDCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g1",
+   "k": 1.0,
+   "cagr_pct": 38.855,
+   "dd_pct": 58.24,
+   "pf": 0.0,
+   "lenh": 46.0
+  },
+  {
+   "bien_the": "lot_b0be91a35f43f34a_H4",
+   "ma": "USDCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g1",
+   "k": 1.5,
+   "cagr_pct": 52.735,
+   "dd_pct": 68.79,
+   "pf": 0.0,
+   "lenh": 46.0
+  },
+  {
+   "bien_the": "lot_b0be91a35f43f34a_H4",
+   "ma": "USDCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g1",
+   "k": 2.0,
+   "cagr_pct": 64.736,
+   "dd_pct": 75.65,
+   "pf": 0.0,
+   "lenh": 46.0
+  },
+  {
+   "bien_the": "lot_b0be91a35f43f34a_H4",
+   "ma": "USDCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g1",
+   "k": 2.5,
+   "cagr_pct": 75.404,
+   "dd_pct": 80.46,
+   "pf": 0.0,
+   "lenh": 46.0
+  },
+  {
+   "bien_the": "lot_b0be91a35f43f34a_H4",
+   "ma": "USDCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g1",
+   "k": 3.0,
+   "cagr_pct": 85.062,
+   "dd_pct": 84.03,
+   "pf": 0.0,
+   "lenh": 46.0
+  },
+  {
+   "bien_the": "lot_b0be91a35f43f34a_H4",
+   "ma": "USDCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g1",
+   "k": 4.0,
+   "cagr_pct": -68.46,
+   "dd_pct": 98.67,
+   "pf": 0.7,
+   "lenh": 18.0
+  },
+  {
+   "bien_the": "lot_b0be91a35f43f34a_H4",
+   "ma": "USDCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g1",
+   "k": 5.0,
+   "cagr_pct": -67.508,
+   "dd_pct": 98.77,
+   "pf": 0.74,
+   "lenh": 18.0
+  },
+  {
+   "bien_the": "lot_b0be91a35f43f34a_H4",
+   "ma": "USDCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g1",
+   "k": 6.0,
+   "cagr_pct": -62.909,
+   "dd_pct": 98.47,
+   "pf": 0.78,
+   "lenh": 18.0
+  },
+  {
+   "bien_the": "lot_b0be91a35f43f34a_H4",
+   "ma": "USDCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g1",
+   "k": 8.0,
+   "cagr_pct": -62.711,
+   "dd_pct": 98.76,
+   "pf": 0.83,
+   "lenh": 18.0
+  },
+  {
+   "bien_the": "lot_b0be91a35f43f34a_H4",
+   "ma": "USDCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g1",
+   "k": 10.0,
+   "cagr_pct": -57.978,
+   "dd_pct": 98.58,
+   "pf": 0.86,
+   "lenh": 18.0
+  }
+ ],
  "bi_thay_the": 2,
  "lai_theo_nam": {
-  "2024": 712.08,
-  "2025": 586.11,
-  "2026": 385.92
+  "2024": 673.52,
+  "2025": 489.91,
+  "2026": 271.07
  },
  "ti_le_thang_pct": 100.0,
  "so_deal": 46,
  "bao_cao_htm": "reports/ong_dan/ket_qua_mt5/od_b0be91a35f43f34a_XM_CSV.htm",
  "manh_tot": [
   "có lãi 3/3 năm",
+  "chạy có lãi trên: USDCADmicro H4",
   "tỉ lệ thắng cao (100 %) — điểm vào/TP nhỏ đáng giữ"
  ],
- "ly_do_truot": "CHƯA ĐO ĐƯỢC",
+ "ly_do_truot": null,
  "giai_doan": "2024.01.15–2026.10.01"
 }
