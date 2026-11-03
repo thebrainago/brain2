@@ -89,11 +89,25 @@ input double          InpCatLoPct     = 0;         // cat ca ro (+hedge) khi lo 
 input int             InpGioCamTu     = 23;        // gio server bat dau cam MO lenh (doi ngay, spread gian)
 input int             InpGioCamDen    = 2;         // ... den gio nay (cam tu <= gio < den, vong qua 0h)
 input double          InpSpreadMaxGia = 0;         // khong mo lenh khi spread > X (GIA); 0 = tat
+input group "LOC CHE DO / TRANH TIN (03/11/2026, mac dinh TAT)"
+input double          InpAdxMin       = 0;         // chi mo ro moi khi ADX14(InpTF) >= X (0 = tat) - loc xu huong
+input double          InpAdxMax       = 0;         // chi mo ro moi khi ADX14(InpTF) <  X (0 = tat) - loc di ngang
+input int             InpAtrPctNen    = 500;       // so nen InpTF de xep hang ATR14 (percentile)
+input double          InpAtrPctMin    = 0;         // chi mo khi hang ATR hien tai >= X % (0 = tat)
+input double          InpAtrPctMax    = 100;       // chi mo khi hang ATR hien tai <= X % (100 = tat)
+input bool            InpTinNFP       = false;     // tranh NFP: thu Sau dau thang, gio server InpTinGio:InpTinPhut
+input int             InpTinGio       = 15;        // gio server cua tin NFP (XM GMT+2/+3: 8:30 NY = 15:30)
+input int             InpTinPhut      = 30;
+input string          InpFileTin      = "";        // CSV Common\Files: moi dong 1 thoi diem tin "YYYY.MM.DD HH:MM" (gio server); "" = khong
+input int             InpTinTruocPhut = 60;        // cam mo ro moi tu X phut truoc tin
+input int             InpTinSauPhut   = 60;        // ... den X phut sau tin
 input long            InpMagic        = 2026101701;
 input string          InpFileLog      = "brain2_xu_li_lenh_log.csv";
 input bool            InpLogChung     = true;      // ghi vao Common\Files (lay duoc ca khi chay Tester)
 
 CTrade   trade;
+int      h_adx = INVALID_HANDLE;
+datetime g_tin[]; int g_tin_n = 0, g_so_loc_regime = 0, g_so_loc_tin = 0;
 int      h_atr = INVALID_HANDLE, h_rsi = INVALID_HANDLE, h_ma = INVALID_HANDLE, h_sd = INVALID_HANDLE;
 datetime g_nen = 0;
 bool     g_hedging = false;
@@ -244,6 +258,48 @@ bool DuocMo()
    double sp = SymbolInfoDouble(_Symbol, SYMBOL_ASK) - SymbolInfoDouble(_Symbol, SYMBOL_BID);
    if(InpSpreadMaxGia > 0 && sp > InpSpreadMaxGia) return false;
    return true;
+}
+
+bool LocTin()                                       // true = dang trong cua so tin -> khong mo ro moi
+{
+   datetime now = TimeCurrent();
+   long tr = (long)InpTinTruocPhut * 60, sa = (long)InpTinSauPhut * 60;
+   if(InpTinNFP)
+   {
+      MqlDateTime d; TimeToStruct(now, d);
+      MqlDateTime f = d; f.day = 1; f.hour = InpTinGio; f.min = InpTinPhut; f.sec = 0;
+      datetime t1 = StructToTime(f); MqlDateTime x; TimeToStruct(t1, x);
+      datetime nfp = t1 + (datetime)(((5 - x.day_of_week + 7) % 7) * 86400);
+      if(now >= nfp - tr && now <= nfp + sa) return true;
+   }
+   for(int i = 0; i < g_tin_n; i++)
+      if(now >= g_tin[i] - tr && now <= g_tin[i] + sa) return true;
+   return false;
+}
+
+bool LocRegime()                                    // true = KHONG dat che do -> bo tin hieu mo ro moi
+{
+   if(h_adx != INVALID_HANDLE)
+   {
+      double adx = Lay1(h_adx, 0);
+      if(adx != EMPTY_VALUE)
+      {
+         if(InpAdxMin > 0 && adx < InpAdxMin) return true;
+         if(InpAdxMax > 0 && adx >= InpAdxMax) return true;
+      }
+   }
+   if(InpAtrPctMin > 0 || InpAtrPctMax < 100)
+   {
+      double b[]; ArraySetAsSeries(b, true);
+      int n = CopyBuffer(h_atr, 0, 1, MathMax(InpAtrPctNen, 20), b);
+      if(n >= 20)
+      {
+         int duoi = 0; for(int i = 1; i < n; i++) if(b[i] <= b[0]) duoi++;
+         double hang = 100.0 * duoi / (n - 1);
+         if(hang < InpAtrPctMin || hang > InpAtrPctMax) return true;
+      }
+   }
+   return false;
 }
 
 bool MarginDu()
@@ -415,6 +471,8 @@ bool MoRoMoi(int chieu, double lot0 = 0)
    Ro r;
    if(DocRo(chieu, r)) { if(InpVao == VAO_CSV) g_csv_bo_co_ro++; return true; }
    if(!DuocMo()) return false;
+   if(LocRegime()) { g_so_loc_regime++; return true; }   // bo tin hieu (khong thu lai)
+   if(LocTin()) { g_so_loc_tin++; return true; }
    if(InpChoNen > 0)
    {
       double t_dong = GVLay(GV(chieu, "t_dong"), 0);
@@ -444,6 +502,17 @@ int OnInit()
    if(InpVao == VAO_RSI) h_rsi = iRSI(_Symbol, InpTF, 14, PRICE_CLOSE);
    if(InpVao == VAO_MRZ) { h_ma = iMA(_Symbol, InpTF, InpN, 0, MODE_SMA, PRICE_CLOSE); h_sd = iStdDev(_Symbol, InpTF, InpN, 0, MODE_SMA, PRICE_CLOSE); }
    if(h_atr == INVALID_HANDLE) return INIT_FAILED;
+   if(InpAdxMin > 0 || InpAdxMax > 0) { h_adx = iADX(_Symbol, InpTF, 14); if(h_adx == INVALID_HANDLE) return INIT_FAILED; }
+   if(InpFileTin != "")
+   {
+      int ht = FileOpen(InpFileTin, FILE_READ | FILE_TXT | FILE_ANSI | FILE_SHARE_READ | FILE_COMMON);
+      if(ht == INVALID_HANDLE) Print("TIN: khong mo duoc ", InpFileTin, " -> khong loc tin tu file");
+      else
+      {
+         while(!FileIsEnding(ht)) { string l = FileReadString(ht); StringTrimLeft(l); StringTrimRight(l); datetime t = StringToTime(l); if(t > 0) { ArrayResize(g_tin, g_tin_n + 1, 1024); g_tin[g_tin_n++] = t; } }
+         FileClose(ht); PrintFormat("TIN: %d moc tu %s", g_tin_n, InpFileTin);
+      }
+   }
    for(int c = -1; c <= 1; c += 2)
    {
       Ro r;
@@ -545,6 +614,7 @@ void OnDeinit(const int reason)
       s += StringFormat(" csv=%d/%d bo_tre=%d bo_co_ro=%d tach=%d", g_csv_i, g_csv_n, g_csv_bo_tre, g_csv_bo_co_ro, g_so_tach);
       if(InpXuatGia) XuatGia();
    }
+   s += StringFormat(" loc_regime=%d loc_tin=%d", g_so_loc_regime, g_so_loc_tin);
    Print("BRAIN_XuLiLenh ", _Symbol, " ", s);
    GhiLog(StringFormat("%s;%s;tong_ket;0;0;0;0;0;0;0;0;%s", TimeToString(TimeCurrent()), _Symbol, s));
 }

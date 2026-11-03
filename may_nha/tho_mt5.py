@@ -495,6 +495,20 @@ def chay_mot_k(slot: Path, v: dict, k: float, cho_toi_da: int) -> dict:
         out["bao_cao_repo"] = str(dich / f.name)
     except OSError:
         pass
+    if v.get("che_do") == "ong_dan_csv":                       # 03/11: lệnh MT5 + giá InpTF (EA ghi lúc OnDeinit) -> repo, nén gz
+        try:
+            import gzip
+            kc = GOC / "hang_doi" / "ket_qua_csv"; kc.mkdir(exist_ok=True)
+            common = SV.thu_muc_common(); ds = []
+            for duoi in ("_lenh_mt5.csv", "_gia.csv"):
+                g = common / (ten + "_vao.csv" + duoi)
+                if g.exists() and g.stat().st_mtime >= t0 - 5:
+                    d = kc / (g.name + ".gz")
+                    d.write_bytes(gzip.compress(g.read_bytes(), 6)); ds.append(str(d))
+            if ds:
+                out["csv_repo"] = ds
+        except OSError as e:
+            log("  không chép được CSV lệnh/giá: %s" % str(e)[:200])
     return out
 
 
@@ -676,6 +690,7 @@ def main() -> None:
             tt, kq = "HONG", {"tom_tat": "CHƯA ĐO ĐƯỢC: lỗi %s" % str(e)[:300]}
         sinh = kq.pop("sinh", None)
         tep_san = [c["bao_cao_repo"] for c in kq.get("chay", []) if c.get("bao_cao_repo")]
+        tep_san += [x for c in kq.get("chay", []) for x in (c.get("csv_repo") or [])]
         if v["loai"] == "mt5_backtest":                        # đặc điểm tốt của hệ, kể cả khi trượt (tự động)
             try:
                 sys.path.insert(0, str(GOC))
