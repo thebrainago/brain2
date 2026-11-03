@@ -5,7 +5,7 @@
 
 ## 1. Máy
 - Hostname **DESKTOP-05PNLGF** (tài liệu cũ ghi DESKTOP-SPQ7908 là máy cũ), user **DUNG**.
-- 10 nhân / 20 luồng, 32 GB RAM. Ổ trống khoảng: C ~27 GB, D ~21 GB, E ~65 GB.
+- 10 nhân / 20 luồng, 32 GB RAM. Ổ trống (đo 03/11/2026 ~17:20 UTC+7, sau dọn): C ~34,7 GB, D ~20,2 GB, E ~31 GB (E đang giảm do 13 slot nạp tick).
 - Repo của người dùng: `C:\Users\DUNG\brain2`. Thợ chạy trong **clone riêng** `D:\brain2_tho` (có file `.tho_mt5_clone`, đã đặt git user.name/email riêng).
 - Python 3.12.
 - Shell của Grok Bot: machineId `92c57ab1-1431-4e07-ac24-3433da8604d6`.
@@ -79,3 +79,12 @@ Tham số / biến:
 ## 8. Theo dõi
 - Routine canh 30 phút/lần: xem CPU, RAM trống, log thợ, hàng đợi; ghi vào `nhat_ky/van_hanh_may_nha.md`.
 - Nếu RAM trống < 6 GB kéo dài: kiểm tra thợ có chạy code cũ (khởi động trước commit d8e1d3bf, không có chặn RAM) không; dừng đúng PID thợ + terminal + metatester của slot đó, việc dở nằm ở `dang_lam_<may>_<slot>` sẽ được thợ cùng tên chạy lại khi khởi động.
+
+## 8. Quy tắc ổ đĩa (E > D > C) và cách dọn
+- Dữ liệu và loại test **không gấp** (lịch sử dài, báo cáo lưu trữ, bases dự phòng, `data/` cũ, thư mục làm việc/tạm mới) đặt ưu tiên **E**, rồi **D**, cuối cùng **C**. Hàm `tho_mt5.thu_muc_lam_viec(ten)` chọn `<ổ>\brain2_tmp\<ten>` trên ổ đầu tiên còn ≥ 10 GB theo thứ tự E>D>C.
+- Lưu trữ chuyển khỏi C nằm ở `E:\luu_tru_brain2\`. Ngày 03/11/2026 đã chuyển 3 thư mục `%APPDATA%\MetaQuotes\Terminal\{504CE…(p5), 28CB…(g2), 95F3…(g1)}` (~9,4 GB, bases do chạy không-portable để lại) sang `E:\luu_tru_brain2\MetaQuotes_Roaming\` và để **junction** (`mklink /J`) ở chỗ cũ.
+- Cách chuyển: `robocopy <nguồn> <đích> /E /COPY:DAT`, so số tệp + tổng byte, khớp mới xoá nguồn, rồi `mklink /J <nguồn> <đích>` nếu cần giữ đường dẫn.
+- Dọn tự động: mỗi lần phóng tester thợ gọi `don_slot()` cho slot của nó (Tester\cache, Tester\logs, logs `*.log` > 2 ngày; `*.htm` > 2 ngày đã có bản trong `hang_doi\bao_cao`) và ghi `CẢNH BÁO: ổ X chỉ còn N GB` khi ổ trống < `BRAIN_O_TRONG_MIN_GB` (mặc định 10).
+- Dọn tay/định kỳ: `python may_nha\don_o_dia.py` (thêm `--thu` để chỉ xem). Script bỏ qua slot có terminal64/metatester64 đang chạy và slot trong `BRAIN_SLOT_BO_QUA` (mặc định `g3;g6`).
+- KHÔNG xoá/chuyển: Bases của slot đang chạy, `accounts.dat`/`config` của slot, repo, Riot/League, Claude, `C:\Program Files\XM Global MT5`. Không chắc thì ghi đề xuất.
+- Phần lớn dung lượng là **Bases của 13 slot trên E (~47 GB mỗi slot, ~315 GB tổng)** — trùng lặp tick. Muốn giảm: dừng hẳn slot thừa rồi xoá Bases của nó, hoặc thay Bases trùng bằng junction tới một bản chung (chỉ làm khi slot đó dừng; chưa thử).

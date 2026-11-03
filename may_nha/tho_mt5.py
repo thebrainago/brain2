@@ -160,6 +160,75 @@ def don_cache_tester(slot: Path, giu_ngay: float = 2.0, bay_gio: float | None = 
     return n
 
 
+def don_tep_cu(d: Path, giu_ngay: float = 2.0, duoi: tuple = (), bay_gio: float | None = None) -> int:
+    """Xoá tệp (không đệ quy) cũ hơn giu_ngay trong d; duoi rỗng = mọi đuôi."""
+    if not d.is_dir():
+        return 0
+    moc = (bay_gio or time.time()) - giu_ngay * 86400; n = 0
+    for f in d.iterdir():
+        try:
+            if f.is_file() and f.stat().st_mtime < moc and (not duoi or f.suffix.lower() in duoi):
+                f.unlink(); n += 1
+        except OSError:
+            pass
+    return n
+
+
+def don_bao_cao_da_nop(slot: Path, kho: Path, giu_ngay: float = 2.0, bay_gio: float | None = None) -> int:
+    """Xoá <slot>/*.htm cũ đã có bản cùng tên trong kho (hang_doi/bao_cao của repo)."""
+    moc = (bay_gio or time.time()) - giu_ngay * 86400; n = 0
+    if not slot.is_dir():
+        return 0
+    for f in slot.glob("*.htm"):
+        try:
+            if f.stat().st_mtime < moc and (kho / f.name).is_file():
+                f.unlink(); n += 1
+        except OSError:
+            pass
+    return n
+
+
+def don_slot(slot: Path, kho: Path | None = None, giu_ngay: float = 2.0) -> dict:
+    """Dọn định kỳ một slot KHÔNG có terminal đang chạy: Tester/cache, Tester/logs, logs, báo cáo đã nộp."""
+    kq = {"cache": don_cache_tester(slot, giu_ngay),
+          "tester_logs": don_tep_cu(slot / "Tester" / "logs", giu_ngay, (".log",)),
+          "logs": don_tep_cu(slot / "logs", giu_ngay, (".log",))}
+    if kho is not None:
+        kq["bao_cao"] = don_bao_cao_da_nop(slot, kho, giu_ngay)
+    return kq
+
+
+O_UU_TIEN = ("E:\\", "D:\\", "C:\\")
+
+
+def o_trong_gb(o: str) -> float | None:
+    import shutil
+    try:
+        return shutil.disk_usage(o).free / 1024 ** 3
+    except OSError:
+        return None
+
+
+def canh_bao_o_day(nguong_gb: float = 10.0, o_list=O_UU_TIEN, do=o_trong_gb) -> list:
+    """Trả danh sách (ổ, GB trống) có dung lượng trống < ngưỡng."""
+    out = []
+    for o in o_list:
+        g = do(o)
+        if g is not None and g < nguong_gb:
+            out.append((o, round(g, 1)))
+    return out
+
+
+def thu_muc_lam_viec(ten: str, nguong_gb: float = 10.0, o_list=O_UU_TIEN, do=o_trong_gb) -> Path:
+    """Chọn thư mục làm việc/tạm mới theo thứ tự ưu tiên E > D > C (ổ đầu tiên còn >= ngưỡng)."""
+    co = [(o, do(o)) for o in o_list]
+    co = [(o, g) for o, g in co if g is not None]
+    if not co:
+        return Path(os.environ.get("TEMP", "/tmp")) / ten
+    chon = next((o for o, g in co if g >= nguong_gb), max(co, key=lambda x: x[1])[0])
+    return Path(chon) / "brain2_tmp" / ten
+
+
 # ---------------- hàm thuần (có test) ----------------
 def so_nam(tu: str, den: str) -> float:
     import datetime as dt
@@ -384,9 +453,11 @@ def chay_mot_k(slot: Path, v: dict, k: float, cho_toi_da: int) -> dict:
     try:                                                        # giảm RAM mỗi lần test
         if gioi_han_maxbars(slot):
             log("  đặt MaxBars=%s cho slot" % os.environ.get("BRAIN_MAX_BARS", "50000"))
-        n_xoa = don_cache_tester(slot)
-        if n_xoa:
-            log("  xoá %d tệp Tester/cache cũ" % n_xoa)
+        kq_don = don_slot(slot, GOC / "hang_doi" / "bao_cao")
+        if any(kq_don.values()):
+            log("  dọn slot: %s" % kq_don)
+        for o, g in canh_bao_o_day(float(os.environ.get("BRAIN_O_TRONG_MIN_GB", "10"))):
+            log("  CẢNH BÁO: ổ %s chỉ còn %.1f GB trống" % (o, g))
     except Exception as e:
         log("  không giảm RAM được: %s" % str(e)[:200])
     cho_du_ram(log)                                             # MỖI lần phóng tester (kể cả việc dở, k tiếp theo) chờ RAM trống > ngưỡng
