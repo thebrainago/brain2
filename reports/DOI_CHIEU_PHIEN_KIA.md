@@ -67,3 +67,36 @@ Tiêu chí mới bỏ các cổng OOS/FDR/tick, nên 2 hệ đang CHUA_DO có th
 - Nên gộp sớm (sau khi xử lý `.gitignore`): phần mt5tools của `vong2/kiem-sau` (vá lot CSV), sửa DCA pip của `seeker/tin-hieu-cong-khai`, `evo/sua-hash-va-hang-cho` (đã chứa llm-file-queue, pass-audit, mt5-kha-dung, phien-khe). `evo/perf-quickwins` gộp được ngay, không có xung đột.
 - KHÔNG gộp nguyên `fix/r1-…`, vì sẽ thay sổ cái 955 dòng bằng 386 dòng. Nếu cần thì chỉ lấy `ops/` và `tru/` bằng cherry-pick, còn sổ cái thì nối thêm vào (đã có trong sổ chung).
 - Chạy lại các test `test_khe_dao_ngay.py` đang hỏng trên nhánh trước khi gộp.
+
+## 6. Đã thực hiện 03/11/2026 (~08:40–09:30 UTC+7)
+
+1. **Gộp `evo/perf-quickwins`** (merge `0c1f5f2a`, không có xung đột).
+2. **Port vá lot CSV** từ `vong2/kiem-sau` (`47430f3d`), chỉ lấy phần lot: `scale_lot_for_hash_demo`, `remap_ma_hash_demo`, scale cột `lot` trong `dat_csv_vao`, `cot_loi` bỏ qua dòng `lot_csv_nghi_ngo`, `chay_lien_tuc.phong` gọi scale. Tôi KHÔNG lấy phần còn lại của commit (đổi công thức `cot_loi`, coi báo cáo 0 lệnh là stub, khoá ghi), vì làm hỏng thêm 3 test cũ (`test_0_lenh_trong_vai_giay_la_chua_do_duoc`, `test_hai_tang_lay_viec`, `test_cot_loi_lai_10_o_sut_giam_80`). Test mới: `test_va_lot_csv.py`, 4 đạt.
+3. **Pip theo mã:** `nhan/phan_tich_dca.py` của `seeker/tin-hieu-cong-khai` không có trên main và phụ thuộc `hang_cho_llm`, nên không bê nguyên. Tôi port bảng `PIP_THEO_SYMBOL` vào `nhan/dich_nguoc/phan_tich.pip()`. Trước đây dầu, UK100/FRA40/JP225/AUS200/HK50/US500/USTEC/DE40 rơi về 0,0001 và ETH = 1,0; nay theo bảng. Mã có hậu tố `#`, `.i`, `micro` cũng được chuẩn hoá. Chạy lại `nhan.dich_nguoc.top10`: `DICH_NGUOC_TOP10.md` không đổi. Test: `test_pip_theo_ma.py`.
+4. **`.gitignore`:** không phải hợp nhất, vì không gộp nhánh nào có `.gitignore` xung đột.
+5. **KHÔNG gộp `evo/sua-hash-va-hang-cho`:** trên nhánh hỏng 15 test, chủ yếu `test_khe_dao_ngay.py`, trong khi trên main cùng tệp đạt 23/23. Đây là hỏng do nhánh gây ra, không phải do môi trường và cũng không có sẵn trên main.
+6. **Không đụng `so_cai.jsonl` của fix/r1.**
+
+### Lỗi sổ kết quả tìm thấy khi đối chiếu
+`thu_so_cai_mt5` không đọc được DD có dấu cách nghìn (`"2 076.85 (14.81%)"`), nên nhiều dòng MT5 bị để trống DD và rơi vào CHUA_DO. Đã sửa regex và điền lại DD cho các dòng lấy từ hai sổ cái (main và nhánh fix/r1): 109 dòng BI_THAY_THE được bổ sung DD (trạng thái giữ nguyên), 18 dòng CHUA_DO → ĐẠT, 26 dòng CHUA_DO → KHÔNG ĐẠT.
+
+### Điền giờ chạy (xác minh từ sổ cái nhánh fix/r1)
+- sk_ea_3279057100 EURGBP H1: `od_v2r2p_b50_skea3279057100_XM_CSV.htm`, 2026-10-31T16:37:51, net 3730,95, DD 14,81%, 99% tick → **ĐẠT** (CAGR 12,2%).
+- ghep_0bf2 GBPCAD H4: `od_v2verify_lot01_full_ghep0bf2c31fbfc9dea0_XM_CSV.htm`, 2026-10-31T02:05:23, net 3079,62, DD 14,89%, 100% tick → **ĐẠT** (CAGR 10,3%, sát sàn).
+- Lưu ý: kiểm toán 01/11 vẫn coi hai hệ này chỉ là IS (CSV phủ đúng kỳ test).
+
+### Trạng thái mới `UNG_VIEN` (theo kiểm toán)
+skea61c CADJPY (dòng chép tay ×4, dòng nhập ×4, ×3) và brainxlmrz GBPUSD (dòng chép tay, dòng salvage nhập): 5 dòng → UNG_VIEN, ghi chú dẫn `kiem_toan_he_dat.md`.
+
+### Sổ sau khi sửa (`TONG_HOP.md`)
+ĐẠT 1099 (1065 CONG_KHAI, 16 mô phỏng Python của phiên này, 18 MT5), KHÔNG ĐẠT 212, BI_THAY_THE 1446, CHUA_DO 54, UNG_VIEN 5.
+Các dòng MT5 ĐẠT sau vá theo hệ:
+- skst299b EURUSD H1: 9 dòng, CAGR 18,85–106,68%, DD 17,85–46,76%, kỳ 1,3 năm. Báo cáo `skst299b_doc_cach_danh.md` chỉ ra statement gốc là H4, cần xem lại.
+- ghep_0bf2 GBPCAD H4: 5 dòng, gồm lot01 full 10,27%/14,89%.
+- sk_ea_3279057100 EURGBP H1: 3 dòng (b50 12,15%/14,81%, hs120 11,02%/17,87%).
+- ghepe9b41 GBPNZD H4 b120: 22,2%/12,32%.
+
+Tất cả đều là cửa sổ CSV (IS), chưa có OOS sạch.
+
+### Kiểm thử
+57 tệp test liên quan (mt5tools, so_ket_qua, dich_nguoc, dieu_phoi, so, perf): 28 hỏng / 608 đạt. Baseline main trên cùng tập (trừ test mới): 33 hỏng, gồm 5 test mới vắng mặt. **Không có test hỏng mới** so với main.

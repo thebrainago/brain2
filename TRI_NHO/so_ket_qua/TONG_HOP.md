@@ -1,23 +1,24 @@
 # Tổng hợp sổ kết quả
 
-Sinh tự động bởi `python -m nhan.so_ket_qua --tong-hop` lúc 2026-11-03 08:35 (UTC+7).
+Sinh tự động bởi `python -m nhan.so_ket_qua --tong-hop` lúc 2026-11-03 08:56 (UTC+7).
 Tiêu chí ĐẠT duy nhất: **max DD < 80% VÀ CAGR > 10%/năm**. Chỉ tính kết quả đo SAU khi vá lỗi lot (31/10/2026 01:53 UTC+7).
 
 Tổng số dòng: **2816**
 
 | Trạng thái | Số dòng |
 |---|---|
-| DAT | 1084 |
-| KHONG_DAT | 186 |
+| DAT | 1099 |
+| KHONG_DAT | 212 |
 | BI_THAY_THE | 1446 |
-| CHUA_DO | 100 |
+| CHUA_DO | 54 |
+| UNG_VIEN | 5 |
 
 ## Danh sách ĐẠT hiện tại
 
 | Hệ | Mã | TF | CAGR % | DD % | Nguồn |
 |---|---|---|---|---|---|
-| skea61c (sk_ea_61c21a2049) lot x4 | CADJPY | H4 | 13.3 | 10.74 | reports/kiem_toan_he_dat.md (so cai goc so_cai_from_nha_1845.jsonl khong con tren box) |
-| brainxlmrz | GBPUSD | H4 | 13.31 | 78.81 | reports/kiem_toan_he_dat.md |
+| sk_ea_3279057100 | EURGBP | H1 | 12.2 | 14.8 | reports/kiem_toan_he_dat.md |
+| ghep_0bf2 (verify lot01) | GBPCAD | H4 | 10.3 | 14.9 | reports/kiem_toan_he_dat.md |
 | MQL5:1864588 EA Happy News Eightcap | GBPUSD.i USDJPY.i EURUSD.i AUDUSD.i |  | 249.18 | 9.14 | https://www.mql5.com/en/signals/1864588 |
 | MQL5:2271402 Deux ex machina | AUDCAD AUDNZD NZDCAD US30 XAUUSD DE40 EURGBP USDJPY |  | 114.7 | 25.99 | https://www.mql5.com/en/signals/2271402 |
 | MQL5:2262642 NoPain MT5 | AUDCAD |  | 86.97 | 20.63 | https://www.mql5.com/en/signals/2262642 |
@@ -1099,14 +1100,29 @@ Tổng số dòng: **2816**
 | DichNguoc:UV1:swap_0_lac_quan:lot0.001/1000 | NZDCAD | H1 | 12.04 | 50.89 | data/dich_nguoc/backtest_luoi_v2.json |
 | DichNguoc:UV2:swap_0_lac_quan:lot0.002/1000 | NZDCAD | H1 | 44.97 | 66.91 | data/dich_nguoc/backtest_luoi_v2.json |
 | DichNguoc:UV2:swap_0_lac_quan:lot0.001/1000 | NZDCAD | H1 | 19.89 | 33.06 | data/dich_nguoc/backtest_luoi_v2.json |
+| od_v2verify_lot01_full_ghep0bf2c31fbfc9dea0_XM_CSV | GBPCAD# | H4 | 10.27 | 14.89 | origin/fix/r1-cpu-seeker-moi-quantlab-gates:reports/mt5_lien_tuc/so_cai.jsonl#od_v2verify_lot01_full_ghep0bf2c31fbfc9dea0_XM_CSV.htm |
+| od_v2verify_lot01_y2024_ghep0bf2c31fbfc9dea0_XM_CSV | GBPCAD# | H4 | 20.71 | 11.67 | origin/fix/r1-cpu-seeker-moi-quantlab-gates:reports/mt5_lien_tuc/so_cai.jsonl#od_v2verify_lot01_y2024_ghep0bf2c31fbfc9dea0_XM_CSV.htm |
 | od_v2verify_lot01_oos_h1_ghep0bf2c31fbfc9dea0_XM_CSV | GBPCAD# | H4 | 14.15 | 9.13 | origin/fix/r1-cpu-seeker-moi-quantlab-gates:reports/mt5_lien_tuc/so_cai.jsonl#od_v2verify_lot01_oos_h1_ghep0bf2c31fbfc9dea0_XM_CSV.htm |
+| od_v2relot_skst299b0817f66d4096_XM_CSV | EURUSD# | H1 | 37.61 | 17.85 | origin/fix/r1-cpu-seeker-moi-quantlab-gates:reports/mt5_lien_tuc/so_cai.jsonl#od_v2relot_skst299b0817f66d4096_XM_CSV.htm |
+| od_v2lotscale_lotx1_full_skst299b0817f66d4096_XM_CSV | EURUSD# | H1 | 37.61 | 17.85 | origin/fix/r1-cpu-seeker-moi-quantlab-gates:reports/mt5_lien_tuc/so_cai.jsonl#od_v2lotscale_lotx1_full_skst299b0817f66d4096_XM_CSV.htm |
+| od_v2lotscale_lotx1p5_full_skst299b0817f66d4096_XM_CSV | EURUSD# | H1 | 49.14 | 46.76 | origin/fix/r1-cpu-seeker-moi-quantlab-gates:reports/mt5_lien_tuc/so_cai.jsonl#od_v2lotscale_lotx1p5_full_skst299b0817f66d4096_XM_CSV.htm |
+| od_v2lotscale_lotx2_full_skst299b0817f66d4096_XM_CSV | EURUSD# | H1 | 62.98 | 27.59 | origin/fix/r1-cpu-seeker-moi-quantlab-gates:reports/mt5_lien_tuc/so_cai.jsonl#od_v2lotscale_lotx2_full_skst299b0817f66d4096_XM_CSV.htm |
+| od_v2lotscale_lotx3_full_skst299b0817f66d4096_XM_CSV | EURUSD# | H1 | 84.93 | 24.15 | origin/fix/r1-cpu-seeker-moi-quantlab-gates:reports/mt5_lien_tuc/so_cai.jsonl#od_v2lotscale_lotx3_full_skst299b0817f66d4096_XM_CSV.htm |
+| od_v2lotscale_lotx4_full_skst299b0817f66d4096_XM_CSV | EURUSD# | H1 | 106.68 | 24.94 | origin/fix/r1-cpu-seeker-moi-quantlab-gates:reports/mt5_lien_tuc/so_cai.jsonl#od_v2lotscale_lotx4_full_skst299b0817f66d4096_XM_CSV.htm |
+| od_v2lotscale_lotx4_y2024_ghep0bf2c31fbfc9dea0_XM_CSV | GBPCAD# | H4 | 78.38 | 30.08 | origin/fix/r1-cpu-seeker-moi-quantlab-gates:reports/mt5_lien_tuc/so_cai.jsonl#od_v2lotscale_lotx4_y2024_ghep0bf2c31fbfc9dea0_XM_CSV.htm |
+| od_v2r2p_b120_skst299b0817f66d4096_XM_CSV | EURUSD# | H1 | 18.85 | 20.73 | origin/fix/r1-cpu-seeker-moi-quantlab-gates:reports/mt5_lien_tuc/so_cai.jsonl#od_v2r2p_b120_skst299b0817f66d4096_XM_CSV.htm |
+| od_v2r2p_b50_skea3279057100_XM_CSV | EURGBP# | H1 | 12.15 | 14.81 | origin/fix/r1-cpu-seeker-moi-quantlab-gates:reports/mt5_lien_tuc/so_cai.jsonl#od_v2r2p_b50_skea3279057100_XM_CSV.htm |
+| od_v2r2p_b50_skst299b0817f66d4096_XM_CSV | EURUSD# | H1 | 35.09 | 32.79 | origin/fix/r1-cpu-seeker-moi-quantlab-gates:reports/mt5_lien_tuc/so_cai.jsonl#od_v2r2p_b50_skst299b0817f66d4096_XM_CSV.htm |
+| od_v2r2p_b80_skst299b0817f66d4096_XM_CSV | EURUSD# | H1 | 37.66 | 19.93 | origin/fix/r1-cpu-seeker-moi-quantlab-gates:reports/mt5_lien_tuc/so_cai.jsonl#od_v2r2p_b80_skst299b0817f66d4096_XM_CSV.htm |
+| od_v2r2p_b120_ghepe9b41c33d4deee54_XM_CSV | GBPNZD# | H4 | 22.2 | 12.32 | origin/fix/r1-cpu-seeker-moi-quantlab-gates:reports/mt5_lien_tuc/so_cai.jsonl#od_v2r2p_b120_ghepe9b41c33d4deee54_XM_CSV.htm |
+| od_v2r2p_hs120_skea3279057100_XM_CSV | EURGBP# | H1 | 11.02 | 17.87 | origin/fix/r1-cpu-seeker-moi-quantlab-gates:reports/mt5_lien_tuc/so_cai.jsonl#od_v2r2p_hs120_skea3279057100_XM_CSV.htm |
 
 ## Kết quả hợp lệ sau vá (DAT/KHONG_DAT)
 
 | Hệ | Mã | TF | CAGR % | DD % | Trạng thái |
 |---|---|---|---|---|---|
-| skea61c (sk_ea_61c21a2049) lot x4 | CADJPY | H4 | 13.3 | 10.74 | DAT |
-| brainxlmrz | GBPUSD | H4 | 13.31 | 78.81 | DAT |
+| sk_ea_3279057100 | EURGBP | H1 | 12.2 | 14.8 | DAT |
+| ghep_0bf2 (verify lot01) | GBPCAD | H4 | 10.3 | 14.9 | DAT |
 | MQL5:1864588 EA Happy News Eightcap | GBPUSD.i USDJPY.i EURUSD.i AUDUSD.i |  | 249.18 | 9.14 | DAT |
 | MQL5:2271402 Deux ex machina | AUDCAD AUDNZD NZDCAD US30 XAUUSD DE40 EURGBP USDJPY |  | 114.7 | 25.99 | DAT |
 | MQL5:2262642 NoPain MT5 | AUDCAD |  | 86.97 | 20.63 | DAT |
@@ -2333,9 +2349,13 @@ Tổng số dòng: **2816**
 | Telegram:CLMCA_C_V1_M15:swap_do_XM | XAUUSD | M15 | -100.0 | 99.11 | KHONG_DAT |
 | Telegram:CLMCA_C_V1_M15:swap_bao_thu | XAUUSD | M15 | -100.0 | 99.11 | KHONG_DAT |
 | Telegram:CLMCA_C_V1_M15:swap_0_lac_quan | XAUUSD | M15 | 5.07 | 73.07 | KHONG_DAT |
+| od_v2verify_lot01_full_ghep0bf2c31fbfc9dea0_XM_CSV | GBPCAD# | H4 | 10.27 | 14.89 | DAT |
+| od_v2verify_lot01_y2024_ghep0bf2c31fbfc9dea0_XM_CSV | GBPCAD# | H4 | 20.71 | 11.67 | DAT |
+| od_v2verify_lot01_y2025_ghep0bf2c31fbfc9dea0_XM_CSV | GBPCAD# | H4 | 7.19 | 17.21 | KHONG_DAT |
 | od_v2verify_lot01_full_ghep60ff9350c26c63ee_XM_CSV | GBPCAD# | H1 | 8.65 | 5.57 | KHONG_DAT |
 | od_v2verify_lot01_oos_h1_ghep0bf2c31fbfc9dea0_XM_CSV | GBPCAD# | H4 | 14.15 | 9.13 | DAT |
 | od_v2relot_v2r2p_b120_skea135e93ee32_XM_CSV | EURUSD# | H1 | 2.03 | 2.18 | KHONG_DAT |
+| od_v2relot_skst299b0817f66d4096_XM_CSV | EURUSD# | H1 | 37.61 | 17.85 | DAT |
 | od_v2verify_lot01_oos_h1_ghep60ff9350c26c63ee_XM_CSV | GBPCAD# | H1 | 1.74 | 0.99 | KHONG_DAT |
 | od_v2relot_v2r2oos_dai19_skea61c21a2049_XM_CSV | CADJPY# | H4 | 4.11 | 4.33 | KHONG_DAT |
 | od_v2relot_v2r2p_b120_mql5344ed0d8ab12c7f0_XM_CSV | NZDUSD# | H1 | 3.53 | 5.32 | KHONG_DAT |
@@ -2344,10 +2364,19 @@ Tổng số dòng: **2816**
 | od_v2verify_lot01_y2024_ghep60ff9350c26c63ee_XM_CSV | GBPCAD# | H1 | 2.24 | 1.41 | KHONG_DAT |
 | od_v2lotscale_lotx1_full_mql5344ed0d8ab12c7f0_XM_CSV | NZDUSD# | H1 | 2.18 | 6.76 | KHONG_DAT |
 | od_v2lotscale_lotx1_full_skea61c21a2049_XM_CSV | CADJPY# | H4 | 3.46 | 3.05 | KHONG_DAT |
+| od_v2lotscale_lotx1p5_full_mql5344ed0d8ab12c7f0_XM_CSV | NZDUSD# | H1 | 2.98 | 9.65 | KHONG_DAT |
 | od_v2verify_lot01_y2025_ghep60ff9350c26c63ee_XM_CSV | GBPCAD# | H1 | 0.92 | 1.94 | KHONG_DAT |
+| od_v2lotscale_lotx2_full_mql5344ed0d8ab12c7f0_XM_CSV | NZDUSD# | H1 | 4.35 | 13.24 | KHONG_DAT |
 | od_v2lotscale_lotx1p5_full_skea61c21a2049_XM_CSV | CADJPY# | H4 | 4.91 | 4.62 | KHONG_DAT |
+| od_v2lotscale_lotx3_full_mql5344ed0d8ab12c7f0_XM_CSV | NZDUSD# | H1 | 6.45 | 18.52 | KHONG_DAT |
 | od_v2lotscale_lotx2_full_skea61c21a2049_XM_CSV | CADJPY# | H4 | 6.9 | 5.99 | KHONG_DAT |
+| od_v2lotscale_lotx4_full_mql5344ed0d8ab12c7f0_XM_CSV | NZDUSD# | H1 | 8.51 | 23.37 | KHONG_DAT |
+| od_v2lotscale_lotx1_full_skst299b0817f66d4096_XM_CSV | EURUSD# | H1 | 37.61 | 17.85 | DAT |
 | od_v2lotscale_lotx1_full_ghep60ff9350c26c63ee_XM_CSV | GBPCAD# | H1 | 1.34 | 1.9 | KHONG_DAT |
+| od_v2lotscale_lotx1p5_full_skst299b0817f66d4096_XM_CSV | EURUSD# | H1 | 49.14 | 46.76 | DAT |
+| od_v2lotscale_lotx2_full_skst299b0817f66d4096_XM_CSV | EURUSD# | H1 | 62.98 | 27.59 | DAT |
+| od_v2lotscale_lotx3_full_skst299b0817f66d4096_XM_CSV | EURUSD# | H1 | 84.93 | 24.15 | DAT |
+| od_v2lotscale_lotx4_full_skst299b0817f66d4096_XM_CSV | EURUSD# | H1 | 106.68 | 24.94 | DAT |
 | od_v2lotscale_lotx1p5_full_ghep60ff9350c26c63ee_XM_CSV | GBPCAD# | H1 | 1.78 | 2.51 | KHONG_DAT |
 | od_v2relot_mql5344ed0d8ab12c7f0_XM_CSV | NZDUSD# | H1 | 3.53 | 5.32 | KHONG_DAT |
 | od_v2lotscale_lotx2_full_ghep60ff9350c26c63ee_XM_CSV | GBPCAD# | H1 | 2.65 | 3.67 | KHONG_DAT |
@@ -2356,24 +2385,52 @@ Tổng số dòng: **2816**
 | od_v2lotfix_y2024_mql5e52afb999eca4bd1_XM_CSV | EURGBP# | H1 | 0.86 | 2.16 | KHONG_DAT |
 | od_v2lotscale_lotx3_full_ghep60ff9350c26c63ee_XM_CSV | GBPCAD# | H1 | 3.93 | 5.32 | KHONG_DAT |
 | od_v2relot_v2r2xt_realtick_2600ea39abbd7b0f_XM_CSV | GBPNZD# | H1 | 5.16 | 3.11 | KHONG_DAT |
+| od_v2relot_v2r2xt_realtick_b0be91a35f43f34a_XM_CSV | USDCAD# | H4 | 4.28 | 11.32 | KHONG_DAT |
 | od_v2lotfix_y2025_mql5e52afb999eca4bd1_XM_CSV | EURGBP# | H1 | 3.53 | 3.05 | KHONG_DAT |
+| od_v2relot_v2r2oos_dai19_b0be91a35f43f34a_XM_CSV | USDCAD# | H4 | 4.28 | 11.32 | KHONG_DAT |
 | od_v2lotscale_lotx4_full_ghep60ff9350c26c63ee_XM_CSV | GBPCAD# | H1 | 5.18 | 6.86 | KHONG_DAT |
 | od_v2relot_v2r2xt_realtick_skea135e93ee32_XM_CSV | EURUSD# | H1 | 2.14 | 2.49 | KHONG_DAT |
+| od_v2lotscale_lotx4_y2024_ghep0bf2c31fbfc9dea0_XM_CSV | GBPCAD# | H4 | 78.38 | 30.08 | DAT |
 | od_v2r2p_b120_skea135e93ee32_XM_CSV | EURUSD# | H1 | 1.96 | 2.18 | KHONG_DAT |
 | od_v2r2oos_dai19_skea154c9fdee7_XM_CSV | GBPCAD# | H4 | 5.5 | 7.37 | KHONG_DAT |
+| od_v2r2p_b50_skea61c21a2049_XM_CSV | CADJPY# | H4 | 7.82 | 15.21 | KHONG_DAT |
+| od_v2r2p_b120_skea3279057100_XM_CSV | EURGBP# | H1 | 8.99 | 20.09 | KHONG_DAT |
+| od_v2r2p_b80_mql5344ed0d8ab12c7f0_XM_CSV | NZDUSD# | H1 | -0.36 | 21.7 | KHONG_DAT |
+| od_v2r2p_b120_skst299b0817f66d4096_XM_CSV | EURUSD# | H1 | 18.85 | 20.73 | DAT |
+| od_v2r2p_bg120_brainxlrsi_XM_KIEM_XM_CSV | AUDCAD# | H4 | 3.75 | 15.47 | KHONG_DAT |
+| od_v2r2p_b120_skea78384bbaf7_XM_CSV | USDCAD# | H1 | 5.12 | 44.89 | KHONG_DAT |
 | od_v2r2p_b80_skea61c21a2049_XM_CSV | CADJPY# | H4 | 4.94 | 6.93 | KHONG_DAT |
+| od_v2r2p_hs120_mql5344ed0d8ab12c7f0_XM_CSV | NZDUSD# | H1 | 4.25 | 7.4 | KHONG_DAT |
 | od_v2r2p_b120_skeaeee96c8430_XM_CSV | EURGBP# | H4 | 2.86 | 4.37 | KHONG_DAT |
 | od_v2r2p_b50_skea135e93ee32_XM_CSV | EURUSD# | H1 | 2.67 | 4.27 | KHONG_DAT |
 | od_v2r2p_b120_skeadd170ac7bf_XM_CSV | USDCAD# | H1 | 6.63 | 8.6 | KHONG_DAT |
+| od_v2r2p_bg80_brainxlmrz_XM_KIEM_XM_CSV | AUDCAD# | H4 | 6.34 | 19.0 | KHONG_DAT |
 | od_v2r2p_hs120_skea61c21a2049_XM_CSV | CADJPY# | H4 | 4.98 | 6.65 | KHONG_DAT |
+| od_v2r2p_b50_skea3279057100_XM_CSV | EURGBP# | H1 | 12.15 | 14.81 | DAT |
+| od_v2r2p_b50_b0be91a35f43f34a_XM_CSV | USDCAD# | H4 | 5.07 | 11.32 | KHONG_DAT |
+| od_v2r2p_b50_skst299b0817f66d4096_XM_CSV | EURUSD# | H1 | 35.09 | 32.79 | DAT |
+| od_v2r2p_bg80_brainxlrsi_XM_KIEM_XM_CSV | AUDCAD# | H4 | 4.51 | 52.41 | KHONG_DAT |
+| od_v2r2p_hs80_mql5344ed0d8ab12c7f0_XM_CSV | NZDUSD# | H1 | -0.07 | 15.46 | KHONG_DAT |
 | od_v2r2p_hs80_skea61c21a2049_XM_CSV | CADJPY# | H4 | 3.47 | 4.77 | KHONG_DAT |
 | od_v2r2p_b50_skeaeee96c8430_XM_CSV | EURGBP# | H4 | 3.58 | 4.09 | KHONG_DAT |
+| od_v2r2p_hs120_brainxlmrz_XM_KIEM_XM_CSV | AUDCAD# | H4 | 5.53 | 19.79 | KHONG_DAT |
+| od_v2r2p_b50_skea78384bbaf7_XM_CSV | USDCAD# | H1 | 9.64 | 36.53 | KHONG_DAT |
 | od_v2r2p_mxm1_mql5344ed0d8ab12c7f0_XM_CSV | NZDUSD# | H1 | 0.24 | 7.51 | KHONG_DAT |
 | od_v2r2p_mxm1_skea61c21a2049_XM_CSV | CADJPY# | H4 | 3.97 | 3.59 | KHONG_DAT |
+| od_v2r2p_mxp1_mql5344ed0d8ab12c7f0_XM_CSV | NZDUSD# | H1 | 3.13 | 12.05 | KHONG_DAT |
 | od_v2r2p_b120_2600ea39abbd7b0f_XM_CSV | GBPNZD# | H1 | 4.64 | 2.74 | KHONG_DAT |
+| od_v2r2p_b80_skst299b0817f66d4096_XM_CSV | EURUSD# | H1 | 37.66 | 19.93 | DAT |
+| od_v2r2p_b80_skea3279057100_XM_CSV | EURGBP# | H1 | 8.79 | 16.16 | KHONG_DAT |
+| od_v2r2p_b50_skeadd170ac7bf_XM_CSV | USDCAD# | H1 | -100.0 | 100.0 | KHONG_DAT |
+| od_v2r2p_hs120_brainxlrsi_XM_KIEM_XM_CSV | AUDCAD# | H4 | 6.07 | 17.47 | KHONG_DAT |
 | od_v2r2p_mxp1_skea61c21a2049_XM_CSV | CADJPY# | H4 | 4.08 | 4.33 | KHONG_DAT |
+| od_v2r2p_tp120_mql5344ed0d8ab12c7f0_XM_CSV | NZDUSD# | H1 | 3.21 | 22.47 | KHONG_DAT |
 | od_v2r2p_b80_skeaeee96c8430_XM_CSV | EURGBP# | H4 | 3.57 | 4.99 | KHONG_DAT |
+| od_v2r2p_b120_ghepe9b41c33d4deee54_XM_CSV | GBPNZD# | H4 | 22.2 | 12.32 | DAT |
+| od_v2r2p_b80_b0be91a35f43f34a_XM_CSV | USDCAD# | H4 | 5.07 | 11.32 | KHONG_DAT |
 | od_v2r2p_hs120_skea135e93ee32_XM_CSV | EURUSD# | H1 | 2.07 | 2.49 | KHONG_DAT |
 | od_v2r2p_tp120_skea61c21a2049_XM_CSV | CADJPY# | H4 | 5.11 | 5.05 | KHONG_DAT |
+| od_v2r2p_hs80_brainxlmrz_XM_KIEM_XM_CSV | AUDCAD# | H4 | 5.53 | 19.79 | KHONG_DAT |
+| od_v2r2p_hs120_skea3279057100_XM_CSV | EURGBP# | H1 | 11.02 | 17.87 | DAT |
 
 Ghi chú: BI_THAY_THE = đo trước vá lot, phải chạy lại; CHUA_DO = thiếu số/không rõ lúc chạy, hoặc chỉ là MÔ PHỎNG Python.

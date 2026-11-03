@@ -34,7 +34,7 @@ CAGR_MIN = 10.0
 COT = ["id", "he", "symbol", "timeframe", "tu", "den", "so_nam", "nguon", "real_tick_pct",
        "net", "von", "cagr_pct", "dd_pct", "so_lenh", "phi", "luc_chay", "phien_bot",
        "commit", "tep_goc", "trang_thai", "ghi_chu"]
-TRANG_THAI = ("DAT", "KHONG_DAT", "BI_THAY_THE", "CHUA_DO")
+TRANG_THAI = ("DAT", "KHONG_DAT", "BI_THAY_THE", "CHUA_DO", "UNG_VIEN")  # UNG_VIEN: dat so nhung kiem toan ha (03/11)
 
 
 def _so(x):
@@ -192,9 +192,9 @@ def thu_so_cai_mt5(p):
             tu, den = m.group(1).replace(".", "-"), m.group(2).replace(".", "-")
             so_nam = round((datetime.fromisoformat(den) - datetime.fromisoformat(tu)).days / 365.25, 3)
         dd_pct = von = None
-        mdd = re.match(r"\s*([\d.]+)\s*\(([\d.]+)%\)", str(d.get("dd") or ""))
+        mdd = re.search(r"\(([\d.]+)%\)", str(d.get("dd") or ""))  # 03/11: DD MT5 co dau cach nghin "2 076.85 (14.81%)"
         if mdd:
-            dd_pct = float(mdd.group(2))
+            dd_pct = float(mdd.group(1))
         von = d.get("von")
         tick = re.match(r"\s*(\d+)", str(d.get("chat_luong") or ""))
         ghi = []
@@ -279,16 +279,16 @@ TAI_LIEU_TINH = [
      "den": "2026-10-01", "nguon": "mt5_real_tick", "real_tick_pct": 100, "net": 4039.2, "cagr_pct": 13.3,
      "dd_pct": 10.74, "so_lenh": 199, "luc_chay": "2026-10-31T13:56:57", "phien_bot": "Grok Bot (may nha)",
      "tep_goc": "reports/kiem_toan_he_dat.md (so cai goc so_cai_from_nha_1845.jsonl khong con tren box)",
-     "ghi_chu": "IS: cua so = span CSV"},
+     "trang_thai": "UNG_VIEN", "ghi_chu": "IS: cua so = span CSV; UNG_VIEN theo kiem_toan_he_dat.md (khong OOS sach)"},
     {"he": "brainxlmrz", "symbol": "GBPUSD", "timeframe": "H4", "tu": "2016-01", "den": "2026-10",
      "nguon": "mt5_tester (salvage)", "real_tick_pct": 25, "net": 28317.3, "von": 10000, "so_nam": 10.749,
      "cagr_pct": 13.31, "dd_pct": 78.81, "so_lenh": 1002, "luc_chay": "2026-10-31T15:23:00",
      "phien_bot": "Grok Bot (may nha)", "tep_goc": "reports/kiem_toan_he_dat.md",
-     "ghi_chu": "salvage orphan; simple 26.34%/nam; khong OOS"},
+     "trang_thai": "UNG_VIEN", "ghi_chu": "salvage orphan; simple 26.34%/nam; khong OOS; UNG_VIEN theo kiem_toan_he_dat.md (DD sat 80%, 25% tick)"},
     {"he": "sk_ea_3279057100", "symbol": "EURGBP", "timeframe": "H1", "nguon": "mt5_real_tick",
-     "cagr_pct": 12.2, "dd_pct": 14.8, "luc_chay": "", "phien_bot": "Grok Bot",
-     "tep_goc": "reports/kiem_toan_he_dat.md", "trang_thai": "CHUA_DO",
-     "ghi_chu": "IS b50; luc chay CHUA RO truoc/sau va lot; chua giai ma diem vao"},
+     "cagr_pct": 12.2, "dd_pct": 14.8, "luc_chay": "2026-10-31T16:37:51", "phien_bot": "Grok Bot (may nha)",
+     "tep_goc": "reports/kiem_toan_he_dat.md",
+     "ghi_chu": "IS b50; chua giai ma diem vao; luc chay xac minh 03/11 tu so_cai nhanh fix/r1 (od_v2r2p_b50_skea3279057100, net 3730.95, DD 14.81%)"},
     {"he": "mql5344 (dai han x1)", "symbol": "NZDUSD", "timeframe": "H1", "nguon": "mt5_tester",
      "real_tick_pct": 31, "cagr_pct": 3.5, "dd_pct": 5.3, "luc_chay": "", "phien_bot": "Grok Bot",
      "tep_goc": "reports/kiem_toan_he_dat.md", "trang_thai": "CHUA_DO", "ghi_chu": "luc chay CHUA RO"},
@@ -296,9 +296,9 @@ TAI_LIEU_TINH = [
      "cagr_pct": 8.5, "dd_pct": 23.4, "luc_chay": "", "phien_bot": "Grok Bot",
      "tep_goc": "reports/kiem_toan_he_dat.md", "trang_thai": "CHUA_DO", "ghi_chu": "luc chay CHUA RO"},
     {"he": "ghep_0bf2 (verify lot01)", "symbol": "GBPCAD", "timeframe": "H4", "nguon": "mt5_tester",
-     "cagr_pct": 10.3, "dd_pct": 14.9, "luc_chay": "", "phien_bot": "Grok Bot",
-     "tep_goc": "reports/kiem_toan_he_dat.md", "trang_thai": "CHUA_DO",
-     "ghi_chu": "IS vs CSV; luc chay CHUA RO"},
+     "cagr_pct": 10.3, "dd_pct": 14.9, "luc_chay": "2026-10-31T02:05:23", "phien_bot": "Grok Bot (may nha)",
+     "tep_goc": "reports/kiem_toan_he_dat.md",
+     "ghi_chu": "IS vs CSV; luc chay xac minh 03/11 tu so_cai nhanh fix/r1 (od_v2verify_lot01_full_ghep0bf2, net 3079.62, DD 14.89%)"},
 ]
 
 

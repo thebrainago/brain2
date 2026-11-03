@@ -14,6 +14,10 @@
 - EA nháp: `ea_demo/BRAIN_DN_LuoiHedgeTP.mq5` (UV1 từ 2330430) và `ea_demo/BRAIN_DN_RoDCAHedge.mq5` (UV2 từ 2262642), CHƯA chạy Strategy Tester. MÔ PHỎNG Python AUDCAD H1 2008–2026 (không swap): UV1 lô 0,001/1000 USD CAGR 13,8% DD 60,0% (ĐẠT mô phỏng); UV2 không đạt. Việc dở: chạy MT5 real tick + swap XM cho 2 EA.
 - Vòng 2 (03/11 ~08:30): thêm swap (XM/FXCE đo, 3 kịch bản) + margin 1:500 stop-out 20% vào `backtest_luoi.py`; dữ liệu HistData 2008–2023 tải thêm ở `/workspace/du_lieu_fx/hd_dai/`. Có swap: UV1 AUDCAD hết đạt (7,3%/65,9%). Đạt duy nhất với swap đo: **UV2 NZDCAD 2008–2023** lô 0,001/1000 USD CAGR 17,8% DD 33,8% (swap FXCE, không có 2024–2026, nghi chọn may mắn) → cần MT5 real tick. 5 EA vàng Telegram + CLMCA C_V1 trên XAUUSD 2009–2026: **0 đạt**. Báo cáo `reports/DICH_NGUOC_VONG2_SWAP_VANG.md`. Sổ: các dòng ĐẠT ở kịch bản `swap_0_lac_quan` chỉ là tham khảo, không tính.
 
+## Đối chiếu phiên kia (03/11 ~09:30 UTC+7, `reports/DOI_CHIEU_PHIEN_KIA.md`)
+- Đã gộp `evo/perf-quickwins`. Đã port vào main vá lot CSV (`mt5tools/sinh_viec.py`, `chay_lien_tuc.py`) và bảng pip theo mã (`nhan/dich_nguoc/phan_tich.py`). Không gộp `evo/sua-hash-va-hang-cho` (15 test hỏng do nhánh), không gộp nguyên `fix/r1` (sẽ đè `so_cai.jsonl`).
+- Sổ: sửa lỗi đọc DD có dấu cách nghìn → 18 dòng MT5 lật sang ĐẠT (skst299b EURUSD, ghep_0bf2 GBPCAD, 3279 EURGBP, ghepe9b41 GBPNZD — đều IS/cửa sổ CSV). skea61c và brainxlmrz → `UNG_VIEN` theo kiểm toán. Nhập 384 dòng sổ cái 386 lần từ nhánh `fix/r1`.
+
 ## Lỗi lot CSV ~100× — đã vá 31/10/2026 01:53 (UTC+7)
 - Khi EA chạy `VAO_CSV`, lot trong CSV bị phình ~100× → lãi/DD sai hoàn toàn.
 - Hệ quả: **78 hệ “ĐẠT” trong `reports/CHIEN_LUOC_DA_LOC.md` BỊ THAY THẾ**, chờ chạy lại. Mọi kết quả trước mốc này trong sổ có trạng thái `BI_THAY_THE`.

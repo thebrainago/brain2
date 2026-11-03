@@ -54,6 +54,8 @@ def cot_loi(r: dict) -> dict | None:
     """Lai %/nam (tren von), sut giam % (tu bao cao MT5), lai %/nam khi tang lot toi sut giam 80 %, dat hay khong."""
     import re
     m = re.search(r"\(([\d.]+)%\)", str(r.get("dd") or ""))
+    if r.get("lot_csv_nghi_ngo"):
+        return None  # truoc va lot CSV: bo qua khi hoc (port 47430f3d)
     if m is None or r.get("net") is None or r.get("pha") not in ("IS", "OOS"):
         return None
     lai, dd = r["net"] / VON / _nam(r["pha"]) * 100.0, float(m.group(1))
@@ -321,6 +323,54 @@ def thu_muc_common(common: Path | None = None) -> Path:
     return Path(os.environ.get("APPDATA", ".")) / "MetaQuotes" / "Terminal" / "Common" / "Files"
 
 
+# 03/11/2026: port tu vong2/kiem-sau 47430f3d (va lot CSV ~100x tren ma #/GOLD)
+def scale_lot_for_hash_demo(v: dict, scale: float = 0.01) -> dict:
+    """micro lot notionals on # / GOLD.i# need ~100x less size vs deposit. Idempotent via flag."""
+    if v.get("lot_scaled_for_hash"):
+        return v
+    ma = str(v.get("ma") or "")
+    need = ma.endswith("#") or "GOLD" in ma.upper() or v.get("demo_hash_remap") or v.get("ma_goc")
+    if not need:
+        return v
+    ts = dict(v.get("ts") or {})
+    lot0 = float(ts.get("InpLot0") or 0)
+    if lot0 > 0.5:  # still micro-sized numeric
+        ts["InpLot0"] = round(lot0 * scale, 4)
+        v["ts"] = ts
+        py = dict(v.get("python") or {})
+        if "lot0" in py:
+            py["lot0"] = round(float(py["lot0"]) * scale, 4)
+            v["python"] = py
+        pql = dict(v.get("python_ql") or {})
+        if "lot_tren_1000" in pql:
+            pql["lot_tren_1000"] = round(float(pql["lot_tren_1000"]) * scale, 4)
+            v["python_ql"] = pql
+    try:
+        von = float(v.get("von") or 0)
+    except Exception:
+        von = 0
+    if von < 10000:
+        v["von"] = 10000
+    v["lot_scaled_for_hash"] = True
+    return v
+
+
+def remap_ma_hash_demo(sym: str) -> str:
+    """Demo XM 345930355 chi co # (khong *micro). Map CSV ma -> symbol tester."""
+    s = (sym or "").strip()
+    if not s:
+        return s
+    u = s.upper()
+    if u in ("XAUUSD", "XAUUSDMICRO", "GOLDMICRO", "GOLD", "XAUUSD#", "GOLD#"):
+        return "GOLD.i#"
+    if u.endswith("MICRO"):
+        return s[:-5] + "#"
+    # cent suffix e.g. GBPCADc / EURUSDc -> GBPCAD# (demo hash)
+    if len(s) >= 2 and s[-1] in ("c", "C") and s[-2].isalpha() and not u.endswith("#"):
+        return s[:-1] + "#"
+    return s
+
+
 def dat_csv_vao(v: dict, goc: Path, common: Path | None = None) -> Path | None:
     """19/10/2026: viec VAO_CSV -> chep CSV lenh vao (trong repo) vao Common\\Files, xoa file ra cu cua lan truoc."""
     if not v.get("csv_vao"):
@@ -331,6 +381,44 @@ def dat_csv_vao(v: dict, goc: Path, common: Path | None = None) -> Path | None:
     nguon = Path(goc) / v["csv_vao"]
     dich = c / nguon.name
     shutil.copy2(str(nguon), str(dich))
+    # grok 30/10: remap ma column micro-># for demo hash symbols
+    try:
+        lines = dich.read_text(encoding="utf-8", errors="replace").splitlines()
+        if lines and "," in lines[0]:
+            cols = [c.strip() for c in lines[0].split(",")]
+            if "ma" in cols:
+                ima = cols.index("ma")
+                ilot = cols.index("lot") if "lot" in cols else -1
+                out = [lines[0]]
+                ch = 0
+                # scale CSV lot when tester symbol is hash/# (InpLot0 scale alone is ignored by EA)
+                job_ma = str(v.get("ma") or "")
+                force_scale = job_ma.endswith("#") or "GOLD" in job_ma.upper() or bool(v.get("demo_hash_remap"))
+                for line in lines[1:]:
+                    if not line.strip():
+                        continue
+                    parts = line.split(",")
+                    if len(parts) > ima:
+                        old_ma = parts[ima]
+                        nw = remap_ma_hash_demo(old_ma)
+                        if nw != old_ma:
+                            parts[ima] = nw
+                            ch += 1
+                        if ilot >= 0 and len(parts) > ilot and (force_scale or nw != old_ma):
+                            try:
+                                lv = float(parts[ilot])
+                                if lv > 0.5:
+                                    parts[ilot] = str(round(lv * 0.01, 4))
+                                    ch += 1
+                            except ValueError:
+                                pass
+                        out.append(",".join(parts))
+                    else:
+                        out.append(line)
+                if ch:
+                    dich.write_text("\n".join(out) + "\n", encoding="utf-8", newline="\n")
+    except Exception:
+        pass
     for duoi in ("_lenh_mt5.csv", "_gia.csv"):
         cu = c / (nguon.name + duoi)
         if cu.exists():

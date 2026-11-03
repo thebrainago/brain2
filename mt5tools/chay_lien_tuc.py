@@ -114,6 +114,10 @@ def tep_bao_cao(slot: str, v: dict, ten: str) -> Path:
 
 def phong(slot: str, v: dict, ten: str) -> subprocess.Popen:
     if v.get("nguon") == "ong_dan":     # 18/10/2026: viec tu ong dan (BRAIN_XuLiLenh, co the la toi uu)
+        try:
+            SV.scale_lot_for_hash_demo(v)   # 03/11: port 47430f3d (va lot ma #)
+        except Exception:
+            pass
         Path(slot, "MQL5", "Profiles", "Tester").mkdir(parents=True, exist_ok=True)
         Path(slot, "MQL5", "Profiles", "Tester", ten + ".set").write_text(SV.file_set_ong_dan(v), encoding="ascii")
         AT.xoa_bao_cao_cu(Path(slot), ten)

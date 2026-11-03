@@ -6,12 +6,23 @@ import numpy as np
 import pandas as pd
 
 
+# 03/11/2026: pip theo từng mã, port bảng PIP_THEO_SYMBOL từ seeker/tin-hieu-cong-khai (41052c33).
+# Trước đây dầu, UK100/FRA40/JP225/AUS200/HK50/US500/USTEC/DE40… rơi về 0.0001 và ETH = 1.0 → khoảng lưới sai.
+_PIP_CHI_SO = ("GER", "DE40", "DAX", "US30", "DJ30", "WALLSTREET", "US500", "SPX", "SP500", "US100", "NAS",
+               "USTEC", "UK100", "FTSE", "FRA40", "CAC", "JP225", "JPN225", "NI225", "AUS200", "HK50", "EU50",
+               "STOXX50", "IT40", "SPAIN35", "BTC", "XBT")
+_PIP_DAU = ("USOIL", "UKOIL", "WTI", "BRENT", "OIL", "XTI", "XBR", "CRUD")
+
+
 def pip(symbol: str) -> float:
-    s = symbol.upper()
+    s = symbol.upper().replace(".I", "").rstrip("#").replace("MICRO", "")
     if s.startswith(("XAU", "GOLD")): return 0.1
-    if s.startswith("XAG"): return 0.01
+    if s.startswith(("XAG", "SILVER")): return 0.01
+    if s.startswith(("ETH",)): return 0.1
+    if s.startswith(("NGAS", "NATGAS")): return 0.001
+    if s.startswith(_PIP_DAU): return 0.01
+    if s.startswith(_PIP_CHI_SO): return 1.0
     if "JPY" in s: return 0.01
-    if any(s.startswith(x) for x in ("US30", "NAS", "SPX", "GER", "BTC", "ETH")): return 1.0
     return 0.0001
 
 
