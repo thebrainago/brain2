@@ -75,15 +75,41 @@ def du_ram_nhan_viec(nguong: float | None = None, do=None) -> tuple[bool, float 
     return (g is None or g > n), g
 
 
+def _tep_moc_nhan() -> Path:
+    import tempfile
+    return Path(os.environ.get("BRAIN_TEP_MOC_NHAN") or Path(tempfile.gettempdir()) / "brain_tho_moc_nhan.txt")
+
+
+def con_gian_cach(bay_gio: float | None = None) -> float:
+    """Số giây còn phải chờ kể từ lần một thợ (bất kỳ, cùng máy) nhận việc gần nhất.
+    metatester nạp tick dần tới ~5 GB nên đo RAM ngay sau khi thợ khác vừa phóng sẽ sai.
+    env BRAIN_RAM_GIAN_CACH (giây, mặc định 180)."""
+    gc = float(os.environ.get("BRAIN_RAM_GIAN_CACH", "180") or 0)
+    try:
+        t = float(_tep_moc_nhan().read_text().strip() or 0)
+    except (OSError, ValueError):
+        return 0.0
+    return max(0.0, t + gc - (bay_gio or time.time()))
+
+
+def ghi_moc_nhan() -> None:
+    try:
+        _tep_moc_nhan().write_text("%.0f" % time.time())
+    except OSError:
+        pass
+
+
 def cho_du_ram(log_fn=None, ngu=time.sleep, do=None, buoc: int = 60, toi_da: int | None = None) -> bool:
-    """Chờ tới khi RAM trống > ngưỡng. False nếu quá `toi_da` giây (None = chờ mãi)."""
+    """Chờ tới khi RAM trống > ngưỡng và đã qua giãn cách sau lần nhận việc gần nhất của mọi thợ trên máy.
+    False nếu quá `toi_da` giây (None = chờ mãi). Đủ -> ghi mốc nhận để thợ khác giãn cách."""
     t = 0
     while True:
         ok, g = du_ram_nhan_viec(do=do)
-        if ok:
+        if ok and con_gian_cach() <= 0:
+            ghi_moc_nhan()
             return True
         if log_fn and t % 600 == 0:
-            log_fn("RAM trống %.2f GB <= ngưỡng %.1f GB -> chưa nhận việc mới" % (g, nguong_ram_gb()))
+            log_fn("RAM trống %s GB (ngưỡng %.1f GB), giãn cách còn %.0f s -> chưa nhận việc mới" % ("?" if g is None else "%.2f" % g, nguong_ram_gb(), con_gian_cach()))
         if toi_da is not None and t >= toi_da:
             return False
         ngu(buoc); t += buoc

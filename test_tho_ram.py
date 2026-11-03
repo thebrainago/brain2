@@ -13,8 +13,9 @@ def test_chan_khi_ram_thap(monkeypatch):
     assert T.du_ram_nhan_viec(do=lambda: None)[0] is True
 
 
-def test_cho_du_ram_doi_roi_nhan(monkeypatch):
+def test_cho_du_ram_doi_roi_nhan(monkeypatch, tmp_path):
     monkeypatch.setenv("BRAIN_RAM_TRONG_MIN_GB", "8")
+    monkeypatch.setenv("BRAIN_TEP_MOC_NHAN", str(tmp_path / "moc.txt"))
     gt = iter([2.0, 7.9, 8.5]); ngu = []
     assert T.cho_du_ram(ngu=ngu.append, do=lambda: next(gt), buoc=60)
     assert ngu == [60, 60]
@@ -47,3 +48,13 @@ def test_don_cache(tmp_path):
     os.utime(cu, (time.time() - 5 * 86400,) * 2)
     assert T.don_cache_tester(tmp_path, 2) == 1
     assert not cu.exists() and moi.exists()
+
+
+def test_gian_cach_giua_cac_tho(monkeypatch, tmp_path):
+    monkeypatch.setenv("BRAIN_TEP_MOC_NHAN", str(tmp_path / "moc.txt"))
+    monkeypatch.setenv("BRAIN_RAM_GIAN_CACH", "180")
+    assert T.con_gian_cach() == 0
+    assert T.cho_du_ram(ngu=lambda s: None, do=lambda: 20.0)
+    assert T.con_gian_cach() > 170          # tho khac phai doi
+    assert not T.cho_du_ram(ngu=lambda s: None, do=lambda: 20.0, toi_da=60)
+    assert T.con_gian_cach(time.time() + 200) == 0
