@@ -11,5 +11,10 @@
  "uoc_phut": 2,
  "lan": "co_ma_nguon",
  "may": "desktop-05pnlgf_g10",
- "nhan_luc": "2026-11-03T14:18:34+07:00"
+ "nhan_luc": "2026-11-03T14:18:34+07:00",
+ "trang_thai": "CHO_ANH",
+ "xong_luc": "2026-11-03T14:18:39+07:00",
+ "ket_qua": {
+  "tom_tat": "CHƯA ĐO ĐƯỢC: chưa có .ex5 demo — Anh mở https://www.mql5.com/en/market/product/96759 trong terminal (tab Market) bấm Free Demo"
+ }
 }
