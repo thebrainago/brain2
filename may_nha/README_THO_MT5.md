@@ -1,5 +1,7 @@
 # Thợ MT5 máy nhà — hàng đợi git (03/11/2026)
 
+> **Đọc trước:** [`VAN_HANH_MAY_NHA.md`](VAN_HANH_MAY_NHA.md) (giới hạn máy, cách chạy) · nhật ký [`../nhat_ky/van_hanh_may_nha.md`](../nhat_ky/van_hanh_may_nha.md).
+
 Máy nhà (Windows, MT5, XM) bật 8–12 giờ/ngày sẽ tự lấy việc từ `hang_doi/can_test/`, chạy MT5 Strategy Tester
 (tick thật, tài khoản XM), ghi kết quả vào `hang_doi/da_test/` rồi push. Box (Grok Bot) gieo việc mới.
 

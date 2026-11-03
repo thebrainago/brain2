@@ -1,5 +1,7 @@
 # ĐỌC TRƯỚC — cửa vào duy nhất cho mọi phiên mới
 
+> **Máy nhà:** đọc [`may_nha/VAN_HANH_MAY_NHA.md`](../may_nha/VAN_HANH_MAY_NHA.md) (giới hạn, cách chạy) và nhật ký [`nhat_ky/van_hanh_may_nha.md`](../nhat_ky/van_hanh_may_nha.md).
+
 > Mọi phiên chat mới (Grok Bot, Claude, bot khác) đọc file này **đầu tiên**, rồi `TRANG_THAI.md`, rồi 20 dòng cuối `NHAT_KY_PHIEN.md` và `QUYET_DINH.md`. Không cần Anh dạy lại. Tài liệu cũ ở gốc repo (START_HERE.md, BAN_GIAO_*.md, CLAUDE.md…) chỉ là lịch sử; nếu mâu thuẫn với thư mục `TRI_NHO/` thì **`TRI_NHO/` thắng**.
 
 ## 1. Mục tiêu dự án
