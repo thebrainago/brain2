@@ -1,7 +1,7 @@
 # Đặc điểm hệ `cb`
 
-- Nguồn: https://www.mql5.com/en/code/61319
-- Kiểu vào / quản lý lệnh: tham số: LotSize
+- Nguồn: https://www.mql5.com/en/code/70916
+- Kiểu vào / quản lý lệnh: tham số: maxLotSize
 - Trạng thái: **TRƯỢT — CHƯA ĐO ĐƯỢC**
 - Số lần chạy hợp lệ: 0 (bị thay thế do lỗi lot CSV: 0)
 - Tỉ lệ thắng: CHƯA ĐO ĐƯỢC %
