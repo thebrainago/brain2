@@ -1,7 +1,7 @@
 # Đặc điểm hệ `cb`
 
-- Nguồn: https://www.mql5.com/en/code/48139
-- Kiểu vào / quản lý lệnh: tham số: Lots
+- Nguồn: https://www.mql5.com/en/code/68537
+- Kiểu vào / quản lý lệnh: tham số: InpLotSize
 - Trạng thái: **TRƯỢT — lãi dương nhưng không đủ 10 %/năm trước khi DD chạm 80 % (lợi thế mỏng so với rủi ro)**
 - Số lần chạy hợp lệ: 35 (bị thay thế do lỗi lot CSV: 0)
 - Tỉ lệ thắng: 47,7 %
