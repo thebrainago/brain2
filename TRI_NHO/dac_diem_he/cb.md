@@ -1,11 +1,11 @@
 # Đặc điểm hệ `cb`
 
-- Nguồn: https://www.mql5.com/en/code/68537
-- Kiểu vào / quản lý lệnh: tham số: InpLotSize
+- Nguồn: https://www.mql5.com/en/code/62684
+- Kiểu vào / quản lý lệnh: tham số: Initial_Lot
 - Trạng thái: **TRƯỢT — lãi dương nhưng không đủ 10 %/năm trước khi DD chạm 80 % (lợi thế mỏng so với rủi ro)**
-- Số lần chạy hợp lệ: 35 (bị thay thế do lỗi lot CSV: 0)
-- Tỉ lệ thắng: 47,7 %
-- Năm có lãi: 2016 (-62), 2017 (+1361), 2018 (-645), 2019 (-778), 2020 (+139), 2021 (-1125), 2022 (-660), 2023 (-406), 2024 (-1337), 2025 (+859), 2026 (-504)
+- Số lần chạy hợp lệ: 38 (bị thay thế do lỗi lot CSV: 0)
+- Tỉ lệ thắng: 44,0 %
+- Năm có lãi: 2016 (-93), 2017 (+183), 2018 (-339), 2019 (-92), 2020 (+15), 2021 (-10), 2022 (+12), 2023 (+48), 2024 (-33), 2025 (-407), 2026 (+18)
 - Thời gian giữ lệnh TB: CHƯA ĐO ĐƯỢC
 
 ## Mảnh tốt dùng lại được
@@ -33,11 +33,14 @@
 | cb_70052 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_p5 | 2.0 | -0,18 | 2,19 | 0,77 | 512.0 |
 | cb_71189 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_g2 | 4.0 | -0,36 | 4,38 | 0,77 | 512.0 |
 | cb_70052 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_p5 | 4.0 | -0,36 | 4,38 | 0,77 | 512.0 |
+| cb_62684 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_g11 | 1.0 | -0,67 | 8,56 | 0,89 | 1235.0 |
 | cb_74135 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_g2 | 1.0 | -0,78 | 24,27 | 0,97 | 1518.0 |
 | cb_63698 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_g10 | 1.0 | -0,89 | 11,15 | 0,92 | 780.0 |
+| cb_62684 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_g11 | 2.0 | -1,39 | 16,95 | 0,89 | 1235.0 |
 | cb_74135 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_g2 | 2.0 | -1,62 | 41,62 | 0,97 | 1518.0 |
 | cb_63698 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_g10 | 2.0 | -1,87 | 21,94 | 0,92 | 780.0 |
 | cb_58268 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_p5 | 1.0 | -2,41 | 24,84 | 0,74 | 315.0 |
+| cb_62684 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_g11 | 4.0 | -2,88 | 32,26 | 0,89 | 1231.0 |
 | cb_48139 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_g2 | 1.0 | -3,47 | 45,77 | 0,94 | 2780.0 |
 | cb_74135 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_g2 | 4.0 | -3,56 | 64,77 | 0,97 | 1518.0 |
 | cb_63698 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_g10 | 4.0 | -4,17 | 42,53 | 0,92 | 780.0 |
