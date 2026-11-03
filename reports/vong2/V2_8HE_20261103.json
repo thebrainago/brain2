@@ -1,0 +1,1200 @@
+{
+ "he": {
+  "hd_lot_2600ea39abbd7b0f_H1_k1p0": {
+   "ten": "hd_lot_2600ea39abbd7b0f_H1_k1p0",
+   "so_lenh": 132,
+   "so_lenh_het_ky": 2,
+   "so_nam": 2.76,
+   "tu": "2023-12-27",
+   "den": "2026-09-30",
+   "lai_kep_pct_nam": 38.32,
+   "lai_kep_stress_pct_nam": 36.36,
+   "phi_stress_usd": 94.83,
+   "lai_rong_tai_dung": 1456.01,
+   "lech_net_khop_cuoi_ky": -7.8,
+   "dd_dong_pct": 4.14,
+   "dd_equity_dong_nen_pct": 24.39,
+   "dd_equity_pct": 25.35,
+   "dd_equity_stress_pct": 25.35,
+   "walk_forward": [
+    {
+     "tu": "2023-12-27",
+     "den": "2024-11-27",
+     "lai_kep_pct_nam": 49.36,
+     "dd_equity_pct": 25.35
+    },
+    {
+     "tu": "2024-11-27",
+     "den": "2025-10-29",
+     "lai_kep_pct_nam": 44.18,
+     "dd_equity_pct": 18.36
+    },
+    {
+     "tu": "2025-10-29",
+     "den": "2026-09-30",
+     "lai_kep_pct_nam": 22.96,
+     "dd_equity_pct": 15.04
+    }
+   ],
+   "monte_carlo": {
+    "dd_dong_xao_p50": 4.97,
+    "dd_dong_xao_p95": 8.84,
+    "von_cuoi_bootstrap_p5": 2154.11,
+    "ti_le_chay_bootstrap": 0.0,
+    "nhan": "MÔ PHỎNG (xáo 1000 lần, trên lệnh đã đóng)",
+    "equity": {
+     "dd_equity_p50": 29.3,
+     "dd_equity_p95": 45.56,
+     "he_so_von_cuoi_p5": 1.136,
+     "ti_le_chay": 0.0,
+     "nhan": "MÔ PHỎNG (block bootstrap 10 ngày, 1000 lần, equity tái dựng)"
+    }
+   },
+   "nhan": "ĐO THẬT (lệnh MT5 real tick); equity TÁI DỰNG theo giá H1 của chính lần chạy; stress/MC = MÔ PHỎNG",
+   "k": 1.0,
+   "he": "lot_2600ea39abbd7b0f_H1",
+   "cagr_bao_cao": 38.28,
+   "dd_bao_cao": 15.8,
+   "tang": {
+    "tang": "C",
+    "thieu_A": [
+     "Python/MT5 None ngoài 0.8–1.25",
+     "đa cặp None < 50%",
+     "OOS Python None < 10%",
+     "cao nguyên None < 0.6"
+    ],
+    "thieu_B": [
+     "Python/MT5 None ngoài 0.7–1.4",
+     "đa cặp None < 30%",
+     "OOS Python None < 0%",
+     "cao nguyên None < 0.4"
+    ]
+   }
+  },
+  "hd_lot_2600ea39abbd7b0f_H1_k3p0": {
+   "ten": "hd_lot_2600ea39abbd7b0f_H1_k3p0",
+   "so_lenh": 132,
+   "so_lenh_het_ky": 2,
+   "so_nam": 2.76,
+   "tu": "2023-12-27",
+   "den": "2026-09-30",
+   "lai_kep_pct_nam": 83.55,
+   "lai_kep_stress_pct_nam": 79.95,
+   "phi_stress_usd": 284.47,
+   "lai_rong_tai_dung": 4368.07,
+   "lech_net_khop_cuoi_ky": -23.47,
+   "dd_dong_pct": 5.61,
+   "dd_equity_dong_nen_pct": 72.08,
+   "dd_equity_pct": 75.64,
+   "dd_equity_stress_pct": 75.64,
+   "walk_forward": [
+    {
+     "tu": "2023-12-27",
+     "den": "2024-11-27",
+     "lai_kep_pct_nam": 151.87,
+     "dd_equity_pct": 75.64
+    },
+    {
+     "tu": "2024-11-27",
+     "den": "2025-10-29",
+     "lai_kep_pct_nam": 83.09,
+     "dd_equity_pct": 33.39
+    },
+    {
+     "tu": "2025-10-29",
+     "den": "2026-09-30",
+     "lai_kep_pct_nam": 34.37,
+     "dd_equity_pct": 21.57
+    }
+   ],
+   "monte_carlo": {
+    "dd_dong_xao_p50": 10.31,
+    "dd_dong_xao_p95": 21.7,
+    "von_cuoi_bootstrap_p5": 4462.28,
+    "ti_le_chay_bootstrap": 0.0,
+    "nhan": "MÔ PHỎNG (xáo 1000 lần, trên lệnh đã đóng)",
+    "equity": {
+     "dd_equity_p50": 73.74,
+     "dd_equity_p95": 89.1,
+     "he_so_von_cuoi_p5": 0.732,
+     "ti_le_chay": 0.0,
+     "nhan": "MÔ PHỎNG (block bootstrap 10 ngày, 1000 lần, equity tái dựng)"
+    }
+   },
+   "nhan": "ĐO THẬT (lệnh MT5 real tick); equity TÁI DỰNG theo giá H1 của chính lần chạy; stress/MC = MÔ PHỎNG",
+   "k": 3.0,
+   "he": "lot_2600ea39abbd7b0f_H1",
+   "cagr_bao_cao": 83.442,
+   "dd_bao_cao": 22.64,
+   "tang": {
+    "tang": "C",
+    "thieu_A": [
+     "DD equity stress 75.6 > 60%",
+     "MC DD p95 89.1 > 80%",
+     "Python/MT5 None ngoài 0.8–1.25",
+     "đa cặp None < 50%",
+     "OOS Python None < 10%",
+     "cao nguyên None < 0.6"
+    ],
+    "thieu_B": [
+     "Python/MT5 None ngoài 0.7–1.4",
+     "đa cặp None < 30%",
+     "OOS Python None < 0%",
+     "cao nguyên None < 0.4"
+    ]
+   }
+  },
+  "hd_lot_b0be91a35f43f34a_H4_k1p0": {
+   "ten": "hd_lot_b0be91a35f43f34a_H4_k1p0",
+   "so_lenh": 46,
+   "so_lenh_het_ky": 0,
+   "so_nam": 2.71,
+   "tu": "2024-01-15",
+   "den": "2026-09-30",
+   "lai_kep_pct_nam": 38.9,
+   "lai_kep_stress_pct_nam": 35.04,
+   "phi_stress_usd": 178.83,
+   "lai_rong_tai_dung": 1434.5,
+   "lech_net_khop_cuoi_ky": 0.0,
+   "dd_dong_pct": 0.0,
+   "dd_equity_dong_nen_pct": 56.69,
+   "dd_equity_pct": 58.28,
+   "dd_equity_stress_pct": 62.09,
+   "walk_forward": [
+    {
+     "tu": "2024-01-15",
+     "den": "2024-12-09",
+     "lai_kep_pct_nam": 77.12,
+     "dd_equity_pct": 50.66
+    },
+    {
+     "tu": "2024-12-10",
+     "den": "2025-11-04",
+     "lai_kep_pct_nam": 25.04,
+     "dd_equity_pct": 58.28
+    },
+    {
+     "tu": "2025-11-05",
+     "den": "2026-09-30",
+     "lai_kep_pct_nam": 19.63,
+     "dd_equity_pct": 55.74
+    }
+   ],
+   "monte_carlo": {
+    "dd_dong_xao_p50": 0.0,
+    "dd_dong_xao_p95": 0.0,
+    "von_cuoi_bootstrap_p5": 2393.36,
+    "ti_le_chay_bootstrap": 0.0,
+    "nhan": "MÔ PHỎNG (xáo 1000 lần, trên lệnh đã đóng)",
+    "equity": {
+     "dd_equity_p50": 70.51,
+     "dd_equity_p95": 89.95,
+     "he_so_von_cuoi_p5": 0.239,
+     "ti_le_chay": 0.0,
+     "nhan": "MÔ PHỎNG (block bootstrap 10 ngày, 1000 lần, equity tái dựng)"
+    }
+   },
+   "nhan": "ĐO THẬT (lệnh MT5 real tick); equity TÁI DỰNG theo giá H1 của chính lần chạy; stress/MC = MÔ PHỎNG",
+   "k": 1.0,
+   "he": "lot_b0be91a35f43f34a_H4",
+   "cagr_bao_cao": 38.855,
+   "dd_bao_cao": 58.24,
+   "tang": {
+    "tang": "C",
+    "thieu_A": [
+     "DD equity stress 62.1 > 60%",
+     "MC DD p95 89.95 > 80%",
+     "lệnh 46 < 100",
+     "Python/MT5 None ngoài 0.8–1.25",
+     "đa cặp None < 50%",
+     "OOS Python None < 10%",
+     "cao nguyên None < 0.6"
+    ],
+    "thieu_B": [
+     "Python/MT5 None ngoài 0.7–1.4",
+     "đa cặp None < 30%",
+     "OOS Python None < 0%",
+     "cao nguyên None < 0.4"
+    ]
+   }
+  },
+  "hd_lot_b0be91a35f43f34a_H4_k2p0": {
+   "ten": "hd_lot_b0be91a35f43f34a_H4_k2p0",
+   "so_lenh": 46,
+   "so_lenh_het_ky": 0,
+   "so_nam": 2.71,
+   "tu": "2024-01-15",
+   "den": "2026-09-30",
+   "lai_kep_pct_nam": 64.82,
+   "lai_kep_stress_pct_nam": 59.02,
+   "phi_stress_usd": 357.66,
+   "lai_rong_tai_dung": 2869.02,
+   "lech_net_khop_cuoi_ky": -0.0,
+   "dd_dong_pct": 0.0,
+   "dd_equity_dong_nen_pct": 75.09,
+   "dd_equity_pct": 77.2,
+   "dd_equity_stress_pct": 84.03,
+   "walk_forward": [
+    {
+     "tu": "2024-01-15",
+     "den": "2024-12-09",
+     "lai_kep_pct_nam": 157.84,
+     "dd_equity_pct": 74.73
+    },
+    {
+     "tu": "2024-12-10",
+     "den": "2025-11-04",
+     "lai_kep_pct_nam": 35.87,
+     "dd_equity_pct": 77.2
+    },
+    {
+     "tu": "2025-11-05",
+     "den": "2026-09-30",
+     "lai_kep_pct_nam": 25.94,
+     "dd_equity_pct": 72.49
+    }
+   ],
+   "monte_carlo": {
+    "dd_dong_xao_p50": 0.0,
+    "dd_dong_xao_p95": 0.0,
+    "von_cuoi_bootstrap_p5": 3786.79,
+    "ti_le_chay_bootstrap": 0.0,
+    "nhan": "MÔ PHỎNG (xáo 1000 lần, trên lệnh đã đóng)",
+    "equity": {
+     "dd_equity_p50": 89.1,
+     "dd_equity_p95": 98.26,
+     "he_so_von_cuoi_p5": 0.084,
+     "ti_le_chay": 0.0,
+     "nhan": "MÔ PHỎNG (block bootstrap 10 ngày, 1000 lần, equity tái dựng)"
+    }
+   },
+   "nhan": "ĐO THẬT (lệnh MT5 real tick); equity TÁI DỰNG theo giá H1 của chính lần chạy; stress/MC = MÔ PHỎNG",
+   "k": 2.0,
+   "he": "lot_b0be91a35f43f34a_H4",
+   "cagr_bao_cao": 64.736,
+   "dd_bao_cao": 75.65,
+   "tang": {
+    "tang": "C",
+    "thieu_A": [
+     "DD equity stress 84.0 > 60%",
+     "MC DD p95 98.26 > 80%",
+     "lệnh 46 < 100",
+     "Python/MT5 None ngoài 0.8–1.25",
+     "đa cặp None < 50%",
+     "OOS Python None < 10%",
+     "cao nguyên None < 0.6"
+    ],
+    "thieu_B": [
+     "DD equity stress 84.0 > 80%",
+     "MC DD p95 98.26 > 95%",
+     "Python/MT5 None ngoài 0.7–1.4",
+     "đa cặp None < 30%",
+     "OOS Python None < 0%",
+     "cao nguyên None < 0.4"
+    ]
+   }
+  },
+  "hd_lot_ghep0bf2c31fbfc9dea0_H4_k1p0": {
+   "ten": "hd_lot_ghep0bf2c31fbfc9dea0_H4_k1p0",
+   "so_lenh": 86,
+   "so_lenh_het_ky": 1,
+   "so_nam": 2.76,
+   "tu": "2023-12-26",
+   "den": "2026-09-30",
+   "lai_kep_pct_nam": 65.16,
+   "lai_kep_stress_pct_nam": 57.65,
+   "phi_stress_usd": 482.56,
+   "lai_rong_tai_dung": 2983.96,
+   "lech_net_khop_cuoi_ky": 15.16,
+   "dd_dong_pct": 8.15,
+   "dd_equity_dong_nen_pct": 48.51,
+   "dd_equity_pct": 49.96,
+   "dd_equity_stress_pct": 53.56,
+   "walk_forward": [
+    {
+     "tu": "2023-12-26",
+     "den": "2024-11-26",
+     "lai_kep_pct_nam": 139.94,
+     "dd_equity_pct": 49.96
+    },
+    {
+     "tu": "2024-11-26",
+     "den": "2025-10-29",
+     "lai_kep_pct_nam": 47.24,
+     "dd_equity_pct": 46.03
+    },
+    {
+     "tu": "2025-10-29",
+     "den": "2026-09-30",
+     "lai_kep_pct_nam": 28.71,
+     "dd_equity_pct": 40.52
+    }
+   ],
+   "monte_carlo": {
+    "dd_dong_xao_p50": 0.0,
+    "dd_dong_xao_p95": 0.0,
+    "von_cuoi_bootstrap_p5": 4277.98,
+    "ti_le_chay_bootstrap": 0.0,
+    "nhan": "MÔ PHỎNG (xáo 1000 lần, trên lệnh đã đóng)",
+    "equity": {
+     "dd_equity_p50": 69.7,
+     "dd_equity_p95": 89.04,
+     "he_so_von_cuoi_p5": 0.469,
+     "ti_le_chay": 0.0,
+     "nhan": "MÔ PHỎNG (block bootstrap 10 ngày, 1000 lần, equity tái dựng)"
+    }
+   },
+   "nhan": "ĐO THẬT (lệnh MT5 real tick); equity TÁI DỰNG theo giá H1 của chính lần chạy; stress/MC = MÔ PHỎNG",
+   "k": 1.0,
+   "he": "lot_ghep0bf2c31fbfc9dea0_H4",
+   "cagr_bao_cao": 65.079,
+   "dd_bao_cao": 47.16,
+   "tang": {
+    "tang": "C",
+    "thieu_A": [
+     "MC DD p95 89.04 > 80%",
+     "lệnh 86 < 100",
+     "Python/MT5 None ngoài 0.8–1.25",
+     "đa cặp None < 50%",
+     "OOS Python None < 10%",
+     "cao nguyên None < 0.6"
+    ],
+    "thieu_B": [
+     "Python/MT5 None ngoài 0.7–1.4",
+     "đa cặp None < 30%",
+     "OOS Python None < 0%",
+     "cao nguyên None < 0.4"
+    ]
+   }
+  },
+  "hd_lot_ghep0bf2c31fbfc9dea0_H4_k8p0": {
+   "ten": "hd_lot_ghep0bf2c31fbfc9dea0_H4_k8p0",
+   "so_lenh": 86,
+   "so_lenh_het_ky": 1,
+   "so_nam": 2.76,
+   "tu": "2023-12-26",
+   "den": "2026-09-30",
+   "lai_kep_pct_nam": 220.63,
+   "lai_kep_stress_pct_nam": 201.73,
+   "phi_stress_usd": 3860.5,
+   "lai_rong_tai_dung": 23872.06,
+   "lech_net_khop_cuoi_ky": 120.9,
+   "dd_dong_pct": 10.2,
+   "dd_equity_dong_nen_pct": 87.55,
+   "dd_equity_pct": 90.16,
+   "dd_equity_stress_pct": 102.63,
+   "walk_forward": [
+    {
+     "tu": "2023-12-26",
+     "den": "2024-11-26",
+     "lai_kep_pct_nam": 1241.42,
+     "dd_equity_pct": 90.16
+    },
+    {
+     "tu": "2024-11-26",
+     "den": "2025-10-29",
+     "lai_kep_pct_nam": 78.06,
+     "dd_equity_pct": 62.02
+    },
+    {
+     "tu": "2025-10-29",
+     "den": "2026-09-30",
+     "lai_kep_pct_nam": 39.8,
+     "dd_equity_pct": 52.36
+    }
+   ],
+   "monte_carlo": {
+    "dd_dong_xao_p50": 0.0,
+    "dd_dong_xao_p95": 0.0,
+    "von_cuoi_bootstrap_p5": 27223.69,
+    "ti_le_chay_bootstrap": 0.0,
+    "nhan": "MÔ PHỎNG (xáo 1000 lần, trên lệnh đã đóng)",
+    "equity": {
+     "dd_equity_p50": 100.0,
+     "dd_equity_p95": 100.0,
+     "he_so_von_cuoi_p5": 0.335,
+     "ti_le_chay": 0.649,
+     "nhan": "MÔ PHỎNG (block bootstrap 10 ngày, 1000 lần, equity tái dựng)"
+    }
+   },
+   "nhan": "ĐO THẬT (lệnh MT5 real tick); equity TÁI DỰNG theo giá H1 của chính lần chạy; stress/MC = MÔ PHỎNG",
+   "k": 8.0,
+   "he": "lot_ghep0bf2c31fbfc9dea0_H4",
+   "cagr_bao_cao": 220.256,
+   "dd_bao_cao": 59.61,
+   "tang": {
+    "tang": "C",
+    "thieu_A": [
+     "DD equity stress 102.6 > 60%",
+     "MC DD p95 100.0 > 80%",
+     "lệnh 86 < 100",
+     "Python/MT5 None ngoài 0.8–1.25",
+     "đa cặp None < 50%",
+     "OOS Python None < 10%",
+     "cao nguyên None < 0.6"
+    ],
+    "thieu_B": [
+     "DD equity stress 102.6 > 80%",
+     "MC DD p95 100.0 > 95%",
+     "Python/MT5 None ngoài 0.7–1.4",
+     "đa cặp None < 30%",
+     "OOS Python None < 0%",
+     "cao nguyên None < 0.4"
+    ]
+   }
+  },
+  "hd_lot_ghep60ff9350c26c63ee_H1_k10p0": {
+   "ten": "hd_lot_ghep60ff9350c26c63ee_H1_k10p0",
+   "so_lenh": 334,
+   "so_lenh_het_ky": 1,
+   "so_nam": 2.76,
+   "tu": "2023-12-26",
+   "den": "2026-09-30",
+   "lai_kep_pct_nam": 253.49,
+   "lai_kep_stress_pct_nam": 244.26,
+   "phi_stress_usd": 2306.47,
+   "lai_rong_tai_dung": 31727.64,
+   "lech_net_khop_cuoi_ky": -1.24,
+   "dd_dong_pct": 0.0,
+   "dd_equity_dong_nen_pct": 66.83,
+   "dd_equity_pct": 78.2,
+   "dd_equity_stress_pct": 81.08,
+   "walk_forward": [
+    {
+     "tu": "2023-12-26",
+     "den": "2024-11-26",
+     "lai_kep_pct_nam": 1236.3,
+     "dd_equity_pct": 78.2
+    },
+    {
+     "tu": "2024-11-26",
+     "den": "2025-10-29",
+     "lai_kep_pct_nam": 133.04,
+     "dd_equity_pct": 32.62
+    },
+    {
+     "tu": "2025-10-29",
+     "den": "2026-09-30",
+     "lai_kep_pct_nam": 53.56,
+     "dd_equity_pct": 27.21
+    }
+   ],
+   "monte_carlo": {
+    "dd_dong_xao_p50": 18.3,
+    "dd_dong_xao_p95": 45.97,
+    "von_cuoi_bootstrap_p5": 26737.1,
+    "ti_le_chay_bootstrap": 0.0,
+    "nhan": "MÔ PHỎNG (xáo 1000 lần, trên lệnh đã đóng)",
+    "equity": {
+     "dd_equity_p50": 72.16,
+     "dd_equity_p95": 86.86,
+     "he_so_von_cuoi_p5": 2.663,
+     "ti_le_chay": 0.0,
+     "nhan": "MÔ PHỎNG (block bootstrap 10 ngày, 1000 lần, equity tái dựng)"
+    }
+   },
+   "nhan": "ĐO THẬT (lệnh MT5 real tick); equity TÁI DỰNG theo giá H1 của chính lần chạy; stress/MC = MÔ PHỎNG",
+   "k": 10.0,
+   "he": "lot_ghep60ff9350c26c63ee_H1",
+   "cagr_bao_cao": 253.052,
+   "dd_bao_cao": 27.89,
+   "tang": {
+    "tang": "C",
+    "thieu_A": [
+     "DD equity stress 81.1 > 60%",
+     "MC DD p95 86.86 > 80%",
+     "Python/MT5 None ngoài 0.8–1.25",
+     "đa cặp None < 50%",
+     "OOS Python None < 10%",
+     "cao nguyên None < 0.6"
+    ],
+    "thieu_B": [
+     "DD equity stress 81.1 > 80%",
+     "Python/MT5 None ngoài 0.7–1.4",
+     "đa cặp None < 30%",
+     "OOS Python None < 0%",
+     "cao nguyên None < 0.4"
+    ]
+   }
+  },
+  "hd_lot_ghep60ff9350c26c63ee_H1_k1p0": {
+   "ten": "hd_lot_ghep60ff9350c26c63ee_H1_k1p0",
+   "so_lenh": 331,
+   "so_lenh_het_ky": 1,
+   "so_nam": 2.76,
+   "tu": "2023-12-26",
+   "den": "2026-09-30",
+   "lai_kep_pct_nam": 64.61,
+   "lai_kep_stress_pct_nam": 61.32,
+   "phi_stress_usd": 215.25,
+   "lai_rong_tai_dung": 2962.57,
+   "lech_net_khop_cuoi_ky": -0.13,
+   "dd_dong_pct": 0.0,
+   "dd_equity_dong_nen_pct": 20.58,
+   "dd_equity_pct": 21.2,
+   "dd_equity_stress_pct": 22.05,
+   "walk_forward": [
+    {
+     "tu": "2023-12-26",
+     "den": "2024-11-26",
+     "lai_kep_pct_nam": 101.12,
+     "dd_equity_pct": 21.2
+    },
+    {
+     "tu": "2024-11-26",
+     "den": "2025-10-29",
+     "lai_kep_pct_nam": 69.74,
+     "dd_equity_pct": 19.46
+    },
+    {
+     "tu": "2025-10-29",
+     "den": "2026-09-30",
+     "lai_kep_pct_nam": 36.39,
+     "dd_equity_pct": 19.69
+    }
+   ],
+   "monte_carlo": {
+    "dd_dong_xao_p50": 4.03,
+    "dd_dong_xao_p95": 7.02,
+    "von_cuoi_bootstrap_p5": 3386.38,
+    "ti_le_chay_bootstrap": 0.0,
+    "nhan": "MÔ PHỎNG (xáo 1000 lần, trên lệnh đã đóng)",
+    "equity": {
+     "dd_equity_p50": 29.06,
+     "dd_equity_p95": 43.34,
+     "he_so_von_cuoi_p5": 1.666,
+     "ti_le_chay": 0.0,
+     "nhan": "MÔ PHỎNG (block bootstrap 10 ngày, 1000 lần, equity tái dựng)"
+    }
+   },
+   "nhan": "ĐO THẬT (lệnh MT5 real tick); equity TÁI DỰNG theo giá H1 của chính lần chạy; stress/MC = MÔ PHỎNG",
+   "k": 1.0,
+   "he": "lot_ghep60ff9350c26c63ee_H1",
+   "cagr_bao_cao": 64.529,
+   "dd_bao_cao": 20.18,
+   "tang": {
+    "tang": "C",
+    "thieu_A": [
+     "Python/MT5 None ngoài 0.8–1.25",
+     "đa cặp None < 50%",
+     "OOS Python None < 10%",
+     "cao nguyên None < 0.6"
+    ],
+    "thieu_B": [
+     "Python/MT5 None ngoài 0.7–1.4",
+     "đa cặp None < 30%",
+     "OOS Python None < 0%",
+     "cao nguyên None < 0.4"
+    ]
+   }
+  },
+  "hd_lot_ghepe9b41c33d4deee54_H4_k10p0": {
+   "ten": "hd_lot_ghepe9b41c33d4deee54_H4_k10p0",
+   "so_lenh": 138,
+   "so_lenh_het_ky": 0,
+   "so_nam": 2.76,
+   "tu": "2023-12-26",
+   "den": "2026-09-30",
+   "lai_kep_pct_nam": 411.0,
+   "lai_kep_stress_pct_nam": 404.38,
+   "phi_stress_usd": 3205.43,
+   "lai_rong_tai_dung": 89573.9,
+   "lech_net_khop_cuoi_ky": 0.0,
+   "dd_dong_pct": 0.0,
+   "dd_equity_dong_nen_pct": 64.58,
+   "dd_equity_pct": 68.16,
+   "dd_equity_stress_pct": 69.72,
+   "walk_forward": [
+    {
+     "tu": "2023-12-26",
+     "den": "2024-11-26",
+     "lai_kep_pct_nam": 4178.87,
+     "dd_equity_pct": 68.16
+    },
+    {
+     "tu": "2024-11-26",
+     "den": "2025-10-29",
+     "lai_kep_pct_nam": 101.64,
+     "dd_equity_pct": 36.44
+    },
+    {
+     "tu": "2025-10-29",
+     "den": "2026-09-30",
+     "lai_kep_pct_nam": 56.94,
+     "dd_equity_pct": 25.17
+    }
+   ],
+   "monte_carlo": {
+    "dd_dong_xao_p50": 22.42,
+    "dd_dong_xao_p95": 125.28,
+    "von_cuoi_bootstrap_p5": 72822.93,
+    "ti_le_chay_bootstrap": 0.086,
+    "nhan": "MÔ PHỎNG (xáo 1000 lần, trên lệnh đã đóng)",
+    "equity": {
+     "dd_equity_p50": 72.68,
+     "dd_equity_p95": 88.8,
+     "he_so_von_cuoi_p5": 4.044,
+     "ti_le_chay": 0.0,
+     "nhan": "MÔ PHỎNG (block bootstrap 10 ngày, 1000 lần, equity tái dựng)"
+    }
+   },
+   "nhan": "ĐO THẬT (lệnh MT5 real tick); equity TÁI DỰNG theo giá H1 của chính lần chạy; stress/MC = MÔ PHỎNG",
+   "k": 10.0,
+   "he": "lot_ghepe9b41c33d4deee54_H4",
+   "cagr_bao_cao": 410.174,
+   "dd_bao_cao": 36.4,
+   "tang": {
+    "tang": "C",
+    "thieu_A": [
+     "DD equity stress 69.7 > 60%",
+     "MC DD p95 88.8 > 80%",
+     "Python/MT5 None ngoài 0.8–1.25",
+     "đa cặp None < 50%",
+     "OOS Python None < 10%",
+     "cao nguyên None < 0.6"
+    ],
+    "thieu_B": [
+     "Python/MT5 None ngoài 0.7–1.4",
+     "đa cặp None < 30%",
+     "OOS Python None < 0%",
+     "cao nguyên None < 0.4"
+    ]
+   }
+  },
+  "hd_lot_ghepe9b41c33d4deee54_H4_k1p0": {
+   "ten": "hd_lot_ghepe9b41c33d4deee54_H4_k1p0",
+   "so_lenh": 138,
+   "so_lenh_het_ky": 0,
+   "so_nam": 2.76,
+   "tu": "2023-12-26",
+   "den": "2026-09-30",
+   "lai_kep_pct_nam": 129.78,
+   "lai_kep_stress_pct_nam": 127.08,
+   "phi_stress_usd": 320.54,
+   "lai_rong_tai_dung": 8957.4,
+   "lech_net_khop_cuoi_ky": -0.0,
+   "dd_dong_pct": 0.0,
+   "dd_equity_dong_nen_pct": 39.58,
+   "dd_equity_pct": 40.64,
+   "dd_equity_stress_pct": 41.41,
+   "walk_forward": [
+    {
+     "tu": "2023-12-26",
+     "den": "2024-11-26",
+     "lai_kep_pct_nam": 359.57,
+     "dd_equity_pct": 40.64
+    },
+    {
+     "tu": "2024-11-26",
+     "den": "2025-10-29",
+     "lai_kep_pct_nam": 78.75,
+     "dd_equity_pct": 31.49
+    },
+    {
+     "tu": "2025-10-29",
+     "den": "2026-09-30",
+     "lai_kep_pct_nam": 49.38,
+     "dd_equity_pct": 22.44
+    }
+   ],
+   "monte_carlo": {
+    "dd_dong_xao_p50": 8.93,
+    "dd_dong_xao_p95": 19.87,
+    "von_cuoi_bootstrap_p5": 8182.29,
+    "ti_le_chay_bootstrap": 0.0,
+    "nhan": "MÔ PHỎNG (xáo 1000 lần, trên lệnh đã đóng)",
+    "equity": {
+     "dd_equity_p50": 47.24,
+     "dd_equity_p95": 68.55,
+     "he_so_von_cuoi_p5": 1.849,
+     "ti_le_chay": 0.0,
+     "nhan": "MÔ PHỎNG (block bootstrap 10 ngày, 1000 lần, equity tái dựng)"
+    }
+   },
+   "nhan": "ĐO THẬT (lệnh MT5 real tick); equity TÁI DỰNG theo giá H1 của chính lần chạy; stress/MC = MÔ PHỎNG",
+   "k": 1.0,
+   "he": "lot_ghepe9b41c33d4deee54_H4",
+   "cagr_bao_cao": 129.595,
+   "dd_bao_cao": 31.46,
+   "tang": {
+    "tang": "C",
+    "thieu_A": [
+     "Python/MT5 None ngoài 0.8–1.25",
+     "đa cặp None < 50%",
+     "OOS Python None < 10%",
+     "cao nguyên None < 0.6"
+    ],
+    "thieu_B": [
+     "Python/MT5 None ngoài 0.7–1.4",
+     "đa cặp None < 30%",
+     "OOS Python None < 0%",
+     "cao nguyên None < 0.4"
+    ]
+   }
+  },
+  "hd_lot_mql5344ed0d8ab12c7f0_H1_k1p0": {
+   "ten": "hd_lot_mql5344ed0d8ab12c7f0_H1_k1p0",
+   "so_lenh": 528,
+   "so_lenh_het_ky": 4,
+   "so_nam": 8.76,
+   "tu": "2017-12-26",
+   "den": "2026-09-30",
+   "lai_kep_pct_nam": 17.49,
+   "lai_kep_stress_pct_nam": 16.78,
+   "phi_stress_usd": 213.15,
+   "lai_rong_tai_dung": 3104.9,
+   "lech_net_khop_cuoi_ky": 0.0,
+   "dd_dong_pct": 10.44,
+   "dd_equity_dong_nen_pct": 52.39,
+   "dd_equity_pct": 52.59,
+   "dd_equity_stress_pct": 53.22,
+   "walk_forward": [
+    {
+     "tu": "2017-12-26",
+     "den": "2020-11-26",
+     "lai_kep_pct_nam": 28.91,
+     "dd_equity_pct": 52.59
+    },
+    {
+     "tu": "2020-11-27",
+     "den": "2023-10-29",
+     "lai_kep_pct_nam": 16.65,
+     "dd_equity_pct": 44.32
+    },
+    {
+     "tu": "2023-10-30",
+     "den": "2026-09-30",
+     "lai_kep_pct_nam": 7.87,
+     "dd_equity_pct": 27.04
+    }
+   ],
+   "monte_carlo": {
+    "dd_dong_xao_p50": 1.87,
+    "dd_dong_xao_p95": 3.25,
+    "von_cuoi_bootstrap_p5": 4172.32,
+    "ti_le_chay_bootstrap": 0.0,
+    "nhan": "MÔ PHỎNG (xáo 1000 lần, trên lệnh đã đóng)",
+    "equity": {
+     "dd_equity_p50": 53.06,
+     "dd_equity_p95": 74.2,
+     "he_so_von_cuoi_p5": 0.82,
+     "ti_le_chay": 0.0,
+     "nhan": "MÔ PHỎNG (block bootstrap 10 ngày, 1000 lần, equity tái dựng)"
+    }
+   },
+   "nhan": "ĐO THẬT (lệnh MT5 real tick); equity TÁI DỰNG theo giá H1 của chính lần chạy; stress/MC = MÔ PHỎNG",
+   "k": 1.0,
+   "he": "lot_mql5344ed0d8ab12c7f0_H1",
+   "cagr_bao_cao": 17.485,
+   "dd_bao_cao": 44.82,
+   "tang": {
+    "tang": "C",
+    "thieu_A": [
+     "Python/MT5 None ngoài 0.8–1.25",
+     "đa cặp None < 50%",
+     "OOS Python None < 10%",
+     "cao nguyên None < 0.6"
+    ],
+    "thieu_B": [
+     "Python/MT5 None ngoài 0.7–1.4",
+     "đa cặp None < 30%",
+     "OOS Python None < 0%",
+     "cao nguyên None < 0.4"
+    ]
+   }
+  },
+  "hd_lot_mql5344ed0d8ab12c7f0_H1_k2p0": {
+   "ten": "hd_lot_mql5344ed0d8ab12c7f0_H1_k2p0",
+   "so_lenh": 526,
+   "so_lenh_het_ky": 4,
+   "so_nam": 8.76,
+   "tu": "2017-12-26",
+   "den": "2026-09-30",
+   "lai_kep_pct_nam": 25.68,
+   "lai_kep_stress_pct_nam": 24.8,
+   "phi_stress_usd": 441.41,
+   "lai_rong_tai_dung": 6408.32,
+   "lech_net_khop_cuoi_ky": 0.0,
+   "dd_dong_pct": 12.03,
+   "dd_equity_dong_nen_pct": 93.86,
+   "dd_equity_pct": 94.26,
+   "dd_equity_stress_pct": 96.03,
+   "walk_forward": [
+    {
+     "tu": "2017-12-26",
+     "den": "2020-11-26",
+     "lai_kep_pct_nam": 50.46,
+     "dd_equity_pct": 94.26
+    },
+    {
+     "tu": "2020-11-27",
+     "den": "2023-10-29",
+     "lai_kep_pct_nam": 20.76,
+     "dd_equity_pct": 53.97
+    },
+    {
+     "tu": "2023-10-30",
+     "den": "2026-09-30",
+     "lai_kep_pct_nam": 9.29,
+     "dd_equity_pct": 32.99
+    }
+   ],
+   "monte_carlo": {
+    "dd_dong_xao_p50": 3.1,
+    "dd_dong_xao_p95": 5.77,
+    "von_cuoi_bootstrap_p5": 7527.6,
+    "ti_le_chay_bootstrap": 0.0,
+    "nhan": "MÔ PHỎNG (xáo 1000 lần, trên lệnh đã đóng)",
+    "equity": {
+     "dd_equity_p50": 92.0,
+     "dd_equity_p95": 97.97,
+     "he_so_von_cuoi_p5": 0.352,
+     "ti_le_chay": 0.0,
+     "nhan": "MÔ PHỎNG (block bootstrap 10 ngày, 1000 lần, equity tái dựng)"
+    }
+   },
+   "nhan": "ĐO THẬT (lệnh MT5 real tick); equity TÁI DỰNG theo giá H1 của chính lần chạy; stress/MC = MÔ PHỎNG",
+   "k": 2.0,
+   "he": "lot_mql5344ed0d8ab12c7f0_H1",
+   "cagr_bao_cao": 25.672,
+   "dd_bao_cao": 54.48,
+   "tang": {
+    "tang": "C",
+    "thieu_A": [
+     "DD equity stress 96.0 > 60%",
+     "MC DD p95 97.97 > 80%",
+     "Python/MT5 None ngoài 0.8–1.25",
+     "đa cặp None < 50%",
+     "OOS Python None < 10%",
+     "cao nguyên None < 0.6"
+    ],
+    "thieu_B": [
+     "DD equity stress 96.0 > 80%",
+     "MC DD p95 97.97 > 95%",
+     "Python/MT5 None ngoài 0.7–1.4",
+     "đa cặp None < 30%",
+     "OOS Python None < 0%",
+     "cao nguyên None < 0.4"
+    ]
+   }
+  },
+  "hd_lot_mql5e52afb999eca4bd1_H1_k10p0": {
+   "ten": "hd_lot_mql5e52afb999eca4bd1_H1_k10p0",
+   "so_lenh": 111,
+   "so_lenh_het_ky": 6,
+   "so_nam": 2.76,
+   "tu": "2023-12-28",
+   "den": "2026-09-30",
+   "lai_kep_pct_nam": 130.87,
+   "lai_kep_stress_pct_nam": 125.53,
+   "phi_stress_usd": 627.76,
+   "lai_rong_tai_dung": 9159.12,
+   "lech_net_khop_cuoi_ky": -116.91,
+   "dd_dong_pct": 13.46,
+   "dd_equity_dong_nen_pct": 64.39,
+   "dd_equity_pct": 65.75,
+   "dd_equity_stress_pct": 70.5,
+   "walk_forward": [
+    {
+     "tu": "2023-12-28",
+     "den": "2024-11-27",
+     "lai_kep_pct_nam": 175.22,
+     "dd_equity_pct": 54.81
+    },
+    {
+     "tu": "2024-11-28",
+     "den": "2025-10-29",
+     "lai_kep_pct_nam": 129.21,
+     "dd_equity_pct": 53.78
+    },
+    {
+     "tu": "2025-10-30",
+     "den": "2026-09-30",
+     "lai_kep_pct_nam": 98.4,
+     "dd_equity_pct": 29.25
+    }
+   ],
+   "monte_carlo": {
+    "dd_dong_xao_p50": 32.58,
+    "dd_dong_xao_p95": 92.91,
+    "von_cuoi_bootstrap_p5": 7160.72,
+    "ti_le_chay_bootstrap": 0.054,
+    "nhan": "MÔ PHỎNG (xáo 1000 lần, trên lệnh đã đóng)",
+    "equity": {
+     "dd_equity_p50": 68.0,
+     "dd_equity_p95": 84.11,
+     "he_so_von_cuoi_p5": 1.122,
+     "ti_le_chay": 0.0,
+     "nhan": "MÔ PHỎNG (block bootstrap 10 ngày, 1000 lần, equity tái dựng)"
+    }
+   },
+   "nhan": "ĐO THẬT (lệnh MT5 real tick); equity TÁI DỰNG theo giá H1 của chính lần chạy; stress/MC = MÔ PHỎNG",
+   "k": 10.0,
+   "he": "lot_mql5e52afb999eca4bd1_H1",
+   "cagr_bao_cao": 130.682,
+   "dd_bao_cao": 42.53,
+   "tang": {
+    "tang": "C",
+    "thieu_A": [
+     "DD equity stress 70.5 > 60%",
+     "MC DD p95 84.11 > 80%",
+     "Python/MT5 None ngoài 0.8–1.25",
+     "đa cặp None < 50%",
+     "OOS Python None < 10%",
+     "cao nguyên None < 0.6"
+    ],
+    "thieu_B": [
+     "Python/MT5 None ngoài 0.7–1.4",
+     "đa cặp None < 30%",
+     "OOS Python None < 0%",
+     "cao nguyên None < 0.4"
+    ]
+   }
+  },
+  "hd_lot_mql5e52afb999eca4bd1_H1_k1p0": {
+   "ten": "hd_lot_mql5e52afb999eca4bd1_H1_k1p0",
+   "so_lenh": 111,
+   "so_lenh_het_ky": 6,
+   "so_nam": 2.76,
+   "tu": "2023-12-28",
+   "den": "2026-09-30",
+   "lai_kep_pct_nam": 26.32,
+   "lai_kep_stress_pct_nam": 24.79,
+   "phi_stress_usd": 62.78,
+   "lai_rong_tai_dung": 915.92,
+   "lech_net_khop_cuoi_ky": -11.7,
+   "dd_dong_pct": 7.58,
+   "dd_equity_dong_nen_pct": 19.15,
+   "dd_equity_pct": 20.31,
+   "dd_equity_stress_pct": 21.19,
+   "walk_forward": [
+    {
+     "tu": "2023-12-28",
+     "den": "2024-11-27",
+     "lai_kep_pct_nam": 16.8,
+     "dd_equity_pct": 15.01
+    },
+    {
+     "tu": "2024-11-28",
+     "den": "2025-10-29",
+     "lai_kep_pct_nam": 27.46,
+     "dd_equity_pct": 17.26
+    },
+    {
+     "tu": "2025-10-30",
+     "den": "2026-09-30",
+     "lai_kep_pct_nam": 36.06,
+     "dd_equity_pct": 12.41
+    }
+   ],
+   "monte_carlo": {
+    "dd_dong_xao_p50": 8.3,
+    "dd_dong_xao_p95": 14.41,
+    "von_cuoi_bootstrap_p5": 1616.11,
+    "ti_le_chay_bootstrap": 0.0,
+    "nhan": "MÔ PHỎNG (xáo 1000 lần, trên lệnh đã đóng)",
+    "equity": {
+     "dd_equity_p50": 25.32,
+     "dd_equity_p95": 38.77,
+     "he_so_von_cuoi_p5": 1.007,
+     "ti_le_chay": 0.0,
+     "nhan": "MÔ PHỎNG (block bootstrap 10 ngày, 1000 lần, equity tái dựng)"
+    }
+   },
+   "nhan": "ĐO THẬT (lệnh MT5 real tick); equity TÁI DỰNG theo giá H1 của chính lần chạy; stress/MC = MÔ PHỎNG",
+   "k": 1.0,
+   "he": "lot_mql5e52afb999eca4bd1_H1",
+   "cagr_bao_cao": 26.286,
+   "dd_bao_cao": 19.24,
+   "tang": {
+    "tang": "C",
+    "thieu_A": [
+     "Python/MT5 None ngoài 0.8–1.25",
+     "đa cặp None < 50%",
+     "OOS Python None < 10%",
+     "cao nguyên None < 0.6"
+    ],
+    "thieu_B": [
+     "Python/MT5 None ngoài 0.7–1.4",
+     "đa cặp None < 30%",
+     "OOS Python None < 0%",
+     "cao nguyên None < 0.4"
+    ]
+   }
+  },
+  "hd_lot_skea154c9fdee7_H4_k1p0": {
+   "ten": "hd_lot_skea154c9fdee7_H4_k1p0",
+   "so_lenh": 179,
+   "so_lenh_het_ky": 2,
+   "so_nam": 2.72,
+   "tu": "2024-01-10",
+   "den": "2026-09-30",
+   "lai_kep_pct_nam": 41.42,
+   "lai_kep_stress_pct_nam": 38.99,
+   "phi_stress_usd": 118.46,
+   "lai_rong_tai_dung": 1576.05,
+   "lech_net_khop_cuoi_ky": -8.0,
+   "dd_dong_pct": 2.72,
+   "dd_equity_dong_nen_pct": 46.47,
+   "dd_equity_pct": 48.68,
+   "dd_equity_stress_pct": 50.2,
+   "walk_forward": [
+    {
+     "tu": "2024-01-10",
+     "den": "2024-12-06",
+     "lai_kep_pct_nam": 68.19,
+     "dd_equity_pct": 37.84
+    },
+    {
+     "tu": "2024-12-06",
+     "den": "2025-11-03",
+     "lai_kep_pct_nam": 35.72,
+     "dd_equity_pct": 48.68
+    },
+    {
+     "tu": "2025-11-03",
+     "den": "2026-09-30",
+     "lai_kep_pct_nam": 24.04,
+     "dd_equity_pct": 4.21
+    }
+   ],
+   "monte_carlo": {
+    "dd_dong_xao_p50": 5.51,
+    "dd_dong_xao_p95": 9.88,
+    "von_cuoi_bootstrap_p5": 2101.65,
+    "ti_le_chay_bootstrap": 0.0,
+    "nhan": "MÔ PHỎNG (xáo 1000 lần, trên lệnh đã đóng)",
+    "equity": {
+     "dd_equity_p50": 48.78,
+     "dd_equity_p95": 68.7,
+     "he_so_von_cuoi_p5": 0.825,
+     "ti_le_chay": 0.0,
+     "nhan": "MÔ PHỎNG (block bootstrap 10 ngày, 1000 lần, equity tái dựng)"
+    }
+   },
+   "nhan": "ĐO THẬT (lệnh MT5 real tick); equity TÁI DỰNG theo giá H1 của chính lần chạy; stress/MC = MÔ PHỎNG",
+   "k": 1.0,
+   "he": "lot_skea154c9fdee7_H4",
+   "cagr_bao_cao": 41.371,
+   "dd_bao_cao": 48.38,
+   "tang": {
+    "tang": "C",
+    "thieu_A": [
+     "Python/MT5 None ngoài 0.8–1.25",
+     "đa cặp None < 50%",
+     "OOS Python None < 10%",
+     "cao nguyên None < 0.6"
+    ],
+    "thieu_B": [
+     "Python/MT5 None ngoài 0.7–1.4",
+     "đa cặp None < 30%",
+     "OOS Python None < 0%",
+     "cao nguyên None < 0.4"
+    ]
+   }
+  }
+ },
+ "danh_muc_k1": [
+  {
+   "he": [
+    "hd_lot_mql5344ed0d8ab12c7f0_H1_k1p0",
+    "hd_lot_ghepe9b41c33d4deee54_H4_k1p0",
+    "hd_lot_ghep60ff9350c26c63ee_H1_k1p0"
+   ],
+   "lai_kep_pct_nam": 91.38,
+   "dd_equity_pct": 15.36,
+   "tuong_quan_ngay_max": 0.214,
+   "so_nam": 2.76,
+   "tu": "2023-12-26",
+   "den": "2026-09-30",
+   "von": 3000.0,
+   "diem": 5.9482460661527154,
+   "nhan": "ĐO THẬT từ lệnh MT5; DD trên EQUITY tái dựng theo giờ (gồm lệnh đang mở, giá bất lợi trong nến)"
+  },
+  {
+   "he": [
+    "hd_lot_ghepe9b41c33d4deee54_H4_k1p0",
+    "hd_lot_ghep60ff9350c26c63ee_H1_k1p0",
+    "hd_lot_2600ea39abbd7b0f_H1_k1p0",
+    "hd_lot_mql5344ed0d8ab12c7f0_H1_k1p0"
+   ],
+   "lai_kep_pct_nam": 80.7,
+   "dd_equity_pct": 15.14,
+   "tuong_quan_ngay_max": 0.214,
+   "so_nam": 2.76,
+   "tu": "2023-12-27",
+   "den": "2026-09-30",
+   "von": 4000.0,
+   "diem": 5.331321354042856,
+   "nhan": "ĐO THẬT từ lệnh MT5; DD trên EQUITY tái dựng theo giờ (gồm lệnh đang mở, giá bất lợi trong nến)"
+  },
+  {
+   "he": [
+    "hd_lot_mql5e52afb999eca4bd1_H1_k1p0",
+    "hd_lot_ghepe9b41c33d4deee54_H4_k1p0",
+    "hd_lot_ghep60ff9350c26c63ee_H1_k1p0",
+    "hd_lot_2600ea39abbd7b0f_H1_k1p0"
+   ],
+   "lai_kep_pct_nam": 73.5,
+   "dd_equity_pct": 15.89,
+   "tuong_quan_ngay_max": 0.223,
+   "so_nam": 2.76,
+   "tu": "2023-12-28",
+   "den": "2026-09-30",
+   "von": 4000.0,
+   "diem": 4.625816593538705,
+   "nhan": "ĐO THẬT từ lệnh MT5; DD trên EQUITY tái dựng theo giờ (gồm lệnh đang mở, giá bất lợi trong nến)"
+  },
+  {
+   "he": [
+    "hd_lot_b0be91a35f43f34a_H4_k1p0",
+    "hd_lot_ghepe9b41c33d4deee54_H4_k1p0",
+    "hd_lot_ghep60ff9350c26c63ee_H1_k1p0",
+    "hd_lot_2600ea39abbd7b0f_H1_k1p0"
+   ],
+   "lai_kep_pct_nam": 77.11,
+   "dd_equity_pct": 19.39,
+   "tuong_quan_ngay_max": 0.262,
+   "so_nam": 2.71,
+   "tu": "2024-01-15",
+   "den": "2026-09-30",
+   "von": 4000.0,
+   "diem": 3.9762308909201995,
+   "nhan": "ĐO THẬT từ lệnh MT5; DD trên EQUITY tái dựng theo giờ (gồm lệnh đang mở, giá bất lợi trong nến)"
+  },
+  {
+   "he": [
+    "hd_lot_skea154c9fdee7_H4_k1p0",
+    "hd_lot_ghepe9b41c33d4deee54_H4_k1p0",
+    "hd_lot_ghep60ff9350c26c63ee_H1_k1p0",
+    "hd_lot_2600ea39abbd7b0f_H1_k1p0"
+   ],
+   "lai_kep_pct_nam": 77.06,
+   "dd_equity_pct": 19.82,
+   "tuong_quan_ngay_max": 0.218,
+   "so_nam": 2.72,
+   "tu": "2024-01-10",
+   "den": "2026-09-30",
+   "von": 4000.0,
+   "diem": 3.888716789270024,
+   "nhan": "ĐO THẬT từ lệnh MT5; DD trên EQUITY tái dựng theo giờ (gồm lệnh đang mở, giá bất lợi trong nến)"
+  },
+  {
+   "he": [
+    "hd_lot_ghep0bf2c31fbfc9dea0_H4_k1p0",
+    "hd_lot_ghepe9b41c33d4deee54_H4_k1p0",
+    "hd_lot_2600ea39abbd7b0f_H1_k1p0",
+    "hd_lot_mql5e52afb999eca4bd1_H1_k1p0"
+   ],
+   "lai_kep_pct_nam": 73.62,
+   "dd_equity_pct": 21.1,
+   "tuong_quan_ngay_max": 0.214,
+   "so_nam": 2.76,
+   "tu": "2023-12-28",
+   "den": "2026-09-30",
+   "von": 4000.0,
+   "diem": 3.4886173196650616,
+   "nhan": "ĐO THẬT từ lệnh MT5; DD trên EQUITY tái dựng theo giờ (gồm lệnh đang mở, giá bất lợi trong nến)"
+  }
+ ]
+}
