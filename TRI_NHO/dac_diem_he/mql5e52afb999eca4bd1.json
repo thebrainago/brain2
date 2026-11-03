@@ -1,6 +1,6 @@
 {
  "id": "mql5e52afb999eca4bd1",
- "nguon": "mt5_real_tick",
+ "nguon": "mql5_e52afb999eca4bd1",
  "kieu": "vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 9 tầng, hệ số lot 1.0; TP 0.003 % giá",
  "chay": [
   {
@@ -41,23 +41,134 @@
    "lenh": "83",
    "trang_thai_so": "KHONG_DAT",
    "k_nang_lot": "3,00-25,00"
+  },
+  {
+   "bien_the": "lot_mql5e52afb999eca4bd1_H1",
+   "ma": "EURGBPmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g4",
+   "k": 1.0,
+   "cagr_pct": 26.286,
+   "dd_pct": 19.24,
+   "pf": 2.15,
+   "lenh": 111.0
+  },
+  {
+   "bien_the": "lot_mql5e52afb999eca4bd1_H1",
+   "ma": "EURGBPmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g4",
+   "k": 1.5,
+   "cagr_pct": 33.193,
+   "dd_pct": 22.7,
+   "pf": 2.15,
+   "lenh": 111.0
+  },
+  {
+   "bien_the": "lot_mql5e52afb999eca4bd1_H1",
+   "ma": "EURGBPmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g4",
+   "k": 2.0,
+   "cagr_pct": 45.378,
+   "dd_pct": 27.66,
+   "pf": 2.15,
+   "lenh": 111.0
+  },
+  {
+   "bien_the": "lot_mql5e52afb999eca4bd1_H1",
+   "ma": "EURGBPmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g4",
+   "k": 2.5,
+   "cagr_pct": 50.85,
+   "dd_pct": 29.5,
+   "pf": 2.15,
+   "lenh": 111.0
+  },
+  {
+   "bien_the": "lot_mql5e52afb999eca4bd1_H1",
+   "ma": "EURGBPmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g4",
+   "k": 3.0,
+   "cagr_pct": 60.853,
+   "dd_pct": 32.37,
+   "pf": 2.15,
+   "lenh": 111.0
+  },
+  {
+   "bien_the": "lot_mql5e52afb999eca4bd1_H1",
+   "ma": "EURGBPmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g4",
+   "k": 4.0,
+   "cagr_pct": 74.072,
+   "dd_pct": 35.39,
+   "pf": 2.15,
+   "lenh": 111.0
+  },
+  {
+   "bien_the": "lot_mql5e52afb999eca4bd1_H1",
+   "ma": "EURGBPmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g4",
+   "k": 5.0,
+   "cagr_pct": 85.726,
+   "dd_pct": 37.49,
+   "pf": 2.15,
+   "lenh": 111.0
+  },
+  {
+   "bien_the": "lot_mql5e52afb999eca4bd1_H1",
+   "ma": "EURGBPmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g4",
+   "k": 6.0,
+   "cagr_pct": 96.219,
+   "dd_pct": 39.03,
+   "pf": 2.15,
+   "lenh": 111.0
+  },
+  {
+   "bien_the": "lot_mql5e52afb999eca4bd1_H1",
+   "ma": "EURGBPmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g4",
+   "k": 8.0,
+   "cagr_pct": 114.669,
+   "dd_pct": 41.15,
+   "pf": 2.15,
+   "lenh": 111.0
+  },
+  {
+   "bien_the": "lot_mql5e52afb999eca4bd1_H1",
+   "ma": "EURGBPmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g4",
+   "k": 10.0,
+   "cagr_pct": 130.682,
+   "dd_pct": 42.53,
+   "pf": 2.15,
+   "lenh": 111.0
   }
  ],
  "bi_thay_the": 16,
  "lai_theo_nam": {
-  "2024": 714.32,
-  "2025": 668.15,
-  "2026": -139.07
+  "2024": 394.51,
+  "2025": 530.52,
+  "2026": -20.81
  },
- "ti_le_thang_pct": 74.8,
+ "ti_le_thang_pct": 77.5,
  "so_deal": 222,
  "pf_bao_cao": 1.51,
  "bao_cao_htm": "reports/ong_dan/ket_qua_mt5/od_v2capgbpnzd_mql5e52afb999eca4bd1_XM_CSV.htm",
  "manh_tot": [
   "PF >= 1,3 ở ít nhất một biến thể",
   "DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot",
-  "chạy có lãi trên: EURGBP# H1",
-  "tỉ lệ thắng cao (75 %) — điểm vào/TP nhỏ đáng giữ"
+  "chạy có lãi trên: EURGBP# H1, EURGBPmicro H1",
+  "tỉ lệ thắng cao (78 %) — điểm vào/TP nhỏ đáng giữ"
  ],
- "ly_do_truot": "lãi dương nhưng không đủ 10 %/năm trước khi DD chạm 80 % (lợi thế mỏng so với rủi ro)"
+ "ly_do_truot": null,
+ "giai_doan": "2023.12.28–2026.10.01"
 }

@@ -2,7 +2,7 @@
 
 Mỗi hệ đã test (kể cả trượt) có thẻ ở `TRI_NHO/dac_diem_he/<id>.md`. Bảng dưới: hệ có ít nhất một mảnh tốt.
 
-- Tổng thẻ: **371**, có mảnh tốt: **149**, đạt tiêu chí: **16**
+- Tổng thẻ: **371**, có mảnh tốt: **149**, đạt tiêu chí: **17**
 
 | Hệ | Trạng thái | Kiểu | Mảnh tốt |
 |---|---|---|---|
@@ -11,6 +11,7 @@ Mỗi hệ đã test (kể cả trượt) có thẻ ở `TRI_NHO/dac_diem_he/<id
 | [skea154c9fdee7](dac_diem_he/skea154c9fdee7.md) | ĐẠT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 4 tầng, h | PF >= 1,3 ở ít nhất một biến thể; DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; có lãi 3/3 năm; chạy có lãi trên: GBPCAD# H4, GBPCADmicro H4; tỉ lệ thắng cao (80 %) — điểm vào/TP nhỏ đáng giữ |
 | [2600ea39abbd7b0f](dac_diem_he/2600ea39abbd7b0f.md) | ĐẠT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 4 tầng, h | PF >= 1,3 ở ít nhất một biến thể; có lãi 3/3 năm; chạy có lãi trên: GBPNZDmicro H1; tỉ lệ thắng cao (77 %) — điểm vào/TP nhỏ đáng giữ |
 | [ghep60ff9350c26c63ee](dac_diem_he/ghep60ff9350c26c63ee.md) | ĐẠT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 4 tầng, h | PF >= 1,3 ở ít nhất một biến thể; có lãi 3/3 năm; chạy có lãi trên: GBPCADmicro H1; tỉ lệ thắng cao (74 %) — điểm vào/TP nhỏ đáng giữ |
+| [mql5e52afb999eca4bd1](dac_diem_he/mql5e52afb999eca4bd1.md) | ĐẠT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 9 tầng, h | PF >= 1,3 ở ít nhất một biến thể; DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; chạy có lãi trên: EURGBP# H1, EURGBPmicro H1; tỉ lệ thắng cao (78 %) — điểm vào/TP nhỏ đáng giữ |
 | [b0be91a35f43f34a](dac_diem_he/b0be91a35f43f34a.md) | ĐẠT | vào theo CSV lệnh của nguồn; không nhồi; tối đa 1 tầng, hệ số lot 1.0; | có lãi 3/3 năm; chạy có lãi trên: USDCADmicro H4; tỉ lệ thắng cao (100 %) — điểm vào/TP nhỏ đáng giữ |
 | [ghep0bf2c31fbfc9dea0](dac_diem_he/ghep0bf2c31fbfc9dea0.md) | ĐẠT | vào theo CSV lệnh của nguồn; không nhồi; tối đa 1 tầng, hệ số lot 1.0; | PF >= 1,3 ở ít nhất một biến thể; chạy có lãi trên: GBPCADmicro H4; tỉ lệ thắng cao (99 %) — điểm vào/TP nhỏ đáng giữ |
 | [skea3279057100](dac_diem_he/skea3279057100.md) | ĐẠT | CHƯA ĐO ĐƯỢC | DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; chạy có lãi trên: EURGBP H1, EURGBP# H1; tỉ lệ thắng cao (66 %) — điểm vào/TP nhỏ đáng giữ |
@@ -25,7 +26,6 @@ Mỗi hệ đã test (kể cả trượt) có thẻ ở `TRI_NHO/dac_diem_he/<id
 | [skea135e93ee32](dac_diem_he/skea135e93ee32.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 6 tầng, h | PF >= 1,3 ở ít nhất một biến thể; DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; có lãi 3/3 năm; chạy có lãi trên: EURUSD# H1; tỉ lệ thắng cao (84 %) — điểm vào/TP nhỏ đáng giữ |
 | [skea61c21a2049](dac_diem_he/skea61c21a2049.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 6 tầng, h | PF >= 1,3 ở ít nhất một biến thể; DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; có lãi 3/3 năm; chạy có lãi trên: CADJPY H4, CADJPY# H4; tỉ lệ thắng cao (74 %) — điểm vào/TP nhỏ đáng giữ |
 | [brainxlmrz](dac_diem_he/brainxlmrz.md) | TRƯỢT | DCA ngược (nhồi khi lỗ); tối đa 9 tầng, hệ số lot 1.0 | PF >= 1,3 ở ít nhất một biến thể; có lãi 10/11 năm; chạy có lãi trên: AUDCAD# H4, GBPUSD H4, GBPUSD# H4; tỉ lệ thắng cao (82 %) — điểm vào/TP nhỏ đáng giữ |
-| [mql5e52afb999eca4bd1](dac_diem_he/mql5e52afb999eca4bd1.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 9 tầng, h | PF >= 1,3 ở ít nhất một biến thể; DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; chạy có lãi trên: EURGBP# H1; tỉ lệ thắng cao (75 %) — điểm vào/TP nhỏ đáng giữ |
 | [skeadd170ac7bf](dac_diem_he/skeadd170ac7bf.md) | TRƯỢT | vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 9 tầng, h | PF >= 1,3 ở ít nhất một biến thể; DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; có lãi 3/3 năm; chạy có lãi trên: USDCAD# H1 |
 | [cb](dac_diem_he/cb.md) | TRƯỢT | tham số: InpLotSize | PF >= 1,3 ở ít nhất một biến thể; DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot; chạy có lãi trên: EURUSDmicro H1 |
 | [018dcb1347276c97](dac_diem_he/018dcb1347276c97.md) | TRƯỢT | vào theo CSV lệnh của nguồn; không nhồi; tối đa 1 tầng, hệ số lot 1.6; | có lãi 3/3 năm; tỉ lệ thắng cao (96 %) — điểm vào/TP nhỏ đáng giữ |
