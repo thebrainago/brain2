@@ -1,4 +1,4 @@
-# Trạng thái hiện tại — cập nhật 03/11/2026 01:00 (UTC+7)
+# Trạng thái hiện tại — cập nhật 03/11/2026 08:00 (UTC+7)
 
 ## Tóm tắt
 - **Chưa có hệ nào ĐẠT** theo tiêu chí DD < 80% & CAGR > 10%/năm với kết quả hợp lệ (xem `so_ket_qua/TONG_HOP.md`).
@@ -10,7 +10,8 @@
 - Lần quét trước (00:2x–00:53): 292 đọc → 292 ĐẠT (chỉ danh sách mặc định, thiên lệch sống sót mạnh hơn).
 - Lưu ý: danh sách mặc định MQL5 chỉ hiện tín hiệu xếp hạng cao → thiên lệch sống sót. Đây là ĐẠT theo **lịch sử công khai của người khác**, chưa phải hệ của mình đã chạy MT5 trên dữ liệu dài.
 - Bị chặn: Myfxbook (Cloudflare 403, cả robots.txt), Exness Social Trading và my.litefinance.vn (lỗi TLS từ box), LiteFinance trang chi tiết trader chuyển hướng về danh sách (danh sách chỉ có lợi nhuận + rủi ro 1–10 → 16 trader CHƯA ĐO ĐƯỢC).
-- Dịch ngược: CSV lịch sử MQL5 cần đăng nhập → 0 tín hiệu đưa vào được; đặt CSV tải tay ở `data/cong_khai/csv/<id>.csv` rồi chạy lại.
+- Dịch ngược (03/11 07:15–08:00 UTC+7): 10 CSV tải tay đã đưa vào `data/cong_khai/csv/` và chạy `python -m nhan.dich_nguoc.top10` → `reports/DICH_NGUOC_TOP10.md`. Phong cách: 3 bẫy tin (1862128, 1864588, 2302081 — cùng nhà cung cấp), 2 martingale (2327790, 2378480), lưới/DCA hedge (2262642, 2271402, 2330430), 1932739 đa cặp có SL, 2391346 vàng giờ mở phiên Âu. AUC bỏ giờ đều ≤ ~0,63 trừ 2378480 (0,79).
+- EA nháp: `ea_demo/BRAIN_DN_LuoiHedgeTP.mq5` (UV1 từ 2330430) và `ea_demo/BRAIN_DN_RoDCAHedge.mq5` (UV2 từ 2262642), CHƯA chạy Strategy Tester. MÔ PHỎNG Python AUDCAD H1 2008–2026 (không swap): UV1 lô 0,001/1000 USD CAGR 13,8% DD 60,0% (ĐẠT mô phỏng); UV2 không đạt. Việc dở: chạy MT5 real tick + swap XM cho 2 EA.
 
 ## Lỗi lot CSV ~100× — đã vá 31/10/2026 01:53 (UTC+7)
 - Khi EA chạy `VAO_CSV`, lot trong CSV bị phình ~100× → lãi/DD sai hoàn toàn.

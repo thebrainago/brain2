@@ -27,7 +27,9 @@ def _chuan(df: pd.DataFrame) -> pd.DataFrame:
     for c in COT:
         if c not in df: df[c] = None
     df = df[COT]
-    df["chieu"] = df["chieu"].astype(str).str.lower().str.extract(r"(buy|sell)", expand=False)
+    tho = df["chieu"].astype(str).str.lower()
+    df["chieu"] = tho.str.extract(r"(buy|sell)", expand=False)
+    df.loc[tho.str.contains(r"stop|limit", regex=True), "chieu"] = None     # lệnh chờ (đã hủy/khớp) không phải vị thế
     df = df[df["chieu"].notna()].copy()
     for c in ("mo_luc", "dong_luc"):
         df[c] = pd.to_datetime(df[c].astype(str).str.replace(".", "-", regex=False), errors="coerce")
@@ -59,6 +61,63 @@ def doc(duong_dan_hoac_chuoi: str) -> pd.DataFrame:
         if tot is None:
             raise ValueError("Không tìm thấy bảng lệnh trong HTML")
         return tot
+    dau = s.lstrip("\ufeff").splitlines()[0]
+    if dau.startswith("Time;") and ";Direction;" in dau:
+        return doc_deal_mql5(s)
     sep = ";" if s.splitlines()[0].count(";") > s.splitlines()[0].count(",") else ","
     if "\t" in s.splitlines()[0]: sep = "\t"
     return _chuan(pd.read_csv(io.StringIO(s), sep=sep))
+
+
+def _so(x):
+    return pd.to_numeric(pd.Series(x).astype(str).str.replace(r"[\s,]", "", regex=True).replace({"": None, "nan": None}), errors="coerce").fillna(0.0)
+
+
+def _doc_tho(s: str) -> pd.DataFrame:
+    s = s.lstrip("\ufeff")
+    return pd.read_csv(io.StringIO(s), sep=";", dtype=str, keep_default_na=False, header=None, skiprows=1)
+
+
+def doc_deal_mql5(s: str) -> pd.DataFrame:
+    """CSV tín hiệu MQL5 dạng DEAL: Time;Symbol;Type;Direction;Volume;Price;Commission;Swap;Profit;Comment.
+    Ghép In/Out theo FIFO cho từng symbol + chiều vị thế (deal Out ngược chiều với vị thế)."""
+    d = _doc_tho(s).iloc[:, :10]
+    d.columns = ["t", "sym", "typ", "dir", "vol", "gia", "com", "swap", "lai", "cmt"]
+    d = d[d["dir"].str.lower().isin(["in", "out", "inout"])].copy()
+    d["t"] = pd.to_datetime(d["t"].str.replace(".", "-", regex=False), errors="coerce")
+    for c in ("vol", "gia", "com", "swap", "lai"):
+        d[c] = _so(d[c]).values
+    d = d.dropna(subset=["t"]).iloc[::-1].reset_index(drop=True)     # file mới -> cũ; đảo lại
+    d = d.sort_values("t", kind="stable")
+    mo: dict = {}; ra = []
+    for r in d.itertuples():
+        sym = re.sub(r"[^A-Z0-9]", "", r.sym.upper()); typ = r.typ.lower()
+        if r.dir.lower() == "in":
+            mo.setdefault((sym, typ), []).append({"mo_luc": r.t, "chieu": typ, "lot": r.vol, "con": r.vol, "symbol": sym,
+                                                  "gia_mo": r.gia, "loi_nhuan": r.com + r.swap, "dong": []})
+            continue
+        vt = "buy" if typ == "sell" else "sell"; q = mo.get((sym, vt), []); con = r.vol
+        while con > 1e-9 and q:
+            x = q[0]; k = min(con, x["con"]); x["con"] -= k; con -= k
+            x["dong"].append((r.t, r.gia, k)); x["loi_nhuan"] += (r.lai + r.com + r.swap) * k / max(r.vol, 1e-12)
+            if x["con"] <= 1e-9:
+                q.pop(0); v = sum(z[2] for z in x["dong"])
+                ra.append({"mo_luc": x["mo_luc"], "dong_luc": x["dong"][-1][0], "chieu": x["chieu"], "lot": x["lot"],
+                           "symbol": sym, "gia_mo": x["gia_mo"], "gia_dong": sum(z[1] * z[2] for z in x["dong"]) / v,
+                           "sl": None, "tp": None, "loi_nhuan": x["loi_nhuan"]})
+    df = pd.DataFrame(ra, columns=COT)
+    return df.sort_values("mo_luc").reset_index(drop=True)
+
+
+def doc_von(duong_dan: str) -> pd.DataFrame:
+    """Nạp/rút (Balance) và Credit trong CSV tín hiệu MQL5 (cả hai dạng). Trả [luc, loai, so_tien]."""
+    raw = open(duong_dan, "rb").read().decode("utf-8", "replace").lstrip("\ufeff")
+    dau = raw.splitlines()[0]; d = _doc_tho(raw)
+    if ";Direction;" in dau:
+        m = d[d[2].str.lower().isin(["balance", "credit"])]; loai = m[2]; tien = m[8]
+    else:
+        m = d[d[1].str.lower().isin(["balance", "credit"])]; loai = m[1]
+        tien = m.apply(lambda r: next((v for v in reversed(r.tolist()) if re.search(r"\d", str(v))
+                                       and not re.match(r"\d{4}\.\d\d\.\d\d", str(v))), "0"), axis=1)
+    return pd.DataFrame({"luc": pd.to_datetime(m[0].str.replace(".", "-", regex=False)), "loai": loai.str.lower(),
+                         "so_tien": _so(tien).values}).sort_values("luc").reset_index(drop=True)
