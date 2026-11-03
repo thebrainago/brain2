@@ -389,6 +389,7 @@ def chay_mot_k(slot: Path, v: dict, k: float, cho_toi_da: int) -> dict:
             log("  xoá %d tệp Tester/cache cũ" % n_xoa)
     except Exception as e:
         log("  không giảm RAM được: %s" % str(e)[:200])
+    cho_du_ram(log)                                             # MỖI lần phóng tester (kể cả việc dở, k tiếp theo) chờ RAM trống > ngưỡng
     t0 = time.time()
     pr = subprocess.Popen([str(slot / "terminal64.exe"), "/portable", "/config:" + str(slot / (ten + ".ini"))], creationflags=0x00000040)
     log("  phóng PID %d (%s k=%s)" % (pr.pid, v["id"], k))
@@ -564,10 +565,7 @@ def main() -> None:
     while True:
         if a.het_luc and time.time() >= a.het_luc and not hd.dang_lam_cua_toi():
             log("hết khung giờ -> dừng (không nhận việc mới)"); sys.exit(3)
-        v = (hd.dang_lam_cua_toi() or [None])[0]
-        if v is None:                                           # chỉ nhận việc MỚI khi RAM trống > ngưỡng
-            cho_du_ram(log)
-            v = hd.nhan()
+        v = (hd.dang_lam_cua_toi() or [None])[0] or hd.nhan()
         if v is None:
             xong = sorted((GOC / "hang_doi" / "da_test").glob("*.json"))
             moi = []
