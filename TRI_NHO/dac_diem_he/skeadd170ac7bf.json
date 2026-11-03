@@ -1,6 +1,6 @@
 {
  "id": "skeadd170ac7bf",
- "nguon": "mt5_real_tick",
+ "nguon": "sk_ea_dd170ac7bf",
  "kieu": "vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 9 tầng, hệ số lot 1.6; TP 0.005 % giá",
  "chay": [
   {
@@ -28,6 +28,28 @@
    "lenh": "19",
    "trang_thai_so": "KHONG_DAT",
    "k_nang_lot": ""
+  },
+  {
+   "bien_the": "lot_skeadd170ac7bf_H1",
+   "ma": "USDCADmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g8",
+   "k": 2.5,
+   "cagr_pct": 0.0,
+   "dd_pct": 0.0,
+   "pf": 0.0,
+   "lenh": 0.0
+  },
+  {
+   "bien_the": "lot_skeadd170ac7bf_H1",
+   "ma": "USDCADmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g8",
+   "k": 5.0,
+   "cagr_pct": -67.077,
+   "dd_pct": 96.91,
+   "pf": 0.0,
+   "lenh": 6.0
   }
  ],
  "bi_thay_the": 6,
@@ -46,5 +68,6 @@
   "có lãi 3/3 năm",
   "chạy có lãi trên: USDCAD# H1"
  ],
- "ly_do_truot": "lãi dương nhưng không đủ 10 %/năm trước khi DD chạm 80 % (lợi thế mỏng so với rủi ro)"
+ "ly_do_truot": "lãi dương nhưng không đủ 10 %/năm trước khi DD chạm 80 % (lợi thế mỏng so với rủi ro)",
+ "giai_doan": "2023.12.26–2026.10.01"
 }
