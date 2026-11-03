@@ -1,0 +1,47 @@
+{
+ "id": "skea78384bbaf7",
+ "nguon": "mt5_real_tick",
+ "kieu": "vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 6 tầng, hệ số lot 1.6; TP 0.003 % giá",
+ "chay": [
+  {
+   "bien_the": "od_v2r2p_b120_skea78384bbaf7_XM_CSV",
+   "ma": "USDCAD#",
+   "tf": "H1",
+   "nguon_do": "mt5_real_tick",
+   "k": 1.0,
+   "cagr_pct": 5.12,
+   "dd_pct": 44.89,
+   "pf": 0.82,
+   "lenh": "222",
+   "trang_thai_so": "KHONG_DAT",
+   "k_nang_lot": "khong_co"
+  },
+  {
+   "bien_the": "od_v2r2p_b50_skea78384bbaf7_XM_CSV",
+   "ma": "USDCAD#",
+   "tf": "H1",
+   "nguon_do": "mt5_real_tick",
+   "k": 1.0,
+   "cagr_pct": 9.64,
+   "dd_pct": 36.53,
+   "pf": 0.82,
+   "lenh": "313",
+   "trang_thai_so": "KHONG_DAT",
+   "k_nang_lot": "1,25-2,00"
+  }
+ ],
+ "bi_thay_the": 5,
+ "lai_theo_nam": {
+  "2024": 3356.29,
+  "2025": -4336.05
+ },
+ "ti_le_thang_pct": 72.6,
+ "so_deal": 219,
+ "pf_bao_cao": 0.82,
+ "bao_cao_htm": "reports/ong_dan/ket_qua_mt5/od_skea78384bbaf7_XM_CSV.htm",
+ "manh_tot": [
+  "chạy có lãi trên: USDCAD# H1",
+  "tỉ lệ thắng cao (73 %) — điểm vào/TP nhỏ đáng giữ"
+ ],
+ "ly_do_truot": "lãi dương nhưng không đủ 10 %/năm trước khi DD chạm 80 % (lợi thế mỏng so với rủi ro)"
+}

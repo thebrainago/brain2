@@ -1,0 +1,28 @@
+{
+ "id": "ghep0bf2",
+ "nguon": "mt5_tester",
+ "kieu": "CHƯA ĐO ĐƯỢC",
+ "chay": [
+  {
+   "bien_the": "ghep_0bf2 (verify lot01)",
+   "ma": "GBPCAD",
+   "tf": "H4",
+   "nguon_do": "mt5_tester",
+   "k": 1.0,
+   "cagr_pct": 10.3,
+   "dd_pct": 14.9,
+   "pf": null,
+   "lenh": null,
+   "trang_thai_so": "DAT",
+   "k_nang_lot": ""
+  }
+ ],
+ "bi_thay_the": 0,
+ "lai_theo_nam": {},
+ "ti_le_thang_pct": null,
+ "manh_tot": [
+  "DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot",
+  "chạy có lãi trên: GBPCAD H4"
+ ],
+ "ly_do_truot": null
+}

@@ -1,0 +1,25 @@
+{
+ "id": "EA1_MultiEMA_ATR_H1_swap_0_lac_quan",
+ "nguon": "mo_phong_python",
+ "kieu": "CHƯA ĐO ĐƯỢC",
+ "chay": [
+  {
+   "bien_the": "Telegram:EA1_MultiEMA_ATR_H1:swap_0_lac_quan",
+   "ma": "XAUUSD",
+   "tf": "H1",
+   "nguon_do": "mo_phong_python",
+   "k": 1.0,
+   "cagr_pct": -100.0,
+   "dd_pct": 99.06,
+   "pf": null,
+   "lenh": "1598",
+   "trang_thai_so": "KHONG_DAT",
+   "k_nang_lot": ""
+  }
+ ],
+ "bi_thay_the": 0,
+ "lai_theo_nam": {},
+ "ti_le_thang_pct": null,
+ "manh_tot": [],
+ "ly_do_truot": "CHƯA ĐO ĐƯỢC"
+}

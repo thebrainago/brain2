@@ -1,0 +1,28 @@
+{
+ "id": "mql5344__dai_han_x1_",
+ "nguon": "mt5_tester",
+ "kieu": "CHƯA ĐO ĐƯỢC",
+ "chay": [
+  {
+   "bien_the": "mql5344 (dai han x1)",
+   "ma": "NZDUSD",
+   "tf": "H1",
+   "nguon_do": "mt5_tester",
+   "k": 1.0,
+   "cagr_pct": 3.5,
+   "dd_pct": 5.3,
+   "pf": null,
+   "lenh": null,
+   "trang_thai_so": "CHUA_DO",
+   "k_nang_lot": "khong_co"
+  }
+ ],
+ "bi_thay_the": 0,
+ "lai_theo_nam": {},
+ "ti_le_thang_pct": null,
+ "manh_tot": [
+  "DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot",
+  "chạy có lãi trên: NZDUSD H1"
+ ],
+ "ly_do_truot": "CHƯA ĐO ĐƯỢC"
+}

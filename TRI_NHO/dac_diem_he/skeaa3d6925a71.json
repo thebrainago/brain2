@@ -1,0 +1,19 @@
+{
+ "id": "skeaa3d6925a71",
+ "nguon": "CHƯA ĐO ĐƯỢC",
+ "kieu": "vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 9 tầng, hệ số lot 1.0; TP 0.003 % giá",
+ "chay": [],
+ "bi_thay_the": 5,
+ "lai_theo_nam": {
+  "2024": 1112.88,
+  "2025": 1357.46,
+  "2026": -1303.54
+ },
+ "ti_le_thang_pct": 75.4,
+ "so_deal": 533,
+ "bao_cao_htm": "reports/ong_dan/ket_qua_mt5/od_skeaa3d6925a71_XM_CSV.htm",
+ "manh_tot": [
+  "tỉ lệ thắng cao (75 %) — điểm vào/TP nhỏ đáng giữ"
+ ],
+ "ly_do_truot": "CHƯA ĐO ĐƯỢC"
+}

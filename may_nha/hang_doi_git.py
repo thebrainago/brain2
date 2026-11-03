@@ -66,11 +66,47 @@ def uoc_gio(v: dict) -> float:
     return n * float(v.get("uoc_phut") or 10) / 60.0
 
 
+class KhoaGit:
+    """Khoá liên tiến trình cho thao tác git trong CÙNG một clone (nhiều thợ song song): tệp .git/tho_git.lock tạo O_EXCL.
+    Khoá cũ > 15 phút (tiến trình chết) bị gỡ."""
+    def __init__(self, goc: Path, cu_giay: float = 900):
+        self.p = Path(goc) / ".git" / "tho_git.lock"; self.cu = cu_giay; self.sau = 0
+
+    def __enter__(self):
+        import os
+        self.sau += 1
+        if self.sau > 1:
+            return self
+        while True:
+            try:
+                fd = os.open(str(self.p), os.O_CREAT | os.O_EXCL | os.O_WRONLY); os.write(fd, str(os.getpid()).encode()); os.close(fd)
+                return self
+            except FileExistsError:
+                try:
+                    if time.time() - self.p.stat().st_mtime > self.cu:
+                        self.p.unlink()
+                        continue
+                except OSError:
+                    pass
+                time.sleep(1.0)
+            except OSError:          # không có .git (test) -> bỏ khoá
+                return self
+
+    def __exit__(self, *a):
+        self.sau -= 1
+        if self.sau == 0:
+            try:
+                self.p.unlink()
+            except OSError:
+                pass
+
+
 class HangDoi:
     def __init__(self, goc: Path, may: str, git=None, nhanh: str = "main", log=print):
         self.goc, self.may, self.nhanh, self.log = Path(goc), may, nhanh, log
         self.hd = self.goc / "hang_doi"
         self._git = git or self._git_that
+        self.khoa = KhoaGit(self.goc)
 
     # ---------- git ----------
     def _git_that(self, *a: str) -> tuple[int, str]:
@@ -138,7 +174,11 @@ class HangDoi:
             f.write(json.dumps(rec, ensure_ascii=False) + "\n")
         return p
 
-    def nhan(self, chap_nhan=lambda v: True) -> dict | None:
+    def nhan(self, *a, **k):
+        with self.khoa:
+            return self._nhan(*a, **k)
+
+    def _nhan(self, chap_nhan=lambda v: True) -> dict | None:
         """Nhận việc ưu tiên cao nhất mà thợ làm được. Trả spec hoặc None (hết việc)."""
         da_thu: set = set()
         for _ in range(10):
@@ -165,7 +205,11 @@ class HangDoi:
                     return kq["spec"]
         return None
 
-    def xong(self, v: dict, ket_qua: dict, trang_thai: str = "XONG", tep_them: dict | None = None) -> bool:
+    def xong(self, *a, **k):
+        with self.khoa:
+            return self._xong(*a, **k)
+
+    def _xong(self, v: dict, ket_qua: dict, trang_thai: str = "XONG", tep_them: dict | None = None, tep_san: list | None = None) -> bool:
         """Chuyển dang_lam_<may> -> da_test kèm kết quả. tep_them {đường dẫn tương đối: nội dung str}."""
         def ap():
             src = self.hd / ("dang_lam_" + self.may) / (v["id"] + ".json")
@@ -177,10 +221,15 @@ class HangDoi:
             tep = [src, dst, self._so_cai(trang_thai.lower(), v, {"tom_tat": ket_qua.get("tom_tat")})]
             for rel, nd in (tep_them or {}).items():
                 p = self.goc / rel; p.parent.mkdir(parents=True, exist_ok=True); p.write_text(nd, encoding="utf-8"); tep.append(p)
+            tep += [Path(x) for x in (tep_san or []) if Path(x).exists()]
             return tep
         return self.giao_dich(ap, "hang_doi: %s %s %s" % (self.may, trang_thai.lower(), v["id"]))
 
-    def them(self, specs: list[dict], thong_diep: str = "hang_doi: thêm việc") -> int:
+    def them(self, *a, **k):
+        with self.khoa:
+            return self._them(*a, **k)
+
+    def _them(self, specs: list[dict], thong_diep: str = "hang_doi: thêm việc") -> int:
         """Thêm việc (bỏ việc trùng id đã có ở bất kỳ thư mục)."""
         n = {"n": 0}
 

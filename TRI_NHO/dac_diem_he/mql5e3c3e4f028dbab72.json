@@ -1,0 +1,20 @@
+{
+ "id": "mql5e3c3e4f028dbab72",
+ "nguon": "CHƯA ĐO ĐƯỢC",
+ "kieu": "vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 6 tầng, hệ số lot 1.0; TP 0.003 % giá; hedge khi lỗ 20.0 %",
+ "chay": [],
+ "bi_thay_the": 10,
+ "lai_theo_nam": {
+  "2024": 444.57,
+  "2025": 366.19,
+  "2026": 212.73
+ },
+ "ti_le_thang_pct": 80.8,
+ "so_deal": 120,
+ "bao_cao_htm": "reports/ong_dan/ket_qua_mt5/od_mql5e3c3e4f028dbab72_XM_CSV.htm",
+ "manh_tot": [
+  "có lãi 3/3 năm",
+  "tỉ lệ thắng cao (81 %) — điểm vào/TP nhỏ đáng giữ"
+ ],
+ "ly_do_truot": "CHƯA ĐO ĐƯỢC"
+}

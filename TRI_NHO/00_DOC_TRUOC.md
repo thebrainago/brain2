@@ -34,7 +34,21 @@ Không có tiêu chí nào khác (FDR, placebo, Holm, p-value, PF, số lệnh�
 | Sổ kết quả | `TRI_NHO/so_ket_qua/ket_qua.csv`, `nhan/so_ket_qua.py` | MỌI kết quả test của mọi phiên |
 | Báo cáo | `reports/` | `kiem_toan_he_dat.md`, `HE_TIN_HIEU_CONG_KHAI.md`, `CHIEN_LUOC_DA_LOC.md` (BỊ THAY THẾ) |
 
-## 5. Chạy trên máy nhà (DESKTOP-05PNLGF, Windows)
+## 5a. Máy nhà chạy hàng đợi git (từ 03/11/2026) — cách chính
+- Chạy (trong thư mục repo trên máy nhà): `may_nha\CHAY_THO_MT5.cmd --song-song` (mỗi slot MT5 portable đăng nhập XM một thợ,
+  trần 4 và nửa số CPU). Một slot: bỏ `--song-song`. Khung giờ: `--den-gio 22:00` hoặc `--gio-chay 10`. Thử 1 việc: `--mot-lan`.
+- Tự clone riêng vào `D:\brain2_tho` (đổi bằng `BRAIN_THO_DIR`). Dừng: Ctrl+C. Tiến độ: `python may_nha\tho_mt5.py --tinh-trang`.
+- Thư mục: `hang_doi/can_test` (chờ) → `dang_lam_<máy>_<slot>` (đang làm) → `da_test` (xong, có kết quả) / `loai` (bị cổng loại);
+  `hang_doi/bao_cao` (.htm), `hang_doi/so_cai.jsonl` (sổ). Box gieo việc: `python may_nha/seed_hang_doi.py`.
+- Làn A `co_ma_nguon` ưu tiên trước; làn B `dich_phuong_phap` cần lịch sử thật đạt + khớp điểm vào ≥ 70 % (xem `QUYET_DINH.md`).
+- Chi tiết: `may_nha/README_THO_MT5.md`.
+
+## 5b. Đặc điểm tốt của mọi hệ (kể cả trượt)
+- Mỗi hệ đã test có thẻ `TRI_NHO/dac_diem_he/<hệ>.md` (kiểu vào/quản lý, mã/khung có lãi, năm có lãi, PF, tỉ lệ thắng, DD,
+  lý do trượt, "mảnh tốt dùng lại được"); mục lục `TRI_NHO/DAC_DIEM_TOT.md`. Thợ MT5 tự ghi sau mỗi việc;
+  điền lại từ sổ: `python -m nhan.dac_diem_he`. Trước khi ghép hệ mới, đọc mục lục này.
+
+## 5. Chạy trên máy nhà (DESKTOP-05PNLGF, Windows) — cách cũ
 - Repo: `C:\Users\DUNG\brain2` (cây Grok riêng: `E:\brain2_grok`, venv `E:\brain2_grok\venv`).
 - Tải dữ liệu dài: `mt5tools\TAI_LICH_SU_MT5.bat` (phần đã tải tự bỏ qua) → `python -m nhan.du_lieu_dai --dung`.
 - Vòng 2 dữ liệu dài: `set BRAIN_ONG_DAN_DU_LIEU=data\du_lieu_dai\du_lieu_dai.json && python -m nhan.vong2 --top 40`.

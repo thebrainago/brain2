@@ -1,0 +1,132 @@
+{
+ "id": "v2verify",
+ "nguon": "mt5_real_tick",
+ "kieu": "CHƯA ĐO ĐƯỢC",
+ "chay": [
+  {
+   "bien_the": "od_v2verify_lot01_full_ghep0bf2c31fbfc9dea0_XM_CSV",
+   "ma": "GBPCAD#",
+   "tf": "H4",
+   "nguon_do": "mt5_real_tick",
+   "k": 1.0,
+   "cagr_pct": 10.27,
+   "dd_pct": 14.89,
+   "pf": null,
+   "lenh": "88",
+   "trang_thai_so": "DAT",
+   "k_nang_lot": ""
+  },
+  {
+   "bien_the": "od_v2verify_lot01_y2024_ghep0bf2c31fbfc9dea0_XM_CSV",
+   "ma": "GBPCAD#",
+   "tf": "H4",
+   "nguon_do": "mt5_real_tick",
+   "k": 1.0,
+   "cagr_pct": 20.71,
+   "dd_pct": 11.67,
+   "pf": null,
+   "lenh": "65",
+   "trang_thai_so": "DAT",
+   "k_nang_lot": ""
+  },
+  {
+   "bien_the": "od_v2verify_lot01_y2025_ghep0bf2c31fbfc9dea0_XM_CSV",
+   "ma": "GBPCAD#",
+   "tf": "H4",
+   "nguon_do": "mt5_real_tick",
+   "k": 1.0,
+   "cagr_pct": 7.19,
+   "dd_pct": 17.21,
+   "pf": null,
+   "lenh": "43",
+   "trang_thai_so": "KHONG_DAT",
+   "k_nang_lot": "1,50-4,00"
+  },
+  {
+   "bien_the": "od_v2verify_lot01_full_ghep60ff9350c26c63ee_XM_CSV",
+   "ma": "GBPCAD#",
+   "tf": "H1",
+   "nguon_do": "mt5_real_tick",
+   "k": 1.0,
+   "cagr_pct": 8.65,
+   "dd_pct": 5.57,
+   "pf": null,
+   "lenh": "291",
+   "trang_thai_so": "KHONG_DAT",
+   "k_nang_lot": "1,25-12,00"
+  },
+  {
+   "bien_the": "od_v2verify_lot01_oos_h1_ghep0bf2c31fbfc9dea0_XM_CSV",
+   "ma": "GBPCAD#",
+   "tf": "H4",
+   "nguon_do": "mt5_real_tick",
+   "k": 1.0,
+   "cagr_pct": 14.15,
+   "dd_pct": 9.13,
+   "pf": null,
+   "lenh": "36",
+   "trang_thai_so": "DAT",
+   "k_nang_lot": ""
+  },
+  {
+   "bien_the": "od_v2verify_lot01_oos_h1_ghep60ff9350c26c63ee_XM_CSV",
+   "ma": "GBPCAD#",
+   "tf": "H1",
+   "nguon_do": "mt5_real_tick",
+   "k": 1.0,
+   "cagr_pct": 1.74,
+   "dd_pct": 0.99,
+   "pf": null,
+   "lenh": "21",
+   "trang_thai_so": "KHONG_DAT",
+   "k_nang_lot": "6,00-50,00"
+  },
+  {
+   "bien_the": "od_v2verify_lot01_fixed_ghep60ff9350c26c63ee_XM_CSV",
+   "ma": "GBPCAD#",
+   "tf": "H1",
+   "nguon_do": "mt5_real_tick",
+   "k": 1.0,
+   "cagr_pct": 1.31,
+   "dd_pct": 1.91,
+   "pf": null,
+   "lenh": "52",
+   "trang_thai_so": "KHONG_DAT",
+   "k_nang_lot": "10,00-40,00"
+  },
+  {
+   "bien_the": "od_v2verify_lot01_y2024_ghep60ff9350c26c63ee_XM_CSV",
+   "ma": "GBPCAD#",
+   "tf": "H1",
+   "nguon_do": "mt5_real_tick",
+   "k": 1.0,
+   "cagr_pct": 2.24,
+   "dd_pct": 1.41,
+   "pf": null,
+   "lenh": "36",
+   "trang_thai_so": "KHONG_DAT",
+   "k_nang_lot": "5,00-50,00"
+  },
+  {
+   "bien_the": "od_v2verify_lot01_y2025_ghep60ff9350c26c63ee_XM_CSV",
+   "ma": "GBPCAD#",
+   "tf": "H1",
+   "nguon_do": "mt5_real_tick",
+   "k": 1.0,
+   "cagr_pct": 0.92,
+   "dd_pct": 1.94,
+   "pf": null,
+   "lenh": "24",
+   "trang_thai_so": "KHONG_DAT",
+   "k_nang_lot": "12,00-40,00"
+  }
+ ],
+ "bi_thay_the": 0,
+ "lai_theo_nam": {},
+ "ti_le_thang_pct": null,
+ "manh_tot": [
+  "DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot",
+  "chạy có lãi trên: GBPCAD# H1, GBPCAD# H4"
+ ],
+ "ly_do_truot": null
+}

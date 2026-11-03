@@ -1,0 +1,27 @@
+{
+ "id": "CLMCA_C_V1_M15_swap_0_lac_quan",
+ "nguon": "mo_phong_python",
+ "kieu": "CHƯA ĐO ĐƯỢC",
+ "chay": [
+  {
+   "bien_the": "Telegram:CLMCA_C_V1_M15:swap_0_lac_quan",
+   "ma": "XAUUSD",
+   "tf": "M15",
+   "nguon_do": "mo_phong_python",
+   "k": 1.0,
+   "cagr_pct": 5.07,
+   "dd_pct": 73.07,
+   "pf": null,
+   "lenh": "1758",
+   "trang_thai_so": "KHONG_DAT",
+   "k_nang_lot": "khong_co"
+  }
+ ],
+ "bi_thay_the": 0,
+ "lai_theo_nam": {},
+ "ti_le_thang_pct": null,
+ "manh_tot": [
+  "chạy có lãi trên: XAUUSD M15"
+ ],
+ "ly_do_truot": "CHƯA ĐO ĐƯỢC"
+}

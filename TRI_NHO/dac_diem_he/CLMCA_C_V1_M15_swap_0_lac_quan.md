@@ -1,0 +1,19 @@
+# Đặc điểm hệ `CLMCA_C_V1_M15_swap_0_lac_quan`
+
+- Nguồn: mo_phong_python
+- Kiểu vào / quản lý lệnh: CHƯA ĐO ĐƯỢC
+- Trạng thái: **TRƯỢT — CHƯA ĐO ĐƯỢC**
+- Số lần chạy hợp lệ: 1 (bị thay thế do lỗi lot CSV: 0)
+- Tỉ lệ thắng: CHƯA ĐO ĐƯỢC %
+- Năm có lãi: CHƯA ĐO ĐƯỢC
+- Thời gian giữ lệnh TB: CHƯA ĐO ĐƯỢC
+
+## Mảnh tốt dùng lại được
+
+- chạy có lãi trên: XAUUSD M15
+
+## Các lần chạy
+
+| Biến thể | Mã | Khung | Nguồn đo | Lot k | CAGR %/năm | DD % | PF | Lệnh |
+|---|---|---|---|---|---|---|---|---|
+| Telegram:CLMCA_C_V1_M15:swap_0_lac_quan | XAUUSD | M15 | mo_phong_python | 1.0 | 5,07 | 73,07 | CHƯA ĐO ĐƯỢC | 1758 |

@@ -1,0 +1,19 @@
+{
+ "id": "v2gth_v2g4fd29c3451_XM_CSV",
+ "nguon": "CHƯA ĐO ĐƯỢC",
+ "kieu": "vào theo CSV lệnh của nguồn; không nhồi; tối đa 1 tầng, hệ số lot 1.0; TP 0.005 % giá",
+ "chay": [],
+ "bi_thay_the": 2,
+ "lai_theo_nam": {
+  "2024": 1008.56,
+  "2025": 370.05,
+  "2026": -605.74
+ },
+ "ti_le_thang_pct": 91.4,
+ "so_deal": 35,
+ "bao_cao_htm": "reports/ong_dan/ket_qua_mt5/od_v2gth_v2g4fd29c3451_XM_CSV.htm",
+ "manh_tot": [
+  "tỉ lệ thắng cao (91 %) — điểm vào/TP nhỏ đáng giữ"
+ ],
+ "ly_do_truot": "CHƯA ĐO ĐƯỢC"
+}

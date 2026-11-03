@@ -1,0 +1,27 @@
+{
+ "id": "mql5344_lot_x4_cua_so_ngan",
+ "nguon": "mt5_tester",
+ "kieu": "CHƯA ĐO ĐƯỢC",
+ "chay": [
+  {
+   "bien_the": "mql5344 lot x4 cua so ngan",
+   "ma": "NZDUSD",
+   "tf": "H1",
+   "nguon_do": "mt5_tester",
+   "k": 1.0,
+   "cagr_pct": 8.5,
+   "dd_pct": 23.4,
+   "pf": null,
+   "lenh": null,
+   "trang_thai_so": "CHUA_DO",
+   "k_nang_lot": "khong_co"
+  }
+ ],
+ "bi_thay_the": 0,
+ "lai_theo_nam": {},
+ "ti_le_thang_pct": null,
+ "manh_tot": [
+  "chạy có lãi trên: NZDUSD H1"
+ ],
+ "ly_do_truot": "CHƯA ĐO ĐƯỢC"
+}

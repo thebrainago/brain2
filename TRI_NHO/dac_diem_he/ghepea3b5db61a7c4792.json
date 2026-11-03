@@ -1,0 +1,20 @@
+{
+ "id": "ghepea3b5db61a7c4792",
+ "nguon": "CHƯA ĐO ĐƯỢC",
+ "kieu": "vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 6 tầng, hệ số lot 1.0; TP 0.003 % giá",
+ "chay": [],
+ "bi_thay_the": 11,
+ "lai_theo_nam": {
+  "2024": 4790.65,
+  "2025": 3536.76,
+  "2026": 2806.8
+ },
+ "ti_le_thang_pct": 83.5,
+ "so_deal": 279,
+ "bao_cao_htm": "reports/ong_dan/ket_qua_mt5/od_ghepea3b5db61a7c4792_XM_CSV.htm",
+ "manh_tot": [
+  "có lãi 3/3 năm",
+  "tỉ lệ thắng cao (84 %) — điểm vào/TP nhỏ đáng giữ"
+ ],
+ "ly_do_truot": "CHƯA ĐO ĐƯỢC"
+}

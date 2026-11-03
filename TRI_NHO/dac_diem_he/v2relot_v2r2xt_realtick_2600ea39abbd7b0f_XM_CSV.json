@@ -1,0 +1,28 @@
+{
+ "id": "v2relot_v2r2xt_realtick_2600ea39abbd7b0f_XM_CSV",
+ "nguon": "mt5_real_tick",
+ "kieu": "CHƯA ĐO ĐƯỢC",
+ "chay": [
+  {
+   "bien_the": "od_v2relot_v2r2xt_realtick_2600ea39abbd7b0f_XM_CSV",
+   "ma": "GBPNZD#",
+   "tf": "H1",
+   "nguon_do": "mt5_real_tick",
+   "k": 1.0,
+   "cagr_pct": 5.16,
+   "dd_pct": 3.11,
+   "pf": null,
+   "lenh": "132",
+   "trang_thai_so": "KHONG_DAT",
+   "k_nang_lot": "2,50-25,00"
+  }
+ ],
+ "bi_thay_the": 0,
+ "lai_theo_nam": {},
+ "ti_le_thang_pct": null,
+ "manh_tot": [
+  "DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot",
+  "chạy có lãi trên: GBPNZD# H1"
+ ],
+ "ly_do_truot": "lãi dương nhưng không đủ 10 %/năm trước khi DD chạm 80 % (lợi thế mỏng so với rủi ro)"
+}

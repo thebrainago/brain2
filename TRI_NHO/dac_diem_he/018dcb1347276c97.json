@@ -1,0 +1,20 @@
+{
+ "id": "018dcb1347276c97",
+ "nguon": "CHƯA ĐO ĐƯỢC",
+ "kieu": "vào theo CSV lệnh của nguồn; không nhồi; tối đa 1 tầng, hệ số lot 1.6; TP 0.002 % giá",
+ "chay": [],
+ "bi_thay_the": 2,
+ "lai_theo_nam": {
+  "2024": 141.89,
+  "2025": 222.61,
+  "2026": 1.44
+ },
+ "ti_le_thang_pct": 96.1,
+ "so_deal": 76,
+ "bao_cao_htm": "reports/ong_dan/ket_qua_mt5/od_018dcb1347276c97_XM_CSV.htm",
+ "manh_tot": [
+  "có lãi 3/3 năm",
+  "tỉ lệ thắng cao (96 %) — điểm vào/TP nhỏ đáng giữ"
+ ],
+ "ly_do_truot": "CHƯA ĐO ĐƯỢC"
+}

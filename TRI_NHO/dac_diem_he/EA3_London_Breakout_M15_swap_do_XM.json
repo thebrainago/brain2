@@ -1,0 +1,25 @@
+{
+ "id": "EA3_London_Breakout_M15_swap_do_XM",
+ "nguon": "mo_phong_python",
+ "kieu": "CHƯA ĐO ĐƯỢC",
+ "chay": [
+  {
+   "bien_the": "Telegram:EA3_London_Breakout_M15:swap_do_XM",
+   "ma": "XAUUSD",
+   "tf": "M15",
+   "nguon_do": "mo_phong_python",
+   "k": 1.0,
+   "cagr_pct": -100.0,
+   "dd_pct": 99.04,
+   "pf": null,
+   "lenh": "3344",
+   "trang_thai_so": "KHONG_DAT",
+   "k_nang_lot": ""
+  }
+ ],
+ "bi_thay_the": 0,
+ "lai_theo_nam": {},
+ "ti_le_thang_pct": null,
+ "manh_tot": [],
+ "ly_do_truot": "lỗ ở mọi mức lot (không có lợi thế sau phí)"
+}

@@ -1,0 +1,38 @@
+{
+ "id": "skea0e88e1df54",
+ "nguon": "mt5_tester",
+ "kieu": "CHƯA ĐO ĐƯỢC",
+ "chay": [
+  {
+   "bien_the": "od_v2r2oos_dai19_skea0e88e1df54_XM_CSV",
+   "ma": "GBPCAD#",
+   "tf": "H4",
+   "nguon_do": "mt5_tester",
+   "k": 1.0,
+   "cagr_pct": null,
+   "dd_pct": null,
+   "pf": null,
+   "lenh": null,
+   "trang_thai_so": "CHUA_DO",
+   "k_nang_lot": ""
+  },
+  {
+   "bien_the": "od_v2r2oos_dai19_skea0e88e1df54_XM_CSV",
+   "ma": "GBPCAD#",
+   "tf": "H4",
+   "nguon_do": "mt5_tester",
+   "k": 1.0,
+   "cagr_pct": null,
+   "dd_pct": null,
+   "pf": null,
+   "lenh": null,
+   "trang_thai_so": "CHUA_DO",
+   "k_nang_lot": ""
+  }
+ ],
+ "bi_thay_the": 8,
+ "lai_theo_nam": {},
+ "ti_le_thang_pct": null,
+ "manh_tot": [],
+ "ly_do_truot": "CHƯA ĐO ĐƯỢC"
+}

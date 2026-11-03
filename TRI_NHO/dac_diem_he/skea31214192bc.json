@@ -1,0 +1,48 @@
+{
+ "id": "skea31214192bc",
+ "nguon": "mt5_tester",
+ "kieu": "vào theo CSV lệnh của nguồn; không nhồi; tối đa 1 tầng, hệ số lot 1.6; TP 0.001 % giá",
+ "chay": [
+  {
+   "bien_the": "od_v2r2oos_dai19_skea31214192bc_XM_CSV",
+   "ma": "GBPNZD#",
+   "tf": "H4",
+   "nguon_do": "mt5_tester",
+   "k": 1.0,
+   "cagr_pct": null,
+   "dd_pct": null,
+   "pf": 0.0,
+   "lenh": null,
+   "trang_thai_so": "CHUA_DO",
+   "k_nang_lot": ""
+  },
+  {
+   "bien_the": "od_v2r2oos_dai19_skea31214192bc_XM_CSV",
+   "ma": "GBPNZD#",
+   "tf": "H4",
+   "nguon_do": "mt5_tester",
+   "k": 1.0,
+   "cagr_pct": null,
+   "dd_pct": null,
+   "pf": 0.0,
+   "lenh": null,
+   "trang_thai_so": "CHUA_DO",
+   "k_nang_lot": ""
+  }
+ ],
+ "bi_thay_the": 7,
+ "lai_theo_nam": {
+  "2024": 463.17,
+  "2025": 588.81,
+  "2026": 364.79
+ },
+ "ti_le_thang_pct": 100.0,
+ "so_deal": 36,
+ "pf_bao_cao": 0.0,
+ "bao_cao_htm": "reports/ong_dan/ket_qua_mt5/od_skea31214192bc_XM_CSV.htm",
+ "manh_tot": [
+  "có lãi 3/3 năm",
+  "tỉ lệ thắng cao (100 %) — điểm vào/TP nhỏ đáng giữ"
+ ],
+ "ly_do_truot": "CHƯA ĐO ĐƯỢC"
+}

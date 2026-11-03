@@ -1,0 +1,47 @@
+{
+ "id": "ghep0bf2c31fbfc9dea0",
+ "nguon": "mt5_tester",
+ "kieu": "vào theo CSV lệnh của nguồn; không nhồi; tối đa 1 tầng, hệ số lot 1.0; TP 0.001 % giá",
+ "chay": [
+  {
+   "bien_the": "od_v2relot_v2r2p_b120_ghep0bf2c31fbfc9dea0_XM_CSV",
+   "ma": "GBPCAD#",
+   "tf": "H4",
+   "nguon_do": "mt5_tester",
+   "k": 1.0,
+   "cagr_pct": null,
+   "dd_pct": null,
+   "pf": 9.06,
+   "lenh": null,
+   "trang_thai_so": "CHUA_DO",
+   "k_nang_lot": ""
+  },
+  {
+   "bien_the": "od_v2relot_v2r2p_b120_ghep0bf2c31fbfc9dea0_XM_CSV",
+   "ma": "GBPCAD#",
+   "tf": "H4",
+   "nguon_do": "mt5_tester",
+   "k": 1.0,
+   "cagr_pct": null,
+   "dd_pct": null,
+   "pf": 9.06,
+   "lenh": null,
+   "trang_thai_so": "CHUA_DO",
+   "k_nang_lot": ""
+  }
+ ],
+ "bi_thay_the": 13,
+ "lai_theo_nam": {
+  "2024": 2244.34,
+  "2025": 717.65,
+  "2026": -154.88
+ },
+ "ti_le_thang_pct": 98.7,
+ "so_deal": 78,
+ "pf_bao_cao": 9.06,
+ "bao_cao_htm": "reports/ong_dan/ket_qua_mt5/od_ghep0bf2c31fbfc9dea0_XM_CSV.htm",
+ "manh_tot": [
+  "tỉ lệ thắng cao (99 %) — điểm vào/TP nhỏ đáng giữ"
+ ],
+ "ly_do_truot": "CHƯA ĐO ĐƯỢC"
+}

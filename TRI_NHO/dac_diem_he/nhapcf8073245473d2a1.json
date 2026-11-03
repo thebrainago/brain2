@@ -1,0 +1,19 @@
+{
+ "id": "nhapcf8073245473d2a1",
+ "nguon": "CHƯA ĐO ĐƯỢC",
+ "kieu": "vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 9 tầng, hệ số lot 1.0; TP 0.003 % giá",
+ "chay": [],
+ "bi_thay_the": 2,
+ "lai_theo_nam": {
+  "2024": 578.91,
+  "2025": 283.56,
+  "2026": -175.42
+ },
+ "ti_le_thang_pct": 70.2,
+ "so_deal": 188,
+ "bao_cao_htm": "reports/ong_dan/ket_qua_mt5/od_nhapcf8073245473d2a1_XM_CSV.htm",
+ "manh_tot": [
+  "tỉ lệ thắng cao (70 %) — điểm vào/TP nhỏ đáng giữ"
+ ],
+ "ly_do_truot": "CHƯA ĐO ĐƯỢC"
+}

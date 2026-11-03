@@ -1,0 +1,28 @@
+{
+ "id": "v2relot_v2r2oos_dai19_b0be91a35f43f34a_XM_CSV",
+ "nguon": "mt5_real_tick",
+ "kieu": "CHƯA ĐO ĐƯỢC",
+ "chay": [
+  {
+   "bien_the": "od_v2relot_v2r2oos_dai19_b0be91a35f43f34a_XM_CSV",
+   "ma": "USDCAD#",
+   "tf": "H4",
+   "nguon_do": "mt5_real_tick",
+   "k": 1.0,
+   "cagr_pct": 4.28,
+   "dd_pct": 11.32,
+   "pf": null,
+   "lenh": "46",
+   "trang_thai_so": "KHONG_DAT",
+   "k_nang_lot": "2,50-6,00"
+  }
+ ],
+ "bi_thay_the": 0,
+ "lai_theo_nam": {},
+ "ti_le_thang_pct": null,
+ "manh_tot": [
+  "DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot",
+  "chạy có lãi trên: USDCAD# H4"
+ ],
+ "ly_do_truot": "lãi dương nhưng không đủ 10 %/năm trước khi DD chạm 80 % (lợi thế mỏng so với rủi ro)"
+}

@@ -1,0 +1,79 @@
+{
+ "id": "brainxlrsi",
+ "nguon": "mt5_tester",
+ "kieu": "DCA ngược (nhồi khi lỗ); tối đa 6 tầng, hệ số lot 1.6",
+ "chay": [
+  {
+   "bien_the": "od_v2r2cap_gbpusd_brainxlrsi_XM_KIEM_XM_CSV",
+   "ma": "GBPUSD#",
+   "tf": "H4",
+   "nguon_do": "mt5_tester",
+   "k": 1.0,
+   "cagr_pct": null,
+   "dd_pct": null,
+   "pf": null,
+   "lenh": null,
+   "trang_thai_so": "CHUA_DO",
+   "k_nang_lot": ""
+  },
+  {
+   "bien_the": "od_v2r2cap_gbpusd_brainxlrsi_XM_KIEM_XM_CSV",
+   "ma": "GBPUSD#",
+   "tf": "H4",
+   "nguon_do": "mt5_tester",
+   "k": 1.0,
+   "cagr_pct": null,
+   "dd_pct": null,
+   "pf": null,
+   "lenh": null,
+   "trang_thai_so": "CHUA_DO",
+   "k_nang_lot": ""
+  },
+  {
+   "bien_the": "od_v2r2p_bg120_brainxlrsi_XM_KIEM_XM_CSV",
+   "ma": "AUDCAD#",
+   "tf": "H4",
+   "nguon_do": "mt5_tester",
+   "k": 1.0,
+   "cagr_pct": 3.75,
+   "dd_pct": 15.47,
+   "pf": null,
+   "lenh": "416",
+   "trang_thai_so": "KHONG_DAT",
+   "k_nang_lot": "4,00-5,00"
+  },
+  {
+   "bien_the": "od_v2r2p_bg80_brainxlrsi_XM_KIEM_XM_CSV",
+   "ma": "AUDCAD#",
+   "tf": "H4",
+   "nguon_do": "mt5_tester",
+   "k": 1.0,
+   "cagr_pct": 4.51,
+   "dd_pct": 52.41,
+   "pf": null,
+   "lenh": "462",
+   "trang_thai_so": "KHONG_DAT",
+   "k_nang_lot": "khong_co"
+  },
+  {
+   "bien_the": "od_v2r2p_hs120_brainxlrsi_XM_KIEM_XM_CSV",
+   "ma": "AUDCAD#",
+   "tf": "H4",
+   "nguon_do": "mt5_tester",
+   "k": 1.0,
+   "cagr_pct": 6.07,
+   "dd_pct": 17.47,
+   "pf": null,
+   "lenh": "456",
+   "trang_thai_so": "KHONG_DAT",
+   "k_nang_lot": "2,50-4,00"
+  }
+ ],
+ "bi_thay_the": 11,
+ "lai_theo_nam": {},
+ "ti_le_thang_pct": null,
+ "manh_tot": [
+  "chạy có lãi trên: AUDCAD# H4"
+ ],
+ "ly_do_truot": "lãi dương nhưng không đủ 10 %/năm trước khi DD chạm 80 % (lợi thế mỏng so với rủi ro)"
+}

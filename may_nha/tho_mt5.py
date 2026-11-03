@@ -196,7 +196,10 @@ def chay_mot_k(slot: Path, v: dict, k: float, cho_toi_da: int) -> dict:
     deals = CLS.doc_deals(f.read_bytes().decode("utf-16", errors="ignore"))
     nam = so_nam(v["tu"], v["den"])
     dv = CLS.tong_ket_duong_von(deals, vv["von"], nam)
-    out = {"k": k, "net": r.get("net"), "pf": r.get("pf"), "lenh": r.get("lenh"), "dd_equity_mt5": r.get("dd"),
+    import sys as _s; _s.path.insert(0, str(GOC))
+    from nhan import dac_diem_he as DDH
+    nam_tk = DDH.deals_theo_nam(deals)
+    out = {"k": k, "lai_theo_nam": nam_tk["lai_theo_nam"], "ti_le_thang_pct": nam_tk["ti_le_thang_pct"], "net": r.get("net"), "pf": r.get("pf"), "lenh": r.get("lenh"), "dd_equity_mt5": r.get("dd"),
            "dd_pct": dd_pct(r.get("dd")), "cagr_pct": cagr(vv["von"], r.get("net"), nam), "sut_dong_lenh_pct": dv.get("sut_giam_pct"),
            "thang_te_nhat": dv.get("thang_te_nhat"), "chat_luong": r.get("chat_luong"), "giay": int(time.time() - t0), "bao_cao": f.name}
     ly = AT.phan_xu_ket_qua(r, out["giay"])
@@ -205,6 +208,7 @@ def chay_mot_k(slot: Path, v: dict, k: float, cho_toi_da: int) -> dict:
     try:
         dich = GOC / "hang_doi" / "bao_cao"; dich.mkdir(exist_ok=True)
         shutil.copy2(f, dich / f.name)
+        out["bao_cao_repo"] = str(dich / f.name)
     except OSError:
         pass
     return out
@@ -255,17 +259,92 @@ def chon_slot(arg: str | None) -> Path:
     raise SystemExit("Không thấy slot MT5 XM (đặt --slot D:\\mt5_tester\\xxx hoặc biến BRAIN_SLOTS)")
 
 
+def ds_slot_xm() -> list[Path]:
+    _, _, CL, _ = _mt5()
+    import quan_ly_slot as QS
+    return [Path(s) for s in QS.ds_slot() if Path(s, "terminal64.exe").exists() and CL.san_cua_slot(s) == "XM"]
+
+
+def so_luong_song_song(yeu_cau: int | None, so_slot: int, so_cpu: int | None) -> int:
+    """Mặc định = số slot XM; trần 4; trần theo CPU (chừa nửa số luồng cho Anh dùng máy)."""
+    tran_cpu = max(1, (so_cpu or 2) // 2)
+    n = so_slot if not yeu_cau else min(yeu_cau, so_slot)
+    return max(0, min(n, 4, tran_cpu))
+
+
+def het_luc(gio_chay: float | None, den_gio: str | None, bay_gio: float | None = None) -> float | None:
+    """Mốc dừng nhận việc mới (epoch): --gio-chay H và/hoặc --den-gio HH:MM (giờ máy). Lấy mốc sớm hơn."""
+    import datetime as dt
+    t0 = bay_gio if bay_gio is not None else time.time()
+    moc = []
+    if gio_chay:
+        moc.append(t0 + gio_chay * 3600)
+    if den_gio:
+        h, m = (int(x) for x in den_gio.split(":"))
+        d = dt.datetime.fromtimestamp(t0).replace(hour=h, minute=m, second=0, microsecond=0)
+        if d.timestamp() <= t0:
+            d += dt.timedelta(days=1)
+        moc.append(d.timestamp())
+    return min(moc) if moc else None
+
+
+def chay_song_song(a) -> None:
+    slots = ds_slot_xm()
+    n = so_luong_song_song(a.song_song or None, len(slots), os.cpu_count())
+    if n == 0:
+        raise SystemExit("Không thấy slot MT5 portable nào đăng nhập XM (BRAIN_SLOTS)")
+    moc = het_luc(a.gio_chay, a.den_gio)
+    con = []
+    for s in slots[:n]:
+        cmd = [sys.executable, str(Path(__file__).resolve()), "--slot", str(s), "--may", "%s_%s" % (a.may, s.name.lower()),
+               "--cho-toi-da", str(a.cho_toi_da)] + (["--het-luc", str(moc)] if moc else [])
+        p = subprocess.Popen(cmd, creationflags=0x00004000 if os.name == "nt" else 0)     # BELOW_NORMAL_PRIORITY_CLASS
+        con.append(p); log("song song: thợ PID %d trên slot %s" % (p.pid, s))
+        time.sleep(20)                                        # lệch pha để không cùng lúc kéo git
+    ma = [p.wait() for p in con]
+    log("song song: mọi thợ đã dừng (mã %s)" % ma)
+    if moc and all(m == 3 for m in ma):
+        sys.exit(3)
+
+
+def in_tinh_trang() -> None:
+    hd = GOC / "hang_doi"
+    cho = [json.loads(f.read_text(encoding="utf-8")) for f in (hd / "can_test").glob("*.json")]
+    print("Chờ: %d việc (~%.1f giờ ước)" % (len(cho), sum(HD.uoc_gio(v) for v in cho)))
+    for d in sorted(hd.glob("dang_lam_*")):
+        ds = [f.stem for f in d.glob("*.json")]
+        print("Đang làm %s: %s" % (d.name[9:], ", ".join(ds) or "(trống)"))
+    xong = [json.loads(f.read_text(encoding="utf-8")) for f in (hd / "da_test").glob("*.json")]
+    from collections import Counter
+    print("Xong: %d %s" % (len(xong), dict(Counter(x.get("trang_thai") for x in xong))))
+    for x in sorted(xong, key=lambda x: x.get("xong_luc", ""))[-5:]:
+        print("  %s %s: %s" % (x.get("xong_luc"), x["id"], (x.get("ket_qua") or {}).get("tom_tat")))
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--slot"); ap.add_argument("--may", default=socket.gethostname().lower().replace(" ", "_"))
     ap.add_argument("--mot-lan", action="store_true"); ap.add_argument("--cho-toi-da", type=int, default=4 * 3600)
+    ap.add_argument("--song-song", type=int, nargs="?", const=0, default=None,
+                    help="chạy N thợ song song, mỗi slot XM một thợ (bỏ N = theo số slot XM, trần 4 và nửa số CPU)")
+    ap.add_argument("--gio-chay", type=float, help="chỉ nhận việc mới trong H giờ"); ap.add_argument("--den-gio", help="HH:MM: ngừng nhận việc mới lúc này")
+    ap.add_argument("--het-luc", type=float, help=argparse.SUPPRESS)
+    ap.add_argument("--tinh-trang", action="store_true", help="in tiến độ hàng đợi rồi thoát")
     a = ap.parse_args()
+    if a.tinh_trang:
+        return in_tinh_trang()
     if not (GOC / ".tho_mt5_clone").exists():
         raise SystemExit("Chỉ chạy trong bản clone riêng của thợ (có tệp .tho_mt5_clone) — xem may_nha/README_THO_MT5.md")
+    if a.song_song is not None and not a.slot:
+        return chay_song_song(a)
+    if a.het_luc is None:
+        a.het_luc = het_luc(a.gio_chay, a.den_gio)
     slot = chon_slot(a.slot)
     hd = HD.HangDoi(GOC, a.may, log=log)
     log("thợ %s bắt đầu, slot %s" % (a.may, slot))
     while True:
+        if a.het_luc and time.time() >= a.het_luc and not hd.dang_lam_cua_toi():
+            log("hết khung giờ -> dừng (không nhận việc mới)"); sys.exit(3)
         v = (hd.dang_lam_cua_toi() or [None])[0] or hd.nhan()
         if v is None:
             xong = sorted((GOC / "hang_doi" / "da_test").glob("*.json"))
@@ -300,7 +379,16 @@ def main() -> None:
         except Exception as e:                                  # không chết thợ vì một việc
             tt, kq = "HONG", {"tom_tat": "CHƯA ĐO ĐƯỢC: lỗi %s" % str(e)[:300]}
         sinh = kq.pop("sinh", None)
-        hd.xong(v, kq, tt, them_tep)
+        tep_san = [c["bao_cao_repo"] for c in kq.get("chay", []) if c.get("bao_cao_repo")]
+        if v["loai"] == "mt5_backtest":                        # đặc điểm tốt của hệ, kể cả khi trượt (tự động)
+            try:
+                sys.path.insert(0, str(GOC))
+                from nhan import dac_diem_he as DDH
+                for pth in DDH.tu_ket_qua_tho(v, kq):
+                    them_tep[str(Path(pth).relative_to(GOC)).replace("\\", "/")] = Path(pth).read_text(encoding="utf-8")
+            except Exception as e:
+                log("  không ghi được đặc điểm hệ: %s" % str(e)[:200])
+        hd.xong(v, kq, tt, them_tep, tep_san)
         if sinh:
             hd.them(sinh, "hang_doi: sinh việc từ %s" % v["id"])
         log("xong %s: %s — %s" % (v["id"], tt, kq.get("tom_tat")))

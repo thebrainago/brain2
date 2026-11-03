@@ -109,3 +109,52 @@ def test_hang_doi_gieo_hop_le():
     vs = [json.loads(f.read_text(encoding="utf-8")) for f in goc.glob("*.json")]
     assert vs and all(HD.kiem_spec(v) == [] for v in vs)
     assert sum(HD.uoc_gio(v) for v in vs) >= 12
+
+
+def test_song_song_va_khung_gio():
+    assert T.so_luong_song_song(None, 3, 16) == 3
+    assert T.so_luong_song_song(None, 6, 16) == 4          # trần 4
+    assert T.so_luong_song_song(None, 4, 4) == 2           # chừa nửa CPU
+    assert T.so_luong_song_song(2, 4, 16) == 2 and T.so_luong_song_song(9, 1, 16) == 1
+    import datetime as dt
+    t0 = dt.datetime(2026, 11, 3, 20, 0).timestamp()
+    assert T.het_luc(None, None, t0) is None
+    assert T.het_luc(2, None, t0) == t0 + 7200
+    assert T.het_luc(None, "22:00", t0) == t0 + 7200
+    assert T.het_luc(None, "07:00", t0) == t0 + 11 * 3600   # qua đêm
+    assert T.het_luc(1, "22:00", t0) == t0 + 3600
+
+
+def test_khoa_git(tmp_path):
+    (tmp_path / ".git").mkdir()
+    k1, k2 = HD.KhoaGit(tmp_path), HD.KhoaGit(tmp_path, cu_giay=0)
+    with k1:
+        assert (tmp_path / ".git/tho_git.lock").exists()
+        with k1:                                            # vào lại cùng tiến trình
+            pass
+        assert (tmp_path / ".git/tho_git.lock").exists()
+        with k2:                                            # khoá cũ quá hạn -> gỡ
+            pass
+    assert not (tmp_path / ".git/tho_git.lock").exists()
+
+
+def test_dac_diem_he(tmp_path, monkeypatch):
+    from nhan import dac_diem_he as D
+    monkeypatch.setattr(D, "THU", tmp_path / "dd"); monkeypatch.setattr(D, "MUC_LUC", tmp_path / "ML.md")
+    assert D.ma_goc("od_v2r2p_b80_skea3279057100_XM_CSV") == "skea3279057100"
+    assert D.ma_goc("sk_ea_3279057100") == "skea3279057100"
+    assert D.ma_goc("DichNguoc:UV1_x_(2330430):lot0.01/1000") == D.ma_goc("DichNguoc:UV1_x_(2330430):lot0.002/1000")
+    assert D.deals_theo_nam([["2020.01.02", 5], ["2020.05.01", -2], ["2021.01.01", 4]]) == {
+        "lai_theo_nam": {"2020": 3, "2021": 4}, "ti_le_thang_pct": 66.7, "so_deal": 3}
+    assert "mọi mức lot" in D.ly_do_truot([{"k": 1, "cagr_pct": -5, "dd_pct": 30}])
+    assert D.ly_do_truot([{"k": 2, "cagr_pct": 12, "dd_pct": 30}]) is None
+    spec = {"id": "lot_skeadd170ac7bf_H1", "loai": "mt5_backtest", "che_do": "ong_dan_csv", "nguon": "sk_ea_dd170ac7bf", "ma": "USDCADmicro",
+            "tf": "H1", "tu": "2024.01.01", "den": "2026.10.01", "ts": {"InpNhoi": 1, "InpMaxTang": 9, "InpHeSoLot": 1.6, "InpTPPct": 0.005}}
+    kq = {"chay": [{"k": 1.0, "cagr_pct": 5.0, "dd_pct": 9.0, "pf": 1.5, "lenh": 50, "lai_theo_nam": {"2024": 1, "2025": 2, "2026": 3},
+                    "ti_le_thang_pct": 80.0}, {"k": 4.0, "cagr_pct": 9.0, "dd_pct": 85.0}]}
+    ps = D.tu_ket_qua_tho(spec, kq)
+    md = (tmp_path / "dd" / "skeadd170ac7bf.md").read_text(encoding="utf-8")
+    assert "TRƯỢT" in md and "DCA ngược" in md and "PF >= 1,3" in md and "có lãi 3/3 năm" in md
+    assert "skeadd170ac7bf" in (tmp_path / "ML.md").read_text(encoding="utf-8") and len(ps) == 3
+    D.tu_ket_qua_tho(spec, kq)                               # chạy lại không nhân đôi lần chạy
+    assert len(json.loads((tmp_path / "dd" / "skeadd170ac7bf.json").read_text(encoding="utf-8"))["chay"]) == 2
