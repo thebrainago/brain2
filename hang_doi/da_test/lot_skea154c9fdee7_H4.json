@@ -75,5 +75,81 @@
  "ghi_chu": "chạy lại nâng lot trên toàn dải CSV (dài nhất có), tick thật, XM",
  "lan": "co_ma_nguon",
  "may": "desktop-05pnlgf_g5",
- "nhan_luc": "2026-11-03T14:16:54+07:00"
+ "nhan_luc": "2026-11-03T14:16:54+07:00",
+ "trang_thai": "XONG",
+ "xong_luc": "2026-11-03T14:44:00+07:00",
+ "ket_qua": {
+  "chay": [
+   {
+    "k": 1.0,
+    "lai_theo_nam": {
+     "2024": 627.09,
+     "2025": 565.47,
+     "2026": 375.49
+    },
+    "ti_le_thang_pct": 80.4,
+    "net": 1568.05,
+    "pf": 3.28,
+    "lenh": 179.0,
+    "dd_equity_mt5": "781.50 (48.38%)",
+    "dd_pct": 48.38,
+    "cagr_pct": 41.371,
+    "sut_dong_lenh_pct": 6.735,
+    "thang_te_nhat": -53.31,
+    "chat_luong": "100% real ticks",
+    "giay": 1441,
+    "bao_cao": "hd_lot_skea154c9fdee7_H4_k1p0.htm",
+    "bao_cao_repo": "D:\\brain2_tho\\hang_doi\\bao_cao\\hd_lot_skea154c9fdee7_H4_k1p0.htm"
+   },
+   {
+    "k": 1.5,
+    "loi": "khong_bao_cao",
+    "giay": 34
+   },
+   {
+    "k": 2.0,
+    "loi": "khong_bao_cao",
+    "giay": 7
+   },
+   {
+    "k": 2.5,
+    "loi": "khong_bao_cao",
+    "giay": 5
+   },
+   {
+    "k": 3.0,
+    "loi": "khong_bao_cao",
+    "giay": 3
+   },
+   {
+    "k": 4.0,
+    "loi": "khong_bao_cao",
+    "giay": 3
+   },
+   {
+    "k": 5.0,
+    "loi": "khong_bao_cao",
+    "giay": 2
+   },
+   {
+    "k": 6.0,
+    "loi": "khong_bao_cao",
+    "giay": 3
+   },
+   {
+    "k": 8.0,
+    "loi": "khong_bao_cao",
+    "giay": 2
+   },
+   {
+    "k": 10.0,
+    "loi": "khong_bao_cao",
+    "giay": 10
+   }
+  ],
+  "dat": true,
+  "k_tot": 1.0,
+  "k_an_toan_max": 1.0,
+  "tom_tat": "ĐẠT: k=1.0 CAGR 41.37%/năm DD 48.38%"
+ }
 }
