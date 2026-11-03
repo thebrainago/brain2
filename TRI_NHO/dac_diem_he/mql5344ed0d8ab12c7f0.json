@@ -1,6 +1,6 @@
 {
  "id": "mql5344ed0d8ab12c7f0",
- "nguon": "mt5_tester",
+ "nguon": "mql5_344ed0d8ab12c7f0",
  "kieu": "vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 4 tầng, hệ số lot 1.3; TP 0.003 % giá",
  "chay": [
   {
@@ -275,21 +275,131 @@
    "lenh": "442",
    "trang_thai_so": "KHONG_DAT",
    "k_nang_lot": "khong_co"
+  },
+  {
+   "bien_the": "lot_mql5344ed0d8ab12c7f0_H1",
+   "ma": "NZDUSDmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g5",
+   "k": 1.0,
+   "cagr_pct": 17.485,
+   "dd_pct": 44.82,
+   "pf": 3.56,
+   "lenh": 528.0
+  },
+  {
+   "bien_the": "lot_mql5344ed0d8ab12c7f0_H1",
+   "ma": "NZDUSDmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g5",
+   "k": 1.5,
+   "cagr_pct": 21.199,
+   "dd_pct": 51.13,
+   "pf": 3.58,
+   "lenh": 526.0
+  },
+  {
+   "bien_the": "lot_mql5344ed0d8ab12c7f0_H1",
+   "ma": "NZDUSDmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g5",
+   "k": 2.0,
+   "cagr_pct": 25.672,
+   "dd_pct": 54.48,
+   "pf": 3.58,
+   "lenh": 526.0
+  },
+  {
+   "bien_the": "lot_mql5344ed0d8ab12c7f0_H1",
+   "ma": "NZDUSDmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g5",
+   "k": 2.5,
+   "cagr_pct": -100.0,
+   "dd_pct": 101.54,
+   "pf": 0.38,
+   "lenh": 40.0
+  },
+  {
+   "bien_the": "lot_mql5344ed0d8ab12c7f0_H1",
+   "ma": "NZDUSDmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g5",
+   "k": 3.0,
+   "cagr_pct": -100.0,
+   "dd_pct": 106.12,
+   "pf": 0.42,
+   "lenh": 40.0
+  },
+  {
+   "bien_the": "lot_mql5344ed0d8ab12c7f0_H1",
+   "ma": "NZDUSDmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g5",
+   "k": 4.0,
+   "cagr_pct": -100.0,
+   "dd_pct": 101.03,
+   "pf": 0.49,
+   "lenh": 37.0
+  },
+  {
+   "bien_the": "lot_mql5344ed0d8ab12c7f0_H1",
+   "ma": "NZDUSDmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g5",
+   "k": 5.0,
+   "cagr_pct": -100.0,
+   "dd_pct": 102.58,
+   "pf": 0.54,
+   "lenh": 37.0
+  },
+  {
+   "bien_the": "lot_mql5344ed0d8ab12c7f0_H1",
+   "ma": "NZDUSDmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g5",
+   "k": 6.0,
+   "cagr_pct": -100.0,
+   "dd_pct": 102.29,
+   "pf": 0.58,
+   "lenh": 36.0
+  },
+  {
+   "bien_the": "lot_mql5344ed0d8ab12c7f0_H1",
+   "ma": "NZDUSDmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g5",
+   "k": 8.0,
+   "cagr_pct": -100.0,
+   "dd_pct": 102.3,
+   "pf": 0.65,
+   "lenh": 36.0
+  },
+  {
+   "bien_the": "lot_mql5344ed0d8ab12c7f0_H1",
+   "ma": "NZDUSDmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g5",
+   "k": 10.0,
+   "cagr_pct": -100.0,
+   "dd_pct": 108.4,
+   "pf": 0.69,
+   "lenh": 36.0
   }
  ],
  "bi_thay_the": 12,
  "lai_theo_nam": {
-  "2018": 399.53,
-  "2019": 328.76,
-  "2020": 549.85,
-  "2021": 831.36,
-  "2022": 460.98,
-  "2023": 334.09,
-  "2024": 209.02,
-  "2025": 460.32,
-  "2026": -310.29
+  "2018": 273.82,
+  "2019": 331.64,
+  "2020": 518.65,
+  "2021": 819.22,
+  "2022": 415.72,
+  "2023": 333.8,
+  "2024": 199.52,
+  "2025": 450.75,
+  "2026": -238.22
  },
- "ti_le_thang_pct": 76.0,
+ "ti_le_thang_pct": 79.0,
  "so_deal": 546,
  "pf_bao_cao": 3.31,
  "bao_cao_htm": "reports/ong_dan/ket_qua_mt5/od_mql5344ed0d8ab12c7f0_XM_CSV.htm",
@@ -297,8 +407,9 @@
   "PF >= 1,3 ở ít nhất một biến thể",
   "DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot",
   "có lãi 8/9 năm",
-  "chạy có lãi trên: NZDUSD# H1",
-  "tỉ lệ thắng cao (76 %) — điểm vào/TP nhỏ đáng giữ"
+  "chạy có lãi trên: NZDUSD# H1, NZDUSDmicro H1",
+  "tỉ lệ thắng cao (79 %) — điểm vào/TP nhỏ đáng giữ"
  ],
- "ly_do_truot": "lãi dương nhưng không đủ 10 %/năm trước khi DD chạm 80 % (lợi thế mỏng so với rủi ro)"
+ "ly_do_truot": null,
+ "giai_doan": "2017.12.26–2026.10.01"
 }
