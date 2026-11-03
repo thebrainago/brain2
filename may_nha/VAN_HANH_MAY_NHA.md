@@ -65,8 +65,16 @@ Tham số / biến:
 - Mạng nhà không WARP chặn Myfxbook / Forex Factory / forex-station / LiteFinance ở DNS/TLS.
 - Có WARP: Forex Factory, forex-station, LiteFinance vào được; Myfxbook trả 403 Cloudflare (bỏ qua, **không vượt**); Exness social không nối được.
 
-## 7. Việc cần Anh
-- Demo EA Market: Anh phải tự bấm **Free Demo** trong tab Market của slot (đang có 33 việc chờ).
+## 7. Việc cần Anh — Free Demo EA Market
+- 32 việc `CHO_ANH` (danh sách `may_nha/CHO_ANH_FREE_DEMO.md`).
+- **Kiểm 03/11/2026 16:30 (UTC+7):** KHÔNG terminal nào (13 slot portable + mọi thư mục `%APPDATA%\MetaQuotes\Terminal\*`) đăng nhập MQL5 community: `config\common.ini` chỉ có `[Common] Login=<số tài khoản XM>`, không có mục `[Community]`. Không slot nào có `MQL5\Experts\Market\*.ex5`.
+- Phiên Windows: user `dung`, session console **4**, Active; Shell của Grok Bot cũng chạy trong session 4 (nên GUI automation chạy thẳng được, không cần `schtasks /IT`).
+- `pywinauto 0.6.9` đã cài (Python 3.12).
+- Cách tự làm lần sau (chỉ khi **RAM trống ≥ 6 GB + ~0,5 GB** cho terminal thêm; 5 test chạy thì RAM chỉ còn ~3 GB → KHÔNG mở được):
+  1. Mở một slot rảnh (g3/g6, không chạy thợ) bằng `terminal64.exe /portable`, ghi PID.
+  2. Đăng nhập community: Tools → Options → Community (Login `Vanh1799`, mật khẩu lấy từ email đăng ký MQL5 trong Gmail, không ghi ra log/git). Nếu MQL5 đòi mã xác nhận/captcha → dừng, báo Anh.
+  3. Mở từng product: trong terminal, Market → tìm theo tên → Free Demo (pywinauto, backend `uia`). Xác minh `MQL5\Experts\Market\<tên>.ex5` xuất hiện.
+  4. Đóng terminal theo đúng PID; chép `.ex5` sang slot thợ; đổi việc `demo_<id>` từ `CHO_ANH` sang `can_test`.
 
 ## 8. Theo dõi
 - Routine canh 30 phút/lần: xem CPU, RAM trống, log thợ, hàng đợi; ghi vào `nhat_ky/van_hanh_may_nha.md`.

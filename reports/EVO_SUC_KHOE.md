@@ -1,8 +1,8 @@
 # EVO - SUC KHOE HE THONG
 
-*2026-10-21 19:33:55*
+*2026-11-03 14:09:51*
 
-TOT 13 · XAU 5 · CHUA DO 2
+TOT 12 · XAU 6 · CHUA DO 2
 
 `CHUA_DO` khong phai `XAU`. Mot chi so khong do duoc thi noi la khong
 do duoc - quy no ve 'xau' la cach mot bo giam sat tu bia ra van de.
@@ -12,21 +12,21 @@ do duoc - quy no ve 'xau' la cach mot bo giam sat tu bia ra van de.
 | `seeker.ty_le_doc` | 0.0 | XAU | 0/54 tai lieu co ban van |
 | `seeker.nguon_rong` | 36 | XAU | rong: arxiv, blog, cnblogs_trung, collective2, crossref, darwinex, elitetrader, etoro, fac |
 | `quantlab.kho_co_che` | 4049 | TOT | 4049 co che, 4012 (99%) co truong `co_che` giai thich |
-| `quantlab.ho_so_song` | 5.2 | TOT | HO_SO_SONG.json ghi lan cuoi cach day 5 gio |
-| `quantlab.ho_so_mua_vu` | 5.1 | TOT | HO_SO_MUA_VU.json ghi lan cuoi cach day 5 gio |
-| `quantlab.ho_so_tuong_quan` | 5.2 | TOT | HO_SO_TUONG_QUAN_D1.json ghi lan cuoi cach day 5 gio |
-| `quantlab.ho_so_suy_nguoc` | 5.2 | TOT | SUY_NGUOC.json ghi lan cuoi cach day 5 gio |
-| `quantlab.ho_so_to_hop` | 5.2 | TOT | TO_HOP.json ghi lan cuoi cach day 5 gio |
+| `quantlab.ho_so_song` | 206.8 | TOT | HO_SO_SONG.json ghi lan cuoi cach day 207 gio |
+| `quantlab.ho_so_mua_vu` | 206.8 | TOT | HO_SO_MUA_VU.json ghi lan cuoi cach day 207 gio |
+| `quantlab.ho_so_tuong_quan` | 206.8 | TOT | HO_SO_TUONG_QUAN_D1.json ghi lan cuoi cach day 207 gio |
+| `quantlab.ho_so_suy_nguoc` | 206.8 | TOT | SUY_NGUOC.json ghi lan cuoi cach day 207 gio |
+| `quantlab.ho_so_to_hop` | 206.8 | XAU | TO_HOP.json ghi lan cuoi cach day 207 gio |
 | `quantlab.ket_qua` | 0 | XAU | 0 dong trong ket_qua |
-| `evo.van_de_mo` | 1 | TOT | 1 MO / 32 da sua |
+| `evo.van_de_mo` | 1 | TOT | 1 MO / 48 da sua |
 | `evo.bai_hoc` | 3 | XAU | 3 the bai hoc |
-| `evo.finder` | 5.1 | TOT | san_cong_cu = Finder cua so do |
+| `evo.finder` | 206.8 | TOT | san_cong_cu = Finder cua so do |
 | `xay.hang_doi` | 31 | TOT | {'xong': 23, 'cho': 8} |
 | `xay.viec_hong` | 0 | TOT |  |
 | `may.mo_coi` | None | CHUA_DO | khong co psutil |
 | `phanh.doc_duoc` | None | CHUA_DO | OperationalError: no such table: he_chay |
 | `thong_luong.tang_cam` | 1 | XAU | doc toan van: 54 vao -> 0 ra |
-| `dia.con_trong` | 111.0 | TOT | 111.0 GB trong / 127 GB tong (13% da dung) |
+| `dia.con_trong` | 104.1 | TOT | 104.1 GB trong / 127 GB tong (18% da dung) |
 | `dia.nao_db` | 0 | TOT | bang `noi_dung` (toan van tai lieu) chiem phan lon - do la du lieu THAT, khong phai rac; m |
 | `dia.wal` | 0 | TOT | khong co WAL ton dong |
 
@@ -54,6 +54,18 @@ python -m nhan.day_chuyen boc   # lay toan van cho phan con lai
 
 ```
 python -m nhan.kham_pha_nguon   # do lai tung nguon, tach 'chan' khoi 'chua chay'
+```
+
+### `quantlab.ho_so_to_hop` — tuoi ho so to_hop (gio)
+
+**Do duoc:** TO_HOP.json ghi lan cuoi cach day 207 gio
+
+**Cat nghia:** Bang to hop cu - ket luan 'khong co gi' co the da duoc do trong mot the he cong khac.
+
+**De xuat (chay duoc):**
+
+```
+python -m nhan.to_hop D1 H4 --tien-trinh 10
 ```
 
 ### `quantlab.ket_qua` — ket qua da cham cong
