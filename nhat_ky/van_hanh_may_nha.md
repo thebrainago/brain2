@@ -15,3 +15,4 @@
   - 1 EA Forex Factory `ff_1408891` vào hàng đợi; hàng đợi còn 60 việc.
   - Đề xuất: muốn CPU cao hơn mà RAM giới hạn → tăng agent tester mỗi slot thay vì thêm terminal.
 - **14:3x** Ghi tài liệu vận hành; máy nhà offline lúc này nên chưa kiểm lại trạng thái thật.
+- **14:44** Canh 30p: online. CPU ~2–18%, RAM trống lúc đầu **0,58 GB** (dưới ngưỡng 6 GB) do metatester g4/g6/g7 ~5 GB/con; WARP Connected; MT5 XM còn authorized (g1/p5). Terminal 13 + thợ g1–g12/p5. Hành động: taskkill PID chính xác thợ/terminal/metatester g3,g6–g12 + orch song-song trùng; trả 8 việc dang_lam → can_test. Sau đó: CPU thấp, RAM trống **~15,7 GB**, 4 terminal (g1,g2,g4,p5) + thợ g5 (chưa có terminal), metatester 3, hàng đợi can_test **64**, da_test mới chủ yếu TRƯỢT/HONG (khong_bao_cao). Không ĐẠT mới so với 14:24. Không gọi Seeker (hàng đợi >15).
