@@ -517,6 +517,11 @@ def lam_demo(slot: Path, v: dict) -> tuple[str, dict]:
     hop = [f for f in thay if tu_khoa and tu_khoa[:6] in re.sub(r"[^a-z0-9]", "", f.stem.lower())]
     if not hop:
         return "CHO_ANH", {"tom_tat": "CHƯA ĐO ĐƯỢC: chưa có .ex5 demo — Anh mở %s trong terminal (tab Market) bấm Free Demo" % v["url_product"]}
+    def _dai(f):
+        n = re.sub(r"[^a-z0-9]", "", f.stem.lower()); k = 0
+        while k < len(tu_khoa) and tu_khoa[:k + 1] in n: k += 1
+        return k
+    hop.sort(key=_dai, reverse=True)  # The Gold Phantom/Reaper trùng 6 ký tự đầu -> lấy khớp dài nhất
     ex = hop[0]
     return "XONG", {"tom_tat": "có demo %s" % ex.name, "ex5": ex.name, "sinh": [{
         "id": "bt_" + v["id"], "loai": "mt5_backtest", "lan": "co_ma_nguon", "uu_tien": int(v.get("uu_tien") or 5), "che_do": "ea_goc",

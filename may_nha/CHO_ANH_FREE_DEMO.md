@@ -8,7 +8,7 @@
 3. Mở từng product dưới đây → bấm **Free Demo** (miễn phí, không mua).
 4. Thợ tự thấy file trong `MQL5\Experts\Market\` và sinh việc backtest 2016–2026.
 
-Còn **32** product chờ.
+**XONG 2026-11-03 17:45 (UTC+7): đã lấy Free Demo đủ 32/32** (terminal E:\mt5_demo_dl, MQL5 Vanh1799, pywinauto+OCR); .ex5 đã copy vào MQL5\Experts\Market của g1–g12 và p5. Còn 0 product chờ.
 
 | # | Tên | Giá USD | URL | id việc |
 |---|---|---|---|---|
