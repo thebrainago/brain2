@@ -86,3 +86,26 @@ Lãi/lỗ ngày từ equity tái dựng (lệnh MT5 thật). Tham lam theo lãi/
 - Equity tái dựng dùng giá H1 (bid) của lần chạy: sụt trong nến được tính bằng high/low nhưng không theo tick.
 - Hoa hồng thật XM micro vẫn **CHƯA ĐO ĐƯỢC**; 7 USD/100k là giả định stress.
 - Box thiếu thẻ đã dịch của nhiều hệ (dịch LLM trên máy nhà) → phần Python của các hệ đó chưa đo.
+
+## 7. Vòng 2 cho 8 hệ ĐẠT vòng 1 MT5 (03/11/2026, Grok Bot)
+
+Bối cảnh: 8 hệ trong `TRI_NHO/TRANG_THAI.md` ĐẠT ở bước nâng lot, nhưng CSV lệnh vào chỉ phủ ~12/2023–10/2026 (trừ mql5344 từ 12/2017) → **in-sample**. Ý chủ dự án: không đòi một bộ thông số cố định thắng mọi giai đoạn; quản lý lệnh (lot, bước DCA, thoát) phải **thích nghi** theo giai đoạn.
+
+### 7.1 Đã sinh (hàng đợi git, máy nhà tự lấy)
+38 việc `hang_doi/can_test/v2qd_<biến thể>_<hệ>.json`, `uu_tien` 90 (trên việc lot 80), cùng CSV vào + `BRAIN_XuLiLenh`, k = {1, k_tot}:
+| Biến thể | Đổi | Mục đích |
+|---|---|---|
+| `atrb1` | bước DCA 1×ATR14, TP 0,5×ATR14 (tắt %) | thích nghi biến động (PMG `vol_adaptive`) |
+| `atrb2` | bước 2×ATR14, TP 1×ATR14 | giãn khi biến động lớn |
+| `gian13` | `InpGianBuoc` 1,3 (chỉ 6 hệ có DCA) | PMG `expanding` |
+| `trailatr` | bỏ TP, trailing kích 1×ATR trả 0,5×ATR | thoát theo xu hướng |
+| `catlo40` | cắt rổ khi lỗ ≥ 40 % số dư | phanh giai đoạn xấu |
+Vẫn IN-SAMPLE; chỉ để xem quản lý nào giữ lãi đều hơn qua 2024/2025/2026 (`lai_theo_nam` trong kết quả), so với gốc `lot_<hệ>`.
+
+### 7.2 Thiếu — cần làm trước khi coi là qua vòng 2 (ngưỡng §1.8)
+1. **Ngoài mẫu trước 2024**: CSV vào do Python xuất trên giá 2024–2026. Phải xuất lại CSV từ thẻ Python trên giá dài. Box có HistData M1 2008–2023 chỉ cho AUDNZD, EURCHF, EURGBP, NZDCAD, XAUUSD (`/workspace/du_lieu_fx/hd_dai/`); **chưa có GBPNZD, GBPCAD, USDCAD, NZDUSD dài**. Lấy: HistData `DAT_ASCII_<CẶP>_M1_<năm>.zip` (như `hd_dai/tai.py`) hoặc Dukascopy; hoặc máy nhà xuất M1/H1 XM bằng `mt5tools/tai_lich_su_mt5.py`. Lịch sử XM đã ghi: AUD/NZD `#` không có M1 trước 2018-05; GBPUSD 2004–2015 chạy được nhưng "0 % real ticks"; mql5344 2017–2026 chỉ ~31 % real ticks → trước ~2023 tester XM dùng tick sinh từ M1, ghi rõ chất lượng mô hình.
+   Hai hệ `mql5*` là lịch sử tín hiệu công khai → không có ngoài mẫu trước ngày tín hiệu tồn tại; chỉ có forward.
+2. **Walk-forward 3 đoạn / Monte Carlo / stress phí ×1,5 / equity tái dựng**: có code (`nhan/vong2.py`) nhưng cần `<id>_vao.csv_lenh_mt5.csv` + `_gia.csv` của lần chạy lot từ máy nhà về repo.
+3. **Đa cặp**: CSV vào gắn với một cặp → không chạy được trên cặp khác; cần thẻ Python tái sinh tín hiệu (`nhan/vong2.py` §1.4).
+4. **Ghép**: GBPCAD có 3 hệ (ghep60ff H1, ghep0bf2 H4, skea154 H4), GBPNZD có 2 (ghepe9b41 H4, 2600ea H1) → ghép danh mục §4 bằng equity tái dựng (cần mục 2); EA gộp một rổ mỗi chiều nên ghép trong một EA chỉ `gan_dung`.
+5. **Lọc chế độ ADX / regime / tin**: `BRAIN_XuLiLenh` **chưa có** input ADX, lọc chế độ hay lịch tin; chỉ có ATR (bước/TP/trailing), giờ cấm, spread tối đa. Cần thêm input (vd `InpAdxMax`, `InpAtrPctMin/Max`, file lịch tin CSV) và biên dịch trên máy nhà.
