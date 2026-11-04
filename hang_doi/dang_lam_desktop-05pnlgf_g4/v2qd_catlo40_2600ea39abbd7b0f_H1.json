@@ -65,5 +65,7 @@
   3.0
  ],
  "uoc_phut": 14,
- "ghi_chu": "VÒNG 2 thử sâu quản lý lệnh (03/11): cắt cả rổ khi lỗ ≥ 40% số dư (phanh giai đoạn xấu). Gốc lot_2600ea39abbd7b0f_H1 (ĐẠT vòng 1, k_tot=3.0); cùng CSV vào, chỉ đổi quản lý. Vẫn IN-SAMPLE cửa sổ CSV."
+ "ghi_chu": "VÒNG 2 thử sâu quản lý lệnh (03/11): cắt cả rổ khi lỗ ≥ 40% số dư (phanh giai đoạn xấu). Gốc lot_2600ea39abbd7b0f_H1 (ĐẠT vòng 1, k_tot=3.0); cùng CSV vào, chỉ đổi quản lý. Vẫn IN-SAMPLE cửa sổ CSV.",
+ "may": "desktop-05pnlgf_g4",
+ "nhan_luc": "2026-11-04T16:28:09+07:00"
 }
