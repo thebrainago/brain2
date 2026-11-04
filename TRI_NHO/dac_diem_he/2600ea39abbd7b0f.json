@@ -1,7 +1,7 @@
 {
  "id": "2600ea39abbd7b0f",
  "nguon": "2600ea39abbd7b0f",
- "kieu": "vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 4 tầng, hệ số lot 1.0; TP 0.003 % giá; cắt lỗ 40.0 %",
+ "kieu": "vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 4 tầng, hệ số lot 1.0; TP 0.003 % giá",
  "chay": [
   {
    "bien_the": "lot_2600ea39abbd7b0f_H1",
@@ -178,6 +178,28 @@
    "dd_pct": 98.98,
    "pf": 0.41,
    "lenh": 32.0
+  },
+  {
+   "bien_the": "v2qd_gian13_2600ea39abbd7b0f_H1",
+   "ma": "GBPNZDmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g5",
+   "k": 1.0,
+   "cagr_pct": 38.28,
+   "dd_pct": 15.8,
+   "pf": 3.18,
+   "lenh": 132.0
+  },
+  {
+   "bien_the": "v2qd_gian13_2600ea39abbd7b0f_H1",
+   "ma": "GBPNZDmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g5",
+   "k": 3.0,
+   "cagr_pct": 83.442,
+   "dd_pct": 22.64,
+   "pf": 3.18,
+   "lenh": 132.0
   }
  ],
  "bi_thay_the": 3,
