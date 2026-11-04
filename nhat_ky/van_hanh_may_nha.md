@@ -86,3 +86,4 @@
 - WARP giữ nguyên: Connected.
 - Kết quả từ 13:54: 24 việc xong, 16 ĐẠT, 8 TRƯỢT; không có kết quả trong khung 19:25–19:55. can_test còn 128.
 - Chỉ chạy lại thợ khi Anh nói rõ.
+- 2026-11-04 20:06 (UTC+7): Thử dán lệnh xóa E:\mt5_tester\p3,p4,p6\Bases (~17,7 GB) vào cửa sổ PowerShell Admin qua SendKeys — THẤT BẠI do UIPI (tiến trình không admin không gửi phím được vào cửa sổ admin). Chưa xóa gì. Free: C 36,40 / D 19,96 / E 42,66 GB. Cần anh tự dán lệnh vào cửa sổ Admin.
