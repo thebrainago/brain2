@@ -1,18 +1,19 @@
 # Đặc điểm hệ `cb`
 
-- Nguồn: https://www.mql5.com/en/code/62684
-- Kiểu vào / quản lý lệnh: tham số: Initial_Lot
+- Nguồn: https://www.mql5.com/en/code/72278
+- Kiểu vào / quản lý lệnh: tham số: xr_FixedLot
 - Trạng thái: **TRƯỢT — lãi dương nhưng không đủ 10 %/năm trước khi DD chạm 80 % (lợi thế mỏng so với rủi ro)**
-- Số lần chạy hợp lệ: 38 (bị thay thế do lỗi lot CSV: 0)
-- Tỉ lệ thắng: 44,0 %
-- Năm có lãi: 2016 (-93), 2017 (+183), 2018 (-339), 2019 (-92), 2020 (+15), 2021 (-10), 2022 (+12), 2023 (+48), 2024 (-33), 2025 (-407), 2026 (+18)
+- Số lần chạy hợp lệ: 41 (bị thay thế do lỗi lot CSV: 0)
+- Tỉ lệ thắng: 77,3 %
+- Năm có lãi: 2016 (+496), 2017 (-803), 2018 (+339), 2019 (-264), 2020 (+238), 2021 (-717), 2022 (+156), 2023 (-80), 2024 (-371), 2025 (-137), 2026 (+818)
 - Thời gian giữ lệnh TB: CHƯA ĐO ĐƯỢC
 
 ## Mảnh tốt dùng lại được
 
 - PF >= 1,3 ở ít nhất một biến thể
 - DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot
-- chạy có lãi trên: EURUSDmicro H1
+- chạy có lãi trên: EURUSDmicro H1, GOLDmicro H1
+- tỉ lệ thắng cao (77 %) — điểm vào/TP nhỏ đáng giữ
 
 ## Các lần chạy
 
@@ -24,6 +25,7 @@
 | cb_48961 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_g2 | 2.0 | 1,62 | 14,21 | 2,97 | 478.0 |
 | cb_62713 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_g1 | 1.0 | 1,61 | 25,86 | 1,79 | 406.0 |
 | cb_48961 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_g2 | 1.0 | 0,84 | 7,19 | 2,97 | 478.0 |
+| cb_72278 | GOLDmicro | H1 | mt5_tho_desktop-05pnlgf_g1 | 2.0 | 0,17 | 19,41 | 1,01 | 1746.0 |
 | cb_74582 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_g1 | 1.0 | -0,01 | 0,80 | 0,99 | 497.0 |
 | cb_74582 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_g1 | 2.0 | -0,01 | 1,60 | 0,99 | 497.0 |
 | cb_74582 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_g1 | 4.0 | -0,02 | 3,19 | 0,99 | 497.0 |
@@ -31,8 +33,10 @@
 | cb_70052 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_p5 | 1.0 | -0,09 | 1,10 | 0,77 | 512.0 |
 | cb_71189 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_g2 | 2.0 | -0,18 | 2,19 | 0,77 | 512.0 |
 | cb_70052 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_p5 | 2.0 | -0,18 | 2,19 | 0,77 | 512.0 |
+| cb_72278 | GOLDmicro | H1 | mt5_tho_desktop-05pnlgf_g1 | 1.0 | -0,31 | 21,97 | 0,96 | 1494.0 |
 | cb_71189 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_g2 | 4.0 | -0,36 | 4,38 | 0,77 | 512.0 |
 | cb_70052 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_p5 | 4.0 | -0,36 | 4,38 | 0,77 | 512.0 |
+| cb_72278 | GOLDmicro | H1 | mt5_tho_desktop-05pnlgf_g1 | 4.0 | -0,60 | 22,15 | 0,97 | 1697.0 |
 | cb_62684 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_g11 | 1.0 | -0,67 | 8,56 | 0,89 | 1235.0 |
 | cb_74135 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_g2 | 1.0 | -0,78 | 24,27 | 0,97 | 1518.0 |
 | cb_63698 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_g10 | 1.0 | -0,89 | 11,15 | 0,92 | 780.0 |
@@ -55,4 +59,3 @@
 | cb_48139 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_g2 | 4.0 | -100,00 | 100,41 | 0,93 | 1720.0 |
 | cb_47584 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_p5 | 1.0 | 0,00 | 0,00 | 0,00 | CHƯA ĐO ĐƯỢC |
 | cb_47584 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_p5 | 2.0 | 0,00 | 0,00 | 0,00 | CHƯA ĐO ĐƯỢC |
-| cb_47584 | EURUSDmicro | H1 | mt5_tho_desktop-05pnlgf_p5 | 4.0 | 0,00 | 0,00 | 0,00 | CHƯA ĐO ĐƯỢC |
