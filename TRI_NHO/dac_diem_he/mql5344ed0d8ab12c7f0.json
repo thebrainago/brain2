@@ -1,7 +1,7 @@
 {
  "id": "mql5344ed0d8ab12c7f0",
  "nguon": "mql5_344ed0d8ab12c7f0",
- "kieu": "vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 4 tầng, hệ số lot 1.3; TP 0.5 ATR",
+ "kieu": "vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 4 tầng, hệ số lot 1.3; TP 1.0 ATR",
  "chay": [
   {
    "bien_the": "od_v2r2p_b120_mql5344ed0d8ab12c7f0_XM_CSV",
@@ -407,30 +407,52 @@
    "dd_pct": 104.24,
    "pf": 0.7,
    "lenh": 426.0
+  },
+  {
+   "bien_the": "v2qd_atrb2_mql5344ed0d8ab12c7f0_H1",
+   "ma": "NZDUSDmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g2",
+   "k": 1.0,
+   "cagr_pct": 14.261,
+   "dd_pct": 22.25,
+   "pf": 2.84,
+   "lenh": 622.0
+  },
+  {
+   "bien_the": "v2qd_atrb2_mql5344ed0d8ab12c7f0_H1",
+   "ma": "NZDUSDmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g2",
+   "k": 2.0,
+   "cagr_pct": -46.727,
+   "dd_pct": 99.67,
+   "pf": 0.25,
+   "lenh": 41.0
   }
  ],
  "bi_thay_the": 12,
  "lai_theo_nam": {
-  "2018": 126.62,
-  "2019": 177.6,
-  "2020": 203.63,
-  "2021": 275.44,
-  "2022": 200.57,
-  "2023": 150.66,
-  "2024": 98.09,
-  "2025": 153.39,
-  "2026": 126.15
+  "2018": 165.4,
+  "2019": 188.88,
+  "2020": 359.74,
+  "2021": 537.89,
+  "2022": 377.89,
+  "2023": 436.29,
+  "2024": 265.15,
+  "2025": 268.76,
+  "2026": -383.22
  },
- "ti_le_thang_pct": 74.6,
+ "ti_le_thang_pct": 77.8,
  "so_deal": 546,
  "pf_bao_cao": 3.31,
  "bao_cao_htm": "reports/ong_dan/ket_qua_mt5/od_mql5344ed0d8ab12c7f0_XM_CSV.htm",
  "manh_tot": [
   "PF >= 1,3 ở ít nhất một biến thể",
   "DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot",
-  "có lãi 9/9 năm",
+  "có lãi 8/9 năm",
   "chạy có lãi trên: NZDUSD# H1, NZDUSDmicro H1",
-  "tỉ lệ thắng cao (75 %) — điểm vào/TP nhỏ đáng giữ"
+  "tỉ lệ thắng cao (78 %) — điểm vào/TP nhỏ đáng giữ"
  ],
  "ly_do_truot": null,
  "giai_doan": "2017.12.26–2026.10.01"
