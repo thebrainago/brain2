@@ -1,0 +1,5 @@
+[
+  {"to_chuc": "Vanguard", "ten": "Active Fixed Income Perspectives Q4 2026", "ngay": "2026-10", "url": "https://advisors.vanguard.com/content/dam/fas/pdfs/FAFIXINC.pdf", "tep_txt": "vanguard_FAFIXINC.txt"},
+  {"to_chuc": "Standard Chartered", "ten": "Global Market Outlook", "ngay": "2026-10-30", "url": "https://av.sc.com/market-outlook/publications/global-market-outlook-30-10-2026.pdf", "tep_txt": "sc_gmo_2026-10-30.txt"},
+  {"to_chuc": "State Street (SSGA)", "ten": "Quarterly Investment Outlook Q4 2026", "ngay": "2026-09-30 (chốt số liệu)", "url": "https://www.ssga.com/library-content/assets/pdf/global/insights/2026/quarterly-investment-outlook-q4-2026.pdf", "tep_txt": "ssga_qio_q4_2026.txt"}
+]

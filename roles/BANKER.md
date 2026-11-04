@@ -14,3 +14,7 @@ Phân tích vĩ mô (lãi suất, chỉ số USD, VIX, COT), xác định regime
 ## Quy tắc
 - Không sửa `quan_li_quet.py` (Seeker sở hữu). Chỉ sửa `banker.py` + báo cáo riêng.
 - Không xóa/khoá bàn khi brain_daily đang chạy.
+
+## Tổng hợp báo cáo tổ chức
+- Thư mục `banker_bao_cao/`: tổng hợp báo cáo triển vọng của các tổ chức lớn (Vanguard, SSGA, SC, BlackRock…) theo 4 nguyên tắc trong `banker_bao_cao/README.md`.
+- Nguồn: `banker_bao_cao/NGUON.md`. Tải báo cáo: `python banker_bao_cao/tai_bao_cao.py <url> --ky <ky>`. Kỳ mới nhất: `banker_bao_cao/TONG_HOP_2026-11.md`.

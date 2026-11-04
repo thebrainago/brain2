@@ -1,0 +1,687 @@
+Quarterly
+Investment
+Outlook
+Q4 2026
+Contents
+3    Introduction
+
+4    Macroeconomic outlook
+5    United States
+6    Europe
+7    Asia-Pacific
+
+9    Asset class outlook
+9    Global equities
+11   Fixed income
+12   Commodities
+
+14   Latest thinking
+
+15   Market forecasts
+
+
+
+
+                        Quarterly Investment Outlook   2
+Introduction
+Recursive but still resilient?
+As we move into the final quarter of 2026, we think it is good
+practice to consider how our views on the economy and
+financial markets have changed over the year. This includes
+recognizing what we got right and learning where we could
+have done better. It’s a process that could be accurately
+described as recursive self-improvement: reviewing results
+and using those lessons to make better decisions. This mirrors
+advancements in artificial intelligence, where AI continually
+learns how to build better versions of itself.
+
+Constructively, recursive self-improvement of AI models could
+have tremendous productivity benefits for the global economy
+and financial rewards for those companies and investors that
+get it right. But it poses questions about safety, oversight,
+and the future complexion of labor markets. AI’s fast-growing
+influence also highlights how economic and market growth is
+being driven by a narrow cohort of companies and investment
+themes. Further AI advances may only exacerbate this
+concentration.
+
+Narrow market drivers alongside fatter upside and downside
+tails do not necessarily herald broad market weakness.
+However, the range of potential outcomes is widening and
+could test the resilience that has underpinned markets through
+a rewarding 2026 to date.
+
+
+
+
+                                 Quarterly Investment Outlook    3
+Macroeconomic outlook
+Growth is solid, but not broad-based                                  Central banks in the US, Europe, and Japan have
+                                                                      responded with rate hikes and have signaled more to
+Global growth remains resilient, but the nature of that               come, even though the effectiveness of such moves is
+expansion is increasingly uneven and vulnerable to                    questionable in the face of the energy supply shock and
+a prolonged energy shock from the ongoing US-Iran                     AI-related demand pressures. Growth remains narrowly
+conflict. There has been a notable pick-up in global                  based: AI-related investment and spending by high-
+manufacturing over the last six months, driven primarily              income consumers is strong, while broader household
+by the AI investment boom. At the same time, the steady               spending, housing, and non-AI capital expenditure is
+depletion of stored oil reserves amid ongoing threats                 more subdued. The quarterly edition of our weekly
+to oil transit and infrastructure raise the risk of much              economic perspectives provides additional insight into
+higher prices and physical shortages, possibly choking                global economic activity and policy moves.
+this momentum even as inflationary pressures intensify.
+Europe and Asia are more exposed than the United                      Our global growth forecasts remain largely intact,
+States, although even the US is not immune.                           but there is a risk that today’s key growth engines
+                                                                      could stall rather than broaden.
+
+
+
+
+Figure 1: Global growth resilient amid risks
+
+
+
+
+Source: Macrobond, State Street Investment Management, International Monetary Fund as of September 21, 2026. The above forecast is an
+estimate based on certain assumptions and analysis made by the State Street Investment Management Economics Team. There is no guarantee
+that the estimates will be achieved.
+
+
+
+
+                                               Quarterly Investment Outlook                                                               4
+United States                                                           equipment and IP investment. By contrast, residential
+                                                                        fixed investment has declined, leaving the expansion
+Resilient growth, narrowing foundations                                 more dependent on a small number of fast-growing
+                                                                        segments. And while AI-related capex appears set to
+                         Forecast (%)         Change since Q3           continue, risks could emerge in the form of regulatory
+                                                                        change, competition, or higher financing costs.
+2026 GDP growth
+                         +2.3                        ———                Meanwhile, elevated interest rates are likely to prolong
+                                                                        the downturn in housing demand and construction.
+2026 inflation
+                         +3.3                                           Consumption growth seems set to slow further to just
+                                                                        under 2% in 2027 as the benefits from 2026 tax refunds
+                                                                        dissipate and households have less of a buffer from
+End-2026
+Fed funds rate
+                         4.00–4.25                                      already lower savings—future growth will depend on
+                                                                        improving real incomes as inflation moderates. The
+Source: State Street Investment Management as of September              unemployment rate has stabilized (at 4.1% in August),
+21, 2026. The above forecast is an estimate based on certain            though a fall in participation indicates reduced labor
+assumptions and analysis made by the State Street Investment
+                                                                        supply rather than hiring strength. This is reflected in
+Management Economics Team. There is no guarantee that the
+estimates will be achieved.                                             slowing wage growth and suggests the jobs market is
+                                                                        unlikely to provide a major boost for consumption; at
+The US outlook remains robust despite geopolitical                      the same time, it should help limit domestic inflation
+disruption, but growth is being propelled by a narrower                 pressures in the near term.
+set of drivers. At a headline level, real GDP growth is
+                                                                        Inflation remains a clear challenge over longer horizons.
+anticipated to dip slightly to 2.1% in 2027, with inflation
+                                                                        With headline CPI at 3.4% and core PCE at 3.3%, the
+falling back toward the 2% target after this year’s surge.
+                                                                        Federal Reserve raised rates in September, and another
+The economy is increasingly K-shaped. High-income                       hike is expected in December. We envisage an extended
+households are sustaining consumer spending,                            hold beyond that, with the potential for a partial reversal
+while the AI infrastructure buildout is driving strong                  by the end of 2027.
+
+Figure 2: US inflation keeps Fed in tightening mode
+
+
+
+
+Source: Macrobond, State Street Investment Management, US Bureau of Labor Statistics, Federal Reserve Bank of Atlanta, Federal Reserve Bank
+of Cleveland, US Bureau of Economic Analysis, as of September 30, 2026.
+
+
+
+
+                                                Quarterly Investment Outlook                                                              5
+Europe                                                                 Across the region, weak private demand is the main
+                                                                       constraint. Eurozone household consumption and
+Weak demand constrains recovery                                        investment are subdued, with government spending
+                                                                       providing a partial offset. Germany remains the principal
+                         Forecast (%)         Change since Q3          drag, with fixed investment set to contract for a fourth
+                                                                       consecutive year. Limited improvement despite higher
+2026 GDP growth
+                         +1.0                                          defense spending highlights mounting competitive
+                                                                       pressure on manufacturing and potential EU–China
+2026 inflation
+                         +2.9                                          trade tensions. UK growth is also fragile: recent gains
+                                                                       in business services contrast with weaker consumer-
+                                                                       facing activity and labor-market data. Higher energy
+End-2026
+ECB deposit rate
+                         2.75                                          and borrowing costs, alongside tighter fiscal conditions,
+                                                                       constitute headwinds as we move into 2027.
+
+Source: State Street Investment Management as of September             Energy pressures are complicating monetary policy
+21, 2026. The above forecast is an estimate based on certain           options by raising inflation as demand weakens.
+assumptions and analysis made by the State Street Investment
+                                                                       Following increases in June and September, we expect
+Management Economics Team. There is no guarantee that the
+estimates will be achieved.                                            one further European Central Bank (ECB) hike by year-
+                                                                       end unless geopolitical conditions improve materially. If
+Europe’s outlook remains subdued, although we have                     energy prices remain elevated, we expect the Bank of
+modestly upgraded eurozone growth as downside risks                    England to implement two 25-basis-point hikes, likely in
+proved less severe than anticipated. We expect GDP                     November and February 2027—this is less than the four
+growth of 1.0% in 2026 and 1.3% in 2027. We have also                  hikes priced by markets, which appears excessive given
+lifted our UK growth forecast to 0.8% (from 0.7%), but                 weak domestic demand and easing wage pressures.
+the energy shock leads us to lower 2027 growth to                      The key risk across the continent is that a temporary
+0.8% (from 0.9%).                                                      supply shock generates broader second-round inflation
+                                                                       effects.
+
+
+Figure 3: Eurozone inflation is key focus
+
+
+
+
+Source: Macrobond, State Street Investment Management, Eurostat, as of September 30, 2026.
+
+
+
+
+                                                Quarterly Investment Outlook                                                   6
+Asia-Pacific                                                            beyond 157 against the US dollar suggests markets
+                                                                        were positioned for a more hawkish outcome and were
+Diverging outlooks for Japan and China                                  disappointed. The BoJ’s language was less hawkish
+                                                                        than in July—although the bank still sees scope for
+                         Forecast (%)         Change since Q3           higher rates, the timing of an increase is now viewed
+                                                                        as less urgent and will be heavily data-dependent. The
+2026 GDP growth
+                         +0.8                        ———                consumer is a key focus as household demand has
+                                                                        been soft.
+2026 inflation
+                         +2.0                                           We have kept our 2026 growth forecast unchanged
+                                                                        at 0.8% and expect a modest acceleration to 0.9% in
+                                                                        2027 as exports recover. Near-term risks are tilted to
+End-2026
+Bank of Japan rate
+                         1.25/1.50                                      the downside, however, and weak third-quarter data
+                                                                        could delay the next rate increase into 2027. Energy
+Source: State Street Investment Management as of September              and freight costs present the main upside inflation
+21, 2026. The above forecast is an estimate based on certain            risk, particularly if higher oil-related prices broaden
+assumptions and analysis made by the State Street Investment
+                                                                        through manufacturing supply chains. Fiscal policy
+Management Economics Team. There is no guarantee that the
+estimates will be achieved.                                             adds uncertainty: proposed tax and spending changes
+                                                                        may support demand but this could intensify scrutiny
+                                                                        of Japan’s debt trajectory. Financial conditions are
+Following the widely expected policy rate hike to 1.25%
+                                                                        still accommodative, providing the BoJ with flexibility,
+in September, the Bank of Japan (BoJ) noted that
+                                                                        although bond yields and the yen remain volatile.
+growth has been supported by government measures
+and AI-related demand, offsetting the drag from the                     China’s economy remains defined by strong production
+Iran conflict. The yen’s post-decision depreciation                     and weak domestic demand. Exports and high-tech
+
+
+Figure 4: Diverging wages and consumption in Japan
+
+
+
+
+Source: Macrobond, State Street Investment Management, Japanese Statistics Bureau, Ministry of Internal Affairs & Communications, Japanese
+Ministry of Health, Labour & Welfare.
+
+
+
+
+                                                Quarterly Investment Outlook                                                                 7
+manufacturing continue to benefit from the global               food prices fell 1.4% year-on-year in August. Targeted
+AI cycle, while retail sales, fixed investment, and             policy support should help limit downside risks, but
+services remain more subdued. Although the property             without a broader recovery in household spending,
+sector is stabilizing, it is not contributing to growth,        growth will remain disproportionately reliant on
+and it continues to weigh on household confidence               investment and exports.
+and local-government finances. Inflation has firmed,
+with producer prices outpacing consumer prices on
+commodity costs and memory chip shortages, while
+
+
+
+
+                                         Quarterly Investment Outlook                                                    8
+Asset class outlook
+Global equities                                                        United States: Earnings remain the anchor until proven
+                                                                       otherwise
+                                                                       The US remains our preferred equity market, though
+Constructive, but increasingly selective                               we expect market leadership to shift away from small
+                                                                       caps. With multiple expansion less likely, returns
+As we enter the final quarter of 2026, we remain
+                                                                       will increasingly depend on whether companies can
+constructive on the outlook for global equities while
+                                                                       continue to deliver earnings strong enough to absorb
+recognizing that conditions supporting returns are now
+                                                                       a higher cost of capital. Higher rates need not derail
+more nuanced. Economic growth remains resilient,
+                                                                       equities when accompanied by resilient growth and
+corporate fundamentals have held up, and the scale of
+                                                                       earnings, but they raise the bar for fundamentals and
+the AI capital cycle continues to be extraordinary. The
+                                                                       leave less room for valuation-driven returns. Although
+largest US hyperscalers are on course to invest more
+                                                                       the Fed raised rates in September and signaled more
+than $700 billion this year.
+                                                                       tightening, the rate path indicated by Fed members
+At the same time, investors must contend with a                        does not indicate a prolonged tightening cycle.
+challenging backdrop. Inflation remains above target,
+                                                                       US large-cap growth companies generally have
+central banks are in less accommodative mode,
+                                                                       stronger balance sheets, better access to capital,
+and long-term yields are high. Valuations, whether
+                                                                       exposure to the AI capital-investment cycle, and
+compared to history or versus increasingly tempting
+                                                                       greater capacity to translate investment into earnings.
+bond yields, may pose risks for equity markets. Even
+                                                                       By contrast, smaller companies are more exposed
+so, the current environment can continue to support
+                                                                       to refinancing risk and floating-rate debt, making
+equities, particularly high-quality companies with
+                                                                       their earnings more sensitive to restrictive financial
+earnings visibility, and strong balance sheets.
+                                                                       conditions.
+
+
+Figure 5: Can US corporate earnings maintain momentum?
+
+
+
+
+Source: Factset, State Street Investment Management as of September 30, 2026.
+
+
+
+
+                                               Quarterly Investment Outlook                                                      9
+Japan: A fundamentally different reflation story                 and infrastructure investment. That should benefit
+Outside the US, Japan presents an interesting                    domestic activity and cyclical sectors, but the next
+opportunity. Improving corporate governance can                  leg of equity performance increasingly depends on
+bolster returns on capital, while the normalizing                whether the policy impulse translates into stronger
+interest rate regime is benefiting financial companies.          corporate earnings. Europe has less exposure to the
+Furthermore, Japan’s exposure to semiconductor,                  AI-related capital investment driving a large share of
+automation, and AI-related supply chains means it is             earnings growth. But although Europe’s IT and energy
+directly connected to the AI capital-spending cycle.             sectors represent less than 15% of regional market cap,
+Sensitivities remain around currency moves and the               valuation support exists: the MSCI Europe index trades
+pace of policy normalization, particularly for exporters,        at 15 times forward earnings,1 and the MSCI UK at 12x.
+but our overall view toward Japanese stocks remains              Being selective is essential.
+favorable.
+                                                                 China: Policy support meets structural constraints
+Emerging Markets ex-China: The stronger non-US                   China remains a nuanced allocation. It is positively
+growth opportunity                                               aligned with AI advances while structural challenges
+Within emerging markets, the tailwinds for EM                    constrain the broader outlook. Easier monetary and
+ex-China markets remain strong. Anchored by Asia’s               fiscal conditions could support a valuation-led recovery,
+semiconductor and AI hubs in Taiwan and South Korea              but a durable rerating likely requires policy support to
+and a robust economic growth profile, the region retains         translate into stronger domestic demand and corporate
+attractive growth-adjusted valuations—EM ex-China                earnings. Alternatively, it may take another “DeepSeek”
+trades on valuations around 9.6x forward earnings.               moment to spark a renewal of investor enthusiasm.
+
+Resilient US growth that sustains technology demand              Positioning: Selectivity matters
+is supportive, although higher US yields and dollar
+                                                                 We see a global equity environment that is constructive
+strength can tighten financial conditions for emerging
+                                                                 but increasingly differentiated. Ultimately, it is less about
+markets. We view EM ex-China as an attractive higher-
+                                                                 choosing between growth and value, or between US
+beta complement to US equity leadership.
+                                                                 and international equities; rather, it is about identifying
+                                                                 where earnings growth can outrun a higher cost of
+Europe: Supportive policy, but earnings need to
+                                                                 capital. This favors scale, quality, innovation, and
+deliver
+                                                                 balance-sheet strength.
+Europe’s policy backdrop has become more supportive,
+led by Germany’s fiscal pivot and increased defense
+
+
+
+
+                                          Quarterly Investment Outlook                                                      10
+Fixed income                                                           bps to 3.58% (highest since 2008), while the Japanese
+                                                                       10-year yield hit a 30-year high of 3.05%.
+
+                                                                       As discussed earlier, with rising rates and narrow market
+A new era for rates?
+                                                                       drivers, the macro backdrop is characterized by rising
+The uplift in government bond yields is a dominant market              tail risks with a broad range of potential outcomes. For
+narrative as we enter the closing months of 2026. The                  investors, key considerations are persistent inflation,
+US 10-year Treasury yield surged 81 basis points (bps) in              geopolitical tensions, energy pressures, and increasingly
+the third quarter to 5.28%, a near 20-year high; further               concentrated growth drivers. Although yields are attractive
+out the curve, the 30-year yield rose to its highest level             relative to the past 15–20 years, resilient economic growth
+since 2002. This move reflects rising real yields rather               and heavy issuance could keep upward pressure on
+than inflation expectations, consistent with a growing term            rates in the near term. At this point, we do not believe
+premium tied to fiscal deficits, elevated Treasury supply,             the incremental yield available further out the curve
+and AI-related debt issuance. A similar story unfolded                 adequately compensates investors for duration risk.
+elsewhere: in Germany, the 10-year Bund yield rose 73
+
+
+
+Figure 6: Yield increases coming from real rates
+
+
+
+
+Source: Bloomberg Finance L.P., State Street Investment Management as of October 2, 2026.
+
+
+
+Three scenarios for rates and growth                                   positive, and inflation slowly declines but remains above
+                                                                       target. The Fed pauses rate hikes but is constrained
+In an uncertain environment, it may be useful to                       from adopting a looser monetary policy due to stubborn
+consider potential scenarios, broadly defined by the                   inflation and positive, if slower, growth. Against this
+progression of AI and conflict in the Middle East.                     backdrop longer rates drift higher, in part due to
+                                                                       continued robust government and corporate issuance,
+Scenario 1: Muddling through                                           and the yield curve steepens. Credit spreads widen
+In this scenario, a Middle East resolution is delayed and              selectively as investors become more discriminating
+AI productivity improvements emerge, albeit not at the                 about AI-related issuance.
+pace investors hoped. Growth moderates but remains
+
+
+
+
+                                               Quarterly Investment Outlook                                                     11
+Scenario 2: Positive supply-side shock                           and high yield spreads remain historically tight even as
+Easing Middle East tensions reduce energy prices, while          the market has absorbed approximately $225 billion
+AI investment begins to generate meaningful productivity         of hyperscaler debt in 2026 and $450–600 billion of
+gains. Inflation moderates while capital expenditures            total AI-related issuance globally. However, dispersion
+support growth, modestly improving the fiscal outlook.           has widened as investors differentiate between
+Easing inflation allows the Fed to cut policy rates, though      hyperscaler unsecured debt, software companies and
+longer-term yields stay somewhat elevated due to fiscal          other AI beneficiaries, and datacenter and infrastructure
+deficits and continued debt issuance, resulting in a bull        financing. Although hyperscalers’ fundamentals remain
+steepening of the yield curve.                                   strong, spreads have widened amid recent issuance.
+
+                                                                 Our preference is to take risk in more granular relative
+Scenario 3: Negative supply-side shock                           value trades, favoring higher-quality issuers backed
+An escalation in the Middle East exacerbates energy              by hard assets. Within securitized credit, we prefer
+supply challenges, while AI productivity gains disappoint.       non-agency RMBS over both agency MBS and public
+Higher energy costs keep inflation elevated as weak              investment grade credit on a relative value basis,
+confidence levels and tighter financing conditions weigh         supported by substantial homeowner equity and limited
+on growth and AI-linked assets. The Fed cuts rates               signs of borrower stress. We continue to favor non-
+but higher oil prices and stubborn inflation limit their         consumer exposures, hard-asset ABS (equipment,
+flexibility; long yields remain elevated due to persistent       fleet, aircraft, railcar) over unsecured consumer risk.
+inflation and fiscal concerns, producing a modest ‘bull          Our constructive USD view is supported by higher real
+steepening’ and wider credit spreads.                            yields, relative US economic resilience, and AI-related
+                                                                 growth advantages.
+A consistent theme across these scenarios is continued
+
+                                                                 Commodities
+upward pressure on longer rates due to issuance,
+fiscal concerns, and inflation uncertainty. This doesn’t
+mean longer rates won’t fall in certain scenarios—
+                                                                 Structural demand meets constrained supply
+significant growth concerns, perhaps driven by any
+wobbles in the AI story, could still cause a flight to           We maintain a constructive view on commodities,
+bonds—but the longer-term pressures remain. In many              supported by both long-term structural trends and near-
+ways, this represents a continuation of the trend to             term market dynamics. Demand continues to benefit
+rate normalization after years of financial repression           from themes such as AI and data center investment,
+following the Global Financial Crisis.                           electrification, and onshoring, while geopolitical
+                                                                 disruptions, supply constraints, and resilient economic
+Positioning: Cautious on risk, neutral on rates                  activity provide additional support in the near term.
+                                                                 Commodities also remain an important portfolio
+Recognizing the current uncertainty, we carry no                 diversifier, particularly amid elevated geopolitical
+significant macro exposures. We are neutral duration             uncertainty, supply chain risks, and persistent
+and curve with an underweight credit. Investment grade           inflation pressures.
+
+
+
+
+                                          Quarterly Investment Outlook                                                  12
+Energy supply risks remain                                             to energy infrastructure and key shipping routes
+For energy commodities, we remain cautiously                           through the Strait of Hormuz and Red Sea leave prices
+optimistic, as global oil markets appear fundamentally                 vulnerable to further supply disruptions. Within refined
+tight despite recent improvements in Middle East                       products, rising global refinery outages, and reduced
+exports. Production losses in the region, plateauing                   Russian refinery activity continue to constrain supply.
+US output, low inventories, and the eventual need                      While progress toward a geopolitical agreement could
+to replenish strategic reserves continue to keep                       send commodities lower, we believe persistent supply
+supply conditions tight. Furthermore, any recovery in                  risks and tight market fundamentals leave the balance
+Chinese demand could provide an additional source                      of risks tilted to the upside.
+of consumption. At the same time, ongoing threats
+
+
+Figure 7: US strategic reserves have fallen sharply
+
+
+
+
+Source: Factset Research Systems, State Street Investment Management as of October 2, 2026.
+
+
+
+
+Structural support for metals                                          For gold, we tend to focus less on inventories and more
+Within industrial metals, copper and aluminum look                     on structural drivers related to demand. And in that
+attractive. Copper markets remain challenged by                        respect the foundation looks sturdy over a longer-term
+shortages of concentrate, disruptions to Chinese scrap                 time horizon. Persistent fiscal deficits, ongoing inflation
+supply, and ongoing mine supply risks. Meanwhile,                      pressure, and unabating geopolitical risks work in
+aluminum inventories remain low and production                         gold’s favor. In the near term, however, the outlook is
+growth has been constrained outside of China. Longer-                  more challenged. Rising bond yields, resilient economic
+term demand drivers, including electrification, grid                   growth, and strong corporate earnings raise the
+investment, and AI-related infrastructure spending, also               opportunity cost of holding gold in the current market
+remain supportive. That said, we are mindful of several                environment.
+near-term risks, including weaker-than-expected
+                                                                       Overall, commodities remain an important portfolio
+Chinese growth, potential slowing infrastructure
+                                                                       diversifier, particularly amid elevated geopolitical
+spending, elevated investor positioning, and higher
+                                                                       uncertainty, supply chain risks, and persistent
+yields weighing on economic activity. On balance,
+                                                                       inflation pressures.
+however, constrained supply and low inventories
+continue to support a favorable outlook for both metals.
+
+
+
+
+                                               Quarterly Investment Outlook                                                       13
+Latest Thinking
+We publish an array of thought                                  Despite rising concentration, the S&P 500 remains
+                                                                broadly diversified.
+leadership, market updates, and
+insights into investment markets,                               The wrong lesson from the dot-com bubble
+macroeconomic themes, and                                       AI may be transformative, but history shows
+geopolitical developments. The articles                         diversification matters more than individual winners.
+below represent a cross-section of the                          US midterms: Limited change now, greater policy risks
+publications released in the last quarter.                      ahead
+
+Beyond DeepSeek: China’s 2026 model wave                        What to consider: divided government, policy volatility,
+                                                                sector impacts, and risks ahead of 2028.
+China’s AI model wave has implications for
+infrastructure, hyperscalers, and enterprises.                  El Niño: A macro risk amplifier for a fragile global
+                                                                economy
+Emerging markets: Inflation, central banks, and near-
+term debt outlook                                               How the El Niño effect could amplify pressures on
+                                                                inflation, commodities, and economies.
+Policy credibility and high yields can help EMD through
+a modest inflation shock.                                       The midterm paradox: Voters want change, markets
+                                                                prefer gridlock
+5% interest rates: When earnings outrun the discount
+rate                                                            Learn why divided government may shape investment
+                                                                opportunities after midterms.
+Stronger earnings expectations are offsetting the
+pressure on stocks from 5% bond yields.                         Silver is no substitute for gold
+
+Emerging markets, AI, and index concentration                   Silver and gold are precious metals with very different
+                                                                volatility, liquidity, and demand profiles.
+AI and index concentration are reshaping EM equities—
+with implications for portfolio construction.                   Emerging Markets: India in focus
+
+Q4 2026 Credit Research Outlook                                 India’s investment opportunities and growth prospects
+                                                                underpin case for Indian equities.
+Higher rates may test credit resilience, while strong
+bank fundamentals support global cash.                          The Hormuz conflict
+
+AI is becoming a credit-cycle story, not just a                 The ramifications of Iran-US tensions persisting through
+technology story                                                a cycle of escalation and negotiation.
+
+AI is changing the credit landscape and creating
+                                                                For more insights on global investing,
+opportunities and risks across sectors.
+                                                                please visit our website.
+Concentration is up; diversification isn’t gone
+
+
+
+
+                                         Quarterly Investment Outlook                                                     14
+Market forecasts
+State Street Investment Management forecasts
+
+                                  2026 (%)              2027 (%)                                     September 30,           September 30,
+Real GDP growth                                                                                           2026 (%)                2027 (%)
+                                                                        Central bank rates
+Global                                  3.00                 3.00
+                                                                        US (upper bound)                       4.00                    4.25
+US                                      2.30                 2.10
+                                                                        Australia                              4.60                    5.00
+Australia                               1.70                 1.90
+                                                                        Canada                                 2.25                    2.75
+Canada                                  1.00                 1.30
+                                                                        Euro                                   2.50                    2.75
+Eurozone                                1.00                 1.30
+                                                                        UK                                     3.75                    4.25
+France                                  0.60                 1.00
+                                                                        Japan                                  1.25                    1.50
+Germany                                 0.90                 1.20
+                                                                        China                                  1.40                    1.40
+Italy                                   0.80                 0.90
+                                                                        10-year bond yields
+UK                                      0.80                 0.80
+                                                                        US                                     5.27                    5.47
+Japan                                   0.80                 0.90
+                                                                        Australia                              5.34                    5.72
+China                                   4.60                 4.40
+                                                                        Canada                                 4.00                    4.24
+Inflation
+                                                                        Germany                                3.58                    3.82
+Developed Economies                     3.20                 2.40
+                                                                        UK                                     5.41                    5.88
+US                                      3.30                 2.20
+                                                                        Japan                                  3.07                    3.46
+Australia                               3.80                 2.80
+                                                                        Exchange rates
+Canada                                  2.80                 2.30
+                                                                        Australian Dollar (A$/$)               0.70                    0.74
+Eurozone                                2.90                 2.20
+                                                                        British Pound (£/$)                    1.33                    1.35
+France                                  2.30                 1.90
+                                                                        Canadian Dollar ($/C$)                 1.42                    1.33
+Germany                                 2.70                 2.20
+                                                                        Euro (€/$)                             1.14                    1.15
+Italy                                   2.80                 2.50
+                                                                        Japanese Yen ($/¥)                   157.14                147.00
+UK                                      3.20                 3.00
+                                                                        Swiss Franc ($/SFr)                    0.83                    0.85
+Japan                                   2.00                 2.50
+                                                                        Chinese Yuan ($/¥ )                    6.71                    6.55
+China                                   1.10                 0.90
+
+
+One-year return forecasts                         USD (%)           EUR (%)          GBP (%)       JPY (%)      AUD (%)           CAD (%)
+S&P 500                                                6.9              5.6              5.2           0.0             0.5              0.1
+Russell 2000                                           7.1              5.8              5.4           0.2             0.7              0.3
+MSCI EAFE                                              6.0              4.7              4.3          -0.8            -0.3             -0.7
+MSCI EM                                                7.4              6.1              5.7           0.5             1.0              0.6
+Barclays Capital Aggregate Bond Index                  5.1              3.8              3.4          -1.7            -1.2             -1.5
+Citigroup World Government Bond Index                  3.8              2.5              2.1          -2.9            -2.4             -2.8
+Goldman Sachs Commodities Index                        6.2              4.9              4.5          -0.6            -0.2             -0.5
+Dow Jones US Select REIT Index                         4.5              3.2              2.8          -2.2            -1.8             -2.1
+
+Source: State Street Investment Management forecasts, as of September 30, 2026. The above estimates based on certain assumptions and
+analysis made by State Street Investment Management. There is no guarantee that the estimates will be achieved.
+
+
+
+
+                                               Quarterly Investment Outlook                                                               15
+Co-Authors                                                           About State Street
+Lori Heinel, CFA                                                     Investment Management
+Global Chief Investment Officer                                      At State Street Investment Management, we have been
+                                                                     helping create better outcomes for institutions, financial
+Simona Mocuta
+                                                                     intermediaries, and investors for nearly half a century.
+Chief Economist
+                                                                     Starting with our early innovations in indexing and ETFs,
+Jeremiah Holly, CFA                                                  our rigorous approach continues to be driven by market-
+Senior Portfolio Manager                                             tested expertise and a relentless commitment to those
+                                                                     we serve. With over $6 trillion in assets managed*,
+Dane Smith                                                           clients in 60 countries, and a global network of strategic
+Head of North American Investment Strategy & Research                partners, we use our scale to deliver a comprehensive
+                                                                     and cost-effective suite of investment solutions that help
+Jennifer Bender, Ph.D
+                                                                     investors get wherever they want to go.
+Global Chief Investment Strategist
+                                                                     * This figure is presented as of June 30, 2026 and includes ETF AUM
+Jacob Brown, CFA                                                       of $2,203.98 billion USD of which approximately $156.81 billion USD
+Head of US Fixed Income Client Portfolio Management                    in gold assets with respect to SPDR products for which State Street
+                                                                       Global Advisors Funds Distributors, LLC (SSGA FD) acts solely as the
+                                                                       marketing agent. SSGA FD and State Street Investment Management
+
+Endnote                                                                are affiliated. Please note all AUM is unaudited.
+
+
+1   Source: Bloomberg Finance L.P. as of September 30, 2026.
+    Forward earnings
+
+
+
+
+                                              Quarterly Investment Outlook                                                              16
+statestreet.com/investment-management
+State Street Global Advisors (SSGA) is now State Street Investment Management. Please            sharply. This may result in a reduction in income from debt securities income.
+click here for more information.                                                                 Bonds generally present less short-term risk and volatility than stocks, but contain interest
+Marketing communication                                                                          rate risk (as interest rates rise bond prices usually fall); issuer default risk; issuer credit
+                                                                                                 risk; liquidity risk; and inflation risk. These effects are usually pronounced for longer-term
+State Street Global Advisors Worldwide Entities
+                                                                                                 securities. Any fixed income security sold or redeemed prior to maturity may be subject to
+The views expressed in this material are the views of State Street Investment Management         a substantial gain or loss.
+through the period ended September 30, 2026 and are subject to change based on
+                                                                                                 Government bonds and corporate bonds generally have more moderate short-term price
+market and other conditions. This document may contain certain statements deemed to
+                                                                                                 fluctuations than stocks, but provide lower potential long-term returns.
+be forward-looking statements. All statements, other than historical facts, contained within
+this document that address activities, events or developments that State Street Investment       Foreign investments involve greater risks than investments, including political and
+Management expects, believes or anticipates will or may occur in the future are forward-         economic risks and the risk of currency fluctuations, all of which may be magnified in
+looking statements. These statements are based on certain assumptions and analyses               emerging markets.
+made by State Street Investment Management in light of its experience and perception             Investing in commodities entail significant risk and is not appropriate for all investors.
+of historical trends, current conditions, expected future developments and other factors         Commodities investing entail significant risk as commodity prices can be extremely volatile
+it believes are appropriate in the circumstances, many of which are detailed herein.             due to wide range of factors. A few such factors include overall market movements, real
+Such statements are subject to a number of assumptions, risks, uncertainties, many of            or perceived inflationary trends, commodity index volatility, international, economic and
+which are beyond State Street Investment Management’s control. Please note that any              political changes, change in interest and currency exchange rates.
+such statements are not guarantees of any future performance and that actual results or
+developments may differ materially from those projected in the forward-looking statements.       Investing in foreign domiciled securities may involve risk of capital loss from unfavorable
+                                                                                                 fluctuation in currency values, withholding taxes, from differences in generally accepted
+The information provided does not constitute investment advice and it should not be relied       accounting principles or from economic or political instability in other nations.
+on as such. It should not be considered a solicitation to buy or an offer to sell a security.
+It does not take into account any investor’s particular investment objectives, strategies,       Investments in emerging or developing markets may be more volatile and less liquid than
+tax status or investment horizon. You should consult your tax and financial advisor. All         investing in developed markets and may involve exposure to economic structures that are
+material has been obtained from sources believed to be reliable. There is no representation      generally less diverse and mature and to political systems which have less stability than
+or warranty as to the accuracy of the information and State Street shall have no liability for   those of more developed countries.
+decisions based on such information.                                                             Investing in REITs involves certain distinct risks in addition to those risks associated with
+The information contained in this communication is not a research recommendation or              investing in the real estate industry in general. Equity REITs may be affected by changes
+‘investment research’ and is classified as a ‘Marketing Communication’ in accordance             in the value of the underlying property owned by the REITs, while mortgage REITs may
+with the applicable regional regulation. This means that this marketing communication            be affected by the quality of credit extended. REITs are subject to heavy cash flow
+(a) has not been prepared in accordance with legal requirements designed to promote              dependency, default by borrowers and self-liquidation. REITs, especially mortgage REITs,
+the independence of investment research (b) is not subject to any prohibition on dealing         are also subject to interest rate risk (i.e., as interest rates rise, the value of the REIT may
+ahead of the dissemination of investment research.                                               decline).
+Equity securities may fluctuate in value and can decline significantly in response to the        Investing involves risk including the risk of loss of principal.
+activities of individual companies and general market and economic conditions.                   The whole or any part of this work may not be reproduced, copied or transmitted or any
+Companies with large market capitalizations go in and out of favor based on market and           of its contents disclosed to third parties without State Street Investment Management’s
+economic conditions. Larger companies tend to be less volatile than companies with               express written consent.
+smaller market capitalizations. In exchange for this potentially lower risk, the value of the    The performance data quoted represents past performance. Past performance does not
+security may not rise as much as companies with smaller market capitalizations.                  guarantee future results.
+Investments in small-sized companies may involve greater risks than in those of larger,          All the index performance results referred to are provided exclusively for comparison
+better known companies.                                                                          purposes only. It should not be assumed that they represent the performance of any
+The value of the debt securities may increase or decrease as a result of the following:          particular investment.
+market fluctuations, increases in interest rates, inability of issuers to repay principal and    The trademarks and service marks referenced herein are the property of their respective
+interest or illiquidity in the debt securities markets; the risk of low rates of return due to   owners. Third party data providers make no warranties or representations of any kind
+reinvestment of securities during periods of falling interest rates or repayment by issuers      relating to the accuracy, completeness or timeliness of the data and have no liability for
+with higher coupon or interest rates; and/or the risk of low income due to falling interest      damages of any kind relating to the use of such data.
+rates. To the extent that interest rates rise, certain underlying obligations may be paid off
+                                                                                                 © 2026 State Street Corporation. All Rights Reserved.
+substantially slower than originally anticipated and the value of those securities may fall
+                                                                                                 ID4985850-9023352.2.1.GBL.RTL 1026 Exp. Date: 10/31/2027
+
+
+
+
+                                                                  Quarterly Investment Outlook                                                                                               17
+

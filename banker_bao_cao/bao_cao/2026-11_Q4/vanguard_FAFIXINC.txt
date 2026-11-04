@@ -1,0 +1,678 @@
+O C TO B E R 2 026
+
+
+
+Active Fixed Income
+Perspectives Q4 2026:
+
+Looking through
+the fog
+
+Sara Devereux CIO VCM, Global Head of Fixed Income
+Chris Alwine, CFA Global Head of Credit
+Roger Hallam, CFA Global Head of Rates
+Justin Schwartz, CFA Head of U.S. Municipals
+Dan Larkin, CFA Senior Client Portfolio Manager
+Nathaniel Earle, CFA Senior Client Portfolio Manager
+                                                Key takeaways
+
+                                                Performance recap                               Our approach
+Contents                                        The U.S. economy remained resilient in          Higher yields and greater dispersion across
+                                                the third quarter, supported by consumer        fixed income markets have expanded the
+Key takeaways........................ 2         spending and AI-related investment. Firm        opportunity set for active investors. We
+                                                growth, elevated energy prices, and a           are focusing on areas where valuations
+Macro backdrop. ..................... 3         stable labor market led the Federal Reserve     have improved and security selection holds
+                                                to raise rates in September, lifting Treasury   greater advantage. As a result, we remain
+Rate markets                                    yields across the curve. Credit markets         underweight sovereign risk in favor of
+and strategy. ........................... 5     remained well supported by healthy              sectors we view as offering more attractive
+                                                fundamentals and strong investor demand.        risk-adjusted return potential and are
+                                                Higher volatility led mortgage-backed           neutral U.S. duration and curve at the
+Credit markets
+                                                securities (MBS) to underperform, while         fund level relative to benchmarks. We
+and strategy. ........................... 6
+                                                record municipal issuance overwhelmed           see attractive opportunities in MBS
+                                                demand and lifted tax-exempt yields to          following the recent repricing and remain
+Taxable portfolio                               their highest levels since 2008.                constructive on investment-grade credit
+positioning ............................... 9                                                   and securitized assets, where yields
+                                                The big picture                                 continue to offer compelling income
+Municipal bonds.................... 10          Looking forward, the case for owning            potential. In global rates markets, we
+                                                fixed income has become more compelling.        favor select relative-value opportunities,
+Tax-exempt portfolio                            Elevated yields provide investors with          including an overweight to German bunds
+positioning.............................. 12    attractive income and a larger cushion          versus U.S. Treasuries and short duration
+                                                against uncertainty, even as policy and         and curve flattening exposures in Japan. In
+Vanguard active bond                            geopolitical risks remain in focus.             municipals, elevated yields and attractive
+                                                Importantly, the recent rise in yields has      structures have created meaningful value in
+funds and ETFs...................... 13
+                                                been driven more by resilient growth and        high-grade bonds further out on the curve.
+                                                higher real yields than by higher long-term
+Active fixed income
+                                                inflation expectations. With global bond
+at Vanguard........................... 14       yields near their highest levels in roughly
+                                                two decades, we believe fixed income
+                                                offers value across a range of potential
+                                                economic outcomes.
+
+
+
+
+                                                                      2
+Macro backdrop
+
+A justified increase in yields                                                  Looking through the fog
+The rise in yields this year reflects a more resilient economic                 Despite ongoing uncertainty around inflation, deficits, geopolitics,
+backdrop than markets had anticipated. Corporate earnings have                  and interest rates, the case for fixed income has strengthened.
+exceeded expectations, particularly in the U.S., while elevated                 Higher yields provide attractive income and have materially
+energy prices have added to inflation pressures. At the same time,              improved prospective returns. Investors have taken notice. Fixed
+heavy fixed income issuance, driven by large sovereign borrowing                income funds attracted roughly $678 billion of net inflows through
+needs and record AI-related capital spending, has increased                     September 30, a record pace for the asset class and roughly double
+competition for investor capital.                                               the amount flowing into equity funds.1 The strong demand reflects
+                                                                                growing recognition that today’s yield environment offers
+Fed Chair Kevin Warsh’s observation that he would be “hard-
+                                                                                attractive value across a range of potential outcomes.
+pressed to describe broad financial conditions as restrictive”
+highlights a key challenge for policymakers. A healthy labor market
+has allowed the Federal Reserve to focus primarily on inflation,                Despite poor performance, fixed income flows remain
+where progress has been slower than expected. If growth remains                 very strong
+resilient and if inflation fails to move convincingly toward the Fed’s          Cumulative annual long-term taxable bond fund and ETF flows
+2% target, policy rates may need to move higher still, a possibility
+increasingly reflected in market pricing.                                                         $600
+
+                                                                                                                                                 2026
+The global monetary policy U-turn                                                                                                                2021
+
+
+
+
+                                                                             Bilions of dollars
+                                                                                                   300
+This backdrop has led to a global monetary policy reversal. Markets                                                                              2025
+began the year expecting rate cuts, but major central banks have                                                                                 2024
+                                                                                                                                                 2020
+instead moved toward tighter policy. In the U.S., the Federal                                        0                                           2023
+Reserve raised rates by 25 basis points in September, and markets                                                                                2022
+now expect a further removal of the “insurance cuts” delivered in
+2025. The European Central Bank (ECB) began a new tightening                                      –300
+                                                                                                         0   10       20          30   40   50
+cycle in June, while the Bank of Japan (BOJ) continued its policy
+                                                                                                                           Week
+normalization efforts. Together, these developments have pushed
+                                                                                Source: Bloomberg, as of September 30, 2026.
+global yields higher and increased dispersion across fixed
+income markets.
+
+
+
+
+1   Source: Morningstar.
+
+
+                                                                         3
+MACRO BACKDROP
+
+If growth remains resilient and inflation stays elevated, coupon                                                 price appreciation while restoring bonds’ traditional role as a
+income can help offset further increases in yields. If yields remain                                             portfolio ballast. In each scenario, today’s higher starting yields
+near current levels, investors can continue to benefit from today’s                                              provide a stronger foundation for future returns.
+higher income. And if growth weakens, declining yields could create
+
+
+Fixed income sector returns and yields
+10%
+
+ 8
+
+ 6
+
+ 4
+
+ 2
+
+ 0
+
+–2
+
+–4
+
+–6
+
+–8
+             U.S.               U.S.             Emerging               U.S.               TIPS              Global              U.S.               U.S.               U.S.                U.S.              U.S.
+             ABS             high yield          markets               CMBS                                aggregate          Treasuries         aggregate          corporates             MBS             municipals
+
+          Q3 2026 returns        YTD 2026 returns           Yield to worst      Tax-equivalent yield
+
+Notes: The municipal tax-equivalent yield is calculated using a 40.8% tax bracket, which includes a 37.0% top federal marginal income tax rate and the 3.8% net investment income tax to fund Medicare. Yield to worst
+represents the lowest yield possible for a security given the current price, considering both call dates and maturity.
+Indexes used in chart: The following indexes are represented in the sector returns and yields chart: J.P. Morgan EMBI Global Diversified Index, Bloomberg U.S. Corporate High Yield Index, Bloomberg U.S. Mortgage Backed
+Securities Index, Bloomberg U.S. Corporate Index, Bloomberg CMBS: Erisa Eligible Index, Bloomberg U.S. Aggregate Index, Bloomberg U.S. Treasury Inflation-Linked Bond Index (Series-L), Bloomberg U.S. Treasury Index,
+Bloomberg U.S. Asset-Backed Securities Index, Bloomberg Global Aggregate Index, and Bloomberg U.S. Municipal Index.
+Sources: Bloomberg indexes and JPMorgan, as of September 30, 2026.
+Past performance is no guarantee of future returns. The performance of an index is not an exact representation of any particular investment, as you cannot invest directly in an index.
+
+
+
+
+                                                                                                            4
+Rate markets and strategy
+The market now expects three additional quarter-point Fed hikes             MBS sold off in the third quarter, creating a value opportunity
+over the next 12 months, which would place the federal funds
+                                                                                                            101.5
+target range between 4.50% and 4.75%. We view that path as
+
+
+
+
+                                                                           Normalized excess return index
+broadly consistent with our outlook for approximately 3% growth                                             101.0
+and inflation moderating toward 2.5%. Our base case is that the
+
+
+
+
+                                                                                   (Base = 100)
+                                                                                                            100.5
+Fed continues to remove the insurance cuts delivered in 2025 before                                                                                     Corporate Bond Index
+                                                                                                                                                        total return
+reassessing inflation and labor-market conditions to determine                                              100.0
+                                                                                                                                                        Mortgage-Backed Securities
+whether additional tightening is warranted.                                                                                                             Index total return
+                                                                                                             99.5
+We view current yield levels as fair and hold a neutral view on
+U.S. duration and curve.                                                                                     99.0
+                                                                                                                 Sep.   Dec.   Mar.   Jun.          Sep.
+                                                                                                                2025    2025   2026   2026          2026
+Mortgage valuations have improved
+                                                                            Source: Bloomberg, as of September 30, 2026.
+Higher rate volatility created a meaningful improvement in MBS              Past performance is no guarantee of future returns. The performance of an index is not an exact
+valuations during the quarter. At today’s mortgage rates, few               representation of any particular investment, as you cannot invest directly in an index.
+
+borrowers have an economic incentive to refinance, while newer
+production mortgages are trading at discounted prices.
+                                                                            Global volatility
+These conditions have made prepayment and convexity risks more              Policy normalization in Japan and diverging fiscal dynamics in
+manageable while improving relative valuations across the sector.           Europe are creating relative value across global rates markets.
+As a result, we continue to find attractive opportunities in MBS and        In Japan, the BoJ’s continued tightening has pushed government
+have increased our overweight, particularly in structures with more         bond yields higher and flattened the yield curve as investors price
+predictable cash flows and less extension risk.                             a faster pace of normalization. In Europe, persistent inflation and
+                                                                            renewed fiscal concerns have increased dispersion across sovereign
+                                                                            bond markets, with France at the center of the repricing.
+
+
+
+
+                                                                       5
+   France’s elevated debt burden, rising borrowing costs, and growing                               Credit markets and strategy
+   political uncertainty have raised questions about the country’s
+   fiscal trajectory. With markets increasingly focused on fiscal                                   We remain constructive on credit markets as resilient fundamentals
+   sustainability, investors are demanding greater compensation for                                 and strong investor demand continue to create a stable backdrop
+   holding French government debt relative to other European issuers.                               for risk assets. While credit spreads across most sectors remain
+   At the same time, the ECB appears unlikely to intervene unless                                   near the tighter end of their historical ranges despite recent
+   market conditions become significantly more disorderly.                                          widening, yields remain compelling and should continue to serve
+                                                                                                    as the primary driver of returns.
+   We believe this environment favors active positioning. We remain
+   underweight France and Italy relative to Germany amid elevated                                   As a result, we believe income generation, rather than further
+   fiscal and political risks and continue to favor German bunds                                    broad-based spread compression, is likely to be the dominant
+   relative to U.S. Treasuries. In Japan, we maintain a short-duration,                             source of excess return in the quarter ahead.
+   curve-flattening bias, while remaining overweight European
+   inflation-linked exposure.                                                                       Investment-grade supported by fundamentals
+                                                                                                    Within investment-grade corporates, fundamentals remain
+                                                                                                    favorable. Corporate balance sheets are healthy, refinancing
+   French OAT spread over German bunds
+                                                                                                    activity remains manageable, and investor demand is absorbing
+                         160
+                                                                                                    a historically strong pace of issuance—with over $1.8 trillion in new
+                                                                                                    issues, up 30% year-over-year. Some 13% of that is for the buildout
+Spread in basis points
+
+
+
+
+                         120                                                                        of AI-related infrastructure, and we anticipate this issuance to
+                                      France less Germany 10-year spread
+                                                                                                    continue as large technology and hyperscaler companies access
+                         80                                                                         capital markets to finance data centers, networking assets, and
+                                                                                                    power requirements.
+                         40
+
+
+                           0
+                            Oct.   Apr.         Oct.           Apr.        Oct.   Apr.   Oct.
+                           2023    2024         2024           2025        2025   2026   2026
+
+   Source: Bloomberg, as of September 30, 2026.
+
+
+
+
+                                                                                                6
+ CREDIT MARKETS AND STRATEGY
+
+ U.S. investment-grade issuance surges again                                                                               U.S. corporate investment-grade spreads remain within our
+                      $2,000                                                                                               forecasted range
+                                                                                    $1,802                    2026
+                                                                                                                                        120
+                                                                                   $1,411                     2025
+                       1,500                                                                                                            110                                             BBG US Corporate Index
+                                                                                                              2024
+Billions of dollars
+
+
+
+
+                                                                                    $1,376
+                                                                                                              2023                      100
+
+
+
+
+                                                                                                                         Basis points
+                       1,000                                                         $1,033                                              90
+
+                                                                                                                                        80
+                        500
+                                                                                                                                         70
+
+                          0                                                                                                              60
+                           Jan.   Feb.   Mar.   Apr.   May   Jun.   Jul.   Aug.   Sep.   Oct.   Nov.   Dec.                                                                                                     All-time tight set in 1997
+                                                                                                                                         50
+                                                                                                                                           Sep.          Dec.       Mar.       Jun.          Sep.        Dec.        Mar.          Jun.          Sep.
+ Source: Bloomberg, as of September 30, 2026.
+                                                                                                                                                  2024                                2025                                         2026
+
+                                                                                                                           Note: Option-adjusted spread of the Bloomberg U.S. Corporate Index. The top two dotted lines represent
+ The resulting supply has caused spreads to widen in the technology                                                        the Fixed Income Group’s current expected ranges for corporate credit spreads.
+ sector, even as overall spreads remain tight. This environment has                                                        Source: Bloomberg, as of September 30, 2026.
+ created opportunities for our team to capitalize on issuer-specific
+ dislocations. We continue to see investment-grade credit as one of
+ the most attractive areas of the market, offering a compelling                                                            Resilient earnings growth has kept corporate balance
+ combination of yield, quality, and resilience. One example is in                                                          sheets strong
+ financials, where large banks with strong capital and liquidity
+                                                                                                                                                         7.1%
+ positions can benefit from rising interest rates as their net interest
+ margins expand.
+
+                                                                                                                                                                    4.1%
+                                                                                                                                                                                                                            3.7%
+
+                                                                                                                                                                                                             2.7%
+
+
+
+
+                                                                                                                                                     Interest coverage ratio                         Net debt divided by earnings before
+                                                                                                                                                                                               interest, taxes, depreciation, and amortization
+                                                                                                                                                                                                                 (aka EBITDA)
+
+                                                                                                                                                           Investment-grade           High yield
+
+                                                                                                                           Source: Bloomberg, as of September 30, 2026.
+
+
+
+
+                                                                                                                     7
+ CREDIT MARKETS AND STRATEGY
+
+ High yield: Less margin for error                                                           Securitized credit remains strong
+ In high yield, the outlook remains supportive, though selectivity is                        Securitized credit continues to be one of the most compelling
+ increasingly important. Credit spreads are very tight by historic                           opportunities across fixed income markets. Structured products,
+ standards, but the asset class continues to benefit from a favorable                        particularly asset-backed securities (ABS), offer attractive carry
+ fundamental backdrop. Default activity remains contained,                                   potential, strong structural investor protections, and favorable
+ distressed debt levels are low, and the overall quality of the high-                        relative valuations. In particular, the stand-alone nature of the
+ yield universe has improved as the riskiest issues remain with                              structures insulates the assets from troubles at the corporate
+ private credit or leveraged loans.                                                          parents, while embedded equity is in place to absorb any
+                                                                                             initial losses.
+ These dynamics support maintaining exposure to the sector, but
+ they also reinforce the importance of disciplined security selection.                       In an environment where corporate spreads remain compressed,
+ With valuations providing less margin for error, we favor an active                         securitized sectors can provide comparable income with additional
+ approach focused on identifying issuers with durable cash flows,                            diversification benefits and, in many cases, less exposure to
+ improving credit trajectories, and attractive risk-adjusted return                          corporate earnings risk. Issuance here is also strong, with over
+ potential. One sector we are focusing on is specialty chemical                              $25 billion in data center asset-backed securities and commercial
+ producers (versus generics) that have more stable demand and                                MBS this year so far, which is more than the last three years
+ pricing dynamics.                                                                           combined. We continue to favor higher-quality structured products
+                                                                                             where valuations remain attractive relative to fundamentals.
+ CCC rated bond spreads have widened out in recent months                                    Overall, our preference remains tilted toward higher-quality carry
+         1,000                                                                               sectors, particularly investment-grade corporates and securitized
+                                                                                             credit. While tight spreads suggest more modest space for broad-
+          800                                                                                based spread appreciation, today’s yield environment continues
+                                                                  CCC spread over
+                                                                  BB rated bonds (OAS)       to offer high income potential relative to before the global
+          600
+                                                                                             financial crisis.
+Spread
+
+
+
+
+          400                                                     20-year median
+                                                                                             In a market where valuation dispersion is increasing and benchmark
+                                                                  High yield OAS
+          200                                                                                composition is evolving, we believe active management is
+                                                                                             increasingly valuable in identifying relative value opportunities,
+            0
+                                                                                             managing risks, and enhancing portfolio outcomes.
+             Sep.        Sep.         Sep.       Sep.   Sep.   Sep.
+            2021         2022         2023       2024   2025   2026
+
+                    10th–90th percentile range
+
+ Source: Bloomberg, as of September 30, 2026.
+
+
+
+
+                                                                                         8
+Taxable portfolio positioning
+Rates
+
+Exposure          View                                                                           Strategy
+
+U.S. duration     • The market is pricing in multiple hikes from the Fed through late 2027.      • Neutral view on duration and curve.
+and curve         • 10-year Treasury yields are fairly valued, supported by a strong             • Underweight Treasuries versus German bunds.
+                    economy and persistent inflation pressures, offset by robust fixed
+                    income demand.
+
+Global duration   • Rising energy prices to keep ECB on hawkish path.                            • Underweight to France and Italy versus Germany.
+and curve         • France faces mounting fiscal pressure as higher debt-servicing costs         • Overweight front-end Eurozone inflation.
+                    and political fragmentation leave little margin for economic or policy       • Short duration with a curve-flattening bias in Japan.
+                    disappointments.
+                  • Rising fiscal and monetary policy risks in Japan argue for higher
+                    JGB yields.
+
+Mortgage-         • Recent spread-widening has improved MBS valuations, though elevated          • Select spec pools, fixed-rate CMOs, ARMS, and non-agency RMBS offer
+backed              volatility supports a patient and selective approach.                          the most attractive relative value. We are increasing our overweight to
+securities        • We see the best relative value opportunities in specific sub-sectors           the sector.
+(MBS)/agencies      outside of index exposure.
+
+
+
+Credit
+
+Exposure          View                                                                           Strategy
+
+Investment-       • Strong fundamentals—credit rating upgrades outpacing downgrades              • See attractive valuations in large U.S. and European banks.
+grade               by a nearly 2:1 ratio.                                                       • Opportunities across companies supporting the AI build-out (for
+corporates        • Attractive all-in yields support investor demand—spreads likely range          example, data center infrastructure, hardware, semiconductors, memory
+                    bound.                                                                         chips, and power generation).
+
+High-yield        • Broadly see positive fundamentals, supportive technicals, and valuations     • High conviction views in chemicals, autos, and airline sectors where we
+corporates          that are rich but provide good carry.                                          see improving fundamentals and clear deleveraging paths.
+                  • Performance dispersion is increasing, making issuer selection
+                    significantly more important than sector beta.
+
+Emerging          • Country-level credit metrics are improving with declining budget deficits.   • Front-end bonds offer attractive carry.
+markets           • Lower-rated issuers have benefitted from strong investor demand.             • Remain cautious on lower-rated oil exporters that recently benefited
+                    Credit selection is paramount.                                                 from higher oil prices.
+
+Structured        • ABS supply remains heavy, keeping spreads attractive relative to             • Favor high-quality consumer risk and selective commercial ABS
+products            investment-grade corporates.                                                   exposure.
+                  • CMBS offers more limited opportunities with light supply and                 • Prefer data-center-backed bonds in tier 1 markets backed by long-term
+                    tight spreads.                                                                 leases to high-quality hyperscalers.
+                                                                                                 • Continue to favor AAA CLOs with limited software sector exposure.
+
+
+                                                                                        9
+Municipal bonds
+
+Highest yields in over 15 years                                                Highest tax-equivalent spread (2.51%) over broad U.S. bond
+The Bloomberg Municipal Bond Index yielded 4.78% on                            market yields in a decade
+September 30th, a level not observed since 2008. Although the                         9%
+                                                                                                                Bloomberg Municipal Bond
+sell-off in U.S. Treasuries drove much of the rise in municipal                                                 Index (tax-equivalent)
+
+yields, record municipal issuance also began to outpace demand,                       6
+contributing to tax-exempt bonds’ underperformance versus
+
+
+
+
+                                                                              Yield
+taxable bonds over the past three months.                                             3                                                                          Bloomberg U.S.
+                                                                                                                                                                 Aggregate Bond Index
+This supply-driven cheapening reflects technical drivers rather
+than credit-driven challenges, and it has created a compelling                        0
+                                                                                          Sep.           Sep.                Sep.                Sep.               Sep.                 Sep.
+opportunity to put money to work in municipals, both on an                                2016           2018                2020                2022               2024                 2026
+absolute basis and relative to taxable fixed income alternatives.              Source: Bloomberg, as of September 30, 2026.
+                                                                               Notes: The municipal tax-equivalent yield is calculated using a 40.8% tax bracket, which includes a 37.0%
+When municipal AAA-to-Treasury yield ratios reach the mid-90%                  top federal marginal income tax rate and the 3.8% net investment income tax to fund Medicare. Yield to
+range, as they did in September (93% as of September 30th), the                worst represents the lowest yield possible for a security given the current price, considering both call dates
+                                                                               and maturity.
+market historically begins attracting crossover buyers such as
+                                                                               Past performance is no guarantee of future returns. The performance of an index is not an exact
+banks and insurance companies. These buyers can help support                   representation of any particular investment, as you cannot invest directly in an index.
+valuations and limit further cheapening. While the path of Treasury
+yields remains uncertain, current municipal valuations present a
+more favorable risk-reward profile, particularly in longer maturities.         High-grade municipal yields attractive everywhere, most
+Even if rates remain volatile, municipals appear better positioned to          notably on the long end
+withstand additional valuation pressure, while offering meaningful                    9%                                                                                  Taxable-equvalent
+upside should investor demand strengthen.                                                                                                                                 AAA muni yield curve
+                                                                                      8
+We have been selectively adding exposure to higher grade municipal                    7
+                                                                                                                                                                          3.15% difference
+bonds—primarily AA ratings or better—deploying cash accumulated               Yield
+                                                                                      6
+during the summer months. Maturities in the 10–15-year range                                                                                                              U.S. Treasury curve
+offer an attractive combination of elevated yields, discounted                        5
+valuations, and roll-down potential. Within our long-duration
+                                                                                      4
+portfolios, we continue to favor longer maturities where nominal                            3       5            10           15            20          25           30
+                                                                                          Months                                    Years
+yields for even AAA rated municipal bonds can be 5% or higher.
+                                                                               Source: Bloomberg, as of September 30, 2026.
+                                                                               Notes: The municipal tax-equivalent yield is calculated using a 40.8% tax bracket, which includes a 37.0%
+                                                                               top federal marginal income tax rate and the 3.8% net investment income tax to fund Medicare. Yield to
+                                                                               worst represents the lowest yield possible for a security given the current price, considering both call dates
+                                                                               and maturity.
+                                                                               Past performance is no guarantee of future returns. The performance of an index is not an exact
+                                                                               representation of any particular investment, as you cannot invest directly in an index.
+
+
+
+                                                                         10
+ MUNICIPAL BONDS
+
+ The story for municipal credit is evolving                                                     Structure management is firmly in the spotlight
+ Credit spreads have compressed to levels where we are finding                                  When municipal bond yields move by this magnitude, both coupon
+ fewer places in which the additional yield sufficiently compensates                            and call selection (what we refer to as structure management)
+ investors for the underlying risks.                                                            become critical drivers of both risk management and relative
+                                                                                                performance. As yields rise above a bond’s stated coupon rate—
+ Areas where we continue to find value include housing, prepaid
+                                                                                                typically 3%, 4%, or 5%—the likelihood that a callable bond will be
+ gas bonds, and select opportunities within land-secured financings,
+                                                                                                redeemed early declines because the issuer has little economic
+ hospitals, and higher education. More broadly, we are making a
+                                                                                                incentive to refinance at a higher borrowing cost. As a result,
+ measured shift toward higher quality rather than outright selling
+                                                                                                callable bonds can experience duration extension precisely when
+ credit. While we are selectively trimming credit positions that
+                                                                                                yields are rising and bond prices are falling, creating an unfavorable
+ appear rich, we are facilitating this transition primarily through
+                                                                                                dynamic for investors.
+ directing new cash flows, maturities, and interest payments into
+ attractively valued AA and AAA rated bonds.                                                    Against this backdrop, we have been focused on building portfolios
+                                                                                                with a more favorable convexity profile than that of the broader
+                                                                                                market. Put simply, we seek to own bonds that are less likely to
+ Spreads for lower-rated municipal bonds are at or near
+                                                                                                become more interest-rate-sensitive when yields rise, helping to
+ multi-year lows
+                                                                                                preserve value during periods of weakness. At the same time, we
+                 300
+                                                                                                look for structures that can respond more favorably when yields
+                                                                                                fall, allowing clients to participate more fully in potential price
+                                                                                                gains. The objective is straightforward: less downside when rates
+                 200
+Credit spreads
+
+
+
+
+                                                                                                move higher and more upside when rates move lower.
+                                                                       High yield spread
+
+                 100
+                                                                       BBB rated spread
+
+
+                   0
+                    Mar.   Sep.   Mar.   Sep.   Mar.   Sep.   Mar.   Sep.
+                   2023    2023   2024   2024   2025   2025   2026   2026
+
+ Source: Bloomberg, as of September 30, 2026.
+
+
+
+
+                                                                                           11
+Tax-exempt portfolio positioning
+
+Exposure     View                                                                         Strategy
+
+Credit       • High-grade bonds offer compelling value following the Treasury-led         • Direct new capital toward attractive high-grade opportunities.
+allocation     sell-off.                                                                  • Add lower-rated exposure selectively, with disciplined valuation
+             • Lower-rated credit (A and below) remains richly valued even if               thresholds.
+               supported by solid fundamentals.
+
+Structure    • Yield-curve volatility makes convexity management critical, particularly   • Optimize coupon and call exposure to maintain favorable benchmark-
+               in longer-maturity strategies.                                               relative duration across rate scenarios.
+             • Skilled coupon and call selection can extend benchmark-relative            • Avoid near-par bonds.
+               duration in rallies and shorten it in selloffs.
+
+Duration/    • The curve remains historically steep, with attractive valuations in        • Target undervalued curve segments consistent with each strategy’s
+curve          the belly.                                                                   maturity profile.
+             • Supply should rebound as yields stabilize, then ease around the            • Maintain a modest long-duration position to offset our credit
+               midterm elections and holidays.                                              overweight.
+             • Overall duration risk appears balanced to favorable.
+
+
+
+
+                                                                                 12
+Vanguard active bond funds and ETFs
+
+                                                                             Admiral™
+                                                                                                                                                                                    Admiral™
+                                                                         Shares or ETF        Expense
+                                                                                                                                                                                Shares or ETF   Expense
+Vanguard active bond funds and ETFs                                      ticker symbol          ratio*           Vanguard active municipal bond funds                           ticker symbol     ratio*
+Treasury/Agency         GNMA†                                                       VFIJX          0.11%
+                                                                                                                 National             Core Tax-Exempt Bond ETF                         VCRM       0.12%
+                        Government Securities Active ETF                            VGVT           0.10          municipal
+                                                                                                                                      High-Yield Tax-Exempt                          VWALX        0.09
+                        Inflation-Protected Securities                              VAIPX          0.10                               Intermediate-Term Tax-Exempt                    VWIUX       0.09
+                        Intermediate-Term Treasury                                 VFIUX           0.10                               Limited-Term Tax-Exempt                        VMLUX        0.09
+                        Long-Term Treasury                                        VUSUX            0.10                               Long-Term Tax-Exempt                           VWLUX        0.09
+                        Short-Term Government Securities
+                                                                                  VSGDX            0.10                               Short Duration Tax-Exempt Bond ETF              VSDM        0.12
+                        Active Fund
+                        Short-Term Treasury                                         VFIRX          0.10                               Ultra-Short-Term Tax-Exempt                    VWSUX        0.09
+
+Investment-grade Core Bond                                                        VCOBX            0.10%         State                California Intermediate-Term Tax-Exempt         VCADX       0.09%
+corporate                                                                                                        municipal
+                 Core Bond ETF                                                      VCRB           0.10                               California Long-Term Tax-Exempt                 VCLAX       0.09
+
+                        Core-Plus Bond                                             VCPAX           0.20                               Massachusetts Tax-Exempt‡                       VMATX       0.09
+
+                        Core-Plus Bond ETF                                          VPLS           0.20                               New Jersey Long-Term Tax-Exempt                 VNJUX       0.09
+
+                        Intermediate-Term Investment-Grade                         VFIDX           0.09                               New York Long-Term Tax-Exempt                   VNYUX       0.09
+
+                        Long-Term Investment-Grade                                VWETX            0.09                               Ohio Long-Term Tax-Exempt‡                      VOHIX       0.09
+
+                        Multi-Sector Income Bond                                  VMSAX            0.30                               Pennsylvania Long-Term Tax-Exempt               VPALX       0.09
+
+                        Multi-Sector Income Bond ETF                               VGMS            0.30
+                        Short Duration Bond ETF                                     VSDB           0.15
+                        Short-Term Investment-Grade                                VFSUX           0.09
+                        Ultra-Short-Term Bond                                      VUSFX           0.09
+                        Ultra-Short Bond ETF                                        VUSB           0.10
+
+                 High-Yield Corporate†                                           VWEAX            0.12%
+Below-
+investment-grade High-Yield Active ETF                                              VGHY           0.22
+
+Global/                 Emerging Markets Bond                                     VEGBX            0.35%
+International
+                        Global Credit Bond                                        VGCAX            0.25
+
+
+
+
+* A s reported in each fund’s most recent prospectus. A fund’s current expense ratio may be higher or lower than the figure shown.
+† Investment advisor: Wellington Management Company LLP.
+‡ Investor Shares available only. There is no minimum investment required for advised clients.
+Note: Data as of September 30, 2026.
+
+
+                                                                                                            13
+Active fixed income at Vanguard                         Active fixed income leadership team
+
+$521B                                                             Sara Devereux
+                                                                   CIO VCM, Global Head of Fixed Income
+Vanguard global active bond AUM
+                                                                   In industry since 1992
+$305B Vanguard global active taxable bond AUM
+$216B Vanguard global active municipal bond AUM
+                                                                   Chris Alwine, CFA
+                                                                   Global Head of Credit
+                                                                   In industry since 1990
+25+
+Portfolio managers
+
+35+                                                                Roger Hallam, CFA
+                                                                   Global Head of Rates
+Traders                                                            In industry since 2000
+
+60+
+Credit research analysts
+                                                                   Justin Schwartz, CFA
+130+                                                               Head of U.S. Municipals
+                                                                   In industry since 2004
+Dedicated team members
+Note: Data as of September 30, 2026.
+
+
+
+
+                                                   14
+Connect with Vanguard®
+vanguard.com
+
+
+
+For more information about Vanguard funds, visit vanguard.com or call 800-662-2739 to obtain a prospectus.
+Investment objectives, risks, charges, expenses, and other important information about a fund are contained in the
+prospectus; read and consider it carefully before investing.
+Vanguard ETF Shares are not redeemable with the issuing Fund other than in very large aggregations worth millions of dollars. Instead, investors must
+buy and sell Vanguard ETF Shares in the secondary market and hold those shares in a brokerage account. In doing so, the investor may incur brokerage
+commissions and may pay more than net asset value when buying and receive less than net asset value when selling.
+
+Past performance is no guarantee of future results. All investing is subject to risk, including possible loss of principal. Diversification does not
+ensure a profit or protect against a loss.
+
+Bonds of companies based in emerging markets are subject to national and regional political and economic risks and to the risk of currency
+fluctuations. These risks are especially high in emerging markets.
+
+High-yield bonds generally have medium- and lower-range credit-quality ratings and are therefore subject to a higher level of credit risk than bonds
+with higher credit-quality ratings.
+
+U.S. government backing of Treasury or agency securities applies only to the underlying securities and does not prevent share price fluctuations.
+Unlike stocks and bonds, U.S. Treasury bills are guaranteed as to the timely payment of principal and interest.
+
+Bond funds are subject to interest rate risk, which is the chance bond prices overall will decline because of rising interest rates, and credit risk,
+which is the chance a bond issuer will fail to pay interest and principal in a timely manner or that negative perceptions of the issuer’s ability to
+make such payments will cause the price of that bond to decline.
+
+Investments in bonds issued by non-U.S. companies are subject to risks including country/regional risk and currency risk.
+
+Municipal bond fund distributions, including any market discount recognized by the Fund’s investments, may be taxable as ordinary income or
+capital gains. A majority of the income dividends that you receive from the Fund are expected to be exempt from federal income taxes. However,
+a portion of the Fund’s distributions may be subject to federal, state, or local income taxes or the federal alternative minimum tax. You should
+consult your own tax advisor with respect to any particular U.S. or non-U.S. tax consequences of your investment in the Fund.
+
+Be aware that fluctuations in the financial markets and other factors may cause declines in the value of your account. There is no guarantee that
+any particular asset allocation or mix of funds will meet your investment objectives or provide you with a given level of income.                       © 2026 The Vanguard Group, Inc.
+                                                                                                                                                        All rights reserved. Vanguard Marketing
+CFA® is a registered trademark owned by CFA Institute.                                                                                                  Corporation, Distributor.
+
+ Investment Products: Not a Deposit • Not FDIC Insured • Not Guaranteed by the Bank • May Lose Value • Not Insured by Any Federal Government Agency     FAFIXINC 102026
+
