@@ -65,5 +65,7 @@
   8.0
  ],
  "uoc_phut": 16,
- "ghi_chu": "VÒNG 2 thử sâu quản lý lệnh (03/11): bước DCA 1×ATR14, TP 0,5×ATR14 (thích nghi biến động, thay % cố định). Gốc lot_ghep0bf2c31fbfc9dea0_H4 (ĐẠT vòng 1, k_tot=8.0); cùng CSV vào, chỉ đổi quản lý. Vẫn IN-SAMPLE cửa sổ CSV."
+ "ghi_chu": "VÒNG 2 thử sâu quản lý lệnh (03/11): bước DCA 1×ATR14, TP 0,5×ATR14 (thích nghi biến động, thay % cố định). Gốc lot_ghep0bf2c31fbfc9dea0_H4 (ĐẠT vòng 1, k_tot=8.0); cùng CSV vào, chỉ đổi quản lý. Vẫn IN-SAMPLE cửa sổ CSV.",
+ "may": "desktop-05pnlgf_g4",
+ "nhan_luc": "2026-11-04T14:30:37+07:00"
 }
