@@ -1,7 +1,7 @@
 {
  "id": "ghep0bf2c31fbfc9dea0",
  "nguon": "ghep_0bf2c31fbfc9dea0",
- "kieu": "vào theo CSV lệnh của nguồn; không nhồi; tối đa 1 tầng, hệ số lot 1.0; TP 0.001 % giá",
+ "kieu": "vào theo CSV lệnh của nguồn; không nhồi; tối đa 1 tầng, hệ số lot 1.0; TP 0.5 ATR",
  "chay": [
   {
    "bien_the": "od_v2relot_v2r2p_b120_ghep0bf2c31fbfc9dea0_XM_CSV",
@@ -127,13 +127,35 @@
    "dd_pct": 59.61,
    "pf": 9.45,
    "lenh": 86.0
+  },
+  {
+   "bien_the": "v2qd_atrb1_ghep0bf2c31fbfc9dea0_H4",
+   "ma": "GBPCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g4",
+   "k": 1.0,
+   "cagr_pct": 69.568,
+   "dd_pct": 43.95,
+   "pf": 10.59,
+   "lenh": 83.0
+  },
+  {
+   "bien_the": "v2qd_atrb1_ghep0bf2c31fbfc9dea0_H4",
+   "ma": "GBPCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g4",
+   "k": 8.0,
+   "cagr_pct": 231.334,
+   "dd_pct": 54.57,
+   "pf": 10.59,
+   "lenh": 83.0
   }
  ],
  "bi_thay_the": 13,
  "lai_theo_nam": {
-  "2024": 2430.5,
-  "2025": 722.05,
-  "2026": -153.43
+  "2024": 2455.84,
+  "2025": 1002.62,
+  "2026": -151.3
  },
  "ti_le_thang_pct": 98.8,
  "so_deal": 78,
