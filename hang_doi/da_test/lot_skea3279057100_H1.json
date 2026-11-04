@@ -1,0 +1,323 @@
+{
+ "id": "lot_skea3279057100_H1",
+ "loai": "mt5_backtest",
+ "uu_tien": 80,
+ "che_do": "ong_dan_csv",
+ "ea_file": "BRAIN_XuLiLenh",
+ "ma": "EURGBPmicro",
+ "tf": "H1",
+ "tu": "2023.12.26",
+ "den": "2026.10.01",
+ "model": 4,
+ "von": 1000,
+ "tien": "USD",
+ "don_bay": 500,
+ "ts": {
+  "InpBuocATR": 0.0,
+  "InpBuocGia": 0.0,
+  "InpBuocPct": 0.003,
+  "InpCatLoPct": 0.0,
+  "InpChieuKhongTin": 0,
+  "InpChoNen": 0,
+  "InpCsvChung": "true",
+  "InpCsvMa": "",
+  "InpCsvTreGiay": 3600,
+  "InpFileCsv": "od_skea3279057100_XM_CSV_vao.csv",
+  "InpGianBuoc": 1.0,
+  "InpGioCamDen": 2,
+  "InpGioCamTu": 23,
+  "InpGiuToiDaNen": 0,
+  "InpGoTien": 0.0,
+  "InpHeSoLot": 1.0,
+  "InpHedgeKhiLoPct": 10.0,
+  "InpHedgeMaxLan": 3,
+  "InpHedgeTiLe": 1.0,
+  "InpKhoaLaiKhongMoc": "true",
+  "InpKieuLot": 0,
+  "InpLogChung": "false",
+  "InpLot0": 10.0,
+  "InpMarginMin": 0.0,
+  "InpMaxTang": 6,
+  "InpMoKhoaATR": 0.0,
+  "InpMoKhoaGia": 0.0,
+  "InpMoKhoaPct": 0.005,
+  "InpNhoi": 1,
+  "InpSpreadMaxGia": 0.0,
+  "InpTF": 16385,
+  "InpTPATR": 0.0,
+  "InpTPGia": 0.0,
+  "InpTPPct": 0.005,
+  "InpTrailKhoangATR": 0.0,
+  "InpTrailKhoangGia": 0.0,
+  "InpTrailKhoangPct": 0.0,
+  "InpTrailKichATR": 0.0,
+  "InpTrailKichGia": 0.0,
+  "InpTrailKichPct": 0.0,
+  "InpVao": 4,
+  "InpXuatGia": "true"
+ },
+ "tham_so_lot": "InpLot0",
+ "csv_vao": "reports/ong_dan/viec_mt5/sk_ea_3279057100/od_skea3279057100_XM_CSV_vao.csv",
+ "he_so_lot": [
+  1.0,
+  1.5,
+  2.0,
+  2.5,
+  3.0,
+  4.0,
+  5.0,
+  6.0,
+  8.0,
+  10.0
+ ],
+ "uoc_phut": 22,
+ "nguon": "sk_ea_3279057100",
+ "ghi_chu": "chạy lại nâng lot trên toàn dải CSV (dài nhất có), tick thật, XM",
+ "lan": "co_ma_nguon",
+ "may": "desktop-05pnlgf_g3",
+ "nhan_luc": "2026-11-03T15:10:31+07:00",
+ "trang_thai": "XONG",
+ "xong_luc": "2026-11-04T16:15:42+07:00",
+ "ket_qua": {
+  "chay": [
+   {
+    "k": 1.0,
+    "lai_theo_nam": {
+     "2024": 2327.14,
+     "2025": 2141.91,
+     "2026": -1016.63
+    },
+    "ti_le_thang_pct": 69.1,
+    "net": 3452.42,
+    "pf": 1.54,
+    "lenh": 207.0,
+    "dd_equity_mt5": "1 887.63 (52.14%)",
+    "dd_pct": 52.14,
+    "cagr_pct": 71.615,
+    "sut_dong_lenh_pct": 26.307,
+    "thang_te_nhat": -643.87,
+    "chat_luong": "99% real ticks",
+    "giay": 1172,
+    "bao_cao": "hd_lot_skea3279057100_H1_k1p0.htm",
+    "bao_cao_repo": "D:\\brain2_tho\\hang_doi\\bao_cao\\hd_lot_skea3279057100_H1_k1p0.htm",
+    "csv_repo": [
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_lot_skea3279057100_H1_k1p0_vao.csv_lenh_mt5.csv.gz",
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_lot_skea3279057100_H1_k1p0_vao.csv_gia.csv.gz"
+    ]
+   },
+   {
+    "k": 1.5,
+    "lai_theo_nam": {
+     "2024": 2687.25,
+     "2025": 3246.7,
+     "2026": -1058.08
+    },
+    "ti_le_thang_pct": 67.1,
+    "net": 4875.87,
+    "pf": 1.51,
+    "lenh": 207.0,
+    "dd_equity_mt5": "2 692.18 (65.42%)",
+    "dd_pct": 65.42,
+    "cagr_pct": 89.724,
+    "sut_dong_lenh_pct": 32.567,
+    "thang_te_nhat": -965.8,
+    "chat_luong": "99% real ticks",
+    "giay": 1180,
+    "bao_cao": "hd_lot_skea3279057100_H1_k1p5.htm",
+    "bao_cao_repo": "D:\\brain2_tho\\hang_doi\\bao_cao\\hd_lot_skea3279057100_H1_k1p5.htm",
+    "csv_repo": [
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_lot_skea3279057100_H1_k1p5_vao.csv_lenh_mt5.csv.gz",
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_lot_skea3279057100_H1_k1p5_vao.csv_gia.csv.gz"
+    ]
+   },
+   {
+    "k": 2.0,
+    "lai_theo_nam": {
+     "2024": -953.1
+    },
+    "ti_le_thang_pct": 59.3,
+    "net": -953.1,
+    "pf": 0.78,
+    "lenh": 59.0,
+    "dd_equity_mt5": "1 148.21 (96.08%)",
+    "dd_pct": 96.08,
+    "cagr_pct": -66.929,
+    "sut_dong_lenh_pct": 97.045,
+    "thang_te_nhat": -609.61,
+    "chat_luong": "99% real ticks",
+    "giay": 199,
+    "bao_cao": "hd_lot_skea3279057100_H1_k2p0.htm",
+    "bao_cao_repo": "D:\\brain2_tho\\hang_doi\\bao_cao\\hd_lot_skea3279057100_H1_k2p0.htm",
+    "csv_repo": [
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_lot_skea3279057100_H1_k2p0_vao.csv_lenh_mt5.csv.gz",
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_lot_skea3279057100_H1_k2p0_vao.csv_gia.csv.gz"
+    ]
+   },
+   {
+    "k": 2.5,
+    "lai_theo_nam": {
+     "2024": -948.42
+    },
+    "ti_le_thang_pct": 55.7,
+    "net": -948.42,
+    "pf": 0.81,
+    "lenh": 61.0,
+    "dd_equity_mt5": "1 192.86 (95.86%)",
+    "dd_pct": 95.86,
+    "cagr_pct": -65.771,
+    "sut_dong_lenh_pct": 97.067,
+    "thang_te_nhat": -657.05,
+    "chat_luong": "99% real ticks",
+    "giay": 197,
+    "bao_cao": "hd_lot_skea3279057100_H1_k2p5.htm",
+    "bao_cao_repo": "D:\\brain2_tho\\hang_doi\\bao_cao\\hd_lot_skea3279057100_H1_k2p5.htm",
+    "csv_repo": [
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_lot_skea3279057100_H1_k2p5_vao.csv_lenh_mt5.csv.gz",
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_lot_skea3279057100_H1_k2p5_vao.csv_gia.csv.gz"
+    ]
+   },
+   {
+    "k": 3.0,
+    "lai_theo_nam": {
+     "2024": -930.65
+    },
+    "ti_le_thang_pct": 55.9,
+    "net": -930.65,
+    "pf": 0.82,
+    "lenh": 59.0,
+    "dd_equity_mt5": "1 117.81 (94.16%)",
+    "dd_pct": 94.16,
+    "cagr_pct": -61.904,
+    "sut_dong_lenh_pct": 96.06,
+    "thang_te_nhat": -599.89,
+    "chat_luong": "99% real ticks",
+    "giay": 190,
+    "bao_cao": "hd_lot_skea3279057100_H1_k3p0.htm",
+    "bao_cao_repo": "D:\\brain2_tho\\hang_doi\\bao_cao\\hd_lot_skea3279057100_H1_k3p0.htm",
+    "csv_repo": [
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_lot_skea3279057100_H1_k3p0_vao.csv_lenh_mt5.csv.gz",
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_lot_skea3279057100_H1_k3p0_vao.csv_gia.csv.gz"
+    ]
+   },
+   {
+    "k": 4.0,
+    "lai_theo_nam": {
+     "2024": -905.26
+    },
+    "ti_le_thang_pct": 57.1,
+    "net": -905.26,
+    "pf": 0.85,
+    "lenh": 56.0,
+    "dd_equity_mt5": "1 411.71 (93.71%)",
+    "dd_pct": 93.71,
+    "cagr_pct": -57.354,
+    "sut_dong_lenh_pct": 95.967,
+    "thang_te_nhat": -799.84,
+    "chat_luong": "99% real ticks",
+    "giay": 196,
+    "bao_cao": "hd_lot_skea3279057100_H1_k4p0.htm",
+    "bao_cao_repo": "D:\\brain2_tho\\hang_doi\\bao_cao\\hd_lot_skea3279057100_H1_k4p0.htm",
+    "csv_repo": [
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_lot_skea3279057100_H1_k4p0_vao.csv_lenh_mt5.csv.gz",
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_lot_skea3279057100_H1_k4p0_vao.csv_gia.csv.gz"
+    ]
+   },
+   {
+    "k": 5.0,
+    "lai_theo_nam": {
+     "2024": -1007.41
+    },
+    "ti_le_thang_pct": 44.4,
+    "net": -1007.41,
+    "pf": 0.53,
+    "lenh": 18.0,
+    "dd_equity_mt5": "1 051.67 (100.71%)",
+    "dd_pct": 100.71,
+    "cagr_pct": -100.0,
+    "sut_dong_lenh_pct": 100.435,
+    "thang_te_nhat": -856.08,
+    "chat_luong": "99% real ticks",
+    "giay": 86,
+    "bao_cao": "hd_lot_skea3279057100_H1_k5p0.htm",
+    "bao_cao_repo": "D:\\brain2_tho\\hang_doi\\bao_cao\\hd_lot_skea3279057100_H1_k5p0.htm",
+    "csv_repo": [
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_lot_skea3279057100_H1_k5p0_vao.csv_lenh_mt5.csv.gz",
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_lot_skea3279057100_H1_k5p0_vao.csv_gia.csv.gz"
+    ]
+   },
+   {
+    "k": 6.0,
+    "lai_theo_nam": {
+     "2024": -1023.86
+    },
+    "ti_le_thang_pct": 50.0,
+    "net": -1023.86,
+    "pf": 0.58,
+    "lenh": 18.0,
+    "dd_equity_mt5": "1 092.99 (102.23%)",
+    "dd_pct": 102.23,
+    "cagr_pct": -100.0,
+    "sut_dong_lenh_pct": 104.605,
+    "thang_te_nhat": -932.04,
+    "chat_luong": "99% real ticks",
+    "giay": 72,
+    "bao_cao": "hd_lot_skea3279057100_H1_k6p0.htm",
+    "bao_cao_repo": "D:\\brain2_tho\\hang_doi\\bao_cao\\hd_lot_skea3279057100_H1_k6p0.htm",
+    "csv_repo": [
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_lot_skea3279057100_H1_k6p0_vao.csv_lenh_mt5.csv.gz",
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_lot_skea3279057100_H1_k6p0_vao.csv_gia.csv.gz"
+    ]
+   },
+   {
+    "k": 8.0,
+    "lai_theo_nam": {
+     "2024": -974.53
+    },
+    "ti_le_thang_pct": 42.9,
+    "net": -974.53,
+    "pf": 0.57,
+    "lenh": 7.0,
+    "dd_equity_mt5": "1 011.19 (97.54%)",
+    "dd_pct": 97.54,
+    "cagr_pct": -73.48,
+    "sut_dong_lenh_pct": 108.642,
+    "thang_te_nhat": -1594.84,
+    "chat_luong": "99% real ticks",
+    "giay": 54,
+    "bao_cao": "hd_lot_skea3279057100_H1_k8p0.htm",
+    "bao_cao_repo": "D:\\brain2_tho\\hang_doi\\bao_cao\\hd_lot_skea3279057100_H1_k8p0.htm",
+    "csv_repo": [
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_lot_skea3279057100_H1_k8p0_vao.csv_lenh_mt5.csv.gz",
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_lot_skea3279057100_H1_k8p0_vao.csv_gia.csv.gz"
+    ]
+   },
+   {
+    "k": 10.0,
+    "lai_theo_nam": {
+     "2024": -1001.39
+    },
+    "ti_le_thang_pct": 42.9,
+    "net": -1001.39,
+    "pf": 0.62,
+    "lenh": 7.0,
+    "dd_equity_mt5": "1 047.21 (100.13%)",
+    "dd_pct": 100.13,
+    "cagr_pct": -100.0,
+    "sut_dong_lenh_pct": 111.948,
+    "thang_te_nhat": -1962.01,
+    "chat_luong": "99% real ticks",
+    "giay": 54,
+    "bao_cao": "hd_lot_skea3279057100_H1_k10p0.htm",
+    "bao_cao_repo": "D:\\brain2_tho\\hang_doi\\bao_cao\\hd_lot_skea3279057100_H1_k10p0.htm",
+    "csv_repo": [
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_lot_skea3279057100_H1_k10p0_vao.csv_lenh_mt5.csv.gz",
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_lot_skea3279057100_H1_k10p0_vao.csv_gia.csv.gz"
+    ]
+   }
+  ],
+  "dat": true,
+  "k_tot": 1.5,
+  "k_an_toan_max": 1.5,
+  "tom_tat": "ĐẠT: k=1.5 CAGR 89.72%/năm DD 65.42%"
+ }
+}
