@@ -1,7 +1,7 @@
 {
  "id": "b0be91a35f43f34a",
  "nguon": "b0be91a35f43f34a",
- "kieu": "vào theo CSV lệnh của nguồn; không nhồi; tối đa 1 tầng, hệ số lot 1.0; TP 0.001 % giá",
+ "kieu": "vào theo CSV lệnh của nguồn; không nhồi; tối đa 1 tầng, hệ số lot 1.0; TP 0.5 ATR",
  "chay": [
   {
    "bien_the": "lot_b0be91a35f43f34a_H4",
@@ -112,13 +112,35 @@
    "dd_pct": 98.58,
    "pf": 0.86,
    "lenh": 18.0
+  },
+  {
+   "bien_the": "v2qd_atrb1_b0be91a35f43f34a_H4",
+   "ma": "USDCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g4",
+   "k": 1.0,
+   "cagr_pct": 40.277,
+   "dd_pct": 58.01,
+   "pf": 0.0,
+   "lenh": 50.0
+  },
+  {
+   "bien_the": "v2qd_atrb1_b0be91a35f43f34a_H4",
+   "ma": "USDCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g4",
+   "k": 2.0,
+   "cagr_pct": 66.854,
+   "dd_pct": 75.27,
+   "pf": 0.0,
+   "lenh": 50.0
   }
  ],
  "bi_thay_the": 2,
  "lai_theo_nam": {
-  "2024": 673.52,
-  "2025": 489.91,
-  "2026": 271.07
+  "2024": 625.09,
+  "2025": 546.84,
+  "2026": 330.75
  },
  "ti_le_thang_pct": 100.0,
  "so_deal": 46,
