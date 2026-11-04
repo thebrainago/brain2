@@ -45,3 +45,14 @@
 - 19:55 Anh cần dùng máy: dừng 14 thợ python + 4 terminal + 4 metatester theo PID; routine canh 30 phút tạm dừng; TheBrain* vẫn Disabled; RAM trống 26,9 GB.
 - 20:00 theo yêu cầu Anh: ngắt WARP, đóng Chrome (giữ Discord), mở Riot Client và bấm Play -> LoL lên.
 - Hàng đợi còn ~79 việc. Chạy lại chỉ khi Anh bảo (xem VAN_HANH_MAY_NHA.md §10).
+
+## 2026-11-04 13:54–14:09 (UTC+7) — Chạy lại thợ theo lệnh Anh ("máy nhà bật rồi chạy thôi")
+- WARP: `warp-cli connect` → **Connected, network healthy** (kiểm lại 14:09 vẫn Connected).
+- LoL: game League **không chạy**; chỉ còn RiotClientServices (PID 5352) + RiotClientCrashHandler (PID 11448) — để yên, không kill gì của Anh.
+- `git pull` (fast-forward) ở D:\brain2_tho: 1fb5f73e → **f4f7d9d9** (có 78 job vòng 2 v2qd/v2cd ưu tiên 88–90, 24 job cs_* ưu tiên 60, EA BRAIN_ChiSo_Trend). TheBrain* (3 task) vẫn **Disabled** — theo §10/§3 khởi động thợ bằng Start-Process python trực tiếp, không bật task.
+- Hàng đợi can_test **141** việc (đều co_ma_nguon): 38×ưu tiên 90, 40×88, 24×60, còn lại ≤55. Bộ chọn `hang_doi_git.py` xếp theo -uu_tien → đã xác nhận: slot rảnh g2, g4 nhận **v2qd_atrb1_2600ea39abbd7b0f_H1** và **v2qd_atrb1_b0be91a35f43f34a_H4** (vòng 2).
+- 10 slot còn việc dở vòng 1 từ tối qua (dang_lam g1,g3,g5–g12,p5: cb_*/lot_*) → thợ chạy nốt việc dở trước (không chuyển tay).
+- Khởi động orch PID **7432** (`--song-song --tran 5`, 13 slot, BRAIN_RAM_TRONG_MIN_GB=11, BRAIN_RAM_GIAN_CACH=180, PYTHONUTF8/IOENCODING). Lúc 14:09: python thợ+orch **6** (g1–g5), tester đang chạy: g4 (terminal 10596 + metatester 8916, v2qd_atrb1_b0be…_H4) và g1 vừa phóng (terminal 3476, cb_72278); g5 cb_69545 đã phóng 14:02. Đổi mã micro→# bình thường, không HONG/Traceback trong log.
+- Số đo 14:09: CPU **2%**, RAM trống **25,16 GB**, ổ C **34,1** / D **20** / E **25,9** GB trống. Đang tăng dần theo giãn cách 180 s.
+- Job cs_* chưa được nhận (xếp sau vòng 2) → biên dịch BRAIN_ChiSo_Trend và mã US30Cash/US100Cash: **CHƯA ĐO ĐƯỢC**.
+- Không taskkill, không tắt máy. Routine canh 30 phút cần bật lại (phía bot).
