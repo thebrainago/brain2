@@ -188,11 +188,33 @@ def don_bao_cao_da_nop(slot: Path, kho: Path, giu_ngay: float = 2.0, bay_gio: fl
     return n
 
 
+def don_agent_tester(slot: Path, giu_phut: float = 10.0, bay_gio: float | None = None) -> int:
+    """Xoá tệp trong <slot>/Tester/Agent-*/temp và /logs cũ hơn giu_phut (agent cũ để lại hàng GB).
+    Gọi trước khi phóng terminal của slot; tệp đang mở bị khoá -> bỏ qua."""
+    t = slot / "Tester"
+    if not t.is_dir():
+        return 0
+    moc = (bay_gio or time.time()) - giu_phut * 60; n = 0
+    for a in t.glob("Agent-*"):
+        for sub in ("temp", "logs"):
+            d = a / sub
+            if not d.is_dir():
+                continue
+            for f in d.rglob("*"):
+                try:
+                    if f.is_file() and f.stat().st_mtime < moc:
+                        f.unlink(); n += 1
+                except OSError:
+                    pass
+    return n
+
+
 def don_slot(slot: Path, kho: Path | None = None, giu_ngay: float = 2.0) -> dict:
     """Dọn định kỳ một slot KHÔNG có terminal đang chạy: Tester/cache, Tester/logs, logs, báo cáo đã nộp."""
     kq = {"cache": don_cache_tester(slot, giu_ngay),
           "tester_logs": don_tep_cu(slot / "Tester" / "logs", giu_ngay, (".log",)),
-          "logs": don_tep_cu(slot / "logs", giu_ngay, (".log",))}
+          "logs": don_tep_cu(slot / "logs", giu_ngay, (".log",)),
+          "agent": don_agent_tester(slot)}
     if kho is not None:
         kq["bao_cao"] = don_bao_cao_da_nop(slot, kho, giu_ngay)
     return kq

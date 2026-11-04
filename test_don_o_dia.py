@@ -17,7 +17,7 @@ def test_don_slot(tmp_path):
     (s / "moi.htm").write_text("x"); (kho / "moi.htm").write_text("x"); (kho / "r1.htm").write_text("x")
     (s / "accounts.dat").write_text("x"); _cu(s / "accounts.dat")
     kq = T.don_slot(s, kho)
-    assert kq == {"cache": 1, "tester_logs": 1, "logs": 1, "bao_cao": 1}
+    assert kq == {"cache": 1, "tester_logs": 1, "logs": 1, "agent": 0, "bao_cao": 1}
     assert (s / "r2.htm").exists() and (s / "moi.htm").exists() and (s / "accounts.dat").exists()
 
 
@@ -27,3 +27,12 @@ def test_canh_bao_va_uu_tien():
     assert str(T.thu_muc_lam_viec("x", do=do)).startswith("D:")
     do2 = {"E:\\": 50.0, "D:\\": 20.0, "C:\\": 30.0}.get
     assert str(T.thu_muc_lam_viec("x", do=do2)).startswith("E:")
+
+
+def test_don_agent_tester(tmp_path):
+    import os, time
+    d = tmp_path / "Tester" / "Agent-127.0.0.1-3001" / "temp" / "x"; d.mkdir(parents=True)
+    cu = d / "a.tmp"; cu.write_text("1"); moi = d / "b.tmp"; moi.write_text("1")
+    os.utime(cu, (time.time() - 3600, time.time() - 3600))
+    assert T.don_agent_tester(tmp_path, 10) == 1
+    assert moi.exists() and not cu.exists()
