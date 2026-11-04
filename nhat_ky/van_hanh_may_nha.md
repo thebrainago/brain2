@@ -81,8 +81,8 @@
 ## 2026-11-04 ~19:55–20:05 (UTC+7) — Anh cần dùng máy: dừng toàn bộ (mục 10)
 - Dừng theo PID: orch 7432; thợ g1–g5 (12256,1468,7080,14016,13504); terminal64/metatester64 slot g1–g5 (7060,8916,10468,8036,12132,3964,2012,9512,4132,1916). Kiểm lại: 0 tiến trình brain2 còn chạy. Không đụng XM Global MT5, claude, app cá nhân.
 - TheBrainCauChay / CauChayBoot / SongSong: Disabled.
-- 15 việc trong dang_lam_desktop-05pnlgf_* trả về can_test (git mv).
+- 14 việc trong dang_lam_desktop-05pnlgf_* trả về can_test (git mv).
 - Dọn: Agent-*\temp, logs ở 13 slot (54 thư mục) + don_o_dia.py. Trống C 36.4 GB, D 20 GB, E 29.8→42.7 GB. RAM trống 27.3/31.9 GB.
 - WARP giữ nguyên: Connected.
-- Kết quả từ 13:54: 24 việc xong, 16 ĐẠT, 8 TRƯỢT; không có kết quả trong khung 19:25–19:55. can_test còn 129.
+- Kết quả từ 13:54: 24 việc xong, 16 ĐẠT, 8 TRƯỢT; không có kết quả trong khung 19:25–19:55. can_test còn 128.
 - Chỉ chạy lại thợ khi Anh nói rõ.
