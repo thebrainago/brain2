@@ -1,7 +1,7 @@
 {
  "id": "mql5e52afb999eca4bd1",
  "nguon": "mql5_e52afb999eca4bd1",
- "kieu": "vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 9 tầng, hệ số lot 1.0; TP 0.003 % giá; cắt lỗ 40.0 %",
+ "kieu": "vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 9 tầng, hệ số lot 1.0; TP 0.003 % giá",
  "chay": [
   {
    "bien_the": "od_v2lotfix_full_mql5e52afb999eca4bd1_XM_CSV",
@@ -217,6 +217,28 @@
    "dd_pct": 97.17,
    "pf": 0.91,
    "lenh": 119.0
+  },
+  {
+   "bien_the": "v2qd_gian13_mql5e52afb999eca4bd1_H1",
+   "ma": "EURGBPmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g1",
+   "k": 1.0,
+   "cagr_pct": 26.286,
+   "dd_pct": 19.24,
+   "pf": 2.15,
+   "lenh": 111.0
+  },
+  {
+   "bien_the": "v2qd_gian13_mql5e52afb999eca4bd1_H1",
+   "ma": "EURGBPmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g1",
+   "k": 10.0,
+   "cagr_pct": 130.68,
+   "dd_pct": 42.53,
+   "pf": 2.15,
+   "lenh": 111.0
   }
  ],
  "bi_thay_the": 16,
