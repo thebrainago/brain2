@@ -259,6 +259,17 @@
    "dd_pct": 18.78,
    "pf": 3.97,
    "lenh": 292.0
+  },
+  {
+   "bien_the": "v2cd_adxxh_ghep60ff9350c26c63ee_H1",
+   "ma": "GBPCADmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g4",
+   "k": 10.0,
+   "cagr_pct": 247.336,
+   "dd_pct": 28.6,
+   "pf": 4.2,
+   "lenh": 322.0
   }
  ],
  "bi_thay_the": 11,
