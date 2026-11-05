@@ -1,7 +1,7 @@
 # Đặc điểm hệ `skea154c9fdee7`
 
 - Nguồn: sk_ea_154c9fdee7
-- Kiểu vào / quản lý lệnh: vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 4 tầng, hệ số lot 1.6; TP 0.002 % giá; cắt lỗ 40.0 %
+- Kiểu vào / quản lý lệnh: vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 4 tầng, hệ số lot 1.6; TP 0.002 % giá
 - Trạng thái: **ĐẠT (theo sổ kết quả; xem reports/kiem_toan_he_dat.md)**
 - Số lần chạy hợp lệ: 6 (bị thay thế do lỗi lot CSV: 7)
 - Tỉ lệ thắng: 78,5 %
