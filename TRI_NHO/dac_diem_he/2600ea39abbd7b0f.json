@@ -1,7 +1,7 @@
 {
  "id": "2600ea39abbd7b0f",
  "nguon": "2600ea39abbd7b0f",
- "kieu": "vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 4 tầng, hệ số lot 1.0",
+ "kieu": "vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 4 tầng, hệ số lot 1.0; TP 0.003 % giá",
  "chay": [
   {
    "bien_the": "lot_2600ea39abbd7b0f_H1",
@@ -222,22 +222,44 @@
    "dd_pct": 60.97,
    "pf": 3.13,
    "lenh": 131.0
+  },
+  {
+   "bien_the": "v2cd_adxngang_2600ea39abbd7b0f_H1",
+   "ma": "GBPNZDmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g3",
+   "k": 1.0,
+   "cagr_pct": 15.214,
+   "dd_pct": 20.01,
+   "pf": 3.42,
+   "lenh": 40.0
+  },
+  {
+   "bien_the": "v2cd_adxngang_2600ea39abbd7b0f_H1",
+   "ma": "GBPNZDmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g3",
+   "k": 3.0,
+   "cagr_pct": 38.036,
+   "dd_pct": 39.37,
+   "pf": 3.42,
+   "lenh": 40.0
   }
  ],
  "bi_thay_the": 3,
  "lai_theo_nam": {
-  "2024": 319.46,
-  "2025": 403.37,
-  "2026": 75.99
+  "2024": 162.51,
+  "2025": 181.36,
+  "2026": 134.91
  },
- "ti_le_thang_pct": 86.6,
+ "ti_le_thang_pct": 77.5,
  "so_deal": 131,
  "bao_cao_htm": "reports/ong_dan/ket_qua_mt5/od_2600ea39abbd7b0f_XM_CSV.htm",
  "manh_tot": [
   "PF >= 1,3 ở ít nhất một biến thể",
   "có lãi 3/3 năm",
   "chạy có lãi trên: GBPNZDmicro H1",
-  "tỉ lệ thắng cao (87 %) — điểm vào/TP nhỏ đáng giữ"
+  "tỉ lệ thắng cao (78 %) — điểm vào/TP nhỏ đáng giữ"
  ],
  "ly_do_truot": null,
  "giai_doan": "2023.12.27–2026.10.01"
