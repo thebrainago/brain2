@@ -1,7 +1,7 @@
 {
  "id": "mql5e52afb999eca4bd1",
  "nguon": "mql5_e52afb999eca4bd1",
- "kieu": "vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 9 tầng, hệ số lot 1.0; TP 0.003 % giá",
+ "kieu": "vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 9 tầng, hệ số lot 1.0",
  "chay": [
   {
    "bien_the": "od_v2lotfix_full_mql5e52afb999eca4bd1_XM_CSV",
@@ -239,15 +239,37 @@
    "dd_pct": 42.53,
    "pf": 2.15,
    "lenh": 111.0
+  },
+  {
+   "bien_the": "v2qd_trailatr_mql5e52afb999eca4bd1_H1",
+   "ma": "EURGBPmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g1",
+   "k": 1.0,
+   "cagr_pct": 17.84,
+   "dd_pct": 24.43,
+   "pf": 1.6,
+   "lenh": 241.0
+  },
+  {
+   "bien_the": "v2qd_trailatr_mql5e52afb999eca4bd1_H1",
+   "ma": "EURGBPmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g1",
+   "k": 10.0,
+   "cagr_pct": 99.551,
+   "dd_pct": 67.17,
+   "pf": 1.6,
+   "lenh": 241.0
   }
  ],
  "bi_thay_the": 16,
  "lai_theo_nam": {
-  "2024": 394.51,
-  "2025": 530.51,
-  "2026": -20.81
+  "2024": 282.22,
+  "2025": 388.97,
+  "2026": -98.11
  },
- "ti_le_thang_pct": 77.5,
+ "ti_le_thang_pct": 88.8,
  "so_deal": 222,
  "pf_bao_cao": 1.51,
  "bao_cao_htm": "reports/ong_dan/ket_qua_mt5/od_v2capgbpnzd_mql5e52afb999eca4bd1_XM_CSV.htm",
@@ -255,7 +277,7 @@
   "PF >= 1,3 ở ít nhất một biến thể",
   "DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot",
   "chạy có lãi trên: EURGBP# H1, EURGBPmicro H1",
-  "tỉ lệ thắng cao (78 %) — điểm vào/TP nhỏ đáng giữ"
+  "tỉ lệ thắng cao (89 %) — điểm vào/TP nhỏ đáng giữ"
  ],
  "ly_do_truot": null,
  "giai_doan": "2023.12.28–2026.10.01"
