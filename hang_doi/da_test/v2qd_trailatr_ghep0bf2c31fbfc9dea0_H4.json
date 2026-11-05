@@ -67,5 +67,57 @@
  "uoc_phut": 16,
  "ghi_chu": "VÒNG 2 thử sâu quản lý lệnh (03/11): bỏ TP cố định, trailing kích 1×ATR trả 0,5×ATR. Gốc lot_ghep0bf2c31fbfc9dea0_H4 (ĐẠT vòng 1, k_tot=8.0); cùng CSV vào, chỉ đổi quản lý. Vẫn IN-SAMPLE cửa sổ CSV.",
  "may": "desktop-05pnlgf_g3",
- "nhan_luc": "2026-11-05T14:52:33+07:00"
+ "nhan_luc": "2026-11-05T14:52:33+07:00",
+ "trang_thai": "XONG",
+ "xong_luc": "2026-11-05T15:33:07+07:00",
+ "ket_qua": {
+  "chay": [
+   {
+    "k": 1.0,
+    "lai_theo_nam": {
+     "2024": 2205.64,
+     "2025": 1560.17,
+     "2026": -168.21
+    },
+    "ti_le_thang_pct": 97.9,
+    "net": 3597.6,
+    "pf": 12.6,
+    "lenh": 48.0,
+    "dd_equity_mt5": "1 983.46 (41.23%)",
+    "dd_pct": 41.23,
+    "cagr_pct": 73.618,
+    "sut_dong_lenh_pct": 6.319,
+    "thang_te_nhat": -310.12,
+    "chat_luong": "99% real ticks",
+    "giay": 804,
+    "bao_cao": "hd_v2qd_trailatr_ghep0bf2c31fbfc9dea0_H4_k1p0.htm",
+    "bao_cao_repo": "D:\\brain2_tho\\hang_doi\\bao_cao\\hd_v2qd_trailatr_ghep0bf2c31fbfc9dea0_H4_k1p0.htm",
+    "csv_repo": [
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_v2qd_trailatr_ghep0bf2c31fbfc9dea0_H4_k1p0_vao.csv_lenh_mt5.csv.gz",
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_v2qd_trailatr_ghep0bf2c31fbfc9dea0_H4_k1p0_vao.csv_gia.csv.gz"
+    ]
+   },
+   {
+    "k": 8.0,
+    "lai_theo_nam": {},
+    "ti_le_thang_pct": null,
+    "net": 0.0,
+    "pf": 0.0,
+    "lenh": 0.0,
+    "dd_equity_mt5": "0 (0%)",
+    "dd_pct": 0.0,
+    "cagr_pct": 0.0,
+    "sut_dong_lenh_pct": 0.0,
+    "thang_te_nhat": null,
+    "chat_luong": "99%",
+    "giay": 64,
+    "bao_cao": "hd_v2qd_trailatr_ghep0bf2c31fbfc9dea0_H4_k8p0.htm",
+    "bao_cao_repo": "D:\\brain2_tho\\hang_doi\\bao_cao\\hd_v2qd_trailatr_ghep0bf2c31fbfc9dea0_H4_k8p0.htm"
+   }
+  ],
+  "dat": true,
+  "k_tot": 1.0,
+  "k_an_toan_max": 8.0,
+  "tom_tat": "ĐẠT: k=1.0 CAGR 73.62%/năm DD 41.23%"
+ }
 }
