@@ -3,7 +3,7 @@
 - Nguồn: ghep_e9b41c33d4deee54
 - Kiểu vào / quản lý lệnh: vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 6 tầng, hệ số lot 1.0; TP 0.005 % giá
 - Trạng thái: **ĐẠT (theo sổ kết quả; xem reports/kiem_toan_he_dat.md)**
-- Số lần chạy hợp lệ: 22 (bị thay thế do lỗi lot CSV: 12)
+- Số lần chạy hợp lệ: 23 (bị thay thế do lỗi lot CSV: 12)
 - Tỉ lệ thắng: 89,1 %
 - Năm có lãi: 2024 (+3056), 2025 (+3286), 2026 (+137)
 - Thời gian giữ lệnh TB: CHƯA ĐO ĐƯỢC
@@ -39,6 +39,7 @@
 | od_v2r2p_b120_ghepe9b41c33d4deee54_XM_CSV | GBPNZD# | H4 | mt5_real_tick | 1.0 | 22,20 | 12,32 | 5,35 | 115 |
 | v2qd_atrb1_ghepe9b41c33d4deee54_H4 | GBPNZDmicro | H4 | mt5_tho_desktop-05pnlgf_g2 | 10.0 | -35,94 | 96,98 | 0,94 | 53.0 |
 | v2qd_atrb2_ghepe9b41c33d4deee54_H4 | GBPNZDmicro | H4 | mt5_tho_desktop-05pnlgf_g4 | 10.0 | -51,58 | 97,37 | 0,79 | 11.0 |
+| v2cd_adxxh_ghepe9b41c33d4deee54_H4 | GBPNZDmicro | H4 | mt5_tho_desktop-05pnlgf_g5 | 10.0 | -56,49 | 97,51 | 0,74 | 6.0 |
 | v2qd_catlo40_ghepe9b41c33d4deee54_H4 | GBPNZDmicro | H4 | mt5_tho_desktop-05pnlgf_g3 | 10.0 | 0,00 | 0,00 | 0,00 | CHƯA ĐO ĐƯỢC |
 | v2qd_gian13_ghepe9b41c33d4deee54_H4 | GBPNZDmicro | H4 | mt5_tho_desktop-05pnlgf_g5 | 1.0 | 0,00 | 0,00 | 0,00 | CHƯA ĐO ĐƯỢC |
 | v2qd_trailatr_ghepe9b41c33d4deee54_H4 | GBPNZDmicro | H4 | mt5_tho_desktop-05pnlgf_g4 | 1.0 | 0,00 | 0,00 | 0,00 | CHƯA ĐO ĐƯỢC |
