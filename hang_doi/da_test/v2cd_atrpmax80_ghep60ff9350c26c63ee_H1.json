@@ -69,5 +69,57 @@
  "uoc_phut": 23,
  "ghi_chu": "VÒNG 2 lọc chế độ/tin (03/11, cần BRAIN_XuLiLenh bản có input LOC CHE DO): bỏ tín hiệu khi ATR14 thuộc top 20% của 500 nến (biến động cực). Gốc lot_ghep60ff9350c26c63ee_H1 (ĐẠT vòng 1, k_tot=10.0); cùng CSV vào, chỉ đổi quản lý. Vẫn IN-SAMPLE cửa sổ CSV.",
  "may": "desktop-05pnlgf_g5",
- "nhan_luc": "2026-11-05T17:35:26+07:00"
+ "nhan_luc": "2026-11-05T17:35:26+07:00",
+ "trang_thai": "XONG",
+ "xong_luc": "2026-11-05T18:08:11+07:00",
+ "ket_qua": {
+  "chay": [
+   {
+    "k": 1.0,
+    "lai_theo_nam": {},
+    "ti_le_thang_pct": null,
+    "net": 0.0,
+    "pf": 0.0,
+    "lenh": 0.0,
+    "dd_equity_mt5": "0 (0%)",
+    "dd_pct": 0.0,
+    "cagr_pct": 0.0,
+    "sut_dong_lenh_pct": 0.0,
+    "thang_te_nhat": null,
+    "chat_luong": "99%",
+    "giay": 64,
+    "bao_cao": "hd_v2cd_atrpmax80_ghep60ff9350c26c63ee_H1_k1p0.htm",
+    "bao_cao_repo": "D:\\brain2_tho\\hang_doi\\bao_cao\\hd_v2cd_atrpmax80_ghep60ff9350c26c63ee_H1_k1p0.htm"
+   },
+   {
+    "k": 10.0,
+    "lai_theo_nam": {
+     "2024": 12635.83,
+     "2025": 11021.22,
+     "2026": 5763.03
+    },
+    "ti_le_thang_pct": 77.3,
+    "net": 29420.08,
+    "pf": 4.29,
+    "lenh": 317.0,
+    "dd_equity_mt5": "7 929.68 (57.07%)",
+    "dd_pct": 57.07,
+    "cagr_pct": 243.843,
+    "sut_dong_lenh_pct": 18.237,
+    "thang_te_nhat": 335.96,
+    "chat_luong": "99% real ticks",
+    "giay": 875,
+    "bao_cao": "hd_v2cd_atrpmax80_ghep60ff9350c26c63ee_H1_k10p0.htm",
+    "bao_cao_repo": "D:\\brain2_tho\\hang_doi\\bao_cao\\hd_v2cd_atrpmax80_ghep60ff9350c26c63ee_H1_k10p0.htm",
+    "csv_repo": [
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_v2cd_atrpmax80_ghep60ff9350c26c63ee_H1_k10p0_vao.csv_lenh_mt5.csv.gz",
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_v2cd_atrpmax80_ghep60ff9350c26c63ee_H1_k10p0_vao.csv_gia.csv.gz"
+    ]
+   }
+  ],
+  "dat": true,
+  "k_tot": 10.0,
+  "k_an_toan_max": 10.0,
+  "tom_tat": "ĐẠT: k=10.0 CAGR 243.84%/năm DD 57.07%"
+ }
 }

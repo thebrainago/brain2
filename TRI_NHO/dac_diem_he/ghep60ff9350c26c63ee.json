@@ -270,6 +270,28 @@
    "dd_pct": 28.6,
    "pf": 4.2,
    "lenh": 322.0
+  },
+  {
+   "bien_the": "v2cd_atrpmax80_ghep60ff9350c26c63ee_H1",
+   "ma": "GBPCADmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g5",
+   "k": 1.0,
+   "cagr_pct": 0.0,
+   "dd_pct": 0.0,
+   "pf": 0.0,
+   "lenh": 0.0
+  },
+  {
+   "bien_the": "v2cd_atrpmax80_ghep60ff9350c26c63ee_H1",
+   "ma": "GBPCADmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g5",
+   "k": 10.0,
+   "cagr_pct": 243.843,
+   "dd_pct": 57.07,
+   "pf": 4.29,
+   "lenh": 317.0
   }
  ],
  "bi_thay_the": 11,
