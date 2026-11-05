@@ -1,7 +1,7 @@
 {
  "id": "skea154c9fdee7",
  "nguon": "sk_ea_154c9fdee7",
- "kieu": "vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 4 tầng, hệ số lot 1.6",
+ "kieu": "vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 4 tầng, hệ số lot 1.6; TP 0.002 % giá",
  "chay": [
   {
    "bien_the": "od_v2r2oos_dai19_skea154c9fdee7_XM_CSV",
