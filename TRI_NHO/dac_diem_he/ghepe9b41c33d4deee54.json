@@ -1,7 +1,7 @@
 {
  "id": "ghepe9b41c33d4deee54",
  "nguon": "ghep_e9b41c33d4deee54",
- "kieu": "vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 6 tầng, hệ số lot 1.0; TP 0.005 % giá",
+ "kieu": "vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 6 tầng, hệ số lot 1.0",
  "chay": [
   {
    "bien_the": "od_v2r2p_b120_ghepe9b41c33d4deee54_XM_CSV",
@@ -213,6 +213,17 @@
    "dd_pct": 36.4,
    "pf": 7.83,
    "lenh": 113.0
+  },
+  {
+   "bien_the": "v2qd_trailatr_ghepe9b41c33d4deee54_H4",
+   "ma": "GBPNZDmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g4",
+   "k": 1.0,
+   "cagr_pct": 0.0,
+   "dd_pct": 0.0,
+   "pf": 0.0,
+   "lenh": 0.0
   }
  ],
  "bi_thay_the": 12,
