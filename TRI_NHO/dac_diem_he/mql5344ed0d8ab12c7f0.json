@@ -528,21 +528,43 @@
    "dd_pct": 77.02,
    "pf": 3.11,
    "lenh": 349.0
+  },
+  {
+   "bien_the": "v2cd_atrpmax80_mql5344ed0d8ab12c7f0_H1",
+   "ma": "NZDUSDmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g1",
+   "k": 1.0,
+   "cagr_pct": 16.297,
+   "dd_pct": 18.58,
+   "pf": 3.41,
+   "lenh": 479.0
+  },
+  {
+   "bien_the": "v2cd_atrpmax80_mql5344ed0d8ab12c7f0_H1",
+   "ma": "NZDUSDmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g1",
+   "k": 2.0,
+   "cagr_pct": 24.3,
+   "dd_pct": 21.67,
+   "pf": 3.4,
+   "lenh": 480.0
   }
  ],
  "bi_thay_the": 12,
  "lai_theo_nam": {
-  "2018": 212.14,
-  "2019": 268.48,
-  "2020": 340.07,
-  "2021": 540.84,
-  "2022": 228.9,
-  "2023": 120.14,
-  "2024": 126.18,
-  "2025": 294.75,
-  "2026": -273.17
+  "2018": 222.55,
+  "2019": 296.43,
+  "2020": 424.18,
+  "2021": 635.3,
+  "2022": 302.44,
+  "2023": 482.5,
+  "2024": 301.9,
+  "2025": 379.38,
+  "2026": -289.38
  },
- "ti_le_thang_pct": 81.5,
+ "ti_le_thang_pct": 78.7,
  "so_deal": 546,
  "pf_bao_cao": 3.31,
  "bao_cao_htm": "reports/ong_dan/ket_qua_mt5/od_mql5344ed0d8ab12c7f0_XM_CSV.htm",
@@ -551,7 +573,7 @@
   "DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot",
   "có lãi 8/9 năm",
   "chạy có lãi trên: NZDUSD# H1, NZDUSDmicro H1",
-  "tỉ lệ thắng cao (82 %) — điểm vào/TP nhỏ đáng giữ"
+  "tỉ lệ thắng cao (79 %) — điểm vào/TP nhỏ đáng giữ"
  ],
  "ly_do_truot": null,
  "giai_doan": "2017.12.26–2026.10.01"
