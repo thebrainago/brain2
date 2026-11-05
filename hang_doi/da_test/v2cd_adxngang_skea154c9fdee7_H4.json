@@ -73,5 +73,33 @@
   "luc": "2026-11-05T16:22:51+07:00",
   "may": "desktop-05pnlgf_g3",
   "tom_tat": "CHƯA ĐO ĐƯỢC"
+ },
+ "trang_thai": "HONG",
+ "xong_luc": "2026-11-05T16:47:30+07:00",
+ "ket_qua": {
+  "chay": [
+   {
+    "k": 1.0,
+    "lai_theo_nam": {},
+    "ti_le_thang_pct": null,
+    "net": 0.0,
+    "pf": 0.0,
+    "lenh": 0.0,
+    "dd_equity_mt5": "0 (0%)",
+    "dd_pct": 0.0,
+    "cagr_pct": 0.0,
+    "sut_dong_lenh_pct": 0.0,
+    "thang_te_nhat": null,
+    "chat_luong": "100%",
+    "giay": 28,
+    "bao_cao": "hd_v2cd_adxngang_skea154c9fdee7_H4_k1p0.htm",
+    "loi": "chua_do_duoc_0_lenh_28s",
+    "bao_cao_repo": "D:\\brain2_tho\\hang_doi\\bao_cao\\hd_v2cd_adxngang_skea154c9fdee7_H4_k1p0.htm"
+   }
+  ],
+  "dat": false,
+  "k_tot": null,
+  "k_an_toan_max": null,
+  "tom_tat": "CHƯA ĐO ĐƯỢC"
  }
 }
