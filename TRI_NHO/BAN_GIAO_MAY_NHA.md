@@ -81,3 +81,5 @@ TRƯỢT: v2cd_adxngang_ghep0bf2…_H4, v2qd_trailatr_ghepe9b4…_H4. CHƯA ĐO 
 5. Đưa CSV kết quả về repo.
 6. Lấy dữ liệu M1 2008–2023 để test out-of-sample.
 7. Đổi Bases g1–g5 sang junction khi slot rảnh.
+## 8. Báo cáo PDF hệ đạt vòng 2 (05/11)
+- `reports/VONG_2_HE_DAT_2026-11-05.pdf` (+ nguồn `.md`): 34 hệ, PF/lệnh/giữ TB-max/max mở, nhóm đáng xem & cần nghi. In-sample; thời gian giữ không thực tế.
