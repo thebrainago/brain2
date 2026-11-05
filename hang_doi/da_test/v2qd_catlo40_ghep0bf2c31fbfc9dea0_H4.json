@@ -67,5 +67,60 @@
  "uoc_phut": 16,
  "ghi_chu": "VÒNG 2 thử sâu quản lý lệnh (03/11): cắt cả rổ khi lỗ ≥ 40% số dư (phanh giai đoạn xấu). Gốc lot_ghep0bf2c31fbfc9dea0_H4 (ĐẠT vòng 1, k_tot=8.0); cùng CSV vào, chỉ đổi quản lý. Vẫn IN-SAMPLE cửa sổ CSV.",
  "may": "desktop-05pnlgf_g1",
- "nhan_luc": "2026-11-05T12:13:43+07:00"
+ "nhan_luc": "2026-11-05T12:13:43+07:00",
+ "trang_thai": "XONG",
+ "xong_luc": "2026-11-05T14:12:57+07:00",
+ "ket_qua": {
+  "chay": [
+   {
+    "k": 1.0,
+    "lai_theo_nam": {
+     "2024": 1605.9,
+     "2025": -530.17,
+     "2026": -330.21
+    },
+    "ti_le_thang_pct": 96.3,
+    "net": 745.52,
+    "pf": 1.08,
+    "lenh": 271.0,
+    "dd_equity_mt5": "2 256.98 (74.80%)",
+    "dd_pct": 74.8,
+    "cagr_pct": 22.317,
+    "sut_dong_lenh_pct": 68.677,
+    "thang_te_nhat": -1264.48,
+    "chat_luong": "99% real ticks",
+    "giay": 727,
+    "bao_cao": "hd_v2qd_catlo40_ghep0bf2c31fbfc9dea0_H4_k1p0.htm",
+    "bao_cao_repo": "D:\\brain2_tho\\hang_doi\\bao_cao\\hd_v2qd_catlo40_ghep0bf2c31fbfc9dea0_H4_k1p0.htm",
+    "csv_repo": [
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_v2qd_catlo40_ghep0bf2c31fbfc9dea0_H4_k1p0_vao.csv_lenh_mt5.csv.gz",
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_v2qd_catlo40_ghep0bf2c31fbfc9dea0_H4_k1p0_vao.csv_gia.csv.gz"
+    ]
+   },
+   {
+    "k": 8.0,
+    "lai_theo_nam": {},
+    "ti_le_thang_pct": null,
+    "net": 0.0,
+    "pf": 0.0,
+    "lenh": 0.0,
+    "dd_equity_mt5": "0 (0%)",
+    "dd_pct": 0.0,
+    "cagr_pct": 0.0,
+    "sut_dong_lenh_pct": 0.0,
+    "thang_te_nhat": null,
+    "chat_luong": "99%",
+    "giay": 5850,
+    "bao_cao": "hd_v2qd_catlo40_ghep0bf2c31fbfc9dea0_H4_k8p0.htm",
+    "bao_cao_repo": "D:\\brain2_tho\\hang_doi\\bao_cao\\hd_v2qd_catlo40_ghep0bf2c31fbfc9dea0_H4_k8p0.htm",
+    "csv_repo": [
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_v2qd_catlo40_ghep0bf2c31fbfc9dea0_H4_k8p0_vao.csv_lenh_mt5.csv.gz"
+    ]
+   }
+  ],
+  "dat": true,
+  "k_tot": 1.0,
+  "k_an_toan_max": 8.0,
+  "tom_tat": "ĐẠT: k=1.0 CAGR 22.32%/năm DD 74.80%"
+ }
 }
