@@ -68,5 +68,61 @@
  "uoc_phut": 23,
  "ghi_chu": "VÒNG 2 lọc chế độ/tin (03/11, cần BRAIN_XuLiLenh bản có input LOC CHE DO): chỉ mở rổ mới khi ADX14 < 25 (đi ngang — hợp DCA/lưới). Gốc lot_ghep60ff9350c26c63ee_H1 (ĐẠT vòng 1, k_tot=10.0); cùng CSV vào, chỉ đổi quản lý. Vẫn IN-SAMPLE cửa sổ CSV.",
  "may": "desktop-05pnlgf_g2",
- "nhan_luc": "2026-11-05T15:51:44+07:00"
+ "nhan_luc": "2026-11-05T15:51:44+07:00",
+ "trang_thai": "XONG",
+ "xong_luc": "2026-11-05T16:26:08+07:00",
+ "ket_qua": {
+  "chay": [
+   {
+    "k": 1.0,
+    "lai_theo_nam": {
+     "2024": 1021.49,
+     "2025": 933.4,
+     "2026": 641.81
+    },
+    "ti_le_thang_pct": 74.3,
+    "net": 2596.7,
+    "pf": 3.97,
+    "lenh": 292.0,
+    "dd_equity_mt5": "508.25 (18.78%)",
+    "dd_pct": 18.78,
+    "cagr_pct": 58.867,
+    "sut_dong_lenh_pct": 3.233,
+    "thang_te_nhat": 15.33,
+    "chat_luong": "99% real ticks",
+    "giay": 750,
+    "bao_cao": "hd_v2cd_adxngang_ghep60ff9350c26c63ee_H1_k1p0.htm",
+    "bao_cao_repo": "D:\\brain2_tho\\hang_doi\\bao_cao\\hd_v2cd_adxngang_ghep60ff9350c26c63ee_H1_k1p0.htm",
+    "csv_repo": [
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_v2cd_adxngang_ghep60ff9350c26c63ee_H1_k1p0_vao.csv_lenh_mt5.csv.gz",
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_v2cd_adxngang_ghep60ff9350c26c63ee_H1_k1p0_vao.csv_gia.csv.gz"
+    ]
+   },
+   {
+    "k": 10.0,
+    "lai_theo_nam": {},
+    "ti_le_thang_pct": null,
+    "net": 0.0,
+    "pf": 0.0,
+    "lenh": 0.0,
+    "dd_equity_mt5": "0 (0%)",
+    "dd_pct": 0.0,
+    "cagr_pct": 0.0,
+    "sut_dong_lenh_pct": 0.0,
+    "thang_te_nhat": null,
+    "chat_luong": "99%",
+    "giay": 48,
+    "bao_cao": "hd_v2cd_adxngang_ghep60ff9350c26c63ee_H1_k10p0.htm",
+    "loi": "chua_do_duoc_0_lenh_48s",
+    "bao_cao_repo": "D:\\brain2_tho\\hang_doi\\bao_cao\\hd_v2cd_adxngang_ghep60ff9350c26c63ee_H1_k10p0.htm",
+    "csv_repo": [
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_v2cd_adxngang_ghep60ff9350c26c63ee_H1_k10p0_vao.csv_lenh_mt5.csv.gz"
+    ]
+   }
+  ],
+  "dat": true,
+  "k_tot": 1.0,
+  "k_an_toan_max": 1.0,
+  "tom_tat": "ĐẠT: k=1.0 CAGR 58.87%/năm DD 18.78%"
+ }
 }

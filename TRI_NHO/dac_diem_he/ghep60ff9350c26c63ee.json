@@ -1,7 +1,7 @@
 {
  "id": "ghep60ff9350c26c63ee",
  "nguon": "ghep_60ff9350c26c63ee",
- "kieu": "vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 4 tầng, hệ số lot 1.3",
+ "kieu": "vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 4 tầng, hệ số lot 1.3; TP 0.002 % giá",
  "chay": [
   {
    "bien_the": "od_v2relot_v2r2p_b120_ghep60ff9350c26c63ee_XM_CSV",
@@ -248,15 +248,26 @@
    "dd_pct": 39.57,
    "pf": 2.82,
    "lenh": 554.0
+  },
+  {
+   "bien_the": "v2cd_adxngang_ghep60ff9350c26c63ee_H1",
+   "ma": "GBPCADmicro",
+   "tf": "H1",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g2",
+   "k": 1.0,
+   "cagr_pct": 58.867,
+   "dd_pct": 18.78,
+   "pf": 3.97,
+   "lenh": 292.0
   }
  ],
  "bi_thay_the": 11,
  "lai_theo_nam": {
-  "2024": 1195.18,
-  "2025": 1121.78,
-  "2026": 637.05
+  "2024": 1021.49,
+  "2025": 933.4,
+  "2026": 641.81
  },
- "ti_le_thang_pct": 74.2,
+ "ti_le_thang_pct": 74.3,
  "so_deal": 322,
  "pf_bao_cao": 3.9,
  "bao_cao_htm": "reports/ong_dan/ket_qua_mt5/od_ghep60ff9350c26c63ee_XM_CSV.htm",
