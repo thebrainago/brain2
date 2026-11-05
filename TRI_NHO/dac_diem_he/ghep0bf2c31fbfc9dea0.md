@@ -3,14 +3,15 @@
 - Nguồn: ghep_0bf2c31fbfc9dea0
 - Kiểu vào / quản lý lệnh: vào theo CSV lệnh của nguồn; không nhồi; tối đa 1 tầng, hệ số lot 1.0; TP 0.001 % giá
 - Trạng thái: **ĐẠT (theo sổ kết quả; xem reports/kiem_toan_he_dat.md)**
-- Số lần chạy hợp lệ: 23 (bị thay thế do lỗi lot CSV: 13)
-- Tỉ lệ thắng: 99,0 %
-- Năm có lãi: 2024 (+3026), 2025 (+722), 2026 (-153)
+- Số lần chạy hợp lệ: 25 (bị thay thế do lỗi lot CSV: 13)
+- Tỉ lệ thắng: 99,2 %
+- Năm có lãi: 2024 (+2676), 2025 (+1390), 2026 (+467)
 - Thời gian giữ lệnh TB: CHƯA ĐO ĐƯỢC
 
 ## Mảnh tốt dùng lại được
 
 - PF >= 1,3 ở ít nhất một biến thể
+- có lãi 3/3 năm
 - chạy có lãi trên: GBPCADmicro H4
 - tỉ lệ thắng cao (99 %) — điểm vào/TP nhỏ đáng giữ
 
@@ -26,6 +27,7 @@
 | lot_ghep0bf2c31fbfc9dea0_H4 | GBPCADmicro | H4 | mt5_tho_desktop-05pnlgf_g2 | 3.0 | 129,93 | 56,08 | 9,45 | 86.0 |
 | lot_ghep0bf2c31fbfc9dea0_H4 | GBPCADmicro | H4 | mt5_tho_desktop-05pnlgf_g2 | 2.5 | 116,81 | 55,04 | 9,45 | 86.0 |
 | lot_ghep0bf2c31fbfc9dea0_H4 | GBPCADmicro | H4 | mt5_tho_desktop-05pnlgf_g2 | 2.0 | 102,11 | 53,55 | 9,45 | 86.0 |
+| v2cd_atrpmax80_ghep0bf2c31fbfc9dea0_H4 | GBPCADmicro | H4 | mt5_tho_desktop-05pnlgf_g2 | 1.0 | 85,64 | 29,13 | 13,78 | 124.0 |
 | lot_ghep0bf2c31fbfc9dea0_H4 | GBPCADmicro | H4 | mt5_tho_desktop-05pnlgf_g2 | 1.5 | 85,23 | 51,24 | 9,45 | 86.0 |
 | v2qd_atrb2_ghep0bf2c31fbfc9dea0_H4 | GBPCADmicro | H4 | mt5_tho_desktop-05pnlgf_g5 | 1.0 | 75,87 | 38,40 | 11,92 | 49.0 |
 | v2qd_trailatr_ghep0bf2c31fbfc9dea0_H4 | GBPCADmicro | H4 | mt5_tho_desktop-05pnlgf_g3 | 1.0 | 73,62 | 41,23 | 12,60 | 48.0 |
@@ -41,3 +43,4 @@
 | v2cd_adxngang_ghep0bf2c31fbfc9dea0_H4 | GBPCADmicro | H4 | mt5_tho_desktop-05pnlgf_g5 | 1.0 | 0,00 | 0,00 | 0,00 | CHƯA ĐO ĐƯỢC |
 | v2cd_adxngang_ghep0bf2c31fbfc9dea0_H4 | GBPCADmicro | H4 | mt5_tho_desktop-05pnlgf_g5 | 8.0 | 0,00 | 0,00 | 0,00 | CHƯA ĐO ĐƯỢC |
 | v2cd_adxxh_ghep0bf2c31fbfc9dea0_H4 | GBPCADmicro | H4 | mt5_tho_desktop-05pnlgf_g2 | 8.0 | 0,00 | 0,00 | 0,00 | CHƯA ĐO ĐƯỢC |
+| v2cd_atrpmax80_ghep0bf2c31fbfc9dea0_H4 | GBPCADmicro | H4 | mt5_tho_desktop-05pnlgf_g2 | 8.0 | 0,00 | 0,00 | 0,00 | CHƯA ĐO ĐƯỢC |
