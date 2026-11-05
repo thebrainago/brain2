@@ -83,15 +83,26 @@
    "dd_pct": 50.57,
    "pf": 2.88,
    "lenh": 174.0
+  },
+  {
+   "bien_the": "v2cd_adxxh_skea154c9fdee7_H4",
+   "ma": "GBPCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g2",
+   "k": 1.0,
+   "cagr_pct": 24.738,
+   "dd_pct": 57.84,
+   "pf": 2.92,
+   "lenh": 99.0
   }
  ],
  "bi_thay_the": 7,
  "lai_theo_nam": {
-  "2024": 540.85,
-  "2025": 717.76,
-  "2026": 279.52
+  "2024": 362.96,
+  "2025": 339.98,
+  "2026": 123.13
  },
- "ti_le_thang_pct": 79.3,
+ "ti_le_thang_pct": 80.8,
  "so_deal": 182,
  "pf_bao_cao": 2.6,
  "bao_cao_htm": "reports/ong_dan/ket_qua_mt5/od_skea154c9fdee7_XM_CSV.htm",
@@ -100,7 +111,7 @@
   "DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot",
   "có lãi 3/3 năm",
   "chạy có lãi trên: GBPCAD# H4, GBPCADmicro H4",
-  "tỉ lệ thắng cao (79 %) — điểm vào/TP nhỏ đáng giữ"
+  "tỉ lệ thắng cao (81 %) — điểm vào/TP nhỏ đáng giữ"
  ],
  "ly_do_truot": null,
  "giai_doan": "2024.01.10–2026.10.01"
