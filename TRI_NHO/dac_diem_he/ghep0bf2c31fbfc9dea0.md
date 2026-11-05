@@ -1,9 +1,9 @@
 # Đặc điểm hệ `ghep0bf2c31fbfc9dea0`
 
 - Nguồn: ghep_0bf2c31fbfc9dea0
-- Kiểu vào / quản lý lệnh: vào theo CSV lệnh của nguồn; không nhồi; tối đa 1 tầng, hệ số lot 1.0
+- Kiểu vào / quản lý lệnh: vào theo CSV lệnh của nguồn; không nhồi; tối đa 1 tầng, hệ số lot 1.0; TP 0.001 % giá
 - Trạng thái: **ĐẠT (theo sổ kết quả; xem reports/kiem_toan_he_dat.md)**
-- Số lần chạy hợp lệ: 19 (bị thay thế do lỗi lot CSV: 13)
+- Số lần chạy hợp lệ: 21 (bị thay thế do lỗi lot CSV: 13)
 - Tỉ lệ thắng: 97,9 %
 - Năm có lãi: 2024 (+2206), 2025 (+1560), 2026 (-168)
 - Thời gian giữ lệnh TB: CHƯA ĐO ĐƯỢC
@@ -37,3 +37,5 @@
 | od_v2relot_v2r2p_b120_ghep0bf2c31fbfc9dea0_XM_CSV | GBPCAD# | H4 | mt5_tester | 1.0 | CHƯA ĐO ĐƯỢC | CHƯA ĐO ĐƯỢC | 9,06 | CHƯA ĐO ĐƯỢC |
 | v2qd_catlo40_ghep0bf2c31fbfc9dea0_H4 | GBPCADmicro | H4 | mt5_tho_desktop-05pnlgf_g1 | 8.0 | 0,00 | 0,00 | 0,00 | CHƯA ĐO ĐƯỢC |
 | v2qd_trailatr_ghep0bf2c31fbfc9dea0_H4 | GBPCADmicro | H4 | mt5_tho_desktop-05pnlgf_g3 | 8.0 | 0,00 | 0,00 | 0,00 | CHƯA ĐO ĐƯỢC |
+| v2cd_adxngang_ghep0bf2c31fbfc9dea0_H4 | GBPCADmicro | H4 | mt5_tho_desktop-05pnlgf_g5 | 1.0 | 0,00 | 0,00 | 0,00 | CHƯA ĐO ĐƯỢC |
+| v2cd_adxngang_ghep0bf2c31fbfc9dea0_H4 | GBPCADmicro | H4 | mt5_tho_desktop-05pnlgf_g5 | 8.0 | 0,00 | 0,00 | 0,00 | CHƯA ĐO ĐƯỢC |

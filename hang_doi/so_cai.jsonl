@@ -283,3 +283,4 @@
 {"luc": "2026-11-05T15:55:38+07:00", "may": "desktop-05pnlgf_g1", "su_kien": "nhan", "id": "v2cd_adxngang_ghepe9b41c33d4deee54_H4", "loai": "mt5_backtest"}
 {"luc": "2026-11-05T15:57:55+07:00", "may": "desktop-05pnlgf_g4", "su_kien": "xong", "id": "v2qd_trailatr_skea154c9fdee7_H4", "loai": "mt5_backtest", "tom_tat": "ĐẠT: k=1.0 CAGR 40.76%/năm DD 50.57%"}
 {"luc": "2026-11-05T15:58:02+07:00", "may": "desktop-05pnlgf_g4", "su_kien": "nhan", "id": "v2cd_adxngang_mql5344ed0d8ab12c7f0_H1", "loai": "mt5_backtest"}
+{"luc": "2026-11-05T16:01:40+07:00", "may": "desktop-05pnlgf_g5", "su_kien": "xong", "id": "v2cd_adxngang_ghep0bf2c31fbfc9dea0_H4", "loai": "mt5_backtest", "tom_tat": "TRƯỢT: không k nào DD<80%% và CAGR>10%%"}

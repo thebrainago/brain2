@@ -1,7 +1,7 @@
 {
  "id": "ghep0bf2c31fbfc9dea0",
  "nguon": "ghep_0bf2c31fbfc9dea0",
- "kieu": "vào theo CSV lệnh của nguồn; không nhồi; tối đa 1 tầng, hệ số lot 1.0",
+ "kieu": "vào theo CSV lệnh của nguồn; không nhồi; tối đa 1 tầng, hệ số lot 1.0; TP 0.001 % giá",
  "chay": [
   {
    "bien_the": "od_v2relot_v2r2p_b120_ghep0bf2c31fbfc9dea0_XM_CSV",
@@ -210,6 +210,28 @@
    "ma": "GBPCADmicro",
    "tf": "H4",
    "nguon_do": "mt5_tho_desktop-05pnlgf_g3",
+   "k": 8.0,
+   "cagr_pct": 0.0,
+   "dd_pct": 0.0,
+   "pf": 0.0,
+   "lenh": 0.0
+  },
+  {
+   "bien_the": "v2cd_adxngang_ghep0bf2c31fbfc9dea0_H4",
+   "ma": "GBPCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g5",
+   "k": 1.0,
+   "cagr_pct": 0.0,
+   "dd_pct": 0.0,
+   "pf": 0.0,
+   "lenh": 0.0
+  },
+  {
+   "bien_the": "v2cd_adxngang_ghep0bf2c31fbfc9dea0_H4",
+   "ma": "GBPCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g5",
    "k": 8.0,
    "cagr_pct": 0.0,
    "dd_pct": 0.0,
