@@ -222,13 +222,24 @@
    "dd_pct": 99.19,
    "pf": 0.59,
    "lenh": 23.0
+  },
+  {
+   "bien_the": "v2cd_atrpmax80_b0be91a35f43f34a_H4",
+   "ma": "USDCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g4",
+   "k": 1.0,
+   "cagr_pct": 37.571,
+   "dd_pct": 57.47,
+   "pf": 0.0,
+   "lenh": 44.0
   }
  ],
  "bi_thay_the": 2,
  "lai_theo_nam": {
-  "2024": 521.73,
-  "2025": 305.26,
-  "2026": 241.19
+  "2024": 613.32,
+  "2025": 579.18,
+  "2026": 181.44
  },
  "ti_le_thang_pct": 100.0,
  "so_deal": 46,
