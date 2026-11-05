@@ -1,7 +1,7 @@
 {
  "id": "ghepe9b41c33d4deee54",
  "nguon": "ghep_e9b41c33d4deee54",
- "kieu": "vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 6 tầng, hệ số lot 1.0; TP 1.0 ATR",
+ "kieu": "vào theo CSV lệnh của nguồn; DCA ngược (nhồi khi lỗ); tối đa 6 tầng, hệ số lot 1.0; TP 0.005 % giá; cắt lỗ 40.0 %",
  "chay": [
   {
    "bien_the": "od_v2r2p_b120_ghepe9b41c33d4deee54_XM_CSV",
@@ -169,15 +169,37 @@
    "dd_pct": 97.37,
    "pf": 0.79,
    "lenh": 11.0
+  },
+  {
+   "bien_the": "v2qd_catlo40_ghepe9b41c33d4deee54_H4",
+   "ma": "GBPNZDmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g3",
+   "k": 1.0,
+   "cagr_pct": 122.479,
+   "dd_pct": 35.97,
+   "pf": 4.23,
+   "lenh": 144.0
+  },
+  {
+   "bien_the": "v2qd_catlo40_ghepe9b41c33d4deee54_H4",
+   "ma": "GBPNZDmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g3",
+   "k": 10.0,
+   "cagr_pct": 0.0,
+   "dd_pct": 0.0,
+   "pf": 0.0,
+   "lenh": 0.0
   }
  ],
  "bi_thay_the": 12,
  "lai_theo_nam": {
-  "2024": 4303.57,
-  "2025": 3630.28,
-  "2026": 1624.73
+  "2024": 2995.45,
+  "2025": 3464.98,
+  "2026": 1666.7
  },
- "ti_le_thang_pct": 78.8,
+ "ti_le_thang_pct": 83.3,
  "so_deal": 135,
  "pf_bao_cao": 5.35,
  "bao_cao_htm": "reports/ong_dan/ket_qua_mt5/od_ghepe9b41c33d4deee54_XM_CSV.htm",
@@ -186,7 +208,7 @@
   "DD thấp (< 15 %) mà vẫn có lãi — hợp làm mảnh nền / nâng lot",
   "có lãi 3/3 năm",
   "chạy có lãi trên: GBPNZD# H4, GBPNZDmicro H4",
-  "tỉ lệ thắng cao (79 %) — điểm vào/TP nhỏ đáng giữ"
+  "tỉ lệ thắng cao (83 %) — điểm vào/TP nhỏ đáng giữ"
  ],
  "ly_do_truot": null,
  "giai_doan": "2023.12.26–2026.10.01"
