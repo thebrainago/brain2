@@ -67,5 +67,64 @@
  "uoc_phut": 18,
  "ghi_chu": "VÒNG 2 thử sâu quản lý lệnh (03/11): bước DCA giãn dần ×1,3 mỗi tầng (PMG expanding). Gốc lot_mql5344ed0d8ab12c7f0_H1 (ĐẠT vòng 1, k_tot=2.0); cùng CSV vào, chỉ đổi quản lý. Vẫn IN-SAMPLE cửa sổ CSV.",
  "may": "desktop-05pnlgf_g4",
- "nhan_luc": "2026-11-05T13:08:36+07:00"
+ "nhan_luc": "2026-11-05T13:08:36+07:00",
+ "trang_thai": "XONG",
+ "xong_luc": "2026-11-05T15:06:30+07:00",
+ "ket_qua": {
+  "chay": [
+   {
+    "k": 1.0,
+    "lai_theo_nam": {},
+    "ti_le_thang_pct": null,
+    "net": 0.0,
+    "pf": 0.0,
+    "lenh": 0.0,
+    "dd_equity_mt5": "0 (0%)",
+    "dd_pct": 0.0,
+    "cagr_pct": 0.0,
+    "sut_dong_lenh_pct": 0.0,
+    "thang_te_nhat": null,
+    "chat_luong": "31%",
+    "giay": 45,
+    "bao_cao": "hd_v2qd_gian13_mql5344ed0d8ab12c7f0_H1_k1p0.htm",
+    "loi": "chua_do_duoc_0_lenh_45s",
+    "bao_cao_repo": "D:\\brain2_tho\\hang_doi\\bao_cao\\hd_v2qd_gian13_mql5344ed0d8ab12c7f0_H1_k1p0.htm"
+   },
+   {
+    "k": 2.0,
+    "lai_theo_nam": {
+     "2018": 568.99,
+     "2019": 696.25,
+     "2020": 1080.68,
+     "2021": 1668.09,
+     "2022": 858.62,
+     "2023": 692.81,
+     "2024": 426.28,
+     "2025": 924.48,
+     "2026": -507.88
+    },
+    "ti_le_thang_pct": 79.5,
+    "net": 6408.32,
+    "pf": 3.58,
+    "lenh": 526.0,
+    "dd_equity_mt5": "3 144.60 (54.48%)",
+    "dd_pct": 54.48,
+    "cagr_pct": 25.672,
+    "sut_dong_lenh_pct": 12.026,
+    "thang_te_nhat": -950.36,
+    "chat_luong": "31% real ticks",
+    "giay": 751,
+    "bao_cao": "hd_v2qd_gian13_mql5344ed0d8ab12c7f0_H1_k2p0.htm",
+    "bao_cao_repo": "D:\\brain2_tho\\hang_doi\\bao_cao\\hd_v2qd_gian13_mql5344ed0d8ab12c7f0_H1_k2p0.htm",
+    "csv_repo": [
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_v2qd_gian13_mql5344ed0d8ab12c7f0_H1_k2p0_vao.csv_lenh_mt5.csv.gz",
+     "D:\\brain2_tho\\hang_doi\\ket_qua_csv\\hd_v2qd_gian13_mql5344ed0d8ab12c7f0_H1_k2p0_vao.csv_gia.csv.gz"
+    ]
+   }
+  ],
+  "dat": true,
+  "k_tot": 2.0,
+  "k_an_toan_max": 2.0,
+  "tom_tat": "ĐẠT: k=2.0 CAGR 25.67%/năm DD 54.48%"
+ }
 }
