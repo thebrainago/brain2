@@ -200,13 +200,35 @@
    "dd_pct": 67.15,
    "pf": 0.0,
    "lenh": 39.0
+  },
+  {
+   "bien_the": "v2cd_adxxh_b0be91a35f43f34a_H4",
+   "ma": "USDCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g2",
+   "k": 1.0,
+   "cagr_pct": 30.747,
+   "dd_pct": 68.91,
+   "pf": 0.0,
+   "lenh": 34.0
+  },
+  {
+   "bien_the": "v2cd_adxxh_b0be91a35f43f34a_H4",
+   "ma": "USDCADmicro",
+   "tf": "H4",
+   "nguon_do": "mt5_tho_desktop-05pnlgf_g2",
+   "k": 2.0,
+   "cagr_pct": -76.433,
+   "dd_pct": 99.19,
+   "pf": 0.59,
+   "lenh": 23.0
   }
  ],
  "bi_thay_the": 2,
  "lai_theo_nam": {
-  "2024": 273.4,
-  "2025": 672.46,
-  "2026": 241.4
+  "2024": 521.73,
+  "2025": 305.26,
+  "2026": 241.19
  },
  "ti_le_thang_pct": 100.0,
  "so_deal": 46,
