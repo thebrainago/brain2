@@ -65,5 +65,7 @@
   10.0
  ],
  "uoc_phut": 24,
- "ghi_chu": "VÒNG 2 thử sâu quản lý lệnh (03/11): bỏ TP cố định, trailing kích 1×ATR trả 0,5×ATR. Gốc lot_mql5e52afb999eca4bd1_H1 (ĐẠT vòng 1, k_tot=10.0); cùng CSV vào, chỉ đổi quản lý. Vẫn IN-SAMPLE cửa sổ CSV."
+ "ghi_chu": "VÒNG 2 thử sâu quản lý lệnh (03/11): bỏ TP cố định, trailing kích 1×ATR trả 0,5×ATR. Gốc lot_mql5e52afb999eca4bd1_H1 (ĐẠT vòng 1, k_tot=10.0); cùng CSV vào, chỉ đổi quản lý. Vẫn IN-SAMPLE cửa sổ CSV.",
+ "may": "desktop-05pnlgf_g1",
+ "nhan_luc": "2026-11-05T15:10:17+07:00"
 }
