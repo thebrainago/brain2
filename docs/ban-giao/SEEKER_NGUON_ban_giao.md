@@ -1,5 +1,20 @@
 # Bàn giao nguồn SEEKER — 2026-11-07
 
+## Chẩn đoán 6 diễn đàn / bảng xếp hạng (2026-11-07) — chưa thu thập
+
+Không tạo việc mới. HTTP 200 không có nghĩa parser ra hồ sơ. Báo cáo `reports/seeker_nguon/DIEN_DAN_NC.json`. Lệnh: `python -m seeker.dien_dan_nghien_cuu` (dùng cache; không đào bài).
+
+| Nguồn | URL đã thử | Truy cập | Parser | Việc tiếp |
+|---|---|---|---|---|
+| TraderViet | https://traderviet.tv/forums/he-thong-giao-dich-trading-system.11/ | ok HTTP 200 | ra URL bài trên danh sách, chưa mở bài, chưa có số lãi | đợt sau mới đọc từng bài |
+| MQL5 forum ru | https://www.mql5.com/ru/forum | ok HTTP 200 sau khi sửa: robots.txt có `Disallow: /captcha/` bị gán nhầm là challenge | ra URL bài, chưa mở bài | không đào trong đợt này |
+| BabyPips | https://forums.babypips.com/ | challenge, robots.txt HTTP 403 Just a moment | không chạy | dừng, không đổi UA. Chủ mở trình duyệt nếu cần |
+| Darwinex | https://www.darwinex.com/data/darwin-api | auth, chuyển tới /login | không chạy | cần phiên chủ đã có. Không tạo tài khoản hộ |
+| ZuluTrade | https://www.zulutrade.com/ | ok HTTP 200 | không ra URL hồ sơ trader trong HTML tĩnh | lịch sử lệnh theo ghi chú sổ nguồn cần đăng nhập. Không có API công khai nào được gọi |
+| cTrader Copy | https://ctrader.com/copy | ok HTTP 200 | không ra id chiến lược; link là mục /copy/brokers, /symbols, ngôn ngữ | trang vẽ danh sách bằng JS. Không dùng API ẩn |
+
+Myfxbook, ForexFactory, forex-station, Exness không gọi lại.
+
 ## Myfxbook — dừng host, đường chính thức là API tài khoản của mình
 
 Không gọi lại `www.myfxbook.com`. Bản 2026-11-03: `/systems` HTTP 403 Cloudflare, cả robots.txt. `seeker.cong_khai.chay` bỏ qua host này (`khong_goi: true`).

@@ -45,6 +45,10 @@ def phan_loai_http(ma, text: str = "", url: str = "", url_cuoi: str | None = Non
     than = text or ""
     dau = than[:8000].lower()
     cuoi = url_cuoi or url
+    # robots.txt thật hay nhắc Disallow: /captcha/ . Đó không phải trang chặn.
+    if ma == 200 and "user-agent:" in dau and ("disallow:" in dau or "allow:" in dau) \
+            and "just a moment" not in dau and "cf-chl" not in dau and "<html" not in dau[:500]:
+        return {"loai": "ok", "ly_do": "robots.txt", "http": ma, "dung_mien": False, "stale": False}
     if ma is None or ma == 0:
         ly = loi or "không kết nối"
         return {"loai": "network", "ly_do": (ly[:800] + _gia_thuyet_dns(ly + than)),
