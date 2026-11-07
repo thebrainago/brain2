@@ -22,9 +22,9 @@
 
 - TraderViet một bài `...72248`: HTTP 200, parser XenForo thấy 2 thân bài (1.541 ký tự) và ngày. Bài là giới thiệu sách, không có số lãi.
 - MQL5 ` /ru/forum/519621`: HTTP 200, 10 bình luận (3.232 ký tự) sau khi sửa regex `class="content"` bị xuống dòng. Bài thảo luận xu hướng, không phải hệ đã kiểm lãi.
-- ZuluTrade `/traders` (trang danh sách công khai, robots cho phép): HTTP 200, không có hồ sơ leader trong HTML.
-- Darwinex: `/data/darwin-api` vẫn là login. Help DarwinIA trỏ https://www.darwinexzero.com/darwinia/gold . Trang đó HTTP 200 nhưng không có hàng DARWIN trong HTML. Không bịa URL `/all-darwins`.
-- cTrader: help nói danh sách ở tab Strategies trong app. `ctrader.com/copy` không có id chiến lược. Không gọi lại.
+- ZuluTrade `/traders` (trang danh sách công khai, robots cho phép): HTTP 200, không có hồ sơ leader trong HTML. Parser tĩnh giữ nguyên. 15:46 trình duyệt thấy thẻ Top Leaders và một hồ sơ; xem bàn giao đăng nhập.
+- Darwinex: `/data/darwin-api` vẫn là login. Help DarwinIA trỏ https://www.darwinexzero.com/darwinia/gold . Trang đó HTTP 200 nhưng không có hàng DARWIN trong HTML. Không bịa URL `/all-darwins`. Parser tĩnh giữ nguyên. 15:49 tab GOLD trên trình duyệt hiện bảng; xem bàn giao đăng nhập.
+- cTrader: help nói danh sách ở tab Strategies trong app. `ctrader.com/copy` không có id chiến lược trong HTML tĩnh. Parser tĩnh giữ nguyên. 15:48 nút Explore mở widget công khai; xem bàn giao đăng nhập. Không bịa permalink.
 - EliteTrader `automated-trading.48`: robots cho phép, trang HTTP 403 Cloudflare. Dừng, không thử lại.
 
 ## Chẩn đoán 6 diễn đàn / bảng xếp hạng (2026-11-07) — chưa thu thập

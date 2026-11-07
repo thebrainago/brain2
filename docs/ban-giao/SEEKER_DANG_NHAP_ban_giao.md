@@ -1,4 +1,4 @@
-# Bàn giao đăng nhập nguồn — 2026-11-07 15:16; SignalStart 15:18; GogoJungle 15:36; DupliTrade 15:42 Asia/Bangkok
+# Bàn giao đăng nhập nguồn — 2026-11-07 15:16; SignalStart 15:18; GogoJungle 15:36; DupliTrade 15:42; ZuluTrade 15:46; cTrader 15:48; Darwinex Zero 15:49 Asia/Bangkok
 
 Tài liệu cho phiên khác. Chỉ trạng thái và cách lấy bí mật. Không có mật khẩu, OTP, token, cookie, email, số điện thoại, ngày sinh.
 
@@ -84,6 +84,34 @@ Lịch sử lệnh, tài khoản thử xem được: `https://duplitrade.com/str
 1055 mục là bản đã lọc, không phải cả đời tài khoản. Danh sách trước đó ghi 5697 lệnh, số trên hồ sơ ghi 5664. Lệch này chưa giải. Nhãn sidebar kiểu lịch sử đủ của khách thật không chứng minh tài khoản thử đang xem đủ lịch sử.
 
 Việc sau không nạp tiền và không kích hoạt sàn.
+
+## ZuluTrade — thẻ công khai và một hồ sơ, chưa có tài khoản, 2026-11-07 15:46 Asia/Bangkok
+
+Đây là bằng chứng trình duyệt, tách khỏi lần đọc HTML tĩnh trước đó (trang 200 nhưng parser không thấy hồ sơ).
+
+`https://www.zulutrade.com/traders` có thẻ Top Leaders. Mục Leaders trên đầu trang mở `https://www.zulutrade.com/leaders` và đó là vỏ thư mục trống.
+
+Một hồ sơ thật, đọc công khai không đăng nhập: `https://www.zulutrade.com/trader/430525/trading`, tên Carmine Quarantareal1. Thấy số thống kê và các dòng lệnh đang mở. Không có huy hiệu xác minh độc lập. Live Copiers không phải xác minh tài khoản. Chữ demo hoặc test của leader là lời tự mô tả.
+
+Tab Closed Trades bấm hai lần không đổi. Đó không chứng minh cần đăng nhập và cũng không chứng minh site chặn. Không thấy nút xuất file. Xuất lịch sử lệnh đã đóng là **chưa xác nhận**. Không tạo tài khoản và không bấm copy.
+
+## cTrader Copy — widget công khai, chưa có hồ sơ cố định, 2026-11-07 15:48 Asia/Bangkok
+
+`https://ctrader.com/copy` có nút Explore strategies. Nút đó mở app Copy nhúng: `https://app.ctrader.com/copy-widget?hidePortfolios=true&lang=en&source=store&theme=light`. Đây là widget công khai, không phải API và không đọc ngược JS.
+
+Danh sách hiện không cần đăng nhập và không cần chọn sàn: trang 1–20 của 687, lọc Account Type Live. Một thẻ mẫu: Calm Discipline Trader, nhà cung cấp cùng tên, nhãn Live. Thấy các mục ROI, performance, volume, Deals, Symbols, History. Không thấy dòng lệnh và không thấy nút xuất. Không lộ permalink hồ sơ; đừng bịa URL. Số hiệu suất trên site là lời của nguồn, chưa được kiểm độc lập.
+
+Không đăng nhập, không nối sàn, không copy, không mở tài khoản. Kết quả HTML tĩnh trước đó (không có id chiến lược) vẫn đúng cho parser; lần này là trình duyệt.
+
+## Darwinex Zero — bảng GOLD công khai, một mã chưa mở được, 2026-11-07 15:49 Asia/Bangkok
+
+`https://www.darwinexzero.com/darwinia/gold` lúc đầu không có hàng. Chọn tab GOLD trên giao diện thường thì bảng công khai tháng 11/2026 (tạm) hiện ra: QBG hạng 01/518, và 20 dòng thấy được với Return, Allocation, Position. Không thấy câu rõ về kỳ lợi nhuận, DD, NAV, hay nhãn live/demo.
+
+Một link thật `https://www.darwinexzero.com/darwin/QBG` mở hai lần, chỉ thấy cảnh báo ở đầu trang, không có số hồ sơ. Nguyên nhân chưa rõ. Không kết luận site chặn. Nút Download nhìn thấy nhưng **chưa bấm**, nên không có file xuất.
+
+Bảng xếp hạng không cần đăng nhập không có nghĩa trang hồ sơ cũng không cần. Thành viên và SSO chưa thử. Tiêu đề chính thức là tài khoản ảo, không phải QBG đã xác minh là tài khoản thật. API `/data/darwin-api` vẫn là cửa đăng nhập ở lần đo HTML trước. Không tạo tài khoản, không thanh toán sàn, không đặt lệnh.
+
+Myfxbook vẫn bị chặn từ trước và không gọi lại.
 
 ## Việc phiên sau không làm
 
