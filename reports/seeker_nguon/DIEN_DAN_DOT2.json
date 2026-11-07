@@ -1,0 +1,158 @@
+{
+ "ngay": "2026-11-07",
+ "khong_tao_viec": true,
+ "nguon": [
+  {
+   "id": "signalstart",
+   "url": "https://www.signalstart.com/search-signals",
+   "ngay": "2026-11-07",
+   "truy_cap": "ok",
+   "parser": "ra_url_danh_sach",
+   "http": 200,
+   "ky_tu": 118486,
+   "so_lien_ket": 20,
+   "do_tin": "cao",
+   "da_sua": "parser danh sách",
+   "buoc_tiep": "Danh sách 20 hồ sơ đọc được. Chưa mở trang phân tích. Không phải ĐẠT của mình.",
+   "ly_do": "trang danh sách có URL bài/hồ sơ. Chưa mở từng bài, chưa có số lãi.",
+   "url_cuoi": "https://www.signalstart.com/search-signals",
+   "khong_tao_viec": true,
+   "mau_url": [
+    "https://www.signalstart.com/analysis/kgold2026/291660",
+    "https://www.signalstart.com/analysis/goldflow/291727",
+    "https://www.signalstart.com/analysis/navis/291566",
+    "https://www.signalstart.com/analysis/gold-index/291299",
+    "https://www.signalstart.com/analysis/eagle/291403"
+   ]
+  },
+  {
+   "id": "fxblue",
+   "url": "https://www.fxblue.com/users",
+   "ngay": "2026-11-07",
+   "truy_cap": "no_data",
+   "parser": "khong_chay",
+   "http": 404,
+   "ky_tu": 11253,
+   "so_lien_ket": 0,
+   "do_tin": "cao",
+   "da_sua": "URL sổ /users trả 404. robots cho phép / và cấm /user/. Đọc một sitemap, không mở /user/.",
+   "buoc_tiep": "Sổ /users là 404. Sitemap không có danh sách trader. Không đoán URL và không tải 2641 trang tin.",
+   "ly_do": "HTTP 404 — URL không có tài nguyên, không phải 0 chiến lược đã đo",
+   "url_cuoi": "https://www.fxblue.com/users",
+   "khong_tao_viec": true,
+   "sitemap": {
+    "url": "https://www.fxblue.com/sitemap.xml",
+    "http": 200,
+    "so_loc": 2641,
+    "phan_bo": {
+     "/news": 2386,
+     "/market-data": 121,
+     "/tools-for-download": 47,
+     "/creations-hub": 42,
+     "/brokers": 16,
+     "/prop-firms": 8,
+     "/users": 6
+    },
+    "users": "sáu URL đều là /users/example và các tab portfolio/analysis/stats/risk/widgets. Không có bảng tài khoản.",
+    "robots": "Allow: / ; Disallow: /user/ . Không mở /user/.",
+    "khong_mo_them": true
+   }
+  },
+  {
+   "id": "gogojungle",
+   "url": "https://www.gogojungle.co.jp/systemtrade/fx",
+   "ngay": "2026-11-07",
+   "truy_cap": "ok",
+   "parser": "ra_url_danh_sach",
+   "http": 200,
+   "ky_tu": 636264,
+   "so_lien_ket": 44,
+   "do_tin": "cao",
+   "da_sua": "Đếm thô 67 gồm URL search. Bỏ query, chỉ giữ /systemtrade/fx/<số>: 44. Đọc lại HTML đã lưu, không tải lại.",
+   "buoc_tiep": "Danh sách đọc được. Chưa mở trang hệ. Số lãi trên trang là khai báo của người khác, không phải ĐẠT.",
+   "ly_do": "trang danh sách có URL bài/hồ sơ. Chưa mở từng bài, chưa có số lãi.",
+   "url_cuoi": "https://www.gogojungle.co.jp/systemtrade/fx",
+   "khong_tao_viec": true,
+   "mau_url": [
+    "https://www.gogojungle.co.jp/systemtrade/fx/77038",
+    "https://www.gogojungle.co.jp/systemtrade/fx/54678",
+    "https://www.gogojungle.co.jp/systemtrade/fx/79953",
+    "https://www.gogojungle.co.jp/systemtrade/fx/71895",
+    "https://www.gogojungle.co.jp/systemtrade/fx/74411"
+   ]
+  },
+  {
+   "id": "duplitrade",
+   "url": "https://www.duplitrade.com/",
+   "ngay": "2026-11-07",
+   "truy_cap": "ok",
+   "parser": "js_can_trinh_duyet",
+   "http": 200,
+   "ky_tu": 383672,
+   "so_lien_ket": 0,
+   "do_tin": "cao",
+   "da_sua": "tách truy cập khỏi parser",
+   "buoc_tiep": "không đọc payload JS và không gọi API riêng",
+   "ly_do": "HTTP 200 nhưng HTML tĩnh không có URL hồ sơ. Trang Next.js.",
+   "url_cuoi": "https://duplitrade.com/",
+   "khong_tao_viec": true
+  },
+  {
+   "id": "fxstat",
+   "url": "https://www.fxstat.com/",
+   "ngay": "2026-11-07",
+   "truy_cap": "network",
+   "parser": "khong_chay",
+   "http": null,
+   "ky_tu": 0,
+   "so_lien_ket": 0,
+   "do_tin": "cao",
+   "da_sua": "www.fxstat.com lệch chứng chỉ (SAN chỉ có fxstat.com). Một lần https://fxstat.com/ với TLS bình thường, không tắt kiểm chứng chỉ.",
+   "buoc_tiep": "Không thử lại www. Apex là trang đăng nhập, không có bảng xếp hạng công khai.",
+   "ly_do": "SSLError: HTTPSConnectionPool(host='www.fxstat.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.fxstat.com'. (_ssl.c:1000)\")))",
+   "url_cuoi": "https://www.fxstat.com/",
+   "khong_tao_viec": true,
+   "apex": {
+    "truy_cap": "auth",
+    "http": 200,
+    "ly_do": "Tiêu đề mời đăng nhập, có ô mật khẩu, không có link tài khoản. Không tắt kiểm TLS.",
+    "url_cuoi": "https://fxstat.com/",
+    "ky_tu": 35759,
+    "parser": "khong_chay",
+    "tieu_de": "Welcome to FxStat - Log In, Sign Up or Learn More",
+    "co_password": true,
+    "so_href": 58,
+    "chi_la_cua_dang_nhap": true
+   }
+  },
+  {
+   "id": "fxon",
+   "url": "https://fx-on.com/",
+   "ngay": "2026-11-07",
+   "truy_cap": "ok",
+   "parser": "trung_nguon",
+   "http": 200,
+   "ky_tu": 820755,
+   "so_lien_ket": 0,
+   "do_tin": "cao",
+   "da_sua": "nhận redirect, không tách thành nguồn thứ hai và không đọc JSON nhúng",
+   "buoc_tiep": "dùng kết quả /systemtrade/fx của gogojungle. Không mở từng hệ.",
+   "ly_do": "fx-on.com chuyển tới GogoJungle. Cùng một sàn, không tính nguồn mới. Trang chủ không có thẻ a tới hồ sơ. Chuỗi detailUrl nằm trong JSON nhúng, không bóc.",
+   "url_cuoi": "https://www.gogojungle.co.jp/",
+   "khong_tao_viec": true,
+   "trung_voi": "gogojungle",
+   "so_ho_so_trung": 0,
+   "khong_doc_payload": true
+  }
+ ],
+ "dot": 2,
+ "khong_goi": [
+  {
+   "id": "etoro",
+   "url": "https://www.etoro.com/sapi/rankings/rankings/",
+   "ly_do": "URL trong sổ là đường /sapi/, không phải trang xếp hạng có tài liệu. Không gọi."
+  }
+ ],
+ "ghi_chu": "Đợt 2. Không tạo việc. fxon trùng gogojungle. Parser GogoJungle chỉ nhận /systemtrade/fx/<số>, bỏ URL search.",
+ "sua_parser": "GogoJungle: 67 href gồm URL search. Sau khi bỏ query, còn 44 hồ sơ /systemtrade/fx/<số>."
+}

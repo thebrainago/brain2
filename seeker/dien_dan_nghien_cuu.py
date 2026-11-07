@@ -9,6 +9,7 @@ bài/hồ sơ là parser chưa chạy được, không phải nguồn sống. Ho
 from __future__ import annotations
 
 import argparse
+import html as html_lib
 import json
 import re
 from pathlib import Path
@@ -19,6 +20,7 @@ from seeker.phan_loai_loi import phan_loai_http
 
 GOC = Path(__file__).resolve().parents[1]
 RA = GOC / "reports" / "seeker_nguon" / "DIEN_DAN_NC.json"
+RA_DOT2 = GOC / "reports" / "seeker_nguon" / "DIEN_DAN_DOT2.json"
 UA = "brain2-seeker/1.0 (+https://github.com/thebrainago/brain2; doc cong khai)"
 HOST_CAM = {
     "myfxbook.com", "www.myfxbook.com",
@@ -38,11 +40,66 @@ NGUON = (
     {"id": "zulutrade", "url": "https://www.zulutrade.com/", "nhom": "xep_hang"},
     {"id": "ctrader_copy", "url": "https://ctrader.com/copy", "nhom": "xep_hang"},
 )
+# Đợt 2: sáu nguồn trong sổ chưa đo ở đợt 1. Cùng một miền chỉ một URL.
+# etoro trong sổ trỏ /sapi/ — không gọi API không có tài liệu.
+NGUON_DOT2 = (
+    {"id": "signalstart", "url": "https://www.signalstart.com/search-signals", "nhom": "lich_su_tai_khoan"},
+    {"id": "fxblue", "url": "https://www.fxblue.com/users", "nhom": "lich_su_tai_khoan"},
+    {"id": "gogojungle", "url": "https://www.gogojungle.co.jp/systemtrade/fx", "nhom": "xep_hang"},
+    {"id": "duplitrade", "url": "https://www.duplitrade.com/", "nhom": "copy_trading"},
+    {"id": "fxstat", "url": "https://www.fxstat.com/", "nhom": "lich_su_tai_khoan"},
+    {"id": "fxon", "url": "https://fx-on.com/", "nhom": "xep_hang"},
+)
+KHONG_GOI = (
+    {"id": "etoro", "url": "https://www.etoro.com/sapi/rankings/rankings/",
+     "ly_do": "URL trong sổ là đường /sapi/, không phải trang xếp hạng có tài liệu. Không gọi."},
+)
 _HREF = re.compile(r'href=["\']([^"\'#]+)', re.I)
 
 
 def host(url: str) -> str:
     return (urlparse(url).hostname or "").lower()
+
+
+def khoa_mien(nguon_id: str, url: str) -> str:
+    """Một sàn = một khóa. Trang chủ, danh sách và bài không thành ba nguồn."""
+    h = host(url).removeprefix("www.")
+    i = nguon_id or ""
+    if h in ("traderviet.com", "traderviet.tv") or i.startswith("traderviet"):
+        return "traderviet"
+    if i == "fxon" or h == "fx-on.com":
+        return "gogojungle.co.jp"
+    if "myfxbook" in i or h.endswith("myfxbook.com"):
+        return "myfxbook.com"
+    if "forexfactory" in i or h.endswith("forexfactory.com"):
+        return "forexfactory.com"
+    if i in ("mql5_forum_ru", "tqtj_ru"):
+        return "mql5.com/forum"
+    if i in ("fxblue", "fxblue_com", "fxblue_market") or h.endswith("fxblue.com"):
+        return "fxblue.com"
+    if "darwinex" in i or "darwinex" in h:
+        return "darwinex.com"
+    if "zulutrade" in i or h.endswith("zulutrade.com"):
+        return "zulutrade.com"
+    if i in ("ctrader_copy", "ctrader_algo") or h == "ctrader.com" or h.endswith(".ctrader.com"):
+        return "ctrader.com"
+    if h.endswith("quantconnect.com") or i.startswith("quantconnect"):
+        return "quantconnect.com"
+    if h.endswith("reddit.com") or i.startswith("reddit_"):
+        return "reddit.com"
+    if h.endswith("smart-lab.ru") or i.startswith("smartlab"):
+        return "smart-lab.ru"
+    if h in ("x.com", "twitter.com") or i == "x" or i.startswith("x_"):
+        return "x.com"
+    if "collective2" in i or "collective2" in h:
+        return "collective2.com"
+    if "elitetrader" in i or h.endswith("elitetrader.com"):
+        return "elitetrader.com"
+    if "babypips" in i or h.endswith("babypips.com"):
+        return "babypips.com"
+    if "exness" in i or "exness" in h:
+        return "exness.com"
+    return h or i
 
 
 def bi_cam(url: str) -> bool:
@@ -57,7 +114,8 @@ def rut_lien_ket(html: str, base: str, nguon_id: str) -> list[dict]:
     """URL bài hoặc hồ sơ. Trang chỉ mục không tính."""
     thay, ra = set(), []
     for href in _HREF.findall(html or ""):
-        u = _tuyet(base, href)
+        u = html_lib.unescape(_tuyet(base, href))
+        u = u.split("#")[0].split("?")[0]
         u = re.sub(r"/(?:page-?\d+|latest)/?$", "", u).rstrip("/")
         h = host(u)
         path = urlparse(u).path or ""
@@ -74,6 +132,19 @@ def rut_lien_ket(html: str, base: str, nguon_id: str) -> list[dict]:
             giu = True
         elif nguon_id == "ctrader_copy" and re.search(r"ctrader\.com/(?:[a-z]{2}/)?copy/strategies?/\d+", u):
             giu = True
+        elif nguon_id == "signalstart" and re.search(r"signalstart\.com/analysis/[^/]+/\d+$", u):
+            giu = True
+        elif nguon_id == "fxblue" and re.search(r"fxblue\.com/users/[A-Za-z0-9_.-]{2,}$", u):
+            giu = True
+        elif nguon_id == "gogojungle" and re.search(
+                r"gogojungle\.co\.jp/(?:[a-z]{2}/)?systemtrade/fx/\d+$", u):
+            giu = True
+        elif nguon_id == "fxon" and re.search(
+                r"fx-on\.com/(?:[a-z]{2}/)?(?:post|systemtrade|review)/.+\d", u):
+            giu = True
+        elif nguon_id == "duplitrade" and re.search(
+                r"duplitrade\.com/(?:en/)?(?:trader|strategy|strategies|signal)s?/[A-Za-z0-9_-]{2,}$", u, re.I):
+            giu = True
         if not giu or u in thay:
             continue
         thay.add(u)
@@ -89,6 +160,20 @@ def _tom_tat(spec: dict, truy_cap: str, parser: str, http, ly_do: str, so: int, 
         "so_lien_ket": so, "do_tin": do_tin, "da_sua": da_sua, "buoc_tiep": buoc,
         "ly_do": ly_do[:400], "url_cuoi": url_cuoi, "khong_tao_viec": True,
     }
+
+
+def chi_la_cua_dang_nhap(html: str) -> bool:
+    """Trang chỉ có form đăng nhập. Form ở đầu diễn đàn thật không tính."""
+    t = html or ""
+    if not re.search(r"type=[\"']password[\"']", t, re.I):
+        return False
+    mt = re.search(r"<title[^>]*>(.*?)</title>", t, re.S | re.I)
+    title = re.sub(r"<[^>]+>", " ", mt.group(1) if mt else "")
+    if not re.search(r"\blog[\s-]?in\b|\bsign[\s-]?in\b|\bsign[\s-]?up\b", title, re.I):
+        return False
+    if re.search(r"href=[\"'][^\"']*(/analysis/|/systemtrade/fx/\d+|/(?:t|threads)/)", t, re.I):
+        return False
+    return True
 
 
 def phan_than_bai(html: str, kieu: str) -> dict:
@@ -167,14 +252,31 @@ def doc_mot(spec: dict, lay) -> dict:
     if pl["loai"] != "ok":
         return _tom_tat(spec, pl["loai"], "khong_chay", 200, pl["ly_do"], 0, len(html), "cao",
                         "200 kèm dấu chặn không tính là đọc được", "dừng", trang.get("url_cuoi"))
-    lk = rut_lien_ket(html, trang.get("url_cuoi") or url, spec["id"])
+    cuoi = trang.get("url_cuoi") or url
+    if spec["id"] == "fxon" and host(cuoi).endswith("gogojungle.co.jp"):
+        trung = rut_lien_ket(html, cuoi, "gogojungle")
+        ly = "fx-on.com chuyển tới GogoJungle. Cùng một sàn, không tính nguồn mới."
+        if "detailUrl" in html and not trung:
+            ly += " Trang chủ không có thẻ a tới hồ sơ. Chuỗi detailUrl nằm trong JSON nhúng, không bóc."
+        return {
+            **_tom_tat(spec, "ok", "trung_nguon", trang.get("http"), ly,
+                       0, len(html), "cao",
+                       "nhận redirect, không tách thành nguồn thứ hai và không đọc JSON nhúng",
+                       "dùng kết quả /systemtrade/fx của gogojungle. Không mở từng hệ.", cuoi),
+            "trung_voi": "gogojungle",
+            "so_ho_so_trung": len(trung),
+            "khong_doc_payload": "detailUrl" in html and not trung,
+        }
+    lk = rut_lien_ket(html, cuoi, spec["id"])
     if not lk:
-        return _tom_tat(spec, "ok", "khong_ra_url", trang.get("http"),
-                        "HTTP 200 nhưng parser không thấy URL bài hoặc hồ sơ. Trang sống không có nghĩa parser chạy.",
+        js = bool(re.search(r"__NEXT_DATA__|data-next-head=|/_next/static/", html))
+        return _tom_tat(spec, "ok", "js_can_trinh_duyet" if js else "khong_ra_url", trang.get("http"),
+                        "HTTP 200 nhưng HTML tĩnh không có URL hồ sơ."
+                        + (" Trang Next.js." if js else " Trang sống không có nghĩa parser chạy."),
                         0, len(html), "cao" if len(html) > 1000 else "trung",
                         "tách truy cập khỏi parser",
-                        "bước sau mới xét HTML đã lưu; chưa xếp hạng và chưa tạo việc",
-                        trang.get("url_cuoi"))
+                        "không đọc payload JS và không gọi API riêng",
+                        cuoi)
     return {
         **_tom_tat(spec, "ok", "ra_url_danh_sach", trang.get("http"),
                    "trang danh sách có URL bài/hồ sơ. Chưa mở từng bài, chưa có số lãi.",
@@ -191,16 +293,24 @@ def chay(lay, nguon=NGUON) -> dict:
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--khong-mang", action="store_true")
+    ap.add_argument("--dot", type=int, default=1, choices=(1, 2))
     a = ap.parse_args(argv)
+    nguon = NGUON if a.dot == 1 else NGUON_DOT2
+    ra_file = RA if a.dot == 1 else RA_DOT2
     if a.khong_mang:
-        print(json.dumps({"nguon": [s["id"] for s in NGUON], "khong_tao_viec": True}, ensure_ascii=False))
+        print(json.dumps({"dot": a.dot, "nguon": [s["id"] for s in nguon], "khong_tao_viec": True,
+                          "khong_goi": [s["id"] for s in KHONG_GOI]}, ensure_ascii=False))
         return 0
     from seeker.nhip_tai import NhipTai
-    nip = NhipTai(GOC / "data" / "nguon_seeker" / "dien_dan_nc", gian_cach=4.0)
-    ra = chay(nip.lay)
-    RA.parent.mkdir(parents=True, exist_ok=True)
-    RA.write_text(json.dumps(ra, ensure_ascii=False, indent=1), encoding="utf-8")
-    print(json.dumps({s["id"]: {"truy_cap": s["truy_cap"], "parser": s["parser"], "http": s["http"]}
+    thu = "dien_dan_nc" if a.dot == 1 else "dien_dan_dot2"
+    nip = NhipTai(GOC / "data" / "nguon_seeker" / thu, gian_cach=4.0)
+    ra = chay(nip.lay, nguon)
+    ra["dot"] = a.dot
+    ra["khong_goi"] = list(KHONG_GOI)
+    ra_file.parent.mkdir(parents=True, exist_ok=True)
+    ra_file.write_text(json.dumps(ra, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(json.dumps({s["id"]: {"truy_cap": s["truy_cap"], "parser": s["parser"], "http": s["http"],
+                                "so_lien_ket": s.get("so_lien_ket"), "ly_do": s.get("ly_do")}
                       for s in ra["nguon"]}, ensure_ascii=False, indent=1))
     return 0
 

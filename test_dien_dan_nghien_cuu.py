@@ -74,6 +74,74 @@ def test_chu_captcha_khong_phai_chan():
     assert phan_loai_http(200, "Bài viết nhắc cách giải captcha của sàn. " * 3, "https://forum.example/t/1")["loai"] == "ok"
 
 
+def test_trang_dang_nhap_khong_nuot_dien_dan():
+    khoa = '<title>Welcome - Log In, Sign Up</title><input type="password"><a href="/help">h</a>'
+    dien = '<title>Log in to post</title><input type="password"><a href="/threads/nhat-ky.12/">b</a>'
+    assert D.chi_la_cua_dang_nhap(khoa)
+    assert not D.chi_la_cua_dang_nhap(dien)
+    assert not D.chi_la_cua_dang_nhap("<title>Bảng</title><a href='/users/a'>a</a>")
+
+
+def test_mot_mien_khong_tinh_ba_nguon():
+    assert D.khoa_mien("traderviet", "https://traderviet.com/") == D.khoa_mien("traderviet_ea", "https://traderviet.tv/t/a.1")
+    assert D.khoa_mien("fxblue", "https://www.fxblue.com/users") == D.khoa_mien("fxblue_market", "https://www.fxblue.com/market")
+    assert D.khoa_mien("forexfactory", "https://www.forexfactory.com/") == D.khoa_mien("forexfactory_trade_explorer", "https://www.forexfactory.com/trades")
+    assert D.khoa_mien("fxon", "https://fx-on.com/") == D.khoa_mien("gogojungle", "https://www.gogojungle.co.jp/systemtrade/fx")
+    assert D.khoa_mien("mql5_forum_ru", "https://www.mql5.com/ru/forum") == D.khoa_mien("tqtj_ru", "https://www.mql5.com/ru/forum")
+    assert D.khoa_mien("myfxbook", "https://www.myfxbook.com/") == D.khoa_mien("tu_myfxbook_com_systems_2", "https://www.myfxbook.com/systems")
+    assert D.khoa_mien("arabictrader", "https://www.arabictrader.com/") == "arabictrader.com"
+    assert D.khoa_mien("ctrader_copy", "https://ctrader.com/copy") == "ctrader.com"
+
+
+def test_dot2_khong_trung_dot1_va_khong_goi_api():
+    cu = {D.host(s["url"]) for s in D.NGUON} | D.HOST_CAM
+    moi = [D.host(s["url"]) for s in D.NGUON_DOT2]
+    assert len(moi) == len(set(moi)) == 6
+    assert not (set(moi) & cu)
+    assert all("/sapi/" not in s["url"] for s in D.NGUON_DOT2)
+    assert D.KHONG_GOI[0]["id"] == "etoro" and "/sapi/" in D.KHONG_GOI[0]["url"]
+
+
+def test_ho_so_dot2_khong_nuot_trang_chu():
+    ss = '<a href="/search-signals">ds</a><a href="https://www.signalstart.com/analysis/ten-he/12345">h</a>'
+    fb = '<a href="/users">ds</a><a href="https://www.fxblue.com/users/alice">a</a><a href="https://www.fxblue.com/market">m</a>'
+    gg = '<a href="/systemtrade/fx">ds</a><a href="https://www.gogojungle.co.jp/systemtrade/fx/998877">sp</a>'
+    fx = '<a href="/">home</a><a href="https://fx-on.com/systemtrade/ea-ten-42">ea</a>'
+    assert [x["url"] for x in D.rut_lien_ket(ss, "https://www.signalstart.com/search-signals", "signalstart")] == [
+        "https://www.signalstart.com/analysis/ten-he/12345"]
+    assert [x["url"] for x in D.rut_lien_ket(fb, "https://www.fxblue.com/users", "fxblue")] == [
+        "https://www.fxblue.com/users/alice"]
+    assert len(D.rut_lien_ket(gg, "https://www.gogojungle.co.jp/systemtrade/fx", "gogojungle")) == 1
+    assert len(D.rut_lien_ket(fx, "https://fx-on.com/", "fxon")) == 1
+    rac = '<a href="/systemtrade/search/?sort=0profit&amp;page=1">s</a><a href="/systemtrade/fx/77038?via=x&amp;via=y">p</a>'
+    lk = D.rut_lien_ket(rac, "https://www.gogojungle.co.jp/systemtrade/fx", "gogojungle")
+    assert [x["url"] for x in lk] == ["https://www.gogojungle.co.jp/systemtrade/fx/77038"]
+
+
+def test_fxon_chuyen_gogojungle_khong_tinh_nguon_moi():
+    html = '<a href="https://www.gogojungle.co.jp/systemtrade/fx/77038">a</a>' * 2
+
+    def lay(u):
+        if u.endswith("robots.txt"):
+            return {"loai": "ok", "http": 200, "text": "User-agent: *\nDisallow:\n"}
+        return {"loai": "ok", "http": 200, "text": html, "url_cuoi": "https://www.gogojungle.co.jp/"}
+    r = D.doc_mot({"id": "fxon", "url": "https://fx-on.com/"}, lay)
+    assert r["parser"] == "trung_nguon" and r["trung_voi"] == "gogojungle" and r["so_lien_ket"] == 0
+    assert r["so_ho_so_trung"] == 1
+
+
+def test_nextjs_khong_co_ho_so_la_can_trinh_duyet():
+    html = '<html data-next-head=""><a href="/about">a</a><script src="/_next/static/chunks/a.js"></script></html>'
+
+    def lay(u):
+        if u.endswith("robots.txt"):
+            return {"loai": "ok", "http": 200, "text": "User-agent: *\nDisallow:\n"}
+        return {"loai": "ok", "http": 200, "text": html, "url_cuoi": u}
+    r = D.doc_mot({"id": "duplitrade", "url": "https://www.duplitrade.com/"}, lay)
+    assert r["truy_cap"] == "ok" and r["parser"] == "js_can_trinh_duyet" and r["so_lien_ket"] == 0
+    assert D.rut_lien_ket('<a href="https://www.duplitrade.com/">x</a>', "https://www.duplitrade.com/", "duplitrade") == []
+
+
 def test_chuyen_login_la_auth():
     def lay(u):
         if u.endswith("robots.txt"):

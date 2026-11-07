@@ -1,0 +1,557 @@
+{
+ "ngay": "2026-11-07",
+ "khong_tao_viec": true,
+ "khong_phai_311_da_xong": true,
+ "dung_them_vong_moi": true,
+ "cach_dem": "Một miền một lần. traderviet.com/.tv một nguồn. Ba khóa FX Blue một nguồn. fx-on.com gộp GogoJungle vì redirect đã đo. arabictrader.com không gộp ctrader.com. Diễn đàn MQL5 không gộp tín hiệu MQL5. Danh sách và một bài không thành hai nguồn.",
+ "so_mien": 40,
+ "dem": {
+  "ready_list_and_body": 2,
+  "ready_list": 2,
+  "js_needs_browser": 3,
+  "auth": 1,
+  "auth_and_js": 1,
+  "auth_config": 5,
+  "blocked": 4,
+  "config_url_dead": 1,
+  "not_called_private_api": 1,
+  "chua_do": 20
+ },
+ "chan_doan_311": "Không quét lại. CHAN_DOAN.md vẫn 166 unknown, 113 not_implemented, 18 auth, 14 stale, 0 quy tắc dùng được.",
+ "san_sang_danh_sach": [
+  "signalstart.com",
+  "gogojungle.co.jp"
+ ],
+ "san_sang_than_bai": [
+  "traderviet",
+  "mql5.com/forum"
+ ],
+ "can_trinh_duyet": [
+  "zulutrade.com",
+  "ctrader.com",
+  "duplitrade.com",
+  "darwinex.com"
+ ],
+ "bi_chan": [
+  "myfxbook.com",
+  "forexfactory.com",
+  "babypips.com",
+  "elitetrader.com"
+ ],
+ "ngoai_bang_da_dung": {
+  "forex-station.com": "Không nằm trong 311 dòng diễn đàn. HTTP chặn đã ghi 2026-11-03. Không gọi lại.",
+  "social-trading.exness.com": "Không có dòng diễn đàn riêng. DNS Errno -2 ngày 2026-11-07. Không gọi lại."
+ },
+ "buoc_sau_duoc_phep": [
+  "Mở một trang SignalStart /analysis/ để xem thân hồ sơ. Số trên trang là khai báo của người khác.",
+  "Mở một trang GogoJungle /systemtrade/fx/<số>. Cùng giới hạn.",
+  "Trình duyệt của chủ cho DupliTrade, tab Strategies của cTrader, leader ZuluTrade, hàng DarwinIA GOLD, FXStat khi đã đăng nhập, và các host bị chặn.",
+  "Không gọi /sapi/ của eToro, không tắt TLS cho www.fxstat.com, không mở /user/ của FX Blue."
+ ],
+ "mien": [
+  {
+   "mien": "mql5.com/forum",
+   "so_khoa_so": 2,
+   "khoa": [
+    "mql5_forum_ru",
+    "tqtj_ru"
+   ],
+   "trang_thai": "ready_list_and_body",
+   "ly_do": "Đợt 1: 105 URL dạng bài và một bài 10 bình luận. Không gộp với tín hiệu MQL5.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": [
+    "15/09: VAO_DUOC 180201 ky tu, 106 link bai. Phan trang CHUA kiem: `b dien-dan do` se noi co thay rel=next / so trang khong. Neu 403/429 thi DUNG (mql5 cam IP sau ~50-150 yeu cau)."
+   ]
+  },
+  {
+   "mien": "traderviet",
+   "so_khoa_so": 2,
+   "khoa": [
+    "traderviet",
+    "traderviet_ea"
+   ],
+   "trang_thai": "ready_list_and_body",
+   "ly_do": "Đợt 1: danh sách 22 URL và một bài XenForo có thân. Bài đó không phải nhật ký lãi.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": [
+    "15/09: VAO_DUOC 156154 ky tu, 89 link bai (bai la /t/<slug>, khong phai /threads/). Trang 2+ dung kieu XenForo /page-N: CHUA kiem."
+   ]
+  },
+  {
+   "mien": "gogojungle.co.jp",
+   "so_khoa_so": 2,
+   "khoa": [
+    "fxon",
+    "gogojungle"
+   ],
+   "trang_thai": "ready_list",
+   "ly_do": "44 hồ sơ /systemtrade/fx/<số>. fx-on.com chuyển về cùng sàn. Bản 15/09 là cũ.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": [
+    "15/09: VAO_DUOC 246962 ky tu, 28 link. Trang chu khong phan trang (chi trang 1) cho toi khi biet muc co phan trang."
+   ]
+  },
+  {
+   "mien": "signalstart.com",
+   "so_khoa_so": 1,
+   "khoa": [
+    "signalstart"
+   ],
+   "trang_thai": "ready_list",
+   "ly_do": "HTTP 200, 20 URL /analysis/<tên>/<id>. Chưa mở hồ sơ. Bản 11/10 cũ được thay bằng phép đo này.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": []
+  },
+  {
+   "mien": "ctrader.com",
+   "so_khoa_so": 2,
+   "khoa": [
+    "ctrader_algo",
+    "ctrader_copy"
+   ],
+   "trang_thai": "js_needs_browser",
+   "ly_do": "Copy không có id chiến lược; help nói danh sách nằm trong app. ctrader_algo là kho cBot, không gọi lại.",
+   "can_dang_nhap_so": true,
+   "lich_su_cu": []
+  },
+  {
+   "mien": "duplitrade.com",
+   "so_khoa_so": 1,
+   "khoa": [
+    "duplitrade"
+   ],
+   "trang_thai": "js_needs_browser",
+   "ly_do": "HTTP 200, Next.js, không có URL nhà cung cấp chiến lược.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": []
+  },
+  {
+   "mien": "zulutrade.com",
+   "so_khoa_so": 1,
+   "khoa": [
+    "zulutrade"
+   ],
+   "trang_thai": "js_needs_browser",
+   "ly_do": "/traders HTTP 200, không có URL hồ sơ leader trong HTML.",
+   "can_dang_nhap_so": true,
+   "lich_su_cu": []
+  },
+  {
+   "mien": "fxstat.com",
+   "so_khoa_so": 1,
+   "khoa": [
+    "fxstat"
+   ],
+   "trang_thai": "auth",
+   "ly_do": "www lệch chứng chỉ. https://fxstat.com/ với TLS bình thường là trang đăng nhập, không có bảng tài khoản.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": []
+  },
+  {
+   "mien": "darwinex.com",
+   "so_khoa_so": 1,
+   "khoa": [
+    "darwinex"
+   ],
+   "trang_thai": "auth_and_js",
+   "ly_do": "API sổ chuyển /login. DarwinIA GOLD trong help: HTTP 200, không có hàng DARWIN trong HTML.",
+   "can_dang_nhap_so": true,
+   "lich_su_cu": []
+  },
+  {
+   "mien": "arabictrader.com",
+   "so_khoa_so": 1,
+   "khoa": [
+    "arabictrader"
+   ],
+   "trang_thai": "auth_config",
+   "ly_do": "Sổ ghi cần đăng nhập. Bản 15/09 không vào được. Đợt này không gọi.",
+   "can_dang_nhap_so": true,
+   "lich_su_cu": [
+    "15/09: KHONG_VAO_DUOC. Do lai bang Chrome AI (cong 9224)."
+   ]
+  },
+  {
+   "mien": "collective2.com",
+   "so_khoa_so": 1,
+   "khoa": [
+    "collective2"
+   ],
+   "trang_thai": "auth_config",
+   "ly_do": "Sổ ghi cần đăng nhập. Không đo trang công khai ở đợt này.",
+   "can_dang_nhap_so": true,
+   "lich_su_cu": []
+  },
+  {
+   "mien": "facebook.com",
+   "so_khoa_so": 1,
+   "khoa": [
+    "facebook"
+   ],
+   "trang_thai": "auth_config",
+   "ly_do": "Mạng xã hội, URL search, sổ ghi cần đăng nhập. Không đo.",
+   "can_dang_nhap_so": true,
+   "lich_su_cu": []
+  },
+  {
+   "mien": "tiktok.com",
+   "so_khoa_so": 1,
+   "khoa": [
+    "tiktok"
+   ],
+   "trang_thai": "auth_config",
+   "ly_do": "Mạng xã hội, sổ ghi cần đăng nhập. Không đo.",
+   "can_dang_nhap_so": true,
+   "lich_su_cu": []
+  },
+  {
+   "mien": "x.com",
+   "so_khoa_so": 10,
+   "khoa": [
+    "x",
+    "x_quantifiedstrat",
+    "x_empiricalab",
+    "x_crowcaw",
+    "x_hellonhuga",
+    "x_rb_tradingltd",
+    "x_willyalgotrader",
+    "x_kranky_trades",
+    "x_algojan",
+    "x_priceactionlab"
+   ],
+   "trang_thai": "auth_config",
+   "ly_do": "Mười khóa X/Twitter là một miền. Không đo.",
+   "can_dang_nhap_so": true,
+   "lich_su_cu": []
+  },
+  {
+   "mien": "babypips.com",
+   "so_khoa_so": 1,
+   "khoa": [
+    "babypips_forum"
+   ],
+   "trang_thai": "blocked",
+   "ly_do": "robots.txt HTTP 403 Just a moment. Không gọi lại.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": [
+    "15/09: KHONG_VAO_DUOC. Dien dan Discourse: sau khi vao duoc se co rel=next."
+   ]
+  },
+  {
+   "mien": "elitetrader.com",
+   "so_khoa_so": 1,
+   "khoa": [
+    "elitetrader"
+   ],
+   "trang_thai": "blocked",
+   "ly_do": "Trang automated-trading.48 HTTP 403 Cloudflare sau robots 200. Không gọi lại.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": []
+  },
+  {
+   "mien": "forexfactory.com",
+   "so_khoa_so": 3,
+   "khoa": [
+    "forexfactory",
+    "forexfactory_ea_threads",
+    "forexfactory_trade_explorer"
+   ],
+   "trang_thai": "blocked",
+   "ly_do": "Ba khóa forum, EA và trade explorer là một miền. Không gọi lại.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": [
+    "15/09: KHONG_VAO_DUOC (Cloudflare). Chan = DUNG, khong ne; chi thu bang Chrome AI mot lan."
+   ]
+  },
+  {
+   "mien": "myfxbook.com",
+   "so_khoa_so": 2,
+   "khoa": [
+    "myfxbook",
+    "myfxbook_autotrade"
+   ],
+   "trang_thai": "blocked",
+   "ly_do": "Cloudflare 403 từ 2026-11-03. Mọi khóa myfxbook là một miền. Không gọi lại.",
+   "can_dang_nhap_so": true,
+   "lich_su_cu": []
+  },
+  {
+   "mien": "fxblue.com",
+   "so_khoa_so": 3,
+   "khoa": [
+    "fxblue",
+    "fxblue_com",
+    "fxblue_market"
+   ],
+   "trang_thai": "config_url_dead",
+   "ly_do": "Sổ /users HTTP 404. robots cấm /user/. Sitemap chỉ có /users/example. Ba khóa fxblue là một miền.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": []
+  },
+  {
+   "mien": "etoro.com",
+   "so_khoa_so": 1,
+   "khoa": [
+    "etoro"
+   ],
+   "trang_thai": "not_called_private_api",
+   "ly_do": "URL sổ là /sapi/rankings/rankings/. Không gọi.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": []
+  },
+  {
+   "mien": "ariva.de",
+   "so_khoa_so": 1,
+   "khoa": [
+    "ariva_forum"
+   ],
+   "trang_thai": "chua_do",
+   "ly_do": "Diễn đàn chung trong sổ, chưa đo 2026-11-07. Không phải bảng lịch sử tài khoản.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": [
+    "08/10 do: dung duoc, co phan trang; chu du an yeu cau quet sau -> BAT"
+   ]
+  },
+  {
+   "mien": "bankier.pl",
+   "so_khoa_so": 1,
+   "khoa": [
+    "bankier_forum"
+   ],
+   "trang_thai": "chua_do",
+   "ly_do": "Diễn đàn chung trong sổ, chưa đo 2026-11-07. Không phải bảng lịch sử tài khoản.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": [
+    "chua kiem (ten tu tri nho). Dien dan chung khoan chung, it bot: uu tien thap, chi de du mat nuoc."
+   ]
+  },
+  {
+   "mien": "boursorama.com",
+   "so_khoa_so": 1,
+   "khoa": [
+    "boursorama_forum"
+   ],
+   "trang_thai": "chua_do",
+   "ly_do": "Diễn đàn chung trong sổ, chưa đo 2026-11-07. Không phải bảng lịch sử tài khoản.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": [
+    "chua kiem (ten tu tri nho). Dien dan chung khoan chung: chi de du mat nuoc."
+   ]
+  },
+  {
+   "mien": "forex-nawigator.biz",
+   "so_khoa_so": 1,
+   "khoa": [
+    "forex_nawigator"
+   ],
+   "trang_thai": "chua_do",
+   "ly_do": "Diễn đàn chung trong sổ, chưa đo 2026-11-07. Không phải bảng lịch sử tài khoản.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": [
+    "15/09: KHONG_VAO_DUOC. Do lai bang Chrome AI (cong 9224)."
+   ]
+  },
+  {
+   "mien": "forexforum.com.tr",
+   "so_khoa_so": 1,
+   "khoa": [
+    "forexforum_tr"
+   ],
+   "trang_thai": "chua_do",
+   "ly_do": "Diễn đàn chung trong sổ, chưa đo 2026-11-07. Không phải bảng lịch sử tài khoản.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": [
+    "15/09: KHONG_VAO_DUOC. Do lai bang Chrome AI (cong 9224); neu van chan thi bo, khong ne."
+   ]
+  },
+  {
+   "mien": "futures.io",
+   "so_khoa_so": 1,
+   "khoa": [
+    "futures_io"
+   ],
+   "trang_thai": "chua_do",
+   "ly_do": "Diễn đàn chung trong sổ, chưa đo 2026-11-07. Không phải bảng lịch sử tài khoản.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": []
+  },
+  {
+   "mien": "fx168.com",
+   "so_khoa_so": 1,
+   "khoa": [
+    "fx168"
+   ],
+   "trang_thai": "chua_do",
+   "ly_do": "Diễn đàn chung trong sổ, chưa đo 2026-11-07. Không phải bảng lịch sử tài khoản.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": [
+    "15/09: KHONG_VAO_DUOC."
+   ]
+  },
+  {
+   "mien": "kaskus.co.id",
+   "so_khoa_so": 1,
+   "khoa": [
+    "indomt5"
+   ],
+   "trang_thai": "chua_do",
+   "ly_do": "Diễn đàn chung trong sổ, chưa đo 2026-11-07. Không phải bảng lịch sử tài khoản.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": [
+    "15/09: VAO_NHUNG_0_LINK (82641 ky tu, 0 bai: trang dung JS). Thu cdp_render khi Chrome AI cong 9224 dang mo."
+   ]
+  },
+  {
+   "mien": "mmgp.com",
+   "so_khoa_so": 1,
+   "khoa": [
+    "mmgp"
+   ],
+   "trang_thai": "chua_do",
+   "ly_do": "Diễn đàn chung trong sổ, chưa đo 2026-11-07. Không phải bảng lịch sử tài khoản.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": [
+    "15/09: KHONG_VAO_DUOC."
+   ]
+  },
+  {
+   "mien": "note.com",
+   "so_khoa_so": 1,
+   "khoa": [
+    "note_fx"
+   ],
+   "trang_thai": "chua_do",
+   "ly_do": "Diễn đàn chung trong sổ, chưa đo 2026-11-07. Không phải bảng lịch sử tài khoản.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": [
+    "15/09: VAO_DUOC 1004203 ky tu, 50 link. Trang cuon vo han bang JS: chi doc trang 1 moi luot; muon nhieu hon thi thu cdp_render."
+   ]
+  },
+  {
+   "mien": "pantip.com",
+   "so_khoa_so": 1,
+   "khoa": [
+    "pantip_sinlapa"
+   ],
+   "trang_thai": "chua_do",
+   "ly_do": "Diễn đàn chung trong sổ, chưa đo 2026-11-07. Không phải bảng lịch sử tài khoản.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": [
+    "15/09: KHONG_VAO_DUOC."
+   ]
+  },
+  {
+   "mien": "quant.stackexchange.com",
+   "so_khoa_so": 1,
+   "khoa": [
+    "quant"
+   ],
+   "trang_thai": "chua_do",
+   "ly_do": "Diễn đàn chung trong sổ, chưa đo 2026-11-07. Không phải bảng lịch sử tài khoản.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": []
+  },
+  {
+   "mien": "quantconnect.com",
+   "so_khoa_so": 2,
+   "khoa": [
+    "quantconnect",
+    "quantconnect_forum"
+   ],
+   "trang_thai": "chua_do",
+   "ly_do": "Diễn đàn chung trong sổ, chưa đo 2026-11-07. Không phải bảng lịch sử tài khoản.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": []
+  },
+  {
+   "mien": "rankia.com",
+   "so_khoa_so": 1,
+   "khoa": [
+    "rankia_foros"
+   ],
+   "trang_thai": "chua_do",
+   "ly_do": "Diễn đàn chung trong sổ, chưa đo 2026-11-07. Không phải bảng lịch sử tài khoản.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": [
+    "chua kiem (ten tu tri nho). Dien dan dau tu chung, it bot: chi de du mat nuoc."
+   ]
+  },
+  {
+   "mien": "reddit.com",
+   "so_khoa_so": 3,
+   "khoa": [
+    "reddit_algotrading",
+    "reddit_algotrading_nam",
+    "reddit_quant"
+   ],
+   "trang_thai": "chua_do",
+   "ly_do": "Diễn đàn chung trong sổ, chưa đo 2026-11-07. Không phải bảng lịch sử tài khoản.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": []
+  },
+  {
+   "mien": "smart-lab.ru",
+   "so_khoa_so": 2,
+   "khoa": [
+    "smartlab",
+    "smartlab_blog"
+   ],
+   "trang_thai": "chua_do",
+   "ly_do": "Diễn đàn chung trong sổ, chưa đo 2026-11-07. Không phải bảng lịch sử tài khoản.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": [
+    "15/09: VAO_DUOC nhung chi 1 link bai (mau_bai cu co the sai). Chay `b dien-dan do` roi bat neu so bai >= 3."
+   ]
+  },
+  {
+   "mien": "thaiforexschool.com",
+   "so_khoa_so": 1,
+   "khoa": [
+    "thaiforexschool"
+   ],
+   "trang_thai": "chua_do",
+   "ly_do": "Diễn đàn chung trong sổ, chưa đo 2026-11-07. Không phải bảng lịch sử tài khoản.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": [
+    "15/09: VAO_DUOC 96094 ky tu, 55 link. Bai nhan bang do dai tieu de (khong co mau_bai). /page/N/ la kieu WordPress, CHUA kiem."
+   ]
+  },
+  {
+   "mien": "traderslaboratory.com",
+   "so_khoa_so": 1,
+   "khoa": [
+    "traderslaboratory"
+   ],
+   "trang_thai": "chua_do",
+   "ly_do": "Diễn đàn chung trong sổ, chưa đo 2026-11-07. Không phải bảng lịch sử tài khoản.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": []
+  },
+  {
+   "mien": "tradingqna.com",
+   "so_khoa_so": 1,
+   "khoa": [
+    "tradingqna"
+   ],
+   "trang_thai": "chua_do",
+   "ly_do": "Diễn đàn chung trong sổ, chưa đo 2026-11-07. Không phải bảng lịch sử tài khoản.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": [
+    "08/10 do: dung duoc, co phan trang; chu du an yeu cau quet sau -> BAT"
+   ]
+  },
+  {
+   "mien": "wallstreet-online.de",
+   "so_khoa_so": 1,
+   "khoa": [
+    "wallstreet_online"
+   ],
+   "trang_thai": "chua_do",
+   "ly_do": "Diễn đàn chung trong sổ, chưa đo 2026-11-07. Không phải bảng lịch sử tài khoản.",
+   "can_dang_nhap_so": false,
+   "lich_su_cu": [
+    "15/09: KHONG_VAO_DUOC. Do lai bang Chrome AI (cong 9224)."
+   ]
+  }
+ ]
+}
