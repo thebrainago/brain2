@@ -338,7 +338,10 @@ def kham_pha(html: str, url: str) -> dict:
     return {"feed": sorted(set(feed)), "xa_hoi": {k: sorted(v)[:50] for k, v in xh.items()}}
 
 
-_GH_RAW = re.compile(r"https?://(?:raw\.githubusercontent\.com|github\.com)/[^\s\"'<>]+?\.(?:mq4|mq5|mqh|set)\b", re.I)
+_GH_RAW = re.compile(
+    r"https?://(?:raw\.githubusercontent\.com/[^\s\"'<>]+?\.(?:mq4|mq5|mqh|set)"
+    r"|github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/(?:blob|raw)/[^\s\"'<>]+?\.(?:mq4|mq5|mqh|set))\b",
+    re.I)
 
 
 def link_ma(html: str) -> list[str]:
@@ -360,8 +363,19 @@ def _url_quet(s: dict) -> str:
     return u
 
 
+def _gan_loai(ra: dict, noi_dung: str) -> dict:
+    from seeker.phan_loai_loi import ket_qua_boc
+    tt, ly, lo = ket_qua_boc(ra.get("trang_thai") or "", ra.get("ly_do") or "", ra.get("cach"),
+                             int(ra.get("ky_tu") or 0), int(ra.get("muc") or 0), noi_dung, bool(ra.get("can_dang_nhap")))
+    ra["trang_thai"], ra["ly_do"], ra["loai"] = tt, ly, lo
+    return ra
+
+
 def quet_mot(ma: str, s: dict, mang: Mang) -> dict:
-    """Mot lan doc trang dau / feed cua nguon. Tra ban ghi ket qua (khong luu noi dung)."""
+    """Mot lan doc trang dau / feed cua nguon. Tra ban ghi ket qua (khong luu noi dung).
+
+    0 muc sau HTTP 200 khong con la ĐỌC ĐƯỢC: feed rỗng thật -> no_data, HTML không bóc được -> parse.
+    """
     ra = {"ma": ma, "ten": s.get("ten"), "cach": s.get("cach"), "can_dang_nhap": s.get("can_dang_nhap"),
           "phong_cach": s.get("phong_cach"), "tai_san": s.get("tai_san"), "khung": s.get("khung"),
           "quan_tri": s.get("quan_tri"), "luc": time.strftime("%Y-%m-%d %H:%M:%S")}
@@ -369,33 +383,28 @@ def quet_mot(ma: str, s: dict, mang: Mang) -> dict:
     ra["url"] = url
     if not url.startswith("http"):
         ra.update(trang_thai=KHONG_URL, ly_do="NGUON.md chi ghi ten nen tang, chua co URL")
-        return ra
+        return _gan_loai(ra, "")
     if s.get("cach") == "tay":
         ra.update(trang_thai=THU_CONG, ly_do="the-brain danh dau 'tay' (cho EA thuong mai, chu du an tu xem)")
-        return ra
+        return _gan_loai(ra, "")
     kq = mang.lay(url)
-    ra.update(trang_thai=kq["trang_thai"], ly_do=kq["ly_do"], http=kq.get("ma"), ky_tu=len(kq.get("text") or ""))
+    noi = kq.get("text") or ""
+    ra.update(trang_thai=kq["trang_thai"], ly_do=kq["ly_do"], http=kq.get("ma"), ky_tu=len(noi))
     if kq["trang_thai"] == DOC_DUOC and s.get("can_dang_nhap"):
         ra["ghi_chu"] = "trang dau doc duoc nhung du lieu chinh (lich su lenh / API) can dang nhap"
     if kq["trang_thai"] != DOC_DUOC:
         if s.get("can_dang_nhap") and kq["trang_thai"] in (LOI_MANG,):
             ra["trang_thai"] = CAN_DANG_NHAP
-        return ra
-    t = kq.get("text") or ""
-    if s.get("cach") == "rss" or "<rss" in t[:500] or "<feed" in t[:500]:
-        muc = boc_rss(t)
+        return _gan_loai(ra, noi)
+    if s.get("cach") == "rss" or "<rss" in noi[:500] or "<feed" in noi[:500]:
+        muc = boc_rss(noi)
     else:
-        muc = boc_trang(t, kq.get("url_cuoi") or url, s.get("loc_lien_ket"))
+        muc = boc_trang(noi, kq.get("url_cuoi") or url, s.get("loc_lien_ket"))
     ra["muc"] = len(muc)
     ra["mau_muc"] = [m["url"] for m in muc[:3]]
-    ra["kham_pha"] = kham_pha(t, kq.get("url_cuoi") or url)
-    ra["link_ma"] = link_ma(t)
-    if s.get("can_dang_nhap") and not muc:
-        ra["trang_thai"] = CAN_DANG_NHAP
-        ra["ly_do"] = "trang cong khai khong co muc nao (noi dung sau dang nhap / JS)"
-    elif not muc and ra["ky_tu"] < 3000:
-        ra["ghi_chu"] = "doc duoc nhung trang gan rong (JS)"
-    return ra
+    ra["kham_pha"] = kham_pha(noi, kq.get("url_cuoi") or url)
+    ra["link_ma"] = link_ma(noi)
+    return _gan_loai(ra, noi)
 
 
 def den_han(tt: dict, ma: str, s: dict, bay_gio: float) -> bool:

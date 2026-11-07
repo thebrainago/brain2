@@ -50,32 +50,74 @@ def quet(tt: ThuThap, so_trang: int = 3, them_id=(), log=print, muc_tieu: int = 
             dem["MQL5"]["khong_doc"] += 1; continue
         ra.append(cham(mql5.phan_tich(h, sid))); dem["MQL5"]["doc_duoc"] += 1
         if i % 50 == 0: log(f"MQL5 {i}/{len(ids)}")
-    # Myfxbook
-    dem["Myfxbook"] = {"doc_duoc": 0, "khong_doc": 0}
+    # Myfxbook — challenge thì dừng, không tạo hồ sơ rỗng
+    dem["Myfxbook"] = {"doc_duoc": 0, "khong_doc": 0, "loai": "unknown"}
     for u in myfxbook.DS:
-        h = tt.tai(u)
-        if not h:
-            dem["Myfxbook"]["khong_doc"] += 1; continue
-        for link in myfxbook.link_he_thong(h)[:50]:
-            hh = tt.tai(link)
-            if hh: ra.append(cham(myfxbook.phan_tich(hh, link))); dem["Myfxbook"]["doc_duoc"] += 1
-            else: dem["Myfxbook"]["khong_doc"] += 1
-    # LiteFinance
-    dem["LiteFinance"] = {"doc_duoc": 0, "khong_doc": 0}
-    h = tt.tai(NK.LITEFINANCE_DS)
-    if h:
-        ds = [cham(x) for x in NK.litefinance_danh_sach(h)]; ra += ds; dem["LiteFinance"]["doc_duoc"] = len(ds)
+        k = _tai_ro(tt, u)
+        dem["Myfxbook"]["loai"] = k["loai"]
+        dem["Myfxbook"]["ly_do"] = k.get("ly_do")
+        if k["loai"] != "ok" or k.get("stale"):
+            dem["Myfxbook"]["khong_doc"] += 1
+            break
+        for link in myfxbook.link_he_thong(k["text"])[:50]:
+            hk = _tai_ro(tt, link)
+            if hk["loai"] == "challenge":
+                dem["Myfxbook"]["loai"] = "challenge"
+                dem["Myfxbook"]["ly_do"] = hk.get("ly_do")
+                dem["Myfxbook"]["khong_doc"] += 1
+                break
+            if hk["loai"] != "ok" or hk.get("stale"):
+                dem["Myfxbook"]["khong_doc"] += 1
+                continue
+            mot = myfxbook.phan_tich(hk["text"], link)
+            if mot.get("loai") == "challenge":
+                dem["Myfxbook"]["loai"] = "challenge"
+                break
+            ra.append(cham(mot)); dem["Myfxbook"]["doc_duoc"] += 1
+    # LiteFinance — danh sách thiếu DD không tính là đã đánh giá
+    dem["LiteFinance"] = {"doc_duoc": 0, "da_danh_gia": 0, "loai": "unknown"}
+    k = _tai_ro(tt, NK.LITEFINANCE_DS)
+    dem["LiteFinance"]["loai"] = k["loai"]
+    dem["LiteFinance"]["ly_do"] = k.get("ly_do")
+    if k["loai"] == "ok" and not k.get("stale"):
+        ro = NK.litefinance_danh_sach_ro(k["text"])
+        dem["LiteFinance"].update(loai=ro["loai"], ly_do=ro["ly_do"], thay_tren_danh_sach=ro["so_ho_so"],
+                                  da_danh_gia=ro["da_danh_gia"])
+        ra += [cham(x) for x in ro["ho_so"]]
     else:
-        dem["LiteFinance"]["khong_doc"] += 1
+        dem["LiteFinance"]["khong_doc"] = 1
+    dem["LiteFinance"]["chi_tiet"] = []
     for sid in ("2104574", "2107238", "2589240"):
-        h = tt.tai(NK.LITEFINANCE_CT.format(id=sid))
-        if not h or "Profitability (All time)" in h and "traders/info?id=" + sid not in h[:3000]:
-            dem["LiteFinance"]["chi_tiet_khong_cong_khai"] = dem["LiteFinance"].get("chi_tiet_khong_cong_khai", 0) + 1
-    # Exness
-    dem["Exness"] = {"doc_duoc": 0, "khong_doc": 0}
-    if not tt.tai(NK.EXNESS_CT.format(id="110170778")):
-        dem["Exness"]["khong_doc"] += 1
+        url = NK.LITEFINANCE_CT.format(id=sid)
+        ck = _tai_ro(tt, url)
+        if ck["loai"] == "challenge":
+            dem["LiteFinance"]["chi_tiet"].append({"id": sid, "loai": "challenge", "ly_do": ck.get("ly_do")})
+            break
+        ct = NK.litefinance_chi_tiet(ck.get("text") or "", url, ck.get("url_cuoi"), ck.get("http"))
+        if ck.get("loai") not in ("ok", None) and ct.get("loai") == "ok":
+            ct = {**ct, "loai": ck["loai"], "ly_do": ck.get("ly_do"), "da_danh_gia": False}
+        dem["LiteFinance"]["chi_tiet"].append({"id": sid, "loai": ct.get("loai"), "da_danh_gia": ct.get("da_danh_gia"),
+                                               "ly_do": ct.get("ly_do")})
+        if ct.get("da_danh_gia"):
+            ra.append(cham(ct))
+            dem["LiteFinance"]["da_danh_gia"] += 1
+    # Exness — lỗi TLS/DNS là network, không phải 0 chiến lược. 198.18.0.1 chỉ là giả thuyết.
+    dem["Exness"] = {"doc_duoc": 0, "da_danh_gia": 0}
+    ek = _tai_ro(tt, NK.EXNESS_CT.format(id="110170778"))
+    dem["Exness"].update(loai=ek["loai"], ly_do=ek.get("ly_do"), http=ek.get("http"))
+    if "198.18.0." in (ek.get("ly_do") or ""):
+        dem["Exness"]["gia_thuyet"] = "DNS/proxy 198.18.0.1 — không chứng minh site hỏng; không tắt TLS"
     return ra, dem
+
+
+def _tai_ro(tt, url: str) -> dict:
+    if hasattr(tt, "tai_ro"):
+        return tt.tai_ro(url)
+    h = tt.tai(url)
+    if h:
+        return {"loai": "ok", "text": h, "http": 200, "url_cuoi": url, "ly_do": "HTTP 200", "stale": False}
+    return {"loai": "unknown", "text": "", "http": None, "url_cuoi": url, "stale": False,
+            "ly_do": "tai() trả None — bản cũ không phân loại; không phải 0 kết quả"}
 
 
 def ghi_so(dat_ds: list[dict], ngay: str):

@@ -2,9 +2,11 @@
 """Lọc CHẶT tín hiệu MQL5 công khai đã quét (data/cong_khai/tin_hieu.jsonl) — hướng mới 03/11/2026 (Anh duyệt).
 
 Giữ: tuổi >= 24 tháng, tài khoản THẬT, <= 3 mã, max DD < 80 %, CAGR > 10 %/năm, đường growth không cháy
-(sụt đỉnh-đáy trên đường (1+growth) < 80 %, tháng tệ nhất > -50 %). Hệ kiểu lưới/martingale/DCA (từ trang, phong cách,
-hoặc lịch sử lệnh CSV nếu đã tải) phải SỐNG QUA giai đoạn biến động: có dữ liệu phủ năm 2022 (hoặc 03/2020) và năm đó không lỗ > 50 %.
+(sụt đỉnh-đáy trên đường (1+growth) < 80 %, tháng tệ nhất > -50 %).
+Lưới/DCA chỉ chắc khi CSV có lệnh chồng; từ khoá trang là nghi và KHÔNG loại.
+Cảnh báo sống qua 2020/2022 chỉ gắn khi lưới đã chứng minh bằng lệnh, không phải cổng.
 Chỉ dùng số ĐO trên trang; thiếu -> 'CHƯA ĐO ĐƯỢC'.
+Báo cáo reports/MQL5_LOC_CHAT.md vẫn là bản 03/11 (cổng từ khoá cũ) cho đến khi có data/cong_khai/tin_hieu.jsonl.
     python -m seeker.cong_khai.loc_chat     -> reports/MQL5_LOC_CHAT.md + data/cong_khai/loc_chat.json
 """
 from __future__ import annotations
@@ -59,11 +61,34 @@ def luoi_tu_csv(sid: str) -> bool | None:
 
 
 def la_luoi(r: dict) -> tuple[bool, str]:
+    """Tương thích cũ: True chỉ khi CSV chứng minh lệnh chồng. Từ khoá không còn là lưới."""
+    n = nhan_luoi(r)
+    return n["luoi"], n["nguon_luoi"]
+
+
+def nhan_luoi(r: dict) -> dict:
+    """Lưới/DCA chỉ chắc khi lịch sử lệnh chồng. Từ khoá là nghi, không loại hệ có lãi.
+
+    Mâu thuẫn với lọc 03/11 (244 tín hiệu bị loại vì từ khoá + thiếu 2020/2022):
+    chỉ thị 07/11 giữ lưới/DCA để học và cấm suy nhãn lưới từ từ khoá. Cổng tuổi,
+    tài khoản thật, ≤3 mã, DD, CAGR, đường growth giữ nguyên.
+    """
     t = luoi_tu_csv(str(r.get("id")))
-    if t is not None:
-        return t, "lịch sử lệnh CSV"
+    if t is True:
+        ok, ghi = song_qua_bien_dong(r)
+        return {"luoi": True, "nhan_luoi": "chung_minh_lenh", "nguon_luoi": "lịch sử lệnh CSV",
+                "bien_dong": ghi, "canh_bao": None if ok else "lưới cấu trúc nhưng " + ghi}
+    if t is False:
+        return {"luoi": False, "nhan_luoi": "khong", "nguon_luoi": "lịch sử lệnh CSV",
+                "bien_dong": "CSV không có cụm lệnh chồng", "canh_bao": None}
     k = set(r.get("kieu") or []) | set((r.get("phong_cach") or {}).get("goi_y") or [])
-    return bool(k & KIEU_LUOI), "từ khoá trang/phong cách"
+    if k & KIEU_LUOI:
+        return {"luoi": False, "nhan_luoi": "nghi_ngo_tu_khoa",
+                "nguon_luoi": "từ khoá trang — không phải chứng minh",
+                "bien_dong": "không áp dụng (chỉ từ khoá)",
+                "canh_bao": "giữ để học; không loại vì từ khoá"}
+    return {"luoi": False, "nhan_luoi": "khong_ro", "nguon_luoi": "không có CSV",
+            "bien_dong": "không áp dụng", "canh_bao": None}
 
 
 def song_qua_bien_dong(r: dict) -> tuple[bool, str]:
@@ -104,18 +129,14 @@ def danh_gia(r: dict) -> dict:
     te = dc.get("thang_te_nhat_pct")
     if te is not None and float(te) <= -50:
         ly.append("tháng tệ nhất <= -50 %")
-    luoi, nguon_luoi = la_luoi(r)
-    bd_ok, bd_ghi = (True, "không áp dụng")
-    if luoi:
-        bd_ok, bd_ghi = song_qua_bien_dong(r)
-        if not bd_ok:
-            ly.append("lưới/martingale nhưng " + bd_ghi)
+    nluoi = nhan_luoi(r)
     diem = None
     if not ly:
-        diem = round(min(float(cagr), 200) / max(float(dd), 5) * math.log2(tuoi / 12 + 1) * (0.8 if luoi else 1.0), 3)
+        diem = round(min(float(cagr), 200) / max(float(dd), 5) * math.log2(tuoi / 12 + 1) * (0.8 if nluoi["luoi"] else 1.0), 3)
     return {"id": str(r.get("id")), "ten": r.get("ten"), "url": r.get("url"), "tuoi_thang": tuoi, "ma": ma, "cagr_pct": cagr,
-            "dd_pct": dd, "sut_growth_pct": None if sd is None else round(sd, 2), "luoi": luoi, "nguon_luoi": nguon_luoi,
-            "bien_dong": bd_ghi, "may_chu": r.get("may_chu"), "mt": r.get("mt"), "bat_dau": r.get("bat_dau"),
+            "dd_pct": dd, "sut_growth_pct": None if sd is None else round(sd, 2), "luoi": nluoi["luoi"],
+            "nhan_luoi": nluoi["nhan_luoi"], "nguon_luoi": nluoi["nguon_luoi"], "bien_dong": nluoi["bien_dong"],
+            "canh_bao_luoi": nluoi["canh_bao"], "may_chu": r.get("may_chu"), "mt": r.get("mt"), "bat_dau": r.get("bat_dau"),
             "dat": not ly, "ly_do_loai": ly, "diem": diem}
 
 
@@ -139,8 +160,8 @@ def ghi(kq: list[dict]) -> list[dict]:
     c = Counter(l for x in kq for l in x["ly_do_loai"])
     L = ["# Lọc CHẶT tín hiệu MQL5 công khai (03/11/2026)", "",
          "Nguồn: `data/cong_khai/tin_hieu.jsonl` (đã quét). Số liệu đo trên trang tín hiệu MQL5; Growth MQL5 đã khử nạp/rút.",
-         "Tiêu chí: tuổi >= 24 tháng, tài khoản thật, <= 3 mã, DD < 80 %, CAGR > 10 %/năm, đường growth không cháy;"
-         " lưới/martingale/DCA phải sống qua 03/2020 hoặc 2022.", "",
+         "Tiêu chí: tuổi >= 24 tháng, tài khoản thật, <= 3 mã, DD < 80 %, CAGR > 10 %/năm, đường growth không cháy.",
+         "Từ khoá lưới/DCA chỉ là nghi, không loại. Lưới chứng minh bằng CSV được giữ; cảnh báo 2020/2022 là nhãn.", "",
          "- Tổng tín hiệu (sau gộp trùng): **%d**" % len(kq), "- ĐẠT lọc chặt: **%d**" % len(dat), "",
          "## Lý do loại (một tín hiệu có thể nhiều lý do)", ""]
     L += ["- %s: %d" % (k, v) for k, v in c.most_common()]

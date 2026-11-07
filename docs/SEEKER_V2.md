@@ -2,6 +2,8 @@
 
 Cập nhật 03/11/2026. Mọi con số trong tài liệu này là đo thật; chỗ chưa đo ghi **CHƯA ĐO ĐƯỢC**.
 
+> **07/11/2026:** đừng quét lại 1600 tín hiệu MQL5 hay 25 repo GitHub. Đọc `docs/ban-giao/SEEKER_NGUON_ban_giao.md`. Lệnh không mạng: `python -m seeker.chan_doan` và `python -m seeker.cong_khai.kho_83`.
+
 ## 0. Trước v2 đã có gì (kiểm kê)
 
 - Kịch bản rời ở thư mục gốc: `seeker_v26.py` (tải mã mql5/GitHub từ danh sách máy nhà), `seeker_deep.py` (tìm qua Bing/Google/DDG đa ngôn ngữ + rút luật bằng regex), `seeker_cong_dong.py`, `seeker_theo_doi.py`, `seeker_kham_pha_sau.py`, `seeker_quet_nguon.py`, `nguon_kham_pha.py` (đoán username Telegram từ từ khóa, đọc t.me/s), `nguon_dien_dan.py`, `nguon_reddit.py`, `nguon_telegram.py`, `keywords_nguon.py` (ngân hàng từ khóa 13 ngôn ngữ, CỐ ĐỊNH), `tu_follow_join.py` (follow X qua CDP, trần 8/ngày).

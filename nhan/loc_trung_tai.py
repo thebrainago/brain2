@@ -43,9 +43,12 @@ def metadata(full_name: str, get=None) -> dict:
     get = get or _get_mac_dinh
     ma, r = get("%s/repos/%s" % (API, full_name))
     if ma == 404:
-        return {"trang_thai": "KHONG_CO", "full_name": full_name}
+        return {"trang_thai": "KHONG_CO", "full_name": full_name, "loai": "no_data"}
     if ma != 200 or not isinstance(r, dict):
-        return {"trang_thai": "CHUA_DO_DUOC", "full_name": full_name, "ghi_chu": "HTTP %s" % ma}
+        from seeker.phan_loai_loi import phan_loai_http
+        pl = phan_loai_http(ma or None, json.dumps(r)[:500] if isinstance(r, dict) else "",
+                            API + "/repos/" + full_name, loi=None if ma else "không kết nối")
+        return {"trang_thai": "CHUA_DO_DUOC", "full_name": full_name, "loai": pl["loai"], "ghi_chu": pl["ly_do"]}
     m = {"trang_thai": "OK", "id": r.get("id"), "full_name": str(r.get("full_name") or full_name),
          "fork": bool(r.get("fork")), "parent": ((r.get("parent") or {}).get("full_name")),
          "nhanh": r.get("default_branch") or "main", "kich_thuoc_kb": r.get("size")}
@@ -89,6 +92,8 @@ def nen_tai(full_name: str, get=None, so: list[dict] | None = None, nguong: floa
     m = metadata(full_name, get=get)
     if m["trang_thai"] == "KHONG_CO":
         return False, "KHONG_CO tren GitHub (404)", m
+    if m.get("loai") == "challenge":
+        return False, "CHALLENGE — dừng, không tải, không đổi UA", m
     ten = full_name.lower()
     if m["trang_thai"] != "OK":
         if any(str(x.get("full_name") or "").lower() == ten for x in so):
