@@ -56,8 +56,8 @@ def phan_loai_http(ma, text: str = "", url: str = "", url_cuoi: str | None = Non
     if ma in (401, 407):
         return {"loai": "auth", "ly_do": f"HTTP {ma}", "http": ma, "dung_mien": False, "stale": False}
     manh = any(d in dau for d in _CHALLENGE)
-    captcha_ngan = "captcha" in dau and len(than) < 5000
-    if ma in (403, 429, 503) or (ma in (200, 202) and manh and len(than) < 30000) or (ma == 202 and "captcha" in dau) or captcha_ngan:
+    # Chữ "captcha" một mình không đủ: robots.txt và bài diễn đàn đều có thể nhắc từ này.
+    if ma in (403, 429, 503) or (ma in (200, 202) and manh and len(than) < 30000) or (ma == 202 and "captcha" in dau and manh):
         dau_thay = next((d for d in _CHALLENGE if d in dau), "captcha" if "captcha" in dau else "")
         ly = f"HTTP {ma}" + (f" + dấu hiệu '{dau_thay}'" if dau_thay else "")
         if ma == 429:

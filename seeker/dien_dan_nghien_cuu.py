@@ -25,6 +25,9 @@ HOST_CAM = {
     "forexfactory.com", "www.forexfactory.com",
     "forex-station.com", "www.forex-station.com",
     "social-trading.exness.com",
+    "forums.babypips.com",
+    # 2026-11-07: trang diễn đàn HTTP 403 Cloudflare sau robots 200. Không gọi lại.
+    "www.elitetrader.com", "elitetrader.com",
 }
 # Đúng URL trong config/nguon_seeker.json hoặc config/dien_dan.json (TraderViet đã chuyển .tv).
 NGUON = (
@@ -85,6 +88,42 @@ def _tom_tat(spec: dict, truy_cap: str, parser: str, http, ly_do: str, so: int, 
         "truy_cap": truy_cap, "parser": parser, "http": http, "ky_tu": ky_tu,
         "so_lien_ket": so, "do_tin": do_tin, "da_sua": da_sua, "buoc_tiep": buoc,
         "ly_do": ly_do[:400], "url_cuoi": url_cuoi, "khong_tao_viec": True,
+    }
+
+
+def phan_than_bai(html: str, kieu: str) -> dict:
+    """Thân bài, không phải danh sách. 200 mà không có khối bài = parser không đọc được thân."""
+    t = html or ""
+    title = ""
+    mt = re.search(r"<title>(.*?)</title>", t, re.S | re.I)
+    if mt:
+        title = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", mt.group(1))).strip()[:180]
+    if re.search(r"just a moment|cf-chl|attention required", t[:4000], re.I):
+        return {"parser": "trang_chan", "so_bai": 0, "ky_tu_than": 0, "co_ngay": False, "tieu_de": title}
+    khoi = []
+    if kieu == "xenforo":
+        khoi = re.findall(r'class="bbWrapper">(.*?)</div>', t, re.S | re.I)
+    elif kieu == "mql5":
+        for m in re.finditer(r'id="comment_\d+"', t):
+            chunk = t[m.start():m.start() + 4000]
+            cm = re.search(r'class="content"[^>]*>(.*?)</div>', chunk, re.S | re.I)
+            if cm:
+                khoi.append(cm.group(1))
+    chu = []
+    for k in khoi:
+        s = re.sub(r"<[^>]+>", " ", k)
+        s = re.sub(r"\s+", " ", s).strip()
+        if len(s) > 40:
+            chu.append(s)
+    ngay = bool(re.search(r'data-date-create="\d+|datetime="\d{4}-', t))
+    if kieu == "xenforo":
+        ngay = ngay or bool(re.search(r'data-time="\d{8,}"', t))
+    return {
+        "parser": "co_than_bai" if chu else "khong_co_than",
+        "so_bai": len(chu),
+        "ky_tu_than": sum(len(x) for x in chu),
+        "co_ngay": ngay,
+        "tieu_de": title,
     }
 
 

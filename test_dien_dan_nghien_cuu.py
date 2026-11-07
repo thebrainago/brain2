@@ -58,6 +58,22 @@ def test_robots_cam_khong_mo_trang():
     assert not any("he-thong" in u for u in goi)
 
 
+def test_than_bai_xenforo_va_mql5():
+    tv = '<title>Nhật ký</title><div class="bbWrapper">Nội dung bài viết đủ dài để parser nhận là thân bài chứ không phải menu.</div><time data-time="1700000000"></time>'
+    mq = '''<div id="comment_1" class="comment-box"><time class="comment__date" data-date-create="1700000000"></time>
+<div class="content" id="content1"><p>Một bài đủ dài để được tính là thân bài diễn đàn, không phải vỏ trang.</p></div></div>'''
+    a = D.phan_than_bai(tv, "xenforo")
+    b = D.phan_than_bai(mq, "mql5")
+    assert a["parser"] == "co_than_bai" and a["so_bai"] == 1 and a["co_ngay"]
+    assert b["parser"] == "co_than_bai" and b["so_bai"] == 1 and b["co_ngay"]
+    assert D.phan_than_bai("<html><title>Zulu</title><a href='/leaders'>x</a></html>", "xenforo")["parser"] == "khong_co_than"
+
+
+def test_chu_captcha_khong_phai_chan():
+    from seeker.phan_loai_loi import phan_loai_http
+    assert phan_loai_http(200, "Bài viết nhắc cách giải captcha của sàn. " * 3, "https://forum.example/t/1")["loai"] == "ok"
+
+
 def test_chuyen_login_la_auth():
     def lay(u):
         if u.endswith("robots.txt"):
