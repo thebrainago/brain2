@@ -68,9 +68,11 @@ def test_thu_thap_robots_chan_cache(tmp_path):
                  "https://a.com/ok": (200, "<html>ok</html>"), "https://a.com/cf": (403, "Just a moment...")})
     tt = ThuThap(tmp_path, gian_cach_s=0, phien=ph)
     assert tt.tai("https://a.com/cam") is None and tt.dem["robots_cam"] == 1
-    assert tt.tai("https://a.com/cf") is None and tt.dem["bi_chan"] == 1
     assert tt.tai("https://a.com/ok") == "<html>ok</html>"
     assert tt.tai("https://a.com/ok") == "<html>ok</html>" and tt.dem["cache"] == 1
+    truoc = ph.goi.count("https://a.com/ok")
+    assert tt.tai("https://a.com/cf") is None and tt.dem["bi_chan"] == 1
+    assert tt.tai("https://a.com/ok") is None and ph.goi.count("https://a.com/ok") == truoc
 
 
 def test_dong_co_chay_va_tiep_tuc(tmp_path):

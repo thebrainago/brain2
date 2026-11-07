@@ -1,0 +1,87 @@
+{
+ "kho": "mau_cong_khai",
+ "duong": "/workspace/data/nguon_seeker/nap_ea",
+ "ly_do_kho": null,
+ "da_xem": 2,
+ "tran_xem": null,
+ "viec_moi": [],
+ "nhan": [],
+ "tu_choi": [],
+ "trung": [
+  {
+   "ten": "NewsTrader.mq5",
+   "url_trang": "https://github.com/EarnForex/News-Trader/blob/main/NewsTrader.mq5",
+   "url_tai": "https://raw.githubusercontent.com/EarnForex/News-Trader/main/NewsTrader.mq5",
+   "sha256": "2d4605e4e9a6fd6a0583e3f9516ecbebcde83e53747606cea6e6e3aff604c756",
+   "quyet_dinh": "trung",
+   "ly_do": "trùng URL hoặc sha256 với việc đã có trong hang_doi",
+   "include_ngoai": [],
+   "dich_python": "khong_yeu_cau",
+   "bien_dich": "CHUA_BIEN_DICH",
+   "nguyen_ven_mot_file": true
+  },
+  {
+   "ten": "EMA_Cross_Demo_EA.mq5",
+   "url_trang": null,
+   "url_tai": "https://www.mql5.com/en/code/download/77653/EMA_Cross_Demo_EA.mq5",
+   "sha256": null,
+   "quyet_dinh": "trung",
+   "ly_do": "URL đã có trong hang_doi",
+   "include_ngoai": null,
+   "dich_python": null,
+   "bien_dich": null,
+   "nguyen_ven_mot_file": null
+  }
+ ],
+ "bien_dich": "CHUA_BIEN_DICH",
+ "nguon_khac": [
+  {
+   "ten": "tradingview",
+   "url": "https://www.tradingview.com/script/LkgKT3TG-Displaced-Donchian-Decycler-Trend-Breakout-Strategy-with-MFI/",
+   "loai": "ok",
+   "http": 200,
+   "ly_do": "Pine not_implemented. Không xếp hàng MT5 vì worker chỉ biên dịch .mq5. không có Pine trong HTML tĩnh; trang vẽ bằng JS. Không tải, không dịch.",
+   "quyet_dinh": "tu_choi",
+   "pine": "not_implemented"
+  },
+  {
+   "ten": "litefinance",
+   "url": "https://my.litefinance.org/en/traders",
+   "loai": "ok",
+   "http": 200,
+   "ly_do": "LiteFinance không có file EA. 16 hồ sơ trên danh sách (lợi nhuận + rủi ro) nhưng không có DD% và tuổi — chưa đánh giá; không phải 0 trader; không phải ĐẠT",
+   "quyet_dinh": "tu_choi",
+   "loai_trang": "no_data",
+   "so_ho_so": 16
+  }
+ ],
+ "ghi_chu": "Không chạy MT5. Heuristic không phải chứng minh. Dịch Python không phải cổng. Kho local vắng thì không bịa số gói.",
+ "viec_dang_co": [
+  {
+   "id": "na_1233d657c07b",
+   "url_ma_nguon": "https://www.mql5.com/en/code/download/77653/EMA_Cross_Demo_EA.mq5",
+   "nguon": "https://www.mql5.com/en/code/77653",
+   "noi_dung_sha256": "1233d657c07b9930ee25318a76cc80083b55482c31d78253215d46c0c72918ef",
+   "ma": "AUDCADmicro",
+   "he_so_lot": [
+    1.0
+   ],
+   "bien_dich": "CHUA_BIEN_DICH",
+   "dich_python": "khong_yeu_cau",
+   "che_do_tai_khoan": "demo_only"
+  },
+  {
+   "id": "na_2d4605e4e9a6",
+   "url_ma_nguon": "https://raw.githubusercontent.com/EarnForex/News-Trader/main/NewsTrader.mq5",
+   "nguon": "https://raw.githubusercontent.com/EarnForex/News-Trader/main/NewsTrader.mq5",
+   "noi_dung_sha256": "2d4605e4e9a6fd6a0583e3f9516ecbebcde83e53747606cea6e6e3aff604c756",
+   "ma": "AUDCADmicro",
+   "he_so_lot": [
+    1.0
+   ],
+   "bien_dich": "CHUA_BIEN_DICH",
+   "dich_python": "khong_yeu_cau",
+   "che_do_tai_khoan": "demo_only"
+  }
+ ]
+}

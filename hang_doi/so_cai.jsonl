@@ -333,3 +333,5 @@
 {"luc": "2026-11-05T18:14:56+07:00", "may": "desktop-05pnlgf_g1", "su_kien": "nhan", "id": "v2cd_atrpmin20_2600ea39abbd7b0f_H1", "loai": "mt5_backtest"}
 {"luc": "2026-11-05T18:23:00+07:00", "may": "desktop-05pnlgf_g4", "su_kien": "hong", "id": "v2cd_atrpmax80_ghepe9b41c33d4deee54_H4", "loai": "mt5_backtest", "tom_tat": "CHƯA ĐO ĐƯỢC"}
 {"luc": "2026-11-05T18:23:06+07:00", "may": "desktop-05pnlgf_g4", "su_kien": "nhan", "id": "v2cd_atrpmax80_ghepe9b41c33d4deee54_H4", "loai": "mt5_backtest"}
+{"may": "box", "su_kien": "them", "id": "na_2d4605e4e9a6", "loai": "mt5_backtest", "bien_dich": "CHUA_BIEN_DICH"}
+{"may": "box", "su_kien": "them", "id": "na_1233d657c07b", "loai": "mt5_backtest", "bien_dich": "CHUA_BIEN_DICH"}
