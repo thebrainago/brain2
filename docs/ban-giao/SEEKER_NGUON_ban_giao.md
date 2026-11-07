@@ -1,5 +1,28 @@
 # Bàn giao nguồn SEEKER — 2026-11-07
 
+## Myfxbook — dừng host, đường chính thức là API tài khoản của mình
+
+Không gọi lại `www.myfxbook.com`. Bản 2026-11-03: `/systems` HTTP 403 Cloudflare, cả robots.txt. `seeker.cong_khai.chay` bỏ qua host này (`khong_goi: true`).
+
+Tài liệu chính thức (một lần đọc https://www.myfxbook.com/api ):
+
+- API “access your account's data”; câu chữ: **“The API allows access to personal information only.”**
+- `login` tạo session (gắn IP, hết hạn khoảng 1 tháng). Mã này không đăng nhập và không lưu mật khẩu.
+- `get-my-accounts`: số tổng (gain, drawdown, demo…) của **tài khoản mình**. Không có danh sách lệnh.
+- `get-watched-accounts`: tóm tắt tài khoản đang theo dõi (mẫu tài liệu: tên, gain, drawdown, demo, change). **Không có lịch sử lệnh.**
+- `get-history`: tối đa **50** giao dịch gần nhất, cần `session` và `id`. Tài liệu không nói id này là hệ công khai của người khác. Không kết luận API mở lịch sử bên thứ ba.
+- `get-community-outlook`: tâm lý cộng đồng, không phải bảng xếp hạng.
+- Trang tài liệu **không** có phương thức leaderboard `/systems` hay CSV lịch sử trader khác.
+
+Số gain/DD nhập từ JSON là **khai báo**, `dat: false`. Việc ghi vào `hang_doi/nghien_cuu/` (`loai=nghien_cuu_track_record`), không vào `can_test`, nên thợ MT5 không chạy. Chưa giải mã cách vào.
+
+Việc của chủ, trên trình duyệt của chủ (không tạo tài khoản hộ, không vượt captcha):
+
+1. Đăng nhập Myfxbook nếu muốn số của chính tài khoản mình.
+2. Gọi API theo trang tài liệu, lưu JSON ra đĩa (không gửi mật khẩu vào git).
+3. `python -m seeker.cong_khai.myfxbook_api --nhap tep.json`
+4. `python -m seeker.cong_khai.myfxbook_api --trang-thai` in `ket_noi: false`.
+
 ## Việc lấy EA gốc vào hàng đợi (cùng ngày, sau chẩn đoán)
 
 `data/cau_kho` **không có** trên máy cloud này. Các số 308/39/493/846 là giả thuyết từ máy khác, chưa kiểm ở đây, không ghi thành số đo.

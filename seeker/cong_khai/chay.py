@@ -50,30 +50,8 @@ def quet(tt: ThuThap, so_trang: int = 3, them_id=(), log=print, muc_tieu: int = 
             dem["MQL5"]["khong_doc"] += 1; continue
         ra.append(cham(mql5.phan_tich(h, sid))); dem["MQL5"]["doc_duoc"] += 1
         if i % 50 == 0: log(f"MQL5 {i}/{len(ids)}")
-    # Myfxbook — challenge thì dừng, không tạo hồ sơ rỗng
-    dem["Myfxbook"] = {"doc_duoc": 0, "khong_doc": 0, "loai": "unknown"}
-    for u in myfxbook.DS:
-        k = _tai_ro(tt, u)
-        dem["Myfxbook"]["loai"] = k["loai"]
-        dem["Myfxbook"]["ly_do"] = k.get("ly_do")
-        if k["loai"] != "ok" or k.get("stale"):
-            dem["Myfxbook"]["khong_doc"] += 1
-            break
-        for link in myfxbook.link_he_thong(k["text"])[:50]:
-            hk = _tai_ro(tt, link)
-            if hk["loai"] == "challenge":
-                dem["Myfxbook"]["loai"] = "challenge"
-                dem["Myfxbook"]["ly_do"] = hk.get("ly_do")
-                dem["Myfxbook"]["khong_doc"] += 1
-                break
-            if hk["loai"] != "ok" or hk.get("stale"):
-                dem["Myfxbook"]["khong_doc"] += 1
-                continue
-            mot = myfxbook.phan_tich(hk["text"], link)
-            if mot.get("loai") == "challenge":
-                dem["Myfxbook"]["loai"] = "challenge"
-                break
-            ra.append(cham(mot)); dem["Myfxbook"]["doc_duoc"] += 1
+    # Myfxbook: host đã Cloudflare 403. Không gọi lại.
+    dem["Myfxbook"] = dem_myfxbook(tt)
     # LiteFinance — danh sách thiếu DD không tính là đã đánh giá
     dem["LiteFinance"] = {"doc_duoc": 0, "da_danh_gia": 0, "loai": "unknown"}
     k = _tai_ro(tt, NK.LITEFINANCE_DS)
@@ -101,13 +79,39 @@ def quet(tt: ThuThap, so_trang: int = 3, them_id=(), log=print, muc_tieu: int = 
         if ct.get("da_danh_gia"):
             ra.append(cham(ct))
             dem["LiteFinance"]["da_danh_gia"] += 1
-    # Exness — lỗi TLS/DNS là network, không phải 0 chiến lược. 198.18.0.1 chỉ là giả thuyết.
-    dem["Exness"] = {"doc_duoc": 0, "da_danh_gia": 0}
-    ek = _tai_ro(tt, NK.EXNESS_CT.format(id="110170778"))
-    dem["Exness"].update(loai=ek["loai"], ly_do=ek.get("ly_do"), http=ek.get("http"))
-    if "198.18.0." in (ek.get("ly_do") or ""):
-        dem["Exness"]["gia_thuyet"] = "DNS/proxy 198.18.0.1 — không chứng minh site hỏng; không tắt TLS"
+    # Exness: đã lỗi DNS Errno -2 ngày 2026-11-07. Không gọi lại.
+    dem["Exness"] = {"doc_duoc": 0, "da_danh_gia": 0, "loai": "network", "khong_goi": True,
+                     "ly_do": "Không gọi lại. Lần 2026-11-07: Errno -2 Name or service not known. Không thấy 198.18.0.1 và không chứng minh site hỏng."}
     return ra, dem
+
+
+def dem_myfxbook(tt) -> dict:
+    """Không đụng myfxbook.com khi host_bi_chan. HTML thật chỉ xử lý nếu cờ tắt (test)."""
+    if myfxbook.host_bi_chan():
+        return {"doc_duoc": 0, "khong_doc": 0, "loai": "challenge", "khong_goi": True,
+                "ly_do": "Cloudflare 403 trên /systems (2026-11-03). Không gọi host. API chỉ là tài khoản của mình: seeker.cong_khai.myfxbook_api"}
+    dem = {"doc_duoc": 0, "khong_doc": 0, "loai": "unknown", "khong_goi": False}
+    for u in myfxbook.DS:
+        k = _tai_ro(tt, u)
+        dem["loai"] = k["loai"]
+        dem["ly_do"] = k.get("ly_do")
+        if k["loai"] != "ok" or k.get("stale"):
+            dem["khong_doc"] += 1
+            break
+        for link in myfxbook.link_he_thong(k["text"])[:50]:
+            hk = _tai_ro(tt, link)
+            if hk["loai"] != "ok" or hk.get("stale"):
+                dem["khong_doc"] += 1
+                if hk["loai"] == "challenge":
+                    dem["loai"] = "challenge"
+                    break
+                continue
+            mot = myfxbook.phan_tich(hk["text"], link)
+            if mot.get("loai") == "challenge":
+                dem["loai"] = "challenge"
+                break
+            dem["doc_duoc"] += 1
+    return dem
 
 
 def _tai_ro(tt, url: str) -> dict:

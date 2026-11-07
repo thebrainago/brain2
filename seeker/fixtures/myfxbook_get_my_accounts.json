@@ -1,0 +1,15 @@
+{
+  "error": false,
+  "message": "",
+  "accounts": [
+    {
+      "id": 12345,
+      "name": "He vi du",
+      "gain": 8.92,
+      "drawdown": 53.53,
+      "demo": true,
+      "currency": "USD",
+      "balance": 10892.45
+    }
+  ]
+}

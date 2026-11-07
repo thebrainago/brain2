@@ -1,0 +1,15 @@
+{
+  "error": false,
+  "message": "",
+  "history": [
+    {
+      "openTime": "03/01/2010 14:13",
+      "closeTime": "03/01/2010 15:26",
+      "symbol": "GBPUSD",
+      "action": "Buy",
+      "openPrice": 1.4831,
+      "closePrice": 1.4934,
+      "profit": 12.0
+    }
+  ]
+}

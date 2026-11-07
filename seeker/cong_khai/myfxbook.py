@@ -9,6 +9,11 @@ from .mql5 import _van_ban, _so
 DS = ("https://www.myfxbook.com/systems",)
 
 
+def host_bi_chan() -> bool:
+    """2026-11-03 và các lần sau: Cloudflare 403. Không probe lại."""
+    return True
+
+
 def link_he_thong(h: str) -> list[str]:
     return sorted(set("https://www.myfxbook.com" + x for x in re.findall(r'href="(/members/[^"/]+/[^"/]+/\d+)"', h)))
 
