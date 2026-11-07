@@ -6,7 +6,7 @@
 
 `reports/seeker_nguon/DIEN_DAN_DOT2.json`. Phạm vi theo miền, không đếm trùng: `reports/seeker_nguon/PHAM_VI_DIEN_DAN.json`. Không việc mới. 311 nguồn chưa được giải.
 
-- SignalStart `/search-signals`: HTTP 200, 20 hồ sơ `/analysis/<tên>/<id>`. Danh sách đọc được. Chưa mở hồ sơ.
+- SignalStart `/search-signals`: HTTP 200, 20 hồ sơ `/analysis/<tên>/<id>`. Danh sách đọc được. Một hồ sơ mẫu đã xuất lúc 15:18; xem bàn giao đăng nhập.
 - GogoJungle `/systemtrade/fx`: HTTP 200. Đếm thô 67 gồm URL search. Parser sửa còn 44 hồ sơ `/systemtrade/fx/<số>`, đọc lại HTML đã lưu. Chưa mở hệ.
 - FX-on `fx-on.com` chuyển về trang chủ GogoJungle. Cùng một sàn, không tính nguồn thứ hai. JSON `detailUrl` không bóc.
 - DupliTrade: HTTP 200, Next.js, không có URL nhà cung cấp.

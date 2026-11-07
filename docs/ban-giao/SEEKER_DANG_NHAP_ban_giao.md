@@ -1,4 +1,4 @@
-# Bàn giao đăng nhập nguồn — 2026-11-07 15:16 Asia/Bangkok
+# Bàn giao đăng nhập nguồn — 2026-11-07 15:16, SignalStart cập nhật 15:18 Asia/Bangkok
 
 Tài liệu cho phiên khác. Chỉ trạng thái và cách lấy bí mật. Không có mật khẩu, OTP, token, cookie, email, số điện thoại, ngày sinh.
 
@@ -45,11 +45,19 @@ Form hỏi: họ tên, biệt danh, email, mật khẩu và xác nhận, giới 
 
 Mục Vault `FXStat — Thebrainago` không có nghĩa là đã đăng ký. Lần thử mới nhất: trình duyệt và curl đều hết hạn, nguyên nhân chưa rõ. `box-doctor` 11/11 đạt. Không gọi lại www, không tắt TLS.
 
-## SignalStart — mẫu công khai đọc được, xuất file thì chưa
+## SignalStart — một mẫu đã xác minh, 2026-11-07 15:18 Asia/Bangkok
 
-`https://www.signalstart.com/analysis/kgold2026/291660` đọc được, 85 bản ghi lịch sử. Nhãn `Real` không phải huy hiệu xác minh riêng.
+Chủ chấp nhận lời nhắc thiết bị Google trên điện thoại của chủ. Ảnh màn hình phiên cha thấy bảng điều khiển đã đăng nhập.
 
-Cửa xuất file đòi đăng nhập: email và mật khẩu, Google, hoặc Facebook. Thử Google SSO **đang chạy** trên trình duyệt của chủ lúc 15:16. Chưa có phiên đăng nhập và chưa có file xuất. Chủ sẽ cập nhật khi xong. Đừng ghi là đã vào được.
+Vào bằng Google SSO với Gmail chủ đã duyệt. Lần sau có thể vẫn cần duyệt thiết bị: giao cho chủ, không phải mã OTP email. Không tạo mật khẩu SignalStart. Không có mật khẩu để xuất.
+
+Trình duyệt xuất **một** mẫu miễn phí, không phí và không dùng thử: `https://www.signalstart.com/analysis/kgold2026/291660`.
+
+File thô ở máy chủ `/home/box/Downloads/statement.csv`. File không có trên VM cloud này. Đừng đọc hộ và đừng commit.
+
+Chủ báo file có tiêu đề History, 13 cột, 85 dòng không rỗng (83 Buy/Sell, 2 khoản nạp, ngày đóng của khoản nạp để trống) và 1 dòng trắng cuối. Số 85 khớp History trên trang. Ngày mở 21/06–06/11/2026, ngày đóng 22/06–06/11/2026, chỉ có ngày, chưa đổi múi giờ. Trang ghi GMT+2; lần căn giờ sau dùng ghi chú đó.
+
+Đã xác minh danh sách công khai, một hồ sơ, và một file xuất. Chưa phải cả thư viện, chưa phải hiệu suất đã kiểm, chưa phải luật giao dịch dùng được. Nhãn `Real` không phải huy hiệu xác minh riêng.
 
 ## Việc phiên sau không làm
 
