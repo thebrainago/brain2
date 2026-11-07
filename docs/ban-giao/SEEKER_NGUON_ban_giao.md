@@ -7,9 +7,9 @@
 `reports/seeker_nguon/DIEN_DAN_DOT2.json`. Phạm vi theo miền, không đếm trùng: `reports/seeker_nguon/PHAM_VI_DIEN_DAN.json`. Không việc mới. 311 nguồn chưa được giải.
 
 - SignalStart `/search-signals`: HTTP 200, 20 hồ sơ `/analysis/<tên>/<id>`. Danh sách đọc được. Một hồ sơ mẫu đã xuất lúc 15:18; xem bàn giao đăng nhập.
-- GogoJungle `/systemtrade/fx`: HTTP 200. Đếm thô 67 gồm URL search. Parser sửa còn 44 hồ sơ `/systemtrade/fx/<số>`, đọc lại HTML đã lưu. Chưa mở hệ.
+- GogoJungle `/systemtrade/fx`: HTTP 200. Đếm thô 67 gồm URL search. Parser sửa còn 44 hồ sơ `/systemtrade/fx/<số>`, đọc lại HTML đã lưu. 15:36 trình duyệt: `/en/` báo 404, menu 日本語 mở lại danh sách; một sản phẩm `77038` đọc không cần đăng nhập. Xem bàn giao đăng nhập.
 - FX-on `fx-on.com` chuyển về trang chủ GogoJungle. Cùng một sàn, không tính nguồn thứ hai. JSON `detailUrl` không bóc.
-- DupliTrade: HTTP 200, Next.js, không có URL nhà cung cấp.
+- DupliTrade: HTTP 200 lúc đo HTML tĩnh. 15:42 danh sách công khai có URL nhà cung cấp; tài khoản dùng thử 30 ngày đã tạo. Xem bàn giao đăng nhập.
 - FX Blue sổ `/users`: HTTP 404. robots cấm `/user/`. Sitemap 2.641 URL; phần users chỉ là `/users/example`.
 - FXStat `www`: chứng chỉ không khớp (SAN chỉ `fxstat.com`). `https://fxstat.com/` TLS bình thường là trang đăng nhập. Không tắt kiểm chứng chỉ.
 - eToro: URL sổ là `/sapi/`. Không gọi.

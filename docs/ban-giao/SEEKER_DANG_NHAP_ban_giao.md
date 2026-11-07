@@ -1,4 +1,4 @@
-# Bàn giao đăng nhập nguồn — 2026-11-07 15:16, SignalStart cập nhật 15:18 Asia/Bangkok
+# Bàn giao đăng nhập nguồn — 2026-11-07 15:16; SignalStart 15:18; GogoJungle 15:36; DupliTrade 15:42 Asia/Bangkok
 
 Tài liệu cho phiên khác. Chỉ trạng thái và cách lấy bí mật. Không có mật khẩu, OTP, token, cookie, email, số điện thoại, ngày sinh.
 
@@ -59,6 +59,32 @@ Chủ báo file có tiêu đề History, 13 cột, 85 dòng không rỗng (83 Bu
 
 Đã xác minh danh sách công khai, một hồ sơ, và một file xuất. Chưa phải cả thư viện, chưa phải hiệu suất đã kiểm, chưa phải luật giao dịch dùng được. Nhãn `Real` không phải huy hiệu xác minh riêng.
 
+## GogoJungle — một sản phẩm công khai, chưa có tài khoản, 2026-11-07 15:36 Asia/Bangkok
+
+`https://www.gogojungle.co.jp/systemtrade/fx` tự chuyển sang `/en/systemtrade/fx` và trả 404, ngôn ngữ không có. Menu ngôn ngữ hiện trên trang, chọn 日本語, thì danh sách FX tiếng Nhật hiện lại. Đó là thao tác menu, không phải sửa mã.
+
+Một sản phẩm công khai, không đăng nhập: 昇金竜, canonical `https://www.gogojungle.co.jp/systemtrade/fx/77038`. Bộ lọc kỳ: 全期間, 2年, 1年, 6カ月, 3カ月, 1カ月. Chỉ số thấy trên trang: 収益, PF, 勝率, 最大ドローダウン. Trang không phân biệt forward và backtest. Không thấy hàng lịch sử lệnh và không thấy nút xuất file.
+
+Chưa tạo tài khoản GogoJungle. Chưa phải nguồn giao dịch được. `fx-on.com` vẫn là cùng sàn, không tính thêm.
+
+Lần trình duyệt hết hạn trước đó trùng lúc máy còn khoảng 354 MiB trống trên 16 GiB, không có swap, và IO bộ nhớ bị ép. `box-doctor` 11/11, Chrome đã có sẵn. Nguyên nhân chưa chứng minh. Không kết luận site chặn. Không reset, không kill, không restart.
+
+## DupliTrade — tài khoản thử đã tự bật, 2026-11-07 15:42 Asia/Bangkok
+
+Danh sách công khai `https://duplitrade.com/strategy-providers`: thấy 9 nhà cung cấp, không phải cả danh sách. Hồ sơ công khai `https://duplitrade.com/strategy-providers/alpine` đọc được trước khi đăng nhập.
+
+Tạo tài khoản bằng Google SSO với Gmail chủ đã duyệt (chỉ email hồ sơ Google). Số điện thoại lấy từ Vault `Me` lúc điền, không ghi ở đây. Điều khoản thường. Form Create Account không có chữ trial, sàn, thẻ, hay thanh toán.
+
+Tài khoản **đã tạo**. Ngay sau đó bước chào hỏi tự ghi dùng thử 30 ngày đang bật, có huy hiệu TRIAL, No Connected Account, CFD TRIAL. Đây là thành viên dùng thử tự bật, không phải gói miễn phí vĩnh viễn và cũng không phải chưa có tài khoản.
+
+Không nhập thẻ, không thanh toán, không nối sàn, không đặt lệnh. Không bấm Activate, Copy, hay Get Started. Không được hỏi OTP hay mã email. Không tạo mật khẩu DupliTrade.
+
+Lịch sử lệnh, tài khoản thử xem được: `https://duplitrade.com/strategy-providers/alpine?view=history`. Bộ lọc Last Year: 10 dòng mỗi trang, 1055 mục, 106 trang. Cột: Symbol, Type, Size, Open, Close, Close Time GMT, Swap, Pips, Net P/L, kèm biểu đồ. Không thấy nút CSV hay xuất file, không tải gì.
+
+1055 mục là bản đã lọc, không phải cả đời tài khoản. Danh sách trước đó ghi 5697 lệnh, số trên hồ sơ ghi 5664. Lệch này chưa giải. Nhãn sidebar kiểu lịch sử đủ của khách thật không chứng minh tài khoản thử đang xem đủ lịch sử.
+
+Việc sau không nạp tiền và không kích hoạt sàn.
+
 ## Việc phiên sau không làm
 
-Không đào thêm hồ sơ. Không tạo việc `hang_doi`. Không push `main`. Không commit bí mật.
+Không đào thêm hồ sơ. Không tạo việc `hang_doi`. Không push `main`. Không commit bí mật. Không nạp tiền DupliTrade, không nối sàn, không bấm Activate, Copy, hay Get Started.
