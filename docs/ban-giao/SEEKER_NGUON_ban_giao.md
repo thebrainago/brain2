@@ -1,5 +1,28 @@
 # Bàn giao nguồn SEEKER — 2026-11-07
 
+## Việc lấy EA gốc vào hàng đợi (cùng ngày, sau chẩn đoán)
+
+`data/cau_kho` **không có** trên máy cloud này. Các số 308/39/493/846 là giả thuyết từ máy khác, chưa kiểm ở đây, không ghi thành số đo.
+
+Cổng cũ: `nhan/cau_kho_ma.xuat` chỉ xuất EA đã dịch thành cơ chế Python. Worker chỉ tải một `.mq5`. Làn mới `python -m seeker.nap_ea_goc` không đòi dịch Python. Heuristic OnTick + lời gọi lệnh **không phải chứng minh**. Include ngoài thư viện chuẩn bị từ chối vì worker không kéo file kèm. `bien_dich` luôn `CHUA_BIEN_DICH` khi không có MetaEditor. Trần 5 việc, hệ số lot chỉ `1.0`, demo, không chạy tester.
+
+Đã xếp 2 việc (kiểm `kiem_spec` rỗng), mã nguồn nằm trong `data/` (gitignore):
+
+| id | URL tải | sha256 | Kết quả |
+|---|---|---|---|
+| `na_2d4605e4e9a6` | https://raw.githubusercontent.com/EarnForex/News-Trader/main/NewsTrader.mq5 | `2d4605e4e9a6fd6a0583e3f9516ecbebcde83e53747606cea6e6e3aff604c756` | nhận. Apache-2.0, một file, include chuẩn. Chưa biên dịch |
+| `na_1233d657c07b` | https://www.mql5.com/en/code/download/77653/EMA_Cross_Demo_EA.mq5 | `1233d657c07b9930ee25318a76cc80083b55482c31d78253215d46c0c72918ef` | nhận. Trang https://www.mql5.com/en/code/77653 . Chưa biên dịch |
+
+Chạy lại cùng URL thì `trung`, không thêm việc. TradingView script `LkgKT3TG` HTTP 200 nhưng Pine không có trong HTML tĩnh → không xếp. LiteFinance `https://my.litefinance.org/en/traders` HTTP 200, 16 id hồ sơ trên danh sách, không có file EA và không có DD → không xếp.
+
+```
+python -m pytest test_nap_ea_goc.py -q
+python -m seeker.nap_ea_goc --toi-da 3
+python -m seeker.nap_ea_goc --toi-da 2 --mau-cong-khai
+```
+
+Lệnh thứ hai chỉ đọc kho local. Lệnh thứ ba tối đa vài GET công khai (GitHub contents + một raw, một file Code Base, một trang TradingView, một trang LiteFinance). Không quét 1600 tín hiệu.
+
 Phiên này sửa bộ đọc và cách ghi lỗi của nguồn **đã có**, không thêm catalog mới, không push `main`, không merge, không chạy MT5, không đụng máy nhà, không restart runner.
 
 Nhánh: `cursor/seeker-source-recovery-ca1f`.

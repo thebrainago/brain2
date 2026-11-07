@@ -2,7 +2,7 @@
 
 Cập nhật 03/11/2026. Mọi con số trong tài liệu này là đo thật; chỗ chưa đo ghi **CHƯA ĐO ĐƯỢC**.
 
-> **07/11/2026:** đừng quét lại 1600 tín hiệu MQL5 hay 25 repo GitHub. Đọc `docs/ban-giao/SEEKER_NGUON_ban_giao.md`. Lệnh không mạng: `python -m seeker.chan_doan` và `python -m seeker.cong_khai.kho_83`.
+> **07/11/2026:** đừng quét lại 1600 tín hiệu MQL5 hay 25 repo GitHub. Đọc `docs/ban-giao/SEEKER_NGUON_ban_giao.md`. EA gốc một file, không cần dịch Python: `python -m seeker.nap_ea_goc --toi-da 3` (chỉ kho local). Mẫu công khai có trần: thêm `--mau-cong-khai`.
 
 ## 0. Trước v2 đã có gì (kiểm kê)
 
