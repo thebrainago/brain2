@@ -1,5 +1,7 @@
 # Bàn giao nguồn SEEKER — 2026-11-07
 
+Đăng nhập và trạng thái tài khoản nguồn (không có bí mật): [SEEKER_DANG_NHAP_ban_giao.md](./SEEKER_DANG_NHAP_ban_giao.md). Mốc 2026-11-07 15:16 Asia/Bangkok.
+
 ## Đợt 2 — sáu nguồn chưa đo (2026-11-07) — dừng, không thu thập
 
 `reports/seeker_nguon/DIEN_DAN_DOT2.json`. Phạm vi theo miền, không đếm trùng: `reports/seeker_nguon/PHAM_VI_DIEN_DAN.json`. Không việc mới. 311 nguồn chưa được giải.
