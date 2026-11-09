@@ -2,22 +2,22 @@
 
 Giờ Việt Nam (Asia/Bangkok, UTC+7). **Không commit secrets.** ĐO: 09–10/11/2026.
 
-Cổng 0: `nguon_khac_dot1_loc_phi.py` · Module tái sử dụng: `brain2/seeker_unblock/box/` (không ghi đè top-level máy nhà).
+Cổng 0: `nguon_khac_dot1_loc_phi.py` · Modules: `brain2/seeker_unblock/box/`.
 
 REJECT nếu net_E≤0 hoặc edge/cost<1.5 hoặc CAGR_ff≤10%/DD_ff≥80%.
 
 ---
 
-## 0. Nguồn & cách vượt nghẽn (box)
+## 0. Nguồn
 
-| Nguồn | Box trade CSV? | Endpoint chính | Nghẽn / gỡ | Module |
+| Nguồn | Box CSV? | Endpoint | Nghẽn | Module |
 |---|---|---|---|---|
-| FX Blue | **Có** | `GET /users/{u}/csv` (307→api) | private → login wall | `box/fxblue/` |
-| Collective2 | **Có** | `GET /strategy/csv/{id}` | API v4 chết | `box/collective2/` |
-| Darwinex | Series only | HTML `/invest/{T}` | filters API **401** | `box/darwinex/` |
-| ZuluTrade | Chưa | `zulutrade-gateway/` + OAuth | API **401** | `box/zulutrade/` |
-| Forex Factory | Một phần | curl_cffi `/tradeexplorer` + `explorerapi.php` | cần explorer id công khai | `box/forexfactory/` |
-| SignalStart | Chưa | `/search-signals` HTML | login wall | `box/signalstart/` |
+| FX Blue | Có | `/users/{u}/csv` | private→login | `box/fxblue/` |
+| Collective2 | Có | `/strategy/csv/{id}` | API v4 chết | `box/collective2/` |
+| Darwinex | Series | `/invest/{T}` | filters 401 | `box/darwinex/` |
+| ZuluTrade | Chưa | gateway OAuth | 401 | `box/zulutrade/` |
+| Forex Factory | Một phần | curl_cffi + explorerapi | cần explorer id | `box/forexfactory/` |
+| SignalStart | Chưa | search-signals | login | `box/signalstart/` |
 
 ---
 
@@ -66,8 +66,11 @@ REJECT nếu net_E≤0 hoặc edge/cost<1.5 hoặc CAGR_ff≤10%/DD_ff≥80%.
 | collective2 | 122467834 | 2432 | 2.597 | don_le | 100.0 | -0.00659252 | 0.435154 | 85.060 | 53.535 | Y | **REJECT** |
 | fxblue | capitalgrowth | 6942 | 2.39 | luoi | 100.0 | -0.354022 | -0.0840313 | -99.637 | 100.000 | Y | **REJECT** |
 | fxblue | forex_trend_detector | 429 | 2.367 | luoi | 100.0 | 0.000290728 | 2.140 | -4.600 | 32.058 | Y | **REJECT** |
+| fxblue | smart-grid | 1967 | 2.285 | luoi | 100.0 | -0.00144429 | 0.631069 | 88.777 | 44.455 | Y | **REJECT** |
 | fxblue | myforexpath1 | 1471 | 2.247 | luoi | 100.0 | -0.000296043 | 0.476211 | 1064.9 | 22.218 | Y | **REJECT** |
+| fxblue | profitlab | 9706 | 2.175 | luoi | 100.0 | -0.233885 | -4.333 | 2895.2 | 90.284 | Y | **REJECT** |
 | fxblue | supplydemand | 95 | 2.135 | luoi | 94.7 | -1.042 | 0.217974 | -17.261 | 37.753 | Y | **REJECT** |
+| fxblue | trader_2 | 594 | 2.032 | luoi | 52.7 | 0.0110562 | 1.483 | -10.509 | 23.968 | Y | **REJECT** |
 | fxblue | free-forex-signal | 1341 | 1.955 | don_le | 100.0 | 0.000814281 | 1.189 | 40.374 | 30.146 | n | **REJECT** |
 | fxblue | myforexpath2 | 538 | 1.89 | luoi | 100.0 | -0.000402178 | -0.192175 | 212.5 | 12.257 | n | **REJECT** |
 | fxblue | xmglobal | 5697 | 1.79 | luoi | 91.0 | -0.606025 | -0.21094 | -96.988 | 99.994 | n | **REJECT** |
@@ -95,12 +98,14 @@ REJECT nếu net_E≤0 hoặc edge/cost<1.5 hoặc CAGR_ff≤10%/DD_ff≥80%.
 | fxblue | gold-system | 313 | 0.693 | don_le | 100.0 | -0.000233011 | 0.217519 | -45.892 | 36.588 | n | **REJECT** |
 | fxblue | nsr_gold | 348 | 0.687 | luoi | 100.0 | -1.388 | -0.353836 | 443.0 | 10.466 | n | **REJECT** |
 | collective2 | 154330462 | 20 | 0.674 | don_le | 100.0 | -0.000304878 | -0.294632 | -8.649 | 5.918 | n | **REJECT** |
+| fxblue | forextraded4 | 2098 | 0.614 | luoi | 100.0 | -0.564567 | 0.0166708 | 51.561 | 77.753 | n | **REJECT** |
 | collective2 | 79862763 | 11 | 0.612 | don_le | 100.0 | -0.00462825 | -1.505 | -1.708 | 3.950 | n | **REJECT** |
 | fxblue | gpbootcamp | 83960 | 0.561 | luoi | 97.3 | -0.0115521 | -0.183825 | -100.0 | 100.0 | n | **REJECT** |
 | fxblue | myforexpath | 73 | 0.508 | luoi | 100.0 | -0.00580848 | -2.823 | 13.954 | 11.362 | n | **REJECT** |
 | collective2 | 125545530 | 403 | 0.408 | don_le | 100.0 | -0.0104386 | -1.396 | -99.116 | 85.632 | n | **REJECT** |
 | fxblue | gold-investor | 96 | 0.363 | pyramid | 100.0 | -1.477 | -0.203619 | -20.822 | 10.645 | n | **REJECT** |
 | collective2 | 156716997 | 48 | 0.336 | don_le | 100.0 | -0.00420031 | 0.138099 | 41.923 | 2.029 | n | **REJECT** |
+| fxblue | pow-50883896 | 13990 | 0.332 | luoi | 100.0 | -0.600505 | -0.0291463 | -100.000 | 99.998 | n | **REJECT** |
 | collective2 | 126172384 | 135 | 0.306 | don_le | 100.0 | -0.00748129 | 0.123759 | 82.020 | 6.012 | n | **REJECT** |
 | fxblue | MT5GoldEA | 97079 | 0.29 | luoi | 99.0 | -0.849726 | -0.489032 | -100.0 | 100.0 | n | **REJECT** |
 | fxblue | mt5goldea | 97079 | 0.29 | luoi | 99.0 | -0.849726 | -0.489032 | -100.0 | 100.0 | n | **REJECT** |
@@ -118,6 +123,7 @@ REJECT nếu net_E≤0 hoặc edge/cost<1.5 hoặc CAGR_ff≤10%/DD_ff≥80%.
 | collective2 | 146006468 | 1022 | 3.092 | don_le | 0.0 | — | — | — | — | Y | **CHUA_DO** |
 | collective2 | 147255777 | 5 | 2.751 | don_le | 0.0 | — | — | — | — | Y | **CHUA_DO** |
 | collective2 | 146455121 | 21 | 2.419 | don_le | 0.0 | — | — | — | — | Y | **CHUA_DO** |
+| fxblue | mt5live | 1377 | 2.313 | pyramid | 33.8 | — | — | -6.816 | 25.659 | Y | **CHUA_DO** |
 | collective2 | 149476882 | 225 | 2.111 | don_le | 0.0 | — | — | — | — | Y | **CHUA_DO** |
 | collective2 | 150377786 | 826 | 1.876 | don_le | 0.1 | — | — | -0.534293 | 1.000 | n | **CHUA_DO** |
 | collective2 | 150373429 | 175 | 1.845 | don_le | 0.0 | — | — | — | — | n | **CHUA_DO** |
@@ -142,29 +148,25 @@ REJECT nếu net_E≤0 hoặc edge/cost<1.5 hoặc CAGR_ff≤10%/DD_ff≥80%.
 | collective2 | 151319237 | — | — | — | — | — | — | — | — | n | **CHUA_DO** |
 | collective2 | 98549641 | — | — | — | — | — | — | — | — | n | **CHUA_DO** |
 
-### Verdict nhanh
+### Verdict
 
 - **PASS ≥2y toàn TK: 4** — Metaliq-Gold (luoi), bullbear (luoi), 143135149 (don_le), metaliq-gold (luoi)
-- **don_le ≥2y: 1** — 143135149
-- PASS <2y: 12 — happy-forex, ibitebyt3s-10k-50r, algobreed-xauusd-1, divisagold, algo-trading, algobreed-xauusd-2, metaliq_gold, 14614678, forex_alpha, 3propea_xauusd, free-forex-signal_USDJPY, pepperstonexau
-- Gated trade-level (unique): **116** + Darwinex series **24**
+- **don_le ≥2y toàn TK: 1** — 143135149
+- **pyramid ≥2y toàn TK: 0** — —
+- PASS <2y: 12
+- Gated unique: **122** + Darwinex **24**
 
-#### PASS ≥2y chi tiết
+**Mã con đáng chú ý:** `122467834/EURUSD` (Tendency) don_le PASS Cổng 0 y=2.57 e/c≈1.68 CAGR≈41% DD≈12% — Cổng S fade≥60% nhưng V1 WF REJECT. Xem `NGUON_KHAC_DOT1_CONG_S.md`.
 
-- **fxblue/Metaliq-Gold**: hang=luoi, y=2.146, n=771, e/c=1.743, CAGR_ff=236.2%, DD_ff=9.634%
-- **fxblue/bullbear**: hang=luoi, y=2.647, n=2608, e/c=1.990, CAGR_ff=983.6%, DD_ff=37.338%
-- **collective2/143135149**: hang=don_le, y=2.616, n=724, e/c=1.618, CAGR_ff=110.2%, DD_ff=17.705%
-- **fxblue/metaliq-gold**: hang=luoi, y=2.146, n=771, e/c=1.743, CAGR_ff=236.2%, DD_ff=9.634%
+**RC105:** Cổng S match≥70% (MA200/breakout) nhưng V1 WF REJECT trên 3 majors.
 
-**RC 105 ForEx (C2 `143135149`)**: PASS Cổng 0 **don_le** ≥2y đầu tiên ngoài MQL5/Myfxbook. Cổng S: fade/breakout H1 <70% khớp chiều → **CHUA_GIAI_MA** (xem `NGUON_KHAC_DOT1_CONG_S.md`). Chưa đẩy V1 WF.
-
-**Metaliq-Gold** / **bullbear** / **metaliq-gold**: PASS ≥2y nhưng **luoi** → không V1 đơn lệnh.
+Hunt sau a09a048a: **không** thêm don_le/pyramid PASS ≥2y toàn TK.
 
 ---
 
 ## 2. Darwinex series
 
-| Ticker | năm | ret_2y% | DD_2y% | CAGR≈ | ret_ann HTML |
+| Ticker | năm | ret_2y% | DD_2y% | CAGR≈ | ret_ann |
 |---|---:|---:|---:|---:|---:|
 | EUX | 7.1 | 62.041 | -9.510 | 27.3 | 8.43 |
 | HLB | 2.6 | 58.574 | -12.014 | 25.93 | 21.3 |
@@ -191,21 +193,10 @@ REJECT nếu net_E≤0 hoặc edge/cost<1.5 hoặc CAGR_ff≤10%/DD_ff≥80%.
 | BDE | 6.78 | 43.205 | -7.575 | 19.67 | 9.41 |
 | MRST | 4.16 | 32.464 | -5.723 | 15.09 | 17.15 |
 
-Trade-level Darwinex: **không công khai** trên box (cần OAuth data API — không tạo TK trả phí).
-
 ---
 
-## 3. Cổng S / V1
+## 3. Artifact
 
-Ứng viên đơn lệnh PASS phí → `NGUON_KHAC_DOT1_CONG_S.md`. Hiện **chưa** có luật/EA tái tạo ≥70% → chưa V1 WF 12/3.
+`nguon_khac/` · `NGUON_KHAC_DOT1*.md` · `NGUON_KHAC_RC105_*.json` · `NGUON_KHAC_TENDENCY_EURUSD_CONG_S_V1.json` · `NGUON_KHAC_DONLE_SUBSETS.json` · `seeker_unblock/box/` · `reports/vong3/`
 
----
-
-## 4. Artifact
-
-- CSV: `/workspace/nguon_khac/{fxblue,collective2,darwinex}/`
-- Gate: `/workspace/quy_trinh_v3/nguon_khac_dot1_loc_phi.{py,json}`
-- Report: `NGUON_KHAC_DOT1.md` (+ copy `brain2/reports/vong3/`)
-- Modules: `brain2/seeker_unblock/box/{fxblue,collective2,darwinex,zulutrade,forexfactory,signalstart,common}/`
-
-As-of: 2026-11-09 23:36:48 Asia/Bangkok.
+As-of: 2026-11-09 23:59:20 Asia/Bangkok.

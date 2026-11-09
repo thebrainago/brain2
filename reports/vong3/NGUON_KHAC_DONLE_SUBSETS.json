@@ -1,0 +1,155 @@
+[
+  {
+    "source": "collective2",
+    "id": "122467834",
+    "symbol": "EURCHF",
+    "n": 96,
+    "years": 2.22,
+    "edge_cost": 1.7798634895992727,
+    "net_E": 0.0003370612579740508
+  },
+  {
+    "source": "collective2",
+    "id": "122467834",
+    "symbol": "EURUSD",
+    "n": 380,
+    "years": 2.57,
+    "edge_cost": 1.6812685066024227,
+    "net_E": 0.0002162736062866636
+  },
+  {
+    "source": "collective2",
+    "id": "122467834",
+    "symbol": "NZDJPY",
+    "n": 51,
+    "years": 2.32,
+    "edge_cost": 1.8005916838125844,
+    "net_E": 0.038180382283952485
+  },
+  {
+    "source": "collective2",
+    "id": "94987184",
+    "symbol": "USDCHF",
+    "n": 84,
+    "years": 6.79,
+    "edge_cost": 1.7824596307650147,
+    "net_E": 0.0013378361190087395
+  },
+  {
+    "source": "collective2",
+    "id": "94987184",
+    "symbol": "AUDCAD",
+    "n": 37,
+    "years": 6.7,
+    "edge_cost": 2.0692332078072733,
+    "net_E": 0.0014217035663793931
+  },
+  {
+    "source": "collective2",
+    "id": "94987184",
+    "symbol": "EURUSD",
+    "n": 30,
+    "years": 6.67,
+    "edge_cost": 9.924182281865068,
+    "net_E": 0.0024263042629862207
+  },
+  {
+    "source": "collective2",
+    "id": "94987184",
+    "symbol": "NZDCAD",
+    "n": 48,
+    "years": 6.67,
+    "edge_cost": 2.0315802158554215,
+    "net_E": 0.0012821251283637767
+  },
+  {
+    "source": "collective2",
+    "id": "94987184",
+    "symbol": "EURGBP",
+    "n": 50,
+    "years": 5.8,
+    "edge_cost": 9.816000000001049,
+    "net_E": 0.002272241106078723
+  },
+  {
+    "source": "collective2",
+    "id": "94987184",
+    "symbol": "CADCHF",
+    "n": 79,
+    "years": 5.83,
+    "edge_cost": 1.5742859727684708,
+    "net_E": 0.0007725265826040818
+  },
+  {
+    "source": "collective2",
+    "id": "94987184",
+    "symbol": "NZDUSD",
+    "n": 47,
+    "years": 5.45,
+    "edge_cost": 4.424105934473053,
+    "net_E": 0.0018920989537781782
+  },
+  {
+    "source": "collective2",
+    "id": "94987184",
+    "symbol": "GBPAUD",
+    "n": 60,
+    "years": 5.44,
+    "edge_cost": 7.212167561703398,
+    "net_E": 0.0053216791748609054
+  },
+  {
+    "source": "collective2",
+    "id": "94987184",
+    "symbol": "GBPCAD",
+    "n": 30,
+    "years": 5.38,
+    "edge_cost": 3.3502797285491503,
+    "net_E": 0.00478902586655862
+  },
+  {
+    "source": "collective2",
+    "id": "94987184",
+    "symbol": "AUDUSD",
+    "n": 46,
+    "years": 4.78,
+    "edge_cost": 4.834531134031745,
+    "net_E": 0.00249498883413851
+  },
+  {
+    "source": "collective2",
+    "id": "143135149",
+    "symbol": "GBPUSD",
+    "n": 58,
+    "years": 2.56,
+    "edge_cost": 2.470398276180379,
+    "net_E": 0.0007635068736907913
+  },
+  {
+    "source": "collective2",
+    "id": "143135149",
+    "symbol": "EURUSD",
+    "n": 73,
+    "years": 2.46,
+    "edge_cost": 4.795545393791495,
+    "net_E": 0.0011773659447553183
+  },
+  {
+    "source": "collective2",
+    "id": "143135149",
+    "symbol": "USDJPY",
+    "n": 49,
+    "years": 2.38,
+    "edge_cost": 2.594589689599881,
+    "net_E": 0.08658421962583869
+  },
+  {
+    "source": "collective2",
+    "id": "143135149",
+    "symbol": "EURCAD",
+    "n": 35,
+    "years": 2.13,
+    "edge_cost": 1.68193887580137,
+    "net_E": 0.00030466526615057085
+  }
+]
