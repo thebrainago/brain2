@@ -1,0 +1,25 @@
+{
+ "file": "v3b_onlyuj.htm",
+ "ky": "2024-01-01..2026-10-31",
+ "nam": 2.831,
+ "chat_luong": "99% real ticks",
+ "net": -320.07,
+ "cagr_kep_pct": -1.14,
+ "dd_eq_max": "2 595.03 (21.57%)",
+ "dd_eq_rel_pct": 21.57,
+ "pf": 0.99,
+ "lenh": 379,
+ "giu_max_ngay": 14.2,
+ "lot_mo_max": 0.24,
+ "so_vi_the_mo_max": 1,
+ "swap": 0.0,
+ "commission": 0.0,
+ "dong_cuoi_test": 1,
+ "lai_theo_nam": {
+  "2024": 673.9,
+  "2025": 323.6,
+  "2026": -1317.6
+ },
+ "kiem_tong": -320.1,
+ "dat": false
+}

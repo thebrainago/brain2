@@ -1,0 +1,25 @@
+{
+ "file": "v3hd_ghep60ff_B_m1.htm",
+ "ky": "2024-01-01..2026-10-10",
+ "nam": 2.773,
+ "chat_luong": "100%",
+ "net": 31538.54,
+ "cagr_kep_pct": 67.11,
+ "dd_eq_max": "14 964.51 (70.54%)",
+ "dd_eq_rel_pct": 70.54,
+ "pf": 2.54,
+ "lenh": 260,
+ "giu_max_ngay": 30.0,
+ "lot_mo_max": 7.41,
+ "so_vi_the_mo_max": 4,
+ "swap": 0.0,
+ "commission": 0.0,
+ "dong_cuoi_test": 2,
+ "lai_theo_nam": {
+  "2024": 9083.5,
+  "2025": 20397.8,
+  "2026": 2057.2
+ },
+ "kiem_tong": 31538.5,
+ "dat": true
+}
