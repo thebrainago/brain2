@@ -61,6 +61,9 @@ class QuanLi:
     go_tien: float | None = None       # GO: ro + lenh khoa + lai da chot cua khoa >= X (tien) -> dong ca ro. None = tat
     cat_lo_pct: float = 0.0            # cat ca ro khi lo >= X % so du (0 = KHONG SL, mac dinh phong cach chu du an)
     dca_lot_tuyen_tinh: bool = False   # 20/10/2026 (EA luoi): lot tang k = lot0 x (k+1) nhu EA LOT_TUYEN_TINH (bo qua he so)
+    giu_toi_da_nen: int = 0            # 09/11/2026 V3: dong ca ro o OPEN nen thu N ke tu nen mo (nhu EA InpGiuToiDaNen); 0 = tat
+    margin_min_pct: float = 0.0        # 09/11/2026 V3: khong nhoi DCA khi muc ky quy < X % (nhu EA InpMarginMin/MarginDu); 0 = tat
+    gio_cam: tuple = (0, 0)            # 09/11/2026 V3: (tu, den) gio server cam MO lenh/nhoi nhu EA GioCam() (theo gio nen); tu == den = tat
 
 
 @dataclass
@@ -474,6 +477,13 @@ class _RoTK:
     ql: object = None
 
 
+def _gio_cam(q, h) -> bool:
+    tu, den = getattr(q, "gio_cam", (0, 0)) or (0, 0)
+    if tu == den:
+        return False
+    return (tu <= h < den) if tu < den else (h >= tu or h < den)
+
+
 def chay_tk(du_lieu: dict | pd.DataFrame, luong: list[LenhVao], ql: QuanLi | dict, tk: TaiKhoan | None = None,
             phi: dict | HoSoPhi | None = None, ghi_von: bool = True, ghi_lenh: bool = False) -> dict:
     """ENGINE CAP TAI KHOAN (lot that, ky quy, stop-out, phi theo san). Xem khoi chu thich phia tren.
@@ -510,7 +520,8 @@ def chay_tk(du_lieu: dict | pd.DataFrame, luong: list[LenhVao], ql: QuanLi | dic
         hs = phi[m]
         gio = idx.hour.to_numpy()
         A[m] = dict(o=b["open"].to_numpy(), h=b["high"].to_numpy(), l=b["low"].to_numpy(), c=b["close"].to_numpy(), co=co,
-                    sp=np.asarray(hs.spread_gio, float)[gio] * _he_so_nam(idx, hs), dem=_dem_qua_dem(idx, hs.ngay_x3), hs=hs)
+                    sp=np.asarray(hs.spread_gio, float)[gio] * _he_so_nam(idx, hs), dem=_dem_qua_dem(idx, hs.ngay_x3), hs=hs,
+                    gio=gio)
     lay_ql = (lambda nguon: ql.get(nguon) or ql.get("*")) if isinstance(ql, dict) else (lambda nguon: ql)
     su_kien: dict[int, list] = {}
     for e in luong:
@@ -521,7 +532,8 @@ def chay_tk(du_lieu: dict | pd.DataFrame, luong: list[LenhVao], ql: QuanLi | dic
     nk: list[dict] = []
     phi_tong = {"spread": 0.0, "swap": 0.0, "hoa_hong": 0.0}
     dem = {"so_stop_out": 0, "so_lenh_stop_out": 0, "tu_choi_ky_quy": 0, "tu_choi_lot_max": 0, "so_ro": 0,
-           "so_lenh": 0, "so_khoa": 0, "so_go": 0, "so_go_cheo": 0, "so_tp": 0, "so_trail": 0, "so_cat_lo": 0}
+           "so_lenh": 0, "so_khoa": 0, "so_go": 0, "so_go_cheo": 0, "so_tp": 0, "so_trail": 0, "so_cat_lo": 0,
+           "so_het_gio": 0}
     eq_c = np.zeros(n) if ghi_von else None
     eq_x = np.zeros(n) if ghi_von else None
     dinh_eq, dd_max, kq_min, chay_tk_ = float(tk.von), 0.0, float("inf"), False
@@ -619,7 +631,7 @@ def chay_tk(du_lieu: dict | pd.DataFrame, luong: list[LenhVao], ql: QuanLi | dic
             r.chan.remove(L)
         if ghi_lenh and L in so_lenh:
             bg = so_lenh.pop(L)
-            bg.update(dong=t, gia_dong=gia_dong(r.ma, L.ch, bid, t), lai_tien=round(x, 4))
+            bg.update(dong=t, gia_dong=gia_dong(r.ma, L.ch, bid, t), lai_tien=round(x, 4), swap=round(L.swap, 4))
         return x
 
     def dong_ro(r, bid, t, boi):
@@ -657,6 +669,10 @@ def chay_tk(du_lieu: dict | pd.DataFrame, luong: list[LenhVao], ql: QuanLi | dic
             if r.sinh >= t or not a["co"][t]:
                 continue
             q = r.ql
+            if getattr(q, "giu_toi_da_nen", 0) and t - r.sinh >= q.giu_toi_da_nen:
+                dong_ro(r, a["o"][t], t, "het_gio")      # EA: tick dau cua nen thu N (iBarShift >= N) -> dong het
+                dem["so_het_gio"] += 1                    # khong vao vua_dong: EA dong (QuanLi) roi ChayCsv mo ro moi CUNG tick
+                continue
             gv, lot_ro = gia_von(r)
             if gv is None:
                 continue
@@ -690,6 +706,14 @@ def chay_tk(du_lieu: dict | pd.DataFrame, luong: list[LenhVao], ql: QuanLi | dic
                        and sum(loi_chan(r, L, c0, t) for L in r.chan) <= -q.hedge_khi_lo_pct / 100.0 * von)
             if not any(L.khoa for L in r.chan) and not du_khoa:
                 while r.muc:
+                    if _gio_cam(q, a["gio"][t]):                           # EA DuocMo(): khong nhoi trong gio cam
+                        break
+                    if getattr(q, "margin_min_pct", 0.0) > 0 and t > 0:   # EA MarginDu(): khong nhoi khi ML < X %
+                        g0 = {mm: A[mm]["c"][t - 1] for mm in ds_ma}
+                        kq0 = ky_quy(t, g0)
+                        e0 = von + sum(loi_chan(rr, LL, g0[rr.ma], t) for rr in ro_mo for LL in rr.chan)
+                        if kq0 > 0 and e0 / kq0 * 100.0 < q.margin_min_pct:
+                            break
                     g, lt = r.muc[0]
                     hit = (a["l"][t] + sp <= g) if r.s > 0 else (a["h"][t] >= g)
                     if not hit:
@@ -706,6 +730,8 @@ def chay_tk(du_lieu: dict | pd.DataFrame, luong: list[LenhVao], ql: QuanLi | dic
                 continue
             q = lay_ql(e.nguon)
             if q is None:
+                continue
+            if _gio_cam(q, A[m]["gio"][t]):                                # EA DuocMo(): khong mo trong gio cam
                 continue
             ch = 1 if int(e.chieu) >= 0 else -1
             if q.mot_ro_moi_chieu and any(r.nguon == e.nguon and r.ma == m and r.s == ch for r in ro_mo):

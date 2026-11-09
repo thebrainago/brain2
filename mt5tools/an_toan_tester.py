@@ -65,13 +65,15 @@ def bien_dich(me: Path, mq: Path, cho_giay: int = 180) -> str:
     return "bien dich hong hoac qua %ds (.ex5 khong moi hon ban cu): %s" % (cho_giay, duoi.strip())
 
 
-def phan_xu_ket_qua(r: dict, giay: float, giay_toi_thieu: float = 60.0) -> str:
+def phan_xu_ket_qua(r: dict, giay: float, giay_toi_thieu: float = 60.0, co_lenh_ky_vong: bool = False) -> str:
     """'' = ket qua do duoc; khong thi ly do CHUA_DO_DUOC.
 
     Do 18/10: mot lan chay 20 s, chat luong 0 %, 0 lenh duoc ghi nhu ket qua that -> bien the bi coi la
-    'da thu, khong lai' vinh vien. Bao cao doc khong ra so (nhan khac ngon ngu...) cung vay."""
+    'da thu, khong lai' vinh vien. Bao cao doc khong ra so (nhan khac ngon ngu...) cung vay.
+    09/11 (V3, T1): `co_lenh_ky_vong` (viec CSV co dong trong cua so / viec v3*) -> 0 lenh la CHUA_DO_DUOC BAT KE
+    chay bao lau (vd v2qd_gian13_ghepe9b4 k=1: 0 lenh trong 62 s tung duoc ghi la ket qua)."""
     if r.get("net") is None or r.get("lenh") is None:
         return "khong_doc_duoc_bao_cao"
-    if (r.get("lenh") or 0) == 0 and giay < giay_toi_thieu:
+    if (r.get("lenh") or 0) == 0 and (co_lenh_ky_vong or giay < giay_toi_thieu):
         return "chua_do_duoc_0_lenh_%ds" % int(giay)
     return ""

@@ -364,6 +364,31 @@ def nhan_csv(noi_dung: str, k: float, chia_hash: bool = False) -> str:
     return "\n".join(out) + "\n"
 
 
+def la_v3(v: dict) -> bool:
+    """Viec V3 (09/11/2026): k da nam trong cot lot cua CSV theo lich WF (chon tren train) -> KHONG chon k tren cua so do."""
+    return str(v.get("id", "")).startswith("v3") or bool(v.get("lich_wf"))
+
+
+def tick_that_pct(chat_luong) -> int | None:
+    """'99% real ticks' -> 99."""
+    m = re.search(r"(\d+)\s*%\s*real", str(chat_luong or ""))
+    return int(m.group(1)) if m else None
+
+
+def csv_co_lenh_trong(v: dict) -> bool:
+    """CSV lenh vao cua viec co it nhat 1 dong trong [tu, den]."""
+    try:
+        import datetime as dt
+        a = dt.datetime.strptime(v["tu"], "%Y.%m.%d"); b = dt.datetime.strptime(v["den"], "%Y.%m.%d")
+        for d in (GOC / v["csv_vao"].replace("\\", "/")).read_text(encoding="utf-8", errors="replace").splitlines()[1:]:
+            t = d.split(",")[0].strip()
+            if t and a <= dt.datetime.strptime(t[:10], "%Y.%m.%d") <= b:
+                return True
+    except (OSError, KeyError, ValueError):
+        return False
+    return False
+
+
 def danh_gia(chay: list[dict]) -> dict:
     """Từ các lần chạy (mỗi k) -> k lớn nhất DD<80 và k nhỏ nhất đạt cả hai tiêu chí."""
     hop = [c for c in chay if c.get("cagr_pct") is not None and c.get("dd_pct") is not None]
@@ -508,7 +533,10 @@ def chay_mot_k(slot: Path, v: dict, k: float, cho_toi_da: int) -> dict:
     out = {"k": k, "lai_theo_nam": nam_tk["lai_theo_nam"], "ti_le_thang_pct": nam_tk["ti_le_thang_pct"], "net": r.get("net"), "pf": r.get("pf"), "lenh": r.get("lenh"), "dd_equity_mt5": r.get("dd"),
            "dd_pct": dd_pct(r.get("dd")), "cagr_pct": cagr(vv["von"], r.get("net"), nam), "sut_dong_lenh_pct": dv.get("sut_giam_pct"),
            "thang_te_nhat": dv.get("thang_te_nhat"), "chat_luong": r.get("chat_luong"), "giay": int(time.time() - t0), "bao_cao": f.name}
-    ly = AT.phan_xu_ket_qua(r, out["giay"])
+    ky_vong = la_v3(v) or (v.get("che_do") == "ong_dan_csv" and csv_co_lenh_trong(v))
+    ly = AT.phan_xu_ket_qua(r, out["giay"], co_lenh_ky_vong=ky_vong)
+    if not ly and la_v3(v) and str(v.get("id", "")).startswith("v3b") and (tick_that_pct(r.get("chat_luong")) or 0) < 99:
+        ly = "chua_do_duoc_tick_that_%s_duoi_99" % tick_that_pct(r.get("chat_luong"))
     if ly:
         out["loi"] = ly
     try:
@@ -539,8 +567,11 @@ def lam_mt5_backtest(slot: Path, v: dict, cho: int) -> tuple[str, dict]:
     loi = loi or chuan_bi_ea(slot, v["ea_file"])
     if loi:
         return "HONG", {"tom_tat": "CHƯA ĐO ĐƯỢC: " + loi}
-    chay = [chay_mot_k(slot, v, float(k), cho) for k in v["he_so_lot"]]
+    ks = [1.0] if la_v3(v) else v["he_so_lot"]                  # V3: k theo lich WF (trong CSV), chi 1 lan chay
+    chay = [chay_mot_k(slot, v, float(k), cho) for k in ks]
     kq = {"chay": chay, **danh_gia([c for c in chay if not c.get("loi")])}
+    if la_v3(v):
+        kq.update(k_tot="lich_wf", k_an_toan_max=None, ghi_chu_k="k lấy từ lịch WF (chọn trên train), không chọn trên cửa sổ đo")
     return ("XONG" if any(not c.get("loi") for c in chay) else "HONG"), kq
 
 

@@ -29,6 +29,9 @@ def test_0_lenh_trong_vai_giay_la_chua_do_duoc():
     assert AT.phan_xu_ket_qua({"net": None, "lenh": None}, 300) == "khong_doc_duoc_bao_cao"
     assert AT.phan_xu_ket_qua({"net": 0.0, "lenh": 0}, 300) == ""          # chay du lau, that su khong co lenh
     assert AT.phan_xu_ket_qua({"net": 5.0, "lenh": 12}, 20) == ""
+    # 09/11 T1: viec CSV / v3 co lenh ky vong -> 0 lenh la CHUA_DO_DUOC bat ke thoi gian chay
+    assert AT.phan_xu_ket_qua({"net": 0.0, "lenh": 0}, 62, co_lenh_ky_vong=True).startswith("chua_do_duoc")
+    assert AT.phan_xu_ket_qua({"net": 5.0, "lenh": 12}, 900, co_lenh_ky_vong=True) == ""
 
 
 def _r(**k):
