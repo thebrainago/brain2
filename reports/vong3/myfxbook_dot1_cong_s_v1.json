@@ -1,0 +1,130 @@
+{
+  "ngay": "2026-11-09",
+  "zone": "Asia/Bangkok UTC+7",
+  "nguon_gia": "XAUUSD HistData NY7 ÷ FX Dukascopy H1 UTC (synth)",
+  "ket_qua": {
+    "XAUAUD": {
+      "cong_s": {
+        "n": 94,
+        "hour23_pct": 96.81,
+        "dow_mtt_pct": 97.87,
+        "hour23_dow_pct": 96.81,
+        "fade_match_pct": 64.89,
+        "fade_ok": 61,
+        "fade_tot": 94,
+        "fade_lb": 6,
+        "fade_off": 0,
+        "luat": "giờ 23 + DOW Mon/Tue/Thu; chiều = fade 6 nến H1 (off 0h); SL/TP med từ lệnh"
+      },
+      "cong_s_xau_proxy": {
+        "n": 94,
+        "hour23_pct": 96.81,
+        "dow_mtt_pct": 97.87,
+        "hour23_dow_pct": 96.81,
+        "fade_match_pct": 60.64,
+        "fade_ok": 57,
+        "fade_tot": 94,
+        "fade_lb": 4,
+        "fade_off": 1,
+        "luat": "giờ 23 + DOW Mon/Tue/Thu; chiều = fade 4 nến H1 (off 1h); SL/TP med từ lệnh"
+      },
+      "v1": {
+        "ket": "REJECT",
+        "CAGR": -28.73,
+        "DD": 97.639,
+        "V_final": 261.4,
+        "n_oos": 1280,
+        "windows": 39,
+        "trades_per_yr": 118.96,
+        "years": 10.76,
+        "sharpe": -4.609,
+        "range": [
+          "2016-01-04 23:00:00",
+          "2026-10-08 23:00:00"
+        ],
+        "sl_base": 3.5,
+        "tp_base": 0.98,
+        "fade_lb": 6,
+        "fade_off": 0,
+        "phi": "chi_phi_do:XAUAUD+spread_bar|san=MetaQuotes",
+        "contract": 100.0,
+        "spread_p90": 0.012476794947722504
+      },
+      "random": {
+        "p50": -31.149,
+        "p05": -33.511,
+        "p95": -29.457,
+        "beat_random": true
+      },
+      "sl_med": 3.5,
+      "tp_med": 0.98
+    },
+    "XAUEUR": {
+      "cong_s": {
+        "n": 68,
+        "hour23_pct": 98.53,
+        "dow_mtt_pct": 100.0,
+        "hour23_dow_pct": 98.53,
+        "fade_match_pct": 67.65,
+        "fade_ok": 46,
+        "fade_tot": 68,
+        "fade_lb": 4,
+        "fade_off": 1,
+        "luat": "giờ 23 + DOW Mon/Tue/Thu; chiều = fade 4 nến H1 (off 1h); SL/TP med từ lệnh"
+      },
+      "cong_s_xau_proxy": {
+        "n": 68,
+        "hour23_pct": 98.53,
+        "dow_mtt_pct": 100.0,
+        "hour23_dow_pct": 98.53,
+        "fade_match_pct": 66.18,
+        "fade_ok": 45,
+        "fade_tot": 68,
+        "fade_lb": 4,
+        "fade_off": 1,
+        "luat": "giờ 23 + DOW Mon/Tue/Thu; chiều = fade 4 nến H1 (off 1h); SL/TP med từ lệnh"
+      },
+      "v1": {
+        "ket": "REJECT",
+        "CAGR": -12.983,
+        "DD": 82.83,
+        "V_final": 2239.5,
+        "n_oos": 1300,
+        "windows": 39,
+        "trades_per_yr": 120.82,
+        "years": 10.76,
+        "sharpe": -1.792,
+        "range": [
+          "2016-01-04 23:00:00",
+          "2026-10-08 23:00:00"
+        ],
+        "sl_base": 3.5,
+        "tp_base": 0.52,
+        "fade_lb": 4,
+        "fade_off": 1,
+        "phi": "chi_phi_do:XAUEURMICRO+spread_bar|san=XM",
+        "contract": 1.0,
+        "spread_p90": 0.00010645630900008252
+      },
+      "random": {
+        "p50": -12.019,
+        "p05": -14.191,
+        "p95": -9.87,
+        "beat_random": false
+      },
+      "sl_med": 3.5,
+      "tp_med": 0.52
+    },
+    "Rainy_AUDCHF": {
+      "n": 25,
+      "hang": "don_le",
+      "always_sell_pct": 100.0,
+      "hold_med_h": 96.07,
+      "range": [
+        "2025-09-11 01:00:00",
+        "2026-10-15 04:00:00"
+      ],
+      "v1": "CHUA_DO — không có chuỗi AUDCHF H1 dài trên box; n=25 quá mỏng cho WF 12/3 tin cậy"
+    }
+  }
+}
