@@ -58,7 +58,7 @@ Giờ Việt Nam (Asia/Bangkok, UTC+7). Báo cáo phân tích **Anh commit**. Ph
   - n OOS **1210** · **69.2**/năm · **CAGR +32.01%** · **DD 17.22%** · Sharpe **1.62**
   - boot p50/p05: 32.0% / 30.0% · random-entry p50 **−2.78%** · **beat_random=true**
 - D1 Yahoo prior-day H/L (proxy kém hơn Asia): CAGR −1.92% DD 44% → REJECT — cho thấy **khung Asia H0–7** là phần quan trọng của luật.
-- File: `v1_onlyuj_asia_h1_dai.json`.
+- Ổn định năm: **15/17 dương** (âm: 2019 −10%, 2020 −4%). File: `v1_onlyuj_asia_h1_dai.json`, `v1_onlyuj_by_year.json`.
 
 
 Friday Pro: B&H sau swap CAGR 3.8–5.8% — không đạt 10%.
