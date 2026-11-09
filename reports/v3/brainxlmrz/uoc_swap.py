@@ -3,7 +3,7 @@ import re,html,sys,json
 from datetime import datetime,timedelta
 def num(x): return float(x.replace(' ','').replace('\xa0','')) if x.strip() else 0.0
 p=sys.argv[1]; dep=float(sys.argv[2]); d0=sys.argv[3]; d1=sys.argv[4]
-SM,SB=-4.35,-2.96; GIA_DIEM_LOT=1.0  # GBPUSD: 1 diem (0.00001) x 100000 = 1 USD/lot
+SM,SB,GIA_DIEM_LOT=(float(sys.argv[5]),float(sys.argv[6]),float(sys.argv[7])) if len(sys.argv)>7 else (-4.35,-2.96,1.0)
 t=open(p,'rb').read().decode('utf-16')
 rows=re.findall(r'<tr[^>]*>(.*?)</tr>',t,re.S);st=False;D=[]
 for r in rows:

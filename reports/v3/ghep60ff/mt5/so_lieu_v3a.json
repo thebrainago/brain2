@@ -1,0 +1,30 @@
+{
+ "file": "v3a_ghep60ff_adxngang_H1.htm",
+ "ky": "2009-01-01..2026-10-10",
+ "nam": 17.771,
+ "chat_luong": "15% real ticks",
+ "net": 27809.26,
+ "cagr_kep_pct": 7.77,
+ "dd_eq_max": "14 699.51 (67.89%)",
+ "dd_eq_rel_pct": 75.91,
+ "pf": 1.71,
+ "lenh": 563,
+ "giu_max_ngay": 32.0,
+ "lot_mo_max": 7.41,
+ "so_vi_the_mo_max": 4,
+ "swap": 0.0,
+ "commission": 0.0,
+ "dong_cuoi_test": 1,
+ "lai_theo_nam": {
+  "2018": -1616.7,
+  "2020": 2973.6,
+  "2021": -512.2,
+  "2022": 483.3,
+  "2023": 1460.5,
+  "2024": 7369.5,
+  "2025": 15683.4,
+  "2026": 1967.9
+ },
+ "kiem_tong": 27809.3,
+ "dat": false
+}
