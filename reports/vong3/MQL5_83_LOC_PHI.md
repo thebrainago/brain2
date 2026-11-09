@@ -37,6 +37,30 @@ File kèm:
 
 ---
 
+
+## 0b. Đếm lại lưới (sau sửa detector — 09/11/2026 chiều)
+
+Detector cũ: overlap≥5% hoặc max_cùng_chiều≥3 → **78/83** gắn lưới (quá nhạy; partial close / scale-in 2–3 lệnh có SL bị tính).
+
+Detector mới:
+1. Gộp partial cùng `(symbol, chiều, t_open)` trước khi đo.
+2. Chỉ đo chồng lệnh **trong từng mã**.
+3. Ba hạng:
+   - `don_le`: max cùng chiều ≤ 2
+   - `pyramid`: max 3–7 và có SL đáng kể (không phải lưới thuần)
+   - `luoi`: max ≥ 8 **hoặc** (max ≥ 4 và SL% < 20)
+
+| Hạng | Số ĐO |
+|---|---|
+| don_le | 8 |
+| pyramid | 9 |
+| luoi | 65 |
+| khong_file | 1 |
+| martingale (lot↑ sau lỗ) | 4 |
+
+MCA100 → `pyramid` (max=3, SL=100%). Friday Pro → `pyramid` (max=5, SL=99.7%). Kivenara → `don_le` (max=1).
+
+
 ## 1. Phương pháp (đo / giả định)
 
 | Bước | Chi tiết |
