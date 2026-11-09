@@ -1,0 +1,23 @@
+{
+ "file": "v3_brainxlmrz_A.htm",
+ "ky": "2014-01-01..2026-10-31",
+ "nam": 12.83,
+ "chat_luong": "22% real ticks",
+ "net": -10030.3,
+ "cagr_kep_pct": -100,
+ "dd_eq_max": "11 163.60 (101.44%)",
+ "dd_eq_rel_pct": 101.44,
+ "pf": 0.09,
+ "lenh": 43,
+ "giu_max_ngay": 81.5,
+ "lot_mo_max": 0.9,
+ "so_vi_the_mo_max": 9,
+ "swap": 0.0,
+ "commission": 0.0,
+ "dong_cuoi_test": 4,
+ "lai_theo_nam": {
+  "2014": -10030.3
+ },
+ "kiem_tong": -10030.3,
+ "dat": false
+}

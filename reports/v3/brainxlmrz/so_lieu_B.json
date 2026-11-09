@@ -1,0 +1,25 @@
+{
+ "file": "v3_brainxlmrz_B.htm",
+ "ky": "2024-01-01..2026-10-31",
+ "nam": 2.831,
+ "chat_luong": "99% real ticks",
+ "net": 8110.6,
+ "cagr_kep_pct": 23.34,
+ "dd_eq_max": "2 871.80 (21.39%)",
+ "dd_eq_rel_pct": 21.39,
+ "pf": 5.13,
+ "lenh": 281,
+ "giu_max_ngay": 22.8,
+ "lot_mo_max": 1.1,
+ "so_vi_the_mo_max": 11,
+ "swap": 0.0,
+ "commission": 0.0,
+ "dong_cuoi_test": 0,
+ "lai_theo_nam": {
+  "2024": 2742.0,
+  "2025": 3262.9,
+  "2026": 2105.7
+ },
+ "kiem_tong": 8110.6,
+ "dat": true
+}
