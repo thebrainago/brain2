@@ -1,0 +1,162 @@
+[
+ {
+  "url": "https://www.mql5.com/en/signals/2392608",
+  "method": "req",
+  "status": 200,
+  "cls": "ok",
+  "bytes": 139417,
+  "title": "Copy trades of the EA Happy Galaxy FM trading signal for MetaTrader 4 - 999 USD "
+ },
+ {
+  "url": "https://www.mql5.com/en/signals/2392608",
+  "method": "curl",
+  "status": 403,
+  "cls": "blocked_403",
+  "bytes": 0,
+  "title": ""
+ },
+ {
+  "url": "https://www.mql5.com/en/signals/2392608",
+  "method": "pw",
+  "status": null,
+  "cls": "error",
+  "bytes": 205,
+  "title": "EXC Error: Page.goto: net::ERR_HTTP_RESPONSE_CODE_FAILURE at https://www.mql5.co"
+ },
+ {
+  "url": "https://www.mql5.com/en/signals/2392608",
+  "method": "pwh",
+  "status": null,
+  "cls": "error",
+  "bytes": 205,
+  "title": "EXC Error: Page.goto: net::ERR_HTTP_RESPONSE_CODE_FAILURE at https://www.mql5.co"
+ },
+ {
+  "url": "https://www.myfxbook.com/members/iminwarn/555/6426348",
+  "method": "req",
+  "status": null,
+  "cls": "error",
+  "bytes": 296,
+  "title": "EXC ConnectionError: HTTPSConnectionPool(host='www.myfxbook.com', port=443): Max"
+ },
+ {
+  "url": "https://www.myfxbook.com/members/iminwarn/555/6426348",
+  "method": "curl",
+  "status": 200,
+  "cls": "ok",
+  "bytes": 500316,
+  "title": "555 Forex Trading System by Forex Trader iminwarn"
+ },
+ {
+  "url": "https://www.myfxbook.com/members/iminwarn/555/6426348",
+  "method": "pw",
+  "status": 200,
+  "cls": "ok",
+  "bytes": 476489,
+  "title": "555 Forex Trading System by Forex Trader iminwarn"
+ },
+ {
+  "url": "https://www.myfxbook.com/members/iminwarn/555/6426348",
+  "method": "pwh",
+  "status": 200,
+  "cls": "ok",
+  "bytes": 476488,
+  "title": "555 Forex Trading System by Forex Trader iminwarn"
+ },
+ {
+  "url": "https://www.fxblue.com",
+  "method": "req",
+  "status": null,
+  "cls": "error",
+  "bytes": 262,
+  "title": "EXC ConnectionError: HTTPSConnectionPool(host='www.fxblue.com', port=443): Max r"
+ },
+ {
+  "url": "https://www.fxblue.com",
+  "method": "curl",
+  "status": 200,
+  "cls": "ok",
+  "bytes": 684595,
+  "title": "Analysis, apps, and live charts for forex traders | FX Blue"
+ },
+ {
+  "url": "https://www.fxblue.com",
+  "method": "pw",
+  "status": 200,
+  "cls": "ok",
+  "bytes": 686272,
+  "title": "Analysis, apps, and live charts for forex traders | FX Blue"
+ },
+ {
+  "url": "https://www.fxblue.com",
+  "method": "pwh",
+  "status": 200,
+  "cls": "ok",
+  "bytes": 686272,
+  "title": "Analysis, apps, and live charts for forex traders | FX Blue"
+ },
+ {
+  "url": "https://www.darwinex.com",
+  "method": "req",
+  "status": null,
+  "cls": "error",
+  "bytes": 157,
+  "title": "EXC ConnectionError: ('Connection aborted.', ConnectionResetError(10054, 'An exi"
+ },
+ {
+  "url": "https://www.darwinex.com",
+  "method": "curl",
+  "status": 200,
+  "cls": "ok",
+  "bytes": 71588,
+  "title": "Darwinex - Connecting Traders with Investors"
+ },
+ {
+  "url": "https://www.darwinex.com",
+  "method": "pw",
+  "status": 200,
+  "cls": "ok",
+  "bytes": 92800,
+  "title": "Darwinex - Connecting Traders with Investors"
+ },
+ {
+  "url": "https://www.darwinex.com",
+  "method": "pwh",
+  "status": 200,
+  "cls": "ok",
+  "bytes": 278782,
+  "title": "Darwinex - Connecting Traders with Investors"
+ },
+ {
+  "url": "https://collective2.com",
+  "method": "req",
+  "status": 200,
+  "cls": "ok",
+  "bytes": 756164,
+  "title": "Collective2 | Manager-Led Trading Strategies"
+ },
+ {
+  "url": "https://collective2.com",
+  "method": "curl",
+  "status": 200,
+  "cls": "ok",
+  "bytes": 756111,
+  "title": "Collective2 | Manager-Led Trading Strategies"
+ },
+ {
+  "url": "https://collective2.com",
+  "method": "pw",
+  "status": 200,
+  "cls": "ok",
+  "bytes": 814675,
+  "title": "Collective2 | Manager-Led Trading Strategies"
+ },
+ {
+  "url": "https://collective2.com",
+  "method": "pwh",
+  "status": 200,
+  "cls": "ok",
+  "bytes": 814675,
+  "title": "Collective2 | Manager-Led Trading Strategies"
+ }
+]
