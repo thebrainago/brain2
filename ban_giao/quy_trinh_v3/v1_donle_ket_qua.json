@@ -1,0 +1,672 @@
+[
+  {
+    "id": "2244828",
+    "ten": "Kivenara 815m52ff",
+    "hang": "don_le",
+    "match_h1": [
+      {
+        "rule": "h1_off2_sma50",
+        "match": 0.8887,
+        "ok": 511,
+        "tot": 575,
+        "off": 2,
+        "mode": "sma50"
+      },
+      {
+        "rule": "h1_off3_sma50",
+        "match": 0.8852,
+        "ok": 509,
+        "tot": 575,
+        "off": 3,
+        "mode": "sma50"
+      },
+      {
+        "rule": "h1_off1_sma50",
+        "match": 0.8678,
+        "ok": 499,
+        "tot": 575,
+        "off": 1,
+        "mode": "sma50"
+      },
+      {
+        "rule": "h1_off0_sma50",
+        "match": 0.8417,
+        "ok": 484,
+        "tot": 575,
+        "off": 0,
+        "mode": "sma50"
+      },
+      {
+        "rule": "h1_off3_sma20",
+        "match": 0.7896,
+        "ok": 454,
+        "tot": 575,
+        "off": 3,
+        "mode": "sma20"
+      }
+    ],
+    "match_d1": [
+      {
+        "rule": "d1_prior_bull",
+        "match": 0.6409,
+        "ok": 398,
+        "tot": 621
+      },
+      {
+        "rule": "d1_close_gt_prior",
+        "match": 0.6345,
+        "ok": 394,
+        "tot": 621
+      },
+      {
+        "rule": "d1_close_gt_sma20",
+        "match": 0.5942,
+        "ok": 369,
+        "tot": 621
+      },
+      {
+        "rule": "d1_close_gt_sma50",
+        "match": 0.5684,
+        "ok": 353,
+        "tot": 621
+      }
+    ],
+    "v1_h1": {
+      "n_oos": 320,
+      "years": 1.35,
+      "trades_per_yr": 237.06,
+      "cagr_pct": 8.235,
+      "dd_pct": 22.158,
+      "sharpe": 0.356,
+      "final_equity": 11127.42,
+      "boot_p50": 6.103,
+      "boot_p05": -25.585,
+      "random_p50": 1.208,
+      "beat_random": true,
+      "verdict": "REJECT",
+      "phi": "chi_phi_do:US100+spread_bar|san=FXCE",
+      "n_wf": 6,
+      "entry_hour_utc": 15,
+      "sma_win": 50,
+      "sl_pts": 100,
+      "tp_pts": 175
+    },
+    "v1_d1": {
+      "rule": "prior_bull",
+      "n_oos": 988,
+      "years": 17.509,
+      "trades_per_yr": 56.43,
+      "cagr_pct": -6.973,
+      "dd_pct": 75.93,
+      "sharpe": -0.567,
+      "final_equity": 2821.11,
+      "boot_p50": -6.417,
+      "boot_p05": -100.0,
+      "random_p50": -2.328,
+      "beat_random": false,
+      "verdict": "REJECT",
+      "phi": "chi_phi_do:US100+spread_bar|san=FXCE",
+      "n_wf": 71,
+      "sl_pts": 100,
+      "tp_pts": 175
+    }
+  },
+  {
+    "id": "2250577",
+    "ten": "Golden System 2",
+    "hang": "don_le",
+    "match_h1": [
+      {
+        "rule": "h1_off0_sma20",
+        "match": 0.9956,
+        "ok": 449,
+        "tot": 451,
+        "off": 0,
+        "mode": "sma20"
+      },
+      {
+        "rule": "h1_off0_sma50",
+        "match": 0.9933,
+        "ok": 448,
+        "tot": 451,
+        "off": 0,
+        "mode": "sma50"
+      },
+      {
+        "rule": "h1_off1_sma50",
+        "match": 0.9468,
+        "ok": 427,
+        "tot": 451,
+        "off": 1,
+        "mode": "sma50"
+      },
+      {
+        "rule": "h1_off1_sma20",
+        "match": 0.9468,
+        "ok": 427,
+        "tot": 451,
+        "off": 1,
+        "mode": "sma20"
+      },
+      {
+        "rule": "h1_off2_sma50",
+        "match": 0.9047,
+        "ok": 408,
+        "tot": 451,
+        "off": 2,
+        "mode": "sma50"
+      }
+    ],
+    "sl": 6.720000000000027,
+    "tp": 25.960000000000036,
+    "v1": {
+      "rule": "close_gt_sma20",
+      "n_oos": 1438,
+      "years": 16.507,
+      "trades_per_yr": 87.12,
+      "cagr_pct": -17.573,
+      "dd_pct": 96.274,
+      "sharpe": -0.67,
+      "final_equity": 411.71,
+      "boot_p50": -21.058,
+      "boot_p05": -100.0,
+      "random_p50": -6.162,
+      "beat_random": false,
+      "verdict": "REJECT",
+      "phi": "phi_xm_micro.json",
+      "n_wf": 67,
+      "sl_pts": 6.720000000000027,
+      "tp_pts": 25.960000000000036
+    }
+  },
+  {
+    "id": "2269966",
+    "ten": "BreakZone",
+    "hang": "don_le",
+    "match_h1": [
+      {
+        "rule": "h1_off0_sma50",
+        "match": 0.9977,
+        "ok": 438,
+        "tot": 439,
+        "off": 0,
+        "mode": "sma50"
+      },
+      {
+        "rule": "h1_off0_sma20",
+        "match": 0.9932,
+        "ok": 436,
+        "tot": 439,
+        "off": 0,
+        "mode": "sma20"
+      },
+      {
+        "rule": "h1_off1_sma50",
+        "match": 0.9886,
+        "ok": 434,
+        "tot": 439,
+        "off": 1,
+        "mode": "sma50"
+      },
+      {
+        "rule": "h1_off1_sma20",
+        "match": 0.9749,
+        "ok": 428,
+        "tot": 439,
+        "off": 1,
+        "mode": "sma20"
+      },
+      {
+        "rule": "h1_off2_sma50",
+        "match": 0.9522,
+        "ok": 418,
+        "tot": 439,
+        "off": 2,
+        "mode": "sma50"
+      }
+    ],
+    "v1": {
+      "rule": "close_gt_sma50",
+      "n_oos": 2023,
+      "years": 16.52,
+      "trades_per_yr": 122.46,
+      "cagr_pct": -41.474,
+      "dd_pct": 99.986,
+      "sharpe": -1.59,
+      "final_equity": 1.43,
+      "boot_p50": -66.342,
+      "boot_p05": -100.0,
+      "random_p50": -12.813,
+      "beat_random": false,
+      "verdict": "REJECT",
+      "phi": "phi_xm_micro.json",
+      "n_wf": 67,
+      "sl_pts": 4.039999999999964,
+      "tp_pts": 6.059999999999945
+    }
+  },
+  {
+    "id": "2245675",
+    "ten": "OnlyUJ",
+    "hang": "don_le",
+    "match_h1": [
+      {
+        "rule": "h1_off0_vs_prev",
+        "match": 0.5939,
+        "ok": 427,
+        "tot": 719,
+        "off": 0,
+        "mode": "vs_prev"
+      },
+      {
+        "rule": "h1_off0_bull",
+        "match": 0.5911,
+        "ok": 425,
+        "tot": 719,
+        "off": 0,
+        "mode": "bull"
+      },
+      {
+        "rule": "h1_off1_bull",
+        "match": 0.5702,
+        "ok": 410,
+        "tot": 719,
+        "off": 1,
+        "mode": "bull"
+      },
+      {
+        "rule": "h1_off1_vs_prev",
+        "match": 0.5702,
+        "ok": 410,
+        "tot": 719,
+        "off": 1,
+        "mode": "vs_prev"
+      },
+      {
+        "rule": "h1_off2_bull",
+        "match": 0.5424,
+        "ok": 390,
+        "tot": 719,
+        "off": 2,
+        "mode": "bull"
+      }
+    ],
+    "v1": {
+      "n_oos": 247,
+      "years": 1.502,
+      "trades_per_yr": 164.48,
+      "cagr_pct": 479.466,
+      "dd_pct": 6.048,
+      "sharpe": 5.246,
+      "final_equity": 139909.68,
+      "boot_p50": 481.795,
+      "boot_p05": 380.263,
+      "verdict": "PASS",
+      "phi": "phi_xm_micro.json",
+      "rule": "asia_range_breakout_H0-7",
+      "match": 0.651,
+      "sl_pts": 0.3369999999999891,
+      "tp_pts": 0.5054999999999836,
+      "n_wf": 7
+    },
+    "match_h1_extra": [
+      {
+        "rule": "asia_range_breakout",
+        "match": 0.651,
+        "ok": 255,
+        "tot": 392
+      }
+    ],
+    "v1_d1_dai": {
+      "id": "2245675",
+      "rule": "D1_priorHL_break_Yahoo_2008_2026",
+      "match_d1_structure": 0.8758,
+      "n_oos": 671,
+      "years": 17.826,
+      "trades_per_yr": 37.64,
+      "cagr_pct": -1.924,
+      "dd_pct": 43.959,
+      "final_equity": 7072.71,
+      "n_wf": 72,
+      "verdict": "REJECT",
+      "note": "D1 proxy (không phải Asia H0-7); Yahoo USDJPY=X"
+    },
+    "verdict_final": "PASS",
+    "v1_asia_h1_dai": {
+      "id": "2245675",
+      "rule": "asia_H0-7_break_SL100_TP150",
+      "n_oos": 1210,
+      "years": 17.495,
+      "trades_per_yr": 69.16,
+      "cagr_pct": 32.011,
+      "dd_pct": 17.216,
+      "sharpe": 1.615,
+      "final_equity": 1288545.77,
+      "boot_p50": 32.036,
+      "boot_p05": 29.979,
+      "random_p50": -2.78,
+      "beat_random": true,
+      "verdict": "PASS",
+      "n_wf": 71,
+      "phi": "phi_xm_micro.json",
+      "data": "HistData H1 2008-2023 NY7 + 2024-2026 m5/duka",
+      "params_sample": [
+        {
+          "qs": "2009-04-01",
+          "slm": 0.75,
+          "tpm": 1.0,
+          "train_cagr": 1.1863
+        },
+        {
+          "qs": "2009-07-01",
+          "slm": 0.75,
+          "tpm": 1.0,
+          "train_cagr": 1.3054
+        },
+        {
+          "qs": "2009-10-01",
+          "slm": 0.75,
+          "tpm": 1.0,
+          "train_cagr": 1.4326
+        },
+        {
+          "qs": "2010-01-01",
+          "slm": 0.75,
+          "tpm": 1.5,
+          "train_cagr": 0.9736
+        },
+        {
+          "qs": "2010-04-01",
+          "slm": 0.75,
+          "tpm": 1.0,
+          "train_cagr": 0.5711
+        },
+        {
+          "qs": "2026-04-01",
+          "slm": 0.75,
+          "tpm": 0.75,
+          "train_cagr": 0.8299
+        },
+        {
+          "qs": "2026-07-01",
+          "slm": 0.75,
+          "tpm": 0.75,
+          "train_cagr": 0.4995
+        },
+        {
+          "qs": "2026-10-01",
+          "slm": 0.75,
+          "tpm": 1.0,
+          "train_cagr": 0.36
+        }
+      ]
+    }
+  },
+  {
+    "id": "2337217",
+    "ten": "Top Cat S",
+    "hang": "pyramid",
+    "match_h1": [
+      {
+        "rule": "h1_off8_bull",
+        "match": 0.5098,
+        "ok": 390,
+        "tot": 765,
+        "off": 8,
+        "mode": "bull"
+      },
+      {
+        "rule": "h1_off8_vs_prev",
+        "match": 0.5098,
+        "ok": 390,
+        "tot": 765,
+        "off": 8,
+        "mode": "vs_prev"
+      },
+      {
+        "rule": "h1_off5_bull",
+        "match": 0.4928,
+        "ok": 377,
+        "tot": 765,
+        "off": 5,
+        "mode": "bull"
+      },
+      {
+        "rule": "h1_off5_vs_prev",
+        "match": 0.4889,
+        "ok": 374,
+        "tot": 765,
+        "off": 5,
+        "mode": "vs_prev"
+      },
+      {
+        "rule": "h1_off2_bull",
+        "match": 0.4869,
+        "ok": 372,
+        "tot": 764,
+        "off": 2,
+        "mode": "bull"
+      }
+    ],
+    "v1": {
+      "n_oos": 196,
+      "years": 1.498,
+      "trades_per_yr": 130.88,
+      "cagr_pct": -87.673,
+      "dd_pct": 95.65,
+      "sharpe": -11.016,
+      "final_equity": 434.99,
+      "boot_p50": -83.955,
+      "boot_p05": -96.755,
+      "verdict": "REJECT",
+      "phi": "phi_xm_micro.json",
+      "rule": "d1_fade_sma50",
+      "match": 0.785,
+      "match_note": "≈always_sell 71.2% + fade",
+      "sl_pts": 0.00021000000000004349,
+      "tp_pts": 0.0010999999999998789,
+      "n_wf": 6
+    },
+    "match_h1_extra": [
+      {
+        "rule": "fade_sma50",
+        "match": 0.785,
+        "ok": 614,
+        "tot": 782
+      }
+    ]
+  },
+  {
+    "id": "2392805",
+    "ten": "UZUNAMI88",
+    "hang": "pyramid",
+    "match_xau": [
+      {
+        "rule": "h1_off0_sma20",
+        "match": 0.9306,
+        "ok": 295,
+        "tot": 317,
+        "off": 0,
+        "mode": "sma20"
+      },
+      {
+        "rule": "h1_off0_sma50",
+        "match": 0.9243,
+        "ok": 293,
+        "tot": 317,
+        "off": 0,
+        "mode": "sma50"
+      },
+      {
+        "rule": "h1_off1_sma50",
+        "match": 0.8833,
+        "ok": 280,
+        "tot": 317,
+        "off": 1,
+        "mode": "sma50"
+      },
+      {
+        "rule": "h1_off1_sma20",
+        "match": 0.877,
+        "ok": 278,
+        "tot": 317,
+        "off": 1,
+        "mode": "sma20"
+      },
+      {
+        "rule": "h1_off2_sma20",
+        "match": 0.8644,
+        "ok": 274,
+        "tot": 317,
+        "off": 2,
+        "mode": "sma20"
+      }
+    ],
+    "match_gbpjpy": [],
+    "v1_xau": {
+      "rule": "close_gt_sma20",
+      "n_oos": 1037,
+      "years": 16.444,
+      "trades_per_yr": 63.06,
+      "cagr_pct": -11.83,
+      "dd_pct": 88.274,
+      "sharpe": -0.735,
+      "final_equity": 1261.45,
+      "boot_p50": -11.985,
+      "boot_p05": -100.0,
+      "random_p50": -4.692,
+      "beat_random": false,
+      "verdict": "REJECT",
+      "phi": "phi_xm_micro.json",
+      "n_wf": 67,
+      "sl_pts": 13.569999999999709,
+      "tp_pts": 33.82999999999993,
+      "d1_match": 0.7287
+    },
+    "v1_gbpjpy": null
+  },
+  {
+    "id": "2229059",
+    "ten": "Kivenara 8315 (đã làm)",
+    "hang": "don_le",
+    "skip": true,
+    "v1": {
+      "rule": "h1_close_gt_sma50 @18:30 broker(GMT+3)",
+      "match_rule": "h1_off3_sma50",
+      "n_oos_trades": 486,
+      "years": 2.1,
+      "trades_per_yr": 231.46,
+      "cagr_pct": -9.33,
+      "dd_pct": 29.815,
+      "sharpe": -0.49,
+      "final_equity": 8141.2,
+      "boot_cagr_p50_pct": -10.444,
+      "boot_cagr_p05_pct": -38.268,
+      "random_entry_cagr_p50_pct": -7.493,
+      "random_entry_cagr_p95_pct": 17.334,
+      "beat_random": false,
+      "verdict": "REJECT",
+      "phi_nguon": "chi_phi_do:US100+spread_bar|san=FXCE",
+      "n_wf_windows": 9,
+      "param_hist": [
+        {
+          "qs": "2024-10-01",
+          "slm": 0.75,
+          "tpm": 1.25,
+          "trail": false,
+          "train_cagr": 1.096
+        },
+        {
+          "qs": "2025-01-01",
+          "slm": 1.0,
+          "tpm": 1.0,
+          "trail": false,
+          "train_cagr": 0.7407
+        },
+        {
+          "qs": "2025-04-01",
+          "slm": 1.0,
+          "tpm": 1.0,
+          "trail": false,
+          "train_cagr": 0.4469
+        },
+        {
+          "qs": "2025-07-01",
+          "slm": 1.25,
+          "tpm": 1.0,
+          "trail": false,
+          "train_cagr": 0.167
+        },
+        {
+          "qs": "2025-10-01",
+          "slm": 0.75,
+          "tpm": 1.0,
+          "trail": false,
+          "train_cagr": 0.0199
+        },
+        {
+          "qs": "2026-01-01",
+          "slm": 0.75,
+          "tpm": 0.75,
+          "trail": true,
+          "train_cagr": 0.0225
+        },
+        {
+          "qs": "2026-04-01",
+          "slm": 1.25,
+          "tpm": 1.5,
+          "trail": false,
+          "train_cagr": 0.0609
+        },
+        {
+          "qs": "2026-07-01",
+          "slm": 0.75,
+          "tpm": 1.5,
+          "trail": false,
+          "train_cagr": 0.4834
+        }
+      ],
+      "hold_cap_days": 30,
+      "note": "NQ=F H1 proxy US100; WF12/3; risk1%; XM cost từ chi_phi_do+spread_bar"
+    }
+  },
+  {
+    "id": "2153920",
+    "ten": "MCA100 (đã làm)",
+    "hang": "pyramid",
+    "skip": true,
+    "v1": {
+      "rule": "XAU_D1_breakout_off5.0_SL6.85_TP8.54",
+      "n_oos_trades": 1339,
+      "years": 16.503,
+      "trades_per_yr": 81.14,
+      "cagr_pct": -7.077,
+      "dd_pct": 72.54,
+      "sharpe": -0.68,
+      "final_equity": 2978.24,
+      "boot_cagr_p50_pct": -6.934,
+      "boot_cagr_p05_pct": -21.59,
+      "random_entry_cagr_p50_pct": -2.834,
+      "random_entry_cagr_p95_pct": -1.029,
+      "beat_random": false,
+      "verdict": "REJECT",
+      "phi_nguon": "phi_xm_micro.json",
+      "n_wf_windows": 67,
+      "note": "XAU H1 2009–2026; WF12/3; risk1%; hold_cap30d; XM phi_xm_micro"
+    }
+  },
+  {
+    "id": "2344620",
+    "ten": "Friday Pro (đã làm)",
+    "hang": "pyramid",
+    "skip": true,
+    "note": "buy≈100% ≈ B&H; B&H sau swap CAGR 3.8–5.8%"
+  },
+  {
+    "id": "1862128",
+    "ten": "EA Happy Gold",
+    "hang": "don_le",
+    "skip": true,
+    "note": "e/c=1.094<1.2 — không chạy RE/V1 theo ngưỡng"
+  }
+]

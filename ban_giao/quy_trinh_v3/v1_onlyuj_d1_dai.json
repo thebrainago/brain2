@@ -1,0 +1,14 @@
+{
+  "id": "2245675",
+  "rule": "D1_priorHL_break_Yahoo_2008_2026",
+  "match_d1_structure": 0.8758,
+  "n_oos": 671,
+  "years": 17.826,
+  "trades_per_yr": 37.64,
+  "cagr_pct": -1.924,
+  "dd_pct": 43.959,
+  "final_equity": 7072.71,
+  "n_wf": 72,
+  "verdict": "REJECT",
+  "note": "D1 proxy (kh\u00f4ng ph\u1ea3i Asia H0-7); Yahoo USDJPY=X"
+}

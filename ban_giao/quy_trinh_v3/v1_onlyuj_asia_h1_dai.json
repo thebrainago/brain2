@@ -1,0 +1,69 @@
+{
+  "id": "2245675",
+  "rule": "asia_H0-7_break_SL100_TP150",
+  "n_oos": 1210,
+  "years": 17.495,
+  "trades_per_yr": 69.16,
+  "cagr_pct": 32.011,
+  "dd_pct": 17.216,
+  "sharpe": 1.615,
+  "final_equity": 1288545.77,
+  "boot_p50": 32.036,
+  "boot_p05": 29.979,
+  "random_p50": -2.78,
+  "beat_random": true,
+  "verdict": "PASS",
+  "n_wf": 71,
+  "phi": "phi_xm_micro.json",
+  "data": "HistData H1 2008-2023 NY7 + 2024-2026 m5/duka",
+  "params_sample": [
+    {
+      "qs": "2009-04-01",
+      "slm": 0.75,
+      "tpm": 1.0,
+      "train_cagr": 1.1863
+    },
+    {
+      "qs": "2009-07-01",
+      "slm": 0.75,
+      "tpm": 1.0,
+      "train_cagr": 1.3054
+    },
+    {
+      "qs": "2009-10-01",
+      "slm": 0.75,
+      "tpm": 1.0,
+      "train_cagr": 1.4326
+    },
+    {
+      "qs": "2010-01-01",
+      "slm": 0.75,
+      "tpm": 1.5,
+      "train_cagr": 0.9736
+    },
+    {
+      "qs": "2010-04-01",
+      "slm": 0.75,
+      "tpm": 1.0,
+      "train_cagr": 0.5711
+    },
+    {
+      "qs": "2026-04-01",
+      "slm": 0.75,
+      "tpm": 0.75,
+      "train_cagr": 0.8299
+    },
+    {
+      "qs": "2026-07-01",
+      "slm": 0.75,
+      "tpm": 0.75,
+      "train_cagr": 0.4995
+    },
+    {
+      "qs": "2026-10-01",
+      "slm": 0.75,
+      "tpm": 1.0,
+      "train_cagr": 0.36
+    }
+  ]
+}

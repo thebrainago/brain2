@@ -1,0 +1,222 @@
+{
+  "asof": "2026-11-09 23:58:41",
+  "zone": "Asia/Bangkok",
+  "id": "122467834",
+  "name": "Tendency Forex",
+  "symbol": "EURUSD",
+  "cong0": {
+    "n": 380,
+    "years": 2.565,
+    "hang": "don_le",
+    "edge_cost": 1.6812685066024227,
+    "net_E_price": 0.0002162736062866636,
+    "CAGR_ff": 40.97732671407801,
+    "DD_ff": 12.274220698317839,
+    "ket_luan": "PASS"
+  },
+  "n_feat": 380,
+  "entry_session_et": {
+    "ny_et": 125,
+    "ny_aft": 45,
+    "asia": 92,
+    "london_et": 118
+  },
+  "hold_med_h": 6.488,
+  "rules": [
+    {
+      "family": "fade_bb",
+      "match_pct": 78.12,
+      "ok": 25,
+      "tot": 32
+    },
+    {
+      "family": "fade_H12",
+      "match_pct": 73.16,
+      "ok": 169,
+      "tot": 231
+    },
+    {
+      "family": "dopen_rev",
+      "match_pct": 65.61,
+      "ok": 248,
+      "tot": 378
+    },
+    {
+      "family": "fade_D1",
+      "match_pct": 61.75,
+      "ok": 176,
+      "tot": 285
+    },
+    {
+      "family": "fade_rsi",
+      "match_pct": 60.61,
+      "ok": 100,
+      "tot": 165
+    },
+    {
+      "family": "fade_H4",
+      "match_pct": 56.35,
+      "ok": 173,
+      "tot": 307
+    },
+    {
+      "family": "fade_H1",
+      "match_pct": 55.4,
+      "ok": 195,
+      "tot": 352
+    },
+    {
+      "family": "ma20_50",
+      "match_pct": 53.95,
+      "ok": 205,
+      "tot": 380
+    },
+    {
+      "family": "ma200",
+      "match_pct": 51.32,
+      "ok": 195,
+      "tot": 380
+    },
+    {
+      "family": "mid_H4",
+      "match_pct": 46.05,
+      "ok": 175,
+      "tot": 380
+    },
+    {
+      "family": "mid_H1",
+      "match_pct": 44.74,
+      "ok": 170,
+      "tot": 380
+    },
+    {
+      "family": "breakout_H4",
+      "match_pct": 44.1,
+      "ok": 71,
+      "tot": 161
+    },
+    {
+      "family": "breakout_H1",
+      "match_pct": 43.69,
+      "ok": 128,
+      "tot": 293
+    },
+    {
+      "family": "mid_D1",
+      "match_pct": 41.58,
+      "ok": 158,
+      "tot": 380
+    },
+    {
+      "family": "mid_H12",
+      "match_pct": 35.53,
+      "ok": 135,
+      "tot": 380
+    },
+    {
+      "family": "dopen_cont",
+      "match_pct": 34.39,
+      "ok": 130,
+      "tot": 378
+    },
+    {
+      "family": "breakout_D1",
+      "match_pct": 24.82,
+      "ok": 35,
+      "tot": 141
+    }
+  ],
+  "rules_ge_60": [
+    {
+      "family": "fade_bb",
+      "match_pct": 78.12,
+      "ok": 25,
+      "tot": 32
+    },
+    {
+      "family": "fade_H12",
+      "match_pct": 73.16,
+      "ok": 169,
+      "tot": 231
+    },
+    {
+      "family": "dopen_rev",
+      "match_pct": 65.61,
+      "ok": 248,
+      "tot": 378
+    },
+    {
+      "family": "fade_D1",
+      "match_pct": 61.75,
+      "ok": 176,
+      "tot": 285
+    },
+    {
+      "family": "fade_rsi",
+      "match_pct": 60.61,
+      "ok": 100,
+      "tot": 165
+    }
+  ],
+  "v1": {
+    "ma200": {
+      "verdict": "REJECT",
+      "rule": "ma200",
+      "CAGR": -28.355,
+      "DD": 60.119,
+      "n_oos": 644,
+      "windows": 11,
+      "years": 2.757,
+      "V_final": 3988.1,
+      "random_p50": -33.194,
+      "beat_random": true
+    },
+    "ma20_50": {
+      "verdict": "REJECT",
+      "rule": "ma20_50",
+      "CAGR": -21.874,
+      "DD": 50.441,
+      "n_oos": 626,
+      "windows": 11,
+      "years": 2.757,
+      "V_final": 5063.5,
+      "random_p50": -33.197,
+      "beat_random": true
+    },
+    "brk_h1": {
+      "verdict": "REJECT",
+      "rule": "brk_h1",
+      "CAGR": -26.103,
+      "DD": 58.344,
+      "n_oos": 528,
+      "windows": 11,
+      "years": 2.756,
+      "V_final": 4344.4,
+      "random_p50": -28.113,
+      "beat_random": true
+    },
+    "fade_H12": {
+      "verdict": "REJECT",
+      "rule": "fade_H12",
+      "CAGR": -17.427,
+      "DD": 34.868,
+      "n_oos": 440,
+      "windows": 8,
+      "years": 2.006,
+      "random_p50": -32.175,
+      "beat_random": true
+    },
+    "dopen_rev": {
+      "verdict": "REJECT",
+      "rule": "dopen_rev",
+      "CAGR": -27.137,
+      "DD": 49.846,
+      "n_oos": 464,
+      "windows": 8,
+      "years": 2.006,
+      "random_p50": -31.168,
+      "beat_random": true
+    }
+  },
+  "note": "H1 HistData 2018-2023 (+server 2024); trades 2019-02→2021-09; ET→Athens align"
+}

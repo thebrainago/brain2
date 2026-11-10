@@ -1,0 +1,4 @@
+import json,glob
+for f in sorted(glob.glob('/workspace/brain2/reports/v3/*/v3a_*_ket_qua_py.json')):
+    t=json.load(open(f)); o=t['oos']; g=t['cong_phi']; b=o['luot_B_von_moi_2024']; dc=t.get('doi_chieu_csv_cu') or {}
+    print(f"{t['he']:9} {t['bien_the']:8} {t['ma']}{t['khung']} A:CAGR {o['toan_ky'].get('cagr_pct'):>7} DD {o['toan_ky'].get('dd_pct'):>6} chay={t['chay']} so={t['so_stop_out']} ngay={t['ngay_stop_out_dau']} | 09-23 {o['2009_2023'].get('cagr_pct')}/{o['2009_2023'].get('dd_pct')} | B {b.get('cagr_pct')}/{b.get('dd_pct')} so={b.get('so_stop_out')} | BH {t['mua_giu_1x']['cagr_pct']} | phi {g.get('ket_luan')} e/c={g.get('edge_cost_ratio')} netE={g.get('net_E_usd')} | ro={t['so_ro']} hetgio={t['so_het_gio']} catlo={t['so_cat_lo']} quy {t['quy']} mua%={t['mua_pct_csv']} csv={t['so_dong_csv']} khop={dc.get('trung_pct_cua_cu')}/{dc.get('trung_pct_cua_moi')} dat={t['dat_python']}")

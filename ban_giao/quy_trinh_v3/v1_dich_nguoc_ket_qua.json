@@ -1,0 +1,947 @@
+{
+  "grid_recount_summary": {
+    "don_le": 8,
+    "luoi": 65,
+    "khong_file": 1,
+    "pyramid": 9,
+    "martingale": 4,
+    "n": 83
+  },
+  "kivenara_meta": {
+    "n": 664,
+    "buy_pct": 55.72,
+    "entry": "18:30 luôn (664/664)",
+    "sl_med": 100.0,
+    "tp_med": 165.0,
+    "hold_med_h": 3.062,
+    "exit_comment": {
+      "[sl]": 645,
+      "[tp]": 9,
+      "": 10
+    },
+    "range": [
+      "2024-02-21 18:30:00",
+      "2026-11-06 18:30:00"
+    ],
+    "best_h1": {
+      "he": "2229059",
+      "rule": "h1_off3_sma50",
+      "khung": "H1",
+      "match": 0.9019,
+      "ok": 533,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 3
+    }
+  },
+  "kivenara_rules": [
+    {
+      "he": "2229059",
+      "rule": "d1_prior_bull",
+      "khung": "D1",
+      "match": 0.637,
+      "ok": 423,
+      "tot": 664,
+      "accept": true
+    },
+    {
+      "he": "2229059",
+      "rule": "d1_close_gt_prior",
+      "khung": "D1",
+      "match": 0.631,
+      "ok": 419,
+      "tot": 664,
+      "accept": true
+    },
+    {
+      "he": "2229059",
+      "rule": "d1_close_gt_sma10",
+      "khung": "D1",
+      "match": 0.5994,
+      "ok": 398,
+      "tot": 664,
+      "accept": false
+    },
+    {
+      "he": "2229059",
+      "rule": "d1_close_gt_sma20",
+      "khung": "D1",
+      "match": 0.5873,
+      "ok": 390,
+      "tot": 664,
+      "accept": false
+    },
+    {
+      "he": "2229059",
+      "rule": "d1_close_gt_sma50",
+      "khung": "D1",
+      "match": 0.5753,
+      "ok": 382,
+      "tot": 664,
+      "accept": false
+    },
+    {
+      "he": "2229059",
+      "rule": "d1_sma10_gt_sma20",
+      "khung": "D1",
+      "match": 0.5467,
+      "ok": 363,
+      "tot": 664,
+      "accept": false
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off0_sma50",
+      "khung": "H1",
+      "match": 0.8511,
+      "ok": 503,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 0
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off0_sma20",
+      "khung": "H1",
+      "match": 0.753,
+      "ok": 445,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 0
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off0_bull",
+      "khung": "H1",
+      "match": 0.5228,
+      "ok": 309,
+      "tot": 591,
+      "accept": false,
+      "broker_utc_off_h": 0
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off0_vs_prev",
+      "khung": "H1",
+      "match": 0.5313,
+      "ok": 314,
+      "tot": 591,
+      "accept": false,
+      "broker_utc_off_h": 0
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off1_sma50",
+      "khung": "H1",
+      "match": 0.8613,
+      "ok": 509,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 1
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off1_sma20",
+      "khung": "H1",
+      "match": 0.7716,
+      "ok": 456,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 1
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off1_bull",
+      "khung": "H1",
+      "match": 0.5787,
+      "ok": 342,
+      "tot": 591,
+      "accept": false,
+      "broker_utc_off_h": 1
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off1_vs_prev",
+      "khung": "H1",
+      "match": 0.5787,
+      "ok": 342,
+      "tot": 591,
+      "accept": false,
+      "broker_utc_off_h": 1
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off2_sma50",
+      "khung": "H1",
+      "match": 0.89,
+      "ok": 526,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 2
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off2_sma20",
+      "khung": "H1",
+      "match": 0.7563,
+      "ok": 447,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 2
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off2_bull",
+      "khung": "H1",
+      "match": 0.5398,
+      "ok": 319,
+      "tot": 591,
+      "accept": false,
+      "broker_utc_off_h": 2
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off2_vs_prev",
+      "khung": "H1",
+      "match": 0.5347,
+      "ok": 316,
+      "tot": 591,
+      "accept": false,
+      "broker_utc_off_h": 2
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off3_sma50",
+      "khung": "H1",
+      "match": 0.9019,
+      "ok": 533,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 3
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off3_sma20",
+      "khung": "H1",
+      "match": 0.7919,
+      "ok": 468,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 3
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off3_bull",
+      "khung": "H1",
+      "match": 0.6159,
+      "ok": 364,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 3
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off3_vs_prev",
+      "khung": "H1",
+      "match": 0.6261,
+      "ok": 370,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 3
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off4_sma50",
+      "khung": "H1",
+      "match": 0.8629,
+      "ok": 510,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 4
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off4_sma20",
+      "khung": "H1",
+      "match": 0.7953,
+      "ok": 470,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 4
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off4_bull",
+      "khung": "H1",
+      "match": 0.6717,
+      "ok": 397,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 4
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off4_vs_prev",
+      "khung": "H1",
+      "match": 0.6717,
+      "ok": 397,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 4
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off5_sma50",
+      "khung": "H1",
+      "match": 0.775,
+      "ok": 458,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 5
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off5_sma20",
+      "khung": "H1",
+      "match": 0.6836,
+      "ok": 404,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 5
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off5_bull",
+      "khung": "H1",
+      "match": 0.6041,
+      "ok": 357,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 5
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off5_vs_prev",
+      "khung": "H1",
+      "match": 0.6091,
+      "ok": 360,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 5
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off6_sma50",
+      "khung": "H1",
+      "match": 0.7343,
+      "ok": 434,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 6
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off6_sma20",
+      "khung": "H1",
+      "match": 0.6548,
+      "ok": 387,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 6
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off6_bull",
+      "khung": "H1",
+      "match": 0.5398,
+      "ok": 319,
+      "tot": 591,
+      "accept": false,
+      "broker_utc_off_h": 6
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off6_vs_prev",
+      "khung": "H1",
+      "match": 0.5398,
+      "ok": 319,
+      "tot": 591,
+      "accept": false,
+      "broker_utc_off_h": 6
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off7_sma50",
+      "khung": "H1",
+      "match": 0.7157,
+      "ok": 423,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 7
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off7_sma20",
+      "khung": "H1",
+      "match": 0.6464,
+      "ok": 382,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 7
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off7_bull",
+      "khung": "H1",
+      "match": 0.5465,
+      "ok": 323,
+      "tot": 591,
+      "accept": false,
+      "broker_utc_off_h": 7
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off7_vs_prev",
+      "khung": "H1",
+      "match": 0.5465,
+      "ok": 323,
+      "tot": 591,
+      "accept": false,
+      "broker_utc_off_h": 7
+    }
+  ],
+  "kivenara_accepted": [
+    {
+      "he": "2229059",
+      "rule": "h1_off3_sma50",
+      "khung": "H1",
+      "match": 0.9019,
+      "ok": 533,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 3
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off2_sma50",
+      "khung": "H1",
+      "match": 0.89,
+      "ok": 526,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 2
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off4_sma50",
+      "khung": "H1",
+      "match": 0.8629,
+      "ok": 510,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 4
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off1_sma50",
+      "khung": "H1",
+      "match": 0.8613,
+      "ok": 509,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 1
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off0_sma50",
+      "khung": "H1",
+      "match": 0.8511,
+      "ok": 503,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 0
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off4_sma20",
+      "khung": "H1",
+      "match": 0.7953,
+      "ok": 470,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 4
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off3_sma20",
+      "khung": "H1",
+      "match": 0.7919,
+      "ok": 468,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 3
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off5_sma50",
+      "khung": "H1",
+      "match": 0.775,
+      "ok": 458,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 5
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off1_sma20",
+      "khung": "H1",
+      "match": 0.7716,
+      "ok": 456,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 1
+    },
+    {
+      "he": "2229059",
+      "rule": "h1_off2_sma20",
+      "khung": "H1",
+      "match": 0.7563,
+      "ok": 447,
+      "tot": 591,
+      "accept": true,
+      "broker_utc_off_h": 2
+    }
+  ],
+  "mca_meta": {
+    "n": 428,
+    "n_all": 433,
+    "buy_pct": 88.32,
+    "sl_med": 6.85,
+    "tp_med": 8.54,
+    "hold_med_h": 0.425,
+    "range": [
+      "2023-11-15 09:39:03",
+      "2026-11-05 03:12:16"
+    ],
+    "pending_raw": {
+      "BuyStop": 274,
+      "SellStop": 104,
+      "BuyLimit": 17
+    }
+  },
+  "mca_rules": [
+    {
+      "he": "2153920",
+      "rule": "h1_close_gt_sma20",
+      "khung": "H1",
+      "match": 0.9813,
+      "ok": 420,
+      "tot": 428,
+      "accept": true
+    },
+    {
+      "he": "2153920",
+      "rule": "h1_close_gt_sma50",
+      "khung": "H1",
+      "match": 0.986,
+      "ok": 422,
+      "tot": 428,
+      "accept": true
+    },
+    {
+      "he": "2153920",
+      "rule": "h1_bull_bar",
+      "khung": "H1",
+      "match": 0.8715,
+      "ok": 373,
+      "tot": 428,
+      "accept": true
+    },
+    {
+      "he": "2153920",
+      "rule": "h1_close_gt_prior",
+      "khung": "H1",
+      "match": 0.8762,
+      "ok": 375,
+      "tot": 428,
+      "accept": true
+    },
+    {
+      "he": "2153920",
+      "rule": "always_buy_baseline",
+      "khung": "meta",
+      "match": 0.8832,
+      "ok": 378,
+      "tot": 428,
+      "accept": true,
+      "note": "không phải luật vào lệnh 2 chiều"
+    },
+    {
+      "he": "2153920",
+      "rule": "entry_near_priorD1_extreme_tol1.0",
+      "khung": "D1",
+      "match": 0.222,
+      "ok": 95,
+      "tot": 428,
+      "accept": false,
+      "note": "cấu trúc giá vào vs cực trị D1 trước"
+    },
+    {
+      "he": "2153920",
+      "rule": "entry_near_priorD1_extreme_tol2.0",
+      "khung": "D1",
+      "match": 0.2944,
+      "ok": 126,
+      "tot": 428,
+      "accept": false,
+      "note": "cấu trúc giá vào vs cực trị D1 trước"
+    },
+    {
+      "he": "2153920",
+      "rule": "entry_near_priorD1_extreme_tol5.0",
+      "khung": "D1",
+      "match": 0.4159,
+      "ok": 178,
+      "tot": 428,
+      "accept": false,
+      "note": "cấu trúc giá vào vs cực trị D1 trước"
+    },
+    {
+      "he": "2153920",
+      "rule": "entry_near_priorD1_extreme_tol10.0",
+      "khung": "D1",
+      "match": 0.5981,
+      "ok": 256,
+      "tot": 428,
+      "accept": false,
+      "note": "cấu trúc giá vào vs cực trị D1 trước"
+    },
+    {
+      "he": "2153920",
+      "rule": "entry_near_priorH1_extreme_tol0.5",
+      "khung": "H1",
+      "match": 0.1192,
+      "ok": 51,
+      "tot": 428,
+      "accept": false
+    },
+    {
+      "he": "2153920",
+      "rule": "entry_near_priorH1_extreme_tol1.0",
+      "khung": "H1",
+      "match": 0.1659,
+      "ok": 71,
+      "tot": 428,
+      "accept": false
+    },
+    {
+      "he": "2153920",
+      "rule": "entry_near_priorH1_extreme_tol2.0",
+      "khung": "H1",
+      "match": 0.278,
+      "ok": 119,
+      "tot": 428,
+      "accept": false
+    },
+    {
+      "he": "2153920",
+      "rule": "entry_near_priorH1_extreme_tol5.0",
+      "khung": "H1",
+      "match": 0.4907,
+      "ok": 210,
+      "tot": 428,
+      "accept": false
+    },
+    {
+      "he": "2153920",
+      "rule": "regen_D1break_off0.0_dir+time±2h",
+      "khung": "D1",
+      "match": 0.4907,
+      "ok": 210,
+      "tot": 428,
+      "accept": false
+    },
+    {
+      "he": "2153920",
+      "rule": "regen_D1break_off0.5_dir+time±2h",
+      "khung": "D1",
+      "match": 0.5,
+      "ok": 214,
+      "tot": 428,
+      "accept": false
+    },
+    {
+      "he": "2153920",
+      "rule": "regen_D1break_off1.0_dir+time±2h",
+      "khung": "D1",
+      "match": 0.5257,
+      "ok": 225,
+      "tot": 428,
+      "accept": false
+    },
+    {
+      "he": "2153920",
+      "rule": "regen_D1break_off2.0_dir+time±2h",
+      "khung": "D1",
+      "match": 0.535,
+      "ok": 229,
+      "tot": 428,
+      "accept": false
+    },
+    {
+      "he": "2153920",
+      "rule": "regen_D1break_off5.0_dir+time±2h",
+      "khung": "D1",
+      "match": 0.5561,
+      "ok": 238,
+      "tot": 428,
+      "accept": false
+    },
+    {
+      "he": "2153920",
+      "rule": "regen_D1break_off0.0_dir_only",
+      "khung": "D1",
+      "match": 0.8808,
+      "ok": 377,
+      "tot": 428,
+      "accept": true
+    },
+    {
+      "he": "2153920",
+      "rule": "regen_D1break_off1.0_dir_only",
+      "khung": "D1",
+      "match": 0.8925,
+      "ok": 382,
+      "tot": 428,
+      "accept": true
+    },
+    {
+      "he": "2153920",
+      "rule": "regen_D1break_off5.0_dir_only",
+      "khung": "D1",
+      "match": 0.9108,
+      "ok": 388,
+      "tot": 426,
+      "accept": true
+    }
+  ],
+  "mca_accepted": [
+    {
+      "he": "2153920",
+      "rule": "h1_close_gt_sma50",
+      "khung": "H1",
+      "match": 0.986,
+      "ok": 422,
+      "tot": 428,
+      "accept": true
+    },
+    {
+      "he": "2153920",
+      "rule": "h1_close_gt_sma20",
+      "khung": "H1",
+      "match": 0.9813,
+      "ok": 420,
+      "tot": 428,
+      "accept": true
+    },
+    {
+      "he": "2153920",
+      "rule": "regen_D1break_off5.0_dir_only",
+      "khung": "D1",
+      "match": 0.9108,
+      "ok": 388,
+      "tot": 426,
+      "accept": true
+    },
+    {
+      "he": "2153920",
+      "rule": "regen_D1break_off1.0_dir_only",
+      "khung": "D1",
+      "match": 0.8925,
+      "ok": 382,
+      "tot": 428,
+      "accept": true
+    },
+    {
+      "he": "2153920",
+      "rule": "regen_D1break_off0.0_dir_only",
+      "khung": "D1",
+      "match": 0.8808,
+      "ok": 377,
+      "tot": 428,
+      "accept": true
+    },
+    {
+      "he": "2153920",
+      "rule": "h1_close_gt_prior",
+      "khung": "H1",
+      "match": 0.8762,
+      "ok": 375,
+      "tot": 428,
+      "accept": true
+    },
+    {
+      "he": "2153920",
+      "rule": "h1_bull_bar",
+      "khung": "H1",
+      "match": 0.8715,
+      "ok": 373,
+      "tot": 428,
+      "accept": true
+    }
+  ],
+  "friday_bh": {
+    "GBPJPY": {
+      "n": 162,
+      "years": 3.249,
+      "buy_pct": 100.0,
+      "bh_price_ret_pct": 17.111,
+      "bh_price_cagr_pct": 4.981,
+      "bh_after_swap_cagr_pct": 5.755,
+      "swap_long_drag_pct_of_mid": 2.6062,
+      "sys_net_broker_usd": 245.28,
+      "px0": 181.35,
+      "px1": 212.38,
+      "note": "B&H ĐO từ giá open lệnh đầu → close lệnh cuối CSV; swap liên tục 1 lot theo phi XM/chi_phi_do"
+    },
+    "USDJPY": {
+      "n": 158,
+      "years": 3.218,
+      "buy_pct": 100.0,
+      "bh_price_ret_pct": 10.137,
+      "bh_price_cagr_pct": 3.046,
+      "bh_after_swap_cagr_pct": 3.752,
+      "swap_long_drag_pct_of_mid": 2.328,
+      "sys_net_broker_usd": 414.5,
+      "px0": 141.84,
+      "px1": 156.218,
+      "note": "B&H ĐO từ giá open lệnh đầu → close lệnh cuối CSV; swap liên tục 1 lot theo phi XM/chi_phi_do"
+    },
+    "ALL": {
+      "n": 321,
+      "buy_pct": 99.69,
+      "hang": "pyramid",
+      "max_cung": 5,
+      "ket_luan": "buy%≈100% → gần buy-and-hold có chọn lọc; so với B&H sau swap xem sym"
+    }
+  },
+  "v1": {
+    "kivenara_h1": {
+      "rule": "h1_close_gt_sma50 @18:30 broker(GMT+3)",
+      "match_rule": "h1_off3_sma50",
+      "n_oos_trades": 486,
+      "years": 2.1,
+      "trades_per_yr": 231.46,
+      "cagr_pct": -9.33,
+      "dd_pct": 29.815,
+      "sharpe": -0.49,
+      "final_equity": 8141.2,
+      "boot_cagr_p50_pct": -10.444,
+      "boot_cagr_p05_pct": -38.268,
+      "random_entry_cagr_p50_pct": -7.493,
+      "random_entry_cagr_p95_pct": 17.334,
+      "beat_random": false,
+      "verdict": "REJECT",
+      "phi_nguon": "chi_phi_do:US100+spread_bar|san=FXCE",
+      "n_wf_windows": 9,
+      "param_hist": [
+        {
+          "qs": "2024-10-01",
+          "slm": 0.75,
+          "tpm": 1.25,
+          "trail": false,
+          "train_cagr": 1.096
+        },
+        {
+          "qs": "2025-01-01",
+          "slm": 1.0,
+          "tpm": 1.0,
+          "trail": false,
+          "train_cagr": 0.7407
+        },
+        {
+          "qs": "2025-04-01",
+          "slm": 1.0,
+          "tpm": 1.0,
+          "trail": false,
+          "train_cagr": 0.4469
+        },
+        {
+          "qs": "2025-07-01",
+          "slm": 1.25,
+          "tpm": 1.0,
+          "trail": false,
+          "train_cagr": 0.167
+        },
+        {
+          "qs": "2025-10-01",
+          "slm": 0.75,
+          "tpm": 1.0,
+          "trail": false,
+          "train_cagr": 0.0199
+        },
+        {
+          "qs": "2026-01-01",
+          "slm": 0.75,
+          "tpm": 0.75,
+          "trail": true,
+          "train_cagr": 0.0225
+        },
+        {
+          "qs": "2026-04-01",
+          "slm": 1.25,
+          "tpm": 1.5,
+          "trail": false,
+          "train_cagr": 0.0609
+        },
+        {
+          "qs": "2026-07-01",
+          "slm": 0.75,
+          "tpm": 1.5,
+          "trail": false,
+          "train_cagr": 0.4834
+        }
+      ],
+      "hold_cap_days": 30,
+      "note": "NQ=F H1 proxy US100; WF12/3; risk1%; XM cost từ chi_phi_do+spread_bar"
+    },
+    "kivenara_d1": {
+      "rule": "d1_prior_bull",
+      "n_oos_trades": 1015,
+      "years": 17.509,
+      "trades_per_yr": 57.97,
+      "cagr_pct": -5.543,
+      "dd_pct": 73.307,
+      "sharpe": -0.414,
+      "final_equity": 3684.29,
+      "boot_cagr_p50_pct": -5.475,
+      "boot_cagr_p05_pct": -19.48,
+      "random_entry_cagr_p50_pct": -2.476,
+      "random_entry_cagr_p95_pct": -0.548,
+      "beat_random": false,
+      "verdict": "REJECT",
+      "phi_nguon": "chi_phi_do:US100+spread_bar|san=FXCE",
+      "n_wf_windows": 71,
+      "note": "D1 NQ=F proxy US100 2008–2026; WF12/3; risk1%; hold_cap30d; XM cost"
+    },
+    "mca100": {
+      "rule": "XAU_D1_breakout_off5.0_SL6.85_TP8.54",
+      "n_oos_trades": 1339,
+      "years": 16.503,
+      "trades_per_yr": 81.14,
+      "cagr_pct": -7.077,
+      "dd_pct": 72.54,
+      "sharpe": -0.68,
+      "final_equity": 2978.24,
+      "boot_cagr_p50_pct": -6.934,
+      "boot_cagr_p05_pct": -21.59,
+      "random_entry_cagr_p50_pct": -2.834,
+      "random_entry_cagr_p95_pct": -1.029,
+      "beat_random": false,
+      "verdict": "REJECT",
+      "phi_nguon": "phi_xm_micro.json",
+      "n_wf_windows": 67,
+      "note": "XAU H1 2009–2026; WF12/3; risk1%; hold_cap30d; XM phi_xm_micro"
+    }
+  }
+}

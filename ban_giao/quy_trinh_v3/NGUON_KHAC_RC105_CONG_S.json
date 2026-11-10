@@ -1,0 +1,1305 @@
+{
+  "asof": "2026-11-09 23:40:17",
+  "tz_report": "Asia/Bangkok",
+  "trade_times_labeled": "Open Time ET (America/New_York)",
+  "h1_align": "ET → Europe/Athens naive for ny7/server H1",
+  "c2_description": "This strategy is mainly to trade major pairs such as EURUSD, GBPUSD, AUDUSD, NZDUSD, USDCAD, USDCHF, and USDJPY. This strategy has a Medium Risk with… (truncated; no explicit entry rule on page)",
+  "c2_author": "KishoreRamaraju3",
+  "started": "Jan 2023",
+  "n": 724,
+  "hold_h": {
+    "med": 4.416,
+    "p10": 0.483,
+    "p90": 82.893,
+    "mean": 95.945
+  },
+  "buy_pct": 54.14,
+  "sl_pct": 0.0,
+  "tp_pct": 0.0,
+  "entry_hour_et": {
+    "0": 10,
+    "1": 19,
+    "2": 24,
+    "3": 35,
+    "4": 15,
+    "5": 24,
+    "6": 35,
+    "7": 82,
+    "8": 119,
+    "9": 101,
+    "10": 48,
+    "11": 21,
+    "12": 29,
+    "13": 22,
+    "14": 18,
+    "15": 8,
+    "16": 3,
+    "17": 10,
+    "18": 9,
+    "19": 16,
+    "20": 19,
+    "21": 17,
+    "22": 18,
+    "23": 22
+  },
+  "exit_hour_et": {
+    "0": 16,
+    "1": 11,
+    "2": 11,
+    "3": 19,
+    "4": 10,
+    "5": 20,
+    "6": 19,
+    "7": 51,
+    "8": 76,
+    "9": 72,
+    "10": 65,
+    "11": 51,
+    "12": 53,
+    "13": 44,
+    "14": 39,
+    "15": 29,
+    "16": 35,
+    "17": 12,
+    "18": 10,
+    "19": 9,
+    "20": 15,
+    "21": 20,
+    "22": 17,
+    "23": 20
+  },
+  "entry_dow": {
+    "0": 133,
+    "1": 139,
+    "2": 144,
+    "3": 168,
+    "4": 114,
+    "6": 26
+  },
+  "entry_session_et": {
+    "ny_et": 289,
+    "asia_et": 154,
+    "ny_aft_et": 90,
+    "london_et": 191
+  },
+  "per_symbol": [
+    {
+      "symbol": "EURUSD",
+      "n": 73,
+      "hold_med_h": 4.633,
+      "buy_pct": 47.9,
+      "entry_hour_peak": [
+        [
+          9,
+          15
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          7,
+          9
+        ]
+      ],
+      "session": {
+        "asia_et": 13,
+        "ny_et": 34,
+        "london_et": 19,
+        "ny_aft_et": 7
+      },
+      "hang": "don_le",
+      "ket_luan": "PASS",
+      "edge_cost": 4.795545393791495,
+      "net_E": 0.0011773659447553183,
+      "years": 2.457
+    },
+    {
+      "symbol": "GBPUSD",
+      "n": 58,
+      "hold_med_h": 3.254,
+      "buy_pct": 51.7,
+      "entry_hour_peak": [
+        [
+          9,
+          13
+        ],
+        [
+          8,
+          8
+        ],
+        [
+          3,
+          6
+        ]
+      ],
+      "session": {
+        "ny_et": 26,
+        "london_et": 14,
+        "ny_aft_et": 5,
+        "asia_et": 13
+      },
+      "hang": "don_le",
+      "ket_luan": "PASS",
+      "edge_cost": 2.470398276180379,
+      "net_E": 0.0007635068736907913,
+      "years": 2.556
+    },
+    {
+      "symbol": "USDJPY",
+      "n": 49,
+      "hold_med_h": 3.393,
+      "buy_pct": 51.0,
+      "entry_hour_peak": [
+        [
+          9,
+          8
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          8,
+          5
+        ]
+      ],
+      "session": {
+        "ny_et": 18,
+        "ny_aft_et": 4,
+        "asia_et": 13,
+        "london_et": 14
+      },
+      "hang": "don_le",
+      "ket_luan": "PASS",
+      "edge_cost": 2.594589689599881,
+      "net_E": 0.08658421962583869,
+      "years": 2.377
+    },
+    {
+      "symbol": "NZDUSD",
+      "n": 45,
+      "hold_med_h": 5.205,
+      "buy_pct": 42.2,
+      "entry_hour_peak": [
+        [
+          8,
+          9
+        ],
+        [
+          9,
+          7
+        ],
+        [
+          19,
+          4
+        ]
+      ],
+      "session": {
+        "asia_et": 10,
+        "ny_aft_et": 8,
+        "ny_et": 20,
+        "london_et": 7
+      },
+      "hang": "don_le",
+      "ket_luan": "REJECT",
+      "edge_cost": 1.0129750500788617,
+      "net_E": 6.802924971912976e-06,
+      "years": 2.454
+    },
+    {
+      "symbol": "USDCAD",
+      "n": 45,
+      "hold_med_h": 4.364,
+      "buy_pct": 44.4,
+      "entry_hour_peak": [
+        [
+          8,
+          13
+        ],
+        [
+          9,
+          8
+        ],
+        [
+          7,
+          6
+        ]
+      ],
+      "session": {
+        "ny_et": 27,
+        "london_et": 9,
+        "ny_aft_et": 2,
+        "asia_et": 7
+      },
+      "hang": "don_le",
+      "ket_luan": "REJECT",
+      "edge_cost": 0.412153717000918,
+      "net_E": -0.0008171313670217,
+      "years": 2.428
+    },
+    {
+      "symbol": "AUDUSD",
+      "n": 40,
+      "hold_med_h": 4.138,
+      "buy_pct": 70.0,
+      "entry_hour_peak": [
+        [
+          8,
+          9
+        ],
+        [
+          9,
+          6
+        ],
+        [
+          7,
+          4
+        ]
+      ],
+      "session": {
+        "ny_et": 19,
+        "ny_aft_et": 4,
+        "london_et": 11,
+        "asia_et": 6
+      },
+      "hang": "don_le",
+      "ket_luan": "REJECT",
+      "edge_cost": -1.097797538464021,
+      "net_E": -0.0010080075448958114,
+      "years": 2.612
+    },
+    {
+      "symbol": "GBPJPY",
+      "n": 40,
+      "hold_med_h": 5.271,
+      "buy_pct": 65.0,
+      "entry_hour_peak": [
+        [
+          7,
+          7
+        ],
+        [
+          8,
+          4
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "session": {
+        "asia_et": 9,
+        "ny_et": 10,
+        "london_et": 15,
+        "ny_aft_et": 6
+      },
+      "hang": "don_le",
+      "ket_luan": "REJECT",
+      "edge_cost": 10.821281507735279,
+      "net_E": 0.07665286446346647,
+      "years": 1.942
+    },
+    {
+      "symbol": "EURCAD",
+      "n": 35,
+      "hold_med_h": 6.246,
+      "buy_pct": 54.3,
+      "entry_hour_peak": [
+        [
+          8,
+          7
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          7,
+          4
+        ]
+      ],
+      "session": {
+        "london_et": 13,
+        "ny_et": 11,
+        "ny_aft_et": 3,
+        "asia_et": 8
+      },
+      "hang": "don_le",
+      "ket_luan": "REJECT",
+      "edge_cost": 1.68193887580137,
+      "net_E": 0.00030466526615057085,
+      "years": 2.133
+    },
+    {
+      "symbol": "GBPCAD",
+      "n": 29,
+      "hold_med_h": 5.628,
+      "buy_pct": 55.2,
+      "entry_hour_peak": [
+        [
+          8,
+          12
+        ],
+        [
+          7,
+          4
+        ],
+        [
+          9,
+          3
+        ]
+      ],
+      "session": {
+        "ny_et": 18,
+        "london_et": 5,
+        "ny_aft_et": 4,
+        "asia_et": 2
+      },
+      "hang": "don_le",
+      "ket_luan": "REJECT",
+      "edge_cost": 2.4829257180277753,
+      "net_E": 0.0009241724949792141,
+      "years": 2.353
+    },
+    {
+      "symbol": "USDCHF",
+      "n": 29,
+      "hold_med_h": 3.093,
+      "buy_pct": 55.2,
+      "entry_hour_peak": [
+        [
+          9,
+          6
+        ],
+        [
+          8,
+          3
+        ],
+        [
+          10,
+          3
+        ]
+      ],
+      "session": {
+        "ny_et": 13,
+        "asia_et": 5,
+        "ny_aft_et": 4,
+        "london_et": 7
+      },
+      "hang": "don_le",
+      "ket_luan": "REJECT",
+      "edge_cost": -2.156255837477822,
+      "net_E": -0.0005558304582751895,
+      "years": 2.275
+    },
+    {
+      "symbol": "AUDJPY",
+      "n": 28,
+      "hold_med_h": 3.27,
+      "buy_pct": 53.6,
+      "entry_hour_peak": [
+        [
+          7,
+          4
+        ],
+        [
+          9,
+          4
+        ],
+        [
+          13,
+          3
+        ]
+      ],
+      "session": {
+        "ny_aft_et": 7,
+        "asia_et": 4,
+        "london_et": 8,
+        "ny_et": 9
+      },
+      "hang": "don_le",
+      "ket_luan": "REJECT",
+      "edge_cost": 0.9304914092007441,
+      "net_E": 0.007626827854670832,
+      "years": 2.427
+    },
+    {
+      "symbol": "CADJPY",
+      "n": 27,
+      "hold_med_h": 4.702,
+      "buy_pct": 66.7,
+      "entry_hour_peak": [
+        [
+          7,
+          6
+        ],
+        [
+          8,
+          4
+        ],
+        [
+          10,
+          4
+        ]
+      ],
+      "session": {
+        "ny_et": 9,
+        "london_et": 10,
+        "asia_et": 3,
+        "ny_aft_et": 5
+      },
+      "hang": "don_le",
+      "ket_luan": "REJECT",
+      "edge_cost": 1.7952903005753003,
+      "net_E": 0.06274172828876323,
+      "years": 2.588
+    },
+    {
+      "symbol": "EURJPY",
+      "n": 26,
+      "hold_med_h": 2.011,
+      "buy_pct": 65.4,
+      "entry_hour_peak": [
+        [
+          8,
+          6
+        ],
+        [
+          10,
+          4
+        ],
+        [
+          7,
+          4
+        ]
+      ],
+      "session": {
+        "ny_et": 12,
+        "london_et": 8,
+        "asia_et": 4,
+        "ny_aft_et": 2
+      },
+      "hang": "don_le",
+      "ket_luan": "REJECT",
+      "edge_cost": -0.36199726474393923,
+      "net_E": -0.07603046854325687,
+      "years": 2.604
+    },
+    {
+      "symbol": "AUDNZD",
+      "n": 25,
+      "hold_med_h": 5.822,
+      "buy_pct": 36.0,
+      "entry_hour_peak": [
+        [
+          8,
+          5
+        ],
+        [
+          9,
+          3
+        ],
+        [
+          23,
+          3
+        ]
+      ],
+      "session": {
+        "ny_et": 10,
+        "asia_et": 7,
+        "london_et": 3,
+        "ny_aft_et": 5
+      },
+      "hang": "don_le",
+      "ket_luan": "REJECT",
+      "edge_cost": 0.38197659426389696,
+      "net_E": -0.00044655736122228737,
+      "years": 1.539
+    },
+    {
+      "symbol": "EURGBP",
+      "n": 22,
+      "hold_med_h": 1.857,
+      "buy_pct": 45.5,
+      "entry_hour_peak": [
+        [
+          12,
+          4
+        ],
+        [
+          9,
+          3
+        ],
+        [
+          7,
+          3
+        ]
+      ],
+      "session": {
+        "ny_et": 4,
+        "ny_aft_et": 5,
+        "london_et": 7,
+        "asia_et": 6
+      },
+      "hang": "don_le",
+      "ket_luan": "REJECT",
+      "edge_cost": -0.033376178611952016,
+      "net_E": -0.00026335627203279973,
+      "years": 1.575
+    },
+    {
+      "symbol": "CHFJPY",
+      "n": 18,
+      "hold_med_h": 6.875,
+      "buy_pct": 50.0,
+      "entry_hour_peak": [
+        [
+          22,
+          2
+        ],
+        [
+          8,
+          2
+        ],
+        [
+          9,
+          2
+        ]
+      ],
+      "session": {
+        "london_et": 4,
+        "ny_et": 5,
+        "asia_et": 6,
+        "ny_aft_et": 3
+      },
+      "hang": "don_le",
+      "ket_luan": "REJECT",
+      "edge_cost": 1.7654869783258307,
+      "net_E": 0.10028557987395807,
+      "years": 2.2
+    },
+    {
+      "symbol": "EURAUD",
+      "n": 17,
+      "hold_med_h": 8.491,
+      "buy_pct": 58.8,
+      "entry_hour_peak": [
+        [
+          0,
+          2
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "session": {
+        "asia_et": 7,
+        "london_et": 3,
+        "ny_et": 5,
+        "ny_aft_et": 2
+      },
+      "hang": "don_le",
+      "ket_luan": "REJECT",
+      "edge_cost": 1.4256146538134284,
+      "net_E": 0.0002975828142157305,
+      "years": 1.369
+    },
+    {
+      "symbol": "NZDJPY",
+      "n": 15,
+      "hold_med_h": 5.149,
+      "buy_pct": 40.0,
+      "entry_hour_peak": [
+        [
+          7,
+          4
+        ],
+        [
+          9,
+          2
+        ],
+        [
+          8,
+          2
+        ]
+      ],
+      "session": {
+        "ny_et": 5,
+        "asia_et": 2,
+        "london_et": 7,
+        "ny_aft_et": 1
+      },
+      "hang": "don_le",
+      "ket_luan": "REJECT",
+      "edge_cost": 2.7441226350589174,
+      "net_E": 0.10953244712963334,
+      "years": 2.427
+    },
+    {
+      "symbol": "AUDCAD",
+      "n": 15,
+      "hold_med_h": 3.751,
+      "buy_pct": 46.7,
+      "entry_hour_peak": [
+        [
+          22,
+          2
+        ],
+        [
+          8,
+          2
+        ],
+        [
+          13,
+          2
+        ]
+      ],
+      "session": {
+        "asia_et": 5,
+        "ny_et": 4,
+        "ny_aft_et": 3,
+        "london_et": 3
+      },
+      "hang": "don_le",
+      "ket_luan": "REJECT",
+      "edge_cost": 2.097342776597948,
+      "net_E": 0.000414475040717081,
+      "years": 1.254
+    }
+  ],
+  "feature_summary_all": {
+    "rsi": {
+      "med": 48.71986,
+      "mean": 48.81288
+    },
+    "dist_round": {
+      "med": 0.0003,
+      "mean": 0.0102
+    },
+    "atr": {
+      "med": 0.00105,
+      "mean": 0.02521
+    },
+    "rsi_buy_med": 52.98,
+    "rsi_sell_med": 44.31,
+    "pct_above_ma20": 50.6,
+    "pct_near_round": 36.5
+  },
+  "feature_summary_by_sym": {
+    "AUDUSD": {
+      "rsi": {
+        "med": 44.76744,
+        "mean": 47.35426
+      },
+      "dist_round": {
+        "med": 0.0002,
+        "mean": 0.00025
+      },
+      "atr": {
+        "med": 0.00092,
+        "mean": 0.00099
+      },
+      "rsi_buy_med": 49.92,
+      "rsi_sell_med": 39.58,
+      "pct_above_ma20": 52.4,
+      "pct_near_round": 57.1
+    },
+    "EURGBP": {
+      "rsi": {
+        "med": 42.58546,
+        "mean": 49.32519
+      },
+      "dist_round": {
+        "med": 0.0003,
+        "mean": 0.00028
+      },
+      "atr": {
+        "med": 0.00058,
+        "mean": 0.00063
+      },
+      "rsi_buy_med": 47.29,
+      "rsi_sell_med": 42.59,
+      "pct_above_ma20": 33.3,
+      "pct_near_round": 50.0
+    },
+    "EURUSD": {
+      "rsi": {
+        "med": 52.0339,
+        "mean": 50.7975
+      },
+      "dist_round": {
+        "med": 0.0003,
+        "mean": 0.00029
+      },
+      "atr": {
+        "med": 0.00097,
+        "mean": 0.0012
+      },
+      "rsi_buy_med": 52.49,
+      "rsi_sell_med": 52.03,
+      "pct_above_ma20": 56.1,
+      "pct_near_round": 34.1
+    },
+    "GBPUSD": {
+      "rsi": {
+        "med": 52.59843,
+        "mean": 49.78791
+      },
+      "dist_round": {
+        "med": 0.0003,
+        "mean": 0.00028
+      },
+      "atr": {
+        "med": 0.00135,
+        "mean": 0.00145
+      },
+      "rsi_buy_med": 53.84,
+      "rsi_sell_med": 49.27,
+      "pct_above_ma20": 48.0,
+      "pct_near_round": 44.0
+    },
+    "NZDUSD": {
+      "rsi": {
+        "med": 48.13216,
+        "mean": 50.1832
+      },
+      "dist_round": {
+        "med": 0.0004,
+        "mean": 0.00033
+      },
+      "atr": {
+        "med": 0.00098,
+        "mean": 0.00108
+      },
+      "rsi_buy_med": 53.64,
+      "rsi_sell_med": 47.17,
+      "pct_above_ma20": 50.0,
+      "pct_near_round": 15.4
+    },
+    "USDCAD": {
+      "rsi": {
+        "med": 41.49933,
+        "mean": 40.93638
+      },
+      "dist_round": {
+        "med": 0.0003,
+        "mean": 0.00033
+      },
+      "atr": {
+        "med": 0.00088,
+        "mean": 0.00096
+      },
+      "rsi_buy_med": 42.03,
+      "rsi_sell_med": 41.5,
+      "pct_above_ma20": 46.7,
+      "pct_near_round": 20.0
+    },
+    "USDCHF": {
+      "rsi": {
+        "med": 53.35821,
+        "mean": 46.17703
+      },
+      "dist_round": {
+        "med": 0.0002,
+        "mean": 0.00028
+      },
+      "atr": {
+        "med": 0.00104,
+        "mean": 0.0014
+      },
+      "rsi_buy_med": 55.08,
+      "rsi_sell_med": 34.58,
+      "pct_above_ma20": 33.3,
+      "pct_near_round": 55.6
+    },
+    "USDJPY": {
+      "rsi": {
+        "med": 49.56522,
+        "mean": 50.97089
+      },
+      "dist_round": {
+        "med": 0.109,
+        "mean": 0.11914
+      },
+      "atr": {
+        "med": 0.26221,
+        "mean": 0.28985
+      },
+      "rsi_buy_med": 62.37,
+      "rsi_sell_med": 32.69,
+      "pct_above_ma20": 61.5,
+      "pct_near_round": 38.5
+    }
+  },
+  "rule_families": [
+    {
+      "family": "above_below_ma200",
+      "match_pct": 78.21,
+      "ok": 122,
+      "tot": 156
+    },
+    {
+      "family": "session_breakout_H4",
+      "match_pct": 75.56,
+      "ok": 34,
+      "tot": 45
+    },
+    {
+      "family": "session_breakout_H4_lonNY",
+      "match_pct": 75.0,
+      "ok": 24,
+      "tot": 32
+    },
+    {
+      "family": "session_breakout_H1",
+      "match_pct": 73.02,
+      "ok": 46,
+      "tot": 63
+    },
+    {
+      "family": "session_breakout_H12_lonNY",
+      "match_pct": 72.0,
+      "ok": 18,
+      "tot": 25
+    },
+    {
+      "family": "session_breakout_H1_lonNY",
+      "match_pct": 71.74,
+      "ok": 33,
+      "tot": 46
+    },
+    {
+      "family": "session_breakout_D1_lonNY",
+      "match_pct": 69.77,
+      "ok": 30,
+      "tot": 43
+    },
+    {
+      "family": "session_breakout_H12",
+      "match_pct": 67.86,
+      "ok": 19,
+      "tot": 28
+    },
+    {
+      "family": "session_breakout_D1",
+      "match_pct": 67.31,
+      "ok": 35,
+      "tot": 52
+    },
+    {
+      "family": "ma_trend_20_50",
+      "match_pct": 66.67,
+      "ok": 104,
+      "tot": 156
+    },
+    {
+      "family": "breakout_or_mid_H1",
+      "match_pct": 63.46,
+      "ok": 99,
+      "tot": 156
+    },
+    {
+      "family": "breakout_or_mid_D1",
+      "match_pct": 62.18,
+      "ok": 97,
+      "tot": 156
+    },
+    {
+      "family": "breakout_or_mid_H12",
+      "match_pct": 61.54,
+      "ok": 96,
+      "tot": 156
+    },
+    {
+      "family": "breakout_or_mid_H4",
+      "match_pct": 60.26,
+      "ok": 94,
+      "tot": 156
+    },
+    {
+      "family": "ma_pullback_20_50",
+      "match_pct": 60.0,
+      "ok": 33,
+      "tot": 55
+    },
+    {
+      "family": "daily_open_continuation",
+      "match_pct": 58.97,
+      "ok": 92,
+      "tot": 156
+    },
+    {
+      "family": "round_number_fade",
+      "match_pct": 55.56,
+      "ok": 45,
+      "tot": 81
+    },
+    {
+      "family": "fade_extreme25_H12",
+      "match_pct": 41.11,
+      "ok": 37,
+      "tot": 90
+    },
+    {
+      "family": "daily_open_reversal",
+      "match_pct": 41.03,
+      "ok": 64,
+      "tot": 156
+    },
+    {
+      "family": "fade_extreme_H12",
+      "match_pct": 38.66,
+      "ok": 46,
+      "tot": 119
+    },
+    {
+      "family": "fade_extreme25_H4",
+      "match_pct": 38.1,
+      "ok": 40,
+      "tot": 105
+    },
+    {
+      "family": "fade_extreme_H4",
+      "match_pct": 37.8,
+      "ok": 48,
+      "tot": 127
+    },
+    {
+      "family": "fade_extreme_H1",
+      "match_pct": 35.07,
+      "ok": 47,
+      "tot": 134
+    },
+    {
+      "family": "fade_extreme_D1",
+      "match_pct": 34.96,
+      "ok": 43,
+      "tot": 123
+    },
+    {
+      "family": "fade_extreme25_D1",
+      "match_pct": 34.74,
+      "ok": 33,
+      "tot": 95
+    },
+    {
+      "family": "lonNY_fade_d1",
+      "match_pct": 34.38,
+      "ok": 33,
+      "tot": 96
+    },
+    {
+      "family": "fade_bollinger",
+      "match_pct": 34.04,
+      "ok": 16,
+      "tot": 47
+    },
+    {
+      "family": "fade_rsi35_65",
+      "match_pct": 33.33,
+      "ok": 24,
+      "tot": 72
+    },
+    {
+      "family": "fade_extreme25_H1",
+      "match_pct": 31.9,
+      "ok": 37,
+      "tot": 116
+    },
+    {
+      "family": "rsi_30_70",
+      "match_pct": 31.11,
+      "ok": 14,
+      "tot": 45
+    }
+  ],
+  "rule_best": {
+    "family": "above_below_ma200",
+    "match_pct": 78.21,
+    "ok": 122,
+    "tot": 156
+  },
+  "rules_ge_60": [
+    {
+      "family": "above_below_ma200",
+      "match_pct": 78.21,
+      "ok": 122,
+      "tot": 156
+    },
+    {
+      "family": "session_breakout_H4",
+      "match_pct": 75.56,
+      "ok": 34,
+      "tot": 45
+    },
+    {
+      "family": "session_breakout_H4_lonNY",
+      "match_pct": 75.0,
+      "ok": 24,
+      "tot": 32
+    },
+    {
+      "family": "session_breakout_H1",
+      "match_pct": 73.02,
+      "ok": 46,
+      "tot": 63
+    },
+    {
+      "family": "session_breakout_H12_lonNY",
+      "match_pct": 72.0,
+      "ok": 18,
+      "tot": 25
+    },
+    {
+      "family": "session_breakout_H1_lonNY",
+      "match_pct": 71.74,
+      "ok": 33,
+      "tot": 46
+    },
+    {
+      "family": "session_breakout_D1_lonNY",
+      "match_pct": 69.77,
+      "ok": 30,
+      "tot": 43
+    },
+    {
+      "family": "session_breakout_H12",
+      "match_pct": 67.86,
+      "ok": 19,
+      "tot": 28
+    },
+    {
+      "family": "session_breakout_D1",
+      "match_pct": 67.31,
+      "ok": 35,
+      "tot": 52
+    },
+    {
+      "family": "ma_trend_20_50",
+      "match_pct": 66.67,
+      "ok": 104,
+      "tot": 156
+    },
+    {
+      "family": "breakout_or_mid_H1",
+      "match_pct": 63.46,
+      "ok": 99,
+      "tot": 156
+    },
+    {
+      "family": "breakout_or_mid_D1",
+      "match_pct": 62.18,
+      "ok": 97,
+      "tot": 156
+    },
+    {
+      "family": "breakout_or_mid_H12",
+      "match_pct": 61.54,
+      "ok": 96,
+      "tot": 156
+    },
+    {
+      "family": "breakout_or_mid_H4",
+      "match_pct": 60.26,
+      "ok": 94,
+      "tot": 156
+    },
+    {
+      "family": "ma_pullback_20_50",
+      "match_pct": 60.0,
+      "ok": 33,
+      "tot": 55
+    }
+  ],
+  "rules_ge_70": [
+    {
+      "family": "above_below_ma200",
+      "match_pct": 78.21,
+      "ok": 122,
+      "tot": 156
+    },
+    {
+      "family": "session_breakout_H4",
+      "match_pct": 75.56,
+      "ok": 34,
+      "tot": 45
+    },
+    {
+      "family": "session_breakout_H4_lonNY",
+      "match_pct": 75.0,
+      "ok": 24,
+      "tot": 32
+    },
+    {
+      "family": "session_breakout_H1",
+      "match_pct": 73.02,
+      "ok": 46,
+      "tot": 63
+    },
+    {
+      "family": "session_breakout_H12_lonNY",
+      "match_pct": 72.0,
+      "ok": 18,
+      "tot": 25
+    },
+    {
+      "family": "session_breakout_H1_lonNY",
+      "match_pct": 71.74,
+      "ok": 33,
+      "tot": 46
+    }
+  ],
+  "per_symbol_best_rules": {
+    "EURUSD": [
+      {
+        "family": "brk_H4",
+        "match_pct": 90.0,
+        "ok": 9,
+        "tot": 10
+      },
+      {
+        "family": "brk_H1",
+        "match_pct": 82.35,
+        "ok": 14,
+        "tot": 17
+      },
+      {
+        "family": "brk_D1",
+        "match_pct": 81.82,
+        "ok": 9,
+        "tot": 11
+      },
+      {
+        "family": "ma_trend",
+        "match_pct": 65.85,
+        "ok": 27,
+        "tot": 41
+      },
+      {
+        "family": "fade_rsi",
+        "match_pct": 42.86,
+        "ok": 9,
+        "tot": 21
+      },
+      {
+        "family": "fade_D1",
+        "match_pct": 38.71,
+        "ok": 12,
+        "tot": 31
+      },
+      {
+        "family": "fade_H12",
+        "match_pct": 36.67,
+        "ok": 11,
+        "tot": 30
+      },
+      {
+        "family": "fade_H4",
+        "match_pct": 32.35,
+        "ok": 11,
+        "tot": 34
+      },
+      {
+        "family": "fade_H1",
+        "match_pct": 31.58,
+        "ok": 12,
+        "tot": 38
+      }
+    ],
+    "GBPUSD": [
+      {
+        "family": "ma_trend",
+        "match_pct": 68.0,
+        "ok": 17,
+        "tot": 25
+      },
+      {
+        "family": "brk_D1",
+        "match_pct": 62.5,
+        "ok": 5,
+        "tot": 8
+      },
+      {
+        "family": "brk_H1",
+        "match_pct": 60.0,
+        "ok": 6,
+        "tot": 10
+      },
+      {
+        "family": "fade_H1",
+        "match_pct": 45.45,
+        "ok": 10,
+        "tot": 22
+      },
+      {
+        "family": "fade_H12",
+        "match_pct": 45.0,
+        "ok": 9,
+        "tot": 20
+      },
+      {
+        "family": "fade_H4",
+        "match_pct": 44.44,
+        "ok": 8,
+        "tot": 18
+      },
+      {
+        "family": "fade_rsi",
+        "match_pct": 38.46,
+        "ok": 5,
+        "tot": 13
+      },
+      {
+        "family": "fade_D1",
+        "match_pct": 30.0,
+        "ok": 6,
+        "tot": 20
+      }
+    ],
+    "USDJPY": [
+      {
+        "family": "ma_trend",
+        "match_pct": 30.77,
+        "ok": 4,
+        "tot": 13
+      },
+      {
+        "family": "fade_D1",
+        "match_pct": 27.27,
+        "ok": 3,
+        "tot": 11
+      },
+      {
+        "family": "fade_H1",
+        "match_pct": 18.18,
+        "ok": 2,
+        "tot": 11
+      },
+      {
+        "family": "fade_H12",
+        "match_pct": 16.67,
+        "ok": 2,
+        "tot": 12
+      },
+      {
+        "family": "fade_rsi",
+        "match_pct": 12.5,
+        "ok": 1,
+        "tot": 8
+      },
+      {
+        "family": "fade_H4",
+        "match_pct": 0.0,
+        "ok": 0,
+        "tot": 9
+      }
+    ]
+  },
+  "sl_tp_atr": "N/A — statement C2 không có S/L T/P (0%)"
+}
