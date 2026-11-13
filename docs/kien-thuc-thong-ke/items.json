@@ -1,0 +1,448 @@
+{
+  "title": "Kho kiến thức thống kê thị trường (công khai) — EVO / SEEKER",
+  "created_at": "2026-11-13 15:44 (Asia/Saigon, UTC+7)",
+  "scope_note": "Chỉ tài liệu công khai, truy cập hợp lệ, không lách Cloudflare/VPN/cookie. Không phải toàn bộ kho trả phí của các nguồn. Không khẳng định chiến lược đã 'pass' SEEKER.",
+  "item_count": 21,
+  "coverage_gaps": {
+    "ned_davis_research": "Không tìm được trang miễn phí có bảng số đủ điều kiện (rule, mẫu, kết quả, URL xác minh) trong lượt này. NDR chủ yếu trả phí. Không bịa số.",
+    "lpl_research": "Các bài Detrick cũ khi còn ở LPL không được thu riêng; dùng bài Carson Group 31/10/2025 của chính Detrick.",
+    "x_accounts": {
+      "@sentimentrader": "Đã lấy blog công khai SentimenTrader (cùng tác giả Jason Goepfert), không thu tweet.",
+      "@bespokeinvest": "Đã lấy bài blog Bespoke; nhiều bảng forward nằm sau Premium.",
+      "@RyanDetrick": "Đã lấy bài Carson Group 31/10/2025. Chưa thu tweet.",
+      "@WillieDelwiche": "Không tìm được bài công khai có bảng số đủ điều kiện trong lượt này (nhiều bình luận trên Substack/StockCharts mang tính thời điểm). Không bịa.",
+      "@MikeZaccardi": "Không tìm được bài công khai có bảng số đủ điều kiện trong lượt này. Không bịa."
+    }
+  },
+  "items": [
+    {
+      "id": "evo-ma50-dji-phan-bo",
+      "title": "Khoảng cách giá đóng cửa Dow Jones so với MA50 ngày",
+      "source": "EVO (tự tính)",
+      "source_url": null,
+      "url_verified": null,
+      "url_note": "Dữ liệu Yahoo Finance ^DJI daily, API v8/chart tải từng đoạn; Stooq bị chặn Cloudflare. Không commit chuỗi giá thô.",
+      "rule": "d = (Close - MA50)/MA50 * 100, MA50 = trung bình đơn 50 phiên đóng cửa ngày.",
+      "market": "Dow Jones Industrial Average (^DJI), nến ngày",
+      "sample": "8.730 phiên đã có MA50, 1992-03-12 đến 2026-11-12 (Yahoo ^DJI bắt đầu 1992-01-02; thiếu lịch sử trước 1992, gồm 1929 và 1987).",
+      "result": "Max d = 14,99% ngày 2020-06-08. Phân vị: p95=5,71%; p99=7,87%; p99,5=8,97%; p99,9=10,83%. Số phiên d≥8/10/12/15/20/24% lần lượt 79, 18, 3, 0, 0, 0. Ngưỡng 15%, 20% và 24% không bao giờ xuất hiện trong mẫu này.",
+      "caveats": "Không suy ra cho từng cổ phiếu (cổ phiếu đơn lẻ dễ vượt 20–24%). Mẫu không phủ giai đoạn trước 1992.",
+      "forex_applicability": "Không lấy ngưỡng 24% của DJ áp sang forex. Có thể tái sử dụng phương pháp trên từng cặp.",
+      "encode_rule": "Tính d trên chính công cụ đang giao dịch; dùng phân vị lịch sử của chính nó, không dùng 24%.",
+      "tool_roles": [
+        "bias"
+      ],
+      "seeker_test": false,
+      "priority": "high",
+      "notes": "Dùng để bác ngưỡng 24% trên chỉ số; củng cố bias 'hiếm khi stretch quá p99'."
+    },
+    {
+      "id": "evo-ma50-dji-episode",
+      "title": "Sau khi Dow vượt ngưỡng d so với MA50, giá đi đâu?",
+      "source": "EVO (tự tính)",
+      "source_url": null,
+      "url_verified": null,
+      "url_note": "Cùng dữ liệu Yahoo ^DJI như mục evo-ma50-dji-phan-bo.",
+      "rule": "Tín hiệu = phiên đầu tiên d vượt ngưỡng; bỏ qua tín hiệu mới trong 20 phiên tiếp. Đo lợi nhuận đóng cửa sau 5/20/60 phiên; % episode có drawdown (min low) ≥10% trong 60 phiên; % có ít nhất một phiên đóng cửa dưới MA50 trong 60 phiên.",
+      "market": "Dow Jones (^DJI), nến ngày",
+      "sample": "Cùng 8.730 phiên 1992-03-12 đến 2026-11-12. Số episode: 8% n=11; 10% n=4; 12% n=1; 15/20/24% n=0. Mẫu rất nhỏ.",
+      "result": "8%: lợi nhuận trung bình 5/20/60 phiên = +0,56% / −0,40% / +2,45%; 1/11 (9%) có DD≥10%; 9/11 (82%) về dưới MA50 trong 60 phiên. 10%: +0,49% / +1,57% / +5,55%; 0/4 DD≥10%; 3/4 (75%) về dưới MA50. 12% chỉ 1 lần (2020-06-05, d=13,54%): 5 phiên −5,55%, 20 phiên −3,04%, 60 phiên +4,87%; không DD≥10% và không về dưới MA50 trong 60 phiên (đà phục hồi COVID). 24% không xảy ra nên không có 'phần sau'.",
+      "caveats": "n=1 đến 11, không đủ để kết luận 'gãy'. Vượt xa MA50 trên chỉ số thường là phục hồi mạnh sau bán tháo, không phải đỉnh phân phối điển hình.",
+      "forex_applicability": "Chỉ tham khảo phương pháp. Ngưỡng 8–12% trên DJ đã là cực hạn; forex crosses gần như không đạt.",
+      "encode_rule": "Không mã hóa ngưỡng 24% trên DJ. Nếu test, dùng p99/p99,5 của chính cặp.",
+      "tool_roles": [
+        "signal",
+        "dca"
+      ],
+      "seeker_test": true,
+      "priority": "high",
+      "notes": "Ứng viên SEEKER: mean-reversion khi d ≥ phân vị cao trên chính cặp, không phải copy ngưỡng DJ."
+    },
+    {
+      "id": "evo-ma50-dji-dinh-gay",
+      "title": "Trung bình d tại đỉnh 60 phiên của Dow mà sau đó giảm ≥10%",
+      "source": "EVO (tự tính)",
+      "source_url": null,
+      "url_verified": null,
+      "url_note": "Cùng dữ liệu Yahoo ^DJI.",
+      "rule": "Đỉnh = đỉnh cao 60 phiên (close tối đa trong 60 phiên vừa qua) và là đỉnh cục bộ (phiên sau đóng cửa thấp hơn). 'Gãy' = min(low) trong 60 phiên tới ≤ 90% giá đỉnh.",
+      "market": "Dow Jones (^DJI), nến ngày",
+      "sample": "567 đỉnh; 57 đỉnh (10,1%) sau đó giảm ≥10% trong 60 phiên, 1992-03-12 đến 2026-11-12.",
+      "result": "Trung bình d tại các đỉnh rồi gãy = 4,81% (trung vị 4,58%; tối đa 9,66% ngày 2001-05-21). Trung bình d mọi đỉnh 60 phiên = 4,34%. Không có đỉnh rồi gãy nào cách MA50 tới 24%; thậm chí không tới 15%.",
+      "caveats": "Hầu hết đỉnh 60 phiên không gãy 10% trong 60 phiên (chỉ 10%). Trung bình 4,81% không phải ngưỡng dự báo: nhiều đỉnh ở ~4–5% không gãy. '24% là gãy' không đúng trên DJ 1992–2026 với định nghĩa này.",
+      "forex_applicability": "Phương pháp có thể lặp lại trên từng cặp với ngưỡng gãy nhỏ hơn (ví dụ 3%).",
+      "encode_rule": "Cảnh báo stretch khi d vượt p95/p99 của cặp tại đỉnh cục bộ; không dùng 24%.",
+      "tool_roles": [
+        "bias",
+        "signal"
+      ],
+      "seeker_test": true,
+      "priority": "high"
+    },
+    {
+      "id": "evo-ma50-spx",
+      "title": "Khoảng cách S&P 500 so với MA50 (mẫu dài hơn Dow)",
+      "source": "EVO (tự tính)",
+      "source_url": null,
+      "url_verified": null,
+      "url_note": "Yahoo Finance ^GSPC daily API v8; mẫu nhận được từ 1970-01-02 (không lấy được đoạn 1950–1969 trong lượt tải này).",
+      "rule": "Cùng định nghĩa d, episode (khử trùng 20 phiên) và đỉnh 60 phiên như Dow.",
+      "market": "S&P 500 (^GSPC), nến ngày",
+      "sample": "14.290 phiên có MA50, 1970-03-13 đến 2026-11-12.",
+      "result": "Max d=15,40% ngày 1982-10-13. p95=6,22%; p99=8,72%; p99,5=9,97%; p99,9=12,92%. Số phiên d≥8/10/12/15/20/24% = 216, 71, 26, 1, 0, 0. Vẫn không có ngày nào ≥20% hay 24%. Episode 10% n=9, lãi trung bình 60 phiên +8,56%, 0/9 DD≥10%. Episode 15% n=1 (1982-10-13): +1,84%/+3,26%/+6,20% sau 5/20/60 phiên, không DD≥10%. Đỉnh rồi gãy ≥10%: 101/891 (11,3%), trung bình d=4,99% (tối đa 9,11%).",
+      "caveats": "Thiếu dữ liệu trước 1970. Một mốc 15% là mẫu n=1.",
+      "forex_applicability": "Củng cố kết luận: trên chỉ số Mỹ, 24% trên MA50 là cực hạn không thấy trong 1970–2026.",
+      "encode_rule": "Dùng làm đối chiếu, không copy ngưỡng sang forex.",
+      "tool_roles": [
+        "bias"
+      ],
+      "seeker_test": false,
+      "priority": "medium"
+    },
+    {
+      "id": "evo-ma50-forex-crosses",
+      "title": "Khoảng cách MA50 trên 4 cặp chéo forex (AUDCAD, AUDNZD, EURCAD, CADJPY)",
+      "source": "EVO (tự tính)",
+      "source_url": null,
+      "url_verified": null,
+      "url_note": "Không tìm thấy OHLC ngày/H4 sẵn trong /workspace/brain2-run. Dùng Yahoo Finance daily AUDCAD=X, AUDNZD=X, EURCAD=X, CADJPY=X. Đây không phải dữ liệu broker của brain2; chất lượng forex Yahoo có khoảng trống, cần kiểm lại trên kho Dukascopy/MT5 trước khi đưa vào SEEKER chính thức.",
+      "rule": "Cùng d và khử trùng 20 phiên. Ngưỡng episode = p99 và p99,5 của chính cặp. Drawdown 'hit' khi min low trong 60 phiên giảm ≥3% (không phải 10%). Đỉnh 60 phiên 'gãy' khi giảm ≥3% trong 60 phiên.",
+      "market": "AUDCAD, AUDNZD, EURCAD, CADJPY, nến ngày (Yahoo)",
+      "sample": "AUDCAD 5.927 phiên 2004-02-06 đến 2026-11-13; AUDNZD 5.926 cùng span; EURCAD 5.910 cùng span; CADJPY 5.736 phiên 2004-10-28 đến 2026-11-13.",
+      "result": "Không cặp nào chạm 24%. Max d: AUDCAD 7,43% (2009-04-01); AUDNZD 6,19% (2007-09-04); EURCAD 8,30% (2015-08-24); CADJPY 9,15% (2016-12-12). p99 / p99,5: AUDCAD 4,34/4,72; AUDNZD 4,38/4,86; EURCAD 5,19/6,11; CADJPY 6,72/7,30. Khi vừa vượt p99: tỷ lệ DD≥3% trong 60 phiên khoảng 50% (AUDCAD, AUDNZD), 70% (EURCAD), 73% (CADJPY); 83–100% episode có lúc đóng cửa dưới MA50 trong 60 phiên. Lãi trung bình 5–20 phiên thường gần 0 hoặc âm (EURCAD p99,5: 5/20/60 phiên −1,90/−2,48/−3,63%, n=6). Đỉnh 60 phiên rồi giảm ≥3%: AUDCAD 117/213, trung bình d=2,85%; AUDNZD 67/218, d=3,05%; EURCAD 76/172, d=3,91%; CADJPY 153/246, d=4,16%.",
+      "caveats": "Nguồn Yahoo, không phải series mid Dukascopy. Số episode ở p99/p99,5 chỉ khoảng 6–12. Chưa test khung H4.",
+      "forex_applicability": "Trực tiếp: đây là ứng viên mạnh nhất cho vùng tín hiệu/DCA trên cặp chéo.",
+      "encode_rule": "Vùng stretch long: d ≤ p1 hoặc p5 của cặp (bán quá đà). Vùng stretch short / chốt: d ≥ p99 hoặc p99,5. DCA: chỉ bổ sung ngược hướng stretch khi d ở cực hạn và có tín hiệu đảo (ví dụ IBS hoặc nến về MA50), không DCA theo ngưỡng 24%. Lọc trend: ưu tiên mean-reversion cùng chiều MA200 (kiểu Connors) khi test.",
+      "tool_roles": [
+        "dca",
+        "signal",
+        "bias"
+      ],
+      "seeker_test": true,
+      "priority": "high"
+    },
+    {
+      "id": "qs-turnaround-tuesday-spy-1pct",
+      "title": "Turnaround Tuesday: mua yếu thứ Hai, bán thứ Ba (SPY)",
+      "source": "Quantified Strategies",
+      "source_url": "https://www.quantifiedstrategies.com/turnaround-tuesday-strategy/",
+      "url_verified": "http_200_bot_wall",
+      "url_note": "URL trả HTTP 200 nhưng trang chặn trình tải tự động (Bot Verification). Số liệu lấy từ đoạn công khai được máy tìm kiếm lập chỉ mục của đúng URL đó, không mở được toàn văn trong lượt này. Cần đối chiếu lại trên trình duyệt khi dùng.",
+      "rule": "Hôm nay là thứ Hai; đóng cửa thấp hơn đóng cửa thứ Sáu ít nhất 1%; vào lệnh lúc đóng cửa; thoát lúc đóng cửa thứ Ba. Bài cũng nêu stop ví dụ 2%. Có tính hoa hồng/slippage 0,03%/lệnh.",
+      "market": "SPY, từ khi ETF ra đời đến 'today' (ngày đăng không chốt trong đoạn trích).",
+      "sample": "212 lệnh.",
+      "result": "Lãi trung bình/lệnh +0,3%; CAGR 1,8%; thời gian trong thị trường 2,5%; tỷ lệ thắng 56%; trung bình lệnh thắng +1,4%; trung bình lệnh thua −1,1%.",
+      "caveats": "Mẫu cổ phiếu Mỹ / ETF, hiệu ứng lịch, chưa kiểm trên forex. CAGR thấp vì ít thời gian trong thị trường. Số liệu chưa tự backtest lại.",
+      "forex_applicability": "Gián tiếp. Forex không có 'thứ Hai SPY'. Có thể test tương tự: phiên đầu tuần giảm mạnh rồi đảo, trên từng cặp, nhưng không copy kết quả.",
+      "encode_rule": "If weekday==Monday AND close <= Friday_close * 0.99: bias/signal long intraday-to-next-close. Trên forex: test 'ngày đầu tuần giảm X% rồi đảo trong 1–2 phiên' trên dữ liệu cặp.",
+      "tool_roles": [
+        "signal",
+        "bias"
+      ],
+      "seeker_test": true,
+      "priority": "medium"
+    },
+    {
+      "id": "qs-turnaround-tuesday-ibs",
+      "title": "Turnaround Tuesday kết hợp IBS < 0,2 (SPY)",
+      "source": "Quantified Strategies",
+      "source_url": "https://www.quantifiedstrategies.com/turnaround-tuesday-strategy/",
+      "url_verified": "http_200_bot_wall",
+      "url_note": "URL trả HTTP 200 nhưng trang chặn trình tải tự động (Bot Verification). Số liệu lấy từ đoạn công khai được máy tìm kiếm lập chỉ mục của đúng URL đó, không mở được toàn văn trong lượt này. Cần đối chiếu lại trên trình duyệt khi dùng.",
+      "rule": "Thứ Hai; đóng cửa < mở cửa; IBS < 0,2; vào đóng cửa; bán đóng cửa thứ Ba. IBS = (Close-Low)/(High-Low).",
+      "market": "SPY, 1993 đến tháng 9/2021",
+      "sample": "270 lệnh.",
+      "result": "Lãi trung bình/lệnh +0,33%; CAGR 2,7%; exposure 3,4%; thắng 57%; trung bình thắng +1,2%; trung bình thua −0,8%.",
+      "caveats": "Mẫu cắt ở 9/2021. Cổ phiếu Mỹ.",
+      "forex_applicability": "IBS là công thức giá, chuyển được sang forex D1/H4. Lịch thứ Hai thì phải test lại.",
+      "encode_rule": "Signal long khi IBS < 0,2 sau phiên giảm, thoát khi IBS cao hoặc sau N phiên. Ưu tiên test trên cặp chéo khung D1/H4.",
+      "tool_roles": [
+        "signal",
+        "dca"
+      ],
+      "seeker_test": true,
+      "priority": "high"
+    },
+    {
+      "id": "qs-weekday-after-down-day",
+      "title": "Ngày trong tuần sau một phiên giảm (S&P 500)",
+      "source": "Quantified Strategies",
+      "source_url": "https://www.quantifiedstrategies.com/what-is-the-best-day-of-the-week-to-buy-stocks/",
+      "url_verified": "http_200_bot_wall",
+      "url_note": "URL trả HTTP 200 nhưng trang chặn trình tải tự động (Bot Verification). Số liệu lấy từ đoạn công khai được máy tìm kiếm lập chỉ mục của đúng URL đó, không mở được toàn văn trong lượt này. Cần đối chiếu lại trên trình duyệt khi dùng.",
+      "rule": "Thống kê lợi nhuận trung bình theo thứ trong tuần, và khi ngày trước đó là ngày giảm.",
+      "market": "S&P 500, 1993 đến 'today' của bài.",
+      "sample": "Không nêu số ngày chính xác trong đoạn trích; khoảng 1993–nay.",
+      "result": "Lãi trung bình mọi ngày: T2 0,04%; T3 0,09%; T4 0,06%; T5 0,02%; T6 0,02%. Khi ngày trước giảm: T2 0,05%; T3 0,22%; T4 0,07%; T5 0,01%; T6 0,04%. Thứ Ba sau phiên giảm nổi bật (Turnaround Tuesday). Tác giả tự nói chênh lệch chung thì nhỏ, chi phí có thể ăn hết.",
+      "caveats": "Hiệu ứng lịch, có thể thay đổi theo thời kỳ. Bài cùng site (1960–nay, chỉ số tiền mặt) cho thứ tự khác: T2 −0,04%; T4 0,07%; T6 0,05% (https://www.quantifiedstrategies.com/what-are-the-best-days-to-trade-stocks/).",
+      "forex_applicability": "Thấp nếu copy thứ Mỹ. Nên tự thống kê weekday/session trên từng cặp.",
+      "encode_rule": "Chỉ dùng như bias lịch nhẹ sau khi tự tính trên forex; không hard-code 0,22%.",
+      "tool_roles": [
+        "bias"
+      ],
+      "seeker_test": true,
+      "priority": "low"
+    },
+    {
+      "id": "qs-turnaround-sso",
+      "title": "Biến thể Turnaround Tuesday trên SSO (đòn bẩy 2x)",
+      "source": "Quantified Strategies",
+      "source_url": "https://www.quantifiedstrategies.com/is-this-still-the-best-reversal-strategy/",
+      "url_verified": "http_200_bot_wall",
+      "url_note": "URL trả HTTP 200 nhưng trang chặn trình tải tự động (Bot Verification). Số liệu lấy từ đoạn công khai được máy tìm kiếm lập chỉ mục của đúng URL đó, không mở được toàn văn trong lượt này. Cần đối chiếu lại trên trình duyệt khi dùng. Cùng số liệu cũng xuất hiện trên https://www.quantifiedstrategies.com/2-price-action-trading-strategies-with-small-drawdowns/",
+      "rule": "Thứ Hai; đóng cửa thấp hơn low của thứ Sáu (đoạn trích).",
+      "market": "SSO (ProShares Ultra S&P500, đòn bẩy 2x), 'bốn thập kỷ' theo bài nhưng SSO chỉ ra đời 2006 — cần đọc kỹ mẫu thật khi đối chiếu.",
+      "sample": "181 lệnh.",
+      "result": "Lãi trung bình/lệnh +1,2%; thắng 70%; profit factor 2,5; CAGR 12%; exposure 10%; risk-adjusted (CAGR/exposure) 111%; max DD 18% (buy&hold 59%) — số DD lấy từ bài '2 Price Action…'; bài kia để trống % ở một chỗ.",
+      "caveats": "Đòn bẩy làm méo so với chỉ số. Mẫu và kỳ có thể không khớp slogan 'bốn thập kỷ'. Không dùng cho forex.",
+      "forex_applicability": "Rất thấp (ETF đòn bẩy Mỹ).",
+      "encode_rule": "Không đưa vào bộ forex. Chỉ tham khảo ý 'mua yếu đầu tuần'.",
+      "tool_roles": [],
+      "seeker_test": false,
+      "priority": "low"
+    },
+    {
+      "id": "qs-connors-multiple-days-down",
+      "title": "Larry Connors Multiple Days Down (danh mục, 2000–2020)",
+      "source": "Quantified Strategies",
+      "source_url": "https://www.quantifiedstrategies.com/multiple-days-up-and-multiple-days-down-trading-strategy-larry-connors/",
+      "url_verified": "http_200_bot_wall",
+      "url_note": "URL trả HTTP 200 nhưng trang chặn trình tải tự động (Bot Verification). Số liệu lấy từ đoạn công khai được máy tìm kiếm lập chỉ mục của đúng URL đó, không mở được toàn văn trong lượt này. Cần đối chiếu lại trên trình duyệt khi dùng. Win rate không có trong đoạn trích đã lấy được.",
+      "rule": "Theo tóm tắt công khai của trang: mua sau 4 phiên giảm trong 5 phiên, giá dưới SMA5 và trên SMA200; thoát khi đóng cửa trên SMA5. Cần đối chiếu lại toàn văn trước khi mã hóa chốt.",
+      "market": "Danh mục (portfolio) theo bài QS, 2000 đến tháng 12/2020 — không thấy nêu rõ universe trong đoạn trích đã có.",
+      "sample": "2.210 lệnh, 2000–12/2020.",
+      "result": "Lãi trung bình/lệnh +0,31%; CAGR 6,4%. Không lấy được win rate từ đoạn chỉ mục.",
+      "caveats": "Universe cổ phiếu không chốt trong số liệu đã xác minh. Quy tắc lấy từ tóm tắt tìm kiếm, cần mở trang để khóa rule. Kết quả danh mục ≠ một cặp forex.",
+      "forex_applicability": "Ý tưởng mean-reversion + lọc trend MA200 chuyển được sang cặp chéo. Kết quả 0,31%/6,4% không chuyển.",
+      "encode_rule": "Signal long khi ≥4/5 phiên giảm, close < SMA5, close > SMA200 (hoặc MA50/MA200 tùy test); thoát khi close > SMA5. Short đối xứng. Đưa vào SEEKER trên AUDCAD/AUDNZD/EURCAD/CADJPY D1/H4.",
+      "tool_roles": [
+        "signal",
+        "dca",
+        "bias"
+      ],
+      "seeker_test": true,
+      "priority": "high"
+    },
+    {
+      "id": "st-zweig-breadth-thrust",
+      "title": "Zweig Breadth Thrust (NYSE) — tín hiệu rộng, mẫu nhỏ",
+      "source": "SentimenTrader (Jason Goepfert), bài blog 2023-11-06",
+      "source_url": "https://sentimentrader.com/blog/the-grandaddy-of-thrusts-with-a-perfect-record",
+      "url_verified": "http_200",
+      "url_note": "Tải được toàn trang công khai, HTTP 200.",
+      "rule": "EMA 10 ngày của tỷ lệ Advance-Decline NYSE đi từ dưới 40% lên trên 61,5% trong vòng 10 phiên.",
+      "market": "NYSE breadth; kết quả mô tả trên S&P 500 / ngành trong 'thị trường hiện đại'.",
+      "sample": "19 lần khác kể từ 1928 (tùy nguồn dữ liệu, theo SentimenTrader). Có tín hiệu thất bại những năm 1930. Từ 1950 bài nói 'perfect track record of gains' trên hầu hết ngành.",
+      "result": "Trước 1950: một số tín hiệu 1930s bị 'rug-pull' ngay. Nếu chỉ lấy thrust đầu tiên trong ít nhất 2 năm, kể cả 1930s cũng có rally 1 tháng. Tập trung thị trường hiện đại: S&P 500 không lỗ trên cửa sổ 6–12 tháng sau các thrust này; không tín hiệu nào bị lỗ quá −10% tại bất kỳ điểm nào trong năm sau.",
+      "caveats": "Mẫu rất nhỏ (~20). 'Perfect' phụ thuộc cách lọc thời kỳ và nguồn AD. Đây là tín hiệu bề rộng cổ phiếu Mỹ, không phải tín hiệu forex. Bài là blog công khai, nhiều bảng chi tiết có thể nằm sau tường phí.",
+      "forex_applicability": "Không áp trực tiếp (không có NYSE AD cho cặp tiền). Có thể chỉ dùng như bias rủi ro-on cho risk FX khi thrust xuất hiện trên cổ phiếu Mỹ — ý tưởng, chưa có số forex.",
+      "encode_rule": "Không hard-code vào tín hiệu cặp. Nếu sau này có dữ liệu breadth, dùng như bộ lọc bias rủi ro; không phải lệnh vào lệnh ra trên AUDCAD.",
+      "tool_roles": [
+        "bias"
+      ],
+      "seeker_test": false,
+      "priority": "low"
+    },
+    {
+      "id": "st-spx-ad-ratio-thrust",
+      "title": "Breadth thrust S&P 500: tổng 10 ngày adv/dec ≥ 2,02",
+      "source": "SentimenTrader",
+      "source_url": "https://sentimentrader.com/blog/a-new-breadth-thrust-signal-suggests-higher-stock-prices",
+      "url_verified": "http_200",
+      "url_note": "Tải được toàn trang công khai, HTTP 200.",
+      "rule": "Tổng 10 ngày số mã S&P 500 tăng vượt tổng 10 ngày số mã giảm với tỷ lệ 2,02:1. Reset: tỷ lệ phải xuống dưới 0,8 trước khi tín hiệu mới được tính.",
+      "market": "S&P 500 (bề rộng nội bộ chỉ số).",
+      "sample": "56 lần khác trong khoảng 90 năm; cửa sổ 12 tháng từ 1942: 48 tín hiệu.",
+      "result": "S&P 500 tăng 84% số lần trong 6 và 12 tháng sau tín hiệu. Từ 1942, cửa 12 tháng thắng 44/48; max drawdown nêu trong bài 6,4%.",
+      "caveats": "Mẫu 48–56, tốt hơn ZBT nhưng vẫn là sự kiện hiếm. Chỉ số Mỹ. Bài còn nhắc các biến thể 28 lần/85 năm và 10 lần/77 năm — không gộp nhầm.",
+      "forex_applicability": "Gián tiếp như bias risk-on, không phải vùng giá forex.",
+      "encode_rule": "Cùng như ZBT: chỉ bias môi trường, không phải signal cặp.",
+      "tool_roles": [
+        "bias"
+      ],
+      "seeker_test": false,
+      "priority": "low"
+    },
+    {
+      "id": "st-aaii-bull-ratio-drop",
+      "title": "AAII Bull Ratio giảm ≥10% trong một tuần",
+      "source": "SentimenTrader",
+      "source_url": "https://sentimentrader.com/blog/bulls-pull-back-in-time-for-record-breadth-week",
+      "url_verified": "http_200",
+      "url_note": "Tải được toàn trang công khai, HTTP 200. Bài không công bố bảng lợi nhuận trung bình đầy đủ trong phần đã trích, chỉ nhận định hướng.",
+      "rule": "Khảo sát AAII: Bull Ratio giảm 10% trở lên trong tuần.",
+      "market": "S&P 500; khảo sát AAII từ 1989.",
+      "sample": "90 tuần kể từ 1989.",
+      "result": "Bài viết: các đợt này 'didn't have much impact' lên lợi nhuận S&P 500; giảm mức lạc quan nhìn chung là tín hiệu hơi tiêu cực ngắn hạn và tích cực dài hạn. Không có sẵn số CAGR/% thắng trong phần công khai đã lấy.",
+      "caveats": "Thiếu bảng số chi tiết. AAII hay nhiễu. Không dùng làm lệnh.",
+      "forex_applicability": "Rất thấp.",
+      "encode_rule": "Không mã hóa thành tín hiệu forex.",
+      "tool_roles": [
+        "bias"
+      ],
+      "seeker_test": false,
+      "priority": "low"
+    },
+    {
+      "id": "sta-santa-claus-rally",
+      "title": "Santa Claus Rally (Yale Hirsch): 5 phiên cuối năm + 2 phiên đầu năm mới",
+      "source": "Stock Trader's Almanac (Jeffrey A. Hirsch & Christopher Mistal)",
+      "source_url": "https://www.stocktradersalmanac.com/Alert/20180103.aspx",
+      "url_verified": "http_200",
+      "url_note": "Trang Alert công khai, HTTP 200. Định nghĩa và mức 1,3% còn được Newsletter 01/2026 nhắc lại: https://www.stocktradersalmanac.com/Newsletter/0126.aspx (cũng HTTP 200).",
+      "rule": "Đo S&P 500 trong 7 phiên: 5 phiên giao dịch cuối tháng 12 + 2 phiên đầu tháng 1. Thiếu rally được xem là tín hiệu cảnh báo sớm.",
+      "market": "S&P 500, từ 1950.",
+      "sample": "Alert 03/01/2018: Santa 'ghé thăm' 54 lần từ 1950 (tính cả năm đó). Mức trung bình +1,3% là thống kê dài hạn từ 1950, được newsletter 2026 nhắc lại.",
+      "result": "Trung bình +1,3% từ 1950. Hai lần thất bại lớn nêu trong Alert 2018: −4,0% năm 2000 (trước vỡ bong bóng tech) và −2,5% năm 2008 (trước bear market nặng).",
+      "caveats": "Hiệu ứng lịch chỉ số Mỹ, mẫu ~70+ năm nhưng mỗi năm chỉ 1 quan sát. 2018 alert là mốc cũ cho số lần '54'. Không phải tín hiệu forex.",
+      "forex_applicability": "Thấp. Có thể test 'cuối năm dương lịch' trên từng cặp nhưng không dùng +1,3%.",
+      "encode_rule": "Chỉ bias lịch cho risk FX nếu tự kiểm được; không phải vùng DCA.",
+      "tool_roles": [
+        "bias"
+      ],
+      "seeker_test": true,
+      "priority": "low"
+    },
+    {
+      "id": "sta-january-barometer",
+      "title": "January Barometer: hướng của tháng 1 báo hướng cả năm",
+      "source": "Stock Trader's Almanac, newsletter tháng 1/2026",
+      "source_url": "https://www.stocktradersalmanac.com/Newsletter/0126.aspx",
+      "url_verified": "http_200",
+      "url_note": "HTTP 200, trang công khai.",
+      "rule": "As the S&P 500 goes in January, so goes the year (Yale Hirsch, 1972).",
+      "market": "S&P 500, từ 1950.",
+      "sample": "Từ 1950 đến bản newsletter 01/2026: 12 lỗi lớn, độ chính xác 84,0%. Các năm lỗi nêu: 1966, 1968, 1982, 2001, 2003, 2009, 2010, 2014, 2016, và các năm sau đó được bài nhắc trong cùng đoạn (gồm cả cụm 2018/2020 tùy ngữ cảnh — dùng đúng con số 12 lỗi / 84,0%, không tự đếm lại).",
+      "result": "84,0% accuracy, 12 major errors since 1950 (theo newsletter 01/2026).",
+      "caveats": "Định nghĩa 'lỗi lớn' vs năm đi ngang (±5%) làm thay đổi tỷ lệ (các tài liệu Almanac khác từng nêu ~73% nếu tính cả năm phẳng). Một quan sát/năm. Không phải luật nhân quả.",
+      "forex_applicability": "Rất thấp cho cặp chéo.",
+      "encode_rule": "Không đưa vào tín hiệu forex.",
+      "tool_roles": [
+        "bias"
+      ],
+      "seeker_test": false,
+      "priority": "low"
+    },
+    {
+      "id": "sta-january-trifecta-2018",
+      "title": "January Trifecta (SCR + First Five Days + January Barometer) — số liệu Alert 2018",
+      "source": "Stock Trader's Almanac Alert 03/01/2018",
+      "source_url": "https://www.stocktradersalmanac.com/Alert/20180103.aspx",
+      "url_verified": "http_200",
+      "url_note": "HTTP 200. Đây là số tại thời điểm 01/2018, chưa cập nhật hết đến 2026 trong lượt này.",
+      "rule": "Khi Santa Claus Rally, First Five Days của tháng 1, và January Barometer đều dương.",
+      "market": "S&P 500, từ 1950 đến 2018.",
+      "sample": "Trong 53 lần Santa dương trước năm 2018, FFD và JB cùng dương 29 lần; cả ba dương thì cả năm dương 27 lần.",
+      "result": "Cả năm dương 27/29 (93,1%), lãi trung bình +17,9% (theo Alert 03/01/2018).",
+      "caveats": "Số cũ (2018). Mẫu 29. Dễ bị nhìn lại (nhiều điều kiện). Newsletter 2026 còn Trifecta nhưng không trích thêm bảng mới trong lượt này để khỏi lẫn số.",
+      "forex_applicability": "Rất thấp.",
+      "encode_rule": "Không mã hóa cho forex.",
+      "tool_roles": [
+        "bias"
+      ],
+      "seeker_test": false,
+      "priority": "low"
+    },
+    {
+      "id": "detrick-best-six-months",
+      "title": "Sáu tháng tốt nhất (tháng 11–tháng 4) theo Ryan Detrick",
+      "source": "Ryan Detrick, Carson Group, 31/10/2025",
+      "source_url": "https://www.carsongroup.com/insights/blog/here-comes-the-best-month-and-best-six-months-of-the-year/",
+      "url_verified": "http_200",
+      "url_note": "WebFetch được nội dung công khai. Bài nói November là tháng tốt nhất 'since 1950', nhưng hai con số 7,0% và 76% được viết là 'historically' mà không ghi rõ năm bắt đầu ngay cạnh bảng.",
+      "rule": "So sánh sáu tháng tháng 11–tháng 4 với sáu tháng tháng 5–tháng 10 trên S&P 500 ('Sell in May' / Best Six Months).",
+      "market": "S&P 500. Tháng 11 được nêu trung bình tốt nhất từ 1950.",
+      "sample": "Bài không chốt N năm ngay cạnh 7,0%/76%. Nhánh '10 giai đoạn Sell in May tốt nhất' có N=10.",
+      "result": "Sáu tháng tiếp theo (thường là tháng 11–tháng 4) tăng trung bình 7,0% và tăng 76% số lần. Khi 10 giai đoạn tháng 5–tháng 10 tốt nhất, sáu tháng sau tăng 9/10 lần, trung bình +13,9% (gần gấp đôi 7,0%). Tháng 11 khi S&P đã tăng >15% từ đầu năm: trung bình +2,7% so với +1,9% thông thường. Sáu tháng 5–10 dương cả sáu tháng chỉ mới 3 lần trước 2025 (1958, 1980, 2017).",
+      "caveats": "Hiệu ứng lịch cổ phiếu Mỹ; 2025 chính bài thừa nhận giai đoạn 'yếu' lại tăng >22%. Không ngoại suy sang forex.",
+      "forex_applicability": "Thấp. Test mùa vụ trên từng cặp nếu muốn, không dùng 7,0%/76%.",
+      "encode_rule": "Không hard-code Best Six Months cho cặp chéo.",
+      "tool_roles": [
+        "bias"
+      ],
+      "seeker_test": true,
+      "priority": "low"
+    },
+    {
+      "id": "bespoke-breadth-93pct-2016",
+      "title": "Bespoke: 93,44% cổ phiếu S&P 500 trên MA50 — cực hạn bề rộng",
+      "source": "Bespoke Investment Group, 22/03/2016",
+      "source_url": "https://www.bespokepremium.com/big-tips/b-i-g-tips-extreme-readings-in-market-breadth/",
+      "url_verified": "search_indexed",
+      "url_note": "Số liệu lấy từ trang công khai được máy tìm kiếm lập chỉ mục. Phân tích lợi nhuận kỳ hạn sau cực hạn nằm sau paywall (B.I.G. Tips gửi thành viên), nên không có bảng forward return để ghi.",
+      "rule": "Đo % số mã S&P 500 đang đóng cửa trên MA50 ngày của chính mã đó.",
+      "market": "S&P 500 constituents, từ 1990 (theo bài).",
+      "sample": "Mọi phiên từ 1990 đến 21/03/2016 (bài viết 22/03, 'yesterday'). Tỷ lệ ngày đạt mức này: 0,5%.",
+      "result": "Ngày 21/03/2016: 93,44% cổ phiếu S&P 500 trên MA50. Mức này chỉ xuất hiện khoảng 0,5% số phiên từ 1990. Bài không công bố (ở phần miễn phí) lãi trung bình 1–3–6 tháng sau đó.",
+      "caveats": "Thiếu bảng forward. Đây là bề rộng nội bộ chỉ số, không phải d của bản thân chỉ số hay của cặp forex.",
+      "forex_applicability": "Không trực tiếp. Ý tưởng 'tỷ lệ công cụ trên MA50' có thể thử trên một rổ cặp, nhưng rổ 4 cặp thì mẫu vô nghĩa.",
+      "encode_rule": "Không mã hóa 93% vào forex. Có thể theo dõi % cặp trong rổ nằm trên MA50 như bias, chỉ sau khi có rổ đủ lớn và tự thống kê.",
+      "tool_roles": [
+        "bias"
+      ],
+      "seeker_test": false,
+      "priority": "low"
+    },
+    {
+      "id": "bespoke-10pct-above-ma50-2015",
+      "title": "Bespoke: nhiều cổ phiếu S&P 500 hơn 10% trên MA50 — gợi ý mean reversion từng mã",
+      "source": "Bespoke Investment Group, 04/11/2015",
+      "source_url": "https://www.bespokepremium.com/interactive/posts/think-big-blog/sp-500-stocks-farthest-above-50-day-moving-averages",
+      "url_verified": "search_indexed",
+      "url_note": "Trang công khai được lập chỉ mục. Phần 'thị trường làm gì sau chuỗi breadth yếu' gửi Premium, không lấy được số forward.",
+      "rule": "Quan sát % mã trên MA50 và % mã đi xa hơn 10% trên MA50.",
+      "market": "S&P 500 stocks, có nhắc thống kê từ 1990.",
+      "sample": "Ảnh chụp 04/11/2015. Từ 1990 chỉ có 10 giai đoạn trước đó mà <80% cổ phiếu trên MA50 kéo dài ≥6 tháng (số liệu chuỗi, không phải forward return).",
+      "result": "82% mã S&P 500 trên MA50 (lần đầu trong năm 2015 vượt 80%); gần 20% mã cao hơn MA50 trên 10%. Tác giả khuyên đợi pullback trước khi mua các mã xa nhất vì mean reversion. Không có bảng xác suất trong phần miễn phí.",
+      "caveats": "Bài bình luận thời điểm, không phải backtest hoàn chỉnh. Cổ phiếu đơn lẻ dễ vượt 10–20% trên MA50 — khác hẳn chỉ số (Dow max ~15% trong mẫu EVO).",
+      "forex_applicability": "Ý tưởng 'kéo quá xa MA50 thì chờ hồi' khớp với thống kê EVO trên forex crosses (p99 ~4–7%).",
+      "encode_rule": "Dùng d của chính cặp (p99) chứ không dùng danh sách cổ phiếu Bespoke.",
+      "tool_roles": [
+        "dca",
+        "signal"
+      ],
+      "seeker_test": true,
+      "priority": "medium"
+    },
+    {
+      "id": "bulkowski-failure-rates-1991-2008",
+      "title": "Tỷ lệ thất bại mô hình giá tăng theo thời gian (Bulkowski)",
+      "source": "Thomas Bulkowski, ThePatternSite",
+      "source_url": "https://www.thepatternsite.com/FailureRates.html",
+      "url_verified": "http_200",
+      "url_note": "HTTP 200, trang công khai, đã tải được.",
+      "rule": "Thất bại 10% = mô hình không đi được ít nhất 10% sau breakout (đo từ đóng cửa ngày trước breakout đến ultimate high/low).",
+      "market": "Mô hình giá trên cổ phiếu (mẫu nghiên cứu sách của Bulkowski), 1991–2008.",
+      "sample": "13.932 mô hình 'known to be good'.",
+      "result": "Breakout lên, thất bại 10%: trung bình 14% trong bull 1990s, tăng lên 28% trong bull 2003–2007. Breakout xuống, thất bại 10%: 26% (1990s) lên 49% (2003–2007). Năm 1991 thất bại 10% (up) = 11% (140 mẫu); năm 2007 = 44%.",
+      "caveats": "Cổ phiếu, nhận dạng mô hình thủ công. Tỷ lệ thay đổi mạnh theo thập niên — không dùng % cố định mãi. Không phải forex.",
+      "forex_applicability": "Thấp nếu copy % thành công. Bài học dùng được: mô hình giá thất bại thường hơn người ta nghĩ, và thay đổi theo chế độ thị trường. Nếu test H&S/double top trên forex thì phải tự đếm.",
+      "encode_rule": "Không hard-code 72% 'thành công'. Mọi pattern forex phải tự thống kê trong SEEKER.",
+      "tool_roles": [
+        "bias"
+      ],
+      "seeker_test": true,
+      "priority": "medium"
+    },
+    {
+      "id": "bulkowski-busted-patterns",
+      "title": "Tỷ lệ mô hình 'busted' (đi ≤10% rồi đảo chiều)",
+      "source": "Thomas Bulkowski, ThePatternSite",
+      "source_url": "https://www.thepatternsite.com/BustPerformance.html",
+      "url_verified": "http_200",
+      "url_note": "HTTP 200, trang công khai, đã tải được.",
+      "rule": "Busted = giá không đi quá 10% theo hướng breakout rồi đảo. Bảng % so với mọi mẫu cùng loại và cùng hướng breakout, thị trường tăng.",
+      "market": "Cổ phiếu, mẫu Bulkowski (bảng cập nhật công khai; trang không nêu N từng dòng trong phần đã lấy).",
+      "sample": "Không nêu N tổng trên bảng này (khác bài 13.932). Có median theo nhóm.",
+      "result": "Trung vị busted: breakout lên 24%; breakout xuống 40%. Ví dụ: cup with handle lên bust 10%; rising wedge xuống bust 63%; rectangle top xuống 51%; head-and-shoulders top xuống 32%; symmetrical triangle xuống 48%, lên 32%.",
+      "caveats": "Thiếu N từng mẫu trên bảng. Cổ phiếu không phải FX. 'Busted' có thể là cơ hội đảo, không chỉ là thất bại.",
+      "forex_applicability": "Ý tưởng 'breakout thất bại → đảo' test được trên H4/D1 cặp chéo, nhưng % không chuyển.",
+      "encode_rule": "Ứng viên SEEKER: vào ngược hướng khi breakout mô hình cổ điển đi <X% rồi đóng lại trong pattern; X phải tối ưu trên forex (không dùng 10% của cổ phiếu).",
+      "tool_roles": [
+        "signal"
+      ],
+      "seeker_test": true,
+      "priority": "medium"
+    }
+  ]
+}
