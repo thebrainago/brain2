@@ -44,6 +44,9 @@ string         g_symbol;
 datetime       g_last_d1 = 0;      // mốc nến D1 hiện tại (để nhận nến mới)
 datetime       g_entry_bar = 0;    // thời điểm mở nến D1 lúc vào lệnh
 bool           g_exited_this_bar = false;
+bool           g_pending_exit = false;  // retry thoát nếu tick đầu gặp market closed
+bool           g_pending_entry = false; // retry vào tại phiên mở cửa của nến D1 mới
+
 
 //+------------------------------------------------------------------+
 int OnInit()
@@ -101,64 +104,92 @@ void OnTick()
    if((ENUM_ACCOUNT_TRADE_MODE)AccountInfoInteger(ACCOUNT_TRADE_MODE) == ACCOUNT_TRADE_MODE_REAL)
       return;
 
-   // Chỉ xử lý khi có nến D1 mới (nến trước vừa đóng).
+   // Xử lý khi có nến D1 mới (nến trước vừa đóng). Nếu tick đầu gặp market closed
+   // (CFD chỉ số thường đóng lúc 00:00), giữ lệnh chờ và khớp lại ở tick mở phiên — đúng "vào tại mở nến sau".
    const datetime t0 = iTime(g_symbol, PERIOD_D1, 0);
    if(t0 == 0)
       return;
-   if(t0 == g_last_d1)
-      return;
-   g_last_d1 = t0;
-   g_exited_this_bar = false;
 
-   if(iBars(g_symbol, PERIOD_D1) < 6)
-      return;
-
-   const double h = iHigh(g_symbol, PERIOD_D1, 1);
-   const double l = iLow(g_symbol, PERIOD_D1, 1);
-   const double c = iClose(g_symbol, PERIOD_D1, 1);
-   if(h <= 0.0 || l <= 0.0 || c <= 0.0 || h < l)
-      return;
-
-   double ibs = EMPTY_VALUE;
-   if(h > l)
-      ibs = (c - l) / (h - l);
-
-   // 1) Nếu đang giữ lệnh của EA này: xét thoát trước.
-   if(HasOurPosition())
+   if(t0 != g_last_d1)
      {
-      const int held = BarsHeld(); // số nến D1 đã đóng kể từ nến vào
-      const bool exit_ibs = (ibs != EMPTY_VALUE && ibs > InpIbsExit);
-      const bool exit_time = (held >= InpMaxBars);
-      if(exit_ibs || exit_time)
+      g_last_d1 = t0;
+      g_exited_this_bar = false;
+      g_pending_exit = false;
+      g_pending_entry = false;
+
+      if(iBars(g_symbol, PERIOD_D1) < 6)
+         return;
+
+      const double h = iHigh(g_symbol, PERIOD_D1, 1);
+      const double l = iLow(g_symbol, PERIOD_D1, 1);
+      const double c = iClose(g_symbol, PERIOD_D1, 1);
+      if(h <= 0.0 || l <= 0.0 || c <= 0.0 || h < l)
+         return;
+
+      double ibs = EMPTY_VALUE;
+      if(h > l)
+         ibs = (c - l) / (h - l);
+
+      // 1) Nếu đang giữ lệnh của EA này: xét thoát trước.
+      if(HasOurPosition())
         {
-         if(CloseOurPosition())
-           {
-            g_exited_this_bar = true;
-            g_entry_bar = 0;
-           }
+         const int held = BarsHeld(); // số nến D1 đã đóng kể từ nến vào
+         const bool exit_ibs = (ibs != EMPTY_VALUE && ibs > InpIbsExit);
+         const bool exit_time = (held >= InpMaxBars);
+         if(exit_ibs || exit_time)
+            g_pending_exit = true;
+        }
+
+      // 2) Không vào lại ngay trên cùng nến vừa thoát (khớp đặc tả Python: tín hiệu sau là đóng cửa nến thoát).
+      if(!g_pending_exit && !HasOurPosition() && ibs != EMPTY_VALUE && ibs < InpIbsBuy)
+        {
+         if(SpreadOk() && VixOk())
+            g_pending_entry = true;
         }
      }
 
-   // 2) Không vào lại ngay trên cùng nến vừa thoát (khớp đặc tả Python: tín hiệu sau là đóng cửa nến thoát).
+   if(g_pending_exit)
+     {
+      if(CloseOurPosition())
+        {
+         g_exited_this_bar = true;
+         g_entry_bar = 0;
+         g_pending_exit = false;
+         g_pending_entry = false;
+        }
+      return;
+     }
+
+   if(!g_pending_entry)
+      return;
    if(g_exited_this_bar || HasOurPosition())
+     {
+      g_pending_entry = false;
       return;
-   if(ibs == EMPTY_VALUE || ibs >= InpIbsBuy)
-      return;
-   if(!SpreadOk())
-      return;
-   if(!VixOk())
+     }
+   if(!SpreadOk() || !VixOk())
       return;
 
    const double lots = ComputeLots();
    if(lots <= 0.0)
+     {
+      g_pending_entry = false;
       return;
+     }
    if(g_trade.Buy(lots, g_symbol, 0.0, 0.0, 0.0, "IBS_US100 demo ung vien"))
      {
-      g_entry_bar = t0; // vào tại mở nến D1 hiện tại
-      Print("IBS_US100: BUY lots=", lots, " IBS=", ibs, " bar=", TimeToString(t0));
+      g_entry_bar = t0; // vào tại mở phiên của nến D1 hiện tại
+      g_pending_entry = false;
+      Print("IBS_US100: BUY lots=", lots, " bar=", TimeToString(t0));
      }
    else
-      Print("IBS_US100: Buy thất bại, retcode=", g_trade.ResultRetcode(), " ", g_trade.ResultRetcodeDescription());
+     {
+      const uint rc = g_trade.ResultRetcode();
+      Print("IBS_US100: Buy thất bại, retcode=", rc, " ", g_trade.ResultRetcodeDescription());
+      // Giữ pending chỉ khi thị trường đóng; lỗi khác thì bỏ tín hiệu nến này.
+      if(rc != TRADE_RETCODE_MARKET_CLOSED)
+         g_pending_entry = false;
+     }
   }
 
 //+------------------------------------------------------------------+
