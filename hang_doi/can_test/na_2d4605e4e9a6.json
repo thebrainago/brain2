@@ -1,0 +1,35 @@
+{
+ "id": "na_2d4605e4e9a6",
+ "loai": "mt5_backtest",
+ "lan": "co_ma_nguon",
+ "uu_tien": 25,
+ "che_do": "ea_goc",
+ "ea_file": "NA_2d4605e4e9a6",
+ "url_ma_nguon": "https://raw.githubusercontent.com/EarnForex/News-Trader/main/NewsTrader.mq5",
+ "ma": "AUDCADmicro",
+ "tf": "H1",
+ "tu": "2016.01.01",
+ "den": "2026.10.01",
+ "model": 4,
+ "von": 10000,
+ "tien": "USD",
+ "don_bay": 500,
+ "he_so_lot": [
+  1.0
+ ],
+ "uoc_phut": 30,
+ "nguon": "https://raw.githubusercontent.com/EarnForex/News-Trader/main/NewsTrader.mq5",
+ "noi_dung_sha256": "2d4605e4e9a6fd6a0583e3f9516ecbebcde83e53747606cea6e6e3aff604c756",
+ "phu_thuoc": [],
+ "include_ngoai": [],
+ "kieu_ea": "heuristic_ontick_lenh",
+ "kieu_ea_la_chung": false,
+ "dich_python": "khong_yeu_cau",
+ "bien_dich": "CHUA_BIEN_DICH",
+ "che_do_tai_khoan": "demo_only",
+ "ghi_chu": "Ứng viên biên dịch demo, một hệ số lot. OnTick/start và lời gọi lệnh chỉ là heuristic, không chứng minh EA biên dịch hay có lãi. mã không khóa cặp; gán AUDCADmicro cho một lần tester demo",
+ "tham_so_lot": "Lots",
+ "ts": {
+  "Lots": 0.01
+ }
+}

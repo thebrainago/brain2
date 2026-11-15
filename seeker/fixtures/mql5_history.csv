@@ -1,0 +1,3 @@
+Time;Deal;Symbol;Type;Direction;Volume;Price;Order;Commission;Swap;Profit;Balance;Comment
+2024.01.02 10:00:00;1;AUDCAD;buy;in;0.10;0.90000;1;0;0;0;1000;demo
+2024.01.02 12:00:00;2;AUDCAD;sell;out;0.10;0.90150;1;0;0;1.50;1001.50;demo

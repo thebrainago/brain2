@@ -89,6 +89,29 @@ def id_tu_danh_sach(h: str) -> list[str]:
     return sorted(set(re.findall(r"/en/signals/(\d{5,9})(?![\d/])", h)))
 
 
+def phan_loai_xuat_csv(http, than: str, url: str, url_cuoi: str | None = None, content_type: str = "") -> dict:
+    """Phân loại phản hồi /export/history. Chuyển hướng đăng nhập không phải 0 lệnh."""
+    from seeker.phan_loai_loi import phan_loai_http
+    pl = phan_loai_http(http, than or "", url, url_cuoi, content_type=content_type)
+    if pl["loai"] != "ok":
+        pl["so_dong"] = None
+        pl["khong_phai_khong_lenh"] = True
+        return pl
+    dau = (than or "").lstrip("\ufeff")
+    if "<html" in dau[:600].lower() or "log in" in dau[:2500].lower():
+        return {"loai": "auth", "ly_do": "history trả HTML/đăng nhập — không phải 0 lệnh",
+                "http": http, "so_dong": None, "dung_mien": False, "stale": False, "khong_phai_khong_lenh": True}
+    dong = [x for x in dau.splitlines() if x.strip()]
+    if not dong or "symbol" not in dong[0].lower():
+        return {"loai": "parse", "ly_do": "HTTP 200 nhưng không phải CSV lệnh",
+                "http": http, "so_dong": None, "dung_mien": False, "stale": False}
+    if len(dong) == 1:
+        return {"loai": "no_data", "ly_do": "CSV hợp lệ, 0 dòng lệnh",
+                "http": http, "so_dong": 0, "dung_mien": False, "stale": False}
+    return {"loai": "ok", "ly_do": f"{len(dong) - 1} dòng lệnh", "http": http,
+            "so_dong": len(dong) - 1, "dung_mien": False, "stale": False}
+
+
 def phan_tich(h: str, sid: str, ngay_doc: datetime | None = None) -> dict:
     from .cham_diem import cagr_tu_tang_truong, TUAN_MOT_NAM
     t = _van_ban(h)

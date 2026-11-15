@@ -9,12 +9,24 @@ from .mql5 import _van_ban, _so
 DS = ("https://www.myfxbook.com/systems",)
 
 
+def host_bi_chan() -> bool:
+    """2026-11-03 và các lần sau: Cloudflare 403. Không probe lại."""
+    return True
+
+
 def link_he_thong(h: str) -> list[str]:
     return sorted(set("https://www.myfxbook.com" + x for x in re.findall(r'href="(/members/[^"/]+/[^"/]+/\d+)"', h)))
 
 
 def phan_tich(h: str, url: str) -> dict:
+    from seeker.phan_loai_loi import phan_loai_http
     from .cham_diem import cagr_tu_tang_truong
+    pl = phan_loai_http(200, h or "", url)
+    if pl["loai"] == "challenge":
+        return {"nen_tang": "Myfxbook", "id": None, "url": url, "ten": None, "loai": "challenge",
+                "da_danh_gia": False, "dd_pct": None, "cagr_pct": None, "tuoi_thang": None,
+                "tang_truong_pct": None, "that_demo": "CHƯA ĐO ĐƯỢC", "symbol": [], "kieu": [],
+                "ly_do": pl["ly_do"], "ghi_chu": "trang challenge — không tạo hồ sơ giả"}
     t = _van_ban(h)
     def lay(n, mau=r"(-?[\d.,]+)"):
         m = re.search(re.escape(n) + r"\s*\n?\s*" + mau, t); return m.group(1) if m else None

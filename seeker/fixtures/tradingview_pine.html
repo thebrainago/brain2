@@ -1,0 +1,6 @@
+<html><body><pre>
+//@version=5
+strategy("AUDCAD cross", overlay=true)
+if ta.crossover(ta.sma(close, 10), ta.sma(close, 30))
+    strategy.entry("L", strategy.long)
+</pre></body></html>

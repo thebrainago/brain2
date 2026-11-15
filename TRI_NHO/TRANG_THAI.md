@@ -1,5 +1,7 @@
 > **05/11/2026 16:30 (UTC+7): BÀN GIAO — đọc TRI_NHO/BAN_GIAO_MAY_NHA.md trước.** Routine canh PAUSE; orch PID 17160 vẫn chạy.
 
+> **07/11/2026: nguồn SEEKER — đọc `docs/ban-giao/SEEKER_NGUON_ban_giao.md`.** Không quét lại 1600 MQL5 / 25 GitHub. Chẩn đoán: `python -m seeker.chan_doan` (166 unknown, 14 stale, 113 chưa có bộ đọc, 18 auth, 0 quy tắc dùng được). Kho 83: `python -m seeker.cong_khai.kho_83` — 83/83 thiếu CSV, 0 giao dịch được. Smoke 1 trang tín hiệu 1862128 vẫn đọc được (lịch sử người khác, không phải ĐẠT của mình). Exness trên box này: DNS Errno -2, không thấy 198.18.0.1.
+
 # Trạng thái hiện tại — cập nhật 03/11/2026 19:40 (UTC+7)
 
 ## Tóm tắt

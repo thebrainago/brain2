@@ -1,0 +1,35 @@
+{
+ "id": "na_1233d657c07b",
+ "loai": "mt5_backtest",
+ "lan": "co_ma_nguon",
+ "uu_tien": 25,
+ "che_do": "ea_goc",
+ "ea_file": "NA_1233d657c07b",
+ "url_ma_nguon": "https://www.mql5.com/en/code/download/77653/EMA_Cross_Demo_EA.mq5",
+ "ma": "AUDCADmicro",
+ "tf": "H1",
+ "tu": "2016.01.01",
+ "den": "2026.10.01",
+ "model": 4,
+ "von": 10000,
+ "tien": "USD",
+ "don_bay": 500,
+ "he_so_lot": [
+  1.0
+ ],
+ "uoc_phut": 30,
+ "nguon": "https://www.mql5.com/en/code/77653",
+ "noi_dung_sha256": "1233d657c07b9930ee25318a76cc80083b55482c31d78253215d46c0c72918ef",
+ "phu_thuoc": [],
+ "include_ngoai": [],
+ "kieu_ea": "heuristic_ontick_lenh",
+ "kieu_ea_la_chung": false,
+ "dich_python": "khong_yeu_cau",
+ "bien_dich": "CHUA_BIEN_DICH",
+ "che_do_tai_khoan": "demo_only",
+ "ghi_chu": "Ứng viên biên dịch demo, một hệ số lot. OnTick/start và lời gọi lệnh chỉ là heuristic, không chứng minh EA biên dịch hay có lãi. mã không khóa cặp; gán AUDCADmicro cho một lần tester demo",
+ "tham_so_lot": "InpLots",
+ "ts": {
+  "InpLots": 0.1
+ }
+}

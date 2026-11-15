@@ -1,0 +1,2668 @@
+{
+ "luc": "2026-11-07 03:00",
+ "nguon_bang": "reports/MQL5_LOC_CHAT.md",
+ "nguon_luc": "2026-11-03",
+ "so": 83,
+ "giao_dich_duoc": 0,
+ "quy_tac_dung_duoc": 0,
+ "ghi_chu": "83 là màn hình lịch sử công khai sau lọc chặt cũ, không phải 83 hệ ĐẠT của mình. Ưu tiên cặp không USD nhưng giữ cặp USD. Trùng tên chỉ là nghi.",
+ "csv": {
+  "thieu_du_lieu": 83
+ },
+ "uu_tien": {
+  "khong_usd": 23,
+  "lan": 14,
+  "co_usd": 46
+ },
+ "thu_tu_uu_tien": [
+  "2394758",
+  "2378478",
+  "2360068",
+  "2363323",
+  "2172246",
+  "2308093",
+  "1887017",
+  "1758568",
+  "2274644",
+  "2042164",
+  "2051827",
+  "2051881",
+  "2023750",
+  "2023752",
+  "1612976",
+  "2261205",
+  "2303521",
+  "2320603",
+  "1750952",
+  "2201396",
+  "2193151",
+  "2270515",
+  "2227935",
+  "2343251",
+  "2344620",
+  "2387289",
+  "2392805",
+  "1018646",
+  "2272380",
+  "2126101",
+  "1436120",
+  "1810556",
+  "854817",
+  "1051498",
+  "2198360",
+  "2135908",
+  "2356275",
+  "1862128",
+  "2391347",
+  "2231030",
+  "2153920",
+  "2330430",
+  "2342395",
+  "2393522",
+  "2244828",
+  "2265943",
+  "2269966",
+  "2378480",
+  "2351061",
+  "2245675",
+  "2380604",
+  "2196457",
+  "2242498",
+  "1725090",
+  "2378484",
+  "2049326",
+  "2330426",
+  "2250577",
+  "2375487",
+  "2378485",
+  "2100250",
+  "2234719",
+  "1566312",
+  "2378489",
+  "2232206",
+  "1309107",
+  "2229059",
+  "1798961",
+  "2331134",
+  "2195619",
+  "2183815",
+  "1708760",
+  "1412455",
+  "2000089",
+  "1939809",
+  "2236796",
+  "2337217",
+  "984972",
+  "2273171",
+  "1047527",
+  "2323713",
+  "2354516",
+  "2103795"
+ ],
+ "tin_hieu": [
+  {
+   "hang": 1,
+   "id": "1862128",
+   "url": "https://www.mql5.com/en/signals/1862128",
+   "ten": "EA Happy Gold Eightcap",
+   "ma": [
+    "XAUUSD"
+   ],
+   "tuoi_thang": 44.6,
+   "cagr_pct": 237.91,
+   "dd_pct": 11.7,
+   "sut_growth_pct": 6.69,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "EightcapInternational-Real-4",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 2,
+   "id": "2394758",
+   "url": "https://www.mql5.com/en/signals/2394758",
+   "ten": "Harmonizer High Risk",
+   "ma": [
+    "AUDCAD",
+    "NZDCAD"
+   ],
+   "tuoi_thang": 24.8,
+   "cagr_pct": 482.14,
+   "dd_pct": 14.93,
+   "sut_growth_pct": 0.0,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "Alpari-MT5",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 0,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": [
+    {
+     "id": "2360068",
+     "ly_do": "nghi: token harmonizer, mã AUDCAD NZDCAD, cùng máy chủ"
+    }
+   ]
+  },
+  {
+   "hang": 3,
+   "id": "2378478",
+   "url": "https://www.mql5.com/en/signals/2378478",
+   "ten": "LazyProV2 AUDCAD",
+   "ma": [
+    "AUDCAD"
+   ],
+   "tuoi_thang": 45.8,
+   "cagr_pct": 48.73,
+   "dd_pct": 7.03,
+   "sut_growth_pct": 0.0,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "XMGlobal-Real 22",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 0,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 4,
+   "id": "2360068",
+   "url": "https://www.mql5.com/en/signals/2360068",
+   "ten": "Harmonizer Extreme",
+   "ma": [
+    "AUDCAD",
+    "NZDCAD"
+   ],
+   "tuoi_thang": 26.7,
+   "cagr_pct": 350.43,
+   "dd_pct": 22.42,
+   "sut_growth_pct": 0.0,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "Alpari-MT5",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 0,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": [
+    {
+     "id": "2394758",
+     "ly_do": "nghi: token harmonizer, mã AUDCAD NZDCAD, cùng máy chủ"
+    }
+   ]
+  },
+  {
+   "hang": 5,
+   "id": "2391347",
+   "url": "https://www.mql5.com/en/signals/2391347",
+   "ten": "Aurum Titan",
+   "ma": [
+    "BTCUSD",
+    "DOW",
+    "XAUUSD"
+   ],
+   "tuoi_thang": 30.1,
+   "cagr_pct": 221.59,
+   "dd_pct": 29.34,
+   "sut_growth_pct": 21.57,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "KVBPrimeLimited-Real",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 6,
+   "id": "2363323",
+   "url": "https://www.mql5.com/en/signals/2363323",
+   "ten": "UpEverest MT4",
+   "ma": [
+    "AUDCAD"
+   ],
+   "tuoi_thang": 34.0,
+   "cagr_pct": 95.98,
+   "dd_pct": 15.18,
+   "sut_growth_pct": 0.0,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "FPMarketsSC-Live4",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 0,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 7,
+   "id": "2231030",
+   "url": "https://www.mql5.com/en/signals/2231030",
+   "ten": "MSC Gold Stable Pro",
+   "ma": [
+    "XAUUSD"
+   ],
+   "tuoi_thang": 30.4,
+   "cagr_pct": 202.64,
+   "dd_pct": 33.7,
+   "sut_growth_pct": 10.22,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "NeotechFinancialServices-Live",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 8,
+   "id": "2153920",
+   "url": "https://www.mql5.com/en/signals/2153920",
+   "ten": "MCA100",
+   "ma": [
+    "EURUSD",
+    "GBPUSD",
+    "XAUUSD"
+   ],
+   "tuoi_thang": 35.6,
+   "cagr_pct": 171.15,
+   "dd_pct": 35.37,
+   "sut_growth_pct": 19.14,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "ICMarketsSC-Live09",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 9,
+   "id": "2330430",
+   "url": "https://www.mql5.com/en/signals/2330430",
+   "ten": "JINNIUFX7",
+   "ma": [
+    "GBPUSD"
+   ],
+   "tuoi_thang": 121.0,
+   "cagr_pct": 22.67,
+   "dd_pct": 8.31,
+   "sut_growth_pct": 0.57,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "BlackwellGlobal2-Live3",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 10,
+   "id": "2343251",
+   "url": "https://www.mql5.com/en/signals/2343251",
+   "ten": "HJM1",
+   "ma": [
+    "EURNOK",
+    "EURUSD",
+    "XAUUSD"
+   ],
+   "tuoi_thang": 28.8,
+   "cagr_pct": 690.52,
+   "dd_pct": 41.01,
+   "sut_growth_pct": 0.0,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "CribMarket-Live",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 1,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 11,
+   "id": "2342395",
+   "url": "https://www.mql5.com/en/signals/2342395",
+   "ten": "KUHN",
+   "ma": [
+    "XAUUSD"
+   ],
+   "tuoi_thang": 38.6,
+   "cagr_pct": 199.08,
+   "dd_pct": 48.22,
+   "sut_growth_pct": 32.66,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "ECMarkets-Live01",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 12,
+   "id": "2393522",
+   "url": "https://www.mql5.com/en/signals/2393522",
+   "ten": "Xingli 5108",
+   "ma": [
+    "ETHUSD",
+    "XAUUSD"
+   ],
+   "tuoi_thang": 24.4,
+   "cagr_pct": 177.9,
+   "dd_pct": 35.33,
+   "sut_growth_pct": 26.06,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "TradeMaxGlobal-Live8",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 13,
+   "id": "2244828",
+   "url": "https://www.mql5.com/en/signals/2244828",
+   "ten": "Kivenara 815m52ff",
+   "ma": [
+    "NAS100"
+   ],
+   "tuoi_thang": 31.3,
+   "cagr_pct": 136.55,
+   "dd_pct": 36.81,
+   "sut_growth_pct": 31.98,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "Elev8-Real9",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": [
+    {
+     "id": "2229059",
+     "ly_do": "nghi: token kivenara, mã NAS100, máy chủ khác hoặc thiếu"
+    }
+   ]
+  },
+  {
+   "hang": 14,
+   "id": "2265943",
+   "url": "https://www.mql5.com/en/signals/2265943",
+   "ten": "The Gold Miner",
+   "ma": [
+    "GOLDM"
+   ],
+   "tuoi_thang": 24.6,
+   "cagr_pct": 190.25,
+   "dd_pct": 44.95,
+   "sut_growth_pct": 41.45,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "XMGlobal-MT5 12",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 15,
+   "id": "2269966",
+   "url": "https://www.mql5.com/en/signals/2269966",
+   "ten": "BreakZone Scalper HFM",
+   "ma": [
+    "XAUUSD"
+   ],
+   "tuoi_thang": 24.4,
+   "cagr_pct": 247.23,
+   "dd_pct": 47.16,
+   "sut_growth_pct": 35.87,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "HFMarketsGlobal-Live1",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 16,
+   "id": "2378480",
+   "url": "https://www.mql5.com/en/signals/2378480",
+   "ten": "EansPRO V3 XAUUSD",
+   "ma": [
+    "AUDUSD",
+    "GOLDMI"
+   ],
+   "tuoi_thang": 59.8,
+   "cagr_pct": 26.61,
+   "dd_pct": 10.25,
+   "sut_growth_pct": 0.0,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "XMGlobal-Real 16",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 17,
+   "id": "2351061",
+   "url": "https://www.mql5.com/en/signals/2351061",
+   "ten": "Gold Minion",
+   "ma": [
+    "XAUUSD"
+   ],
+   "tuoi_thang": 35.9,
+   "cagr_pct": 98.92,
+   "dd_pct": 29.66,
+   "sut_growth_pct": 25.98,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "ICMarketsSC-MT5-4",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 18,
+   "id": "2245675",
+   "url": "https://www.mql5.com/en/signals/2245675",
+   "ten": "OnlyUJ",
+   "ma": [
+    "USDJPY"
+   ],
+   "tuoi_thang": 27.6,
+   "cagr_pct": 119.57,
+   "dd_pct": 35.54,
+   "sut_growth_pct": 23.67,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "Exness-MT5Real15",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 19,
+   "id": "2344620",
+   "url": "https://www.mql5.com/en/signals/2344620",
+   "ten": "Friday Pro",
+   "ma": [
+    "GBPJPY",
+    "NOKJPY",
+    "USDJPY"
+   ],
+   "tuoi_thang": 39.1,
+   "cagr_pct": 90.41,
+   "dd_pct": 33.16,
+   "sut_growth_pct": 24.92,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "ICMarketsSC-Live05",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 1,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 20,
+   "id": "2387289",
+   "url": "https://www.mql5.com/en/signals/2387289",
+   "ten": "Nasdaq manual",
+   "ma": [
+    "EURUSD",
+    "NQCASH"
+   ],
+   "tuoi_thang": 26.4,
+   "cagr_pct": 124.75,
+   "dd_pct": 38.27,
+   "sut_growth_pct": 1.16,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "ForexClub-MT4 Market Real 2 Server",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 1,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 21,
+   "id": "2380604",
+   "url": "https://www.mql5.com/en/signals/2380604",
+   "ten": "MSC Gold Fund Pro",
+   "ma": [
+    "XAUUSD"
+   ],
+   "tuoi_thang": 40.0,
+   "cagr_pct": 12.74,
+   "dd_pct": 4.04,
+   "sut_growth_pct": 3.1,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "NeotechFinancialServices-Live",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 22,
+   "id": "2172246",
+   "url": "https://www.mql5.com/en/signals/2172246",
+   "ten": "TwoHundredPercentAnnually",
+   "ma": [
+    "AUDCAD",
+    "AUDNZD",
+    "NZDCAD"
+   ],
+   "tuoi_thang": 45.1,
+   "cagr_pct": 65.03,
+   "dd_pct": 28.95,
+   "sut_growth_pct": 1.65,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "ICMarketsSC-Live26",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 0,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 23,
+   "id": "2196457",
+   "url": "https://www.mql5.com/en/signals/2196457",
+   "ten": "X117 Taoist nature",
+   "ma": [
+    "GOLD",
+    "USDCHF"
+   ],
+   "tuoi_thang": 33.1,
+   "cagr_pct": 134.19,
+   "dd_pct": 50.99,
+   "sut_growth_pct": 40.08,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "XMGlobal-MT5 2",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 24,
+   "id": "2392805",
+   "url": "https://www.mql5.com/en/signals/2392805",
+   "ten": "UZUNAMI88",
+   "ma": [
+    "GBPJPY",
+    "XAUUSD"
+   ],
+   "tuoi_thang": 44.9,
+   "cagr_pct": 39.57,
+   "dd_pct": 18.35,
+   "sut_growth_pct": 16.84,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "MaxrichGroup-Real",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 1,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 25,
+   "id": "2308093",
+   "url": "https://www.mql5.com/en/signals/2308093",
+   "ten": "UpFuji MT4",
+   "ma": [
+    "AUDCAD"
+   ],
+   "tuoi_thang": 37.3,
+   "cagr_pct": 58.54,
+   "dd_pct": 27.15,
+   "sut_growth_pct": 0.68,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "RoboForex-Pro-5",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 0,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 26,
+   "id": "2242498",
+   "url": "https://www.mql5.com/en/signals/2242498",
+   "ten": "Goldtrade Pro High Risk",
+   "ma": [
+    "XAUUSD"
+   ],
+   "tuoi_thang": 27.8,
+   "cagr_pct": 150.39,
+   "dd_pct": 60.45,
+   "sut_growth_pct": 56.66,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "CapitalPointTrading-MT5-4",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 27,
+   "id": "1725090",
+   "url": "https://www.mql5.com/en/signals/1725090",
+   "ten": "My Son Trading Account",
+   "ma": [
+    "US500"
+   ],
+   "tuoi_thang": 49.0,
+   "cagr_pct": 53.88,
+   "dd_pct": 30.29,
+   "sut_growth_pct": 0.11,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "ICMarkets-MT5-2",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 28,
+   "id": "2378484",
+   "url": "https://www.mql5.com/en/signals/2378484",
+   "ten": "LazyPro v23 EURUSD",
+   "ma": [
+    "EURUSD"
+   ],
+   "tuoi_thang": 44.4,
+   "cagr_pct": 77.47,
+   "dd_pct": 41.61,
+   "sut_growth_pct": 4.81,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "XMGlobal-Real 5",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": [
+    {
+     "id": "2378485",
+     "ly_do": "nghi: token eurusd, mã EURUSD, máy chủ khác hoặc thiếu"
+    },
+    {
+     "id": "2378489",
+     "ly_do": "nghi: token eurusd, mã EURUSD, máy chủ khác hoặc thiếu"
+    },
+    {
+     "id": "1708760",
+     "ly_do": "nghi: token lazypro, mã EURUSD, máy chủ khác hoặc thiếu"
+    }
+   ]
+  },
+  {
+   "hang": 29,
+   "id": "1887017",
+   "url": "https://www.mql5.com/en/signals/1887017",
+   "ten": "MAPLEROO",
+   "ma": [
+    "AUDCAD"
+   ],
+   "tuoi_thang": 44.4,
+   "cagr_pct": 125.6,
+   "dd_pct": 70.63,
+   "sut_growth_pct": 17.21,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "ICMarketsSC-Live23",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 0,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 30,
+   "id": "1758568",
+   "url": "https://www.mql5.com/en/signals/1758568",
+   "ten": "EA Happy Power FM",
+   "ma": [
+    "EURCHF"
+   ],
+   "tuoi_thang": 60.3,
+   "cagr_pct": 81.68,
+   "dd_pct": 55.75,
+   "sut_growth_pct": 11.16,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "ForexMart-RealServer",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 0,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 31,
+   "id": "2049326",
+   "url": "https://www.mql5.com/en/signals/2049326",
+   "ten": "SFE Impulse",
+   "ma": [
+    "BTCUSD",
+    "ETHUSD"
+   ],
+   "tuoi_thang": 38.2,
+   "cagr_pct": 50.54,
+   "dd_pct": 27.95,
+   "sut_growth_pct": 24.17,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "ICMarketsSC-MT5-4",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 32,
+   "id": "2274644",
+   "url": "https://www.mql5.com/en/signals/2274644",
+   "ten": "Pinnacle Alpha",
+   "ma": [
+    "AUDCAD",
+    "AUDNZD",
+    "NZDCAD"
+   ],
+   "tuoi_thang": 57.3,
+   "cagr_pct": 34.07,
+   "dd_pct": 23.56,
+   "sut_growth_pct": 0.0,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "FortunePrimeGlobal-Live",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 0,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 33,
+   "id": "2330426",
+   "url": "https://www.mql5.com/en/signals/2330426",
+   "ten": "JINNIUFX3",
+   "ma": [
+    "GBPUSD",
+    "XAUUSD"
+   ],
+   "tuoi_thang": 85.5,
+   "cagr_pct": 43.63,
+   "dd_pct": 36.44,
+   "sut_growth_pct": 18.63,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "BlackwellGlobal2-Live3",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 34,
+   "id": "2250577",
+   "url": "https://www.mql5.com/en/signals/2250577",
+   "ten": "Golden System 2",
+   "ma": [
+    "XAUUSD"
+   ],
+   "tuoi_thang": 52.2,
+   "cagr_pct": 59.25,
+   "dd_pct": 40.17,
+   "sut_growth_pct": 28.96,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "ICMarketsSC-Live27",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 35,
+   "id": "2042164",
+   "url": "https://www.mql5.com/en/signals/2042164",
+   "ten": "PrismaForex",
+   "ma": [
+    "AUDCAD",
+    "CADCHF",
+    "EURGBP"
+   ],
+   "tuoi_thang": 50.6,
+   "cagr_pct": 53.27,
+   "dd_pct": 37.61,
+   "sut_growth_pct": 0.39,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "RoboMarketsCY-ECN",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 0,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 36,
+   "id": "2375487",
+   "url": "https://www.mql5.com/en/signals/2375487",
+   "ten": "Different gold strategies 1",
+   "ma": [
+    "XAUUSD"
+   ],
+   "tuoi_thang": 25.8,
+   "cagr_pct": 64.39,
+   "dd_pct": 31.69,
+   "sut_growth_pct": 29.16,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "ICMarketsSC-MT5-2",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 37,
+   "id": "2378485",
+   "url": "https://www.mql5.com/en/signals/2378485",
+   "ten": "MetaPro v22 EURUSD",
+   "ma": [
+    "EURUSD"
+   ],
+   "tuoi_thang": 45.8,
+   "cagr_pct": 77.84,
+   "dd_pct": 52.78,
+   "sut_growth_pct": 0.0,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "XMGlobal-Real 22",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": [
+    {
+     "id": "2378484",
+     "ly_do": "nghi: token eurusd, mã EURUSD, máy chủ khác hoặc thiếu"
+    },
+    {
+     "id": "2378489",
+     "ly_do": "nghi: token eurusd, mã EURUSD, cùng máy chủ"
+    }
+   ]
+  },
+  {
+   "hang": 38,
+   "id": "2100250",
+   "url": "https://www.mql5.com/en/signals/2100250",
+   "ten": "Gld Trde Pro",
+   "ma": [
+    "XAUUSD"
+   ],
+   "tuoi_thang": 36.6,
+   "cagr_pct": 117.49,
+   "dd_pct": 71.82,
+   "sut_growth_pct": 50.89,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "EightcapInternational-Real-4",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 39,
+   "id": "2234719",
+   "url": "https://www.mql5.com/en/signals/2234719",
+   "ten": "Navi",
+   "ma": [
+    "BTCUSD"
+   ],
+   "tuoi_thang": 28.8,
+   "cagr_pct": 74.99,
+   "dd_pct": 40.1,
+   "sut_growth_pct": 38.33,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "Exness-MT5Real8",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 40,
+   "id": "1566312",
+   "url": "https://www.mql5.com/en/signals/1566312",
+   "ten": "SteadyRock Growth IFL XAUUSD ICMarkets",
+   "ma": [
+    "XAUUSD"
+   ],
+   "tuoi_thang": 52.9,
+   "cagr_pct": 40.75,
+   "dd_pct": 31.28,
+   "sut_growth_pct": 22.69,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "ICMarketsSC-Live32",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": [
+    {
+     "id": "1309107",
+     "ly_do": "nghi: token growth,steadyrock,xauusd, mã XAUUSD, máy chủ khác hoặc thiếu"
+    }
+   ]
+  },
+  {
+   "hang": 41,
+   "id": "2051827",
+   "url": "https://www.mql5.com/en/signals/2051827",
+   "ten": "TYLWK",
+   "ma": [
+    "AUDCAD",
+    "AUDNZD",
+    "NZDCAD"
+   ],
+   "tuoi_thang": 40.7,
+   "cagr_pct": 91.35,
+   "dd_pct": 64.17,
+   "sut_growth_pct": 0.0,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "RadexMarkets-Real 6",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 0,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 42,
+   "id": "2051881",
+   "url": "https://www.mql5.com/en/signals/2051881",
+   "ten": "HPCWK",
+   "ma": [
+    "AUDCAD",
+    "AUDNZD",
+    "NZDCAD"
+   ],
+   "tuoi_thang": 40.0,
+   "cagr_pct": 91.34,
+   "dd_pct": 64.12,
+   "sut_growth_pct": 0.0,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "RadexMarkets-Real 6",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 0,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 43,
+   "id": "2378489",
+   "url": "https://www.mql5.com/en/signals/2378489",
+   "ten": "EansPRO V3 EURUSD",
+   "ma": [
+    "EURUSD"
+   ],
+   "tuoi_thang": 46.0,
+   "cagr_pct": 48.51,
+   "dd_pct": 37.73,
+   "sut_growth_pct": 0.0,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "XMGlobal-Real 22",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": [
+    {
+     "id": "2378484",
+     "ly_do": "nghi: token eurusd, mã EURUSD, máy chủ khác hoặc thiếu"
+    },
+    {
+     "id": "2378485",
+     "ly_do": "nghi: token eurusd, mã EURUSD, cùng máy chủ"
+    }
+   ]
+  },
+  {
+   "hang": 44,
+   "id": "2232206",
+   "url": "https://www.mql5.com/en/signals/2232206",
+   "ten": "AlgoMind DayTrading",
+   "ma": [
+    "XAUUSD"
+   ],
+   "tuoi_thang": 32.2,
+   "cagr_pct": 72.91,
+   "dd_pct": 47.56,
+   "sut_growth_pct": 39.33,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "Headway-Real",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 45,
+   "id": "1309107",
+   "url": "https://www.mql5.com/en/signals/1309107",
+   "ten": "SteadyRock Growth IFL XAUUSD Tickmill",
+   "ma": [
+    "XAUUSD"
+   ],
+   "tuoi_thang": 58.9,
+   "cagr_pct": 53.64,
+   "dd_pct": 48.11,
+   "sut_growth_pct": 42.14,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "TickmillUK-Live03",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": [
+    {
+     "id": "1566312",
+     "ly_do": "nghi: token growth,steadyrock,xauusd, mã XAUUSD, máy chủ khác hoặc thiếu"
+    }
+   ]
+  },
+  {
+   "hang": 46,
+   "id": "2229059",
+   "url": "https://www.mql5.com/en/signals/2229059",
+   "ten": "Kivenara 8315m01f",
+   "ma": [
+    "NAS100"
+   ],
+   "tuoi_thang": 32.4,
+   "cagr_pct": 51.71,
+   "dd_pct": 34.62,
+   "sut_growth_pct": 28.74,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "Elev8-Real10",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": [
+    {
+     "id": "2244828",
+     "ly_do": "nghi: token kivenara, mã NAS100, máy chủ khác hoặc thiếu"
+    }
+   ]
+  },
+  {
+   "hang": 47,
+   "id": "2023750",
+   "url": "https://www.mql5.com/en/signals/2023750",
+   "ten": "NoStress MT4",
+   "ma": [
+    "AUDCAD"
+   ],
+   "tuoi_thang": 39.1,
+   "cagr_pct": 51.75,
+   "dd_pct": 39.4,
+   "sut_growth_pct": 0.0,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "CapitalPointTrading-Live05",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 0,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": [
+    {
+     "id": "2023752",
+     "ly_do": "nghi: token nostress, mã AUDCAD, máy chủ khác hoặc thiếu"
+    }
+   ]
+  },
+  {
+   "hang": 48,
+   "id": "1798961",
+   "url": "https://www.mql5.com/en/signals/1798961",
+   "ten": "AutoScalping V9C",
+   "ma": [
+    "EURUSD"
+   ],
+   "tuoi_thang": 49.9,
+   "cagr_pct": 65.86,
+   "dd_pct": 61.65,
+   "sut_growth_pct": 0.0,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "XMGlobal-Real 36",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 49,
+   "id": "2023752",
+   "url": "https://www.mql5.com/en/signals/2023752",
+   "ten": "NoStress MT5",
+   "ma": [
+    "AUDCAD"
+   ],
+   "tuoi_thang": 39.1,
+   "cagr_pct": 50.11,
+   "dd_pct": 41.57,
+   "sut_growth_pct": 0.0,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "CapitalPointTrading-MT5",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 0,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": [
+    {
+     "id": "2023750",
+     "ly_do": "nghi: token nostress, mã AUDCAD, máy chủ khác hoặc thiếu"
+    }
+   ]
+  },
+  {
+   "hang": 50,
+   "id": "1018646",
+   "url": "https://www.mql5.com/en/signals/1018646",
+   "ten": "RetireNow MT5",
+   "ma": [
+    "AUDCAD",
+    "EURUSD"
+   ],
+   "tuoi_thang": 65.1,
+   "cagr_pct": 54.56,
+   "dd_pct": 59.48,
+   "sut_growth_pct": 4.45,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "ActivTradesCorp-Server",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 1,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 51,
+   "id": "1612976",
+   "url": "https://www.mql5.com/en/signals/1612976",
+   "ten": "XPulse EA",
+   "ma": [
+    "AUDCAD",
+    "AUDNZD",
+    "NZDCAD"
+   ],
+   "tuoi_thang": 51.8,
+   "cagr_pct": 57.29,
+   "dd_pct": 56.86,
+   "sut_growth_pct": 8.61,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "ICMarketsSC-Live32",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 0,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 52,
+   "id": "2261205",
+   "url": "https://www.mql5.com/en/signals/2261205",
+   "ten": "EA 3 CurrencyPair MediumRisk",
+   "ma": [
+    "AUDCAD",
+    "AUDNZD",
+    "NZDCAD"
+   ],
+   "tuoi_thang": 35.9,
+   "cagr_pct": 52.79,
+   "dd_pct": 43.98,
+   "sut_growth_pct": 43.13,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "ICMarketsSC-Live23",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 0,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 53,
+   "id": "2331134",
+   "url": "https://www.mql5.com/en/signals/2331134",
+   "ten": "Sputnik SI Auto",
+   "ma": [
+    "ETHUSD",
+    "EURUSD",
+    "GBPUSD"
+   ],
+   "tuoi_thang": 64.9,
+   "cagr_pct": 32.53,
+   "dd_pct": 37.2,
+   "sut_growth_pct": 0.0,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "ForexClub-MT4 Market Real 2 Server",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 54,
+   "id": "2195619",
+   "url": "https://www.mql5.com/en/signals/2195619",
+   "ten": "The Gold Reaper Live default settings",
+   "ma": [
+    "XAUUSD"
+   ],
+   "tuoi_thang": 32.9,
+   "cagr_pct": 56.15,
+   "dd_pct": 45.64,
+   "sut_growth_pct": 37.29,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "PepperstoneUK-Live",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 55,
+   "id": "2272380",
+   "url": "https://www.mql5.com/en/signals/2272380",
+   "ten": "NANO M0NEY CORP from FXGP WMC",
+   "ma": [
+    "AUDCAD",
+    "EURUSD",
+    "GBPUSD"
+   ],
+   "tuoi_thang": 30.1,
+   "cagr_pct": 97.55,
+   "dd_pct": 77.95,
+   "sut_growth_pct": 0.0,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "Weltrade-Live",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 1,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 56,
+   "id": "2303521",
+   "url": "https://www.mql5.com/en/signals/2303521",
+   "ten": "Interstellar",
+   "ma": [
+    "AUDCAD"
+   ],
+   "tuoi_thang": 53.4,
+   "cagr_pct": 49.02,
+   "dd_pct": 53.02,
+   "sut_growth_pct": 49.53,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "LiteFinanceVC-Live-05",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 0,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 57,
+   "id": "2183815",
+   "url": "https://www.mql5.com/en/signals/2183815",
+   "ten": "Jaya bersama XM 1",
+   "ma": [
+    "BTCUSD",
+    "EURUSD"
+   ],
+   "tuoi_thang": 33.8,
+   "cagr_pct": 82.3,
+   "dd_pct": 79.84,
+   "sut_growth_pct": 0.12,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "XMGlobal-Real 8",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 58,
+   "id": "1708760",
+   "url": "https://www.mql5.com/en/signals/1708760",
+   "ten": "NS lazyPRO 24155959",
+   "ma": [
+    "AUDUSD",
+    "EURUSD"
+   ],
+   "tuoi_thang": 52.2,
+   "cagr_pct": 60.03,
+   "dd_pct": 73.67,
+   "sut_growth_pct": 0.0,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "XMGlobal-Real 23",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": [
+    {
+     "id": "2378484",
+     "ly_do": "nghi: token lazypro, mã EURUSD, máy chủ khác hoặc thiếu"
+    },
+    {
+     "id": "1810556",
+     "ly_do": "nghi: token lazypro, mã AUDUSD, máy chủ khác hoặc thiếu"
+    }
+   ]
+  },
+  {
+   "hang": 59,
+   "id": "2320603",
+   "url": "https://www.mql5.com/en/signals/2320603",
+   "ten": "IC Trading Signla MT5",
+   "ma": [
+    "AUDCAD",
+    "AUDNZD",
+    "NZDCAD"
+   ],
+   "tuoi_thang": 30.6,
+   "cagr_pct": 19.11,
+   "dd_pct": 18.89,
+   "sut_growth_pct": 1.89,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "ICMarketsSC-MT5-4",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 0,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 60,
+   "id": "2126101",
+   "url": "https://www.mql5.com/en/signals/2126101",
+   "ten": "TriForce MT5",
+   "ma": [
+    "AUDCAD",
+    "AUDUSD",
+    "EURUSD"
+   ],
+   "tuoi_thang": 35.2,
+   "cagr_pct": 41.53,
+   "dd_pct": 44.62,
+   "sut_growth_pct": 0.67,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "CapitalPointTrading-MT5-4",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 1,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 61,
+   "id": "1412455",
+   "url": "https://www.mql5.com/en/signals/1412455",
+   "ten": "NS eP v3 49109488",
+   "ma": [
+    "AUDUSD",
+    "EURUSD"
+   ],
+   "tuoi_thang": 56.6,
+   "cagr_pct": 24.14,
+   "dd_pct": 34.77,
+   "sut_growth_pct": 4.01,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "XMGlobal-Real 39",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 62,
+   "id": "1750952",
+   "url": "https://www.mql5.com/en/signals/1750952",
+   "ten": "Cradle by SecureFX Trader",
+   "ma": [
+    "AUDCAD",
+    "AUDNZD",
+    "NZDCAD"
+   ],
+   "tuoi_thang": 53.6,
+   "cagr_pct": 21.64,
+   "dd_pct": 31.33,
+   "sut_growth_pct": 0.0,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "ICMarketsAU-MT4-Live",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 0,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 63,
+   "id": "1436120",
+   "url": "https://www.mql5.com/en/signals/1436120",
+   "ten": "NS eP V3 49120344",
+   "ma": [
+    "AUDUSD",
+    "EURUSD",
+    "NZDCAD"
+   ],
+   "tuoi_thang": 55.9,
+   "cagr_pct": 51.31,
+   "dd_pct": 78.21,
+   "sut_growth_pct": 0.0,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "XMGlobal-Real 39",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 1,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 64,
+   "id": "1810556",
+   "url": "https://www.mql5.com/en/signals/1810556",
+   "ten": "NS lazyPRO 66097110",
+   "ma": [
+    "AUDCAD",
+    "AUDUSD"
+   ],
+   "tuoi_thang": 48.5,
+   "cagr_pct": 38.67,
+   "dd_pct": 55.35,
+   "sut_growth_pct": 0.0,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "HFMarketsSV-Live Server 7",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 1,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": [
+    {
+     "id": "1708760",
+     "ly_do": "nghi: token lazypro, mã AUDUSD, máy chủ khác hoặc thiếu"
+    }
+   ]
+  },
+  {
+   "hang": 65,
+   "id": "854817",
+   "url": "https://www.mql5.com/en/signals/854817",
+   "ten": "Mars5",
+   "ma": [
+    "EURUSD",
+    "GBPUSD",
+    "PROFIT"
+   ],
+   "tuoi_thang": 85.3,
+   "cagr_pct": 24.46,
+   "dd_pct": 45.53,
+   "sut_growth_pct": 0.0,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "Weltrade-Live",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 1,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 66,
+   "id": "1051498",
+   "url": "https://www.mql5.com/en/signals/1051498",
+   "ten": "EA HFM FM",
+   "ma": [
+    "AUDUSD",
+    "EURCHF",
+    "USDCHF"
+   ],
+   "tuoi_thang": 64.4,
+   "cagr_pct": 39.0,
+   "dd_pct": 52.17,
+   "sut_growth_pct": 0.0,
+   "luoi_trong_bao_cao": "có (từ khoá trang/phong cách)",
+   "may_chu": "ForexMart-RealServer",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 1,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 67,
+   "id": "2000089",
+   "url": "https://www.mql5.com/en/signals/2000089",
+   "ten": "ForxeShootClassMT5",
+   "ma": [
+    "EURUSD",
+    "GBPUSD",
+    "USDCHF"
+   ],
+   "tuoi_thang": 41.6,
+   "cagr_pct": 42.84,
+   "dd_pct": 59.32,
+   "sut_growth_pct": 34.14,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "Swissquote-Server",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 68,
+   "id": "1939809",
+   "url": "https://www.mql5.com/en/signals/1939809",
+   "ten": "C120 JPY_GOLD",
+   "ma": [
+    "USDJPY",
+    "XAUUSD"
+   ],
+   "tuoi_thang": 42.1,
+   "cagr_pct": 25.65,
+   "dd_pct": 37.18,
+   "sut_growth_pct": 21.29,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "ICMarkets-Live20",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 69,
+   "id": "2201396",
+   "url": "https://www.mql5.com/en/signals/2201396",
+   "ten": "Pullenback Stability Growth",
+   "ma": [
+    "AUDCAD",
+    "AUDNZD",
+    "NZDCAD"
+   ],
+   "tuoi_thang": 49.0,
+   "cagr_pct": 35.41,
+   "dd_pct": 57.06,
+   "sut_growth_pct": 0.0,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "Exness-Real18",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 0,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 70,
+   "id": "2236796",
+   "url": "https://www.mql5.com/en/signals/2236796",
+   "ten": "UnicornFx GSS 60",
+   "ma": [
+    "EURUSD"
+   ],
+   "tuoi_thang": 35.0,
+   "cagr_pct": 28.02,
+   "dd_pct": 41.25,
+   "sut_growth_pct": 4.03,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "LiteFinanceVC-Live-08",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 71,
+   "id": "2337217",
+   "url": "https://www.mql5.com/en/signals/2337217",
+   "ten": "Top Cat S",
+   "ma": [
+    "EURUSD"
+   ],
+   "tuoi_thang": 32.7,
+   "cagr_pct": 24.52,
+   "dd_pct": 36.38,
+   "sut_growth_pct": 1.54,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "AdmiralsGroup-Live3",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 72,
+   "id": "2193151",
+   "url": "https://www.mql5.com/en/signals/2193151",
+   "ten": "MinorForce MT5",
+   "ma": [
+    "AUDCAD",
+    "AUDNZD",
+    "NZDCAD"
+   ],
+   "tuoi_thang": 33.1,
+   "cagr_pct": 46.78,
+   "dd_pct": 73.57,
+   "sut_growth_pct": 2.23,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "XMGlobal-MT5 10",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 0,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 73,
+   "id": "984972",
+   "url": "https://www.mql5.com/en/signals/984972",
+   "ten": "ManagmentM",
+   "ma": [
+    "EURUSD"
+   ],
+   "tuoi_thang": 66.9,
+   "cagr_pct": 17.18,
+   "dd_pct": 38.5,
+   "sut_growth_pct": 32.27,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "RoboMarketsCY-Prime",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 74,
+   "id": "2273171",
+   "url": "https://www.mql5.com/en/signals/2273171",
+   "ten": "EA Happy Algorithm PRO FM",
+   "ma": [
+    "EURUSD",
+    "USDCHF"
+   ],
+   "tuoi_thang": 31.7,
+   "cagr_pct": 25.18,
+   "dd_pct": 41.61,
+   "sut_growth_pct": 7.57,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "ForexMart-RealServer",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 75,
+   "id": "1047527",
+   "url": "https://www.mql5.com/en/signals/1047527",
+   "ten": "Happy MartiGrid EA",
+   "ma": [
+    "AUDUSD"
+   ],
+   "tuoi_thang": 64.6,
+   "cagr_pct": 21.07,
+   "dd_pct": 42.1,
+   "sut_growth_pct": 0.0,
+   "luoi_trong_bao_cao": "có (từ khoá trang/phong cách)",
+   "may_chu": "ForexMart-RealServer",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 76,
+   "id": "2323713",
+   "url": "https://www.mql5.com/en/signals/2323713",
+   "ten": "Advanced Scalper Live",
+   "ma": [
+    "EURUSD",
+    "GBPUSD",
+    "USDJPY"
+   ],
+   "tuoi_thang": 80.5,
+   "cagr_pct": 12.24,
+   "dd_pct": 38.02,
+   "sut_growth_pct": 31.06,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "TickmillUK-Live03",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 77,
+   "id": "2198360",
+   "url": "https://www.mql5.com/en/signals/2198360",
+   "ten": "XXX OIL",
+   "ma": [
+    "BRENTE",
+    "CLECN",
+    "UKOILE"
+   ],
+   "tuoi_thang": 52.9,
+   "cagr_pct": 24.22,
+   "dd_pct": 66.98,
+   "sut_growth_pct": 46.61,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "PurpleTrading-03Live",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 1,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 78,
+   "id": "2135908",
+   "url": "https://www.mql5.com/en/signals/2135908",
+   "ten": "GBP Daily Trade V1",
+   "ma": [
+    "EURGBP",
+    "GBPUSD"
+   ],
+   "tuoi_thang": 35.4,
+   "cagr_pct": 11.81,
+   "dd_pct": 26.62,
+   "sut_growth_pct": 23.75,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "XM.COM-MT5",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 1,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 79,
+   "id": "2354516",
+   "url": "https://www.mql5.com/en/signals/2354516",
+   "ten": "Sydney MT5",
+   "ma": [
+    "GBPUSD",
+    "USDJPY"
+   ],
+   "tuoi_thang": 39.3,
+   "cagr_pct": 25.77,
+   "dd_pct": 63.92,
+   "sut_growth_pct": 58.53,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "ICMarketsSC-MT5-4",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 80,
+   "id": "2270515",
+   "url": "https://www.mql5.com/en/signals/2270515",
+   "ten": "MC RB",
+   "ma": [
+    "AUDCAD",
+    "AUDNZD",
+    "NZDCAD"
+   ],
+   "tuoi_thang": 42.3,
+   "cagr_pct": 22.05,
+   "dd_pct": 68.79,
+   "sut_growth_pct": 0.0,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "RoboForex-ECN",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 0,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 81,
+   "id": "2227935",
+   "url": "https://www.mql5.com/en/signals/2227935",
+   "ten": "JM",
+   "ma": [
+    "AUDCAD",
+    "AUDNZD",
+    "NZDCAD"
+   ],
+   "tuoi_thang": 42.3,
+   "cagr_pct": 14.46,
+   "dd_pct": 52.56,
+   "sut_growth_pct": 49.51,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "ICMarketsSC-MT5-4",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 0,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 82,
+   "id": "2103795",
+   "url": "https://www.mql5.com/en/signals/2103795",
+   "ten": "Bitcoin Scalp Pro",
+   "ma": [
+    "BTCUSD"
+   ],
+   "tuoi_thang": 36.6,
+   "cagr_pct": 16.73,
+   "dd_pct": 71.38,
+   "sut_growth_pct": 56.56,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "ICMarketsSC-MT5-4",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 2,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  },
+  {
+   "hang": 83,
+   "id": "2356275",
+   "url": "https://www.mql5.com/en/signals/2356275",
+   "ten": "LANCER",
+   "ma": [
+    "COFFEE",
+    "KCZ6CFD",
+    "USDJPY"
+   ],
+   "tuoi_thang": 30.1,
+   "cagr_pct": 10.9,
+   "dd_pct": 42.9,
+   "sut_growth_pct": 35.66,
+   "luoi_trong_bao_cao": "không",
+   "may_chu": "ICMarketsSC-Live08",
+   "cap": "man_hinh_lich_su_cong_khai",
+   "giao_dich_duoc": false,
+   "ly_do_cap": "Màn hình lịch sử công khai của người khác (bản lọc 03/11). Chưa giải mã điểm vào, chưa OOS. Không phải ĐẠT của hệ mình.",
+   "nhom_uu_tien": 1,
+   "csv": {
+    "loai": "thieu_du_lieu",
+    "ly_do": "chưa có CSV xuất tay. Endpoint history của MQL5 đòi đăng nhập; phiên này không tải và không coi đó là 0 lệnh.",
+    "so_dong": null,
+    "co_tep": false,
+    "sha256": null,
+    "tep": null
+   },
+   "csv_sha256": null,
+   "trung_nghi_ngo": []
+  }
+ ]
+}

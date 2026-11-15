@@ -57,26 +57,39 @@ def diem_codebase(rating: float | None, tai: int | None, co_lot: bool) -> float:
     return round((rating or 0) * math.log10((tai or 0) + 10) * (1.0 if co_lot else 0.6), 3)
 
 
+def _chuoi(body) -> str:
+    return body if isinstance(body, str) else body.decode("utf-8", "replace")
+
+
 # ---------------- MQL5 Code Base ----------------
 def codebase(so_trang: int) -> list[dict]:
-    ids = []
+    from seeker.nguon_file.phan_tich import boc_trang_codebase
+    from seeker.phan_loai_loi import phan_loai_http
+    ids, out = [], []
     for p in range(1, so_trang + 1):
-        code, t = lay("https://www.mql5.com/en/code/mt5/experts/best" + ("" if p == 1 else "/page%d" % p))
-        if code != 200:
+        url = "https://www.mql5.com/en/code/mt5/experts/best" + ("" if p == 1 else "/page%d" % p)
+        code, t = lay(url)
+        pl = phan_loai_http(code, _chuoi(t), url)
+        if pl["loai"] != "ok":
+            out.append({"nguon": "mql5_codebase", "id": "cb_loi_ds_%d" % p, "url": url, "ten": "danh sach",
+                        "loai": pl["loai"], "ly_do": pl["ly_do"], "lan": "loi", "diem": 0, "tep": []})
             break
-        ids += [x for x in re.findall(r'href="/en/code/(\d+)"', t) if x not in ids]
-    out = []
+        ids += [x for x in re.findall(r'href="/en/code/(\d+)"', _chuoi(t)) if x not in ids]
     for cid in ids:
-        code, t = lay("https://www.mql5.com/en/code/%s" % cid)
-        if code != 200:
+        url = "https://www.mql5.com/en/code/%s" % cid
+        code, t = lay(url)
+        pt = boc_trang_codebase(code, _chuoi(t), cid)
+        if pt["loai"] != "ok":
+            out.append({"nguon": "mql5_codebase", "id": "cb%s" % cid, "url": url, "ten": cid,
+                        "loai": pt["loai"], "ly_do": pt["ly_do"], "lan": "loi", "diem": 0, "tep": []})
+            if pt.get("dung_mien"):
+                break
             continue
-        tit = re.search(r"<title>Free download of the &#x27;(.*?)&#x27; expert by &#x27;(.*?)&#x27;", t)
-        rv = re.search(r'"ratingValue"\s*:\s*"?([\d.]+)', t); dl = re.search(r"Downloads:\s*([\d\s,]+)", t)
-        tep = sorted(set(re.findall(r'href="(/en/code/download/%s/[^"]+\.mq5)"' % cid, t)))
-        rec = {"nguon": "mql5_codebase", "id": "cb%s" % cid, "url": "https://www.mql5.com/en/code/%s" % cid,
-               "ten": html.unescape(tit.group(1)) if tit else cid, "tac_gia": html.unescape(tit.group(2)) if tit else None,
-               "rating": float(rv.group(1)) if rv else None, "tai_ve": int(re.sub(r"\D", "", dl.group(1))) if dl else None,
-               "giay_phep": "MQL5 Code Base (mã mở, dùng tự do)", "tep": []}
+        tit_ten, tac_gia = pt["ten"], pt["tac_gia"]
+        tep = pt["tep_mq5"]
+        rec = {"nguon": "mql5_codebase", "id": "cb%s" % cid, "url": pt["url"],
+               "ten": tit_ten, "tac_gia": tac_gia, "rating": pt["rating"], "tai_ve": pt["tai_ve"],
+               "loai": "ok", "giay_phep": "MQL5 Code Base (mã mở, dùng tự do)", "tep": []}
         if len(tep) == 1:                              # 1 tệp .mq5 = tự chứa, biên dịch được
             c2, b = lay("https://www.mql5.com" + tep[0], nhi_phan=True)
             if c2 == 200 and b:
@@ -94,17 +107,34 @@ def codebase(so_trang: int) -> list[dict]:
 
 # ---------------- GitHub ----------------
 def github(so_repo: int) -> list[dict]:
+    from seeker.nguon_file.phan_tich import boc_github_tim
     out, seen = [], set()
     for q in ("expert+advisor+language:MQL5", "expert+advisor+language:MQL4", "mt5+ea+backtest+set"):
-        code, t = lay("https://api.github.com/search/repositories?q=%s&sort=stars&per_page=%d" % (q, so_repo))
-        if code != 200:
+        url = "https://api.github.com/search/repositories?q=%s&sort=stars&per_page=%d" % (q, so_repo)
+        code, t = lay(url)
+        kq = boc_github_tim(code, _chuoi(t), url)
+        if kq["loai"] != "ok":
+            out.append({"nguon": "github", "id": "gh_loi", "url": url, "ten": q, "loai": kq["loai"],
+                        "ly_do": kq["ly_do"], "lan": "loi", "diem": 0, "tep": [], "sao": None})
+            if kq.get("dung_mien"):
+                break
             continue
-        for r in json.loads(t).get("items", []):
+        for r in kq["items"]:
             if r["full_name"] in seen or len(seen) >= so_repo:
                 continue
             seen.add(r["full_name"])
-            c2, tr = lay("https://api.github.com/repos/%s/git/trees/%s?recursive=1" % (r["full_name"], r["default_branch"]))
-            cay = [x["path"] for x in json.loads(tr).get("tree", [])] if c2 == 200 else []
+            url_cay = "https://api.github.com/repos/%s/git/trees/%s?recursive=1" % (r["full_name"], r["default_branch"])
+            c2, tr = lay(url_cay)
+            if c2 != 200:
+                from seeker.phan_loai_loi import phan_loai_http
+                pl = phan_loai_http(c2, _chuoi(tr), url_cay)
+                out.append({"nguon": "github", "id": "gh_" + re.sub(r"[^A-Za-z0-9]", "_", r["full_name"])[:50],
+                            "url": r["html_url"], "ten": r["full_name"], "loai": pl["loai"], "ly_do": pl["ly_do"],
+                            "lan": "loi", "diem": 0, "tep": [], "sao": r.get("stargazers_count")})
+                if pl.get("dung_mien"):
+                    return out
+                continue
+            cay = [x["path"] for x in json.loads(_chuoi(tr)).get("tree", [])]
             mq = [p for p in cay if p.lower().endswith((".mq5", ".mq4"))]
             st = [p for p in cay if p.lower().endswith(".set")]
             bt = [p for p in cay if re.search(r"backtest|report|strategytester", p, re.I) and p.lower().endswith((".htm", ".html", ".png", ".csv", ".xlsx", ".md"))]
@@ -127,26 +157,29 @@ def github(so_repo: int) -> list[dict]:
 
 # ---------------- TradingView / forex-station / Forex Factory ----------------
 def tradingview() -> list[dict]:
-    code, t = lay("https://www.tradingview.com/scripts/?script_type=strategies&script_access=open")
-    if code != 200:
-        return [{"nguon": "tradingview", "id": "tv_bi_chan", "trang_thai": "HTTP %d" % code, "lan": "loai", "diem": 0}]
-    out = []
-    for slug, ten in dict(re.findall(r'href="https://www\.tradingview\.com/script/([A-Za-z0-9]+-[^"/]+)/"[^>]*>([^<]{3,120})<', t)).items():
-        out.append({"nguon": "tradingview", "id": "tv_" + slug.split("-")[0], "url": "https://www.tradingview.com/script/%s/" % slug,
-                    "ten": html.unescape(ten.strip()), "giay_phep": "Mozilla Public License 2.0 (mặc định TV mã mở)",
-                    "lan": "dich_phuong_phap", "ghi_chu": "Pine Script: cần dịch sang MQL5/Python; mã nguồn hiển thị bằng JS -> CHƯA tải", "diem": 0.5})
-    return out[:60]
+    from seeker.nguon_file.phan_tich import boc_tradingview
+    url = "https://www.tradingview.com/scripts/?script_type=strategies&script_access=open"
+    code, t = lay(url)
+    kq = boc_tradingview(code, _chuoi(t), url)
+    if kq["loai"] != "ok":
+        return [{"nguon": "tradingview", "id": "tv_loi", "url": url, "loai": kq["loai"], "ly_do": kq["ly_do"],
+                 "trang_thai": kq["loai"], "lan": "loi", "diem": 0}]
+    for s in kq["script"]:
+        s["giay_phep"] = "Mozilla Public License 2.0 (mặc định TV mã mở) — chưa kiểm từng script"
+        s["diem"] = 0.5
+        s["ghi_chu"] = s["ly_do"]
+    return kq["script"][:60]
 
 
 def dien_dan() -> list[dict]:
+    from seeker.nguon_file.phan_tich import boc_dien_dan
     out = []
     for nid, url in (("forexfactory", "https://www.forexfactory.com/forum/71-trading-systems"),
                      ("forex_station", "https://forex-station.com/viewforum.php?f=579496")):
         code, t = lay(url)
-        so = len(set(re.findall(r"viewtopic\.php\?[^\"']*t=(\d+)", t))) if code == 200 else 0
-        out.append({"nguon": nid, "id": nid, "url": url, "trang_thai": "HTTP %d" % code, "so_chu_de": so, "lan": "chi_danh_muc",
-                    "ghi_chu": "bị chặn (chống bot) — không vượt; đọc bằng trình duyệt máy nhà" if code in (403, 503) else
-                    "tệp đính kèm cần đăng nhập — chỉ danh mục chủ đề", "diem": 0})
+        kq = boc_dien_dan(code, _chuoi(t), url, nid)
+        out.append({"nguon": nid, "id": nid, "url": url, "trang_thai": "HTTP %s" % code, "so_chu_de": kq.get("so_chu_de"),
+                    "loai": kq["loai"], "lan": kq["lan"], "diem": 0, "ghi_chu": kq["ly_do"]})
     return out
 
 
