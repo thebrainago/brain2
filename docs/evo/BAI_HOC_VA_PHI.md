@@ -1,0 +1,45 @@
+# Bài học kiểm định & phí đo thật (Evo, 2026-11-15)
+
+> ĐỌC FILE NÀY TRƯỚC khi chấm/kiểm ứng viên trong brain2. Chi tiết: `docs/evo/kiem_toan_tieu_chi.md`, `docs/evo/ung_vien_vuong_tieu_chi.md`.
+
+## 1. Phí đo thật (XM Ultra Low demo, `E:\mt5_tester\p5`, không commission)
+
+| Symbol | Spread nến trung vị / p90 (pip) | Tick trung vị | Model brain2 cũ | Swap L/S %/năm | Ghi chú |
+|---|---|---|---|---|---|
+| AUDCAD | 2.4 / 2.7 | 2.9 | 3.84 | −0.8 / 3.8 | model cao ~30% |
+| AUDNZD | 2.7 / 2.8 | 3.3 | 4.19 | −0.1 / 4.5 | model cao ~27% |
+| EURCAD | 1.8 / 2.4 | 2.6 | 2.89 | 1.5 / 1.5 | sát |
+| EURGBP | 1.8 / 2.0 | 2.0 | 1.63 | 2.5 / −0.5 | model THẤP 18% |
+| AUDCHF | 1.5 / 1.8 | 2.0 | 2.40 | −3.5 / 6.5 | model cao ~20% |
+| EURUSD# | 1.0 / 1.1 | 1.1 | 1.09 | 2.5 / −0.5 | sát |
+| CADJPY# | 2.7 / 3.1 | 3.2 | — | — | |
+| US100Cash# | 1.95 điểm | 1.95 | — | phí qua đêm | |
+
+- Swap âm = được cộng. Symbol có `#` trên tài khoản này: `swap_mode=0` (không swap).
+- Spread phẳng cả ngày, TRỪ giờ 0 (rollover): vọt 4–8 pip. KHÔNG vào lệnh lúc 00:00 server.
+- Chạy lại nhóm "phí ăn hết lãi" (217) với phí thật: chỉ cứu 21 (40 nếu bỏ swap) ⇒ phí là thật, không phải model thổi phồng.
+
+## 2. Lỗi pipeline đã sửa (nhánh `evo/sua-tieu-chi`, commit 631852e)
+1. **PF tính theo nến thay vì theo lệnh** (`nhan/do_luong.py` `chi_so`) ⇒ kéo PF về ~1 (vd 2.1 thành 0.87). Nay có `pf_lenh`; chuỗi phơi nhiễm cùng chiều/rổ DCA = 1 lệnh.
+2. **p-value lấy max của ~6 seed** (`nhan/cong.py` `placebo`) ⇒ lệch lên (0.002 thành 0.02). Nay gộp đếm mọi seed thành 1 p.
+3. Đã kiểm ĐÚNG: không trừ phí 2 lần, swap theo đêm (thứ Tư x3), Sharpe năm hoá theo số nến thật, dịch tín hiệu đúng 1 nến.
+4. Chưa sửa: `dich_mq5` cho D1 vào lệnh 00:00 (rollover).
+
+## 3. Bài học
+- 1.214/1.236 giả thuyết là quét mẫu × tham số tự động, KHÔNG phải hệ đã có lãi từ Myfxbook/statement. Quét nhiều = nhiều pass ăn may (1.236 phép thử ⇒ ~62 đạt p≤0.05 do may).
+- Tài khoản cent/lot nhỏ KHÔNG làm hệ pass: PF/Sharpe/p không đổi theo lot.
+- Nới lỏng ngưỡng ⇒ thêm nhiễu (237 "PASS" cũ thì 220 thua placebo). Chỉ nới hợp lệ: gộp lệnh nhiều cặp với quy tắc đóng băng; PF≥1.1 chỉ tham khảo.
+- Edge FX thật đơn cặp ~Sharpe 0.2–0.4: phải gộp rổ nhiều cặp + dữ liệu dài/forward.
+- Khung: tỷ lệ phí/lãi gộp H1 1.26×, H4 0.66×, D1 0.24×; % hệ còn dương sau phí H1 33%, H4 47%, D1 51% ⇒ FX nên H4/D1.
+- Python lạc quan hơn MT5 Strategy Tester rõ rệt ⇒ luôn kiểm MT5 trước khi gọi ứng viên mạnh.
+- Holdout 60/40 cũ đã bị nhìn nhiều lần ⇒ pass thật cần forward demo sau 2026-10-02.
+- Gate "ăn khe rollover" PHẢI giữ (bỏ thì 88 pass giả).
+- Giả thuyết nên đăng ký trước, ít biến thể, có lý do kinh tế.
+
+## 4. Tình trạng ứng viên (2026-11-15)
+- PASS THẬT: 0.
+- Sống sót MT5 (ứng viên mạnh, chờ forward demo): AUDCAD H4 IBS (MT5 PF 1.68, 10/11 cặp), EURUSD H4 mất cân bằng cuối phiên (MT5 PF 1.24, 150 lệnh, 10/11 cặp). ~1%/năm ở 1× danh nghĩa.
+- Rớt MT5: AUDNZD H1 vol cạn (PF 1.03), EURGBP D1 Keltner (0.85), GBPCAD D1 IBS đáy kép (0.67).
+- Đạt tiêu chí mới: 54 (kho chính) + 35/164 tồn (3 trong đó qua kiểm chéo cặp).
+- Tồn: 72 thiếu lệnh, 51 dương yếu, 6 ID cũ đổi tên chưa chấm.
+- US100 IBS (chỉ số CFD): ứng viên; MT5 2016–2026 PF 1.38, ~7.9%/năm ở 1×, 6/11 năm dương. Xem `docs/kien-thuc-thong-ke/ibs_us100_mt5_tester.md` (nhánh evo/thong-ke-kien-thuc).
