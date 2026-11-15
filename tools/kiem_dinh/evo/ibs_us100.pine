@@ -1,0 +1,72 @@
+// IBS US100 — ứng viên, CHƯA PASS, CHỈ ĐỂ NGHIÊN CỨU / PAPER
+// Đặc tả: docs/kien-thuc-thong-ke/ibs_us100_spec.md
+// Tín hiệu lúc đóng cửa nến t, khớp mở cửa nến t+1 (process_orders_on_close=false).
+// Chạy trên khung D1. CHƯA COMPILE/VALIDATE trên máy soạn mã này.
+// Không phải tín hiệu đã chốt. Không dùng cho tài khoản thật.
+//@version=5
+strategy(title = "IBS US100 (ứng viên – chưa pass, demo/paper)",
+     shorttitle = "IBS US100",
+     overlay = true,
+     pyramiding = 0,
+     process_orders_on_close = false,
+     calc_on_every_tick = false,
+     initial_capital = 100000,
+     default_qty_type = strategy.percent_of_equity,
+     default_qty_value = 10,
+     commission_type = strategy.commission.percent,
+     commission_value = 0.0,
+     slippage = 2,
+     max_bars_back = 500)
+
+// --- Đầu vào ---
+grpRule = "Quy tắc IBS"
+ibsBuy  = input.float(0.20, "Ngưỡng vào (IBS < )", minval = 0.01, maxval = 0.99, step = 0.05, group = grpRule)
+ibsExit = input.float(0.80, "Ngưỡng ra (IBS > )", minval = 0.01, maxval = 0.99, step = 0.05, group = grpRule)
+maxBars = input.int(4, "Số nến tối đa được giữ", minval = 1, maxval = 20, group = grpRule)
+
+grpCost = "Phí / trượt (đối chiếu tester) — đồng bộ thêm trong Properties của strategy nếu cần"
+// strategy() không nhận input động cho commission/slippage trên mọi phiên bản;
+// các ô dưới đây dùng để ghi chú và tính gần đúng trong phần chú thích báo cáo.
+commNote = input.float(0.0, "Hoa hồng % (ghi chú; đặt trùng ở Properties)", minval = 0.0, step = 0.01, group = grpCost)
+slipNote = input.int(2, "Trượt giá tick (ghi chú; đặt trùng ở Properties)", minval = 0, group = grpCost)
+
+grpVix = "VIX (tắt mặc định, chưa kiểm OOS độc lập)"
+useVix = input.bool(false, "Lọc VIX (chỉ vào khi VIX >= ngưỡng)", group = grpVix)
+vixSym = input.symbol("TVC:VIX", "Mã VIX", group = grpVix)
+vixMin = input.float(20.0, "VIX tối thiểu", group = grpVix)
+
+grpInfo = "Cảnh báo"
+ackDemo = input.bool(true, "Xác nhận: chỉ paper/demo, ứng viên chưa pass", group = grpInfo)
+
+// --- Chỉ chạy đúng logic trên D1 ---
+okTf = timeframe.isdaily
+ibsRaw = (high - low) > 0 ? (close - low) / (high - low) : na
+ibs = okTf ? ibsRaw : na
+
+// VIX của nến ngày vừa đóng (không lookahead)
+vixClose = request.security(vixSym, "D", close, lookahead = barmerge.lookahead_off)
+vixOk = not useVix or (not na(vixClose) and vixClose >= vixMin)
+
+// Số nến D1 đã đóng kể từ nến vào (entry khớp mở cửa nến này).
+// Tại đóng cửa nến vào: held = 1; tại đóng cửa nến thứ 4: held = 4 → đặt lệnh ra, khớp mở cửa sau.
+held = strategy.position_size > 0 ? (bar_index - strategy.opentrades.entry_bar_index(0) + 1) : 0
+
+exitNow = strategy.position_size > 0 and not na(ibs) and (ibs > ibsExit or held >= maxBars)
+enterNow = ackDemo and okTf and strategy.position_size == 0 and not exitNow and not na(ibs) and ibs < ibsBuy and vixOk
+
+if exitNow
+    strategy.close("Long", comment = "IBS ra / hết nến")
+
+if enterNow
+    strategy.entry("Long", strategy.long, comment = "IBS vào")
+
+// --- Hiển thị ---
+plot(ibs, "IBS", color = color.new(color.blue, 0), display = display.data_window)
+plotshape(enterNow, title = "Tín hiệu vào", style = shape.triangleup, location = location.belowbar, color = color.new(color.teal, 0), size = size.tiny)
+plotshape(exitNow, title = "Tín hiệu ra", style = shape.triangledown, location = location.abovebar, color = color.new(color.orange, 0), size = size.tiny)
+
+var table tfWarn = table.new(position.top_right, 1, 1)
+if barstate.islast and not okTf
+    table.cell(tfWarn, 0, 0, "Chỉ dùng khung D1 — ứng viên chưa pass", text_color = color.white, bgcolor = color.new(color.red, 20))
+if barstate.islast and okTf
+    table.cell(tfWarn, 0, 0, "Ứng viên – chưa pass – paper/demo | hoa hồng ghi chú " + str.tostring(commNote) + "% / trượt " + str.tostring(slipNote) + " tick", text_color = color.white, bgcolor = color.new(color.gray, 30))

@@ -51,3 +51,31 @@ Walk-forward cố định thoát 0,8 / 4 nến: ^NDX 1995–2026 dương 75% s�
 - Có thể hiện như **bias / xác nhận đảo chiều ngắn** trên US100 khi nến ngày đóng với IBS < 0,20, kèm nhắc thoát khi IBS > 0,80 hoặc hết 4 nến.
 - Gắn nhãn rõ: “ứng viên – chưa pass”.
 - Nên ghi kèm VIX (cao/thấp) như ngữ cảnh, không khóa lệnh.
+
+## Cách chạy EA / Pine (chưa compile trên máy soạn mã)
+
+Các file [IBS_US100.mq5](../../tools/kiem_dinh/evo/IBS_US100.mq5) và [ibs_us100.pine](../../tools/kiem_dinh/evo/ibs_us100.pine) bám đúng quy tắc ưu tiên ở trên. **Chưa compile / chưa validate** trên máy viết mã (không có MetaEditor hay Pine Editor). Hãy compile trong MetaEditor và (với Pine) bấm Add to chart trên TradingView, rồi tự đối chiếu lỗi cú pháp nếu có. Chỉ dùng **tài khoản demo / paper**. EA từ chối tài khoản thật và yêu cầu bật `InpAckDemoOnly`.
+
+### MetaTrader 5 — Strategy Tester
+
+1. Chép `IBS_US100.mq5` vào `MQL5/Experts/`, mở MetaEditor, nhấn Compile. Sửa lỗi nếu compiler báo (máy này chưa compile được).
+2. Strategy Tester: Expert = IBS_US100; mã CFD US100 của sàn (tên có thể là US100, NAS100, USTEC, v.v.); khung **D1** (EA luôn đọc nến D1 dù đồ thị khác); mô hình **Every tick** hoặc **1 minute OHLC** (mở cửa D1 cần gần đúng).
+3. Thời gian: **2015.01.01 – hiện tại** để đối chiếu OOS; có thể chạy thêm 1995–2014 để thấy giai đoạn lỗ/yếu.
+4. Đầu vào: `InpAckDemoOnly = true`; lot nhỏ; `InpIbsBuy=0.20`, `InpIbsExit=0.80`, `InpMaxBars=4`; `InpUseVixFilter=false`; `InpMaxSpreadPoints` theo điểm của sàn (0 nếu chưa chắc đơn vị). Magic tuỳ ý. Không bật rủi ro % trừ khi đã hiểu ATR chỉ dùng để ước lượng lot, không phải SL.
+5. Sau test, so với kỳ vọng Yahoo OOS 2015+ ở bảng trên (không phải mục tiêu phải khớp từng số, vì giá/spread/swap sàn khác Yahoo):
+   - ^NDX, thoát 0,8 / 4 nến: khoảng 395 lệnh, thắng ~62,5%, lãi TB ~+0,25%/lệnh, PF ~1,41, Sharpe ~0,61, ~8%/năm, DD ~22%.
+   - QQQ, cùng quy tắc: khoảng 371 lệnh, thắng ~63,3%, lãi TB ~+0,32%, PF ~1,51, Sharpe ~0,71, ~9,7%/năm, DD ~23%.
+   - Cần xem thêm: tỷ lệ năm dương, lỗ năm 2022 (khoảng 11–16% trên dữ liệu Yahoo), và không kỳ vọng lặp lại IS trước 2010.
+6. Nếu số lệnh lệch rất xa, kiểm tra tên mã, đơn vị giá, nến cuối tuần, và xem EA có khớp đúng **mở cửa nến ngày** không.
+
+### MetaTrader 5 — tài khoản demo
+
+1. Compile như trên. Đăng nhập **demo**, mở đồ thị mã US100 (nên D1). Kéo EA vào, bật AutoTrading.
+2. Bật `InpAckDemoOnly`, lot nhỏ, lọc spread nếu biết điển hình của sàn, VIX tắt. Không chạy trên tài khoản thật (EA sẽ từ chối).
+3. Nhật ký phải thấy dòng “DEMO only” lúc khởi tạo. Chỉ để quan sát lệch fill/spread/swap so với tester, không phải để “đi tiền”.
+
+### TradingView — Pine v5
+
+1. Mở Pine Editor, dán `ibs_us100.pine`, lưu, **Add to chart** trên hợp đồng/CFD Nasdaq 100 hoặc QQQ, khung **D1** (script cảnh báo nếu sai khung).
+2. Properties: hoa hồng và slippage — đặt trùng với hai ô ghi chú trong input (mặc định 0% và 2 tick; `strategy()` không đổi commission/slippage theo input trên mọi phiên bản, nên phải chỉnh Properties).
+3. Strategy Tester: khoảng 2015 đến nay, so với cùng bảng kỳ vọng ở trên. Bật “Recalculate on close” không cần; lệnh đặt lúc đóng cửa và khớp mở cửa nến sau.
