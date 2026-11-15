@@ -1,0 +1,64 @@
+{
+  "_ghi_chu": "Chi thi phien SEEKER — bám xu hướng tăng chỉ số Mỹ. Nạp từ khóa qua keywords_nguon._tai_huong_seeker. File vắng = không đổi hành vi. Chi tiết: docs/evo/HUONG_SEEKER_XU_HUONG_CHI_SO.md. Nhánh evo/huong-xu-huong-chi-so, không đụng main/runtime đang chạy.",
+  "phien": "2026-11-15",
+  "danh_muc": "xu_huong_chi_so",
+  "ten": "Xu hướng chỉ số Mỹ (chỉ thị phiên)",
+  "uu_tien": 1,
+  "pham_vi": {
+    "chieu": "long_only_hoac_long_biased",
+    "tai_san_chinh": [
+      "US500",
+      "US100"
+    ],
+    "tai_san_phu": [
+      "US30",
+      "US2000"
+    ],
+    "khung": [
+      "D1",
+      "H4"
+    ],
+    "khong_uu_tien": [
+      "cap USD FX"
+    ]
+  },
+  "gia_dinh_tim": [
+    "time_series_momentum",
+    "bo_loc_MA_che_do",
+    "dual_momentum",
+    "vol_targeting_exposure",
+    "mua_nhip_giam_trong_xu_huong_tang",
+    "don_bay_theo_che_do"
+  ],
+  "chuan": "Phai thang mua-va-giu cung rui ro/pho nhiem (Sharpe hon, hoac cung lai + DD thap hon), sau phi XM, OOS 2016+ nhin mot lan, tien dang ky + BH-FDR. Lai rong, DD toi da 80%, >=10%/nam, vao lenh theo luat.",
+  "tu_khoa": {
+    "en": [
+      "index trend following",
+      "time series momentum equity index",
+      "Moskowitz time series momentum",
+      "Faber 10 month SMA",
+      "dual momentum Gary Antonacci",
+      "absolute momentum S&P 500",
+      "200 day moving average filter",
+      "Nasdaq 100 trend strategy",
+      "volatility targeting SPX exposure",
+      "managed futures long equity",
+      "CTA long only equity index",
+      "buy the dip in uptrend SMA200",
+      "risk parity index exposure",
+      "Clenow trend following stocks"
+    ],
+    "vi": [
+      "giao dịch theo xu hướng chỉ số",
+      "động lượng chuỗi thời gian chỉ số Mỹ",
+      "lọc SMA 10 tháng Faber",
+      "dual momentum chỉ số",
+      "bộ lọc trung bình 200 ngày S&P",
+      "bám xu hướng tăng Nasdaq 100",
+      "mục tiêu biến động SP500",
+      "mua nhịp giảm trong xu hướng tăng",
+      "CTA long only chỉ số",
+      "đòn bẩy theo chế độ chỉ số"
+    ]
+  }
+}

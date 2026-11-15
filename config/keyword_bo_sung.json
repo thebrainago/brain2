@@ -855,7 +855,10 @@
    "SSRN trading strategy",
    "arxiv q-fin",
    "công trình nghiên cứu giao dịch",
-   "nghiên cứu alpha"
+   "nghiên cứu alpha",
+   "time series momentum index",
+   "Faber timing model",
+   "dual momentum index"
   ]
  },
  "trader_he_thong": {
@@ -894,6 +897,27 @@
    "reconstruct strategy from equity curve",
    "truy ngược phương pháp giao dịch",
    "phân tích nhật ký giao dịch"
+  ]
+ },
+ "xu_huong_chi_so": {
+  "en": [
+   "index trend following",
+   "time series momentum equity index",
+   "Faber 10 month SMA",
+   "dual momentum Gary Antonacci",
+   "200 day moving average filter index",
+   "volatility targeting SPX",
+   "buy the dip in uptrend SMA200",
+   "Nasdaq 100 trend following",
+   "absolute momentum S&P 500",
+   "CTA long only equity"
+  ],
+  "vi": [
+   "giao dịch theo xu hướng chỉ số",
+   "lọc SMA 10 tháng Faber",
+   "bộ lọc trung bình 200 ngày",
+   "bám xu hướng tăng chỉ số Mỹ",
+   "mua nhịp giảm trong xu hướng tăng"
   ]
  }
 }

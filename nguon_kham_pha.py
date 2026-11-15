@@ -195,8 +195,10 @@ def kham_pha_dan_mang(so=25):
             ("facebook", "facebook_page", lambda l: "facebook.com" in l)]
     tu = []
     if kw:
-        for dm in ("cho_tin_hieu", "dang_doi", "nguoi_thang", "cong_dong", "cho_phuong_phap"):
-            tu += kw.DANH_MUC[dm]["tu_khoa"].get("en", [])[:3]
+        # xu_huong_chi_so: chi thi phien evo/huong-xu-huong-chi-so (DANH_MUC co neu
+        # config/huong_seeker.json hoac keyword_bo_sung da nap). .get de an toan.
+        for dm in ("cho_tin_hieu", "dang_doi", "nguoi_thang", "cong_dong", "cho_phuong_phap", "xu_huong_chi_so"):
+            tu += (kw.DANH_MUC.get(dm) or {}).get("tu_khoa", {}).get("en", [])[:3]
     else:
         tu = TU_KHOA["en"][:6]
     tu = list(dict.fromkeys(tu))

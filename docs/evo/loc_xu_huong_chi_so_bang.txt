@@ -1,0 +1,56 @@
+# Loc nhe xu huong chi so (D1, phi XM, vs mua-va-giu)
+Phi: /workspace/ibs_cfd_my/docs/costs_xm_us_index.json
+IS < 2016-01-01; OOS >= 2016-01-01. Fill open ke tiep. Triple Friday. Khong p-placebo.
+
+## US500  1970-01-02 .. 2026-11-13  n=14340  spread=0.55 fin=0.0649
+### mua_va_giu_1x
+  chuan: long CFD 1x, phi spread+fin XM
+  IS  n=   1  CAGR   +0.2%  Sharpe +0.10  DD  75.1%  exp 100.0%  46.0y  — 
+  OOS n=   1  CAGR   +5.8%  Sharpe +0.44  DD  32.7%  exp 100.0%  10.9y  — 
+### faber_sma10_thang_1x
+  Faber: long thang sau neu close cuoi thang > SMA 10 thang
+  IS  n=  31  CAGR   +2.0%  Sharpe +0.22  DD  37.9%  exp  68.8%  46.0y  THANG_BH Sharpe hon BH
+  OOS n=  11  CAGR   +1.5%  Sharpe +0.19  DD  28.7%  exp  82.1%  10.9y  — khong thang BH
+### loc_sma200
+  Long khi close > SMA200 (vao/ra open sau)
+  IS  n= 156  CAGR   +1.0%  Sharpe +0.15  DD  42.5%  exp  68.9%  46.0y  THANG_BH Sharpe hon BH
+  OOS n=  31  CAGR   +3.2%  Sharpe +0.34  DD  24.5%  exp  82.3%  10.9y  — khong thang BH
+### ema50_tren_ema200
+  Long khi EMA50 > EMA200 (golden cross, giu den cat xuong)
+  IS  n=  22  CAGR   +1.9%  Sharpe +0.21  DD  34.3%  exp  72.9%  46.0y  THANG_BH Sharpe hon BH
+  OOS n=   7  CAGR   +2.6%  Sharpe +0.26  DD  29.6%  exp  84.1%  10.9y  — khong thang BH
+### rsi2_duoi_15_giu1
+  Ung vien cu D1: RSI(2)<15, giu 1 phien
+  IS  n= 996  CAGR   -5.8%  Sharpe -0.64  DD  97.9%  exp  17.6%  46.0y  — khong thang BH
+  OOS n= 208  CAGR   +4.1%  Sharpe +0.55  DD  21.3%  exp  13.7%  10.9y  THANG_BH Sharpe hon BH
+### dip10_sma200_giu7
+  Dich D1 cua mua_giam_10_bar...tren_sma200 (H4 cu)
+  IS  n=  82  CAGR   +0.1%  Sharpe +0.06  DD  12.3%  exp   4.9%  46.0y  THANG_BH CAGR ~ BH va DD thap hon
+  OOS n=  19  CAGR   +1.4%  Sharpe +0.48  DD   8.9%  exp   4.9%  10.9y  THANG_BH Sharpe hon BH
+
+## US100  1985-10-01 .. 2026-11-13  n=10361  spread=1.95 fin=0.0648
+### mua_va_giu_1x
+  chuan: long CFD 1x, phi spread+fin XM
+  IS  n=   1  CAGR   +5.8%  Sharpe +0.35  DD  87.4%  exp 100.0%  30.2y  — 
+  OOS n=   1  CAGR  +11.0%  Sharpe +0.59  DD  40.6%  exp 100.0%  10.9y  — 
+### faber_sma10_thang_1x
+  Faber: long thang sau neu close cuoi thang > SMA 10 thang
+  IS  n=  26  CAGR   +4.8%  Sharpe +0.34  DD  48.6%  exp  69.8%  30.2y  — khong thang BH
+  OOS n=  10  CAGR   +7.9%  Sharpe +0.53  DD  28.7%  exp  80.7%  10.9y  — khong thang BH
+### loc_sma200
+  Long khi close > SMA200 (vao/ra open sau)
+  IS  n= 113  CAGR   +3.8%  Sharpe +0.30  DD  56.1%  exp  71.3%  30.2y  — khong thang BH
+  OOS n=  28  CAGR   +9.4%  Sharpe +0.62  DD  23.8%  exp  81.8%  10.9y  THANG_BH Sharpe hon BH
+### ema50_tren_ema200
+  Long khi EMA50 > EMA200 (golden cross, giu den cat xuong)
+  IS  n=  18  CAGR   +6.0%  Sharpe +0.39  DD  51.0%  exp  76.8%  30.2y  THANG_BH Sharpe hon BH
+  OOS n=   6  CAGR   +9.8%  Sharpe +0.59  DD  28.7%  exp  85.2%  10.9y  — khong thang BH
+### rsi2_duoi_15_giu1
+  Ung vien cu D1: RSI(2)<15, giu 1 phien
+  IS  n= 625  CAGR   -3.0%  Sharpe -0.15  DD  88.5%  exp  16.0%  30.2y  — khong thang BH
+  OOS n= 210  CAGR   +5.4%  Sharpe +0.56  DD  18.0%  exp  13.9%  10.9y  — khong thang BH
+### dip10_sma200_giu7
+  Dich D1 cua mua_giam_10_bar...tren_sma200 (H4 cu)
+  IS  n=  35  CAGR   +0.5%  Sharpe +0.16  DD  13.0%  exp   3.2%  30.2y  — khong thang BH
+  OOS n=  10  CAGR   +1.1%  Sharpe +0.42  DD   7.9%  exp   2.6%  10.9y  — khong thang BH
+

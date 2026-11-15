@@ -384,6 +384,7 @@ import pathlib as _pl
 import json as _json
 
 _BO_SUNG_FILE = _pl.Path(__file__).parent / "config" / "keyword_bo_sung.json"
+_HUONG_FILE = _pl.Path(__file__).parent / "config" / "huong_seeker.json"
 BO_SUNG = {}
 
 
@@ -445,7 +446,37 @@ def thong_ke_bo_sung():
             for dm, lang_map in BO_SUNG.items()}
 
 
+def _tai_huong_seeker():
+    """Gop tu khoa tu chi thi phien config/huong_seeker.json (neu co).
+    File vang = khong doi hanh vi. Chi tiet: docs/evo/HUONG_SEEKER_XU_HUONG_CHI_SO.md.
+    """
+    try:
+        if not _HUONG_FILE.exists():
+            return 0
+        raw = _json.loads(_HUONG_FILE.read_text(encoding="utf-8"))
+    except Exception:
+        return 0
+    tk = raw.get("tu_khoa") or {}
+    if not isinstance(tk, dict) or not tk:
+        return 0
+    dm = raw.get("danh_muc") or "xu_huong_chi_so"
+    ten = raw.get("ten") or "Xu huong chi so (chi thi phien)"
+    if dm not in DANH_MUC:
+        DANH_MUC[dm] = {"ten": ten, "tu_khoa": {}}
+    n = 0
+    for lang, cac_tu in tk.items():
+        if not isinstance(cac_tu, list):
+            continue
+        DANH_MUC[dm]["tu_khoa"].setdefault(lang, [])
+        for x in cac_tu:
+            if x and x not in DANH_MUC[dm]["tu_khoa"][lang]:
+                DANH_MUC[dm]["tu_khoa"][lang].append(x)
+                n += 1
+    return n
+
+
 _tai_bo_sung()
+_tai_huong_seeker()
 
 if __name__ == "__main__":
     print("GENERAL: so danh muc:", len(DANH_MUC))
