@@ -20,7 +20,8 @@ input bool   InpAckDemoOnly = false;          // Xác nhận: chỉ chạy trên
 
 input group "=== Lệnh ==="
 input string InpSymbol      = "";             // Mã cần giao dịch (trống = mã của đồ thị)
-input double InpLots        = 0.10;           // Khối lượng cố định (nếu không dùng rủi ro %)
+input double InpLots        = 0.10;           // Khối lượng cố định (khi InpNotionalMult=0 và không dùng rủi ro %)
+input double InpNotionalMult= 0.0;            // Hệ số vốn: lot = equity * k / (giá * contract). 0 = dùng InpLots. 3 = gấp 3 lần vốn (tự chỉnh theo equity)
 input bool   InpUseRiskPct  = false;          // true = tính lot theo % vốn (ước lượng qua ATR, không phải SL thật)
 input double InpRiskPercent = 0.50;           // % vốn ước lượng rủi ro mỗi lệnh (khi InpUseRiskPct)
 input double InpRiskAtrMult = 2.0;            // Hệ số ATR(14) D1 dùng để ước lượng khoảng rủi ro khi tính lot
@@ -99,7 +100,10 @@ int OnInit()
       const int sh = iBarShift(g_symbol, PERIOD_D1, (datetime)PositionGetInteger(POSITION_TIME), false);
       if(sh >= 0) g_entry_bar = iTime(g_symbol, PERIOD_D1, sh);
      }
-   Print("IBS_US100: DEMO only, ứng viên chưa pass, chưa compile trên máy soạn mã. Symbol=", g_symbol);
+   Print("IBS_US100: DEMO only, ứng viên chưa pass. Symbol=", g_symbol,
+         " magic=", InpMagic, " notional_mult=", InpNotionalMult,
+         " InpLots=", InpLots, " computed_lots=", ComputeLots(),
+         " equity=", AccountInfoDouble(ACCOUNT_EQUITY));
    return(INIT_SUCCEEDED);
   }
 
@@ -294,7 +298,17 @@ double ComputeLots()
    const double vstep = SymbolInfoDouble(g_symbol, SYMBOL_VOLUME_STEP);
    double lots = InpLots;
 
-   if(InpUseRiskPct && InpRiskPercent > 0.0)
+   if(InpNotionalMult > 0.0)
+     {
+      const double equity = AccountInfoDouble(ACCOUNT_EQUITY);
+      const double price  = SymbolInfoDouble(g_symbol, SYMBOL_ASK);
+      double contract = SymbolInfoDouble(g_symbol, SYMBOL_TRADE_CONTRACT_SIZE);
+      if(contract <= 0.0)
+         contract = 1.0;
+      if(equity > 0.0 && price > 0.0)
+         lots = equity * InpNotionalMult / (price * contract);
+     }
+   else if(InpUseRiskPct && InpRiskPercent > 0.0)
      {
       // Không có SL thật; ATR chỉ để ước lượng lot, không đặt stoploss.
       const int atr_handle = iATR(g_symbol, PERIOD_D1, 14);
