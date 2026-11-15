@@ -1,0 +1,213 @@
+//@version=6
+// ============================================================================
+//  GANN SQUARE OF 9 – STRATEGY ĐƠN GIẢN ĐỂ BACKTEST (XAUUSD / S&P 500)
+//  Ý tưởng:
+//    • LONG  khi giá đi từ trên xuống, chạm một mức Sq9 (± khoảng chạm) rồi đóng cửa
+//            bật lên trên mức với nến xanh  => "bounce tại hỗ trợ".
+//    • SHORT khi giá đi từ dưới lên, chạm mức Sq9 rồi đóng cửa dưới mức với nến đỏ
+//            => "bị từ chối tại kháng cự".
+//    • SL/TP theo ATR, theo mức Sq9 kế tiếp, hoặc theo tỷ lệ R:R.
+//  Công thức mức: (√(Neo × k) ± góc/180)² / k  — giống indicator.
+//  Lưu ý: kết quả thống kê bằng Python (README) cho thấy mức Sq9 KHÔNG tốt hơn mức
+//  ngẫu nhiên cùng khoảng cách → hãy luôn so với chế độ "Đối chứng" (lệch 22.5°).
+// ============================================================================
+strategy("Gann Sq9 – Strategy (bounce/rejection)", shorttitle = "GannSq9 Strat", overlay = true,
+     initial_capital = 10000, default_qty_type = strategy.percent_of_equity, default_qty_value = 10,
+     commission_type = strategy.commission.percent, commission_value = 0.01, slippage = 1,
+     process_orders_on_close = false, pyramiding = 0)
+
+// ─────────────────────────── 1. ĐIỂM NEO ───────────────────────────
+string GA = "1. Điểm neo"
+string anchorType  = input.string("Đóng cửa ngày trước", "Loại neo", options = ["Đóng cửa ngày trước", "Mở cửa phiên hiện tại", "Swing High gần nhất", "Swing Low gần nhất", "Nhập tay"], group = GA)
+float  manualPrice = input.float(2650.0, "Giá nhập tay", step = 0.1, group = GA)
+int    pivLeft     = input.int(10, "Swing: số nến bên trái", minval = 1, group = GA)
+int    pivRight    = input.int(5, "Swing: số nến bên phải (xác nhận)", minval = 1, group = GA)
+
+// ─────────────────────────── 2. GÓC ───────────────────────────
+string GG = "2. Góc (bật/tắt)"
+bool on45  = input.bool(true,  "45°", group = GG)
+bool on90  = input.bool(true,  "90°", group = GG)
+bool on135 = input.bool(true,  "135°", group = GG)
+bool on180 = input.bool(true,  "180°", group = GG)
+bool on225 = input.bool(true,  "225°", group = GG)
+bool on270 = input.bool(true,  "270°", group = GG)
+bool on315 = input.bool(true,  "315°", group = GG)
+bool on360 = input.bool(true,  "360°", group = GG)
+bool controlMode = input.bool(false, "Chế độ ĐỐI CHỨNG: lệch mọi góc −22.5°", group = GG, tooltip = "Dùng 22.5°, 67.5°, ... thay cho 45°, 90°, ... để so xem góc Gann có thật sự tốt hơn mức bất kỳ cùng khoảng cách hay không.")
+float scaleK = input.float(1.0, "Hệ số thang giá k (XAUUSD/SPX/ES = 1, SPY = 10)", minval = 0.0001, group = GG)
+
+// ─────────────────────────── 3. TÍN HIỆU ───────────────────────────
+string GS = "3. Tín hiệu"
+string tolMode    = input.string("ATR", "Kiểu khoảng chạm", options = ["%", "ATR"], group = GS)
+float  tolPct     = input.float(0.1, "Khoảng chạm ± %", minval = 0.0, step = 0.01, group = GS)
+float  tolAtrMult = input.float(0.2, "Khoảng chạm ± × ATR", minval = 0.0, step = 0.05, group = GS)
+int    atrLen     = input.int(14, "Độ dài ATR", minval = 1, group = GS)
+int    levelLife  = input.int(20, "Mức chỉ có hiệu lực X nến sau khi tạo", minval = 1, group = GS)
+string sideIn     = input.string("Cả hai", "Hướng giao dịch", options = ["Cả hai", "Chỉ Long", "Chỉ Short"], group = GS)
+bool   needColor  = input.bool(true, "Yêu cầu nến xác nhận (xanh cho Long, đỏ cho Short)", group = GS)
+int    fromTime   = input.time(timestamp("2015-01-01 00:00"), "Backtest từ ngày", group = GS)
+
+// ─────────────────────────── 4. SL / TP ───────────────────────────
+string GX = "4. Cắt lỗ / chốt lời"
+string slMode  = input.string("ATR", "Kiểu SL", options = ["ATR", "Mức Sq9 kế tiếp"], group = GX)
+float  slAtr   = input.float(1.0, "SL = mức ∓ × ATR", minval = 0.1, step = 0.1, group = GX)
+string tpMode  = input.string("Mức Sq9 kế tiếp", "Kiểu TP", options = ["ATR", "Mức Sq9 kế tiếp", "R:R"], group = GX)
+float  tpAtr   = input.float(2.0, "TP = giá vào ± × ATR", minval = 0.1, step = 0.1, group = GX)
+float  rr      = input.float(1.5, "TP theo R:R", minval = 0.1, step = 0.1, group = GX)
+int    maxBars = input.int(0, "Đóng lệnh sau N nến (0 = tắt)", minval = 0, group = GX)
+
+// ─────────────────────────── HẰNG SỐ & HÀM ───────────────────────────
+var array<float> ANG = array.from(45.0, 90.0, 135.0, 180.0, 225.0, 270.0, 315.0, 360.0)
+array<bool> angOn = array.from(on45, on90, on135, on180, on225, on270, on315, on360)
+
+// Một mức Sq9: dir = +1 (trên neo) / -1 (dưới neo)
+sq9Level(float base, float angleDeg, int dir, float k) =>
+    float r = math.sqrt(base * k) + dir * angleDeg / 180.0
+    r > 0 ? r * r / k : na
+
+// Mức kế tiếp phía trên (up = true) hoặc phía dưới giá p trong danh sách đã sắp xếp tăng dần
+nextLevel(array<float> lv, float p, bool up) =>
+    float res = na
+    int n = lv.size()
+    if n > 0
+        if up
+            for i = 0 to n - 1
+                if lv.get(i) > p
+                    res := lv.get(i)
+                    break
+        else
+            for i = n - 1 to 0
+                if lv.get(i) < p
+                    res := lv.get(i)
+                    break
+    res
+
+// ─────────────────────────── ĐIỂM NEO ───────────────────────────
+float atrVal = ta.atr(atrLen)
+float pdc    = request.security(syminfo.tickerid, "D", close[1], lookahead = barmerge.lookahead_on)
+float dOpen  = request.security(syminfo.tickerid, "D", open, lookahead = barmerge.lookahead_on)
+float ph = ta.pivothigh(high, pivLeft, pivRight)
+float pl = ta.pivotlow(low, pivLeft, pivRight)
+var float swingHigh = na
+var float swingLow  = na
+if not na(ph)
+    swingHigh := ph
+if not na(pl)
+    swingLow := pl
+
+float anchor = switch anchorType
+    "Đóng cửa ngày trước"   => pdc
+    "Mở cửa phiên hiện tại" => dOpen
+    "Swing High gần nhất"   => swingHigh
+    "Swing Low gần nhất"    => swingLow
+    => manualPrice
+
+// ─────────────────────────── BỘ MỨC HIỆN TẠI ───────────────────────────
+var array<float> levels = array.new<float>()   // mức đang bật (để vào lệnh), sắp xếp tăng dần
+var array<float> ladder = array.new<float>()   // mức đang bật + neo (để tìm "mức kế tiếp")
+var array<bool>  used   = array.new<bool>()    // mỗi mức chỉ vào lệnh 1 lần
+var float curAnchor = na
+var int   setBar    = na
+
+// Neo được xác định trên nến đã đóng trước đó => mức dùng từ nến sau nến tạo (không nhìn trước)
+if barstate.isconfirmed and not na(anchor) and (na(curAnchor) or anchor != curAnchor)
+    curAnchor := anchor
+    setBar    := bar_index
+    levels.clear()
+    ladder.clear()
+    ladder.push(anchor)
+    float shift = controlMode ? -22.5 : 0.0
+    for a = 0 to 7
+        if angOn.get(a)
+            for s = 0 to 1
+                float lv = sq9Level(anchor, ANG.get(a) + shift, s == 0 ? 1 : -1, scaleK)
+                if not na(lv)
+                    levels.push(lv)
+                    ladder.push(lv)
+    levels.sort(order.ascending)
+    ladder.sort(order.ascending)
+    used := array.new<bool>(levels.size(), false)
+
+// ─────────────────────────── TÌM TÍN HIỆU ───────────────────────────
+// Neo nhập tay: mức không hết hạn; các loại neo khác: chỉ dùng trong X nến sau khi tạo
+bool  fresh   = anchorType == "Nhập tay" or bar_index - setBar <= levelLife
+// Neo ngày trước / mở phiên đã biết từ đầu nến tạo => cho phép vào lệnh ngay trên nến đó
+// (nếu không, trên khung D bộ mức đổi mỗi nến và strategy sẽ không bao giờ có lệnh)
+bool  knownAtOpen = anchorType == "Đóng cửa ngày trước" or anchorType == "Mở cửa phiên hiện tại"
+bool  live    = not na(setBar) and (bar_index > setBar or (knownAtOpen and bar_index == setBar)) and fresh and time >= fromTime
+bool  allowL  = sideIn != "Chỉ Short"
+bool  allowS  = sideIn != "Chỉ Long"
+float longLv  = na
+float shortLv = na
+int   longIdx  = -1
+int   shortIdx = -1
+if live and strategy.position_size == 0 and levels.size() > 0
+    for i = 0 to levels.size() - 1
+        if used.get(i)
+            continue
+        float lv  = levels.get(i)
+        float tol = tolMode == "%" ? lv * tolPct / 100.0 : atrVal * tolAtrMult
+        // Long: đến từ trên, râu chạm vùng mức, đóng cửa trên mức
+        bool bounce = allowL and close[1] >= lv and low <= lv + tol and close > lv and (not needColor or close > open)
+        // Short: đến từ dưới, râu chạm vùng mức, đóng cửa dưới mức
+        bool reject = allowS and close[1] <= lv and high >= lv - tol and close < lv and (not needColor or close < open)
+        if bounce and (na(longLv) or math.abs(close - lv) < math.abs(close - longLv))
+            longLv  := lv
+            longIdx := i
+        if reject and (na(shortLv) or math.abs(close - lv) < math.abs(close - shortLv))
+            shortLv  := lv
+            shortIdx := i
+
+// Nếu cùng nến có cả 2 tín hiệu thì bỏ qua (mơ hồ)
+bool goLong  = not na(longLv) and na(shortLv)
+bool goShort = not na(shortLv) and na(longLv)
+
+// ─────────────────────────── VÀO LỆNH & SL/TP ───────────────────────────
+var float slPx = na
+var float tpPx = na
+var int   entryBar = na
+
+if goLong and barstate.isconfirmed
+    float sl = slMode == "ATR" ? longLv - slAtr * atrVal : nextLevel(ladder, longLv, false)
+    sl := na(sl) ? longLv - slAtr * atrVal : sl
+    float risk = close - sl
+    float tp = switch tpMode
+        "ATR" => close + tpAtr * atrVal
+        "R:R" => close + rr * risk
+        => nextLevel(ladder, close, true)
+    tp := na(tp) ? close + tpAtr * atrVal : tp
+    if risk > 0 and tp > close
+        slPx := sl
+        tpPx := tp
+        entryBar := bar_index
+        used.set(longIdx, true)
+        strategy.entry("L", strategy.long, comment = "Sq9 bounce " + str.tostring(longLv, format.mintick))
+        strategy.exit("XL", "L", stop = slPx, limit = tpPx)
+
+if goShort and barstate.isconfirmed
+    float sl = slMode == "ATR" ? shortLv + slAtr * atrVal : nextLevel(ladder, shortLv, true)
+    sl := na(sl) ? shortLv + slAtr * atrVal : sl
+    float risk = sl - close
+    float tp = switch tpMode
+        "ATR" => close - tpAtr * atrVal
+        "R:R" => close - rr * risk
+        => nextLevel(ladder, close, false)
+    tp := na(tp) ? close - tpAtr * atrVal : tp
+    if risk > 0 and tp < close
+        slPx := sl
+        tpPx := tp
+        entryBar := bar_index
+        used.set(shortIdx, true)
+        strategy.entry("S", strategy.short, comment = "Sq9 reject " + str.tostring(shortLv, format.mintick))
+        strategy.exit("XS", "S", stop = slPx, limit = tpPx)
+
+// Đóng theo thời gian
+if maxBars > 0 and strategy.position_size != 0 and not na(entryBar) and bar_index - entryBar >= maxBars
+    strategy.close_all(comment = "Hết thời gian")
+
+// ─────────────────────────── HIỂN THỊ ───────────────────────────
+plot(curAnchor, "Neo", color.yellow, 2, plot.style_stepline)
+plot(strategy.position_size != 0 ? slPx : na, "SL", color.red, 1, plot.style_linebr)
+plot(strategy.position_size != 0 ? tpPx : na, "TP", color.lime, 1, plot.style_linebr)
+plotshape(goLong,  "Tín hiệu Long",  shape.triangleup,   location.belowbar, color.lime, size = size.tiny)
+plotshape(goShort, "Tín hiệu Short", shape.triangledown, location.abovebar, color.red,  size = size.tiny)

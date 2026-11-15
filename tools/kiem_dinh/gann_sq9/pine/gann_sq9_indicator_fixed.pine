@@ -1,0 +1,270 @@
+//@version=6
+// ============================================================================
+//  GANN SQUARE OF 9 – INDICATOR NGHIÊN CỨU (tối ưu cho XAUUSD & S&P 500)
+//  Công thức:  Mức = (√(Neo × k) ± góc/180)² / k
+//     45° = ±0.25 trong không gian căn bậc hai, 90° = ±0.5, 180° = ±1, 360° = ±2
+//     k = hệ số thang giá (XAUUSD, SPX, US500, ES: k = 1; SPY: k = 10)
+//  Thống kê chỉ dùng nến đã đóng => không repaint.
+// ============================================================================
+indicator("Gann Square of 9 – Nghiên cứu (XAUUSD / SP500)", shorttitle = "GannSq9", overlay = true, max_lines_count = 500, max_labels_count = 100)
+
+// ─────────────────────────── 1. INPUT: ĐIỂM NEO ───────────────────────────
+string GA = "1. Điểm neo"
+string anchorType  = input.string("Đóng cửa ngày trước", "Loại neo", options = ["Đóng cửa ngày trước", "Mở cửa phiên hiện tại", "Swing High gần nhất", "Swing Low gần nhất", "Nhập tay"], group = GA)
+float  manualPrice = input.float(2650.0, "Giá nhập tay", step = 0.1, group = GA)
+int    manualTime  = input.time(timestamp("2026-11-01 00:00"), "Neo nhập tay: bắt đầu từ", group = GA, tooltip = "Các mức nhập tay được tạo tại nến này, thống kê tính từ đây.")
+int    pivLeft     = input.int(10, "Swing: số nến bên trái", minval = 1, group = GA)
+int    pivRight    = input.int(5, "Swing: số nến bên phải (xác nhận)", minval = 1, group = GA)
+
+// ─────────────────────────── 2. INPUT: GÓC ───────────────────────────
+string GG = "2. Góc Square of 9 (bật/tắt)"
+bool on45  = input.bool(true, "45°", group = GG)
+bool on90  = input.bool(true, "90°", group = GG)
+bool on135 = input.bool(true, "135°", group = GG)
+bool on180 = input.bool(true, "180°", group = GG)
+bool on225 = input.bool(true, "225°", group = GG)
+bool on270 = input.bool(true, "270°", group = GG)
+bool on315 = input.bool(true, "315°", group = GG)
+bool on360 = input.bool(true, "360°", group = GG)
+
+// ─────────────────────────── 3. INPUT: THANG GIÁ ───────────────────────────
+string GP = "3. Preset mã & thang giá"
+string preset      = input.string("Tự động", "Preset", options = ["Tự động", "XAUUSD", "SP500", "Tùy chỉnh"], group = GP, tooltip = "Tự động: SPY dùng k = 10, còn lại k = 1. XAUUSD/SP500 (SPX, US500, ES): k = 1.")
+float  customScale = input.float(1.0, "Hệ số k (khi chọn Tùy chỉnh)", minval = 0.0001, group = GP)
+
+// ─────────────────────────── 4. INPUT: TOUCH & THỐNG KÊ ───────────────────────────
+string GT = "4. Touch & thống kê"
+string tolMode     = input.string("ATR", "Kiểu khoảng chạm", options = ["%", "ATR"], group = GT)
+float  tolPct      = input.float(0.1, "Khoảng chạm ± %", minval = 0.0, step = 0.01, group = GT)
+float  tolAtrMult  = input.float(0.2, "Khoảng chạm ± × ATR", minval = 0.0, step = 0.05, group = GT)
+int    atrLen      = input.int(14, "Độ dài ATR", minval = 1, group = GT)
+int    touchWindow = input.int(20, "Cửa sổ touch: X nến sau khi tạo mức", minval = 1, group = GT)
+int    holdBars    = input.int(5, "Xác nhận giữ/phá: M nến sau khi chạm", minval = 1, group = GT)
+float  revAtrMult  = input.float(1.0, "Điểm hồi: bật ngược ≥ × ATR", minval = 0.0, step = 0.1, group = GT)
+
+// ─────────────────────────── 5. INPUT: HIỂN THỊ ───────────────────────────
+string GD = "5. Hiển thị"
+bool   showLines   = input.bool(true, "Vẽ các mức", group = GD)
+bool   showLabels  = input.bool(true, "Nhãn giá cho mức hiện tại", group = GD)
+bool   keepHistory = input.bool(true, "Giữ lại mức của các bộ neo trước", group = GD)
+bool   showAnchor  = input.bool(true, "Vẽ đường neo", group = GD)
+bool   showTable   = input.bool(true, "Bảng thống kê", group = GD)
+string tablePosIn  = input.string("Trên phải", "Vị trí bảng", options = ["Trên phải", "Trên trái", "Dưới phải", "Dưới trái"], group = GD)
+
+// ─────────────────────────── HẰNG SỐ & HÀM ───────────────────────────
+var array<float> ANG = array.from(45.0, 90.0, 135.0, 180.0, 225.0, 270.0, 315.0, 360.0)
+var array<color> COL = array.from(#2962FF, #00BCD4, #4CAF50, #FF9800, #E91E63, #9C27B0, #795548, #F44336)
+array<bool> angOn = array.from(on45, on90, on135, on180, on225, on270, on315, on360)
+
+// Tính một mức Sq9: dir = +1 (phía trên neo) hoặc -1 (phía dưới neo)
+sq9Level(float base, float angleDeg, int dir, float k) =>
+    float r = math.sqrt(base * k) + dir * angleDeg / 180.0
+    r > 0 ? r * r / k : na
+
+// Hệ số thang giá
+string tk = str.upper(syminfo.ticker)
+float autoScale = str.contains(tk, "SPY") ? 10.0 : 1.0
+float scale = preset == "Tùy chỉnh" ? customScale : preset == "Tự động" ? autoScale : 1.0
+
+// ─────────────────────────── TÍNH ĐIỂM NEO ───────────────────────────
+float atrVal    = ta.atr(atrLen)
+float prevClose = close[1]
+
+// Đóng cửa ngày trước & mở cửa ngày hiện tại (lookahead_on + [1] => không nhìn trước tương lai)
+float pdc   = request.security(syminfo.tickerid, "D", close[1], lookahead = barmerge.lookahead_on)
+float dOpen = request.security(syminfo.tickerid, "D", open, lookahead = barmerge.lookahead_on)
+
+// Swing High / Low gần nhất (chỉ biết sau pivRight nến xác nhận)
+float ph = ta.pivothigh(high, pivLeft, pivRight)
+float pl = ta.pivotlow(low, pivLeft, pivRight)
+var float swingHigh    = na
+var int   swingHighBar = na
+var float swingLow     = na
+var int   swingLowBar  = na
+if not na(ph)
+    swingHigh    := ph
+    swingHighBar := bar_index - pivRight
+if not na(pl)
+    swingLow    := pl
+    swingLowBar := bar_index - pivRight
+
+float anchor = switch anchorType
+    "Đóng cửa ngày trước"   => pdc
+    "Mở cửa phiên hiện tại" => dOpen
+    "Swing High gần nhất"   => swingHigh
+    "Swing Low gần nhất"    => swingLow
+    => time >= manualTime ? manualPrice : na
+
+// ─────────────────────────── KIỂU DỮ LIỆU: MỘT MỨC ĐANG THEO DÕI ───────────────────────────
+// [SỬA LỖI] Mỗi mức sống độc lập trong "pool" cho tới khi hết cửa sổ X nến (+ M nến xác nhận).
+// Bản gốc dùng 16 ô cố định nên bộ neo mới xoá mất các mức cũ chưa xong => trên khung D với neo
+// "Đóng cửa ngày trước"/"Mở cửa phiên" mỗi mức chỉ có 1 nến để chạm và không bao giờ đủ M nến xác nhận.
+type Lvl
+    int   ang         // chỉ số góc 0..7
+    float price       // giá mức
+    int   setBar      // nến tạo mức
+    int   state = 0   // 0 = chờ chạm, 1 = đã chạm/đang xác nhận
+    int   touchBar = 0
+    int   dir = 0     // +1 tiếp cận từ trên (test hỗ trợ), -1 từ dưới (test kháng cự)
+    float ext = 0.0   // biên độ bật ngược lớn nhất sau khi chạm
+    float atrT = 0.0  // ATR lúc chạm
+
+var array<Lvl>   pool     = array.new<Lvl>()
+var array<line>  lvLines  = array.new<line>(16)
+var array<label> lvLabels = array.new<label>(16)
+
+// Thống kê theo góc
+var array<int> stCreated = array.new<int>(8, 0)
+var array<int> stTouched = array.new<int>(8, 0)
+var array<int> stSup     = array.new<int>(8, 0)
+var array<int> stRes     = array.new<int>(8, 0)
+var array<int> stRev     = array.new<int>(8, 0)
+var array<int> stBrk     = array.new<int>(8, 0)
+
+var float curAnchor = na
+
+// ─────────────────────────── LOGIC CHÍNH (chỉ trên nến đã đóng) ───────────────────────────
+if barstate.isconfirmed
+    // (a) Cập nhật các mức đang theo dõi (duyệt ngược để xoá an toàn)
+    int nPool = pool.size()
+    if nPool > 0
+        for j = nPool - 1 to 0
+            Lvl  m    = pool.get(j)
+            int  a    = m.ang
+            float lv  = m.price
+            float tol = tolMode == "%" ? lv * tolPct / 100.0 : atrVal * tolAtrMult
+            bool done = false
+
+            if m.state == 0
+                if bar_index - m.setBar > touchWindow
+                    done := true                          // hết cửa sổ, không chạm
+                else if low <= lv + tol and high >= lv - tol
+                    m.state    := 1
+                    m.touchBar := bar_index
+                    m.dir      := prevClose >= lv ? 1 : -1
+                    // [SỬA LỖI] nến chạm chỉ tính theo close (high/low của nến chạm có thể là giá TRƯỚC khi chạm)
+                    m.ext      := math.max(0.0, (close - lv) * m.dir)
+                    m.atrT     := atrVal
+                    stTouched.set(a, stTouched.get(a) + 1)
+
+            if m.state == 1 and not done
+                int d = m.dir
+                if bar_index > m.touchBar
+                    m.ext := math.max(m.ext, d == 1 ? high - lv : lv - low)
+                bool broke = d == 1 ? close < lv - tol : close > lv + tol
+                if broke
+                    stBrk.set(a, stBrk.get(a) + 1)
+                    done := true
+                else if bar_index - m.touchBar >= holdBars
+                    if d == 1
+                        stSup.set(a, stSup.get(a) + 1)
+                    else
+                        stRes.set(a, stRes.get(a) + 1)
+                    if m.ext >= revAtrMult * m.atrT
+                        stRev.set(a, stRev.get(a) + 1)
+                    done := true
+            if done
+                pool.remove(j)
+
+    // (b) Neo mới => tạo bộ mức mới
+    bool newSet = not na(anchor) and (na(curAnchor) or anchor != curAnchor)
+    if newSet
+        curAnchor := anchor
+        int startBar = anchorType == "Swing High gần nhất" ? swingHighBar : anchorType == "Swing Low gần nhất" ? swingLowBar : bar_index
+        for i = 0 to 15
+            int   a    = math.floor(i / 2)
+            int   side = i % 2
+            bool  en   = angOn.get(a)
+            float lv   = en ? sq9Level(anchor, ANG.get(a), side == 0 ? 1 : -1, scale) : na
+            if not na(lv)
+                pool.push(Lvl.new(a, lv, bar_index))
+                stCreated.set(a, stCreated.get(a) + 1)
+
+            // Đóng/xoá đường cũ
+            line oldL = lvLines.get(i)
+            if not na(oldL)
+                if keepHistory
+                    line.set_extend(oldL, extend.none)
+                    line.set_x2(oldL, bar_index)
+                else
+                    line.delete(oldL)
+                lvLines.set(i, na)
+            label oldLb = lvLabels.get(i)
+            if not na(oldLb)
+                label.delete(oldLb)
+                lvLabels.set(i, na)
+
+            // Vẽ đường mới
+            if showLines and not na(lv)
+                color c = COL.get(a)
+                lvLines.set(i, line.new(startBar, lv, bar_index + 1, lv, extend = extend.right, color = c, style = side == 0 ? line.style_solid : line.style_dashed, width = 1))
+                if showLabels
+                    string txt = str.tostring(ANG.get(a), "#") + "° " + (side == 0 ? "▲ " : "▼ ") + str.tostring(lv, format.mintick)
+                    lvLabels.set(i, label.new(bar_index, lv, txt, style = label.style_label_left, color = color.new(c, 85), textcolor = c, size = size.small))
+
+// Nhãn luôn nằm bên phải nến cuối
+if barstate.islast and showLabels
+    for i = 0 to 15
+        label lb = lvLabels.get(i)
+        if not na(lb)
+            label.set_x(lb, bar_index + 3)
+
+plot(showAnchor ? curAnchor : na, "Neo", color.new(color.yellow, 0), 2, plot.style_stepline)
+
+// ─────────────────────────── BẢNG THỐNG KÊ ───────────────────────────
+string tPos = switch tablePosIn
+    "Trên trái" => position.top_left
+    "Dưới phải" => position.bottom_right
+    "Dưới trái" => position.bottom_left
+    => position.top_right
+var table tb = table.new(tPos, 9, 10, bgcolor = color.new(color.black, 20), border_color = color.gray, border_width = 1, frame_color = color.gray, frame_width = 1)
+
+fCell(int col, int row, string txt, color fg, color bg = na) =>
+    table.cell(tb, col, row, txt, text_color = fg, bgcolor = bg, text_size = size.small)
+
+fPct(int num, int den) =>
+    den > 0 ? str.tostring(100.0 * num / den, "#.0") + "%" : "–"
+
+if showTable and barstate.islast
+    array<string> hdr = array.from("Góc", "Tạo", "Chạm", "%Chạm", "Hỗ trợ", "Kháng cự", "Hồi", "Phá", "%Giữ")
+    for c = 0 to 8
+        fCell(c, 0, hdr.get(c), color.white)
+    int tC = 0
+    int tT = 0
+    int tS = 0
+    int tR = 0
+    int tV = 0
+    int tB = 0
+    for a = 0 to 7
+        int r   = a + 1
+        color bgA = angOn.get(a) ? color.new(COL.get(a), 20) : color.new(color.gray, 60)
+        int cr = stCreated.get(a)
+        int tc = stTouched.get(a)
+        int su = stSup.get(a)
+        int re = stRes.get(a)
+        int rv = stRev.get(a)
+        int br = stBrk.get(a)
+        fCell(0, r, str.tostring(ANG.get(a), "#") + "°" + (angOn.get(a) ? "" : " (tắt)"), color.white, bgA)
+        fCell(1, r, str.tostring(cr), color.white)
+        fCell(2, r, str.tostring(tc), color.white)
+        fCell(3, r, fPct(tc, cr), color.white)
+        fCell(4, r, str.tostring(su), color.lime)
+        fCell(5, r, str.tostring(re), #FF8A80)
+        fCell(6, r, str.tostring(rv), color.yellow)
+        fCell(7, r, str.tostring(br), color.orange)
+        fCell(8, r, fPct(su + re, su + re + br), color.white)
+        tC += cr
+        tT += tc
+        tS += su
+        tR += re
+        tV += rv
+        tB += br
+    fCell(0, 9, "Tổng", color.white)
+    fCell(1, 9, str.tostring(tC), color.white)
+    fCell(2, 9, str.tostring(tT), color.white)
+    fCell(3, 9, fPct(tT, tC), color.white)
+    fCell(4, 9, str.tostring(tS), color.lime)
+    fCell(5, 9, str.tostring(tR), #FF8A80)
+    fCell(6, 9, str.tostring(tV), color.yellow)
+    fCell(7, 9, str.tostring(tB), color.orange)
+    fCell(8, 9, fPct(tS + tR, tS + tR + tB), color.white)
