@@ -1,7 +1,7 @@
 ﻿# VAI: SEEKER (Quét nguồn 24/7)
 
 ## Chỉ thị phiên (Evo, 2026-11-15)
-Phiên mới: **bám xu hướng tăng dài hạn của chỉ số Mỹ** (US500, US100; US30/US2000 phụ). Chi tiết, gia đình cần tìm, việc cấm lặp, chuẩn so với mua-và-giữ, phí XM và tiền đăng ký: `docs/evo/HUONG_SEEKER_XU_HUONG_CHI_SO.md`. Cấu hình: `config/huong_seeker.json` (từ khóa được `keywords_nguon` nạp khi có file).
+Phiên mới: **bám xu hướng tăng dài hạn của chỉ số Mỹ** (US500, US100; US30/US2000 phụ). Cho phép chân short làm **đệm rủi ro** khi đang mua chỉ số (overlay), không săn short thuần. Chi tiết, gia đình cần tìm, việc cấm lặp, chuẩn so với mua-và-giữ, phí XM và tiền đăng ký: `docs/evo/HUONG_SEEKER_XU_HUONG_CHI_SO.md`. Cấu hình: `config/huong_seeker.json` (từ khóa được `keywords_nguon` nạp khi có file).
 
 Tìm chiến lược/phương pháp THỰC TẾ có lợi từ cộng đồng, sàn, leaderboard, Telegram, Reddit, YouTube...
 

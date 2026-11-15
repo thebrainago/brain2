@@ -1,11 +1,11 @@
 {
-  "_ghi_chu": "Chi thi phien SEEKER — bám xu hướng tăng chỉ số Mỹ. Nạp từ khóa qua keywords_nguon._tai_huong_seeker. File vắng = không đổi hành vi. Chi tiết: docs/evo/HUONG_SEEKER_XU_HUONG_CHI_SO.md. Nhánh evo/huong-xu-huong-chi-so, không đụng main/runtime đang chạy.",
+  "_ghi_chu": "Chi thi phien SEEKER — bám xu hướng tăng chỉ số Mỹ, cho phép chân short làm đệm rủi ro (overlay, không phải săn short thuần). Nạp từ khóa qua keywords_nguon._tai_huong_seeker. File vắng = không đổi hành vi. Chi tiết: docs/evo/HUONG_SEEKER_XU_HUONG_CHI_SO.md. Nhánh evo/huong-xu-huong-chi-so, không đụng main/runtime đang chạy.",
   "phien": "2026-11-15",
   "danh_muc": "xu_huong_chi_so",
   "ten": "Xu hướng chỉ số Mỹ (chỉ thị phiên)",
   "uu_tien": 1,
   "pham_vi": {
-    "chieu": "long_only_hoac_long_biased",
+    "chieu": "long_biased_cong_hedge_short",
     "tai_san_chinh": [
       "US500",
       "US100"
@@ -20,7 +20,20 @@
     ],
     "khong_uu_tien": [
       "cap USD FX"
-    ]
+    ],
+    "hedge": {
+      "cho_phep": true,
+      "vai_tro": "dem_rui_ro_khi_mua_chi_so",
+      "khong_phai": "san_short_thuan",
+      "gia_dinh": [
+        "crash_filter",
+        "short_khi_duoi_sma200_hoac_che_do_giam",
+        "momentum_crash",
+        "vol_spike"
+      ],
+      "tran_keo": "<= 2%/nam (CAGR to hop tru CAGR core, neu am)",
+      "chuan_pass": "Danh gia tren danh muc core long US100/US500 + hedge. To hop cai thien DD va/hoac Sharpe so voi core long-only, CAGR tuong duong hoac tot hon sau phi XM (ke ca financing short), keo hedge <= 2%/nam. Tien dang ky, OOS 2016+, BH-FDR. Hedge khong can lai khi dung mot."
+    }
   },
   "gia_dinh_tim": [
     "time_series_momentum",
@@ -28,9 +41,13 @@
     "dual_momentum",
     "vol_targeting_exposure",
     "mua_nhip_giam_trong_xu_huong_tang",
-    "don_bay_theo_che_do"
+    "don_bay_theo_che_do",
+    "crash_filter_hedge",
+    "short_duoi_sma200_che_do",
+    "momentum_crash_overlay",
+    "vol_spike_hedge"
   ],
-  "chuan": "Phai thang mua-va-giu cung rui ro/pho nhiem (Sharpe hon, hoac cung lai + DD thap hon), sau phi XM, OOS 2016+ nhin mot lan, tien dang ky + BH-FDR. Lai rong, DD toi da 80%, >=10%/nam, vao lenh theo luat.",
+  "chuan": "Core long: phai thang mua-va-giu cung rui ro/pho nhiem (Sharpe hon, hoac cung lai + DD thap hon), sau phi XM, OOS 2016+ nhin mot lan, tien dang ky + BH-FDR. Lai rong, DD toi da 80%, >=10%/nam, vao lenh theo luat. Hedge/short: danh gia nhu overlay tren core (khong can lai dung mot). To hop phai cai thien DD va/hoac Sharpe, CAGR khong kem hon core qua 2%/nam (tran keo), cung phi XM 2 chieu, tien dang ky + BH-FDR.",
   "tu_khoa": {
     "en": [
       "index trend following",
@@ -46,7 +63,13 @@
       "CTA long only equity index",
       "buy the dip in uptrend SMA200",
       "risk parity index exposure",
-      "Clenow trend following stocks"
+      "Clenow trend following stocks",
+      "index crash filter hedge",
+      "short below 200 day moving average",
+      "equity index downside hedge",
+      "momentum crash overlay",
+      "volatility spike hedge SPX",
+      "tail risk hedge equity index"
     ],
     "vi": [
       "giao dịch theo xu hướng chỉ số",
@@ -58,7 +81,12 @@
       "mục tiêu biến động SP500",
       "mua nhịp giảm trong xu hướng tăng",
       "CTA long only chỉ số",
-      "đòn bẩy theo chế độ chỉ số"
+      "đòn bẩy theo chế độ chỉ số",
+      "đệm short khi mua chỉ số",
+      "lọc crash chỉ số Mỹ",
+      "short khi dưới SMA200",
+      "hedge biến động tăng vọt",
+      "bán giảm rủi ro danh mục chỉ số"
     ]
   }
 }

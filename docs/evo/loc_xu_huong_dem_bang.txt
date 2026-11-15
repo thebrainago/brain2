@@ -1,0 +1,68 @@
+# Dem short / hedge chong core long US100 (D1, phi XM 2 chieu)
+Phi: /workspace/ibs_cfd_my/docs/costs_xm_us_index.json; fin_short US100=-0.0091 US500=-0.0092 (am = credit).
+IS < 2016-01-01; OOS >= 2016-01-01. Khong p-placebo, khong tien dang ky — khong goi la pass.
+Drag = CAGR to hop − CAGR core. Tran ke hoach: keo <= 2%/nam neu hedge la chi phi.
+
+## Chan long (core)
+### US100_BH_1x
+  IS  n=   1  CAGR   +5.8%  Sharpe +0.35  DD  87.4%  exp 100.0%  30.2y
+  OOS n=   1  CAGR  +11.0%  Sharpe +0.59  DD  40.6%  exp 100.0%  10.9y
+### US100_BH_1.5x
+  IS  n=   1  CAGR   +5.9%  Sharpe +0.35  DD  97.1%  exp 100.0%  30.2y
+  OOS n=   1  CAGR  +14.9%  Sharpe +0.59  DD  55.7%  exp 100.0%  10.9y
+### US100_SMA200_1x
+  IS  n= 113  CAGR   +3.8%  Sharpe +0.30  DD  56.1%  exp  71.3%  30.2y
+  OOS n=  28  CAGR   +9.4%  Sharpe +0.62  DD  23.8%  exp  81.8%  10.9y
+
+## Hedge dung mot (khong core)
+### US500_ema_cross_sell_giu1  trades IS/OOS=96/18
+  IS  n=  96  CAGR   -0.5%  Sharpe -0.31  DD  20.2%  exp   0.8%  46.0y
+  OOS n=  18  CAGR   -1.4%  Sharpe -0.71  DD  15.3%  exp   0.7%  10.9y
+### US500_zswap_short_D1  trades IS/OOS=2/0
+  IS  n=   2  CAGR   -0.1%  Sharpe -0.23  DD   3.7%  exp   0.1%  46.0y
+  OOS n=   0  CAGR   +0.0%  Sharpe +0.00  DD   0.0%  exp   0.0%  10.9y
+### US100_short_duoi_sma200  trades IS/OOS=112/27
+  IS  n= 112  CAGR   -6.4%  Sharpe -0.23  DD  88.6%  exp  26.1%  30.2y
+  OOS n=  27  CAGR   -4.3%  Sharpe -0.25  DD  44.6%  exp  18.2%  10.9y
+### US100_short_donchian20_sma200  trades IS/OOS=49/15
+  IS  n=  49  CAGR   -5.1%  Sharpe -0.17  DD  81.5%  exp  22.1%  30.2y
+  OOS n=  15  CAGR   -4.9%  Sharpe -0.32  DD  48.3%  exp  16.3%  10.9y
+
+## To hop core + hedge 1× (cong pnl theo ngay chung)
+cot: CAGR / Sharpe / DD / drag_vs_core (diem %/nam)
+### US100_BH_1x  +  US500_ema_cross_sell_giu1
+  IS  CAGR   +5.4% (core  +5.8, drag  -0.4pp)  Sh +0.33 (core +0.35, -0.01)  DD  88.2% (core  87.4,  -0.8pp)  —
+  OOS CAGR   +9.6% (core +11.0, drag  -1.5pp)  Sh +0.53 (core +0.59, -0.06)  DD  43.0% (core  40.6,  -2.4pp)  —
+### US100_BH_1x  +  US500_zswap_short_D1
+  IS  CAGR   +5.8% (core  +5.8, drag  -0.1pp)  Sh +0.34 (core +0.35, -0.00)  DD  87.4% (core  87.4,  +0.0pp)  —
+  OOS CAGR  +11.0% (core +11.0, drag  +0.0pp)  Sh +0.59 (core +0.59, +0.00)  DD  40.6% (core  40.6,  +0.0pp)  —
+### US100_BH_1x  +  US100_short_duoi_sma200
+  IS  CAGR   +3.1% (core  +5.8, drag  -2.8pp)  Sh +0.26 (core +0.35, -0.09)  DD  65.1% (core  87.4, +22.3pp)  —
+  OOS CAGR   +8.3% (core +11.0, drag  -2.7pp)  Sh +0.56 (core +0.59, -0.03)  DD  24.9% (core  40.6, +15.7pp)  —
+### US100_BH_1x  +  US100_short_donchian20_sma200
+  IS  CAGR   +4.3% (core  +5.8, drag  -1.6pp)  Sh +0.31 (core +0.35, -0.03)  DD  64.1% (core  87.4, +23.3pp)  —
+  OOS CAGR   +7.4% (core +11.0, drag  -3.7pp)  Sh +0.50 (core +0.59, -0.09)  DD  35.5% (core  40.6,  +5.0pp)  —
+### US100_BH_1.5x  +  US500_ema_cross_sell_giu1
+  IS  CAGR   +5.5% (core  +5.9, drag  -0.4pp)  Sh +0.34 (core +0.35, -0.01)  DD  97.3% (core  97.1,  -0.2pp)  —
+  OOS CAGR  +13.4% (core +14.9, drag  -1.5pp)  Sh +0.55 (core +0.59, -0.04)  DD  57.5% (core  55.7,  -1.8pp)  —
+### US100_BH_1.5x  +  US500_zswap_short_D1
+  IS  CAGR   +5.8% (core  +5.9, drag  -0.1pp)  Sh +0.34 (core +0.35, -0.00)  DD  97.1% (core  97.1,  +0.0pp)  —
+  OOS CAGR  +14.9% (core +14.9, drag  +0.0pp)  Sh +0.59 (core +0.59, +0.00)  DD  55.7% (core  55.7,  +0.0pp)  —
+### US100_BH_1.5x  +  US100_short_duoi_sma200
+  IS  CAGR   +5.2% (core  +5.9, drag  -0.7pp)  Sh +0.32 (core +0.35, -0.03)  DD  86.4% (core  97.1, +10.7pp)  —
+  OOS CAGR  +13.2% (core +14.9, drag  -1.8pp)  Sh +0.61 (core +0.59, +0.01)  DD  39.2% (core  55.7, +16.5pp)  —
+### US100_BH_1.5x  +  US100_short_donchian20_sma200
+  IS  CAGR   +6.3% (core  +5.9, drag  +0.4pp)  Sh +0.35 (core +0.35, +0.01)  DD  86.7% (core  97.1, +10.5pp)  CAI_THIEN_THO
+  OOS CAGR  +12.1% (core +14.9, drag  -2.9pp)  Sh +0.56 (core +0.59, -0.03)  DD  48.2% (core  55.7,  +7.5pp)  —
+### US100_SMA200_1x  +  US500_ema_cross_sell_giu1
+  IS  CAGR   +3.4% (core  +3.8, drag  -0.4pp)  Sh +0.27 (core +0.30, -0.02)  DD  58.1% (core  56.1,  -2.0pp)  —
+  OOS CAGR   +8.0% (core  +9.4, drag  -1.4pp)  Sh +0.54 (core +0.62, -0.08)  DD  26.8% (core  23.8,  -3.0pp)  —
+### US100_SMA200_1x  +  US500_zswap_short_D1
+  IS  CAGR   +3.7% (core  +3.8, drag  -0.1pp)  Sh +0.29 (core +0.30, -0.00)  DD  56.1% (core  56.1,  +0.0pp)  —
+  OOS CAGR   +9.4% (core  +9.4, drag  +0.0pp)  Sh +0.62 (core +0.62, +0.00)  DD  23.8% (core  23.8,  +0.0pp)  —
+### US100_SMA200_1x  +  US100_short_duoi_sma200
+  IS  CAGR   -2.9% (core  +3.8, drag  -6.7pp)  Sh +0.03 (core +0.30, -0.27)  DD  74.2% (core  56.1, -18.1pp)  —
+  OOS CAGR   +4.7% (core  +9.4, drag  -4.7pp)  Sh +0.32 (core +0.62, -0.30)  DD  39.1% (core  23.8, -15.3pp)  —
+### US100_SMA200_1x  +  US100_short_donchian20_sma200
+  IS  CAGR   -1.5% (core  +3.8, drag  -5.3pp)  Sh +0.08 (core +0.30, -0.22)  DD  68.4% (core  56.1, -12.2pp)  —
+  OOS CAGR   +4.0% (core  +9.4, drag  -5.4pp)  Sh +0.29 (core +0.62, -0.33)  DD  35.4% (core  23.8, -11.6pp)  —

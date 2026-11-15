@@ -2,13 +2,13 @@
 
 Phiên: 2026-11-15 (Asia/Saigon). Nhánh `evo/huong-xu-huong-chi-so`. Không đụng `main`, không bật điều phối / routine, không tài khoản thật.
 
-Anh Vanh: chỉ số (US500, US100) có bản chất tăng dài hạn; cần chiến lược bám theo, và lọc nốt ứng viên cũ cùng hướng đó.
+Anh Vanh: chỉ số (US500, US100) có bản chất tăng dài hạn; cần chiến lược bám theo, lọc ứng viên cũ cùng hướng đó. Nếu có hệ bán thì dùng làm **đệm rủi ro khi đang mua chỉ số** (cập nhật cùng ngày).
 
 Đọc trước: `docs/evo/BAI_HOC_VA_PHI.md` (nhánh `evo/sua-tieu-chi`, đủ mục 1–7) và `docs/evo/PREREG_GIA_THUYET_2026-11-15_KET_QUA.md`.
 
 ## 1. Phạm vi phiên mới
 
-- Chiều: **long-only / long-biased**. Không săn short thuần, không scalping FX.
+- Chiều: **long-biased**. Lõi là mua chỉ số. **Cho phép chân short / hedge** làm đệm rủi ro khi đang giữ long — không săn short thuần, không scalping FX.
 - Tài sản: **US500, US100** chính; US30, US2000 phụ. Tên XM: `US500Cash#`, `US100Cash#`, `US30Cash#`, `US2000Cash#`.
 - Khung: **D1 / H4**. Không ưu tiên H1 trở xuống (phí/lãi gộp xấu hơn, bài 3).
 - Mục tiêu vận hành: lời sau phí, DD tối đa 80%, ≥ 10%/năm, vào lệnh theo luật, OOS thật.
@@ -21,6 +21,7 @@ Anh Vanh: chỉ số (US500, US100) có bản chất tăng dài hạn; cần chi
 4. **Vol-targeting / risk parity exposure** (giảm lot khi vol/VIX cao, tăng khi êm — không nhầm với “cắt lỗ thảm họa 6–10%” đã thất bại ở bài 6).
 5. **Mua nhịp giảm trong xu hướng tăng** (dip khi đã trên SMA200 / chế độ tăng; khác mean-reversion thuần không lọc trend).
 6. **Đòn bẩy theo chế độ** (1–1.5× khi trên bộ lọc; không 2–3× buy-and-hold trần).
+7. **Đệm short / hedge overlay** (lọc crash, short khi dưới SMA200 hoặc chế độ giảm, momentum crash, vol spike). Đánh giá trên **danh mục** (core long + hedge), không yêu cầu chân short tự có lãi.
 
 Ưu tiên nguồn đã có track record / bài nghiên cứu (Faber, Moskowitz TSMOM, Antonacci, CTA long-equity, paper có OOS), không quét EA diễn đàn vô tội vạ.
 
@@ -59,18 +60,29 @@ rồi mới xét cửa OOS (≥ 30 lệnh nếu hệ vào/ra thường xuyên; h
 
 Lệch phơi nhiễm (hệ đứng ngoài 20–30% thời gian, hoặc chỉ vào 5% bar) phải so Sharpe/Calmar, hoặc đòn bẩy để DD/phơi nhiễm tương đương — không lấy CAGR nhỏ rồi gọi là “thắng” vì DD thấp.
 
+### 4.1. Chuẩn cho chân short / hedge (overlay)
+
+Hedge **không cần lãi khi đứng một mình**. Chấm trên tổ hợp *core long US100/US500 + hedge*, cùng cửa sổ, sau phí XM **cả hai chiều** (financing short cũng tính):
+
+- Tổ hợp **cải thiện max DD và/hoặc Sharpe** so với core long-only, và
+- CAGR tổ hợp **không kém core quá 2%/năm** (trần kéo; kéo = CAGR tổ hợp − CAGR core, nếu âm),
+
+rồi mới xét tiền đăng ký, OOS 2016+ nhìn một lần, BH-FDR. Trần 2%/năm ≈ 1/5 lời net OOS của US100 1× sau phí (~11%); kéo mạnh hơn thì “đệm” đắt hơn phần lớn lợi ích. Nếu core đã ≥ 10%/năm, tổ hợp vẫn nên giữ cửa này. So với **đúng core đã chọn** (1.5× thì so 1.5× long-only, không so 1×).
+
+Nếu cỡ short = cỡ long trên cùng một mã, kết quả gần với “đứng ngoài” — phải so với bộ lọc đứng ngoài (rẻ hơn, vì không trả financing long + spread short song song). Lật net short khi dưới SMA200 là giả thuyết khác, phải đăng ký riêng.
+
 Tune chỉ trên IS (< 2016), đóng băng, nhìn OOS (2016+) **một lần**. Python lạc quan hơn MT5: hệ còn sống mới đưa tester.
 
 ## 5. Mô hình phí (XM Ultra Low demo, đo 15/11/2026)
 
-| Mã | Spread trung vị | Financing long | Triple |
-|---|---|---|---|
-| US500Cash# | 0.55 điểm | 6.49%/năm | Thứ Sáu |
-| US100Cash# | 1.95 điểm | 6.48%/năm | Thứ Sáu |
-| US30Cash# | 3.90 điểm | 6.48%/năm | Thứ Sáu |
-| US2000Cash# | 0.45 điểm | 6.82%/năm | Thứ Sáu |
+| Mã | Spread trung vị | Financing long | Financing short | Triple |
+|---|---|---|---|---|
+| US500Cash# | 0.55 điểm | 6.49%/năm | ≈ −0.92%/năm (được cộng) | Thứ Sáu |
+| US100Cash# | 1.95 điểm | 6.48%/năm | ≈ −0.91%/năm (được cộng) | Thứ Sáu |
+| US30Cash# | 3.90 điểm | 6.48%/năm | ≈ −0.90%/năm (được cộng) | Thứ Sáu |
+| US2000Cash# | 0.45 điểm | 6.82%/năm | ≈ −0.66%/năm (được cộng) | Thứ Sáu |
 
-Nguồn: `docs/evo/costs_xm_us_index.json` (kho IBS) / bài học phí. Không vào lệnh giờ 00:00 server (rollover). Lot tối thiểu / bước US100Cash# = 0.1. Đòn bẩy 1:1000, stop-out 20%: ở 3×, giá ngược ~33% là cháy. Tỷ lệ financing cố định 6.5% hơi chặt với giai đoạn lãi suất thấp 2016–2021 và không đúng từng năm 1970–2015 — OOS 2016+ vẫn phải trừ phí hiện tại.
+Nguồn: `docs/evo/costs_xm_us_index.json` (kho IBS) / bài học phí. Short trên cash chỉ số XM có `swap_short` > 0 nên financing short là **credit** (~0.9%/năm), công thức `−swap_short/mid×365`. Kéo chính của hedge vẫn là trượt giá ngược chiều tăng dài hạn, không phải phí overnight. Không vào lệnh giờ 00:00 server (rollover). Lot tối thiểu / bước US100Cash# = 0.1. Đòn bẩy 1:1000, stop-out 20%: ở 3×, giá ngược ~33% là cháy. Tỷ lệ financing cố định 6.5% hơi chặt với giai đoạn lãi suất thấp 2016–2021 và không đúng từng năm 1970–2015 — OOS 2016+ vẫn phải trừ phí hiện tại.
 
 **Chuẩn buy-and-hold 1× sau phí (Yahoo D1, cùng mô hình, 2016-01-01 → 2026-11-13):** US100 ~11.0%/năm, Sharpe 0.59, DD 40.6%; US500 ~5.8%/năm, Sharpe 0.44, DD 32.7%. US500 1× **không đạt** cửa 10%/năm sau swap. Đây là đối thủ, không phải sàn để “có lãi là được”.
 
@@ -139,3 +151,38 @@ Buy-and-hold US100 1× sau phí đã ≥ 10%/năm và DD < 80% trên OOS: hệ m
 - Không viết EA, không testers, không đổi forward demo (US100 IBS 3× vẫn là ứng viên đang chạy, không phải hệ xu hướng).
 - Không đẩy/merge `main`.
 - 73 `khang_dinh` còn CHO_KIEM không phải chỉ số — để nguyên.
+- Các tổ hợp đệm ở mục 11 **chưa** tiền đăng ký, **chưa** random-shift — không đưa vào EA/demo.
+
+## 11. Kiểm nhẹ đệm short (15/11/2026, cùng ngày)
+
+Mã: `tools/kiem_dinh/evo/loc_xu_huong_dem.py`. Yahoo D1, phí XM 2 chiều, IS < 2016 / OOS ≥ 2016. Hedge 1× cộng vào core US100. **Không p-placebo, không tiền đăng ký — không gọi là pass.** Bảng thô: `docs/evo/loc_xu_huong_dem_bang.txt`.
+
+Hai hệ short cũ trên US500 trong `nao.db`:
+
+- `ema_cross_sell` D1: EMA21 cắt xuống dưới EMA55, giữ 1 phiên. Trong DSL gốc `chieu=1` và bản PASS cũ có `ty_le_ban=0` (đã chạy như long). Ở đây kiểm **đúng tín hiệu bán** (short 1 ngày sau death cross).
+- `z_swap_meter_short` H1: RSI(14) cắt xuống 70 và close < EMA21, ra khi RSI cắt lên 30, giữ tối đa 3 nến. Ở đây **dịch D1** — không phải đúng khung gốc.
+
+Hai luật đệm đơn giản: short khi close < SMA200; short khi phá đáy 20 phiên và close < SMA200, ra khi close > SMA200 (cùng mã US100).
+
+**Hedge đứng một:** cả bốn đều không có lãi OOS (đúng kỳ vọng khi chỉ số tăng). `z_swap` D1: 0 lệnh OOS (luật H1 gần như không kích trên ngày). `ema_cross_sell` giữ 1 ngày: 18 lệnh OOS, −1.4%/năm. Short dưới SMA200: −4.3%/năm. Donchian 20 + SMA200: −4.9%/năm.
+
+Tổ hợp OOS (kéo = CAGR tổ hợp − CAGR core):
+
+| Core | Hedge | CAGR tổ hợp (core) | Kéo | Sharpe (core) | DD (core) |
+|---|---|---|---|---|---|
+| US100 1× BH | ema_cross_sell US500 | 9.6% (11.0) | −1.5pp | 0.53 (0.59) | 43.0% (40.6) — DD **xấu hơn** |
+| US100 1× BH | z_swap D1 US500 | 11.0% (11.0) | 0 | 0.59 (0.59) | 40.6% — không kích |
+| US100 1× BH | short dưới SMA200 | 8.3% (11.0) | −2.7pp | 0.56 (0.59) | 24.9% (40.6) |
+| US100 1× BH | donchian20 + SMA200 | 7.4% (11.0) | −3.7pp | 0.50 (0.59) | 35.5% (40.6) |
+| US100 1.5× BH | short dưới SMA200 | 13.2% (14.9) | −1.8pp | 0.61 (0.59) | 39.2% (55.7) |
+| US100 1.5× BH | donchian20 + SMA200 | 12.1% (14.9) | −2.9pp | 0.56 (0.59) | 48.2% (55.7) |
+| US100 SMA200 1× | short dưới SMA200 (lật net short) | 4.7% (9.4) | −4.7pp | 0.32 (0.62) | 39.1% (23.8) — **xấu hơn** |
+
+Bài học nhanh (chưa phải pass):
+
+- Death cross giữ 1 ngày **không đệm** được: kéo 1.5pp mà DD còn tăng.
+- Cỡ short = cỡ long trên cùng mã (1× BH + short dưới SMA200) **đắt hơn** việc chỉ đứng ngoài: 8.3% / Sharpe 0.56 / DD 25% so với lọc SMA200 9.4% / 0.62 / 24%, vì vẫn trả financing long + spread short. Muốn về flat thì đứng ngoài, đừng ôm long+short.
+- Lật net short khi dưới SMA200 (lọc long + thêm short) làm **xấu** cả lãi và DD OOS.
+- Ảnh OOS đáng chú ý nhất: **US100 1.5× BH + short 1× khi dưới SMA200** — kéo 1.8pp (trong trần 2%), Sharpe 0.61 vs 0.59, DD 39% vs 56%; so 1× BH thì lãi cao hơn (13.2 vs 11.0) và DD hơi thấp hơn (39 vs 41). IS: kéo 0.7pp, Sharpe 0.32 vs 0.35, DD 86% vs 97%. **Chưa đăng ký, chưa có p — không pass.** Nếu muốn kiểm chính thức: tiền đăng ký tổ hợp này (và chỉ tổ hợp này, không tối ưu thêm sau khi nhìn), nhìn OOS một lần.
+
+Donchian trên core 1.5× giảm DD OOS nhưng kéo 2.9pp (vượt trần 2%) và Sharpe thấp hơn.
