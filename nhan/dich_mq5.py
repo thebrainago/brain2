@@ -939,6 +939,11 @@ input int    InpMaCoChe = 0;      // ma co che (0..%(max)d)
 input int    InpDich    = 0;      // dich dieu kien di N nen (placebo)
 input double InpLot     = 0.10;
 input long   InpMagic   = 26090601;
+//--- 15/11/2026 (Evo): gio server KHONG khop lenh. Gio 0 = dao ngay (rollover),
+//--- spread XM vot 4-8 pip; truoc day EA D1/H4 vao/ra dung 00:00. -1 = tat.
+input int    InpGioTranh = 0;
+//--- Ngoai tester: tu choi chay neu tai khoan KHONG phai DEMO.
+input bool   InpChiDemo  = true;
 
 #define KHUNG PERIOD_%(khung)s
 
@@ -995,8 +1000,29 @@ bool CoDieuKienRa(int k) { switch(k) { %(sw_cora)s } return(false); }
 //+------------------------------------------------------------------+
 int OnInit()
   {
+   if(InpChiDemo && !MQLInfoInteger(MQL_TESTER) &&
+      (ENUM_ACCOUNT_TRADE_MODE)AccountInfoInteger(ACCOUNT_TRADE_MODE) != ACCOUNT_TRADE_MODE_DEMO)
+     {
+      Print("Tu choi: tai khoan khong phai DEMO");
+      return(INIT_FAILED);
+     }
    trade.SetExpertMagicNumber(InpMagic);
    trade.SetTypeFillingBySymbol(_Symbol);
+   // Khoi dong lai terminal giua chung: dem lai so nen da giu tu gio mo lenh,
+   // neu khong lenh giu-N-nen se khong bao gio dong theo thoi gian.
+   for(int i = PositionsTotal() - 1; i >= 0; i--)
+     {
+      ulong tk = PositionGetTicket(i);
+      if(tk == 0) continue;
+      if(PositionGetString(POSITION_SYMBOL) == _Symbol &&
+         PositionGetInteger(POSITION_MAGIC) == InpMagic)
+        {
+         int sh = iBarShift(_Symbol, KHUNG, (datetime)PositionGetInteger(POSITION_TIME), false);
+         if(sh > 0) g_bar_vao = sh;
+        }
+     }
+   // Khong hanh dong giua nen luc vua gan EA / khoi dong lai.
+   g_nen_cuoi = (datetime)SeriesInfoInteger(_Symbol, KHUNG, SERIES_LASTBAR_DATE);
 %(khoi_tao)s
    return(INIT_SUCCEEDED);
   }
@@ -1031,6 +1057,11 @@ void DongHet()
 void KhopYDinh()
   {
    if(g_y_dinh == 0) return;
+   if(InpGioTranh >= 0)
+     {
+      MqlDateTime dt; TimeToStruct(TimeCurrent(), dt);
+      if(dt.hour == InpGioTranh) return;
+     }
    if((ENUM_SYMBOL_TRADE_MODE)SymbolInfoInteger(_Symbol, SYMBOL_TRADE_MODE)
       != SYMBOL_TRADE_MODE_FULL) return;
    if(g_y_dinh < 0)

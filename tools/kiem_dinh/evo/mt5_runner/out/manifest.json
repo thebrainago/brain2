@@ -1,0 +1,2245 @@
+{
+ "nhom": [
+  {
+   "ea": "EvoLo_AUDCAD_D1",
+   "symbol": "AUDCAD#",
+   "khung": "D1",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "AUDCAD.D1.vang_ban_qua_da_ngan_han_khi_bien_dong_binh_thuong.vao0_trai_n20_vao0_phai_hang2_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.8_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.2_giu2",
+     "kd": 1,
+     "template": "vang_ban_qua_da_ngan_han_khi_bien_dong_binh_thuong"
+    },
+    {
+     "i": 3,
+     "ten": "AUDCAD.D1.mua_pha_dinh_55_khoi_luong_cao_bien_dong_thap.vao0_phai_cua_n55_vao0_phai_n1_vao1_trai_n50_vao1_phai_hang0.5_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.6_giu10",
+     "kd": 61,
+     "template": "mua_pha_dinh_55_khoi_luong_cao_bien_dong_thap"
+    },
+    {
+     "i": 4,
+     "ten": "AUDCAD.D1.mua_khoi_luong_cao_bien_do_hep_sau_nhip_giam_tren_sma200.vao0_trai_n50_vao0_phai_hang1.0_vao1_trai_n50_vao1_phai_hang0.4_vao2_phai_n20_vao3_phai_n200_giu5",
+     "kd": 65,
+     "template": "mua_khoi_luong_cao_bien_do_hep_sau_nhip_giam_tren_sma200"
+    },
+    {
+     "i": 5,
+     "ten": "AUDCAD.D1.mua_hoang_loan_thanh_ly_khi_bien_dong_dinh_va_rot_5_bar.vao0_trai_cua_n5_vao0_trai_n100_vao0_phai_hang-2.0_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.85_ra0_trai_n3_ra0_phai_hang70_giu5",
+     "kd": 106,
+     "template": "mua_hoang_loan_thanh_ly_khi_bien_dong_dinh_va_rot_5_bar"
+    },
+    {
+     "i": 6,
+     "ten": "AUDCAD.D1.mua_pha_dinh_bar_truoc_sau_bar_hep_nhat_7_khi_bien_dong_thap.vao0_trai_cua_n1_vao0_trai_n7_vao0_phai_hang0.15_vao1_phai_n1_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.5_vao3_phai_n200_ra0_phai_n1_giu5",
+     "kd": 116,
+     "template": "mua_pha_dinh_bar_truoc_sau_bar_hep_nhat_7_khi_bien_dong_thap"
+    },
+    {
+     "i": 7,
+     "ten": "AUDCAD.D1.mua_pha_dinh_55_khi_atr_nen_va_kl_tang.vao0_phai_cua_n55_vao0_phai_n1_vao1_trai_cua_n14_vao1_trai_n200_vao1_phai_hang0.4_vao2_trai_n50_vao2_phai_hang0.6_giu15",
+     "kd": 176,
+     "template": "mua_pha_dinh_55_khi_atr_nen_va_kl_tang"
+    },
+    {
+     "i": 8,
+     "ten": "AUDCAD.D1.mua_than_nen_giam_cuc_doan_khi_atr_phan_vi_cao_tren_ema200.vao0_trai_n100_vao0_phai_hang0.08_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.6_vao2_phai_n200_giu4",
+     "kd": 192,
+     "template": "mua_than_nen_giam_cuc_doan_khi_atr_phan_vi_cao_tren_ema200"
+    },
+    {
+     "i": 9,
+     "ten": "AUDCAD.D1.ban_vuot_dinh_100_that_bai_khi_kl_phan_vi_thap.vao0_phai_cua_n100_vao0_phai_n1_vao1_phai_cua_n100_vao1_phai_n1_vao2_trai_n100_vao2_phai_hang0.6_giu8_nenha",
+     "kd": 205,
+     "template": "ban_vuot_dinh_100_that_bai_khi_kl_phan_vi_thap"
+    }
+   ]
+  },
+  {
+   "ea": "EvoLo_AUDCAD_H1",
+   "symbol": "AUDCAD#",
+   "khung": "H1",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "AUDCAD.H1.mua_dau_thang_sau_thang_giam_tai_can_bang.vao0_phai_hang3_vao1_trai_n120_vao1_phai_hang0_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.8_giu6",
+     "kd": 10,
+     "template": "mua_dau_thang_sau_thang_giam_tai_can_bang"
+    },
+    {
+     "i": 3,
+     "ten": "AUDCAD.H1.kenh_trong_mua_day_khi_khong_xu_huong.vao0_trai_n40_vao0_phai_hang-1.5_vao1_trai_cua_cua_n40_vao1_trai_cua_n1_vao1_trai_n250_vao1_phai_hang0.4_ra0_trai_n40_ra0_phai_hang0.5_giu8_nenha",
+     "kd": 31,
+     "template": "kenh_trong_mua_day_khi_khong_xu_huong"
+    },
+    {
+     "i": 4,
+     "ten": "AUDCAD.H1.ban_dinh_moi_50_bar_khi_khoi_luong_mong.vao0_phai_cua_n50_vao0_phai_n1_vao1_trai_n100_vao1_phai_hang0.3_ra0_phai_n10_giu5",
+     "kd": 36,
+     "template": "ban_dinh_moi_50_bar_khi_khoi_luong_mong"
+    },
+    {
+     "i": 5,
+     "ten": "AUDCAD.H1.ban_bien_dong_tang_nhanh_duoi_sma200.vao0_trai_cua_n14_vao0_trai_n250_vao0_phai_hang0.8_vao1_trai_cua_cua_n14_vao1_trai_cua_n250_vao1_trai_n5_vao1_phai_hang0.6_vao2_phai_n200_ra0_phai_n20_giu10",
+     "kd": 80,
+     "template": "ban_bien_dong_tang_nhanh_duoi_sma200"
+    },
+    {
+     "i": 6,
+     "ten": "AUDCAD.H1.mua_day_kenh_donchian20_kl_mong_khi_atr_phan_vi_thap.vao0_phai_n20_vao1_trai_n100_vao1_phai_hang0.35_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.45_ra0_phai_n20_giu5",
+     "kd": 153,
+     "template": "mua_day_kenh_donchian20_kl_mong_khi_atr_phan_vi_thap"
+    },
+    {
+     "i": 7,
+     "ten": "AUDCAD.H1.mua_pha_dinh_10_bar_khi_atr_nen_kl_zscore_cao.vao0_phai_cua_n10_vao0_phai_n1_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.35_vao2_trai_n20_vao2_phai_hang1.0_giu6_nenha",
+     "kd": 195,
+     "template": "mua_pha_dinh_10_bar_khi_atr_nen_kl_zscore_cao"
+    },
+    {
+     "i": 8,
+     "ten": "AUDCAD.H1.mua_dau_thang_khi_zscore20_am_va_kl_phan_vi_thap.vao0_phai_hang3_vao1_trai_n20_vao1_phai_hang-0.5_vao2_trai_n100_vao2_phai_hang0.6_giu6",
+     "kd": 212,
+     "template": "mua_dau_thang_khi_zscore20_am_va_kl_phan_vi_thap"
+    },
+    {
+     "i": 9,
+     "ten": "AUDCAD.H1.mua_zscore50_am_kl_mong_sau_khi_atr_rut_tu_dinh_tren_sma200.vao0_trai_n50_vao0_phai_hang-1.0_vao1_trai_cua_cua_n14_vao1_trai_cua_n250_vao1_trai_n20_vao1_phai_hang0.8_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.5_vao3_trai_n100_vao3_phai_hang0.5_vao4_phai_n200_ra0_trai_n50_ra0_phai_hang0_giu6_nenha",
+     "kd": 240,
+     "template": "mua_zscore50_am_kl_mong_sau_khi_atr_rut_tu_dinh_tren_sma200"
+    },
+    {
+     "i": 10,
+     "ten": "AUDCAD.H1.ban_zscore100_duong_cang_khi_atr_phan_vi_thap_duoi_sma250.vao0_trai_n100_vao0_phai_hang1.8_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.4_vao2_phai_n250_ra0_trai_n100_ra0_phai_hang0_giu10",
+     "kd": 257,
+     "template": "ban_zscore100_duong_cang_khi_atr_phan_vi_thap_duoi_sma250"
+    }
+   ]
+  },
+  {
+   "ea": "EvoLo_AUDCAD_H4",
+   "symbol": "AUDCAD#",
+   "khung": "H4",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "AUDCAD.H4.mua_sau_chuoi_ba_bar_giam_khi_khoi_luong_can.vao0_trai_n3_vao0_phai_hang0_vao1_phai_hang0_vao2_trai_n1_vao2_phai_hang0_vao3_trai_n2_vao3_phai_hang0_vao4_trai_n50_vao4_phai_hang0.3_giu3_nenha",
+     "kd": 5,
+     "template": "mua_sau_chuoi_ba_bar_giam_khi_khoi_luong_can"
+    },
+    {
+     "i": 3,
+     "ten": "AUDCAD.H4.ban_quet_dinh_20_bar_that_bai_khi_khoi_luong_mong.vao0_phai_cua_n20_vao0_phai_n1_vao1_phai_cua_n20_vao1_phai_n1_vao2_trai_n100_vao2_phai_hang0.4_giu4_nenha",
+     "kd": 8,
+     "template": "ban_quet_dinh_20_bar_that_bai_khi_khoi_luong_mong"
+    },
+    {
+     "i": 4,
+     "ten": "AUDCAD.H4.ban_chot_vi_the_chieu_thu_sau_sau_tuan_tang.vao0_phai_hang4_vao1_phai_hang4_vao2_phai_hang16_vao3_trai_cua_n30_vao3_trai_n250_vao3_phai_hang0.8_giu2",
+     "kd": 16,
+     "template": "ban_chot_vi_the_chieu_thu_sau_sau_tuan_tang"
+    },
+    {
+     "i": 5,
+     "ten": "AUDCAD.H4.mua_qua_dem_aud_sau_phien_giam.vao0_phai_hang20_vao1_phai_hang20_vao2_trai_n6_vao2_phai_hang0_giu4",
+     "kd": 20,
+     "template": "mua_qua_dem_aud_sau_phien_giam"
+    },
+    {
+     "i": 6,
+     "ten": "AUDCAD.H4.mua_soc_giam_khoi_luong_mong.vao0_trai_n20_vao0_phai_hang-2.0_vao1_trai_n100_vao1_phai_hang0.5_ra0_trai_n20_ra0_phai_hang0.0_giu5_nenha",
+     "kd": 25,
+     "template": "mua_soc_giam_khoi_luong_mong"
+    },
+    {
+     "i": 7,
+     "ten": "AUDCAD.H4.nen_hep_yen_tinh_thung_day_5_bar.vao0_trai_cua_n1_vao0_trai_n100_vao0_phai_hang0.15_vao1_phai_cua_n5_vao1_phai_n1_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.5_giu5_nenha",
+     "kd": 35,
+     "template": "nen_hep_yen_tinh_thung_day_5_bar"
+    },
+    {
+     "i": 8,
+     "ten": "AUDCAD.H4.mua_tu_choi_day_20_khoi_luong_cao_khi_bien_dong_cao.vao0_phai_cua_n20_vao0_phai_n1_vao1_phai_hang0.6_vao2_trai_n50_vao2_phai_hang1.0_vao3_trai_cua_n14_vao3_trai_n250_vao3_phai_hang0.5_giu5",
+     "kd": 57,
+     "template": "mua_tu_choi_day_20_khoi_luong_cao_khi_bien_dong_cao"
+    },
+    {
+     "i": 9,
+     "ten": "AUDCAD.H4.mua_ba_bar_giam_manh_khoi_luong_can_tren_sma200.vao0_trai_cua_n3_vao0_trai_n250_vao0_phai_hang0.15_vao1_trai_n50_vao1_phai_hang-0.3_vao2_phai_n200_giu4",
+     "kd": 64,
+     "template": "mua_ba_bar_giam_manh_khoi_luong_can_tren_sma200"
+    },
+    {
+     "i": 10,
+     "ten": "AUDCAD.H4.ban_ibs_cao_hai_bar_lien_tiep_duoi_sma200.vao0_phai_hang0.75_vao1_trai_n1_vao1_phai_hang0.75_vao2_phai_n200_vao3_trai_cua_n14_vao3_trai_n250_vao3_phai_hang0.3_ra0_phai_hang0.25_giu3",
+     "kd": 69,
+     "template": "ban_ibs_cao_hai_bar_lien_tiep_duoi_sma200"
+    },
+    {
+     "i": 11,
+     "ten": "AUDCAD.H4.mua_ba_bar_giam_than_nen_thu_hep_khoi_luong_can_tren_sma200.vao0_phai_hang0_vao1_trai_n1_vao1_phai_hang0_vao2_trai_n2_vao2_phai_hang0_vao3_trai_n1_vao3_phai_cua_n1_vao3_phai_n1_vao4_trai_n100_vao4_phai_hang0.5_vao5_phai_n200_ra0_phai_hang0.75_giu4",
+     "kd": 73,
+     "template": "mua_ba_bar_giam_than_nen_thu_hep_khoi_luong_can_tren_sma200"
+    },
+    {
+     "i": 12,
+     "ten": "AUDCAD.H4.mua_ibs_thap_khoi_luong_mong_bien_dong_thap_tren_sma200.vao0_phai_hang0.2_vao1_trai_n50_vao1_phai_hang0.35_vao2_phai_n200_vao3_trai_cua_n14_vao3_trai_n250_vao3_phai_hang0.5_ra0_phai_hang0.8_giu4",
+     "kd": 81,
+     "template": "mua_ibs_thap_khoi_luong_mong_bien_dong_thap_tren_sma200"
+    },
+    {
+     "i": 13,
+     "ten": "AUDCAD.H4.ban_rsi2_cuc_cao_bien_dong_thap_duoi_sma200.vao0_trai_n2_vao0_phai_hang92_vao1_phai_n200_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.5_ra0_trai_n2_ra0_phai_hang40_giu3",
+     "kd": 84,
+     "template": "ban_rsi2_cuc_cao_bien_dong_thap_duoi_sma200"
+    },
+    {
+     "i": 14,
+     "ten": "AUDCAD.H4.mua_ibs_thap_sau_ba_bar_giam_khoi_luong_mong_tren_sma200.vao0_phai_n200_vao1_phai_hang0.2_vao2_trai_n3_vao2_phai_hang0_vao3_trai_n50_vao3_phai_hang0.4_ra0_phai_hang0.7_giu3",
+     "kd": 96,
+     "template": "mua_ibs_thap_sau_ba_bar_giam_khoi_luong_mong_tren_sma200"
+    },
+    {
+     "i": 15,
+     "ten": "AUDCAD.H4.ban_hoi_len_ema50_tu_choi_khi_dong_luong_yeu_duoi_sma200.vao0_phai_n200_vao1_trai_cua_n120_vao1_trai_n500_vao1_phai_hang0.3_vao2_phai_n50_vao3_phai_n50_giu8_nenha",
+     "kd": 97,
+     "template": "ban_hoi_len_ema50_tu_choi_khi_dong_luong_yeu_duoi_sma200"
+    },
+    {
+     "i": 16,
+     "ten": "AUDCAD.H4.mua_hap_thu_ban_thao_sau_cu_soc_bien_do_khi_che_do_yen_tinh.vao0_trai_n50_vao0_phai_hang2.0_vao1_trai_n50_vao1_phai_hang-1.5_vao2_trai_cua_cua_n14_vao2_trai_cua_n1_vao2_trai_n250_vao2_phai_hang0.5_ra0_phai_hang0.8_giu3_nenha",
+     "kd": 103,
+     "template": "mua_hap_thu_ban_thao_sau_cu_soc_bien_do_khi_che_do_yen_tinh"
+    },
+    {
+     "i": 17,
+     "ten": "AUDCAD.H4.mua_ibs_thap_khi_bien_do_bar_hep_tren_sma200.vao0_phai_hang0.2_vao1_trai_n100_vao1_phai_hang0.3_vao2_phai_n200_ra0_phai_hang0.7_giu4",
+     "kd": 108,
+     "template": "mua_ibs_thap_khi_bien_do_bar_hep_tren_sma200"
+    },
+    {
+     "i": 18,
+     "ten": "AUDCAD.H4.mua_dong_luong_20_giam_cuc_doan_khi_bien_dong_nen.vao0_trai_cua_n20_vao0_trai_n500_vao0_phai_hang0.05_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.5_giu10_nenha",
+     "kd": 118,
+     "template": "mua_dong_luong_20_giam_cuc_doan_khi_bien_dong_nen"
+    },
+    {
+     "i": 19,
+     "ten": "AUDCAD.H4.mua_day_kenh_50_khi_xu_huong_phang_do_doc_sma_thap.vao0_trai_n50_vao0_phai_hang0.1_vao1_trai_cua_cua_cua_n50_vao1_trai_cua_cua_n20_vao1_trai_cua_n1_vao1_trai_n250_vao1_phai_hang0.3_ra0_trai_n50_ra0_phai_hang0.6_giu8",
+     "kd": 126,
+     "template": "mua_day_kenh_50_khi_xu_huong_phang_do_doc_sma_thap"
+    },
+    {
+     "i": 20,
+     "ten": "AUDCAD.H4.mua_lech_sau_khoi_sma200_khi_atr_dang_nguoi_di.vao0_trai_n200_vao0_phai_hang-1.5_vao1_trai_n14_vao1_phai_cua_n14_vao1_phai_n20_giu15",
+     "kd": 130,
+     "template": "mua_lech_sau_khoi_sma200_khi_atr_dang_nguoi_di"
+    },
+    {
+     "i": 21,
+     "ten": "AUDCAD.H4.mua_quet_day_20_that_bai_khi_ibs_cao_atr_vua.vao0_phai_cua_n20_vao0_phai_n1_vao1_phai_hang0.65_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.7_vao3_trai_cua_n14_vao3_trai_n250_vao3_phai_hang0.25_giu4",
+     "kd": 146,
+     "template": "mua_quet_day_20_that_bai_khi_ibs_cao_atr_vua"
+    },
+    {
+     "i": 22,
+     "ten": "AUDCAD.H4.mua_day_kenh_50_khi_khoi_luong_mong_va_atr_vua.vao0_trai_n50_vao0_phai_hang0.1_vao1_trai_cua_cua_cua_n50_vao1_trai_cua_cua_n20_vao1_trai_cua_n1_vao1_trai_n250_vao1_phai_hang0.3_vao2_trai_n100_vao2_phai_hang0.3_vao3_trai_cua_n14_vao3_trai_n250_vao3_phai_hang0.7_vao4_trai_cua_n14_vao4_trai_n250_vao4_phai_hang0.2_ra0_trai_n50_ra0_phai_hang0.6_giu8",
+     "kd": 147,
+     "template": "mua_day_kenh_50_khi_khoi_luong_mong_va_atr_vua"
+    },
+    {
+     "i": 23,
+     "ten": "AUDCAD.H4.mua_ibs_thap_kl_mong_khi_rsi_duoi_phan_vi_thap_atr_vua.vao0_phai_hang0.2_vao1_trai_n100_vao1_phai_hang0.3_vao2_trai_cua_n14_vao2_trai_n100_vao2_phai_hang0.35_vao3_trai_cua_n14_vao3_trai_n250_vao3_phai_hang0.3_vao4_trai_cua_n14_vao4_trai_n250_vao4_phai_hang0.7_ra0_phai_hang0.7_giu4",
+     "kd": 148,
+     "template": "mua_ibs_thap_kl_mong_khi_rsi_duoi_phan_vi_thap_atr_vua"
+    },
+    {
+     "i": 24,
+     "ten": "AUDCAD.H4.mua_ibs_thap_kl_mong_khi_sma50_doc_duong.vao0_phai_hang0.2_vao1_trai_n100_vao1_phai_hang0.3_vao2_trai_cua_n50_vao2_trai_n5_vao2_phai_hang0_vao3_trai_cua_n14_vao3_trai_n250_vao3_phai_hang0.25_vao4_trai_cua_n14_vao4_trai_n250_vao4_phai_hang0.7_ra0_phai_hang0.7_giu4",
+     "kd": 154,
+     "template": "mua_ibs_thap_kl_mong_khi_sma50_doc_duong"
+    },
+    {
+     "i": 25,
+     "ten": "AUDCAD.H4.mua_quet_day_20_that_bai_khi_rsi_thap_kl_mong.vao0_phai_cua_n20_vao0_phai_n1_vao1_phai_hang0.6_vao2_trai_cua_n14_vao2_trai_n100_vao2_phai_hang0.35_vao3_trai_n100_vao3_phai_hang0.35_ra0_phai_n20_giu4",
+     "kd": 156,
+     "template": "mua_quet_day_20_that_bai_khi_rsi_thap_kl_mong"
+    },
+    {
+     "i": 26,
+     "ten": "AUDCAD.H4.mua_pullback_rsi2_duoi_ema20_khi_doi_pct120_duong_kl_mong.vao0_trai_n2_vao0_phai_hang15_vao1_phai_n20_vao2_trai_n120_vao2_phai_hang0_vao3_trai_n20_vao3_phai_hang0.5_ra0_phai_n20_giu5_nenha",
+     "kd": 171,
+     "template": "mua_pullback_rsi2_duoi_ema20_khi_doi_pct120_duong_kl_mong"
+    },
+    {
+     "i": 27,
+     "ten": "AUDCAD.H4.ban_ibs_cao_kl_mong_khi_duoi_ema100_bien_do_phan_vi_thap.vao0_phai_hang0.75_vao1_trai_n20_vao1_phai_hang0_vao2_trai_n100_vao2_phai_hang0.5_vao3_phai_n100_giu4_nenha",
+     "kd": 172,
+     "template": "ban_ibs_cao_kl_mong_khi_duoi_ema100_bien_do_phan_vi_thap"
+    },
+    {
+     "i": 28,
+     "ten": "AUDCAD.H4.ban_zscore_cao_khi_do_lech_nen_duoi_sma200.vao0_trai_n20_vao0_phai_hang1.5_vao1_trai_cua_n20_vao1_trai_n250_vao1_phai_hang0.25_vao2_phai_n200_ra0_trai_n20_ra0_phai_hang0_giu6",
+     "kd": 187,
+     "template": "ban_zscore_cao_khi_do_lech_nen_duoi_sma200"
+    },
+    {
+     "i": 29,
+     "ten": "AUDCAD.H4.mua_nen_rut_chan_duoi_khi_atr_zscore_cao_tren_sma100.vao0_trai_cua_n14_vao0_trai_n100_vao0_phai_hang1.0_vao1_phai_hang0.7_vao2_phai_cua_n10_vao2_phai_n1_vao3_phai_n100_giu5",
+     "kd": 209,
+     "template": "mua_nen_rut_chan_duoi_khi_atr_zscore_cao_tren_sma100"
+    },
+    {
+     "i": 30,
+     "ten": "AUDCAD.H4.mua_ba_than_nen_giam_kl_giam_dan_khi_rsi14_tren_45.vao0_trai_n3_vao0_phai_hang0_vao1_trai_n3_vao1_phai_hang0_vao2_trai_cua_n3_vao2_trai_n100_vao2_phai_hang0.35_vao3_trai_n14_vao3_phai_hang45_giu5",
+     "kd": 219,
+     "template": "mua_ba_than_nen_giam_kl_giam_dan_khi_rsi14_tren_45"
+    },
+    {
+     "i": 31,
+     "ten": "AUDCAD.H4.mua_rsi5_phan_vi_day_khi_atr_phan_vi_thap_tren_sma200.vao0_trai_cua_n5_vao0_trai_n100_vao0_phai_hang0.1_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.45_vao2_phai_n200_ra0_trai_n5_ra0_phai_hang60_giu5",
+     "kd": 225,
+     "template": "mua_rsi5_phan_vi_day_khi_atr_phan_vi_thap_tren_sma200"
+    },
+    {
+     "i": 32,
+     "ten": "AUDCAD.H4.mua_cham_day10_nen_tang_kl_mong_khi_doi_pct250_phan_vi_cao.vao0_phai_cua_n10_vao0_phai_n1_vao1_phai_hang0_vao2_trai_n100_vao2_phai_hang0.5_vao3_trai_cua_n250_vao3_trai_n500_vao3_phai_hang0.6_ra0_phai_hang0.85_giu5",
+     "kd": 239,
+     "template": "mua_cham_day10_nen_tang_kl_mong_khi_doi_pct250_phan_vi_cao"
+    },
+    {
+     "i": 33,
+     "ten": "AUDCAD.H4.mua_rsi3_thap_sau_atr_rut_tu_dinh_khi_doi_pct250_phan_vi_cao.vao0_trai_n3_vao0_phai_hang20_vao1_trai_cua_cua_n14_vao1_trai_cua_n250_vao1_trai_n20_vao1_phai_hang0.8_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.5_vao3_trai_cua_n250_vao3_trai_n500_vao3_phai_hang0.6_ra0_trai_n3_ra0_phai_hang60_giu4",
+     "kd": 259,
+     "template": "mua_rsi3_thap_sau_atr_rut_tu_dinh_khi_doi_pct250_phan_vi_cao"
+    }
+   ]
+  },
+  {
+   "ea": "EvoLo_AUDCHF_D1",
+   "symbol": "AUDCHF#",
+   "khung": "D1",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "AUDCHF.D1.mua_thung_day_20_bar_hut_lai_dong_cao_tren_sma200.vao0_phai_cua_n20_vao0_phai_n1_vao1_phai_hang0.65_vao2_phai_n200_giu5",
+     "kd": 82,
+     "template": "mua_thung_day_20_bar_hut_lai_dong_cao_tren_sma200"
+    },
+    {
+     "i": 3,
+     "ten": "AUDCHF.D1.ban_ibs_cao_khi_bien_dong_phan_vi_cao_duoi_ema100.vao0_phai_hang0.8_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.6_vao2_phai_n100_ra0_phai_hang0.2_giu3",
+     "kd": 114,
+     "template": "ban_ibs_cao_khi_bien_dong_phan_vi_cao_duoi_ema100"
+    },
+    {
+     "i": 4,
+     "ten": "AUDCHF.D1.mua_roi_3_bar_cuc_doan_khi_bien_do_bar_hep_phan_vi_thap.vao0_trai_cua_n3_vao0_trai_n500_vao0_phai_hang0.1_vao1_trai_n250_vao1_phai_hang0.5_giu6_nenha",
+     "kd": 129,
+     "template": "mua_roi_3_bar_cuc_doan_khi_bien_do_bar_hep_phan_vi_thap"
+    },
+    {
+     "i": 5,
+     "ten": "AUDCHF.D1.mua_pha_vo_donchian20_that_bai_khi_kl_mong_atr_vua.vao0_phai_cua_n20_vao0_phai_n1_vao1_phai_cua_n20_vao1_phai_n1_vao2_trai_n100_vao2_phai_hang0.4_vao3_trai_cua_n14_vao3_trai_n250_vao3_phai_hang0.25_vao4_trai_cua_n14_vao4_trai_n250_vao4_phai_hang0.75_ra0_phai_hang0.7_giu5_nenha",
+     "kd": 158,
+     "template": "mua_pha_vo_donchian20_that_bai_khi_kl_mong_atr_vua"
+    },
+    {
+     "i": 6,
+     "ten": "AUDCHF.D1.mua_cham_sma50_trong_xu_huong_120_khi_atr_phan_vi_thap.vao0_phai_n50_vao1_phai_n50_vao2_trai_n120_vao2_phai_hang0_vao3_trai_cua_n14_vao3_trai_n200_vao3_phai_hang0.5_giu10",
+     "kd": 175,
+     "template": "mua_cham_sma50_trong_xu_huong_120_khi_atr_phan_vi_thap"
+    },
+    {
+     "i": 7,
+     "ten": "AUDCHF.D1.ban_dinh_cao_nhat_20_rau_tren_dai_khi_rsi_phan_vi_cao.vao0_phai_n20_vao1_phai_hang0.35_vao2_trai_cua_n14_vao2_trai_n200_vao2_phai_hang0.8_giu3",
+     "kd": 183,
+     "template": "ban_dinh_cao_nhat_20_rau_tren_dai_khi_rsi_phan_vi_cao"
+    },
+    {
+     "i": 8,
+     "ten": "AUDCHF.D1.mua_pha_day_20_that_bai_dong_tro_lai_khi_atr_phan_vi_thap.vao0_phai_cua_n20_vao0_phai_n1_vao1_phai_cua_n20_vao1_phai_n1_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.6_giu6_nenha",
+     "kd": 201,
+     "template": "mua_pha_day_20_that_bai_dong_tro_lai_khi_atr_phan_vi_thap"
+    },
+    {
+     "i": 9,
+     "ten": "AUDCHF.D1.mua_vuot_dinh20_tre1_khi_atr_va_kl_cung_nen.vao0_phai_cua_n20_vao0_phai_n1_vao1_trai_cua_n14_vao1_trai_n200_vao1_phai_hang0.35_vao2_trai_cua_n10_vao2_trai_n200_vao2_phai_hang0.5_ra0_phai_n20_giu10",
+     "kd": 214,
+     "template": "mua_vuot_dinh20_tre1_khi_atr_va_kl_cung_nen"
+    },
+    {
+     "i": 10,
+     "ten": "AUDCHF.D1.mua_cheo_len_ema10_sau_zscore20_am_khi_atr_phan_vi_thap.vao0_phai_n10_vao1_trai_cua_n20_vao1_trai_n3_vao1_phai_hang-1.2_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.4_ra0_trai_n20_ra0_phai_hang1_giu5_nenha",
+     "kd": 238,
+     "template": "mua_cheo_len_ema10_sau_zscore20_am_khi_atr_phan_vi_thap"
+    }
+   ]
+  },
+  {
+   "ea": "EvoLo_AUDCHF_H1",
+   "symbol": "AUDCHF#",
+   "khung": "H1",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "AUDCHF.H1.theo_xu_huong_khi_bien_dong_em.vao0_phai_n200_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.3_vao2_trai_cua_n20_vao2_trai_n250_vao2_phai_hang0.7_ra0_trai_cua_n14_ra0_trai_n250_ra0_phai_hang0.7_giu10",
+     "kd": 24,
+     "template": "theo_xu_huong_khi_bien_dong_em"
+    },
+    {
+     "i": 3,
+     "ten": "AUDCHF.H1.mua_cuoi_thang_khi_bien_dong_thap.vao0_phai_hang27_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.6_giu5",
+     "kd": 41,
+     "template": "mua_cuoi_thang_khi_bien_dong_thap"
+    },
+    {
+     "i": 4,
+     "ten": "AUDCHF.H1.ban_khoi_luong_cao_bien_do_hep_sau_nhip_tang_duoi_sma200.vao0_trai_n50_vao0_phai_hang1.0_vao1_trai_n50_vao1_phai_hang0.4_vao2_phai_n20_vao3_phai_n200_giu5",
+     "kd": 66,
+     "template": "ban_khoi_luong_cao_bien_do_hep_sau_nhip_tang_duoi_sma200"
+    },
+    {
+     "i": 5,
+     "ten": "AUDCHF.H1.mua_roi_3bar_cuc_doan_kl_mong_khi_sma50_phang.vao0_phai_n1_vao1_trai_n1_vao1_phai_n2_vao2_trai_n2_vao2_phai_n3_vao3_trai_n20_vao3_phai_hang0.15_vao4_trai_n100_vao4_phai_hang0.35_vao5_trai_cua_cua_cua_n50_vao5_trai_cua_cua_n10_vao5_trai_n500_vao5_phai_hang0.3_ra0_trai_n20_ra0_phai_hang0.5_giu5_nenha",
+     "kd": 151,
+     "template": "mua_roi_3bar_cuc_doan_kl_mong_khi_sma50_phang"
+    },
+    {
+     "i": 6,
+     "ten": "AUDCHF.H1.mua_sau_cu_soc_bien_dong_ha_nhiet_ibs_thap_tren_sma100.vao0_trai_cua_cua_n14_vao0_trai_cua_n100_vao0_trai_n5_vao0_phai_hang0.85_vao1_trai_cua_n14_vao1_trai_n100_vao1_phai_hang0.6_vao2_phai_hang0.4_vao3_phai_n100_giu10",
+     "kd": 179,
+     "template": "mua_sau_cu_soc_bien_dong_ha_nhiet_ibs_thap_tren_sma100"
+    },
+    {
+     "i": 7,
+     "ten": "AUDCHF.H1.mua_dau_tuan_sau_tuan_giam_khi_atr_phan_vi_thap.vao0_phai_hang0_vao1_trai_n30_vao1_phai_hang0_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.5_giu6",
+     "kd": 204,
+     "template": "mua_dau_tuan_sau_tuan_giam_khi_atr_phan_vi_thap"
+    },
+    {
+     "i": 8,
+     "ten": "AUDCHF.H1.mua_zscore50_am_sau_khi_atr_phan_vi_rut_tu_dinh.vao0_trai_n50_vao0_phai_hang-1.5_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.5_vao2_trai_cua_cua_n14_vao2_trai_cua_n250_vao2_trai_n15_vao2_phai_hang0.8_ra0_phai_n50_giu8",
+     "kd": 224,
+     "template": "mua_zscore50_am_sau_khi_atr_phan_vi_rut_tu_dinh"
+    }
+   ]
+  },
+  {
+   "ea": "EvoLo_AUDCHF_H4",
+   "symbol": "AUDCHF#",
+   "khung": "H4",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "AUDCHF.H4.ban_cu_soc_tang_phien_my_trong_xu_huong_giam.vao0_phai_hang16_vao1_phai_hang20_vao2_trai_cua_n1_vao2_trai_n100_vao2_phai_hang2.5_vao3_phai_n200_giu3_nenha",
+     "kd": 14,
+     "template": "ban_cu_soc_tang_phien_my_trong_xu_huong_giam"
+    },
+    {
+     "i": 3,
+     "ten": "AUDCHF.H4.kenh_trong_ban_dinh_khi_khong_xu_huong.vao0_trai_n40_vao0_phai_hang1.5_vao1_trai_cua_cua_n40_vao1_trai_cua_n1_vao1_trai_n250_vao1_phai_hang0.4_ra0_trai_n40_ra0_phai_hang-0.5_giu8",
+     "kd": 32,
+     "template": "kenh_trong_ban_dinh_khi_khong_xu_huong"
+    },
+    {
+     "i": 4,
+     "ten": "AUDCHF.H4.ban_pha_day_20_sau_nen_bien_do_hep.vao0_trai_cua_n5_vao0_trai_n250_vao0_phai_hang0.2_vao1_phai_cua_n1_vao1_phai_n20_giu10_nenha",
+     "kd": 44,
+     "template": "ban_pha_day_20_sau_nen_bien_do_hep"
+    },
+    {
+     "i": 5,
+     "ten": "AUDCHF.H4.theo_dong_luong_120_bar_khi_bien_dong_thap.vao0_trai_n120_vao0_phai_hang0_vao1_trai_cua_n120_vao1_trai_n500_vao1_phai_hang0.8_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.4_giu20",
+     "kd": 50,
+     "template": "theo_dong_luong_120_bar_khi_bien_dong_thap"
+    },
+    {
+     "i": 6,
+     "ten": "AUDCHF.H4.mua_hap_thu_ban_thao_khoi_luong_cao.vao0_trai_n50_vao0_phai_hang1.0_vao1_phai_hang0.55_vao2_trai_cua_n5_vao2_trai_n250_vao2_phai_hang0.2_giu5_nenha",
+     "kd": 51,
+     "template": "mua_hap_thu_ban_thao_khoi_luong_cao"
+    },
+    {
+     "i": 7,
+     "ten": "AUDCHF.H4.mua_sau_dinh_bien_dong_tan_dan_tren_sma50.vao0_trai_cua_cua_n14_vao0_trai_cua_n250_vao0_trai_n10_vao0_phai_hang0.85_vao1_trai_n60_vao1_phai_hang0.5_vao2_phai_n50_ra0_phai_n50_giu10",
+     "kd": 76,
+     "template": "mua_sau_dinh_bien_dong_tan_dan_tren_sma50"
+    },
+    {
+     "i": 8,
+     "ten": "AUDCHF.H4.ban_pha_dinh_20_that_bai_khi_bien_dong_cao.vao0_phai_cua_n20_vao0_phai_n1_vao1_phai_cua_n20_vao1_phai_n1_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.7_giu5",
+     "kd": 110,
+     "template": "ban_pha_dinh_20_that_bai_khi_bien_dong_cao"
+    },
+    {
+     "i": 9,
+     "ten": "AUDCHF.H4.mua_zscore_20_thap_khi_xu_huong_50_bar_di_ngang.vao0_trai_n20_vao0_phai_hang-2_vao1_trai_cua_cua_n50_vao1_trai_cua_n1_vao1_trai_n500_vao1_phai_hang0.3_giu12",
+     "kd": 132,
+     "template": "mua_zscore_20_thap_khi_xu_huong_50_bar_di_ngang"
+    },
+    {
+     "i": 10,
+     "ten": "AUDCHF.H4.ban_zscore_20_cao_khi_xu_huong_50_bar_di_ngang.vao0_trai_n20_vao0_phai_hang2_vao1_trai_cua_cua_n50_vao1_trai_cua_n1_vao1_trai_n500_vao1_phai_hang0.3_giu12_nenha",
+     "kd": 133,
+     "template": "ban_zscore_20_cao_khi_xu_huong_50_bar_di_ngang"
+    },
+    {
+     "i": 11,
+     "ten": "AUDCHF.H4.mua_ibs_thap_khoi_luong_mong_khi_atr_duoi_trung_vi.vao0_phai_hang0.2_vao1_trai_n250_vao1_phai_hang0.15_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.5_giu8_nenha",
+     "kd": 136,
+     "template": "mua_ibs_thap_khoi_luong_mong_khi_atr_duoi_trung_vi"
+    },
+    {
+     "i": 12,
+     "ten": "AUDCHF.H4.mua_hap_thu_soc_giam_khi_khoi_luong_cao_than_nen_hep.vao0_trai_cua_n3_vao0_trai_n500_vao0_phai_hang0.08_vao1_trai_n250_vao1_phai_hang0.8_vao2_trai_cua_n1_vao2_trai_n250_vao2_phai_hang0.5_giu6",
+     "kd": 137,
+     "template": "mua_hap_thu_soc_giam_khi_khoi_luong_cao_than_nen_hep"
+    },
+    {
+     "i": 13,
+     "ten": "AUDCHF.H4.mua_than_nen_giam_cuc_lon_khong_kl_tren_sma100.vao0_trai_n100_vao0_phai_hang0.9_vao1_phai_hang0_vao2_trai_n100_vao2_phai_hang0.6_vao3_phai_n100_giu3",
+     "kd": 164,
+     "template": "mua_than_nen_giam_cuc_lon_khong_kl_tren_sma100"
+    },
+    {
+     "i": 14,
+     "ten": "AUDCHF.H4.ban_dinh_donchian20_kl_mong_khi_atr_phan_vi_thap.vao0_phai_cua_n20_vao0_phai_n1_vao1_trai_n100_vao1_phai_hang0.4_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.4_ra0_phai_hang0.3_giu4_nenha",
+     "kd": 167,
+     "template": "ban_dinh_donchian20_kl_mong_khi_atr_phan_vi_thap"
+    },
+    {
+     "i": 15,
+     "ten": "AUDCHF.H4.mua_bar_hep_nhat_7_ibs_thap_tren_sma200.vao0_trai_n7_vao0_phai_hang0.15_vao1_phai_hang0.35_vao2_phai_n200_giu5",
+     "kd": 177,
+     "template": "mua_bar_hep_nhat_7_ibs_thap_tren_sma200"
+    },
+    {
+     "i": 16,
+     "ten": "AUDCHF.H4.mua_inside_bar_ibs_thap_tren_sma100_bien_dong_vua.vao0_phai_n1_vao1_phai_n1_vao2_phai_hang0.3_vao3_phai_n100_vao4_trai_cua_n14_vao4_trai_n250_vao4_phai_hang0.3_vao5_trai_cua_n14_vao5_trai_n250_vao5_phai_hang0.8_ra0_phai_hang0.8_giu4",
+     "kd": 186,
+     "template": "mua_inside_bar_ibs_thap_tren_sma100_bien_dong_vua"
+    },
+    {
+     "i": 17,
+     "ten": "AUDCHF.H4.mua_bar_dao_chieu_ibs_cao_kl_tang_sau_day_20_tren_sma200.vao0_trai_n1_vao0_phai_cua_n20_vao0_phai_n1_vao1_phai_hang0.7_vao2_trai_n50_vao2_phai_hang0.5_vao3_phai_n200_giu5",
+     "kd": 191,
+     "template": "mua_bar_dao_chieu_ibs_cao_kl_tang_sau_day_20_tren_sma200"
+    },
+    {
+     "i": 18,
+     "ten": "AUDCHF.H4.mua_dau_thang_sau_120_bar_giam_khi_bien_dong_duoi_trung_vi.vao0_phai_hang3_vao1_trai_n120_vao1_phai_hang0_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.5_giu6",
+     "kd": 199,
+     "template": "mua_dau_thang_sau_120_bar_giam_khi_bien_dong_duoi_trung_vi"
+    },
+    {
+     "i": 19,
+     "ten": "AUDCHF.H4.mua_hoi_ve_ema20_khi_ema100_doc_len_bien_do_hep.vao0_trai_cua_n100_vao0_trai_n20_vao0_phai_hang0_vao1_phai_n20_vao2_trai_n100_vao2_phai_hang0.35_giu10_nenha",
+     "kd": 206,
+     "template": "mua_hoi_ve_ema20_khi_ema100_doc_len_bien_do_hep"
+    },
+    {
+     "i": 20,
+     "ten": "AUDCHF.H4.ban_zscore50_cang_duong_kl_phan_vi_thap_khi_doi_pct120_am.vao0_trai_n50_vao0_phai_hang1.5_vao1_trai_n100_vao1_phai_hang0.45_vao2_trai_n120_vao2_phai_hang0_ra0_phai_n20_giu6_nenha",
+     "kd": 226,
+     "template": "ban_zscore50_cang_duong_kl_phan_vi_thap_khi_doi_pct120_am"
+    }
+   ]
+  },
+  {
+   "ea": "EvoLo_AUDNZD_D1",
+   "symbol": "AUDNZD#",
+   "khung": "D1",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "AUDNZD.D1.mua_ibs_thap_zscore_am_khi_dong_luong_120_manh.vao0_trai_cua_n120_vao0_trai_n500_vao0_phai_hang0.7_vao1_phai_hang0.2_vao2_trai_n20_vao2_phai_hang-1.0_ra0_phai_hang0.8_giu4",
+     "kd": 98,
+     "template": "mua_ibs_thap_zscore_am_khi_dong_luong_120_manh"
+    },
+    {
+     "i": 3,
+     "ten": "AUDNZD.D1.ban_dong_luong_20_cuc_doan_khi_bien_dong_nen.vao0_trai_cua_n20_vao0_trai_n500_vao0_phai_hang0.95_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.5_giu10",
+     "kd": 112,
+     "template": "ban_dong_luong_20_cuc_doan_khi_bien_dong_nen"
+    }
+   ]
+  },
+  {
+   "ea": "EvoLo_AUDNZD_H1",
+   "symbol": "AUDNZD#",
+   "khung": "H1",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "AUDNZD.H1.mua_cu_soc_giam_phien_my_trong_xu_huong_tang.vao0_phai_hang16_vao1_phai_hang20_vao2_trai_cua_n1_vao2_trai_n100_vao2_phai_hang-2.5_vao3_phai_n200_giu3",
+     "kd": 13,
+     "template": "mua_cu_soc_giam_phien_my_trong_xu_huong_tang"
+    },
+    {
+     "i": 3,
+     "ten": "AUDNZD.H1.mua_nen_giam_lon_trong_che_do_yen_tinh.vao0_trai_n250_vao0_phai_hang0.03_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.5_giu4",
+     "kd": 15,
+     "template": "mua_nen_giam_lon_trong_che_do_yen_tinh"
+    },
+    {
+     "i": 4,
+     "ten": "AUDNZD.H1.mua_dieu_chinh_khoi_luong_can_trong_xu_huong_tang.vao0_phai_n100_vao1_trai_cua_n3_vao1_trai_n250_vao1_phai_hang0.15_vao2_trai_n100_vao2_phai_hang0.3_ra0_phai_n10_giu5",
+     "kd": 38,
+     "template": "mua_dieu_chinh_khoi_luong_can_trong_xu_huong_tang"
+    },
+    {
+     "i": 5,
+     "ten": "AUDNZD.H1.mua_lai_khi_bien_dong_rut_khoi_dinh.vao0_trai_cua_cua_n14_vao0_trai_cua_n250_vao0_trai_n20_vao0_phai_hang0.9_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.6_vao2_phai_n20_giu10",
+     "kd": 49,
+     "template": "mua_lai_khi_bien_dong_rut_khoi_dinh"
+    },
+    {
+     "i": 6,
+     "ten": "AUDNZD.H1.mua_khoi_luong_can_kiet_sau_cu_giam_manh_khi_gia_tren_ema200.vao0_phai_n200_vao1_trai_n250_vao1_phai_hang0.1_vao2_trai_cua_n5_vao2_trai_n500_vao2_phai_hang0.1_giu6",
+     "kd": 134,
+     "template": "mua_khoi_luong_can_kiet_sau_cu_giam_manh_khi_gia_tren_ema200"
+    },
+    {
+     "i": 7,
+     "ten": "AUDNZD.H1.mua_ibs_thap_khi_atr_co_lai_sau_dot_tang_bien_dong.vao0_phai_hang0.2_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.5_vao2_trai_cua_cua_n14_vao2_trai_cua_n500_vao2_trai_n20_vao2_phai_hang0.9_giu8",
+     "kd": 135,
+     "template": "mua_ibs_thap_khi_atr_co_lai_sau_dot_tang_bien_dong"
+    },
+    {
+     "i": 8,
+     "ten": "AUDNZD.H1.mua_hap_thu_soc_giam_khi_ibs_tre_cao_atr_vua.vao0_trai_n50_vao0_phai_hang2.0_vao1_trai_n50_vao1_phai_hang-1.5_vao2_trai_n1_vao2_phai_hang0.75_vao3_trai_cua_n14_vao3_trai_n250_vao3_phai_hang0.3_vao4_trai_cua_n14_vao4_trai_n250_vao4_phai_hang0.7_ra0_phai_hang0.65_giu3",
+     "kd": 155,
+     "template": "mua_hap_thu_soc_giam_khi_ibs_tre_cao_atr_vua"
+    },
+    {
+     "i": 9,
+     "ten": "AUDNZD.H1.mua_rsi3_thap_kl_mong_khi_doi_pct120_duong_bien_do_tb10_thap.vao0_trai_n3_vao0_phai_hang15_vao1_trai_n100_vao1_phai_hang0.5_vao2_trai_cua_n10_vao2_trai_n250_vao2_phai_hang0.35_vao3_trai_n120_vao3_phai_hang0_ra0_trai_n3_ra0_phai_hang60_giu4",
+     "kd": 289,
+     "template": "mua_rsi3_thap_kl_mong_khi_doi_pct120_duong_bien_do_tb10_thap"
+    }
+   ]
+  },
+  {
+   "ea": "EvoLo_AUDNZD_H4",
+   "symbol": "AUDNZD#",
+   "khung": "H4",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "AUDNZD.H4.pha_vo_bien_do_sau_nen_hep_khi_bien_dong_day.vao0_phai_cua_n20_vao0_phai_n1_vao1_trai_cua_cua_n14_vao1_trai_cua_n250_vao1_trai_n1_vao1_phai_hang0.15_giu5_nenha",
+     "kd": 6,
+     "template": "pha_vo_bien_do_sau_nen_hep_khi_bien_dong_day"
+    },
+    {
+     "i": 3,
+     "ten": "AUDNZD.H4.mua_qua_dem_aud_khi_xu_huong_6_thang_duong.vao0_phai_hang20_vao1_phai_hang20_vao2_phai_n750_giu4",
+     "kd": 18,
+     "template": "mua_qua_dem_aud_khi_xu_huong_6_thang_duong"
+    },
+    {
+     "i": 4,
+     "ten": "AUDNZD.H4.mua_qua_dem_aud_khi_bien_dong_thap.vao0_phai_hang20_vao1_phai_hang20_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.5_giu4_nenha",
+     "kd": 19,
+     "template": "mua_qua_dem_aud_khi_bien_dong_thap"
+    },
+    {
+     "i": 5,
+     "ten": "AUDNZD.H4.mua_pha_dinh_20_sau_nen_bien_do_hep.vao0_trai_cua_n5_vao0_trai_n250_vao0_phai_hang0.2_vao1_phai_cua_n1_vao1_phai_n20_giu10_nenha",
+     "kd": 43,
+     "template": "mua_pha_dinh_20_sau_nen_bien_do_hep"
+    },
+    {
+     "i": 6,
+     "ten": "AUDNZD.H4.mua_dau_thang_sau_thang_yeu_tai_can_bang.vao0_phai_hang3_vao1_trai_cua_n120_vao1_trai_n500_vao1_phai_hang0.3_giu5_nenha",
+     "kd": 55,
+     "template": "mua_dau_thang_sau_thang_yeu_tai_can_bang"
+    },
+    {
+     "i": 7,
+     "ten": "AUDNZD.H4.mua_ibs_thap_khoi_luong_mong_tren_sma200.vao0_phai_hang0.2_vao1_trai_n100_vao1_phai_hang0.35_vao2_phai_n200_ra0_phai_hang0.7_giu3",
+     "kd": 77,
+     "template": "mua_ibs_thap_khoi_luong_mong_tren_sma200"
+    },
+    {
+     "i": 8,
+     "ten": "AUDNZD.H4.mua_ibs_thap_khoi_luong_mong_khi_da_tang_manh_tren_sma200.vao0_phai_hang0.2_vao1_trai_n50_vao1_phai_hang0.35_vao2_phai_n200_vao3_trai_cua_n120_vao3_trai_n500_vao3_phai_hang0.6_ra0_phai_hang0.8_giu4",
+     "kd": 86,
+     "template": "mua_ibs_thap_khoi_luong_mong_khi_da_tang_manh_tren_sma200"
+    },
+    {
+     "i": 9,
+     "ten": "AUDNZD.H4.mua_bien_dong_ha_nhiet_sau_cu_soc_tren_sma200.vao0_trai_cua_cua_n14_vao0_trai_cua_n250_vao0_trai_n30_vao0_phai_hang0.9_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.5_vao2_phai_n200_giu12",
+     "kd": 89,
+     "template": "mua_bien_dong_ha_nhiet_sau_cu_soc_tren_sma200"
+    },
+    {
+     "i": 10,
+     "ten": "AUDNZD.H4.mua_pha_dinh_20_sau_nen_bien_dong_thap_tren_sma200.vao0_phai_n200_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.2_vao2_phai_cua_n20_vao2_phai_n1_giu12",
+     "kd": 92,
+     "template": "mua_pha_dinh_20_sau_nen_bien_dong_thap_tren_sma200"
+    },
+    {
+     "i": 11,
+     "ten": "AUDNZD.H4.mua_hap_thu_nen_giam_lon_rau_duoi_dai_khi_bien_dong_nen.vao0_trai_n100_vao0_phai_hang1.0_vao2_phai_hang0.45_vao3_trai_cua_n14_vao3_trai_n250_vao3_phai_hang0.5_giu6_nenha",
+     "kd": 115,
+     "template": "mua_hap_thu_nen_giam_lon_rau_duoi_dai_khi_bien_dong_nen"
+    },
+    {
+     "i": 12,
+     "ten": "AUDNZD.H4.mua_ibs_thap_khoi_luong_mong_khi_dong_luong_60_duong.vao0_phai_hang0.2_vao1_trai_n100_vao1_phai_hang0.35_vao2_trai_cua_n60_vao2_trai_n500_vao2_phai_hang0.5_ra0_phai_hang0.7_giu3",
+     "kd": 123,
+     "template": "mua_ibs_thap_khoi_luong_mong_khi_dong_luong_60_duong"
+    },
+    {
+     "i": 13,
+     "ten": "AUDNZD.H4.mua_ibs_thap_khoi_luong_mong_sau_dot_atr_cao.vao0_phai_hang0.2_vao1_trai_n100_vao1_phai_hang0.3_vao2_trai_cua_cua_n14_vao2_trai_cua_n5_vao2_trai_n250_vao2_phai_hang0.7_ra0_phai_hang0.7_giu4",
+     "kd": 142,
+     "template": "mua_ibs_thap_khoi_luong_mong_sau_dot_atr_cao"
+    },
+    {
+     "i": 14,
+     "ten": "AUDNZD.H4.mua_hap_thu_soc_giam_khi_ema20_tren_ema50_atr_thap.vao0_trai_n50_vao0_phai_hang2.0_vao1_trai_n50_vao1_phai_hang-1.5_vao2_trai_n20_vao2_phai_n50_vao3_trai_cua_n14_vao3_trai_n250_vao3_phai_hang0.5_ra0_phai_hang0.65_giu3",
+     "kd": 149,
+     "template": "mua_hap_thu_soc_giam_khi_ema20_tren_ema50_atr_thap"
+    },
+    {
+     "i": 15,
+     "ten": "AUDNZD.H4.mua_pullback_ema20_khi_ema50_tren_ema200_atr_thap.vao0_phai_n20_vao1_phai_n50_vao2_trai_n50_vao2_phai_n200_vao3_trai_cua_n14_vao3_trai_n250_vao3_phai_hang0.4_ra0_phai_n20_ra1_phai_n50_giu8",
+     "kd": 157,
+     "template": "mua_pullback_ema20_khi_ema50_tren_ema200_atr_thap"
+    },
+    {
+     "i": 16,
+     "ten": "AUDNZD.H4.mua_ibs_thap_kl_mong_khi_atr_dang_co_lai.vao0_phai_hang0.2_vao1_trai_n100_vao1_phai_hang0.4_vao2_trai_cua_n14_vao2_trai_n10_vao2_phai_hang0_ra0_phai_hang0.7_giu3",
+     "kd": 162,
+     "template": "mua_ibs_thap_kl_mong_khi_atr_dang_co_lai"
+    },
+    {
+     "i": 17,
+     "ten": "AUDNZD.H4.mua_ibs_thap_kl_mong_khi_atr_vua_nguoi_sau_cu_soc.vao0_phai_hang0.25_vao1_trai_n100_vao1_phai_hang0.4_vao2_trai_cua_cua_n14_vao2_trai_cua_n250_vao2_trai_n30_vao2_phai_hang0.8_vao3_trai_cua_n14_vao3_trai_n250_vao3_phai_hang0.6_ra0_phai_hang0.8_giu4",
+     "kd": 242,
+     "template": "mua_ibs_thap_kl_mong_khi_atr_vua_nguoi_sau_cu_soc"
+    },
+    {
+     "i": 18,
+     "ten": "AUDNZD.H4.mua_rsi2_thap_khi_bien_do_tb10_phan_vi_thap_tren_sma200.vao0_trai_n2_vao0_phai_hang10_vao1_trai_cua_n10_vao1_trai_n250_vao1_phai_hang0.35_vao2_phai_n200_ra0_trai_n2_ra0_phai_hang60_giu4",
+     "kd": 283,
+     "template": "mua_rsi2_thap_khi_bien_do_tb10_phan_vi_thap_tren_sma200"
+    }
+   ]
+  },
+  {
+   "ea": "EvoLo_EURCAD_D1",
+   "symbol": "EURCAD#",
+   "khung": "D1",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "EURCAD.D1.mua_lech_am_manh_khi_bien_dong_cao.vao0_trai_n20_vao0_phai_hang-2_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.8_ra0_trai_n20_ra0_phai_hang0_giu5_nenha",
+     "kd": 45,
+     "template": "mua_lech_am_manh_khi_bien_dong_cao"
+    },
+    {
+     "i": 3,
+     "ten": "EURCAD.D1.ban_vuot_dinh_20_bar_that_bai_dong_thap_khi_bien_dong_cao.vao0_phai_cua_n20_vao0_phai_n1_vao1_phai_hang0.3_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.6_giu3",
+     "kd": 83,
+     "template": "ban_vuot_dinh_20_bar_that_bai_dong_thap_khi_bien_dong_cao"
+    },
+    {
+     "i": 4,
+     "ten": "EURCAD.D1.mua_ibs_thap_khi_bien_dong_phan_vi_cao_tren_ema100.vao0_phai_hang0.2_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.6_vao2_phai_n100_ra0_phai_hang0.8_giu3",
+     "kd": 113,
+     "template": "mua_ibs_thap_khi_bien_dong_phan_vi_cao_tren_ema100"
+    },
+    {
+     "i": 5,
+     "ten": "EURCAD.D1.mua_roi_3bar_cuc_doan_khi_khoi_luong_mong_atr_thap.vao0_trai_cua_n3_vao0_trai_n500_vao0_phai_hang0.1_vao1_trai_n250_vao1_phai_hang0.5_vao2_trai_n100_vao2_phai_hang0.25_giu6_nenha",
+     "kd": 145,
+     "template": "mua_roi_3bar_cuc_doan_khi_khoi_luong_mong_atr_thap"
+    },
+    {
+     "i": 6,
+     "ten": "EURCAD.D1.mua_zscore_am_cuc_ibs_thap_khi_sma200_doc_duong.vao0_trai_cua_n1_vao0_trai_n60_vao0_phai_hang-1.5_vao1_phai_hang0.25_vao2_trai_n200_vao2_phai_cua_n200_vao2_phai_n5_vao3_trai_cua_n14_vao3_trai_n250_vao3_phai_hang0.3_ra0_phai_hang0.65_giu6",
+     "kd": 160,
+     "template": "mua_zscore_am_cuc_ibs_thap_khi_sma200_doc_duong"
+    },
+    {
+     "i": 7,
+     "ten": "EURCAD.D1.ban_buoc_nhay_tang_zscore_cao_khi_da_cang_kl_khong_xac_nhan.vao0_trai_cua_n1_vao0_trai_n100_vao0_phai_hang1.8_vao1_trai_n50_vao1_phai_hang1.2_vao2_trai_n50_vao2_phai_hang0.6_giu4_nenha",
+     "kd": 196,
+     "template": "ban_buoc_nhay_tang_zscore_cao_khi_da_cang_kl_khong_xac_nhan"
+    }
+   ]
+  },
+  {
+   "ea": "EvoLo_EURCAD_H1",
+   "symbol": "EURCAD#",
+   "khung": "H1",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "EURCAD.H1.ban_lech_duong_khoi_luong_mong_trong_xu_huong_giam.vao0_trai_n20_vao0_phai_hang1.5_vao1_trai_n100_vao1_phai_hang0.4_vao2_phai_n200_ra0_trai_n20_ra0_phai_hang0_giu5",
+     "kd": 56,
+     "template": "ban_lech_duong_khoi_luong_mong_trong_xu_huong_giam"
+    },
+    {
+     "i": 3,
+     "ten": "EURCAD.H1.mua_ibs_thap_kl_mong_khi_zscore20_am_tren_sma200.vao0_phai_hang0.25_vao1_trai_n50_vao1_phai_hang0.4_vao2_trai_n20_vao2_phai_hang-1.0_vao3_phai_n200_giu5",
+     "kd": 174,
+     "template": "mua_ibs_thap_kl_mong_khi_zscore20_am_tren_sma200"
+    },
+    {
+     "i": 4,
+     "ten": "EURCAD.H1.mua_ibs_thap_kl_mong_khi_atr_phan_vi_giua_tren_ema100.vao0_phai_hang0.25_vao1_trai_n100_vao1_phai_hang0.4_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.3_vao3_trai_cua_n14_vao3_trai_n250_vao3_phai_hang0.6_vao4_phai_n100_ra0_phai_hang0.8_giu4",
+     "kd": 234,
+     "template": "mua_ibs_thap_kl_mong_khi_atr_phan_vi_giua_tren_ema100"
+    },
+    {
+     "i": 5,
+     "ten": "EURCAD.H1.mua_than_nen_giam_zscore_cuc_doan_kl_zscore_am_tren_ema200.vao0_trai_n50_vao0_phai_hang-1.7_vao1_trai_n50_vao1_phai_hang0_vao2_phai_n200_ra0_phai_hang0.8_giu5",
+     "kd": 243,
+     "template": "mua_than_nen_giam_zscore_cuc_doan_kl_zscore_am_tren_ema200"
+    }
+   ]
+  },
+  {
+   "ea": "EvoLo_EURCAD_H4",
+   "symbol": "EURCAD#",
+   "khung": "H4",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "EURCAD.H4.ban_cuoi_thang_sau_thang_tang_manh.vao0_phai_hang25_vao1_trai_cua_n120_vao1_trai_n500_vao1_phai_hang0.8_giu6",
+     "kd": 21,
+     "template": "ban_cuoi_thang_sau_thang_tang_manh"
+    },
+    {
+     "i": 3,
+     "ten": "EURCAD.H4.mua_bar_tang_khoi_luong_dot_bien_dong_dinh_khi_yen_tinh.vao0_trai_n50_vao0_phai_hang1.5_vao1_phai_hang0.8_vao2_phai_hang0_vao3_trai_cua_n14_vao3_trai_n250_vao3_phai_hang0.5_giu5",
+     "kd": 67,
+     "template": "mua_bar_tang_khoi_luong_dot_bien_dong_dinh_khi_yen_tinh"
+    },
+    {
+     "i": 4,
+     "ten": "EURCAD.H4.ban_ibs_cao_khoi_luong_mong_duoi_sma200.vao0_phai_hang0.8_vao1_trai_n100_vao1_phai_hang0.35_vao2_phai_n200_ra0_phai_hang0.3_giu3",
+     "kd": 78,
+     "template": "ban_ibs_cao_khoi_luong_mong_duoi_sma200"
+    },
+    {
+     "i": 5,
+     "ten": "EURCAD.H4.mua_pha_dinh_55_khi_bien_dong_thap_tren_sma200.vao0_phai_cua_n55_vao0_phai_n1_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.5_vao2_phai_n200_ra0_phai_n20_giu20_nenha",
+     "kd": 102,
+     "template": "mua_pha_dinh_55_khi_bien_dong_thap_tren_sma200"
+    },
+    {
+     "i": 6,
+     "ten": "EURCAD.H4.mua_pha_vo_dinh_20_tu_nen_yen_tinh_khi_khoi_luong_bung.vao0_phai_cua_n20_vao0_phai_n1_vao1_trai_n100_vao1_phai_hang0.8_vao2_trai_cua_cua_n14_vao2_trai_cua_n1_vao2_trai_n250_vao2_phai_hang0.35_ra0_phai_n20_giu10_nenha",
+     "kd": 105,
+     "template": "mua_pha_vo_dinh_20_tu_nen_yen_tinh_khi_khoi_luong_bung"
+    },
+    {
+     "i": 7,
+     "ten": "EURCAD.H4.ban_ibs_cao_kl_mong_khi_atr_phan_vi_giua_duoi_ema100.vao0_phai_hang0.75_vao1_trai_n100_vao1_phai_hang0.4_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.3_vao3_trai_cua_n14_vao3_trai_n250_vao3_phai_hang0.6_vao4_phai_n100_ra0_phai_hang0.2_giu4_nenha",
+     "kd": 235,
+     "template": "ban_ibs_cao_kl_mong_khi_atr_phan_vi_giua_duoi_ema100"
+    },
+    {
+     "i": 8,
+     "ten": "EURCAD.H4.ban_zscore50_duong_sau_khi_atr_rut_tu_dinh_duoi_sma200.vao0_trai_n50_vao0_phai_hang1.0_vao1_trai_cua_cua_n14_vao1_trai_cua_n250_vao1_trai_n20_vao1_phai_hang0.8_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.5_vao3_phai_n200_ra0_trai_n50_ra0_phai_hang0_giu6_nenha",
+     "kd": 241,
+     "template": "ban_zscore50_duong_sau_khi_atr_rut_tu_dinh_duoi_sma200"
+    },
+    {
+     "i": 9,
+     "ten": "EURCAD.H4.ban_hai_bar_ibs_cao_lien_tiep_kl_mong_khi_doi_pct120_am.vao0_phai_hang0.8_vao1_trai_n1_vao1_phai_hang0.8_vao2_trai_n100_vao2_phai_hang0.5_vao3_trai_n120_vao3_phai_hang0_ra0_phai_hang0.2_giu4",
+     "kd": 256,
+     "template": "ban_hai_bar_ibs_cao_lien_tiep_kl_mong_khi_doi_pct120_am"
+    }
+   ]
+  },
+  {
+   "ea": "EvoLo_EURGBP_D1",
+   "symbol": "EURGBP#",
+   "khung": "D1",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "EURGBP.D1.vang_mua_qua_ban_ngan_han_khi_bien_dong_binh_thuong.vao0_trai_n20_vao0_phai_hang-2_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.8_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.2_giu2",
+     "kd": 2,
+     "template": "vang_mua_qua_ban_ngan_han_khi_bien_dong_binh_thuong"
+    },
+    {
+     "i": 3,
+     "ten": "EURGBP.D1.ban_theo_cu_sap_khi_bien_dong_da_cao.vao0_trai_cua_n14_vao0_trai_n250_vao0_phai_hang0.8_vao1_trai_cua_n1_vao1_trai_n250_vao1_phai_hang0.05_giu3",
+     "kd": 37,
+     "template": "ban_theo_cu_sap_khi_bien_dong_da_cao"
+    },
+    {
+     "i": 4,
+     "ten": "EURGBP.D1.mua_thanh_ly_cuong_buc_khoi_luong_dot_bien.vao0_trai_cua_n3_vao0_trai_n250_vao0_phai_hang0.05_vao1_trai_n100_vao1_phai_hang0.8_giu3",
+     "kd": 42,
+     "template": "mua_thanh_ly_cuong_buc_khoi_luong_dot_bien"
+    },
+    {
+     "i": 5,
+     "ten": "EURGBP.D1.mua_lech_am_khoi_luong_mong_trong_xu_huong_tang.vao0_trai_n20_vao0_phai_hang-1.5_vao1_trai_n100_vao1_phai_hang0.4_vao2_phai_n200_ra0_trai_n20_ra0_phai_hang0_giu5_nenha",
+     "kd": 54,
+     "template": "mua_lech_am_khoi_luong_mong_trong_xu_huong_tang"
+    },
+    {
+     "i": 6,
+     "ten": "EURGBP.D1.mua_lech_am_khoi_luong_mong_khi_bien_dong_cao_tren_sma200.vao0_trai_n20_vao0_phai_hang-1.5_vao1_trai_n100_vao1_phai_hang0.4_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.6_vao3_phai_n200_ra0_trai_n20_ra0_phai_hang0_giu4",
+     "kd": 70,
+     "template": "mua_lech_am_khoi_luong_mong_khi_bien_dong_cao_tren_sma200"
+    },
+    {
+     "i": 7,
+     "ten": "EURGBP.D1.ban_tang_3_bar_cuc_doan_khi_bien_do_bar_hep_phan_vi_thap.vao0_trai_cua_n3_vao0_trai_n500_vao0_phai_hang0.9_vao1_trai_n250_vao1_phai_hang0.5_giu6",
+     "kd": 131,
+     "template": "ban_tang_3_bar_cuc_doan_khi_bien_do_bar_hep_phan_vi_thap"
+    },
+    {
+     "i": 8,
+     "ten": "EURGBP.D1.ban_rsi_phan_vi_cao_khi_ema20_duoi_ema50_atr_cao.vao0_trai_cua_n14_vao0_trai_n100_vao0_phai_hang0.7_vao1_trai_n20_vao1_phai_n50_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.6_vao3_phai_n200_ra0_trai_cua_n14_ra0_trai_n100_ra0_phai_hang0.4_giu8",
+     "kd": 161,
+     "template": "ban_rsi_phan_vi_cao_khi_ema20_duoi_ema50_atr_cao"
+    },
+    {
+     "i": 9,
+     "ten": "EURGBP.D1.mua_rsi2_cuc_thap_tren_ema200_khi_kl_phan_vi_cao.vao0_trai_n2_vao0_phai_hang10_vao1_phai_n200_vao2_trai_n100_vao2_phai_hang0.6_ra0_trai_n2_ra0_phai_hang70_giu4",
+     "kd": 208,
+     "template": "mua_rsi2_cuc_thap_tren_ema200_khi_kl_phan_vi_cao"
+    },
+    {
+     "i": 10,
+     "ten": "EURGBP.D1.mua_rsi3_thap_khi_bien_do_tb10_phan_vi_thap_tren_sma200.vao0_trai_n3_vao0_phai_hang15_vao1_trai_cua_n10_vao1_trai_n250_vao1_phai_hang0.35_vao2_phai_n200_ra0_trai_n3_ra0_phai_hang60_giu4",
+     "kd": 261,
+     "template": "mua_rsi3_thap_khi_bien_do_tb10_phan_vi_thap_tren_sma200"
+    },
+    {
+     "i": 11,
+     "ten": "EURGBP.D1.ban_rsi3_cao_khi_bien_do_tb10_phan_vi_thap_duoi_sma200.vao0_trai_n3_vao0_phai_hang85_vao1_trai_cua_n10_vao1_trai_n250_vao1_phai_hang0.35_vao2_phai_n200_ra0_trai_n3_ra0_phai_hang40_giu4",
+     "kd": 271,
+     "template": "ban_rsi3_cao_khi_bien_do_tb10_phan_vi_thap_duoi_sma200"
+    },
+    {
+     "i": 12,
+     "ten": "EURGBP.D1.mua_rsi3_thap_ibs_thap_kl_mong_tren_sma200_audnzd.vao0_trai_n3_vao0_phai_hang20_vao1_phai_hang0.2_vao2_trai_n100_vao2_phai_hang0.5_vao3_phai_n200_ra0_trai_n3_ra0_phai_hang60_giu4_nenha",
+     "kd": 288,
+     "template": "mua_rsi3_thap_ibs_thap_kl_mong_tren_sma200_audnzd"
+    }
+   ]
+  },
+  {
+   "ea": "EvoLo_EURGBP_H4",
+   "symbol": "EURGBP#",
+   "khung": "H4",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "EURGBP.H4.ban_rsi2_cuc_cao_khi_bien_dong_cao_duoi_sma200.vao0_phai_n200_vao1_trai_cua_n2_vao1_trai_n500_vao1_phai_hang0.95_vao2_phai_hang0.8_vao3_trai_cua_n14_vao3_trai_n250_vao3_phai_hang0.5_giu8_nenha",
+     "kd": 125,
+     "template": "ban_rsi2_cuc_cao_khi_bien_dong_cao_duoi_sma200"
+    },
+    {
+     "i": 3,
+     "ten": "EURGBP.H4.mua_cu_soc_giam_tuyet_doi_kl_mong_khi_dong_luong_60_duong.vao0_trai_cua_cua_n1_vao0_trai_cua_n1_vao0_trai_n250_vao0_phai_hang0.9_vao1_phai_hang0_vao2_trai_n60_vao2_phai_hang0_vao3_trai_n100_vao3_phai_hang0.5_giu6_nenha",
+     "kd": 188,
+     "template": "mua_cu_soc_giam_tuyet_doi_kl_mong_khi_dong_luong_60_duong"
+    }
+   ]
+  },
+  {
+   "ea": "EvoLo_EURUSD_D1",
+   "symbol": "EURUSD#",
+   "khung": "D1",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "EURUSD.D1.mua_bar_bien_do_cuc_dai_dong_day_tren_sma200.vao0_trai_n250_vao0_phai_hang0.95_vao1_phai_hang0.3_vao2_phai_n200_ra0_phai_hang0.7_giu5",
+     "kd": 75,
+     "template": "mua_bar_bien_do_cuc_dai_dong_day_tren_sma200"
+    }
+   ]
+  },
+  {
+   "ea": "EvoLo_EURUSD_H4",
+   "symbol": "EURUSD#",
+   "khung": "H4",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "EURUSD.H4.mua_bar_hep_sau_bar_giam_bung_khi_tren_sma200.vao0_trai_cua_n100_vao0_trai_n1_vao0_phai_hang0.85_vao1_trai_n1_vao1_phai_hang0_vao2_trai_n100_vao2_phai_hang0.3_vao3_phai_n200_giu4",
+     "kd": 166,
+     "template": "mua_bar_hep_sau_bar_giam_bung_khi_tren_sma200"
+    },
+    {
+     "i": 3,
+     "ten": "EURUSD.H4.ban_cham_dinh10_nen_giam_kl_mong_khi_doi_pct250_phan_vi_thap.vao0_phai_cua_n10_vao0_phai_n1_vao1_phai_hang0_vao2_trai_n100_vao2_phai_hang0.5_vao3_trai_cua_n250_vao3_trai_n500_vao3_phai_hang0.4_giu6",
+     "kd": 254,
+     "template": "ban_cham_dinh10_nen_giam_kl_mong_khi_doi_pct250_phan_vi_thap"
+    }
+   ]
+  },
+  {
+   "ea": "EvoLo_GBPCAD_D1",
+   "symbol": "GBPCAD#",
+   "khung": "D1",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "GBPCAD.D1.vang_mua_nhip_rsi2_trong_xu_huong_tang_bien_dong_vua.vao0_trai_n2_vao0_phai_hang10_vao1_phai_n200_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.85_giu3_nenha",
+     "kd": 3,
+     "template": "vang_mua_nhip_rsi2_trong_xu_huong_tang_bien_dong_vua"
+    },
+    {
+     "i": 3,
+     "ten": "GBPCAD.D1.ban_nhip_hoi_rsi2_trong_xu_huong_giam_bien_dong_vua.vao0_trai_n2_vao0_phai_hang90_vao1_phai_n200_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.85_giu3",
+     "kd": 4,
+     "template": "ban_nhip_hoi_rsi2_trong_xu_huong_giam_bien_dong_vua"
+    },
+    {
+     "i": 4,
+     "ten": "GBPCAD.D1.nen_hep_yen_tinh_pha_dinh_5_bar.vao0_trai_cua_n1_vao0_trai_n100_vao0_phai_hang0.15_vao1_phai_cua_n5_vao1_phai_n1_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.5_giu5",
+     "kd": 34,
+     "template": "nen_hep_yen_tinh_pha_dinh_5_bar"
+    },
+    {
+     "i": 5,
+     "ten": "GBPCAD.D1.mua_khoang_trong_gia_tang_khi_che_do_yen_tinh.vao0_phai_n2_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.5_giu6_nenha",
+     "kd": 47,
+     "template": "mua_khoang_trong_gia_tang_khi_che_do_yen_tinh"
+    },
+    {
+     "i": 6,
+     "ten": "GBPCAD.D1.mua_lech_am_ngan_khi_bien_dong_thap_tren_sma200.vao0_trai_n5_vao0_phai_hang-1.2_vao1_phai_n200_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.5_giu3_nenha",
+     "kd": 59,
+     "template": "mua_lech_am_ngan_khi_bien_dong_thap_tren_sma200"
+    },
+    {
+     "i": 7,
+     "ten": "GBPCAD.D1.mua_ibs_thap_hai_bar_lien_tiep_tren_sma200.vao0_phai_hang0.25_vao1_trai_n1_vao1_phai_hang0.25_vao2_phai_n200_vao3_trai_cua_n14_vao3_trai_n250_vao3_phai_hang0.3_ra0_phai_hang0.75_giu3",
+     "kd": 63,
+     "template": "mua_ibs_thap_hai_bar_lien_tiep_tren_sma200"
+    },
+    {
+     "i": 8,
+     "ten": "GBPCAD.D1.mua_dong_luong_120_bar_khi_bien_dong_duoi_trung_vi.vao0_trai_cua_n120_vao0_trai_n500_vao0_phai_hang0.7_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.5_vao2_phai_n50_ra0_phai_n50_giu30",
+     "kd": 94,
+     "template": "mua_dong_luong_120_bar_khi_bien_dong_duoi_trung_vi"
+    },
+    {
+     "i": 9,
+     "ten": "GBPCAD.D1.ban_ibs_cao_zscore_duong_khi_dong_luong_120_yeu.vao0_trai_cua_n120_vao0_trai_n500_vao0_phai_hang0.3_vao1_phai_hang0.8_vao2_trai_n20_vao2_phai_hang1.0_ra0_phai_hang0.2_giu4",
+     "kd": 99,
+     "template": "ban_ibs_cao_zscore_duong_khi_dong_luong_120_yeu"
+    },
+    {
+     "i": 10,
+     "ten": "GBPCAD.D1.mua_xu_huong_dai_khi_nen_bien_dong_tu_nhip_lui_nong.vao0_trai_cua_n60_vao0_trai_n250_vao0_phai_hang0.75_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.4_vao2_phai_n20_vao3_phai_n20_ra0_phai_n50_giu15",
+     "kd": 107,
+     "template": "mua_xu_huong_dai_khi_nen_bien_dong_tu_nhip_lui_nong"
+    },
+    {
+     "i": 11,
+     "ten": "GBPCAD.D1.mua_pha_day_20_that_bai_khi_bien_dong_cao.vao0_phai_cua_n20_vao0_phai_n1_vao1_phai_cua_n20_vao1_phai_n1_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.7_giu5",
+     "kd": 111,
+     "template": "mua_pha_day_20_that_bai_khi_bien_dong_cao"
+    },
+    {
+     "i": 12,
+     "ten": "GBPCAD.D1.mua_rsi2_cuc_thap_khi_dong_luong_60_manh_bien_dong_vua.vao0_trai_n2_vao0_phai_hang10_vao1_trai_cua_n60_vao1_trai_n500_vao1_phai_hang0.7_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.7_ra0_trai_n2_ra0_phai_hang70_giu4",
+     "kd": 117,
+     "template": "mua_rsi2_cuc_thap_khi_dong_luong_60_manh_bien_dong_vua"
+    },
+    {
+     "i": 13,
+     "ten": "GBPCAD.D1.mua_ibs_thap_khi_dong_luong_120_manh_bien_dong_thap.vao0_phai_hang0.2_vao1_trai_cua_n120_vao1_trai_n500_vao1_phai_hang0.75_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.5_giu12_nenha",
+     "kd": 139,
+     "template": "mua_ibs_thap_khi_dong_luong_120_manh_bien_dong_thap"
+    },
+    {
+     "i": 14,
+     "ten": "GBPCAD.D1.ban_ibs_cao_kl_mong_khi_rsi_phan_vi_cao_atr_vua.vao0_phai_hang0.8_vao1_trai_n100_vao1_phai_hang0.3_vao2_trai_cua_n14_vao2_trai_n100_vao2_phai_hang0.65_vao3_trai_cua_n14_vao3_trai_n250_vao3_phai_hang0.3_vao4_trai_cua_n14_vao4_trai_n250_vao4_phai_hang0.7_ra0_phai_hang0.3_giu4",
+     "kd": 150,
+     "template": "ban_ibs_cao_kl_mong_khi_rsi_phan_vi_cao_atr_vua"
+    },
+    {
+     "i": 15,
+     "ten": "GBPCAD.D1.mua_hai_bar_ibs_thap_lien_tiep_kl_mong_tren_sma200.vao0_phai_hang0.3_vao1_trai_n1_vao1_phai_hang0.3_vao2_trai_n100_vao2_phai_hang0.5_vao3_phai_n200_ra0_phai_hang0.7_giu4_nenha",
+     "kd": 163,
+     "template": "mua_hai_bar_ibs_thap_lien_tiep_kl_mong_tren_sma200"
+    },
+    {
+     "i": 16,
+     "ten": "GBPCAD.D1.mua_ibs_thap_kl_mong_khi_tren_ema100_bien_do_phan_vi_thap.vao0_phai_hang0.25_vao1_trai_n20_vao1_phai_hang0_vao2_trai_n100_vao2_phai_hang0.5_vao3_phai_n100_giu4_nenha",
+     "kd": 168,
+     "template": "mua_ibs_thap_kl_mong_khi_tren_ema100_bien_do_phan_vi_thap"
+    },
+    {
+     "i": 17,
+     "ten": "GBPCAD.D1.ban_thu_sau_ibs_cao_khi_atr_phan_vi_cao.vao0_phai_hang4_vao1_phai_hang0.75_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.7_giu2",
+     "kd": 213,
+     "template": "ban_thu_sau_ibs_cao_khi_atr_phan_vi_cao"
+    },
+    {
+     "i": 18,
+     "ten": "GBPCAD.D1.mua_hoi_ve_ema20_khi_ema100_doc_len_kl_phan_vi_thap.vao0_phai_n20_vao1_phai_n20_vao2_trai_cua_n100_vao2_trai_n10_vao2_phai_hang0_vao3_trai_cua_n5_vao3_trai_n100_vao3_phai_hang0.4_ra0_phai_n20_giu5",
+     "kd": 232,
+     "template": "mua_hoi_ve_ema20_khi_ema100_doc_len_kl_phan_vi_thap"
+    },
+    {
+     "i": 19,
+     "ten": "GBPCAD.D1.mua_hai_bar_ibs_thap_lien_tiep_kl_mong_khi_doi_pct120_duong.vao0_phai_hang0.3_vao1_trai_n1_vao1_phai_hang0.3_vao2_trai_n100_vao2_phai_hang0.4_vao3_trai_n120_vao3_phai_hang0_ra0_phai_hang0.8_giu4",
+     "kd": 237,
+     "template": "mua_hai_bar_ibs_thap_lien_tiep_kl_mong_khi_doi_pct120_duong"
+    }
+   ]
+  },
+  {
+   "ea": "EvoLo_GBPCAD_H1",
+   "symbol": "GBPCAD#",
+   "khung": "H1",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "GBPCAD.H1.theo_cu_soc_bien_do_tang_trong_che_do_yen_tinh.vao0_trai_n100_vao0_phai_hang2.2_vao1_phai_hang0_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.4_giu6",
+     "kd": 11,
+     "template": "theo_cu_soc_bien_do_tang_trong_che_do_yen_tinh"
+    },
+    {
+     "i": 3,
+     "ten": "GBPCAD.H1.theo_nen_mo_rong_dong_o_dinh_khi_che_do_yen_tinh.vao0_trai_cua_n14_vao0_trai_n250_vao0_phai_hang0.4_vao1_trai_n100_vao1_phai_hang0.85_vao2_phai_hang0.75_giu3_nenha",
+     "kd": 40,
+     "template": "theo_nen_mo_rong_dong_o_dinh_khi_che_do_yen_tinh"
+    },
+    {
+     "i": 4,
+     "ten": "GBPCAD.H1.mua_hap_thu_soc_giam_khi_dong_luong_60_duong.vao0_trai_n50_vao0_phai_hang2.0_vao1_trai_n50_vao1_phai_hang-1.5_vao2_trai_cua_cua_n14_vao2_trai_cua_n1_vao2_trai_n250_vao2_phai_hang0.5_vao3_trai_cua_n60_vao3_trai_n500_vao3_phai_hang0.5_ra0_phai_hang0.8_giu3_nenha",
+     "kd": 143,
+     "template": "mua_hap_thu_soc_giam_khi_dong_luong_60_duong"
+    },
+    {
+     "i": 5,
+     "ten": "GBPCAD.H1.ban_zscore100_cang_khi_bien_dong_phan_vi_thap.vao0_trai_n100_vao0_phai_hang1.8_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.4_ra0_trai_n100_ra0_phai_hang0.5_giu12_nenha",
+     "kd": 207,
+     "template": "ban_zscore100_cang_khi_bien_dong_phan_vi_thap"
+    },
+    {
+     "i": 6,
+     "ten": "GBPCAD.H1.mua_rsi5_phan_vi_day_khi_bien_do_zscore_bung_tren_ema200.vao0_trai_cua_n5_vao0_trai_n100_vao0_phai_hang0.12_vao1_trai_n50_vao1_phai_hang1.0_vao2_phai_n200_ra0_trai_n5_ra0_phai_hang60_giu4",
+     "kd": 210,
+     "template": "mua_rsi5_phan_vi_day_khi_bien_do_zscore_bung_tren_ema200"
+    },
+    {
+     "i": 7,
+     "ten": "GBPCAD.H1.mua_ibs_thap_kl_mong_khi_doi_pct60_phan_vi_trung_tinh.vao0_phai_hang0.2_vao1_trai_n100_vao1_phai_hang0.35_vao2_trai_cua_n60_vao2_trai_n250_vao2_phai_hang0.3_vao3_trai_cua_n60_vao3_trai_n250_vao3_phai_hang0.7_ra0_phai_hang0.8_giu4",
+     "kd": 230,
+     "template": "mua_ibs_thap_kl_mong_khi_doi_pct60_phan_vi_trung_tinh"
+    },
+    {
+     "i": 8,
+     "ten": "GBPCAD.H1.mua_zscore20_am_khi_bien_do_tb10_phan_vi_thap_tren_sma200.vao0_trai_n20_vao0_phai_hang-1.5_vao1_trai_cua_n10_vao1_trai_n250_vao1_phai_hang0.3_vao2_phai_n200_ra0_trai_n20_ra0_phai_hang0_giu5",
+     "kd": 236,
+     "template": "mua_zscore20_am_khi_bien_do_tb10_phan_vi_thap_tren_sma200"
+    },
+    {
+     "i": 9,
+     "ten": "GBPCAD.H1.ban_rsi3_cao_kl_mong_khi_bien_do_tb10_thap_va_doi_pct120_am.vao0_trai_n3_vao0_phai_hang85_vao1_trai_n100_vao1_phai_hang0.5_vao2_trai_cua_n10_vao2_trai_n250_vao2_phai_hang0.35_vao3_trai_n120_vao3_phai_hang0_ra0_trai_n3_ra0_phai_hang40_giu4",
+     "kd": 280,
+     "template": "ban_rsi3_cao_kl_mong_khi_bien_do_tb10_thap_va_doi_pct120_am"
+    }
+   ]
+  },
+  {
+   "ea": "EvoLo_GBPCAD_H4",
+   "symbol": "GBPCAD#",
+   "khung": "H4",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "GBPCAD.H4.ban_vuot_bien_phien_a_khi_thanh_khoan_mong.vao0_phai_hang0_vao1_phai_hang4_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.3_vao3_trai_n20_vao3_phai_hang1.5_giu2",
+     "kd": 17,
+     "template": "ban_vuot_bien_phien_a_khi_thanh_khoan_mong"
+    },
+    {
+     "i": 3,
+     "ten": "GBPCAD.H4.ibs_day_khi_bien_dong_cao.vao0_phai_hang0.15_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.7_ra0_phai_hang0.7_giu3_nenha",
+     "kd": 26,
+     "template": "ibs_day_khi_bien_dong_cao"
+    },
+    {
+     "i": 4,
+     "ten": "GBPCAD.H4.ban_hoi_phuc_thieu_khoi_luong.vao0_trai_n2_vao0_phai_hang95_vao1_trai_n100_vao1_phai_hang0.3_vao2_phai_n100_ra0_trai_n2_ra0_phai_hang40_giu3",
+     "kd": 30,
+     "template": "ban_hoi_phuc_thieu_khoi_luong"
+    },
+    {
+     "i": 5,
+     "ten": "GBPCAD.H4.ban_hoi_phuc_khoi_luong_can_trong_xu_huong_giam.vao0_phai_n100_vao1_trai_cua_n3_vao1_trai_n250_vao1_phai_hang0.85_vao2_trai_n100_vao2_phai_hang0.3_ra0_phai_n10_giu5",
+     "kd": 39,
+     "template": "ban_hoi_phuc_khoi_luong_can_trong_xu_huong_giam"
+    },
+    {
+     "i": 6,
+     "ten": "GBPCAD.H4.ban_ba_bar_tang_than_nen_thu_hep_khoi_luong_can_duoi_sma200.vao0_phai_hang0_vao1_trai_n1_vao1_phai_hang0_vao2_trai_n2_vao2_phai_hang0_vao3_trai_n1_vao3_phai_cua_n1_vao3_phai_n1_vao4_trai_n100_vao4_phai_hang0.5_vao5_phai_n200_ra0_phai_hang0.25_giu4",
+     "kd": 74,
+     "template": "ban_ba_bar_tang_than_nen_thu_hep_khoi_luong_can_duoi_sma200"
+    },
+    {
+     "i": 7,
+     "ten": "GBPCAD.H4.mua_zscore_am_sau_khi_bien_dong_thap_tren_sma200.vao0_trai_n20_vao0_phai_hang-1.5_vao1_phai_n200_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.5_ra0_trai_n20_ra0_phai_hang0_giu6_nenha",
+     "kd": 87,
+     "template": "mua_zscore_am_sau_khi_bien_dong_thap_tren_sma200"
+    },
+    {
+     "i": 8,
+     "ten": "GBPCAD.H4.mua_rau_duoi_tu_choi_ema50_khi_dong_luong_manh.vao0_phai_n50_vao1_phai_n50_vao2_trai_cua_n120_vao2_trai_n500_vao2_phai_hang0.7_giu8",
+     "kd": 91,
+     "template": "mua_rau_duoi_tu_choi_ema50_khi_dong_luong_manh"
+    },
+    {
+     "i": 9,
+     "ten": "GBPCAD.H4.mua_cu_soc_bien_dong_ngan_khi_nen_dai_han_yen_tren_sma200.vao0_trai_cua_n5_vao0_trai_n250_vao0_phai_hang0.9_vao1_trai_cua_n100_vao1_trai_n500_vao1_phai_hang0.5_vao2_trai_n10_vao2_phai_hang-1.5_vao3_phai_n200_giu6_nenha",
+     "kd": 100,
+     "template": "mua_cu_soc_bien_dong_ngan_khi_nen_dai_han_yen_tren_sma200"
+    },
+    {
+     "i": 10,
+     "ten": "GBPCAD.H4.ban_dinh_kenh_50_khi_xu_huong_phang_do_doc_sma_thap.vao0_trai_n50_vao0_phai_hang0.9_vao1_trai_cua_cua_cua_n50_vao1_trai_cua_cua_n20_vao1_trai_cua_n1_vao1_trai_n250_vao1_phai_hang0.3_ra0_trai_n50_ra0_phai_hang0.4_giu8_nenha",
+     "kd": 127,
+     "template": "ban_dinh_kenh_50_khi_xu_huong_phang_do_doc_sma_thap"
+    },
+    {
+     "i": 11,
+     "ten": "GBPCAD.H4.mua_zscore30_thap_khi_sma50_phang_atr_thap.vao0_trai_n30_vao0_phai_hang-1.8_vao1_trai_cua_cua_cua_n50_vao1_trai_cua_cua_n10_vao1_trai_cua_n1_vao1_trai_n500_vao1_phai_hang0.3_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.5_giu10_nenha",
+     "kd": 138,
+     "template": "mua_zscore30_thap_khi_sma50_phang_atr_thap"
+    },
+    {
+     "i": 12,
+     "ten": "GBPCAD.H4.mua_roi_3_bar_cuc_doan_khi_atr_thap_tren_ema100.vao0_phai_n100_vao1_trai_cua_n3_vao1_trai_n500_vao1_phai_hang0.1_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.5_giu8",
+     "kd": 140,
+     "template": "mua_roi_3_bar_cuc_doan_khi_atr_thap_tren_ema100"
+    },
+    {
+     "i": 13,
+     "ten": "GBPCAD.H4.ban_ibs_cao_khoi_luong_mong_khi_dong_luong_60_am.vao0_phai_hang0.8_vao1_trai_n100_vao1_phai_hang0.3_vao2_trai_cua_n60_vao2_trai_n500_vao2_phai_hang0.5_ra0_phai_hang0.3_giu4_nenha",
+     "kd": 144,
+     "template": "ban_ibs_cao_khoi_luong_mong_khi_dong_luong_60_am"
+    },
+    {
+     "i": 14,
+     "ten": "GBPCAD.H4.ban_nen_bung_ibs_cao_khi_atr_phan_vi_cao.vao0_trai_n100_vao0_phai_hang0.8_vao1_phai_hang0.75_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.7_vao3_phai_n200_ra0_phai_hang0.3_giu4_nenha",
+     "kd": 159,
+     "template": "ban_nen_bung_ibs_cao_khi_atr_phan_vi_cao"
+    },
+    {
+     "i": 15,
+     "ten": "GBPCAD.H4.mua_kl_dot_bien_dong_nua_tren_khi_zscore_am_sau.vao0_trai_n20_vao0_phai_hang-1.5_vao1_trai_n100_vao1_phai_hang0.9_vao2_phai_hang0.5_ra0_trai_n20_ra0_phai_hang0_giu5_nenha",
+     "kd": 165,
+     "template": "mua_kl_dot_bien_dong_nua_tren_khi_zscore_am_sau"
+    },
+    {
+     "i": 16,
+     "ten": "GBPCAD.H4.mua_theo_bar_bung_bien_do_dong_cao_khi_kl_tang.vao0_trai_n100_vao0_phai_hang0.85_vao1_phai_hang0.75_vao2_trai_n50_vao2_phai_hang1.0_giu6_nenha",
+     "kd": 184,
+     "template": "mua_theo_bar_bung_bien_do_dong_cao_khi_kl_tang"
+    },
+    {
+     "i": 17,
+     "ten": "GBPCAD.H4.ban_ibs_cao_ba_bar_lien_tiep_khi_atr_phan_vi_thap_duoi_ema50.vao0_trai_n3_vao0_phai_hang0.7_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.4_vao2_phai_n50_giu3_nenha",
+     "kd": 185,
+     "template": "ban_ibs_cao_ba_bar_lien_tiep_khi_atr_phan_vi_thap_duoi_ema50"
+    },
+    {
+     "i": 18,
+     "ten": "GBPCAD.H4.mua_ibs_thap_rsi_thap_khi_doi_pct250_duong_atr_chua_cuc_doan.vao0_phai_hang0.2_vao1_trai_n14_vao1_phai_hang38_vao2_trai_n250_vao2_phai_hang0_vao3_trai_cua_n14_vao3_trai_n250_vao3_phai_hang0.8_giu3",
+     "kd": 194,
+     "template": "mua_ibs_thap_rsi_thap_khi_doi_pct250_duong_atr_chua_cuc_doan"
+    },
+    {
+     "i": 19,
+     "ten": "GBPCAD.H4.ban_hoi_doi_pct10_cao_khi_atr_phan_vi_co_lai_duoi_sma150.vao0_trai_cua_n10_vao0_trai_n200_vao0_phai_hang0.85_vao1_trai_cua_n14_vao1_trai_n100_vao1_phai_hang0.4_vao2_phai_n150_giu8_nenha",
+     "kd": 211,
+     "template": "ban_hoi_doi_pct10_cao_khi_atr_phan_vi_co_lai_duoi_sma150"
+    },
+    {
+     "i": 20,
+     "ten": "GBPCAD.H4.mua_ibs_thap_kl_mong_khi_do_lech50_phan_vi_thap_tren_sma100.vao0_phai_hang0.2_vao1_trai_n100_vao1_phai_hang0.4_vao2_trai_cua_n50_vao2_trai_n250_vao2_phai_hang0.4_vao3_phai_n100_ra0_phai_hang0.8_giu4_nenha",
+     "kd": 216,
+     "template": "mua_ibs_thap_kl_mong_khi_do_lech50_phan_vi_thap_tren_sma100"
+    },
+    {
+     "i": 21,
+     "ten": "GBPCAD.H4.mua_quet_day20_dong_lai_tren_kl_mong_khi_ema200_doc_len.vao0_phai_cua_n20_vao0_phai_n1_vao1_phai_cua_n20_vao1_phai_n1_vao2_trai_n100_vao2_phai_hang0.5_vao3_trai_cua_n200_vao3_trai_n20_vao3_phai_hang0_ra0_phai_hang0.8_giu5_nenha",
+     "kd": 229,
+     "template": "mua_quet_day20_dong_lai_tren_kl_mong_khi_ema200_doc_len"
+    },
+    {
+     "i": 22,
+     "ten": "GBPCAD.H4.ban_ibs_cao_sau_khi_atr_rut_tu_dinh_duoi_sma200.vao0_phai_hang0.8_vao1_trai_cua_cua_n14_vao1_trai_cua_n250_vao1_trai_n20_vao1_phai_hang0.8_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.5_vao3_phai_n200_ra0_phai_hang0.2_giu4_nenha",
+     "kd": 247,
+     "template": "ban_ibs_cao_sau_khi_atr_rut_tu_dinh_duoi_sma200"
+    },
+    {
+     "i": 23,
+     "ten": "GBPCAD.H4.mua_rsi3_thap_sau_khi_atr_rut_tu_dinh_tren_sma200.vao0_trai_n3_vao0_phai_hang15_vao1_trai_cua_cua_n14_vao1_trai_cua_n250_vao1_trai_n20_vao1_phai_hang0.8_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.5_vao3_phai_n200_ra0_trai_n3_ra0_phai_hang60_giu4_nenha",
+     "kd": 250,
+     "template": "mua_rsi3_thap_sau_khi_atr_rut_tu_dinh_tren_sma200"
+    },
+    {
+     "i": 24,
+     "ten": "GBPCAD.H4.mua_rsi3_thap_kl_mong_sau_khi_atr_rut_tu_dinh_tren_sma200.vao0_trai_n3_vao0_phai_hang20_vao1_trai_cua_cua_n14_vao1_trai_cua_n250_vao1_trai_n20_vao1_phai_hang0.8_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.5_vao3_trai_n100_vao3_phai_hang0.6_vao4_phai_n200_ra0_trai_n3_ra0_phai_hang60_giu4",
+     "kd": 258,
+     "template": "mua_rsi3_thap_kl_mong_sau_khi_atr_rut_tu_dinh_tren_sma200"
+    },
+    {
+     "i": 25,
+     "ten": "GBPCAD.H4.mua_rsi3_thap_ibs_thap_sau_khi_atr_rut_tu_dinh_tren_ema100.vao0_trai_n3_vao0_phai_hang25_vao1_phai_hang0.3_vao2_trai_cua_cua_n14_vao2_trai_cua_n250_vao2_trai_n20_vao2_phai_hang0.8_vao3_trai_cua_n14_vao3_trai_n250_vao3_phai_hang0.5_vao4_phai_n100_ra0_trai_n3_ra0_phai_hang60_giu4",
+     "kd": 260,
+     "template": "mua_rsi3_thap_ibs_thap_sau_khi_atr_rut_tu_dinh_tren_ema100"
+    },
+    {
+     "i": 26,
+     "ten": "GBPCAD.H4.mua_hai_bar_rsi3_thap_sau_khi_atr_rut_tu_dinh_tren_sma200.vao0_trai_n3_vao0_phai_hang20_vao1_trai_cua_n3_vao1_trai_n1_vao1_phai_hang30_vao2_trai_cua_cua_n14_vao2_trai_cua_n250_vao2_trai_n20_vao2_phai_hang0.8_vao3_trai_cua_n14_vao3_trai_n250_vao3_phai_hang0.5_vao4_phai_n200_ra0_trai_n3_ra0_phai_hang60_giu4",
+     "kd": 262,
+     "template": "mua_hai_bar_rsi3_thap_sau_khi_atr_rut_tu_dinh_tren_sma200"
+    },
+    {
+     "i": 27,
+     "ten": "GBPCAD.H4.ban_rsi3_cao_kl_mong_sau_khi_atr_rut_tu_dinh_duoi_ema100.vao0_trai_n3_vao0_phai_hang80_vao1_trai_cua_cua_n14_vao1_trai_cua_n250_vao1_trai_n20_vao1_phai_hang0.8_vao2_trai_cua_n14_vao2_trai_n250_vao2_phai_hang0.5_vao3_trai_n100_vao3_phai_hang0.6_vao4_phai_n100_ra0_trai_n3_ra0_phai_hang40_giu4_nenha",
+     "kd": 263,
+     "template": "ban_rsi3_cao_kl_mong_sau_khi_atr_rut_tu_dinh_duoi_ema100"
+    },
+    {
+     "i": 28,
+     "ten": "GBPCAD.H4.mua_cham_day10_nen_tang_sau_khi_atr_rut_tu_dinh_tren_sma200.vao0_phai_cua_n10_vao0_phai_n1_vao1_phai_hang0_vao2_trai_cua_cua_n14_vao2_trai_cua_n250_vao2_trai_n20_vao2_phai_hang0.8_vao3_trai_cua_n14_vao3_trai_n250_vao3_phai_hang0.6_vao4_phai_n200_ra0_phai_hang0.85_giu5_nenha",
+     "kd": 266,
+     "template": "mua_cham_day10_nen_tang_sau_khi_atr_rut_tu_dinh_tren_sma200"
+    },
+    {
+     "i": 29,
+     "ten": "GBPCAD.H4.ban_hai_bar_ibs_cao_sau_khi_atr_rut_tu_dinh_doi_pct120_am.vao0_phai_hang0.7_vao1_trai_n1_vao1_phai_hang0.7_vao2_trai_cua_cua_n14_vao2_trai_cua_n250_vao2_trai_n20_vao2_phai_hang0.8_vao3_trai_cua_n14_vao3_trai_n250_vao3_phai_hang0.5_vao4_trai_n120_vao4_phai_hang0_ra0_phai_hang0.2_giu4_nenha",
+     "kd": 269,
+     "template": "ban_hai_bar_ibs_cao_sau_khi_atr_rut_tu_dinh_doi_pct120_am"
+    },
+    {
+     "i": 30,
+     "ten": "GBPCAD.H4.mua_nen_giam_dai_kl_mong_khi_bien_do_tb10_thap_tren_sma200.vao0_trai_n100_vao0_phai_hang-1.2_vao1_trai_n100_vao1_phai_hang0.6_vao2_trai_cua_n10_vao2_trai_n250_vao2_phai_hang0.35_vao3_phai_n200_ra0_trai_n3_ra0_phai_hang60_giu4_nenha",
+     "kd": 279,
+     "template": "mua_nen_giam_dai_kl_mong_khi_bien_do_tb10_thap_tren_sma200"
+    },
+    {
+     "i": 31,
+     "ten": "GBPCAD.H4.mua_rsi3_thap_khi_bien_do_tb20_phan_vi_thap_tren_sma100.vao0_trai_n3_vao0_phai_hang15_vao1_trai_cua_n20_vao1_trai_n250_vao1_phai_hang0.35_vao2_phai_n100_ra0_trai_n3_ra0_phai_hang60_giu4",
+     "kd": 284,
+     "template": "mua_rsi3_thap_khi_bien_do_tb20_phan_vi_thap_tren_sma100"
+    }
+   ]
+  },
+  {
+   "ea": "EvoLo_NZDCADmicro_H1",
+   "symbol": "NZDCADmicro",
+   "khung": "H1",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "NZDCAD.H1.mua_nen_giam_lon_khoi_luong_thap_tren_sma200.vao0_phai_n200_vao1_trai_n100_vao1_phai_hang-1.7_vao2_trai_n100_vao2_phai_hang0.5_giu4",
+     "kd": 95,
+     "template": "mua_nen_giam_lon_khoi_luong_thap_tren_sma200"
+    },
+    {
+     "i": 3,
+     "ten": "NZDCAD.H1.mua_hap_thu_ban_thao_sau_cu_soc_khi_yen_tinh_tren_ema200.vao0_trai_n50_vao0_phai_hang2.0_vao1_trai_n50_vao1_phai_hang-1.5_vao2_trai_cua_cua_n14_vao2_trai_cua_n1_vao2_trai_n250_vao2_phai_hang0.5_vao3_phai_n200_ra0_phai_hang0.8_giu3",
+     "kd": 120,
+     "template": "mua_hap_thu_ban_thao_sau_cu_soc_khi_yen_tinh_tren_ema200"
+    },
+    {
+     "i": 4,
+     "ten": "NZDCAD.H1.mua_kl_can_kiet_sau_3_bar_giam_khi_zscore50_am.vao0_trai_n3_vao0_phai_hang0_vao1_trai_n20_vao1_phai_hang0.2_vao2_trai_n50_vao2_phai_hang-0.8_vao3_phai_n200_giu5",
+     "kd": 178,
+     "template": "mua_kl_can_kiet_sau_3_bar_giam_khi_zscore50_am"
+    }
+   ]
+  },
+  {
+   "ea": "EvoLo_US500Cash_D1",
+   "symbol": "US500Cash",
+   "khung": "D1",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "US500CASH.D1.mua_thu_hai_sau_phien_thu_sau_giam_manh.vao0_phai_hang0_vao1_trai_cua_cua_n1_vao1_trai_cua_n1_vao1_trai_n250_vao1_phai_hang0.1_giu1",
+     "kd": 46,
+     "template": "mua_thu_hai_sau_phien_thu_sau_giam_manh"
+    }
+   ]
+  },
+  {
+   "ea": "EvoLo_US500Cash_H1",
+   "symbol": "US500Cash",
+   "khung": "H1",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "US500CASH.H1.theo_xu_huong_khi_quy_nham_bien_dong_tang_ty_trong.vao0_phai_n200_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.3_vao2_trai_cua_n20_vao2_trai_n250_vao2_phai_hang0.5_ra0_trai_cua_n14_ra0_trai_n250_ra0_phai_hang0.7_giu20",
+     "kd": 29,
+     "template": "theo_xu_huong_khi_quy_nham_bien_dong_tang_ty_trong"
+    },
+    {
+     "i": 3,
+     "ten": "US500CASH.H1.ban_tu_choi_dinh_20_khoi_luong_cao_khi_bien_dong_cao.vao0_phai_cua_n20_vao0_phai_n1_vao1_phai_hang0.4_vao2_trai_n50_vao2_phai_hang1.0_vao3_trai_cua_n14_vao3_trai_n250_vao3_phai_hang0.5_giu5",
+     "kd": 62,
+     "template": "ban_tu_choi_dinh_20_khoi_luong_cao_khi_bien_dong_cao"
+    },
+    {
+     "i": 4,
+     "ten": "US500CASH.H1.ban_pha_dinh_20_that_bai_dong_tro_lai_duoi_sma100.vao0_phai_cua_n20_vao0_phai_n1_vao1_phai_cua_n20_vao1_phai_n1_vao2_phai_n100_giu6",
+     "kd": 202,
+     "template": "ban_pha_dinh_20_that_bai_dong_tro_lai_duoi_sma100"
+    },
+    {
+     "i": 5,
+     "ten": "US500CASH.H1.mua_zscore100_am_cang_khi_atr_phan_vi_thap_tren_sma250.vao0_trai_n100_vao0_phai_hang-1.8_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.45_vao2_phai_n250_ra0_trai_n100_ra0_phai_hang0_giu6",
+     "kd": 233,
+     "template": "mua_zscore100_am_cang_khi_atr_phan_vi_thap_tren_sma250"
+    }
+   ]
+  },
+  {
+   "ea": "EvoLo_US500Cash_H4",
+   "symbol": "US500Cash",
+   "khung": "H4",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "US500CASH.H4.mua_giam_10_bar_trat_tu_bien_dong_thap_tren_sma200.vao0_trai_cua_n10_vao0_trai_n250_vao0_phai_hang0.15_vao1_trai_cua_n14_vao1_trai_n250_vao1_phai_hang0.5_vao2_phai_n200_ra0_trai_n20_ra0_phai_hang0_giu7",
+     "kd": 79,
+     "template": "mua_giam_10_bar_trat_tu_bien_dong_thap_tren_sma200"
+    }
+   ]
+  },
+  {
+   "ea": "EvoLo_USDCAD_D1",
+   "symbol": "USDCAD#",
+   "khung": "D1",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "USDCAD.D1.ban_hap_thu_mua_duoi_sau_cu_soc_bien_do_khi_che_do_yen_tinh.vao0_trai_n50_vao0_phai_hang2.0_vao1_trai_n50_vao1_phai_hang1.5_vao2_trai_cua_cua_n14_vao2_trai_cua_n1_vao2_trai_n250_vao2_phai_hang0.5_ra0_phai_hang0.2_giu3",
+     "kd": 104,
+     "template": "ban_hap_thu_mua_duoi_sau_cu_soc_bien_do_khi_che_do_yen_tinh"
+    },
+    {
+     "i": 3,
+     "ten": "USDCAD.D1.mua_hap_thu_nen_giam_lon_khi_ibs_hoi_va_kl_cao_tren_sma100.vao0_trai_n50_vao0_phai_hang1.0_vao1_trai_n20_vao1_phai_hang0.5_vao2_phai_hang0.55_vao3_phai_n100_giu4",
+     "kd": 170,
+     "template": "mua_hap_thu_nen_giam_lon_khi_ibs_hoi_va_kl_cao_tren_sma100"
+    }
+   ]
+  },
+  {
+   "ea": "EvoLo_USDCAD_H1",
+   "symbol": "USDCAD#",
+   "khung": "H1",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "USDCAD.H1.ban_cham_dinh10_nen_giam_sau_khi_atr_rut_tu_dinh_duoi_sma200.vao0_phai_cua_n10_vao0_phai_n1_vao1_phai_hang0_vao2_trai_cua_cua_n14_vao2_trai_cua_n250_vao2_trai_n20_vao2_phai_hang0.8_vao3_trai_cua_n14_vao3_trai_n250_vao3_phai_hang0.5_vao4_phai_n200_ra0_phai_hang0.15_giu5",
+     "kd": 267,
+     "template": "ban_cham_dinh10_nen_giam_sau_khi_atr_rut_tu_dinh_duoi_sma200"
+    }
+   ]
+  },
+  {
+   "ea": "EvoLo_USDCAD_H4",
+   "symbol": "USDCAD#",
+   "khung": "H4",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "USDCAD.H4.mua_ibs_day_khoi_luong_dot_bien_trong_xu_huong_tang.vao0_phai_hang0.2_vao1_trai_n50_vao1_phai_hang1.5_vao2_phai_n200_ra0_phai_hang0.8_giu5",
+     "kd": 52,
+     "template": "mua_ibs_day_khoi_luong_dot_bien_trong_xu_huong_tang"
+    }
+   ]
+  },
+  {
+   "ea": "EvoLo_USDCHF_H4",
+   "symbol": "USDCHF#",
+   "khung": "H4",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "USDCHF.H4.mua_bar_bien_do_hep_nhat_20_dong_dinh_tren_sma200.vao0_trai_n20_vao0_phai_hang0.1_vao1_phai_hang0.7_vao2_phai_n200_giu5",
+     "kd": 85,
+     "template": "mua_bar_bien_do_hep_nhat_20_dong_dinh_tren_sma200"
+    }
+   ]
+  },
+  {
+   "ea": "EvoLo_USDJPY_H1",
+   "symbol": "USDJPY#",
+   "khung": "H1",
+   "co_che": [
+    {
+     "i": 0,
+     "ten": "__mua_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 1,
+     "ten": "__ban_giu__",
+     "kd": null,
+     "template": null
+    },
+    {
+     "i": 2,
+     "ten": "USDJPY.H1.mua_quet_day_20_bar_that_bai_khi_khoi_luong_mong.vao0_phai_cua_n20_vao0_phai_n1_vao1_phai_cua_n20_vao1_phai_n1_vao2_trai_n100_vao2_phai_hang0.4_giu4",
+     "kd": 9,
+     "template": "mua_quet_day_20_bar_that_bai_khi_khoi_luong_mong"
+    }
+   ]
+  }
+ ],
+ "bo": [
+  {
+   "kd": 7,
+   "template": "mua_ibs_cuc_thap_trong_xu_huong_dai_khi_bien_dong_tren_trung_vi",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 12,
+   "template": "mua_xa_hang_khoi_luong_cuc_dai_trong_xu_huong_tang",
+   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+  },
+  {
+   "kd": 22,
+   "template": "pha_vo_dinh_phien_a_luc_mo_london_khi_nen_chat",
+   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+  },
+  {
+   "kd": 23,
+   "template": "mua_hoi_khoi_luong_can_trong_xu_huong_tang",
+   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+  },
+  {
+   "kd": 27,
+   "template": "pha_vo_dau_phien_au_khi_dem_yen",
+   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+  },
+  {
+   "kd": 28,
+   "template": "cuoi_thang_mua_tai_san_tut_hau",
+   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+  },
+  {
+   "kd": 33,
+   "template": "dong_luong_giua_bo_top_khi_trung_binh_dai_tang",
+   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+  },
+  {
+   "kd": 48,
+   "template": "ban_khoang_trong_gia_giam_khi_che_do_yen_tinh",
+   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+  },
+  {
+   "kd": 53,
+   "template": "ban_ibs_dinh_khoi_luong_dot_bien_khi_bien_dong_cao_xu_huong_giam",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 58,
+   "template": "ban_bar_mo_rong_dong_day_khi_duoi_sma200",
+   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+  },
+  {
+   "kd": 60,
+   "template": "ban_lech_duong_ngan_khi_bien_dong_thap_duoi_sma200",
+   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+  },
+  {
+   "kd": 68,
+   "template": "ban_bar_giam_khoi_luong_dot_bien_dong_day_khi_yen_tinh",
+   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+  },
+  {
+   "kd": 71,
+   "template": "mua_nhip_chinh_ema20_khi_bien_dong_nen_tren_sma200",
+   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+  },
+  {
+   "kd": 72,
+   "template": "mua_bar_bien_do_cuc_dai_dong_tren_cao_tren_sma200",
+   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+  },
+  {
+   "kd": 88,
+   "template": "ban_zscore_duong_khi_bien_dong_thap_duoi_sma200",
+   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+  },
+  {
+   "kd": 90,
+   "template": "mua_hai_ngay_dau_thang_bien_dong_thap_tren_sma200",
+   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+  },
+  {
+   "kd": 93,
+   "template": "mua_quet_day_50_bar_khoi_luong_dot_bien_dong_nua_tren_tren_sma200",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 101,
+   "template": "mua_khoi_luong_dot_bien_dong_cao_hap_thu_tren_sma200",
+   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+  },
+  {
+   "kd": 109,
+   "template": "mua_hap_thu_cu_soc_giam_khi_dong_luong_60_khong_yeu",
+   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+  },
+  {
+   "kd": 119,
+   "template": "ban_dong_luong_20_cuc_doan_khi_bien_dong_nen_va_khoi_luong_mong",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 121,
+   "template": "mua_tiep_dien_dong_cua_sat_dinh_khi_dong_luong_120_manh_bien_dong_thap",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 122,
+   "template": "ban_tiep_dien_dong_cua_sat_day_khi_dong_luong_120_yeu_bien_dong_thap",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 124,
+   "template": "mua_ibs_thap_khi_rsi2_cuc_thap_bien_dong_vua_tren_sma200",
+   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+  },
+  {
+   "kd": 128,
+   "template": "mua_ibs_thap_khi_zscore_sau_va_bien_dong_phan_vi_thap_cheo_audnzd",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 141,
+   "template": "ban_ibs_cao_khoi_luong_mong_khi_atr_duoi_trung_vi_duoi_ema100",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 152,
+   "template": "mua_quet_day_20_that_bai_ibs_cao_khi_kl_mong_atr_thap",
+   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+  },
+  {
+   "kd": 169,
+   "template": "mua_day_donchian20_close_kl_mong_khi_doi_pct120_duong_atr_vua",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 173,
+   "template": "mua_nen_giam_bien_do_dot_bien_khi_atr_phan_vi_thap_tren_sma200",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 180,
+   "template": "mua_rau_nen_dai_tai_day_10_bar_khi_bien_do_phan_vi_cao_tren_sma200",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 181,
+   "template": "ban_doi_pct_5_bar_cuc_doan_khi_khoi_luong_phan_vi_thap_duoi_sma100",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 182,
+   "template": "mua_than_nen_giam_zscore_cuc_am_khi_dong_luong_120_duong_atr_vua",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 189,
+   "template": "mua_cheo_len_ema10_khi_doi_pct120_duong_do_lech_thap",
+   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+  },
+  {
+   "kd": 190,
+   "template": "ban_cheo_xuong_ema10_khi_doi_pct120_am_do_lech_thap",
+   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+  },
+  {
+   "kd": 193,
+   "template": "ban_doi_pct3_cao_khi_bien_do_phan_vi_thap_duoi_sma100",
+   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+  },
+  {
+   "kd": 197,
+   "template": "mua_cuoi_thang_khi_tren_sma50_bien_dong_thap",
+   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+  },
+  {
+   "kd": 198,
+   "template": "mua_bar_rong_dong_sat_day_khi_tren_sma150_va_doi_pct10_am",
+   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+  },
+  {
+   "kd": 200,
+   "template": "ban_khoi_luong_dot_bien_than_nen_tang_nho_duoi_sma200",
+   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+  },
+  {
+   "kd": 203,
+   "template": "mua_nhip_chinh_ibs_thap_khi_dong_luong_60_phan_vi_cao_bien_dong_thap",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 215,
+   "template": "mua_zscore20_am_khi_dong_luong_doi_pct60_phan_vi_cao_bien_do_thap",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 217,
+   "template": "ban_atr_phan_vi_cheo_len_0_85_duoi_ema50_khi_doi_pct60_am",
+   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+  },
+  {
+   "kd": 218,
+   "template": "mua_dong_luong_doi_pct20_phan_vi_cao_khi_bien_do_tb10_phan_vi_thap",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 220,
+   "template": "ban_zscore20_duong_cao_khi_kl_zscore_am_va_bien_do_phan_vi_thap",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 221,
+   "template": "mua_cheo_len_tre_cao_nhat5_sau_nhip_chinh_khi_dong_luong_120_duong",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 222,
+   "template": "mua_ibs_thap_kl_mong_khi_bien_do_tb20_phan_vi_thap_rsi14_tren_45",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 223,
+   "template": "ban_ibs_cao_kl_mong_khi_bien_do_tb20_phan_vi_thap_duoi_sma200",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 227,
+   "template": "mua_rau_cham_ema50_dong_tren_khi_doi_pct200_duong_atr_phan_vi_thap",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 228,
+   "template": "mua_bar_bien_do_zscore_cao_dong_nua_tren_duoi_sma50_khi_doi_pct250_duong",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 231,
+   "template": "ban_hoi_len_ema20_bi_tu_choi_khi_ema100_doc_xuong_bien_do_hep",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 244,
+   "template": "mua_doi_pct20_phan_vi_thap_kl_mong_khi_doi_pct250_phan_vi_cao",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 245,
+   "template": "ban_doi_pct20_phan_vi_cao_kl_mong_khi_doi_pct250_phan_vi_thap",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 246,
+   "template": "ban_zscore50_duong_kl_mong_sau_khi_atr_rut_tu_dinh_duoi_ema100",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 248,
+   "template": "mua_zscore50_am_sau_atr_rut_tu_dinh_khi_doi_pct250_phan_vi_cao",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 249,
+   "template": "ban_zscore50_duong_sau_atr_rut_tu_dinh_khi_doi_pct250_phan_vi_thap",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 251,
+   "template": "ban_rsi3_cao_sau_khi_atr_rut_tu_dinh_duoi_sma200",
+   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+  },
+  {
+   "kd": 252,
+   "template": "ban_zscore20_duong_khi_bien_do_tb10_phan_vi_thap_duoi_sma200",
+   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+  },
+  {
+   "kd": 253,
+   "template": "mua_zscore20_am_kl_mong_khi_bien_do_tb10_phan_vi_thap_tren_ema100",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 255,
+   "template": "mua_cham_day10_nen_tang_kl_mong_khi_atr_phan_vi_thap_tren_ema100",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 264,
+   "template": "mua_zscore100_am_cang_kl_mong_khi_atr_phan_vi_thap_tren_sma250",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 265,
+   "template": "ban_zscore100_duong_cang_kl_mong_khi_atr_phan_vi_thap_duoi_sma250",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 268,
+   "template": "mua_hai_bar_ibs_thap_sau_khi_atr_rut_tu_dinh_doi_pct120_duong",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 270,
+   "template": "mua_rsi3_thap_kl_mong_khi_bien_do_tb10_phan_vi_thap_tren_sma200",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 272,
+   "template": "mua_rsi3_thap_ibs_thap_khi_bien_do_tb10_phan_vi_thap_tren_ema100",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 273,
+   "template": "mua_rsi3_thap_khi_bien_do_tb10_phan_vi_thap_va_doi_pct250_phan_vi_cao",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 274,
+   "template": "mua_ibs_thap_kl_mong_khi_bien_do_tb10_phan_vi_thap_tren_sma200",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 275,
+   "template": "ban_rsi3_cao_kl_mong_khi_bien_do_tb10_phan_vi_thap_duoi_ema100",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 276,
+   "template": "ban_hai_bar_rsi3_cao_khi_bien_do_tb10_phan_vi_thap_duoi_sma200",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 277,
+   "template": "mua_rsi3_thap_khi_do_lech_loi_suat20_phan_vi_thap_tren_sma200",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 278,
+   "template": "mua_tut_ba_bar_phan_vi_thap_khi_bien_do_tb10_thap_tren_sma200",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 281,
+   "template": "mua_rsi3_thap_ibs_thap_khi_bien_do_tb10_phan_vi_thap_tren_sma200",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 282,
+   "template": "mua_rsi3_thap_khi_bien_do_tb10_thap_va_ema50_doc_len_tren_sma200",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 285,
+   "template": "mua_ibs_thap_kl_mong_khi_bien_do_tb10_thap_tren_sma200_audnzd",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 286,
+   "template": "mua_hai_bar_rsi3_thap_khi_bien_do_tb10_phan_vi_thap_tren_sma200",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  },
+  {
+   "kd": 287,
+   "template": "ban_rsi3_cao_kl_mong_khi_bien_do_tb10_thap_doi_pct250_phan_vi_thap",
+   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "so_gt": 0
+  }
+ ]
+}
