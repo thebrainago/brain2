@@ -48,3 +48,11 @@
 ## 5. Bài học vận hành MT5 (2026-11-15)
 - `nhan/dich_mq5` đã sửa: `InpGioTranh=0` (không khớp lệnh giờ server 0 – rollover), `InpChiDemo` (ngoài tester chỉ DEMO), đếm lại nến đã giữ khi khởi động lại.
 - Tester dùng chung `Bases` junction KHÔNG chạy song song (lỗi khoá [32] → xml rỗng). `Expert=EVO\<ea>.ex5` trong `[Tester]`. `US500Cash#`, `NZDCAD#` trên tài khoản này.
+
+## 6. Bài học quản lý lệnh / đòn bẩy US100 IBS (2026-11-15)
+- Đòn bẩy không thêm edge: PF/Sharpe giữ nguyên, CAGR và DD tăng cùng nhau. XM US100 D1 2016+: 1× 13.8%/năm DD 20.5%; 3× ~39%/năm DD 53%, năm xấu nhất −30%.
+- 32 cách thoát (SL/TP ATR, %, trailing, chốt sớm): không cách nào thắng bản gốc trên IS; SL chặt làm hệ hồi quy kém đi. "Thoát IBS>0.5" chỉ đẹp OOS (IS âm), là nhìn trộm.
+- Không SL / giữ đến hoà vốn: cháy ở 3× (2022-10, 1987); 1× vẫn kém gốc. Phí qua đêm ~6.5%/năm cộng dồn khi giữ lâu.
+- Cắt lỗ thảm hoạ 6–10% / ATR 3–5 và giảm lot theo VIX/vol: không qua IS, không giảm DD 3× OOS. Không đưa vào EA.
+- Giữ mua có đòn bẩy: 2–3× vỡ trần DD 80% (2000, 2022). Chỉ hợp lệ: US100 lọc SMA10 tháng, đứng ngoài khi dưới, 1–1.5× (OOS ~12%/năm DD ~41% ở 1.5×). US500 sau swap XM là kém.
+- XM: đòn bẩy 1:1000 nên stop-out 20% không đệm; ở 3× giá ngược ~33% là cháy. US100Cash# lot min/step 0.1.
