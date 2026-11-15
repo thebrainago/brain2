@@ -1,0 +1,4 @@
+ticker,pivots,at_target,near_sq9_at_target,near_sq9_not_target,near_mid_at_target,p_target_vs_not,p_sq9_vs_mid
+ES=F,8446,5893,47.5479,44.7709,49.3467,0.01,0.9678
+GC=F,6824,4799,40.9044,36.5926,41.8212,0.0005,0.7955
+^GSPC,8865,6261,42.4693,39.8618,43.4276,0.0123,0.8462
