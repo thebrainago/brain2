@@ -36,10 +36,15 @@
 - Gate "ăn khe rollover" PHẢI giữ (bỏ thì 88 pass giả).
 - Giả thuyết nên đăng ký trước, ít biến thể, có lý do kinh tế.
 
-## 4. Tình trạng ứng viên (2026-11-15)
+## 4. Tình trạng ứng viên (cập nhật 2026-11-15 12:05)
 - PASS THẬT: 0.
-- Sống sót MT5 (ứng viên mạnh, chờ forward demo): AUDCAD H4 IBS (MT5 PF 1.68, 10/11 cặp), EURUSD H4 mất cân bằng cuối phiên (MT5 PF 1.24, 150 lệnh, 10/11 cặp). ~1%/năm ở 1× danh nghĩa.
-- Rớt MT5: AUDNZD H1 vol cạn (PF 1.03), EURGBP D1 Keltner (0.85), GBPCAD D1 IBS đáy kép (0.67).
-- Đạt tiêu chí mới: 54 (kho chính) + 35/164 tồn (3 trong đó qua kiểm chéo cặp).
-- Tồn: 72 thiếu lệnh, 51 dương yếu, 6 ID cũ đổi tên chưa chấm.
-- US100 IBS (chỉ số CFD): ứng viên; MT5 2016–2026 PF 1.38, ~7.9%/năm ở 1×, 6/11 năm dương. Xem `docs/kien-thuc-thong-ke/ibs_us100_mt5_tester.md` (nhánh evo/thong-ke-kien-thuc).
+- **Forward demo đang chạy** (bắt đầu 15/11 11:29, `E:\evo_forward`, XM DEMO 345930355; xem `docs/evo/forward_demo.md`): AUDCAD H4 IBS (magic 26111501), EURUSD H4 mất cân bằng cuối phiên (26111502), US100 IBS D1 (26111503). Mới bắt đầu ⇒ chưa phải bằng chứng.
+- Sống sót MT5 trước đó: AUDCAD H4 IBS (PF 1.68), EURUSD H4 MOC (PF 1.24, 150 lệnh). ~1%/năm ở 1×.
+- Rớt MT5: AUDNZD H1 vol cạn (1.03), EURGBP D1 Keltner (0.85), GBPCAD D1 IBS đáy kép (0.67).
+- **Lô 289 khẳng định CHO_KIEM → MT5** (`docs/evo/mt5_lo_khang_dinh.md`): 216 chạy (`DA_KIEM_MT5`), 73 chưa có giả thuyết (giữ CHO_KIEM). 47/216 đạt 4 tiêu chí MT5 2016–2026 (PF lệnh, Sharpe năm, ≥30 lệnh, TB>0) – CHƯA pass: chồng in-sample, 216 phép thử, dồn AUDCAD H4.
+- Đạt tiêu chí Python đã sửa: 54 (kho chính) + 35/164 tồn.
+- US100 IBS (chỉ số CFD): ứng viên; MT5 2016–2026 PF 1.38, ~7.9%/năm ở 1×.
+
+## 5. Bài học vận hành MT5 (2026-11-15)
+- `nhan/dich_mq5` đã sửa: `InpGioTranh=0` (không khớp lệnh giờ server 0 – rollover), `InpChiDemo` (ngoài tester chỉ DEMO), đếm lại nến đã giữ khi khởi động lại.
+- Tester dùng chung `Bases` junction KHÔNG chạy song song (lỗi khoá [32] → xml rỗng). `Expert=EVO\<ea>.ex5` trong `[Tester]`. `US500Cash#`, `NZDCAD#` trên tài khoản này.

@@ -19,14 +19,14 @@ DB = os.environ.get("NAO_DB", "/workspace/brain2/nao.db")
 OUT = os.path.join(os.path.dirname(__file__), "out")
 SYM = {  # tai_san brain2 -> ten tren XM demo 345930355 (uu tien # roi micro)
     "XM_US100CASH": "US100Cash#", "US100CASH": "US100Cash#", "US100": "US100Cash#",
-    "US500CASH": "US500Cash", "US500": "US500Cash", "XM_US500CASH": "US500Cash",
+    "US500CASH": "US500Cash#", "US500": "US500Cash#", "XM_US500CASH": "US500Cash#",  # "US500Cash" khong co tren tai khoan nay
     "US30CASH": "US30Cash", "US30": "US30Cash", "DE40": "GER40Cash", "GER40": "GER40Cash",
     "GER40CASH": "GER40Cash", "XAUUSD": "GOLD.i#", "GOLD": "GOLD.i#", "UK100": "UK100Cash",
     "JP225": "JP225Cash", "EU50": "EU50Cash", "FRA40": "FRA40Cash",
 }
 CO_SAN = set("""AUDCAD# AUDCHF# AUDJPY# AUDNZD# AUDUSD# CADJPY# CHFJPY# EURAUD# EURCAD# EURCHF# EURGBP#
-EURUSD# GBPCAD# GBPNZD# GBPUSD# NZDUSD# USDCAD# USDCHF# USDJPY#""".split())
-MICRO = set("CADCHF EURJPY EURNZD GBPAUD GBPCHF GBPJPY NZDCAD NZDCHF NZDJPY".split())
+EURUSD# GBPCAD# GBPNZD# GBPUSD# NZDCAD# NZDUSD# USDCAD# USDCHF# USDJPY#""".split())
+MICRO = set("CADCHF EURJPY EURNZD GBPAUD GBPCHF GBPJPY NZDCHF NZDJPY".split())
 
 
 def ma_mt5(ts):
@@ -54,7 +54,9 @@ def main():
         t = k["gt_ma"]
         gts = [dict(r) for r in c.execute("SELECT ma, template, tham_so, tai_san, khung FROM gia_thuyet WHERE template=?", (t,))]
         if t not in kho:
-            bo.append({"kd": k["id"], "template": t, "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)", "so_gt": len(gts)}); continue
+            bo.append({"kd": k["id"], "template": t, "vi_sao": ("khong co trong kho DSL" + ("" if gts else " va chua co gia_thuyet nao")), "so_gt": len(gts)}); continue
+        if not gts:
+            bo.append({"kd": k["id"], "template": t, "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"}); continue
         gts = [g for g in gts if ma_mt5(g["tai_san"]) and g["khung"] in ("H1", "H4", "D1")]
         if not gts:
             bo.append({"kd": k["id"], "template": t, "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"}); continue

@@ -1569,7 +1569,7 @@
   },
   {
    "ea": "EvoLo_NZDCADmicro_H1",
-   "symbol": "NZDCADmicro",
+   "symbol": "NZDCAD#",
    "khung": "H1",
    "co_che": [
     {
@@ -1606,7 +1606,7 @@
   },
   {
    "ea": "EvoLo_US500Cash_D1",
-   "symbol": "US500Cash",
+   "symbol": "US500Cash#",
    "khung": "D1",
    "co_che": [
     {
@@ -1631,7 +1631,7 @@
   },
   {
    "ea": "EvoLo_US500Cash_H1",
-   "symbol": "US500Cash",
+   "symbol": "US500Cash#",
    "khung": "H1",
    "co_che": [
     {
@@ -1674,7 +1674,7 @@
   },
   {
    "ea": "EvoLo_US500Cash_H4",
-   "symbol": "US500Cash",
+   "symbol": "US500Cash#",
    "khung": "H4",
    "co_che": [
     {
@@ -1833,412 +1833,412 @@
   {
    "kd": 7,
    "template": "mua_ibs_cuc_thap_trong_xu_huong_dai_khi_bien_dong_tren_trung_vi",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 12,
    "template": "mua_xa_hang_khoi_luong_cuc_dai_trong_xu_huong_tang",
-   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+   "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"
   },
   {
    "kd": 22,
    "template": "pha_vo_dinh_phien_a_luc_mo_london_khi_nen_chat",
-   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+   "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"
   },
   {
    "kd": 23,
    "template": "mua_hoi_khoi_luong_can_trong_xu_huong_tang",
-   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+   "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"
   },
   {
    "kd": 27,
    "template": "pha_vo_dau_phien_au_khi_dem_yen",
-   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+   "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"
   },
   {
    "kd": 28,
    "template": "cuoi_thang_mua_tai_san_tut_hau",
-   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+   "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"
   },
   {
    "kd": 33,
    "template": "dong_luong_giua_bo_top_khi_trung_binh_dai_tang",
-   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+   "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"
   },
   {
    "kd": 48,
    "template": "ban_khoang_trong_gia_giam_khi_che_do_yen_tinh",
-   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+   "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"
   },
   {
    "kd": 53,
    "template": "ban_ibs_dinh_khoi_luong_dot_bien_khi_bien_dong_cao_xu_huong_giam",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 58,
    "template": "ban_bar_mo_rong_dong_day_khi_duoi_sma200",
-   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+   "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"
   },
   {
    "kd": 60,
    "template": "ban_lech_duong_ngan_khi_bien_dong_thap_duoi_sma200",
-   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+   "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"
   },
   {
    "kd": 68,
    "template": "ban_bar_giam_khoi_luong_dot_bien_dong_day_khi_yen_tinh",
-   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+   "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"
   },
   {
    "kd": 71,
    "template": "mua_nhip_chinh_ema20_khi_bien_dong_nen_tren_sma200",
-   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+   "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"
   },
   {
    "kd": 72,
    "template": "mua_bar_bien_do_cuc_dai_dong_tren_cao_tren_sma200",
-   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+   "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"
   },
   {
    "kd": 88,
    "template": "ban_zscore_duong_khi_bien_dong_thap_duoi_sma200",
-   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+   "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"
   },
   {
    "kd": 90,
    "template": "mua_hai_ngay_dau_thang_bien_dong_thap_tren_sma200",
-   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+   "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"
   },
   {
    "kd": 93,
    "template": "mua_quet_day_50_bar_khoi_luong_dot_bien_dong_nua_tren_tren_sma200",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 101,
    "template": "mua_khoi_luong_dot_bien_dong_cao_hap_thu_tren_sma200",
-   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+   "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"
   },
   {
    "kd": 109,
    "template": "mua_hap_thu_cu_soc_giam_khi_dong_luong_60_khong_yeu",
-   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+   "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"
   },
   {
    "kd": 119,
    "template": "ban_dong_luong_20_cuc_doan_khi_bien_dong_nen_va_khoi_luong_mong",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 121,
    "template": "mua_tiep_dien_dong_cua_sat_dinh_khi_dong_luong_120_manh_bien_dong_thap",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 122,
    "template": "ban_tiep_dien_dong_cua_sat_day_khi_dong_luong_120_yeu_bien_dong_thap",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 124,
    "template": "mua_ibs_thap_khi_rsi2_cuc_thap_bien_dong_vua_tren_sma200",
-   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+   "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"
   },
   {
    "kd": 128,
    "template": "mua_ibs_thap_khi_zscore_sau_va_bien_dong_phan_vi_thap_cheo_audnzd",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 141,
    "template": "ban_ibs_cao_khoi_luong_mong_khi_atr_duoi_trung_vi_duoi_ema100",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 152,
    "template": "mua_quet_day_20_that_bai_ibs_cao_khi_kl_mong_atr_thap",
-   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+   "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"
   },
   {
    "kd": 169,
    "template": "mua_day_donchian20_close_kl_mong_khi_doi_pct120_duong_atr_vua",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 173,
    "template": "mua_nen_giam_bien_do_dot_bien_khi_atr_phan_vi_thap_tren_sma200",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 180,
    "template": "mua_rau_nen_dai_tai_day_10_bar_khi_bien_do_phan_vi_cao_tren_sma200",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 181,
    "template": "ban_doi_pct_5_bar_cuc_doan_khi_khoi_luong_phan_vi_thap_duoi_sma100",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 182,
    "template": "mua_than_nen_giam_zscore_cuc_am_khi_dong_luong_120_duong_atr_vua",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 189,
    "template": "mua_cheo_len_ema10_khi_doi_pct120_duong_do_lech_thap",
-   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+   "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"
   },
   {
    "kd": 190,
    "template": "ban_cheo_xuong_ema10_khi_doi_pct120_am_do_lech_thap",
-   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+   "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"
   },
   {
    "kd": 193,
    "template": "ban_doi_pct3_cao_khi_bien_do_phan_vi_thap_duoi_sma100",
-   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+   "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"
   },
   {
    "kd": 197,
    "template": "mua_cuoi_thang_khi_tren_sma50_bien_dong_thap",
-   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+   "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"
   },
   {
    "kd": 198,
    "template": "mua_bar_rong_dong_sat_day_khi_tren_sma150_va_doi_pct10_am",
-   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+   "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"
   },
   {
    "kd": 200,
    "template": "ban_khoi_luong_dot_bien_than_nen_tang_nho_duoi_sma200",
-   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+   "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"
   },
   {
    "kd": 203,
    "template": "mua_nhip_chinh_ibs_thap_khi_dong_luong_60_phan_vi_cao_bien_dong_thap",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 215,
    "template": "mua_zscore20_am_khi_dong_luong_doi_pct60_phan_vi_cao_bien_do_thap",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 217,
    "template": "ban_atr_phan_vi_cheo_len_0_85_duoi_ema50_khi_doi_pct60_am",
-   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+   "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"
   },
   {
    "kd": 218,
    "template": "mua_dong_luong_doi_pct20_phan_vi_cao_khi_bien_do_tb10_phan_vi_thap",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 220,
    "template": "ban_zscore20_duong_cao_khi_kl_zscore_am_va_bien_do_phan_vi_thap",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 221,
    "template": "mua_cheo_len_tre_cao_nhat5_sau_nhip_chinh_khi_dong_luong_120_duong",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 222,
    "template": "mua_ibs_thap_kl_mong_khi_bien_do_tb20_phan_vi_thap_rsi14_tren_45",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 223,
    "template": "ban_ibs_cao_kl_mong_khi_bien_do_tb20_phan_vi_thap_duoi_sma200",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 227,
    "template": "mua_rau_cham_ema50_dong_tren_khi_doi_pct200_duong_atr_phan_vi_thap",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 228,
    "template": "mua_bar_bien_do_zscore_cao_dong_nua_tren_duoi_sma50_khi_doi_pct250_duong",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 231,
    "template": "ban_hoi_len_ema20_bi_tu_choi_khi_ema100_doc_xuong_bien_do_hep",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 244,
    "template": "mua_doi_pct20_phan_vi_thap_kl_mong_khi_doi_pct250_phan_vi_cao",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 245,
    "template": "ban_doi_pct20_phan_vi_cao_kl_mong_khi_doi_pct250_phan_vi_thap",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 246,
    "template": "ban_zscore50_duong_kl_mong_sau_khi_atr_rut_tu_dinh_duoi_ema100",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 248,
    "template": "mua_zscore50_am_sau_atr_rut_tu_dinh_khi_doi_pct250_phan_vi_cao",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 249,
    "template": "ban_zscore50_duong_sau_atr_rut_tu_dinh_khi_doi_pct250_phan_vi_thap",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 251,
    "template": "ban_rsi3_cao_sau_khi_atr_rut_tu_dinh_duoi_sma200",
-   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+   "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"
   },
   {
    "kd": 252,
    "template": "ban_zscore20_duong_khi_bien_do_tb10_phan_vi_thap_duoi_sma200",
-   "vi_sao": "khong co gia_thuyet tren ma/khung chay duoc tren XM"
+   "vi_sao": "DSL co nhung chua co gia_thuyet (chua chon tai san/tham so)"
   },
   {
    "kd": 253,
    "template": "mua_zscore20_am_kl_mong_khi_bien_do_tb10_phan_vi_thap_tren_ema100",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 255,
    "template": "mua_cham_day10_nen_tang_kl_mong_khi_atr_phan_vi_thap_tren_ema100",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 264,
    "template": "mua_zscore100_am_cang_kl_mong_khi_atr_phan_vi_thap_tren_sma250",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 265,
    "template": "ban_zscore100_duong_cang_kl_mong_khi_atr_phan_vi_thap_duoi_sma250",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 268,
    "template": "mua_hai_bar_ibs_thap_sau_khi_atr_rut_tu_dinh_doi_pct120_duong",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 270,
    "template": "mua_rsi3_thap_kl_mong_khi_bien_do_tb10_phan_vi_thap_tren_sma200",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 272,
    "template": "mua_rsi3_thap_ibs_thap_khi_bien_do_tb10_phan_vi_thap_tren_ema100",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 273,
    "template": "mua_rsi3_thap_khi_bien_do_tb10_phan_vi_thap_va_doi_pct250_phan_vi_cao",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 274,
    "template": "mua_ibs_thap_kl_mong_khi_bien_do_tb10_phan_vi_thap_tren_sma200",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 275,
    "template": "ban_rsi3_cao_kl_mong_khi_bien_do_tb10_phan_vi_thap_duoi_ema100",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 276,
    "template": "ban_hai_bar_rsi3_cao_khi_bien_do_tb10_phan_vi_thap_duoi_sma200",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 277,
    "template": "mua_rsi3_thap_khi_do_lech_loi_suat20_phan_vi_thap_tren_sma200",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 278,
    "template": "mua_tut_ba_bar_phan_vi_thap_khi_bien_do_tb10_thap_tren_sma200",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 281,
    "template": "mua_rsi3_thap_ibs_thap_khi_bien_do_tb10_phan_vi_thap_tren_sma200",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 282,
    "template": "mua_rsi3_thap_khi_bien_do_tb10_thap_va_ema50_doc_len_tren_sma200",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 285,
    "template": "mua_ibs_thap_kl_mong_khi_bien_do_tb10_thap_tren_sma200_audnzd",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 286,
    "template": "mua_hai_bar_rsi3_thap_khi_bien_do_tb10_phan_vi_thap_tren_sma200",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   },
   {
    "kd": 287,
    "template": "ban_rsi3_cao_kl_mong_khi_bien_do_tb10_thap_doi_pct250_phan_vi_thap",
-   "vi_sao": "khong phai DSL (mau viet tay nhan/mau.py hoac da xoa khoi kho)",
+   "vi_sao": "khong co trong kho DSL va chua co gia_thuyet nao",
    "so_gt": 0
   }
  ]
