@@ -56,3 +56,12 @@
 - Cắt lỗ thảm hoạ 6–10% / ATR 3–5 và giảm lot theo VIX/vol: không qua IS, không giảm DD 3× OOS. Không đưa vào EA.
 - Giữ mua có đòn bẩy: 2–3× vỡ trần DD 80% (2000, 2022). Chỉ hợp lệ: US100 lọc SMA10 tháng, đứng ngoài khi dưới, 1–1.5× (OOS ~12%/năm DD ~41% ở 1.5×). US500 sau swap XM là kém.
 - XM: đòn bẩy 1:1000 nên stop-out 20% không đệm; ở 3× giá ngược ~33% là cháy. US100Cash# lot min/step 0.1.
+
+## 7. Tám giả thuyết đã công bố, tiền đăng ký (2026-11-15)
+- Đóng băng 8 luật trước test (nhánh `evo/gia-thuyet-chon-loc`, commit tiền đăng ký `a1315ae`, kết quả `a895f15`). IS < 2016, OOS 2016+ nhìn một lần, phí XM đo trên p4 DEMO, BH N=8. **Không giả thuyết nào sống sót** (cửa OOS và q_BH ≤ 0.05). Không viết EA, không gắn forward demo.
+- IBS rổ equal-risk US100+US500+US30 không hơn US100 đơn: OOS 5.7%/năm, p = 0.16, IS vẫn lỗ nặng. US500 IBS đơn OOS p = 0.051 (trượt cửa), yếu hơn US100 đơn cùng luật (p = 0.073, cũng trượt p trong bài này).
+- Overnight close→open bị spread + financing XM (~6.5%/năm) ăn hết; OOS Sharpe âm.
+- SMA 10 tháng 1× US100 OOS ~8%/năm nhưng p = 0.46: drift dài hạn, không phải edge vào lệnh (khớp bài 6).
+- IBS không lặp lại trên GER40/JP225/UK100/XAU/AUDCAD (rổ equal-weight OOS Sharpe −0.10, p = 0.91).
+- Hai ô xác nhận đạt cửa OOS thô (US30 IBS đơn; XAU TOM) **không** nằm trong 8 p chính — không được chọn sau khi nhìn, không đưa vào EA. Muốn xét phải tiền đăng ký lại.
+- Chi tiết: `docs/evo/PREREG_GIA_THUYET_2026-11-15.md` và `docs/evo/PREREG_GIA_THUYET_2026-11-15_KET_QUA.md` trên nhánh `evo/gia-thuyet-chon-loc`.
