@@ -1,0 +1,57 @@
+{
+  "frozen_at": "2026-11-15T12:57:00+07:00",
+  "n_fdr": 8,
+  "alpha": 0.05,
+  "is_end_exclusive": "2016-01-01",
+  "fill": "next_open unless noted",
+  "hypotheses": {
+    "a_ibs_pool": {
+      "primary": "equal_risk_pool_US100_US500_US30",
+      "ibs_buy": 0.2,
+      "ibs_exit": 0.8,
+      "max_bars": 4,
+      "weights": "inv_20d_vol_causal"
+    },
+    "b_tom_pool": {
+      "primary": "equal_risk_pool_US100_US500_US30",
+      "hold": "open of day -1 through open of day +4"
+    },
+    "c_rsi2_us100": {
+      "rsi_n": 2,
+      "rsi_buy": 10,
+      "rsi_exit": 70,
+      "sma": 200,
+      "primary": "US100"
+    },
+    "d_5daylow_us100": {
+      "n": 5,
+      "hold_bars": 5,
+      "primary": "US100"
+    },
+    "e_overnight_us100": {
+      "entry": "cash_close",
+      "exit": "next_open",
+      "primary": "US100"
+    },
+    "f_holiday_fomc_us100": {
+      "holiday": "open pre-holiday to next session open",
+      "fomc": "close T-1 to close T",
+      "primary": "US100"
+    },
+    "g_sma10m_us100": {
+      "sma_months": 10,
+      "k": 1.0,
+      "primary": "US100"
+    },
+    "h_ibs_intl_ew_pool": {
+      "rules": "same as a IBS",
+      "members": [
+        "GER40",
+        "JP225",
+        "UK100",
+        "XAU"
+      ],
+      "weights": "equal"
+    }
+  }
+}
