@@ -1,0 +1,131 @@
+//@version=6
+// ============================================================================
+// Session Probability Map — Bản đồ xác suất theo mốc ngày (Vàng / ES / SPX RTH)
+// Xác suất HARDCODE từ Test 5 (nến 1h Yahoo):
+//   GC=F, ES=F: 17/07/2024 → 13/11/2026 (582 ngày, ngày futures 18:00 NY)
+//   ^GSPC RTH : 10/01/2024 → 13/11/2026 (707 ngày)
+// Đây là TẦN SUẤT LỊCH SỬ "chạm trong ngày", KHÔNG phải tín hiệu có lợi thế:
+// mọi mốc đều chạm đúng bằng tỷ lệ của khoảng cách (ATR) — dùng để đặt TP thực tế.
+// Dùng trên khung intraday (1m–1h). Nến D của chart phải khớp định nghĩa ngày:
+//   CME GC/ES/MGC/MES: ngày 18:00 NY (khớp) · XAUUSD broker: 17:00 NY (gần đúng)
+//   SPX/SPY phiên chính: nến D = RTH (khớp)
+// ============================================================================
+indicator("Session Prob Map (Vàng/ES/SPX)", overlay = true, max_labels_count = 50)
+
+// ---------- Input ----------
+preset   = input.string("Tự động", "Bộ số liệu", options = ["Tự động", "Vàng", "ES futures", "SPX RTH"])
+showAtr  = input.bool(true, "Vẽ open ±0,25 / ±0,5 ATR")
+showFH   = input.bool(true, "Vẽ đỉnh/đáy giờ đầu")
+fhMins   = input.int(60, "Độ dài 'giờ đầu' (phút)", minval = 5)
+showTbl  = input.bool(true, "Bảng tóm tắt")
+
+// ---------- Chọn bộ số ----------
+string tk = str.upper(syminfo.ticker)
+int set = preset == "Vàng" ? 0 : preset == "ES futures" ? 1 : preset == "SPX RTH" ? 2 :
+     (str.contains(tk, "XAU") or str.contains(tk, "GC") or str.contains(tk, "GOLD")) ? 0 :
+     (str.contains(tk, "SPX") or str.contains(tk, "SPY") or str.contains(tk, "US500")) ? 2 : 1
+
+// Thứ tự: PDC, PDH, PDL, PDM, +0.25ATR, -0.25ATR, +0.5ATR, -0.5ATR, quay lại open sau giờ đầu,
+//         đỉnh GĐ bị vượt, đáy GĐ bị thủng, [GĐ tăng] đỉnh, [GĐ tăng] đáy, [GĐ giảm] đỉnh, [GĐ giảm] đáy,
+//         PDH hoặc PDL, [gap lên] PDH, [gap lên] PDL, [gap xuống] PDH, [gap xuống] PDL
+var array<float> pGold = array.from(93.6, 52.9, 44.0, 67.2, 71.1, 64.4, 41.8, 39.0, 89.2, 88.5, 85.2, 93.3, 79.5, 83.5, 91.2, 87.3, 53.5, 42.4, 52.3, 45.6)
+var array<float> pES   = array.from(92.1, 56.4, 45.0, 67.5, 66.5, 64.1, 39.9, 38.5, 90.7, 92.1, 86.2, 94.3, 80.9, 89.8, 91.9, 88.0, 58.3, 39.0, 54.3, 51.4)
+var array<float> pSPX  = array.from(57.8, 57.8, 43.0, 52.0, 61.2, 60.7, 34.0, 35.9, 58.6, 64.5, 59.4, 81.5, 42.1, 46.5, 77.6, 90.1, 75.9, 25.0, 29.5, 71.3)
+p(int i) => set == 0 ? pGold.get(i) : set == 1 ? pES.get(i) : pSPX.get(i)
+string setName = set == 0 ? "Vàng (GC 18:00 NY)" : set == 1 ? "ES (18:00 NY)" : "SPX RTH"
+
+// ---------- Dữ liệu ngày (không repaint: dùng [1] + lookahead_on) ----------
+[pdc, pdh, pdl, atrD] = request.security(syminfo.tickerid, "D", [close[1], high[1], low[1], ta.rma(ta.tr(true), 14)[1]], lookahead = barmerge.lookahead_on)
+pdm = (pdh + pdl) / 2
+
+// ---------- Theo dõi trong ngày ----------
+bool newDay = timeframe.change("D")
+var float dOpen = na
+var int   dStart = na
+var float fhHi = na
+var float fhLo = na
+var bool  fhDone = false
+var float hiD = na
+var float loD = na
+var bool  openRetest = false
+if newDay
+    dOpen := open
+    dStart := time
+    fhHi := high
+    fhLo := low
+    fhDone := false
+    hiD := high
+    loD := low
+    openRetest := false
+else
+    hiD := math.max(hiD, high)
+    loD := math.min(loD, low)
+    if not fhDone and time < dStart + fhMins * 60000
+        fhHi := math.max(fhHi, high)
+        fhLo := math.min(fhLo, low)
+    else if not fhDone
+        fhDone := true
+    if fhDone and low <= dOpen and high >= dOpen
+        openRetest := true
+// Hướng giờ đầu: so giá đóng cửa cuối giờ đầu với open ngày
+var float fhClose = na
+if newDay or not fhDone
+    fhClose := close   // giá đóng của nến cuối cùng thuộc giờ đầu
+bool fhUp = fhClose >= dOpen
+bool gapUp = dOpen >= pdc
+
+// ---------- Vẽ ----------
+plot(dOpen, "Open ngày", color.yellow, 2, plot.style_linebr)
+plot(pdc, "PDC", color.orange, 1, plot.style_linebr)
+plot(pdh, "PDH", color.teal, 1, plot.style_linebr)
+plot(pdl, "PDL", color.red, 1, plot.style_linebr)
+plot(pdm, "PDM", color.gray, 1, plot.style_linebr)
+plot(showAtr ? dOpen + 0.25 * atrD : na, "+0,25 ATR", color.new(color.lime, 40), 1, plot.style_linebr)
+plot(showAtr ? dOpen - 0.25 * atrD : na, "-0,25 ATR", color.new(color.fuchsia, 40), 1, plot.style_linebr)
+plot(showAtr ? dOpen + 0.5 * atrD : na, "+0,5 ATR", color.new(color.lime, 70), 1, plot.style_linebr)
+plot(showAtr ? dOpen - 0.5 * atrD : na, "-0,5 ATR", color.new(color.fuchsia, 70), 1, plot.style_linebr)
+plot(showFH and fhDone ? fhHi : na, "Đỉnh giờ đầu", color.aqua, 1, plot.style_linebr)
+plot(showFH and fhDone ? fhLo : na, "Đáy giờ đầu", color.aqua, 1, plot.style_linebr)
+
+// ---------- Nhãn ở nến cuối ----------
+f_txt(string name, float lvl, float prob) =>
+    bool hit = lvl <= hiD and lvl >= loD
+    name + " " + str.tostring(prob, "#.#") + "%" + (hit ? " ✔" : "")
+var array<label> labs = array.new<label>()
+if barstate.islast
+    for l in labs
+        label.delete(l)
+    labs.clear()
+    float pH = gapUp ? p(16) : p(18)
+    float pL = gapUp ? p(17) : p(19)
+    labs.push(label.new(bar_index + 2, pdc, f_txt("PDC", pdc, p(0)), style = label.style_label_left, color = color.new(color.orange, 70), textcolor = color.white, size = size.small))
+    labs.push(label.new(bar_index + 2, pdh, f_txt("PDH", pdh, pH), style = label.style_label_left, color = color.new(color.teal, 70), textcolor = color.white, size = size.small))
+    labs.push(label.new(bar_index + 2, pdl, f_txt("PDL", pdl, pL), style = label.style_label_left, color = color.new(color.red, 70), textcolor = color.white, size = size.small))
+    labs.push(label.new(bar_index + 2, pdm, f_txt("PDM", pdm, p(3)), style = label.style_label_left, color = color.new(color.gray, 70), textcolor = color.white, size = size.small))
+    if showAtr
+        labs.push(label.new(bar_index + 2, dOpen + 0.25 * atrD, f_txt("+0,25ATR", dOpen + 0.25 * atrD, p(4)), style = label.style_label_left, color = color.new(color.lime, 70), textcolor = color.white, size = size.small))
+        labs.push(label.new(bar_index + 2, dOpen - 0.25 * atrD, f_txt("-0,25ATR", dOpen - 0.25 * atrD, p(5)), style = label.style_label_left, color = color.new(color.fuchsia, 70), textcolor = color.white, size = size.small))
+        labs.push(label.new(bar_index + 2, dOpen + 0.5 * atrD, f_txt("+0,5ATR", dOpen + 0.5 * atrD, p(6)), style = label.style_label_left, color = color.new(color.lime, 85), textcolor = color.white, size = size.small))
+        labs.push(label.new(bar_index + 2, dOpen - 0.5 * atrD, f_txt("-0,5ATR", dOpen - 0.5 * atrD, p(7)), style = label.style_label_left, color = color.new(color.fuchsia, 85), textcolor = color.white, size = size.small))
+    if showFH and fhDone
+        float pfh = fhUp ? p(11) : p(13)
+        float pfl = fhUp ? p(12) : p(14)
+        labs.push(label.new(bar_index + 2, fhHi, "Đỉnh GĐ bị vượt " + str.tostring(pfh, "#.#") + "%" + (hiD > fhHi ? " ✔" : ""), style = label.style_label_left, color = color.new(color.aqua, 70), textcolor = color.white, size = size.small))
+        labs.push(label.new(bar_index + 2, fhLo, "Đáy GĐ bị thủng " + str.tostring(pfl, "#.#") + "%" + (loD < fhLo ? " ✔" : ""), style = label.style_label_left, color = color.new(color.aqua, 70), textcolor = color.white, size = size.small))
+    labs.push(label.new(bar_index + 2, dOpen, "Open" + (fhDone ? " · quay lại sau GĐ " + str.tostring(p(8), "#.#") + "%" + (openRetest ? " ✔" : "") : ""), style = label.style_label_left, color = color.new(color.yellow, 70), textcolor = color.white, size = size.small))
+
+// ---------- Bảng ----------
+var table tb = table.new(position.top_right, 2, 6, bgcolor = color.new(color.black, 30), border_width = 1)
+if showTbl and barstate.islast
+    tb.cell(0, 0, setName, text_color = color.white)
+    tb.cell(1, 0, gapUp ? "Gap ≥ PDC" : "Gap < PDC", text_color = color.white)
+    tb.cell(0, 1, "PDH hoặc PDL bị lấy", text_color = color.white)
+    tb.cell(1, 1, str.tostring(p(15), "#.#") + "%", text_color = color.white)
+    tb.cell(0, 2, "±0,5 ATR cả 2 phía", text_color = color.white)
+    tb.cell(1, 2, set == 0 ? "5,7%" : set == 1 ? "6,5%" : "4,2%", text_color = color.white)
+    tb.cell(0, 3, "Giờ đầu", text_color = color.white)
+    tb.cell(1, 3, fhDone ? (fhUp ? "Tăng" : "Giảm") : "đang chạy", text_color = color.white)
+    tb.cell(0, 4, "Mẫu", text_color = color.gray)
+    tb.cell(1, 4, set == 2 ? "01/2024–11/2026" : "07/2024–11/2026", text_color = color.gray)
+    tb.cell(0, 5, "Tần suất lịch sử,", text_color = color.gray)
+    tb.cell(1, 5, "không phải edge", text_color = color.gray)

@@ -1,0 +1,58 @@
+//@version=6
+// =====================================================================================
+// IBS Mean-Reversion (S&P 500) – ứng viên tốt nhất Vòng 7
+// Quy tắc ĐÃ KIỂM ĐỊNH (Python, ES=F daily 2000-2026, IS<2016<=OOS):
+//   IBS = (Close - Low) / (High - Low)  của nến ngày vừa đóng.
+//   Nếu IBS < 0.20  -> MUA 1 đơn vị, giữ 1 phiên. Phiên sau nếu IBS vẫn < 0.20 thì giữ tiếp, ngược lại đóng lệnh.
+//   Chỉ Long. Không stop-loss, không chốt lời (đúng như bản đã test).
+// Khớp lệnh: mặc định ở OPEN nến kế tiếp (trên ES1! daily = giá mở lại phiên Globex ~18:00 ET,
+//   gần như bằng close). Kết quả test: Sharpe IS 0.60 / OOS 0.88, PF OOS 1.70, ~16% thời gian có vị thế.
+// LƯU Ý: dùng cho ES1!/MES1!/SPX/US500 khung D. KHÔNG có edge trên vàng (đã test, thất bại khi khớp open thật).
+// Bộ lọc VIX/SMA200 bên dưới MẶC ĐỊNH TẮT – bật lên là ngoài phạm vi đã kiểm định chính.
+// =====================================================================================
+strategy("IBS MeanRev S&P (R7)", overlay = true, initial_capital = 100000,
+     default_qty_type = strategy.fixed, default_qty_value = 1,
+     commission_type = strategy.commission.cash_per_contract, commission_value = 2.5,
+     slippage = 1,                       // 1 tick mỗi phía (ES: 0.25 điểm) – thận trọng hơn mức 1/2 spread đã test
+     process_orders_on_close = false,    // false = khớp OPEN nến sau (bản 'open' đã test)
+     pyramiding = 0)
+
+// ---------- Tham số ----------
+ibsThr     = input.float(0.20, "Ngưỡng IBS (mua khi IBS < ngưỡng)", minval = 0.01, maxval = 0.5, step = 0.01)
+useSma     = input.bool(false, "Lọc: chỉ mua khi Close > SMA200 (chưa kiểm định chính)")
+useVix     = input.bool(false, "Lọc: chỉ mua khi VIX > 20 (đã test phụ: OOS Sharpe 0.72, ít lệnh hơn)")
+vixLevel   = input.float(20.0, "Mức VIX", step = 0.5)
+startYear  = input.int(2000, "Bắt đầu backtest từ năm", minval = 1990)
+
+// ---------- Tính IBS (chỉ dùng nến đã đóng => không repaint) ----------
+rng   = high - low
+ibs   = rng > 0 ? (close - low) / rng : 0.5
+sma200 = ta.sma(close, 200)
+vix   = request.security("CBOE:VIX", timeframe.period, close, lookahead = barmerge.lookahead_off)
+
+okSma = not useSma or close > sma200
+okVix = not useVix or vix > vixLevel
+inWin = year >= startYear
+
+signal = barstate.isconfirmed and inWin and ibs < ibsThr and okSma and okVix
+
+// ---------- Lệnh ----------
+// Tín hiệu tại close nến t -> lệnh khớp ở OPEN nến t+1 (process_orders_on_close = false)
+if signal and strategy.position_size == 0
+    strategy.entry("IBS_L", strategy.long)
+// Đang giữ: nếu nến vừa đóng KHÔNG còn IBS thấp -> đóng ở OPEN nến sau (giữ đúng 1 phiên như bản test)
+if strategy.position_size > 0 and not signal and barstate.isconfirmed
+    strategy.close("IBS_L", comment = "Hết 1 phiên")
+
+// ---------- Hiển thị ----------
+plotshape(signal, "Tín hiệu IBS thấp", shape.triangleup, location.belowbar, color.new(color.teal, 0), size = size.tiny)
+bgcolor(strategy.position_size > 0 ? color.new(color.teal, 88) : na, title = "Đang có vị thế")
+
+var table tb = table.new(position.top_right, 2, 3, bgcolor = color.new(color.black, 20), border_width = 1)
+if barstate.islast
+    table.cell(tb, 0, 0, "IBS hôm nay", text_color = color.white)
+    table.cell(tb, 1, 0, str.tostring(ibs, "#.##"), text_color = ibs < ibsThr ? color.lime : color.white)
+    table.cell(tb, 0, 1, "Ngưỡng", text_color = color.white)
+    table.cell(tb, 1, 1, str.tostring(ibsThr, "#.##"), text_color = color.white)
+    table.cell(tb, 0, 2, "VIX", text_color = color.white)
+    table.cell(tb, 1, 2, str.tostring(vix, "#.#"), text_color = vix > vixLevel ? color.orange : color.white)
