@@ -52,6 +52,22 @@ def chi_so(loi: np.ndarray, index: pd.DatetimeIndex, vi_the: np.ndarray | None =
         "so_nam": round(so_nam, 2),
         "so_bar": int(len(loi)),
     }
+    if vi_the is not None and len(vi_the) == len(loi):
+        # SUA 15/11/2026 (Evo): "pf" o tren la PF THEO BAR (moi bar giu lenh la mot
+        # mau). Voi lenh giu nhieu bar, nhieu trong tung bar triet tieu khi cong theo
+        # lenh, nen PF bar bi keo ve ~1 (PF lenh 1,5 co the chi con 1,1 theo bar).
+        # Chuan chung (PF >= 1,2) va Myfxbook deu la PF THEO LENH: gop moi doan phoi
+        # nhiem cung dau lien tuc (ca chuoi DCA/nhoi lenh) thanh mot lenh.
+        s = np.sign(np.round(np.asarray(vi_the, dtype=float), 12))
+        moc = np.flatnonzero(np.diff(np.concatenate(([0.0], s, [0.0]))) != 0)
+        n_ = len(s)   # bar b (phoi nhiem ve 0) mang phi chieu RA -> thuoc ve lenh vua dong
+        lt = np.array([loi[a:(b + 1 if b < n_ and s[b] == 0 else b)].sum()
+                       for a, b in zip(moc[:-1], moc[1:]) if s[a] != 0])
+        if lt.size:
+            th, tl = float(lt[lt > 0].sum()), float(-lt[lt < 0].sum())
+            ra["so_lenh_gio"] = int(lt.size)
+            ra["pf_lenh"] = round(th / tl, 3) if tl > 1e-12 else None
+            ra["tb_lenh_pct"] = round(float(lt.mean() * 100), 4)
     if vi_the is not None:
         ra["phoi_nhiem"] = round(float(np.mean(np.abs(vi_the))), 4)
         ra["ty_le_mua"] = round(float(np.mean(vi_the > 0)), 4)

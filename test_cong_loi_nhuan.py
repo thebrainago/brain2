@@ -84,3 +84,15 @@ class CongLoiNhuan(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+
+def test_evo_pf_lenh_va_p_gop():
+    """15/11/2026: PF theo lenh (khong theo bar) + placebo tra p gop."""
+    import numpy as np, pandas as pd
+    from nhan import do_luong as DO
+    idx = pd.date_range("2020-01-01", periods=8, freq="h")
+    v = np.array([0, 1, 1, 0, 1, 1, 0, 0.0])
+    loi = np.array([0, 0.02, -0.01, -0.001, -0.01, 0.005, -0.001, 0.0])
+    cs = DO.chi_so(loi, idx, v)
+    assert cs["so_lenh_gio"] == 2
+    assert abs(cs["pf_lenh"] - 0.009 / 0.006) < 1e-9

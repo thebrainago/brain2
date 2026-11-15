@@ -303,6 +303,7 @@ def placebo(df, kq_he, cp, n_boot: int | None = None, so_hat: int | None = None,
     v = kq_he.vi_the
     that = float(np.nansum(kq_he.loi))
     dk = _do_dai_khoi(v)
+    dem: list = []      # (hat, so lan vuot, so luot) - de gop p (Evo 15/11/2026)
 
     def _mot_hat(sinh, hat: int, so_luot: int):
         rng = np.random.default_rng(1000 + hat * 7919)
@@ -313,6 +314,7 @@ def placebo(df, kq_he, cp, n_boot: int | None = None, so_hat: int | None = None,
             if float(np.nansum(kg.loi)) >= that:
                 vuot += 1
             v_cuoi = vg
+        dem.append((hat, vuot, so_luot))
         return (vuot + 1) / (so_luot + 1), v_cuoi
 
     _qv = lambda x, r: null_quay_vong(x, r)                    # noqa: E731
@@ -345,8 +347,17 @@ def placebo(df, kq_he, cp, n_boot: int | None = None, so_hat: int | None = None,
     bs_hop_le = bool(ks and min(ks) > 0.01)
     if ks and not bs_hop_le:
         ps = ps[:len(chi_tiet["quay_vong"])]     # bo phan bootstrap khoi ket luan
+        dem = dem[:len(chi_tiet["quay_vong"])]
+    # SUA 15/11/2026 (Evo): truoc day ket luan = max(p tung hat), ~6 uoc luong p
+    # moi cai 99-199 luot. Max cua 6 uoc luong nhieu la uoc luong LECH LEN: p that
+    # 0,03 voi sai so ~0,013 moi hat thi max thuong > 0,05 -> danh truot oan.
+    # Cac hat la nhung mau doc lap cua CUNG mot null, nen gop dem thanh MOT p
+    # (cong (vuot+1)/(N+1)) - van chinh xac, phuong sai nho hon. Max giu lam tham khao.
+    tong_v = sum(x[1] for x in dem); tong_n = sum(x[2] for x in dem)
+    p_gop = (tong_v + 1) / (tong_n + 1) if tong_n else float(max(ps))
     return {
-        "p_xau_nhat": round(float(max(ps)), 4),
+        "p_xau_nhat": round(float(p_gop), 4),
+        "p_max_hat": round(float(max(ps)), 4),
         "p_tot_nhat": round(float(min(ps)), 4),
         "p_tung_hat": [round(x, 4) for x in ps],
         "p_theo_null": chi_tiet,
