@@ -1,0 +1,2799 @@
+{
+  "as_of": "2026-11-15",
+  "zone": "Asia/Saigon note: dates are US calendar dates of the scheduled FOMC policy statement (last day of the meeting)",
+  "source": "Federal Reserve Board official pages. 1985-2020: https://www.federalreserve.gov/monetarypolicy/fomchistorical{year}.htm . 2021-2026: https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm fetched 2026-11-15.",
+  "rule": "Scheduled regular meetings only. Excluded: conference calls, unscheduled/emergency meetings, cancelled meetings, notation votes. Two-day meetings use the last day (statement/announcement day). Two consecutive one-day Meeting lines with a single minutes release are treated as one meeting on the later day (2003-09-16).",
+  "n": 335,
+  "dates": [
+    "1985-02-13",
+    "1985-03-26",
+    "1985-05-21",
+    "1985-07-10",
+    "1985-08-20",
+    "1985-10-01",
+    "1985-11-05",
+    "1985-12-17",
+    "1986-02-12",
+    "1986-04-01",
+    "1986-05-20",
+    "1986-07-09",
+    "1986-08-19",
+    "1986-09-23",
+    "1986-11-05",
+    "1986-12-16",
+    "1987-02-11",
+    "1987-03-31",
+    "1987-05-19",
+    "1987-07-07",
+    "1987-08-18",
+    "1987-09-22",
+    "1987-11-03",
+    "1987-12-16",
+    "1988-02-10",
+    "1988-03-29",
+    "1988-05-17",
+    "1988-06-30",
+    "1988-08-16",
+    "1988-09-20",
+    "1988-11-01",
+    "1988-12-14",
+    "1989-02-08",
+    "1989-03-28",
+    "1989-05-16",
+    "1989-07-06",
+    "1989-08-22",
+    "1989-10-03",
+    "1989-11-14",
+    "1989-12-19",
+    "1990-02-07",
+    "1990-03-27",
+    "1990-05-15",
+    "1990-07-03",
+    "1990-08-21",
+    "1990-10-02",
+    "1990-11-13",
+    "1990-12-18",
+    "1991-02-06",
+    "1991-03-26",
+    "1991-05-14",
+    "1991-07-03",
+    "1991-08-20",
+    "1991-10-01",
+    "1991-11-05",
+    "1991-12-17",
+    "1992-02-05",
+    "1992-03-31",
+    "1992-05-19",
+    "1992-07-01",
+    "1992-08-18",
+    "1992-10-06",
+    "1992-11-17",
+    "1992-12-22",
+    "1993-02-03",
+    "1993-03-23",
+    "1993-05-18",
+    "1993-07-07",
+    "1993-08-17",
+    "1993-09-21",
+    "1993-11-16",
+    "1993-12-21",
+    "1994-02-04",
+    "1994-03-22",
+    "1994-05-17",
+    "1994-07-06",
+    "1994-08-16",
+    "1994-09-27",
+    "1994-11-15",
+    "1994-12-20",
+    "1995-02-01",
+    "1995-03-28",
+    "1995-05-23",
+    "1995-07-06",
+    "1995-08-22",
+    "1995-09-26",
+    "1995-11-15",
+    "1995-12-19",
+    "1996-01-31",
+    "1996-03-26",
+    "1996-05-21",
+    "1996-07-03",
+    "1996-08-20",
+    "1996-09-24",
+    "1996-11-13",
+    "1996-12-17",
+    "1997-02-05",
+    "1997-03-25",
+    "1997-05-20",
+    "1997-07-02",
+    "1997-08-19",
+    "1997-09-30",
+    "1997-11-12",
+    "1997-12-16",
+    "1998-02-04",
+    "1998-03-31",
+    "1998-05-19",
+    "1998-07-01",
+    "1998-08-18",
+    "1998-09-29",
+    "1998-11-17",
+    "1998-12-22",
+    "1999-02-03",
+    "1999-03-30",
+    "1999-05-18",
+    "1999-06-30",
+    "1999-08-24",
+    "1999-10-05",
+    "1999-11-16",
+    "1999-12-21",
+    "2000-02-02",
+    "2000-03-21",
+    "2000-05-16",
+    "2000-06-28",
+    "2000-08-22",
+    "2000-10-03",
+    "2000-11-15",
+    "2000-12-19",
+    "2001-01-31",
+    "2001-03-20",
+    "2001-05-15",
+    "2001-06-27",
+    "2001-08-21",
+    "2001-10-02",
+    "2001-11-06",
+    "2001-12-11",
+    "2002-01-30",
+    "2002-03-19",
+    "2002-05-07",
+    "2002-06-26",
+    "2002-08-13",
+    "2002-09-24",
+    "2002-11-06",
+    "2002-12-10",
+    "2003-01-29",
+    "2003-03-18",
+    "2003-05-06",
+    "2003-06-25",
+    "2003-08-12",
+    "2003-09-16",
+    "2003-10-28",
+    "2003-12-09",
+    "2004-01-28",
+    "2004-03-16",
+    "2004-05-04",
+    "2004-06-30",
+    "2004-08-10",
+    "2004-09-21",
+    "2004-11-10",
+    "2004-12-14",
+    "2005-02-02",
+    "2005-03-22",
+    "2005-05-03",
+    "2005-06-30",
+    "2005-08-09",
+    "2005-09-20",
+    "2005-11-01",
+    "2005-12-13",
+    "2006-01-31",
+    "2006-03-28",
+    "2006-05-10",
+    "2006-06-29",
+    "2006-08-08",
+    "2006-09-20",
+    "2006-10-25",
+    "2006-12-12",
+    "2007-01-31",
+    "2007-03-21",
+    "2007-05-09",
+    "2007-06-28",
+    "2007-08-07",
+    "2007-09-18",
+    "2007-10-31",
+    "2007-12-11",
+    "2008-01-30",
+    "2008-03-18",
+    "2008-04-30",
+    "2008-06-25",
+    "2008-08-05",
+    "2008-09-16",
+    "2008-10-29",
+    "2008-12-16",
+    "2009-01-28",
+    "2009-03-18",
+    "2009-04-29",
+    "2009-06-24",
+    "2009-08-12",
+    "2009-09-23",
+    "2009-11-04",
+    "2009-12-16",
+    "2010-01-27",
+    "2010-03-16",
+    "2010-04-28",
+    "2010-06-23",
+    "2010-08-10",
+    "2010-09-21",
+    "2010-11-03",
+    "2010-12-14",
+    "2011-01-26",
+    "2011-03-15",
+    "2011-04-27",
+    "2011-06-22",
+    "2011-08-09",
+    "2011-09-21",
+    "2011-11-02",
+    "2011-12-13",
+    "2012-01-25",
+    "2012-03-13",
+    "2012-04-25",
+    "2012-06-20",
+    "2012-08-01",
+    "2012-09-13",
+    "2012-10-24",
+    "2012-12-12",
+    "2013-01-30",
+    "2013-03-20",
+    "2013-05-01",
+    "2013-06-19",
+    "2013-07-31",
+    "2013-09-18",
+    "2013-10-30",
+    "2013-12-18",
+    "2014-01-29",
+    "2014-03-19",
+    "2014-04-30",
+    "2014-06-18",
+    "2014-07-30",
+    "2014-09-17",
+    "2014-10-29",
+    "2014-12-17",
+    "2015-01-28",
+    "2015-03-18",
+    "2015-04-29",
+    "2015-06-17",
+    "2015-07-29",
+    "2015-09-17",
+    "2015-10-28",
+    "2015-12-16",
+    "2016-01-27",
+    "2016-03-16",
+    "2016-04-27",
+    "2016-06-15",
+    "2016-07-27",
+    "2016-09-21",
+    "2016-11-02",
+    "2016-12-14",
+    "2017-02-01",
+    "2017-03-15",
+    "2017-05-03",
+    "2017-06-14",
+    "2017-07-26",
+    "2017-09-20",
+    "2017-11-01",
+    "2017-12-13",
+    "2018-01-31",
+    "2018-03-21",
+    "2018-05-02",
+    "2018-06-13",
+    "2018-08-01",
+    "2018-09-26",
+    "2018-11-08",
+    "2018-12-19",
+    "2019-01-30",
+    "2019-03-20",
+    "2019-05-01",
+    "2019-06-19",
+    "2019-07-31",
+    "2019-09-18",
+    "2019-10-30",
+    "2019-12-11",
+    "2020-01-29",
+    "2020-04-29",
+    "2020-06-10",
+    "2020-07-29",
+    "2020-09-16",
+    "2020-11-05",
+    "2020-12-16",
+    "2021-01-27",
+    "2021-03-17",
+    "2021-04-28",
+    "2021-06-16",
+    "2021-07-28",
+    "2021-09-22",
+    "2021-11-03",
+    "2021-12-15",
+    "2022-01-26",
+    "2022-03-16",
+    "2022-05-04",
+    "2022-06-15",
+    "2022-07-27",
+    "2022-09-21",
+    "2022-11-02",
+    "2022-12-14",
+    "2023-02-01",
+    "2023-03-22",
+    "2023-05-03",
+    "2023-06-14",
+    "2023-07-26",
+    "2023-09-20",
+    "2023-11-01",
+    "2023-12-13",
+    "2024-01-31",
+    "2024-03-20",
+    "2024-05-01",
+    "2024-06-12",
+    "2024-07-31",
+    "2024-09-18",
+    "2024-11-07",
+    "2024-12-18",
+    "2025-01-29",
+    "2025-03-19",
+    "2025-05-07",
+    "2025-06-18",
+    "2025-07-30",
+    "2025-09-17",
+    "2025-10-29",
+    "2025-12-10",
+    "2026-01-28",
+    "2026-03-18",
+    "2026-04-29",
+    "2026-06-17",
+    "2026-07-29",
+    "2026-09-16",
+    "2026-10-28",
+    "2026-12-09"
+  ],
+  "rows": [
+    {
+      "date": "1985-02-13",
+      "year": 1985,
+      "line": "February 12-13 Meeting - 1985",
+      "source": "fomchistorical1985.htm"
+    },
+    {
+      "date": "1985-03-26",
+      "year": 1985,
+      "line": "March 26 Meeting - 1985",
+      "source": "fomchistorical1985.htm"
+    },
+    {
+      "date": "1985-05-21",
+      "year": 1985,
+      "line": "May 21 Meeting - 1985",
+      "source": "fomchistorical1985.htm"
+    },
+    {
+      "date": "1985-07-10",
+      "year": 1985,
+      "line": "July 9-10 Meeting - 1985",
+      "source": "fomchistorical1985.htm"
+    },
+    {
+      "date": "1985-08-20",
+      "year": 1985,
+      "line": "August 20 Meeting - 1985",
+      "source": "fomchistorical1985.htm"
+    },
+    {
+      "date": "1985-10-01",
+      "year": 1985,
+      "line": "October 1 Meeting - 1985",
+      "source": "fomchistorical1985.htm"
+    },
+    {
+      "date": "1985-11-05",
+      "year": 1985,
+      "line": "November 4-5 Meeting - 1985",
+      "source": "fomchistorical1985.htm"
+    },
+    {
+      "date": "1985-12-17",
+      "year": 1985,
+      "line": "December 16-17 Meeting - 1985",
+      "source": "fomchistorical1985.htm"
+    },
+    {
+      "date": "1986-02-12",
+      "year": 1986,
+      "line": "February 11-12 Meeting - 1986",
+      "source": "fomchistorical1986.htm"
+    },
+    {
+      "date": "1986-04-01",
+      "year": 1986,
+      "line": "April 1 Meeting - 1986",
+      "source": "fomchistorical1986.htm"
+    },
+    {
+      "date": "1986-05-20",
+      "year": 1986,
+      "line": "May 20 Meeting - 1986",
+      "source": "fomchistorical1986.htm"
+    },
+    {
+      "date": "1986-07-09",
+      "year": 1986,
+      "line": "July 8-9 Meeting - 1986",
+      "source": "fomchistorical1986.htm"
+    },
+    {
+      "date": "1986-08-19",
+      "year": 1986,
+      "line": "August 19 Meeting - 1986",
+      "source": "fomchistorical1986.htm"
+    },
+    {
+      "date": "1986-09-23",
+      "year": 1986,
+      "line": "September 23 Meeting - 1986",
+      "source": "fomchistorical1986.htm"
+    },
+    {
+      "date": "1986-11-05",
+      "year": 1986,
+      "line": "November 5 Meeting - 1986",
+      "source": "fomchistorical1986.htm"
+    },
+    {
+      "date": "1986-12-16",
+      "year": 1986,
+      "line": "December 15-16 Meeting - 1986",
+      "source": "fomchistorical1986.htm"
+    },
+    {
+      "date": "1987-02-11",
+      "year": 1987,
+      "line": "February 10-11 Meeting - 1987",
+      "source": "fomchistorical1987.htm"
+    },
+    {
+      "date": "1987-03-31",
+      "year": 1987,
+      "line": "March 31 Meeting - 1987",
+      "source": "fomchistorical1987.htm"
+    },
+    {
+      "date": "1987-05-19",
+      "year": 1987,
+      "line": "May 19 Meeting - 1987",
+      "source": "fomchistorical1987.htm"
+    },
+    {
+      "date": "1987-07-07",
+      "year": 1987,
+      "line": "July 7 Meeting - 1987",
+      "source": "fomchistorical1987.htm"
+    },
+    {
+      "date": "1987-08-18",
+      "year": 1987,
+      "line": "August 18 Meeting - 1987",
+      "source": "fomchistorical1987.htm"
+    },
+    {
+      "date": "1987-09-22",
+      "year": 1987,
+      "line": "September 22 Meeting - 1987",
+      "source": "fomchistorical1987.htm"
+    },
+    {
+      "date": "1987-11-03",
+      "year": 1987,
+      "line": "November 3 Meeting - 1987",
+      "source": "fomchistorical1987.htm"
+    },
+    {
+      "date": "1987-12-16",
+      "year": 1987,
+      "line": "December 15-16 Meeting - 1987",
+      "source": "fomchistorical1987.htm"
+    },
+    {
+      "date": "1988-02-10",
+      "year": 1988,
+      "line": "February 9-10 Meeting - 1988",
+      "source": "fomchistorical1988.htm"
+    },
+    {
+      "date": "1988-03-29",
+      "year": 1988,
+      "line": "March 29 Meeting - 1988",
+      "source": "fomchistorical1988.htm"
+    },
+    {
+      "date": "1988-05-17",
+      "year": 1988,
+      "line": "May 17 Meeting - 1988",
+      "source": "fomchistorical1988.htm"
+    },
+    {
+      "date": "1988-06-30",
+      "year": 1988,
+      "line": "June 29-30 Meeting - 1988",
+      "source": "fomchistorical1988.htm"
+    },
+    {
+      "date": "1988-08-16",
+      "year": 1988,
+      "line": "August 16 Meeting - 1988",
+      "source": "fomchistorical1988.htm"
+    },
+    {
+      "date": "1988-09-20",
+      "year": 1988,
+      "line": "September 20 Meeting - 1988",
+      "source": "fomchistorical1988.htm"
+    },
+    {
+      "date": "1988-11-01",
+      "year": 1988,
+      "line": "November 1 Meeting - 1988",
+      "source": "fomchistorical1988.htm"
+    },
+    {
+      "date": "1988-12-14",
+      "year": 1988,
+      "line": "December 13-14 Meeting - 1988",
+      "source": "fomchistorical1988.htm"
+    },
+    {
+      "date": "1989-02-08",
+      "year": 1989,
+      "line": "February 7-8 Meeting - 1989",
+      "source": "fomchistorical1989.htm"
+    },
+    {
+      "date": "1989-03-28",
+      "year": 1989,
+      "line": "March 28 Meeting - 1989",
+      "source": "fomchistorical1989.htm"
+    },
+    {
+      "date": "1989-05-16",
+      "year": 1989,
+      "line": "May 16 Meeting - 1989",
+      "source": "fomchistorical1989.htm"
+    },
+    {
+      "date": "1989-07-06",
+      "year": 1989,
+      "line": "July 5-6 Meeting - 1989",
+      "source": "fomchistorical1989.htm"
+    },
+    {
+      "date": "1989-08-22",
+      "year": 1989,
+      "line": "August 22 Meeting - 1989",
+      "source": "fomchistorical1989.htm"
+    },
+    {
+      "date": "1989-10-03",
+      "year": 1989,
+      "line": "October 3 Meeting - 1989",
+      "source": "fomchistorical1989.htm"
+    },
+    {
+      "date": "1989-11-14",
+      "year": 1989,
+      "line": "November 14 Meeting - 1989",
+      "source": "fomchistorical1989.htm"
+    },
+    {
+      "date": "1989-12-19",
+      "year": 1989,
+      "line": "December 18-19 Meeting - 1989",
+      "source": "fomchistorical1989.htm"
+    },
+    {
+      "date": "1990-02-07",
+      "year": 1990,
+      "line": "February 6-7 Meeting - 1990",
+      "source": "fomchistorical1990.htm"
+    },
+    {
+      "date": "1990-03-27",
+      "year": 1990,
+      "line": "March 27 Meeting - 1990",
+      "source": "fomchistorical1990.htm"
+    },
+    {
+      "date": "1990-05-15",
+      "year": 1990,
+      "line": "May 15 Meeting - 1990",
+      "source": "fomchistorical1990.htm"
+    },
+    {
+      "date": "1990-07-03",
+      "year": 1990,
+      "line": "July 2-3 Meeting - 1990",
+      "source": "fomchistorical1990.htm"
+    },
+    {
+      "date": "1990-08-21",
+      "year": 1990,
+      "line": "August 21 Meeting - 1990",
+      "source": "fomchistorical1990.htm"
+    },
+    {
+      "date": "1990-10-02",
+      "year": 1990,
+      "line": "October 2 Meeting - 1990",
+      "source": "fomchistorical1990.htm"
+    },
+    {
+      "date": "1990-11-13",
+      "year": 1990,
+      "line": "November 13 Meeting - 1990",
+      "source": "fomchistorical1990.htm"
+    },
+    {
+      "date": "1990-12-18",
+      "year": 1990,
+      "line": "December 18 Meeting - 1990",
+      "source": "fomchistorical1990.htm"
+    },
+    {
+      "date": "1991-02-06",
+      "year": 1991,
+      "line": "February 5-6 Meeting - 1991",
+      "source": "fomchistorical1991.htm"
+    },
+    {
+      "date": "1991-03-26",
+      "year": 1991,
+      "line": "March 26 Meeting - 1991",
+      "source": "fomchistorical1991.htm"
+    },
+    {
+      "date": "1991-05-14",
+      "year": 1991,
+      "line": "May 14 Meeting - 1991",
+      "source": "fomchistorical1991.htm"
+    },
+    {
+      "date": "1991-07-03",
+      "year": 1991,
+      "line": "July 2-3 Meeting - 1991",
+      "source": "fomchistorical1991.htm"
+    },
+    {
+      "date": "1991-08-20",
+      "year": 1991,
+      "line": "August 20 Meeting - 1991",
+      "source": "fomchistorical1991.htm"
+    },
+    {
+      "date": "1991-10-01",
+      "year": 1991,
+      "line": "October 1 Meeting - 1991",
+      "source": "fomchistorical1991.htm"
+    },
+    {
+      "date": "1991-11-05",
+      "year": 1991,
+      "line": "November 5 Meeting - 1991",
+      "source": "fomchistorical1991.htm"
+    },
+    {
+      "date": "1991-12-17",
+      "year": 1991,
+      "line": "December 17 Meeting - 1991",
+      "source": "fomchistorical1991.htm"
+    },
+    {
+      "date": "1992-02-05",
+      "year": 1992,
+      "line": "February 4-5 Meeting - 1992",
+      "source": "fomchistorical1992.htm"
+    },
+    {
+      "date": "1992-03-31",
+      "year": 1992,
+      "line": "March 31 Meeting - 1992",
+      "source": "fomchistorical1992.htm"
+    },
+    {
+      "date": "1992-05-19",
+      "year": 1992,
+      "line": "May 19 Meeting - 1992",
+      "source": "fomchistorical1992.htm"
+    },
+    {
+      "date": "1992-07-01",
+      "year": 1992,
+      "line": "June 30-July 1 Meeting - 1992",
+      "source": "fomchistorical1992.htm"
+    },
+    {
+      "date": "1992-08-18",
+      "year": 1992,
+      "line": "August 18 Meeting - 1992",
+      "source": "fomchistorical1992.htm"
+    },
+    {
+      "date": "1992-10-06",
+      "year": 1992,
+      "line": "October 6 Meeting - 1992",
+      "source": "fomchistorical1992.htm"
+    },
+    {
+      "date": "1992-11-17",
+      "year": 1992,
+      "line": "November 17 Meeting - 1992",
+      "source": "fomchistorical1992.htm"
+    },
+    {
+      "date": "1992-12-22",
+      "year": 1992,
+      "line": "December 22 Meeting - 1992",
+      "source": "fomchistorical1992.htm"
+    },
+    {
+      "date": "1993-02-03",
+      "year": 1993,
+      "line": "February 2-3 Meeting - 1993",
+      "source": "fomchistorical1993.htm"
+    },
+    {
+      "date": "1993-03-23",
+      "year": 1993,
+      "line": "March 23 Meeting - 1993",
+      "source": "fomchistorical1993.htm"
+    },
+    {
+      "date": "1993-05-18",
+      "year": 1993,
+      "line": "May 18 Meeting - 1993",
+      "source": "fomchistorical1993.htm"
+    },
+    {
+      "date": "1993-07-07",
+      "year": 1993,
+      "line": "July 6-7 Meeting - 1993",
+      "source": "fomchistorical1993.htm"
+    },
+    {
+      "date": "1993-08-17",
+      "year": 1993,
+      "line": "August 17 Meeting - 1993",
+      "source": "fomchistorical1993.htm"
+    },
+    {
+      "date": "1993-09-21",
+      "year": 1993,
+      "line": "September 21 Meeting - 1993",
+      "source": "fomchistorical1993.htm"
+    },
+    {
+      "date": "1993-11-16",
+      "year": 1993,
+      "line": "November 16 Meeting - 1993",
+      "source": "fomchistorical1993.htm"
+    },
+    {
+      "date": "1993-12-21",
+      "year": 1993,
+      "line": "December 21 Meeting - 1993",
+      "source": "fomchistorical1993.htm"
+    },
+    {
+      "date": "1994-02-04",
+      "year": 1994,
+      "line": "February 3-4 Meeting - 1994",
+      "source": "fomchistorical1994.htm"
+    },
+    {
+      "date": "1994-03-22",
+      "year": 1994,
+      "line": "March 22 Meeting - 1994",
+      "source": "fomchistorical1994.htm"
+    },
+    {
+      "date": "1994-05-17",
+      "year": 1994,
+      "line": "May 17 Meeting - 1994",
+      "source": "fomchistorical1994.htm"
+    },
+    {
+      "date": "1994-07-06",
+      "year": 1994,
+      "line": "July 5-6 Meeting - 1994",
+      "source": "fomchistorical1994.htm"
+    },
+    {
+      "date": "1994-08-16",
+      "year": 1994,
+      "line": "August 16 Meeting - 1994",
+      "source": "fomchistorical1994.htm"
+    },
+    {
+      "date": "1994-09-27",
+      "year": 1994,
+      "line": "September 27 Meeting - 1994",
+      "source": "fomchistorical1994.htm"
+    },
+    {
+      "date": "1994-11-15",
+      "year": 1994,
+      "line": "November 15 Meeting - 1994",
+      "source": "fomchistorical1994.htm"
+    },
+    {
+      "date": "1994-12-20",
+      "year": 1994,
+      "line": "December 20 Meeting - 1994",
+      "source": "fomchistorical1994.htm"
+    },
+    {
+      "date": "1995-02-01",
+      "year": 1995,
+      "line": "January 31-February 1 Meeting - 1995",
+      "source": "fomchistorical1995.htm"
+    },
+    {
+      "date": "1995-03-28",
+      "year": 1995,
+      "line": "March 28 Meeting - 1995",
+      "source": "fomchistorical1995.htm"
+    },
+    {
+      "date": "1995-05-23",
+      "year": 1995,
+      "line": "May 23 Meeting - 1995",
+      "source": "fomchistorical1995.htm"
+    },
+    {
+      "date": "1995-07-06",
+      "year": 1995,
+      "line": "July 5-6 Meeting - 1995",
+      "source": "fomchistorical1995.htm"
+    },
+    {
+      "date": "1995-08-22",
+      "year": 1995,
+      "line": "August 22 Meeting - 1995",
+      "source": "fomchistorical1995.htm"
+    },
+    {
+      "date": "1995-09-26",
+      "year": 1995,
+      "line": "September 26 Meeting - 1995",
+      "source": "fomchistorical1995.htm"
+    },
+    {
+      "date": "1995-11-15",
+      "year": 1995,
+      "line": "November 15 Meeting - 1995",
+      "source": "fomchistorical1995.htm"
+    },
+    {
+      "date": "1995-12-19",
+      "year": 1995,
+      "line": "December 19 Meeting - 1995",
+      "source": "fomchistorical1995.htm"
+    },
+    {
+      "date": "1996-01-31",
+      "year": 1996,
+      "line": "January 30-31 Meeting - 1996",
+      "source": "fomchistorical1996.htm"
+    },
+    {
+      "date": "1996-03-26",
+      "year": 1996,
+      "line": "March 26 Meeting - 1996",
+      "source": "fomchistorical1996.htm"
+    },
+    {
+      "date": "1996-05-21",
+      "year": 1996,
+      "line": "May 21 Meeting - 1996",
+      "source": "fomchistorical1996.htm"
+    },
+    {
+      "date": "1996-07-03",
+      "year": 1996,
+      "line": "July 2-3 Meeting - 1996",
+      "source": "fomchistorical1996.htm"
+    },
+    {
+      "date": "1996-08-20",
+      "year": 1996,
+      "line": "August 20 Meeting - 1996",
+      "source": "fomchistorical1996.htm"
+    },
+    {
+      "date": "1996-09-24",
+      "year": 1996,
+      "line": "September 24 Meeting - 1996",
+      "source": "fomchistorical1996.htm"
+    },
+    {
+      "date": "1996-11-13",
+      "year": 1996,
+      "line": "November 13 Meeting - 1996",
+      "source": "fomchistorical1996.htm"
+    },
+    {
+      "date": "1996-12-17",
+      "year": 1996,
+      "line": "December 17 Meeting - 1996",
+      "source": "fomchistorical1996.htm"
+    },
+    {
+      "date": "1997-02-05",
+      "year": 1997,
+      "line": "February 4-5 Meeting - 1997",
+      "source": "fomchistorical1997.htm"
+    },
+    {
+      "date": "1997-03-25",
+      "year": 1997,
+      "line": "March 25 Meeting - 1997",
+      "source": "fomchistorical1997.htm"
+    },
+    {
+      "date": "1997-05-20",
+      "year": 1997,
+      "line": "May 20 Meeting - 1997",
+      "source": "fomchistorical1997.htm"
+    },
+    {
+      "date": "1997-07-02",
+      "year": 1997,
+      "line": "July 1-2 Meeting - 1997",
+      "source": "fomchistorical1997.htm"
+    },
+    {
+      "date": "1997-08-19",
+      "year": 1997,
+      "line": "August 19 Meeting - 1997",
+      "source": "fomchistorical1997.htm"
+    },
+    {
+      "date": "1997-09-30",
+      "year": 1997,
+      "line": "September 30 Meeting - 1997",
+      "source": "fomchistorical1997.htm"
+    },
+    {
+      "date": "1997-11-12",
+      "year": 1997,
+      "line": "November 12 Meeting - 1997",
+      "source": "fomchistorical1997.htm"
+    },
+    {
+      "date": "1997-12-16",
+      "year": 1997,
+      "line": "December 16 Meeting - 1997",
+      "source": "fomchistorical1997.htm"
+    },
+    {
+      "date": "1998-02-04",
+      "year": 1998,
+      "line": "February 3-4 Meeting - 1998",
+      "source": "fomchistorical1998.htm"
+    },
+    {
+      "date": "1998-03-31",
+      "year": 1998,
+      "line": "March 31 Meeting - 1998",
+      "source": "fomchistorical1998.htm"
+    },
+    {
+      "date": "1998-05-19",
+      "year": 1998,
+      "line": "May 19 Meeting - 1998",
+      "source": "fomchistorical1998.htm"
+    },
+    {
+      "date": "1998-07-01",
+      "year": 1998,
+      "line": "June 30-July 1 Meeting - 1998",
+      "source": "fomchistorical1998.htm"
+    },
+    {
+      "date": "1998-08-18",
+      "year": 1998,
+      "line": "August 18 Meeting - 1998",
+      "source": "fomchistorical1998.htm"
+    },
+    {
+      "date": "1998-09-29",
+      "year": 1998,
+      "line": "September 29 Meeting - 1998",
+      "source": "fomchistorical1998.htm"
+    },
+    {
+      "date": "1998-11-17",
+      "year": 1998,
+      "line": "November 17 Meeting - 1998",
+      "source": "fomchistorical1998.htm"
+    },
+    {
+      "date": "1998-12-22",
+      "year": 1998,
+      "line": "December 22 Meeting - 1998",
+      "source": "fomchistorical1998.htm"
+    },
+    {
+      "date": "1999-02-03",
+      "year": 1999,
+      "line": "February 2-3 Meeting - 1999",
+      "source": "fomchistorical1999.htm"
+    },
+    {
+      "date": "1999-03-30",
+      "year": 1999,
+      "line": "March 30 Meeting - 1999",
+      "source": "fomchistorical1999.htm"
+    },
+    {
+      "date": "1999-05-18",
+      "year": 1999,
+      "line": "May 18 Meeting - 1999",
+      "source": "fomchistorical1999.htm"
+    },
+    {
+      "date": "1999-06-30",
+      "year": 1999,
+      "line": "June 29-30 Meeting - 1999",
+      "source": "fomchistorical1999.htm"
+    },
+    {
+      "date": "1999-08-24",
+      "year": 1999,
+      "line": "August 24 Meeting - 1999",
+      "source": "fomchistorical1999.htm"
+    },
+    {
+      "date": "1999-10-05",
+      "year": 1999,
+      "line": "October 5 Meeting - 1999",
+      "source": "fomchistorical1999.htm"
+    },
+    {
+      "date": "1999-11-16",
+      "year": 1999,
+      "line": "November 16 Meeting - 1999",
+      "source": "fomchistorical1999.htm"
+    },
+    {
+      "date": "1999-12-21",
+      "year": 1999,
+      "line": "December 21 Meeting - 1999",
+      "source": "fomchistorical1999.htm"
+    },
+    {
+      "date": "2000-02-02",
+      "year": 2000,
+      "line": "February 1-2 Meeting - 2000",
+      "source": "fomchistorical2000.htm"
+    },
+    {
+      "date": "2000-03-21",
+      "year": 2000,
+      "line": "March 21 Meeting - 2000",
+      "source": "fomchistorical2000.htm"
+    },
+    {
+      "date": "2000-05-16",
+      "year": 2000,
+      "line": "May 16 Meeting - 2000",
+      "source": "fomchistorical2000.htm"
+    },
+    {
+      "date": "2000-06-28",
+      "year": 2000,
+      "line": "June 27-28 Meeting - 2000",
+      "source": "fomchistorical2000.htm"
+    },
+    {
+      "date": "2000-08-22",
+      "year": 2000,
+      "line": "August 22 Meeting - 2000",
+      "source": "fomchistorical2000.htm"
+    },
+    {
+      "date": "2000-10-03",
+      "year": 2000,
+      "line": "October 3 Meeting - 2000",
+      "source": "fomchistorical2000.htm"
+    },
+    {
+      "date": "2000-11-15",
+      "year": 2000,
+      "line": "November 15 Meeting - 2000",
+      "source": "fomchistorical2000.htm"
+    },
+    {
+      "date": "2000-12-19",
+      "year": 2000,
+      "line": "December 19 Meeting - 2000",
+      "source": "fomchistorical2000.htm"
+    },
+    {
+      "date": "2001-01-31",
+      "year": 2001,
+      "line": "January 30-31 Meeting - 2001",
+      "source": "fomchistorical2001.htm"
+    },
+    {
+      "date": "2001-03-20",
+      "year": 2001,
+      "line": "March 20 Meeting - 2001",
+      "source": "fomchistorical2001.htm"
+    },
+    {
+      "date": "2001-05-15",
+      "year": 2001,
+      "line": "May 15 Meeting - 2001",
+      "source": "fomchistorical2001.htm"
+    },
+    {
+      "date": "2001-06-27",
+      "year": 2001,
+      "line": "June 26-27 Meeting - 2001",
+      "source": "fomchistorical2001.htm"
+    },
+    {
+      "date": "2001-08-21",
+      "year": 2001,
+      "line": "August 21 Meeting - 2001",
+      "source": "fomchistorical2001.htm"
+    },
+    {
+      "date": "2001-10-02",
+      "year": 2001,
+      "line": "October 2 Meeting - 2001",
+      "source": "fomchistorical2001.htm"
+    },
+    {
+      "date": "2001-11-06",
+      "year": 2001,
+      "line": "November 6 Meeting - 2001",
+      "source": "fomchistorical2001.htm"
+    },
+    {
+      "date": "2001-12-11",
+      "year": 2001,
+      "line": "December 11 Meeting - 2001",
+      "source": "fomchistorical2001.htm"
+    },
+    {
+      "date": "2002-01-30",
+      "year": 2002,
+      "line": "January 29-30 Meeting - 2002",
+      "source": "fomchistorical2002.htm"
+    },
+    {
+      "date": "2002-03-19",
+      "year": 2002,
+      "line": "March 19 Meeting - 2002",
+      "source": "fomchistorical2002.htm"
+    },
+    {
+      "date": "2002-05-07",
+      "year": 2002,
+      "line": "May 7 Meeting - 2002",
+      "source": "fomchistorical2002.htm"
+    },
+    {
+      "date": "2002-06-26",
+      "year": 2002,
+      "line": "June 25-26 Meeting - 2002",
+      "source": "fomchistorical2002.htm"
+    },
+    {
+      "date": "2002-08-13",
+      "year": 2002,
+      "line": "August 13 Meeting - 2002",
+      "source": "fomchistorical2002.htm"
+    },
+    {
+      "date": "2002-09-24",
+      "year": 2002,
+      "line": "September 24 Meeting - 2002",
+      "source": "fomchistorical2002.htm"
+    },
+    {
+      "date": "2002-11-06",
+      "year": 2002,
+      "line": "November 6 Meeting - 2002",
+      "source": "fomchistorical2002.htm"
+    },
+    {
+      "date": "2002-12-10",
+      "year": 2002,
+      "line": "December 10 Meeting - 2002",
+      "source": "fomchistorical2002.htm"
+    },
+    {
+      "date": "2003-01-29",
+      "year": 2003,
+      "line": "January 28-29 Meeting - 2003",
+      "source": "fomchistorical2003.htm"
+    },
+    {
+      "date": "2003-03-18",
+      "year": 2003,
+      "line": "March 18 Meeting - 2003",
+      "source": "fomchistorical2003.htm"
+    },
+    {
+      "date": "2003-05-06",
+      "year": 2003,
+      "line": "May 6 Meeting - 2003",
+      "source": "fomchistorical2003.htm"
+    },
+    {
+      "date": "2003-06-25",
+      "year": 2003,
+      "line": "June 24-25 Meeting - 2003",
+      "source": "fomchistorical2003.htm"
+    },
+    {
+      "date": "2003-08-12",
+      "year": 2003,
+      "line": "August 12 Meeting - 2003",
+      "source": "fomchistorical2003.htm"
+    },
+    {
+      "date": "2003-09-16",
+      "year": 2003,
+      "line": "September 16 Meeting - 2003",
+      "source": "fomchistorical2003.htm",
+      "collapsed_from": "2003-09-15"
+    },
+    {
+      "date": "2003-10-28",
+      "year": 2003,
+      "line": "October 28 Meeting - 2003",
+      "source": "fomchistorical2003.htm"
+    },
+    {
+      "date": "2003-12-09",
+      "year": 2003,
+      "line": "December 9 Meeting - 2003",
+      "source": "fomchistorical2003.htm"
+    },
+    {
+      "date": "2004-01-28",
+      "year": 2004,
+      "line": "January 27-28 Meeting - 2004",
+      "source": "fomchistorical2004.htm"
+    },
+    {
+      "date": "2004-03-16",
+      "year": 2004,
+      "line": "March 16 Meeting - 2004",
+      "source": "fomchistorical2004.htm"
+    },
+    {
+      "date": "2004-05-04",
+      "year": 2004,
+      "line": "May 4 Meeting - 2004",
+      "source": "fomchistorical2004.htm"
+    },
+    {
+      "date": "2004-06-30",
+      "year": 2004,
+      "line": "June 29-30 Meeting - 2004",
+      "source": "fomchistorical2004.htm"
+    },
+    {
+      "date": "2004-08-10",
+      "year": 2004,
+      "line": "August 10 Meeting - 2004",
+      "source": "fomchistorical2004.htm"
+    },
+    {
+      "date": "2004-09-21",
+      "year": 2004,
+      "line": "September 21 Meeting - 2004",
+      "source": "fomchistorical2004.htm"
+    },
+    {
+      "date": "2004-11-10",
+      "year": 2004,
+      "line": "November 10 Meeting - 2004",
+      "source": "fomchistorical2004.htm"
+    },
+    {
+      "date": "2004-12-14",
+      "year": 2004,
+      "line": "December 14 Meeting - 2004",
+      "source": "fomchistorical2004.htm"
+    },
+    {
+      "date": "2005-02-02",
+      "year": 2005,
+      "line": "February 1-2 Meeting - 2005",
+      "source": "fomchistorical2005.htm"
+    },
+    {
+      "date": "2005-03-22",
+      "year": 2005,
+      "line": "March 22 Meeting - 2005",
+      "source": "fomchistorical2005.htm"
+    },
+    {
+      "date": "2005-05-03",
+      "year": 2005,
+      "line": "May 3 Meeting - 2005",
+      "source": "fomchistorical2005.htm"
+    },
+    {
+      "date": "2005-06-30",
+      "year": 2005,
+      "line": "June 29-30 Meeting - 2005",
+      "source": "fomchistorical2005.htm"
+    },
+    {
+      "date": "2005-08-09",
+      "year": 2005,
+      "line": "August 9 Meeting - 2005",
+      "source": "fomchistorical2005.htm"
+    },
+    {
+      "date": "2005-09-20",
+      "year": 2005,
+      "line": "September 20 Meeting - 2005",
+      "source": "fomchistorical2005.htm"
+    },
+    {
+      "date": "2005-11-01",
+      "year": 2005,
+      "line": "November 1 Meeting - 2005",
+      "source": "fomchistorical2005.htm"
+    },
+    {
+      "date": "2005-12-13",
+      "year": 2005,
+      "line": "December 13 Meeting - 2005",
+      "source": "fomchistorical2005.htm"
+    },
+    {
+      "date": "2006-01-31",
+      "year": 2006,
+      "line": "January 31 Meeting - 2006",
+      "source": "fomchistorical2006.htm"
+    },
+    {
+      "date": "2006-03-28",
+      "year": 2006,
+      "line": "March 27-28 Meeting - 2006",
+      "source": "fomchistorical2006.htm"
+    },
+    {
+      "date": "2006-05-10",
+      "year": 2006,
+      "line": "May 10 Meeting - 2006",
+      "source": "fomchistorical2006.htm"
+    },
+    {
+      "date": "2006-06-29",
+      "year": 2006,
+      "line": "June 28-29 Meeting - 2006",
+      "source": "fomchistorical2006.htm"
+    },
+    {
+      "date": "2006-08-08",
+      "year": 2006,
+      "line": "August 8 Meeting - 2006",
+      "source": "fomchistorical2006.htm"
+    },
+    {
+      "date": "2006-09-20",
+      "year": 2006,
+      "line": "September 20 Meeting - 2006",
+      "source": "fomchistorical2006.htm"
+    },
+    {
+      "date": "2006-10-25",
+      "year": 2006,
+      "line": "October 24-25 Meeting - 2006",
+      "source": "fomchistorical2006.htm"
+    },
+    {
+      "date": "2006-12-12",
+      "year": 2006,
+      "line": "December 12 Meeting - 2006",
+      "source": "fomchistorical2006.htm"
+    },
+    {
+      "date": "2007-01-31",
+      "year": 2007,
+      "line": "January 30-31 Meeting - 2007",
+      "source": "fomchistorical2007.htm"
+    },
+    {
+      "date": "2007-03-21",
+      "year": 2007,
+      "line": "March 20-21 Meeting - 2007",
+      "source": "fomchistorical2007.htm"
+    },
+    {
+      "date": "2007-05-09",
+      "year": 2007,
+      "line": "May 9 Meeting - 2007",
+      "source": "fomchistorical2007.htm"
+    },
+    {
+      "date": "2007-06-28",
+      "year": 2007,
+      "line": "June 27-28 Meeting - 2007",
+      "source": "fomchistorical2007.htm"
+    },
+    {
+      "date": "2007-08-07",
+      "year": 2007,
+      "line": "August 7 Meeting - 2007",
+      "source": "fomchistorical2007.htm"
+    },
+    {
+      "date": "2007-09-18",
+      "year": 2007,
+      "line": "September 18 Meeting - 2007",
+      "source": "fomchistorical2007.htm"
+    },
+    {
+      "date": "2007-10-31",
+      "year": 2007,
+      "line": "October 30-31 Meeting - 2007",
+      "source": "fomchistorical2007.htm"
+    },
+    {
+      "date": "2007-12-11",
+      "year": 2007,
+      "line": "December 11 Meeting - 2007",
+      "source": "fomchistorical2007.htm"
+    },
+    {
+      "date": "2008-01-30",
+      "year": 2008,
+      "line": "January 29-30 Meeting - 2008",
+      "source": "fomchistorical2008.htm"
+    },
+    {
+      "date": "2008-03-18",
+      "year": 2008,
+      "line": "March 18 Meeting - 2008",
+      "source": "fomchistorical2008.htm"
+    },
+    {
+      "date": "2008-04-30",
+      "year": 2008,
+      "line": "April 29-30 Meeting - 2008",
+      "source": "fomchistorical2008.htm"
+    },
+    {
+      "date": "2008-06-25",
+      "year": 2008,
+      "line": "June 24-25 Meeting - 2008",
+      "source": "fomchistorical2008.htm"
+    },
+    {
+      "date": "2008-08-05",
+      "year": 2008,
+      "line": "August 5 Meeting - 2008",
+      "source": "fomchistorical2008.htm"
+    },
+    {
+      "date": "2008-09-16",
+      "year": 2008,
+      "line": "September 16 Meeting - 2008",
+      "source": "fomchistorical2008.htm"
+    },
+    {
+      "date": "2008-10-29",
+      "year": 2008,
+      "line": "October 28-29 Meeting - 2008",
+      "source": "fomchistorical2008.htm"
+    },
+    {
+      "date": "2008-12-16",
+      "year": 2008,
+      "line": "December 15-16 Meeting - 2008",
+      "source": "fomchistorical2008.htm"
+    },
+    {
+      "date": "2009-01-28",
+      "year": 2009,
+      "line": "January 27-28 Meeting - 2009",
+      "source": "fomchistorical2009.htm"
+    },
+    {
+      "date": "2009-03-18",
+      "year": 2009,
+      "line": "March 17-18 Meeting - 2009",
+      "source": "fomchistorical2009.htm"
+    },
+    {
+      "date": "2009-04-29",
+      "year": 2009,
+      "line": "April 28-29 Meeting - 2009",
+      "source": "fomchistorical2009.htm"
+    },
+    {
+      "date": "2009-06-24",
+      "year": 2009,
+      "line": "June 23-24 Meeting - 2009",
+      "source": "fomchistorical2009.htm"
+    },
+    {
+      "date": "2009-08-12",
+      "year": 2009,
+      "line": "August 11-12 Meeting - 2009",
+      "source": "fomchistorical2009.htm"
+    },
+    {
+      "date": "2009-09-23",
+      "year": 2009,
+      "line": "September 22-23 Meeting - 2009",
+      "source": "fomchistorical2009.htm"
+    },
+    {
+      "date": "2009-11-04",
+      "year": 2009,
+      "line": "November 3-4 Meeting - 2009",
+      "source": "fomchistorical2009.htm"
+    },
+    {
+      "date": "2009-12-16",
+      "year": 2009,
+      "line": "December 15-16 Meeting - 2009",
+      "source": "fomchistorical2009.htm"
+    },
+    {
+      "date": "2010-01-27",
+      "year": 2010,
+      "line": "January 26-27 Meeting - 2010",
+      "source": "fomchistorical2010.htm"
+    },
+    {
+      "date": "2010-03-16",
+      "year": 2010,
+      "line": "March 16 Meeting - 2010",
+      "source": "fomchistorical2010.htm"
+    },
+    {
+      "date": "2010-04-28",
+      "year": 2010,
+      "line": "April 27-28 Meeting - 2010",
+      "source": "fomchistorical2010.htm"
+    },
+    {
+      "date": "2010-06-23",
+      "year": 2010,
+      "line": "June 22-23 Meeting - 2010",
+      "source": "fomchistorical2010.htm"
+    },
+    {
+      "date": "2010-08-10",
+      "year": 2010,
+      "line": "August 10 Meeting - 2010",
+      "source": "fomchistorical2010.htm"
+    },
+    {
+      "date": "2010-09-21",
+      "year": 2010,
+      "line": "September 21 Meeting - 2010",
+      "source": "fomchistorical2010.htm"
+    },
+    {
+      "date": "2010-11-03",
+      "year": 2010,
+      "line": "November 2-3 Meeting - 2010",
+      "source": "fomchistorical2010.htm"
+    },
+    {
+      "date": "2010-12-14",
+      "year": 2010,
+      "line": "December 14 Meeting - 2010",
+      "source": "fomchistorical2010.htm"
+    },
+    {
+      "date": "2011-01-26",
+      "year": 2011,
+      "line": "January 25-26 Meeting - 2011",
+      "source": "fomchistorical2011.htm"
+    },
+    {
+      "date": "2011-03-15",
+      "year": 2011,
+      "line": "March 15 Meeting - 2011",
+      "source": "fomchistorical2011.htm"
+    },
+    {
+      "date": "2011-04-27",
+      "year": 2011,
+      "line": "April 26-27 Meeting - 2011",
+      "source": "fomchistorical2011.htm"
+    },
+    {
+      "date": "2011-06-22",
+      "year": 2011,
+      "line": "June 21-22 Meeting - 2011",
+      "source": "fomchistorical2011.htm"
+    },
+    {
+      "date": "2011-08-09",
+      "year": 2011,
+      "line": "August 9 Meeting - 2011",
+      "source": "fomchistorical2011.htm"
+    },
+    {
+      "date": "2011-09-21",
+      "year": 2011,
+      "line": "September 20-21 Meeting - 2011",
+      "source": "fomchistorical2011.htm"
+    },
+    {
+      "date": "2011-11-02",
+      "year": 2011,
+      "line": "November 1-2 Meeting - 2011",
+      "source": "fomchistorical2011.htm"
+    },
+    {
+      "date": "2011-12-13",
+      "year": 2011,
+      "line": "December 13 Meeting - 2011",
+      "source": "fomchistorical2011.htm"
+    },
+    {
+      "date": "2012-01-25",
+      "year": 2012,
+      "line": "January 24-25 Meeting - 2012",
+      "source": "fomchistorical2012.htm"
+    },
+    {
+      "date": "2012-03-13",
+      "year": 2012,
+      "line": "March 13 Meeting - 2012",
+      "source": "fomchistorical2012.htm"
+    },
+    {
+      "date": "2012-04-25",
+      "year": 2012,
+      "line": "April 24-25 Meeting - 2012",
+      "source": "fomchistorical2012.htm"
+    },
+    {
+      "date": "2012-06-20",
+      "year": 2012,
+      "line": "June 19-20 Meeting - 2012",
+      "source": "fomchistorical2012.htm"
+    },
+    {
+      "date": "2012-08-01",
+      "year": 2012,
+      "line": "July 31-August 1  Meeting - 2012",
+      "source": "fomchistorical2012.htm"
+    },
+    {
+      "date": "2012-09-13",
+      "year": 2012,
+      "line": "September 12-13 Meeting - 2012",
+      "source": "fomchistorical2012.htm"
+    },
+    {
+      "date": "2012-10-24",
+      "year": 2012,
+      "line": "October 23-24 Meeting - 2012",
+      "source": "fomchistorical2012.htm"
+    },
+    {
+      "date": "2012-12-12",
+      "year": 2012,
+      "line": "December 11-12 Meeting - 2012",
+      "source": "fomchistorical2012.htm"
+    },
+    {
+      "date": "2013-01-30",
+      "year": 2013,
+      "line": "January 29-30 Meeting - 2013",
+      "source": "fomchistorical2013.htm"
+    },
+    {
+      "date": "2013-03-20",
+      "year": 2013,
+      "line": "March 19-20 Meeting - 2013",
+      "source": "fomchistorical2013.htm"
+    },
+    {
+      "date": "2013-05-01",
+      "year": 2013,
+      "line": "April/May 30-1 Meeting - 2013",
+      "source": "fomchistorical2013.htm"
+    },
+    {
+      "date": "2013-06-19",
+      "year": 2013,
+      "line": "June 18-19 Meeting - 2013",
+      "source": "fomchistorical2013.htm"
+    },
+    {
+      "date": "2013-07-31",
+      "year": 2013,
+      "line": "July 30-31 Meeting - 2013",
+      "source": "fomchistorical2013.htm"
+    },
+    {
+      "date": "2013-09-18",
+      "year": 2013,
+      "line": "September 17-18 Meeting - 2013",
+      "source": "fomchistorical2013.htm"
+    },
+    {
+      "date": "2013-10-30",
+      "year": 2013,
+      "line": "October 29-30 Meeting - 2013",
+      "source": "fomchistorical2013.htm"
+    },
+    {
+      "date": "2013-12-18",
+      "year": 2013,
+      "line": "December 17-18 Meeting - 2013",
+      "source": "fomchistorical2013.htm"
+    },
+    {
+      "date": "2014-01-29",
+      "year": 2014,
+      "line": "January 28-29 Meeting - 2014",
+      "source": "fomchistorical2014.htm"
+    },
+    {
+      "date": "2014-03-19",
+      "year": 2014,
+      "line": "March 18-19 Meeting - 2014",
+      "source": "fomchistorical2014.htm"
+    },
+    {
+      "date": "2014-04-30",
+      "year": 2014,
+      "line": "April 29-30 Meeting - 2014",
+      "source": "fomchistorical2014.htm"
+    },
+    {
+      "date": "2014-06-18",
+      "year": 2014,
+      "line": "June 17-18 Meeting - 2014",
+      "source": "fomchistorical2014.htm"
+    },
+    {
+      "date": "2014-07-30",
+      "year": 2014,
+      "line": "July 29-30 Meeting - 2014",
+      "source": "fomchistorical2014.htm"
+    },
+    {
+      "date": "2014-09-17",
+      "year": 2014,
+      "line": "September 16-17 Meeting - 2014",
+      "source": "fomchistorical2014.htm"
+    },
+    {
+      "date": "2014-10-29",
+      "year": 2014,
+      "line": "October 28-29 Meeting - 2014",
+      "source": "fomchistorical2014.htm"
+    },
+    {
+      "date": "2014-12-17",
+      "year": 2014,
+      "line": "December 16-17 Meeting - 2014",
+      "source": "fomchistorical2014.htm"
+    },
+    {
+      "date": "2015-01-28",
+      "year": 2015,
+      "line": "January 27-28 Meeting - 2015",
+      "source": "fomchistorical2015.htm"
+    },
+    {
+      "date": "2015-03-18",
+      "year": 2015,
+      "line": "March 17-18 Meeting - 2015",
+      "source": "fomchistorical2015.htm"
+    },
+    {
+      "date": "2015-04-29",
+      "year": 2015,
+      "line": "April 28-29 Meeting - 2015",
+      "source": "fomchistorical2015.htm"
+    },
+    {
+      "date": "2015-06-17",
+      "year": 2015,
+      "line": "June 16-17 Meeting - 2015",
+      "source": "fomchistorical2015.htm"
+    },
+    {
+      "date": "2015-07-29",
+      "year": 2015,
+      "line": "July 28-29 Meeting - 2015",
+      "source": "fomchistorical2015.htm"
+    },
+    {
+      "date": "2015-09-17",
+      "year": 2015,
+      "line": "September 16-17 Meeting - 2015",
+      "source": "fomchistorical2015.htm"
+    },
+    {
+      "date": "2015-10-28",
+      "year": 2015,
+      "line": "October 27-28 Meeting - 2015",
+      "source": "fomchistorical2015.htm"
+    },
+    {
+      "date": "2015-12-16",
+      "year": 2015,
+      "line": "December 15-16 Meeting - 2015",
+      "source": "fomchistorical2015.htm"
+    },
+    {
+      "date": "2016-01-27",
+      "year": 2016,
+      "line": "January 26-27 Meeting - 2016",
+      "source": "fomchistorical2016.htm"
+    },
+    {
+      "date": "2016-03-16",
+      "year": 2016,
+      "line": "March 15-16 Meeting - 2016",
+      "source": "fomchistorical2016.htm"
+    },
+    {
+      "date": "2016-04-27",
+      "year": 2016,
+      "line": "April 26-27 Meeting - 2016",
+      "source": "fomchistorical2016.htm"
+    },
+    {
+      "date": "2016-06-15",
+      "year": 2016,
+      "line": "June 14-15 Meeting - 2016",
+      "source": "fomchistorical2016.htm"
+    },
+    {
+      "date": "2016-07-27",
+      "year": 2016,
+      "line": "July 26-27 Meeting - 2016",
+      "source": "fomchistorical2016.htm"
+    },
+    {
+      "date": "2016-09-21",
+      "year": 2016,
+      "line": "September 20-21 Meeting - 2016",
+      "source": "fomchistorical2016.htm"
+    },
+    {
+      "date": "2016-11-02",
+      "year": 2016,
+      "line": "November 1-2 Meeting - 2016",
+      "source": "fomchistorical2016.htm"
+    },
+    {
+      "date": "2016-12-14",
+      "year": 2016,
+      "line": "December 13-14 Meeting - 2016",
+      "source": "fomchistorical2016.htm"
+    },
+    {
+      "date": "2017-02-01",
+      "year": 2017,
+      "line": "Jan/Feb 31-1 Meeting - 2017",
+      "source": "fomchistorical2017.htm"
+    },
+    {
+      "date": "2017-03-15",
+      "year": 2017,
+      "line": "March 14-15 Meeting - 2017",
+      "source": "fomchistorical2017.htm"
+    },
+    {
+      "date": "2017-05-03",
+      "year": 2017,
+      "line": "May 2-3 Meeting - 2017",
+      "source": "fomchistorical2017.htm"
+    },
+    {
+      "date": "2017-06-14",
+      "year": 2017,
+      "line": "June 13-14 Meeting - 2017",
+      "source": "fomchistorical2017.htm"
+    },
+    {
+      "date": "2017-07-26",
+      "year": 2017,
+      "line": "July 25-26 Meeting - 2017",
+      "source": "fomchistorical2017.htm"
+    },
+    {
+      "date": "2017-09-20",
+      "year": 2017,
+      "line": "September 19-20 Meeting - 2017",
+      "source": "fomchistorical2017.htm"
+    },
+    {
+      "date": "2017-11-01",
+      "year": 2017,
+      "line": "Oct/Nov 31-1 Meeting - 2017",
+      "source": "fomchistorical2017.htm"
+    },
+    {
+      "date": "2017-12-13",
+      "year": 2017,
+      "line": "December 12-13 Meeting - 2017",
+      "source": "fomchistorical2017.htm"
+    },
+    {
+      "date": "2018-01-31",
+      "year": 2018,
+      "line": "January 30-31 Meeting - 2018",
+      "source": "fomchistorical2018.htm"
+    },
+    {
+      "date": "2018-03-21",
+      "year": 2018,
+      "line": "March 20-21 Meeting - 2018",
+      "source": "fomchistorical2018.htm"
+    },
+    {
+      "date": "2018-05-02",
+      "year": 2018,
+      "line": "May 1-2 Meeting - 2018",
+      "source": "fomchistorical2018.htm"
+    },
+    {
+      "date": "2018-06-13",
+      "year": 2018,
+      "line": "June 12-13 Meeting - 2018",
+      "source": "fomchistorical2018.htm"
+    },
+    {
+      "date": "2018-08-01",
+      "year": 2018,
+      "line": "Jul/Aug 31-1 Meeting - 2018",
+      "source": "fomchistorical2018.htm"
+    },
+    {
+      "date": "2018-09-26",
+      "year": 2018,
+      "line": "September 25-26 Meeting - 2018",
+      "source": "fomchistorical2018.htm"
+    },
+    {
+      "date": "2018-11-08",
+      "year": 2018,
+      "line": "November 7-8 Meeting - 2018",
+      "source": "fomchistorical2018.htm"
+    },
+    {
+      "date": "2018-12-19",
+      "year": 2018,
+      "line": "December 18-19 Meeting - 2018",
+      "source": "fomchistorical2018.htm"
+    },
+    {
+      "date": "2019-01-30",
+      "year": 2019,
+      "line": "January 29-30 Meeting - 2019",
+      "source": "fomchistorical2019.htm"
+    },
+    {
+      "date": "2019-03-20",
+      "year": 2019,
+      "line": "March 19-20 Meeting - 2019",
+      "source": "fomchistorical2019.htm"
+    },
+    {
+      "date": "2019-05-01",
+      "year": 2019,
+      "line": "April/May 30-1 Meeting - 2019",
+      "source": "fomchistorical2019.htm"
+    },
+    {
+      "date": "2019-06-19",
+      "year": 2019,
+      "line": "June 18-19 Meeting - 2019",
+      "source": "fomchistorical2019.htm"
+    },
+    {
+      "date": "2019-07-31",
+      "year": 2019,
+      "line": "July 30-31 Meeting - 2019",
+      "source": "fomchistorical2019.htm"
+    },
+    {
+      "date": "2019-09-18",
+      "year": 2019,
+      "line": "September 17-18 Meeting - 2019",
+      "source": "fomchistorical2019.htm"
+    },
+    {
+      "date": "2019-10-30",
+      "year": 2019,
+      "line": "October 29-30 Meeting - 2019",
+      "source": "fomchistorical2019.htm"
+    },
+    {
+      "date": "2019-12-11",
+      "year": 2019,
+      "line": "December 10-11 Meeting - 2019",
+      "source": "fomchistorical2019.htm"
+    },
+    {
+      "date": "2020-01-29",
+      "year": 2020,
+      "line": "January 28-29 Meeting - 2020",
+      "source": "fomchistorical2020.htm"
+    },
+    {
+      "date": "2020-04-29",
+      "year": 2020,
+      "line": "April 28-29 Meeting - 2020",
+      "source": "fomchistorical2020.htm"
+    },
+    {
+      "date": "2020-06-10",
+      "year": 2020,
+      "line": "June 9-10 Meeting - 2020",
+      "source": "fomchistorical2020.htm"
+    },
+    {
+      "date": "2020-07-29",
+      "year": 2020,
+      "line": "July 28-29 Meeting - 2020",
+      "source": "fomchistorical2020.htm"
+    },
+    {
+      "date": "2020-09-16",
+      "year": 2020,
+      "line": "September 15-16 Meeting - 2020",
+      "source": "fomchistorical2020.htm"
+    },
+    {
+      "date": "2020-11-05",
+      "year": 2020,
+      "line": "November 4-5 Meeting - 2020",
+      "source": "fomchistorical2020.htm"
+    },
+    {
+      "date": "2020-12-16",
+      "year": 2020,
+      "line": "December 15-16 Meeting - 2020",
+      "source": "fomchistorical2020.htm"
+    },
+    {
+      "date": "2021-01-27",
+      "year": 2021,
+      "line": "January 26-27",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2021-03-17",
+      "year": 2021,
+      "line": "March 16-17*",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2021-04-28",
+      "year": 2021,
+      "line": "April 27-28",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2021-06-16",
+      "year": 2021,
+      "line": "June 15-16*",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2021-07-28",
+      "year": 2021,
+      "line": "July 27-28",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2021-09-22",
+      "year": 2021,
+      "line": "September 21-22*",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2021-11-03",
+      "year": 2021,
+      "line": "November 2-3",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2021-12-15",
+      "year": 2021,
+      "line": "December 14-15*",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2022-01-26",
+      "year": 2022,
+      "line": "January 25-26",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2022-03-16",
+      "year": 2022,
+      "line": "March 15-16*",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2022-05-04",
+      "year": 2022,
+      "line": "May 3-4",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2022-06-15",
+      "year": 2022,
+      "line": "June 14-15*",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2022-07-27",
+      "year": 2022,
+      "line": "July 26-27",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2022-09-21",
+      "year": 2022,
+      "line": "September 20-21*",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2022-11-02",
+      "year": 2022,
+      "line": "November 1-2",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2022-12-14",
+      "year": 2022,
+      "line": "December 13-14*",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2023-02-01",
+      "year": 2023,
+      "line": "Jan/Feb 31-1",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2023-03-22",
+      "year": 2023,
+      "line": "March 21-22*",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2023-05-03",
+      "year": 2023,
+      "line": "May 2-3",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2023-06-14",
+      "year": 2023,
+      "line": "June 13-14*",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2023-07-26",
+      "year": 2023,
+      "line": "July 25-26",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2023-09-20",
+      "year": 2023,
+      "line": "September 19-20*",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2023-11-01",
+      "year": 2023,
+      "line": "Oct/Nov 31-1",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2023-12-13",
+      "year": 2023,
+      "line": "December 12-13*",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2024-01-31",
+      "year": 2024,
+      "line": "January 30-31",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2024-03-20",
+      "year": 2024,
+      "line": "March 19-20*",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2024-05-01",
+      "year": 2024,
+      "line": "Apr/May 30-1",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2024-06-12",
+      "year": 2024,
+      "line": "June 11-12*",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2024-07-31",
+      "year": 2024,
+      "line": "July 30-31",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2024-09-18",
+      "year": 2024,
+      "line": "September 17-18*",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2024-11-07",
+      "year": 2024,
+      "line": "November 6-7",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2024-12-18",
+      "year": 2024,
+      "line": "December 17-18*",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2025-01-29",
+      "year": 2025,
+      "line": "January 28-29",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2025-03-19",
+      "year": 2025,
+      "line": "March 18-19*",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2025-05-07",
+      "year": 2025,
+      "line": "May 6-7",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2025-06-18",
+      "year": 2025,
+      "line": "June 17-18*",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2025-07-30",
+      "year": 2025,
+      "line": "July 29-30",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2025-09-17",
+      "year": 2025,
+      "line": "September 16-17*",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2025-10-29",
+      "year": 2025,
+      "line": "October 28-29",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2025-12-10",
+      "year": 2025,
+      "line": "December 9-10*",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2026-01-28",
+      "year": 2026,
+      "line": "January 27-28",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2026-03-18",
+      "year": 2026,
+      "line": "March 17-18*",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2026-04-29",
+      "year": 2026,
+      "line": "April 28-29",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2026-06-17",
+      "year": 2026,
+      "line": "June 16-17*",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2026-07-29",
+      "year": 2026,
+      "line": "July 28-29",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2026-09-16",
+      "year": 2026,
+      "line": "September 15-16*",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2026-10-28",
+      "year": 2026,
+      "line": "October 27-28",
+      "source": "fomccalendars.htm"
+    },
+    {
+      "date": "2026-12-09",
+      "year": 2026,
+      "line": "December 8-9*",
+      "source": "fomccalendars.htm"
+    }
+  ],
+  "skipped": [
+    {
+      "year": 1985,
+      "line": "January 18 Conference Call - 1985",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1985,
+      "line": "September 23 Conference Call - 1985",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1986,
+      "line": "April 21 Conference Call - 1986",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1987,
+      "line": "February 23 Conference Call - 1987",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1987,
+      "line": "April 29 Conference Call - 1987",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1987,
+      "line": "October 19 Conference Call - 1987",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1987,
+      "line": "October 20 Conference Call - 1987",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1987,
+      "line": "October 21, 22, 23, 26, 27, 28, 29, and 30  Conference Calls - 1987",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1988,
+      "line": "January 5 Conference Call - 1988",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1988,
+      "line": "July 19 Conference Call - 1988",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1988,
+      "line": "October 17 Conference Call - 1988",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1988,
+      "line": "November 22 Conference Call - 1988",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1989,
+      "line": "May 31 Conference Call - 1989",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1989,
+      "line": "June 5 Conference Call - 1989",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1989,
+      "line": "July 26 Conference Call - 1989",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1989,
+      "line": "October 16 Conference Call - 1989",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1989,
+      "line": "October 17 Conference Call - 1989",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1989,
+      "line": "October 18 Conference Call - 1989",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1990,
+      "line": "April 11 Conference Call - 1990",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1990,
+      "line": "September 7 Conference Call - 1990",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1990,
+      "line": "September 17 Conference Call - 1990",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1990,
+      "line": "December 7 Conference Call - 1990",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1991,
+      "line": "January 9 Conference Call - 1991",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1991,
+      "line": "February 1 Conference Call - 1991",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1991,
+      "line": "April 12 Conference Call - 1991",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1991,
+      "line": "April 30 Conference Call - 1991",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1991,
+      "line": "May 1 Conference Call - 1991",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1991,
+      "line": "June 10 Conference Call - 1991",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1991,
+      "line": "June 24 Conference Call - 1991",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1991,
+      "line": "August 5 Conference Call - 1991",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1991,
+      "line": "September 13 Conference Call - 1991",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1991,
+      "line": "October 30 Conference Call - 1991",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1991,
+      "line": "December 2 Conference Call - 1991",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1992,
+      "line": "January 9 Conference Call - 1992",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1992,
+      "line": "March 11 Conference Call - 1992",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1992,
+      "line": "July 2 Conference Call - 1992",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1992,
+      "line": "December 14 Conference Call - 1992",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1993,
+      "line": "January 6 Conference Call - 1993",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1993,
+      "line": "February 18 Conference Call - 1993",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1993,
+      "line": "March 1 Conference Call - 1993",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1993,
+      "line": "October 5 Conference Call - 1993",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1993,
+      "line": "October 15 Conference Call - 1993",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1993,
+      "line": "October 22 Conference Call - 1993",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1993,
+      "line": "November 9 Conference Call - 1993",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1993,
+      "line": "November 10 Conference Call - 1993",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1994,
+      "line": "February 28 Conference Call - 1994",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1994,
+      "line": "March 24 Conference Call - 1994",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1994,
+      "line": "April 18 Conference Call - 1994",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1994,
+      "line": "July 20 Conference Call - 1994",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1994,
+      "line": "December 30 Conference Call - 1994",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1995,
+      "line": "January 13 Conference Call - 1995",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1995,
+      "line": "March 10 Conference Call - 1995",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1995,
+      "line": "April 28 Conference Call - 1995",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1998,
+      "line": "September 21 Conference Call - 1998",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 1998,
+      "line": "October 15 Conference Call - 1998",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2001,
+      "line": "January 3 Conference Call - 2001",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2001,
+      "line": "April 11 Conference Call - 2001",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2001,
+      "line": "April 18 Conference Call - 2001",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2001,
+      "line": "September 13 Conference Call - 2001",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2001,
+      "line": "September 17 Conference Call - 2001",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2003,
+      "line": "March 25 Conference Call - 2003",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2003,
+      "line": "April 1 Conference Call - 2003",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2003,
+      "line": "April 8 Conference Call - 2003",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2003,
+      "line": "April 16 Conference Call - 2003",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2007,
+      "line": "August 10 Conference Call - 2007",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2007,
+      "line": "August 16 Conference Call - 2007",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2007,
+      "line": "December 6 Conference Call - 2007",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2008,
+      "line": "January 9 Conference Call - 2008",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2008,
+      "line": "January 21 Conference Call - 2008",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2008,
+      "line": "March 10 Conference Call - 2008",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2008,
+      "line": "July 24 Conference Call - 2008",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2008,
+      "line": "September 29 Conference Call - 2008",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2008,
+      "line": "October 7 Conference Call - 2008",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2009,
+      "line": "January 16 Conference Call - 2009",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2009,
+      "line": "February 7 Conference Call - 2009",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2009,
+      "line": "June 3 Conference Call - 2009",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2010,
+      "line": "May 9 Conference Call - 2010",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2010,
+      "line": "October 15 Conference Call - 2010",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2011,
+      "line": "August 1 Conference Call - 2011",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2011,
+      "line": "November 28 Conference Call - 2011",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2020,
+      "line": "March 2 (unscheduled) Meeting - 2020",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2020,
+      "line": "March 15 (unscheduled) Meeting - 2020",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2020,
+      "line": "March 17-18 (cancelled) Meeting - 2020",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2020,
+      "line": "March 19 (notation vote) - 2020",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2020,
+      "line": "March 23 (notation vote) - 2020",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2020,
+      "line": "March 31 (notation vote) - 2020",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2020,
+      "line": "August 27 (notation vote) - 2020",
+      "reason": "unscheduled_cancelled_call_or_notation"
+    },
+    {
+      "year": 2025,
+      "line": "August 22 (notation vote)",
+      "reason": "notation_vote"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+H role               rule                   symbol                 IS n/pf/sh/cagr/dd/p                                  OOS n/pf/sh/cagr/dd/p / q / gate / survive
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+a primary            a_ibs_equal_risk       US100+US500+US30       IS  n= 1497 pf=  0.71 sh= -0.62 cagr=  -8.62 dd= 99.51 p= 0.285  OOS n=  385 pf=  1.35 sh=  0.52 cagr=   5.73 dd= 19.69 p= 0.160 q= 0.522 gate=N surv=N
+b primary            b_tom_equal_risk       US100+US500+US30       IS  n=  552 pf=  1.01 sh=  0.02 cagr=  -0.14 dd= 47.51 p= 0.007  OOS n=  130 pf=  1.34 sh=  0.31 cagr=   2.00 dd= 11.92 p= 0.371 q= 0.522 gate=N surv=N
+c primary            c_rsi2                 US100                  IS  n=  237 pf=  1.45 sh=  0.27 cagr=   2.45 dd= 53.72 p= 0.011  OOS n=   87 pf=  1.35 sh=  0.25 cagr=   1.80 dd= 14.05 p= 0.424 q= 0.522 gate=N surv=N
+d primary            d_5day_low             US100                  IS  n=  698 pf=  0.94 sh= -0.08 cagr=  -3.58 dd= 84.15 p= 0.132  OOS n=  234 pf=  1.28 sh=  0.42 cagr=   5.56 dd= 32.99 p= 0.413 q= 0.522 gate=N surv=N
+e primary            e_overnight            US100                  IS  n= 7628 pf=  0.25 sh= -7.72 cagr= -61.59 dd=100.00 p= 0.014  OOS n= 2732 pf=  0.99 sh= -0.06 cagr=  -1.77 dd= 38.30 p= 0.432 q= 0.522 gate=N surv=N
+f primary            f_holiday_fomc         US100                  IS  n=  484 pf=  0.93 sh= -0.31 cagr=  -2.22 dd= 70.16 p= 0.004  OOS n=  184 pf=  1.13 sh=  0.17 cagr=   0.79 dd= 13.48 p= 0.388 q= 0.522 gate=N surv=N
+g primary            g_sma10                US100                  IS  n=   26 pf=  3.94 sh=  0.34 cagr=   4.84 dd= 48.63 p= 0.230  OOS n=    9 pf=  9.02 sh=  0.53 cagr=   7.95 dd= 28.71 p= 0.457 q= 0.522 gate=N surv=N
+h primary            h_ibs_equal_weight     GER40+JP225+UK100+XAU  IS  n=  565 pf=  1.07 sh=  0.13 cagr=   0.79 dd= 32.57 p= 0.121  OOS n=  362 pf=  0.96 sh= -0.10 cagr=  -0.92 dd= 29.92 p= 0.906 q= 0.906 gate=N surv=N
+
+CONFIRMATIONS (not in FDR)
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+- confirm_a_US100_al ibs_a                  US100                  IS  n= 1105 pf=  0.83 sh= -0.34 cagr=  -7.80 dd= 98.47 p= 0.031  OOS n=  358 pf=  1.44 sh=  0.66 cagr=   8.65 dd= 22.29 p= 0.073 q=    NA gate=N surv=NA
+- confirm_a_US500    ibs_a                  US500                  IS  n= 1366 pf=  0.80 sh= -0.39 cagr=  -4.50 dd= 95.60 p= 0.056  OOS n=  353 pf=  1.44 sh=  0.64 cagr=   6.02 dd= 10.93 p= 0.051 q=    NA gate=N surv=NA
+- confirm_a_US30     ibs_a                  US30                   IS  n=  825 pf=  1.32 sh=  0.52 cagr=   5.42 dd= 24.09 p= 0.001  OOS n=  352 pf=  1.59 sh=  0.83 cagr=   7.49 dd= 14.01 p= 0.006 q=    NA gate=Y surv=NA
+- confirm_b_US100    tom_b                  US100                  IS  n=  363 pf=  1.09 sh=  0.12 cagr=   0.67 dd= 37.83 p= 0.033  OOS n=  130 pf=  1.27 sh=  0.26 cagr=   2.12 dd= 15.62 p= 0.502 q=    NA gate=N surv=NA
+- confirm_b_US500    tom_b                  US500                  IS  n=  552 pf=  1.05 sh=  0.07 cagr=   0.22 dd= 47.51 p= 0.007  OOS n=  130 pf=  1.30 sh=  0.28 cagr=   1.79 dd= 11.67 p= 0.381 q=    NA gate=N surv=NA
+- confirm_b_US30     tom_b                  US30                   IS  n=  288 pf=  1.13 sh=  0.15 cagr=   0.81 dd= 22.44 p= 0.162  OOS n=  130 pf=  1.31 sh=  0.28 cagr=   1.66 dd= 13.02 p= 0.291 q=    NA gate=N surv=NA
+c confirm_c_US500    c_rsi2                 US500                  IS  n=  351 pf=  1.21 sh=  0.15 cagr=   0.82 dd= 58.00 p= 0.005  OOS n=   88 pf=  1.74 sh=  0.45 cagr=   2.75 dd= 13.38 p= 0.187 q=    NA gate=N surv=NA
+d confirm_d_US500    d_5day_low             US500                  IS  n= 1069 pf=  0.82 sh= -0.34 cagr=  -4.79 dd= 94.18 p= 0.229  OOS n=  230 pf=  1.30 sh=  0.44 cagr=   4.49 dd= 26.09 p= 0.259 q=    NA gate=N surv=NA
+e confirm_e_US500    e_overnight            US500                  IS  n=11607 pf=  0.02 sh=-16.80 cagr= -47.93 dd=100.00 p= 0.863  OOS n= 2732 pf=  0.95 sh= -0.24 cagr=  -2.39 dd= 33.39 p= 0.409 q=    NA gate=N surv=NA
+f confirm_f_US500    f_holiday_fomc         US500                  IS  n=  610 pf=  1.23 sh=  0.02 cagr=   0.02 dd= 36.63 p= 0.001  OOS n=  184 pf=  0.97 sh= -0.07 cagr=  -0.32 dd= 10.98 p= 0.661 q=    NA gate=N surv=NA
+g confirm_g_US500    g_sma10                US500                  IS  n=   31 pf=  2.84 sh=  0.22 cagr=   1.95 dd= 37.93 p= 0.042  OOS n=   11 pf=  1.88 sh=  0.19 cagr=   1.52 dd= 28.70 p= 0.989 q=    NA gate=N surv=NA
+- confirm_h_ibs_GER4 ibs_h                  GER40                  IS  n=  547 pf=  0.95 sh= -0.09 cagr=  -2.52 dd= 57.29 p= 0.660  OOS n=  325 pf=  0.89 sh= -0.18 cagr=  -3.01 dd= 47.16 p= 0.901 q=    NA gate=N surv=NA
+- confirm_h_tom_GER4 tom_h                  GER40                  IS  n=  204 pf=  1.34 sh=  0.37 cagr=   3.37 dd= 32.00 p= 0.083  OOS n=  130 pf=  1.31 sh=  0.34 cagr=   2.51 dd= 19.60 p= 0.159 q=    NA gate=N surv=NA
+- confirm_h_ibs_JP22 ibs_h                  JP225                  IS  n=  638 pf=  1.20 sh=  0.41 cagr=   4.95 dd= 34.63 p= 0.012  OOS n=  345 pf=  1.14 sh=  0.26 cagr=   2.44 dd= 37.97 p= 0.460 q=    NA gate=N surv=NA
+- confirm_h_tom_JP22 tom_h                  JP225                  IS  n=  204 pf=  1.09 sh=  0.12 cagr=   0.67 dd= 29.53 p= 0.256  OOS n=  130 pf=  0.92 sh= -0.17 cagr=  -2.03 dd= 31.81 p= 0.912 q=    NA gate=N surv=NA
+- confirm_h_ibs_UK10 ibs_h                  UK100                  IS  n=  606 pf=  0.99 sh= -0.01 cagr=  -0.87 dd= 42.77 p= 0.116  OOS n=  339 pf=  0.72 sh= -0.61 cagr=  -6.52 dd= 56.57 p= 0.985 q=    NA gate=N surv=NA
+- confirm_h_tom_UK10 tom_h                  UK100                  IS  n=  204 pf=  1.41 sh=  0.40 cagr=   3.08 dd= 19.07 p= 0.042  OOS n=  130 pf=  0.97 sh= -0.08 cagr=  -0.72 dd= 21.67 p= 0.523 q=    NA gate=N surv=NA
+- confirm_h_ibs_XAU  ibs_h                  XAU                    IS  n=  447 pf=  1.01 sh=  0.03 cagr=  -0.32 dd= 35.99 p= 0.478  OOS n=  321 pf=  1.03 sh=  0.07 cagr=   0.20 dd= 36.31 p= 0.684 q=    NA gate=N surv=NA
+- confirm_h_tom_XAU  tom_h                  XAU                    IS  n=  185 pf=  1.05 sh=  0.06 cagr=   0.18 dd= 29.91 p= 0.444  OOS n=  130 pf=  1.90 sh=  0.73 cagr=   6.06 dd= 13.33 p= 0.015 q=    NA gate=Y surv=NA
+- confirm_h_ibs_AUDC ibs_h                  AUDCAD                 IS  n=  399 pf=  1.14 sh=  0.27 cagr=   1.56 dd= 12.37 p= 0.166  OOS n=  397 pf=  0.87 sh= -0.28 cagr=  -1.44 dd= 21.41 p= 0.739 q=    NA gate=N surv=NA
+- confirm_h_tom_AUDC tom_h                  AUDCAD                 IS  n=  145 pf=  0.92 sh=  0.18 cagr=  -0.53 dd= 70.73 p= 0.374  OOS n=  130 pf=  0.99 sh= -0.04 cagr=  -0.17 dd= 11.86 p= 0.425 q=    NA gate=N surv=NA
