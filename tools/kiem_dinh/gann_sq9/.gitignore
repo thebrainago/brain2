@@ -1,0 +1,11 @@
+# Không commit dữ liệu thô, môi trường hay bí mật
+.venv/
+__pycache__/
+*.pyc
+*.pkl
+*.npy
+*.gz
+*.parquet
+*.log
+tai_khoan.json
+.env
