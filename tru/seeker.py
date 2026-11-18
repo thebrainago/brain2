@@ -2856,6 +2856,10 @@ _KY_HIEU_NEN_TANG = {
                       r"def\s+should_long\s*\(", r"\b(ScriptStrategyBase|ControllerBase|DirectionalTradingControllerBase)\b",
                       r"\bcreate_(market_)?order\s*\(", r"\b(buy|sell)_(limit|market)\s*\("],
                "chi_bao": [r"\bdef\s+(rsi|ema|sma|atr|macd|bollinger|supertrend)\w*\s*\("]},
+    # 18/11/2026: Sierra Chart ACSIL (C++). Duoi .cpp chung cho moi C++ nen chi nhan khi co SCSFExport (xem dau_hieu_van_hanh).
+    "SierraChart": {"duoi": (".cpp", ".h"),
+                    "ea": [r"\bsc\.(BuyEntry|SellEntry|BuyOrder|SellOrder|BuyExit|SellExit)\s*\(", r"\bs_SCNewOrder\b"],
+                    "chi_bao": [r"\bSCSFExport\b", r"\bSCStudyInterfaceRef\b", r"\bsc\.Subgraph\b"]},
     "cTrader": {"duoi": (".cs",),
                 "ea": [r":\s*Robot\b", r"\bExecuteMarketOrder\s*\(", r"\bPlaceLimitOrder\s*\("],
                 "chi_bao": [r":\s*Indicator\b"]},
@@ -2882,6 +2886,8 @@ def dau_hieu_van_hanh(van_ban: str, ten_file: str = "") -> dict:
     """Doc CA van ban mot file -> nen tang, loai (ea / chi_bao / thu_vien / khac), ky thuat xu li lenh, co chay duoc khong."""
     t = ten_file.lower()
     nen = next((n for n, k in _KY_HIEU_NEN_TANG.items() if t.endswith(k["duoi"])), None)
+    if nen == "SierraChart" and not re.search(r"\bSCSFExport\b|\bSCStudyInterfaceRef\b", van_ban):
+        nen = None                                    # C++ thuong, khong phai study Sierra Chart
     if nen is None:                                   # file .txt chua Pine...
         nen = "TradingView" if re.search(r"//@version=\d", van_ban) else None
     loai = "khac"
