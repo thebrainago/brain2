@@ -143,6 +143,26 @@ def grind_fn_factory(t, tot, days, start="2026-06-01"):
         return oo * fac, hh * fac, ll * fac, cc * fac
     return f
 
+def gap_up_fn_factory(t, g, i):
+    def f(oo, hh, ll, cc):
+        oo, hh, ll, cc = oo.copy(), hh.copy(), ll.copy(), cc.copy()
+        fac = np.ones(len(cc)); fac[i:] = 1 + g
+        return oo * fac, hh * fac, ll * fac, cc * fac
+    return f
+
+
+def grind_up_fn_factory(t, tot, days, start="2026-06-01"):
+    def f(oo, hh, ll, cc):
+        oo, hh, ll, cc = oo.copy(), hh.copy(), ll.copy(), cc.copy()
+        i_s = int(np.searchsorted(t, np.datetime64(start)))
+        n = len(cc)
+        k = np.zeros(n)
+        span = days * 1380
+        k[i_s:] = np.minimum(np.arange(n - i_s) / max(span, 1), 1.0)
+        fac = np.exp(np.log(1 + tot) * k)
+        return oo * fac, hh * fac, ll * fac, cc * fac
+    return f
+
 
 def chay_1(o, h, l, c, roll, sig, P, i0, i1, atr, slope, adx, t=None, i_oos=None):
     res, eq, *rest = go(o, h, l, c, roll, sig, P, i0, i1, atr=atr, slope=slope, adx=adx)
@@ -164,17 +184,27 @@ def _pack_from_raw(raw2, i0_default):
                 roll=dw.roll.to_numpy(), i0=i0_default, i1=len(dw))
 
 
-def stress_11(d, raw, roll, o, h, l, c, t, i0, i1, i_deep, P, sig_builder, atr, slope, adx, packs=None):
-    """sig_builder(dw) -> sig. packs: dict scenario -> feature pack (tránh tính lại)."""
+def stress_11(d, raw, roll, o, h, l, c, t, i0, i1, i_deep, P, sig_builder, atr, slope, adx, packs=None, hai_chieu=False):
+    """sig_builder(dw) -> sig. packs: dict scenario -> feature pack (tránh tính lại).
+    hai_chieu=True: thêm gap +10/+20 và grind tăng (bộ 15 khi có 7 cửa sổ sập).
+    """
     if packs is None:
         packs = PACK_CACHE
     rows = []
-    for sn, fn in [
+    scens = [
         ("gap-10% tai day von", gap_fn_factory(t, 0.10, i_deep)),
         ("gap-20% tai day von", gap_fn_factory(t, 0.20, i_deep)),
         ("grind-20%/60ngay", grind_fn_factory(t, 0.20, 60)),
         ("grind-35%/120ngay", grind_fn_factory(t, 0.35, 120)),
-    ]:
+    ]
+    if hai_chieu:
+        scens += [
+            ("gap+10% tai day von", gap_up_fn_factory(t, 0.10, i_deep)),
+            ("gap+20% tai day von", gap_up_fn_factory(t, 0.20, i_deep)),
+            ("grind+20%/60ngay", grind_up_fn_factory(t, 0.20, 60)),
+            ("grind+35%/120ngay", grind_up_fn_factory(t, 0.35, 120)),
+        ]
+    for sn, fn in scens:
         key = (sn, int(i_deep))
         if key not in packs:
             o2, h2, l2, c2 = fn(o, h, l, c)

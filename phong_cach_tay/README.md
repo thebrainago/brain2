@@ -21,3 +21,5 @@ Không đặt / sửa / đóng lệnh thật. Không đóng terminal MT5.
 Chữa cháy vàng (20:50 UTC+7): `bao_cao/BAO_CAO_VANG_AN_TOAN.md`. Mặc định vàng L0=0,01 K=4 hfrac=1 lọc delta15: +14.032,99 USD, DD 34,24% trên Jun–Nov (stress 8/11). US500 mặc định `p1_union_es`.
 
 Tối ưu 11 stress (21:31 UTC+7): `bao_cao/BAO_CAO_VANG_11.md`. Mặc định vàng L0=0,01 K=4 loss_close=0,30 adx_th=30 lọc delta15: +15.930,00 USD, DD 31,08%, stress 11/11.
+
+Đối chiếu MT5 + stress hai chiều (21:55 UTC+7): `bao_cao/BAO_CAO_TAYV2_MT5.md`, `bao_cao/BAO_CAO_VANG_2CHIEU.md`. Mặc định 59672872 cháy trên MT5 tick 2025.09–2026.11 (−9.994,02 / DD 99,94%) và gãy gap vàng tăng (13/15). Ứng viên `short_cap=0,04` + cooldown 20.000: Jun–Nov +9.959,63 / DD 21,74%, stress 15/15; cửa sổ dài +2.359,88 / DD 66,24% (Python, chưa MT5).

@@ -27,6 +27,8 @@ MAXT = 128
 # 26 adx_th (0=tắt; ADX>=ngưỡng và slope ngược rổ thì dừng DCA mới)
 # 27 h_boost (0=tắt; khi drift ngược, hfrac *= 1+h_boost)
 # 28 cooldown (0=tắt; số nến không vào mới sau khi đóng lỗ tổng)
+# 29 max_lc (0=tắt; sau N lần đóng lỗ tổng thì không mở rổ mới đến hết cửa sổ)
+# 30 short_cap (0=tắt; trần tổng lot chiều ngắn, gồm cụm vào và DCA)
 
 
 def P_v2(sym="XAU", **kw):
@@ -36,14 +38,14 @@ def P_v2(sym="XAU", **kw):
                  swl=-83.83, sws=20.64, EQ0=10000.0, lev=1000.0, ddb=3000.0,
                  htp=4.00, allow_new=0.0, flcap=0.0, hfrac=0.0, dca_max_bars=0.0,
                  lot_decay=0.0, gap_atr=0.0, loss_close=0.0, max_age=0.0,
-                 adx_th=0.0, h_boost=0.0, cooldown=0.0)
+                 adx_th=0.0, h_boost=0.0, cooldown=0.0, max_lc=0.0, short_cap=0.0)
     else:
         d = dict(L0=0.10, K=5, tp=6.53, gap=8.32, hgap=80.0, hlot=0.10, hN=5,
                  maxL=20, maxH=10, basket_min=0.0, spr=0.65, pv=1.0,
                  swl=-1.24, sws=0.17, EQ0=10000.0, lev=1000.0, ddb=3000.0,
                  htp=6.53, allow_new=0.0, flcap=0.0, hfrac=0.0, dca_max_bars=0.0,
                  lot_decay=0.0, gap_atr=0.0, loss_close=0.0, max_age=0.0,
-                 adx_th=0.0, h_boost=0.0, cooldown=0.0)
+                 adx_th=0.0, h_boost=0.0, cooldown=0.0, max_lc=0.0, short_cap=0.0)
     d.update(kw)
     return np.array([
         d["L0"], d["K"], d["tp"], d["gap"], d["hgap"], d["hlot"], d["hN"],
@@ -52,6 +54,7 @@ def P_v2(sym="XAU", **kw):
         d["flcap"], d["hfrac"], d["dca_max_bars"],
         d["lot_decay"], d["gap_atr"], d["loss_close"], d["max_age"],
         d["adx_th"], d["h_boost"], d["cooldown"],
+        d["max_lc"], d["short_cap"],
     ], dtype=np.float64)
 
 
@@ -142,6 +145,8 @@ def _run(o, h, l, c, roll, sig, P, i0, i1, atr, slope, adx):
     adx_th = P[26] if len(P) > 26 else 0.0
     h_boost = P[27] if len(P) > 27 else 0.0
     cooldown = P[28] if len(P) > 28 else 0.0
+    max_lc = P[29] if len(P) > 29 else 0.0
+    short_cap = P[30] if len(P) > 30 else 0.0
     step = 0.01
     if L0 >= 0.1:
         step = 0.01
@@ -179,6 +184,7 @@ def _run(o, h, l, c, roll, sig, P, i0, i1, atr, slope, adx):
     eq_open = EQ0
     k_init = 0
     cool_until = -1
+    n_lc = 0
 
     hs = spr * 0.5
     i0 = max(i0, 1)
@@ -202,11 +208,18 @@ def _run(o, h, l, c, roll, sig, P, i0, i1, atr, slope, adx):
                 kk = int(K)
                 if kk < 1:
                     kk = 1
-                for _j in range(kk):
-                    if nt >= MAXT:
-                        break
-                    nt = _add(px, lots, side, hg, nt, fill, L0, s, 0.0)
-                n_en += 1
+                if short_cap > 0.0 and s < 0:
+                    capn = int(short_cap / L0 + 1e-12) if L0 > 0 else 0
+                    if capn < 1:
+                        kk = 0
+                    elif kk > capn:
+                        kk = capn
+                if kk >= 1:
+                    for _j in range(kk):
+                        if nt >= MAXT:
+                            break
+                        nt = _add(px, lots, side, hg, nt, fill, L0, s, 0.0)
+                    n_en += 1
                 if cur_open < 0:
                     cur_open = i
                     cur_pnl = 0.0
@@ -264,8 +277,11 @@ def _run(o, h, l, c, roll, sig, P, i0, i1, atr, slope, adx):
                 cur_pnl += close_pnl
                 nt = 0
                 n_bk += 1
+                n_lc += 1
                 if cooldown > 0:
                     cool_until = i + int(cooldown)
+                if max_lc > 0 and n_lc >= int(max_lc):
+                    cool_until = nbar + 1
 
             hold_ok = True
             if dca_max_bars > 0 and cur_open >= 0 and (i - cur_open) >= int(dca_max_bars):
@@ -292,6 +308,8 @@ def _run(o, h, l, c, roll, sig, P, i0, i1, atr, slope, adx):
                         depth = 1
                     vadd = _layer_lot(L0, lot_decay, depth, step)
                     if vadd <= 0:
+                        break
+                    if short_cap > 0.0 and main_s < 0 and (v_main + vadd) > short_cap + 1e-12:
                         break
                     fill = nxt + main_s * hs
                     extra = (adv - fill) * main_s * vadd * pv
@@ -359,8 +377,11 @@ def _run(o, h, l, c, roll, sig, P, i0, i1, atr, slope, adx):
                         n_bk += 1
                         hit_loss = True
                         added_adverse = True
+                        n_lc += 1
                         if cooldown > 0:
                             cool_until = i + int(cooldown)
+                        if max_lc > 0 and n_lc >= int(max_lc):
+                            cool_until = nbar + 1
 
                 guard = 0
                 while (not hit_loss) and (not added_adverse) and nt > 0 and guard < MAXT + 5:
@@ -404,8 +425,12 @@ def _run(o, h, l, c, roll, sig, P, i0, i1, atr, slope, adx):
                         cur_pnl += close_pnl
                         nt = 0
                         n_bk += 1
-                        if is_loss_flat and cooldown > 0:
-                            cool_until = i + int(cooldown)
+                        if is_loss_flat:
+                            n_lc += 1
+                            if cooldown > 0:
+                                cool_until = i + int(cooldown)
+                            if max_lc > 0 and n_lc >= int(max_lc):
+                                cool_until = nbar + 1
 
         mid = c[i]
         fl = _float_pnl(px, lots, side, nt, mid, pv) if nt > 0 else 0.0

@@ -104,3 +104,13 @@ Chi tiết `phong_cach_tay/bao_cao/BAO_CAO_VANG_11.md`. Vốn 10.000 USD = 1.000
 - **Mặc định mới:** L0=0,01 K=4 maxL=20 hfrac=1 lọc delta15, đóng lỗ tổng 30% equity lúc mở rổ, dừng DCA khi ADX≥30 ngược slope D1/EMA, cooldown 240. **+15.930,00 USD (1.593.000 USC), DD 31,08%**, IS +10.997,76 / OOS +4.932,25, spread×2 +9.181,92 / DD 45,00%, lỗ thả nổi tệ nhất −3.256,30 USD. **Stress 11/11** (tệ nhất Q4-2018 −1.877,80, DD 33,24%).
 - Cùng Jun–Nov: loss_close 35–40% (spread×2 +10.540,08, cũng 11/11). ADX=0 chỉ 9/11; tuổi rổ 1 ngày DD Jun–Nov 17,51% nhưng gãy gap −20% (10/11). Lọc vào S2/BB/RSI không đủ 11/11.
 - Lân cận vỡ: L0=0,02 (DD 108%), K=3, lot decay 0,7, hgap 15 (7/11).
+
+## Đối chiếu MT5 + stress hai chiều (27/11/2026 21:55 UTC+7)
+
+Chi tiết `phong_cach_tay/bao_cao/BAO_CAO_TAYV2_MT5.md` và `BAO_CAO_VANG_2CHIEU.md`. Vốn 10.000 USD = 1.000.000 USC. Không đặt lệnh thật.
+
+- MT5 p4, GOLD.i#, tick thật, 2025.09.01–2026.11.27, không delta15, mặc định 59672872: **−9.994,02 USD, DD 99,94%**, PF 0,21, 10.557 lệnh, 100% real ticks (257 giây, 21:38:15–21:42:33 giờ VN). Hết tiền 05/02/2026 02:30 giờ VN (equity 30,42).
+- Python cùng cửa sổ không lọc: **−10.012,57, DD 110,37%**, cháy 11/02/2026 22:03 giờ VN. Không còn chuyện Python thổi lãi 4–9 lần — cả hai cùng cháy.
+- Jun–Nov không lọc vẫn +16.408,03 / DD 31,08% (CSV ngắn) hoặc +17.006,94 (CSV tới 27/11).
+- Bộ 15 stress (thêm gap +10/+20 và grind tăng): gốc **13/15**, gãy gap +10% DD 92,04% và gap +20% DD 117,65% (khớp 11.765,26 ở STRESS_CHUNG_VON).
+- Ứng viên: `short_cap=0,04` + cooldown 20.000 nến. Jun–Nov **+9.959,63 / DD 21,74%**, **15/15**, spr×2 +8.867,26 / 21,74%. Cửa sổ dài không lọc **+2.359,88 / DD 66,24%**, không cháy, nhưng OOS −1.543,99 và spr×2 dài DD 93,34% chưa đạt. Chưa test lại MT5. EA thêm InpShortCap/InpMaxLc mặc định 0 để khớp test đã chạy.

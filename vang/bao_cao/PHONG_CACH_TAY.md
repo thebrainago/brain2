@@ -131,3 +131,9 @@ Cập nhật tay_v2: xem `phong_cach_tay/bao_cao/BAO_CAO_V2.md` (US500 đạt 7 
 ---
 
 Cập nhật P1 lọc tay_v2: `phong_cach_tay/bao_cao/BAO_CAO_V2_P1.md`. Vàng: cụm lãi nhanh không trùng 4 luật ĐẠT; lệnh thua hay ngược delta15 (50%). Lọc P1 trên vàng cháy hoặc DD >80%. US500: mọi lọc P1 đạt (ví dụ union +657,83 / DD 1,77%; sig_ES mặc định +375,64 / DD 0,57%).
+
+---
+
+Cập nhật chữa cháy / 11 stress / MT5: xem `phong_cach_tay/bao_cao/BAO_CAO_VANG_AN_TOAN.md`, `BAO_CAO_VANG_11.md`, `BAO_CAO_TAYV2_MT5.md`, `BAO_CAO_VANG_2CHIEU.md`.
+
+Đối chiếu MT5 (27/11/2026 21:55 UTC+7): mặc định 59672872 trên p4 GOLD.i# tick thật 2025.09.01–2026.11.27, không delta15, **−9.994,02 USD, DD 99,94%**. Python cùng cửa sổ **−10.012,57, DD 110,37%**, cháy 11/02/2026 22:03 giờ VN. Bộ 15 stress (thêm gap/grind vàng tăng): gốc 13/15, gap +20% DD 11.765,26. Ứng viên `short_cap=0,04` + cooldown 20.000: Jun–Nov +9.959,63 / DD 21,74%, 15/15; cửa sổ dài +2.359,88 / DD 66,24% (chưa test MT5).
