@@ -1,0 +1,16 @@
+19:19:14 CHO xuat_nen: slot khac=E:\mt5_tester\p5\terminal64.exe;E:\brain2_grok\mt5_slots\g3\terminal64.exe RAM=25.6
+2026-11-27 19:22:49 xuat_nen PID 2224
+2026-11-27 19:24:00 xuat_nen xong phut=1 ram_min=26.3 
+2026-11-27 19:24:00 tom3fix PID 9112
+2026-11-27 19:24:20 tom3fix xong phut=0 ram_min=26.4 
+2026-11-27 19:24:20 tom1locfix PID 16380
+2026-11-27 19:24:40 tom1locfix xong phut=0 ram_min=26.3 
+2026-11-27 19:24:40 ibs_o_L5fix PID 15872
+2026-11-27 19:25:00 ibs_o_L5fix xong phut=0 ram_min=26.3 
+2026-11-27 19:25:00 ibs_tick_L3 PID 11932
+2026-11-27 19:26:01 ibs_tick_L3 xong phut=1 ram_min=25.6 
+2026-11-27 19:26:01 ibs_tick_L5 PID 14084
+2026-11-27 19:27:01 ibs_tick_L5 xong phut=1 ram_min=25.5 
+2026-11-27 19:27:01 ibs_tick_L8 PID 14740
+2026-11-27 19:27:42 ibs_tick_L8 xong phut=1 ram_min=25.4 
+19:27:42 CHO ibs_m1_2017_L3: slot khac=E:\mt5_tester\p5\terminal64.exe RAM=26.4
