@@ -1,0 +1,1958 @@
+{
+ "cu_4950": {
+  "tong": 4950,
+  "dat": 1433,
+  "dat_2_nua": 751,
+  "theo_ho": {
+   "mua_gio_vao": 412,
+   "bat_day": 189,
+   "swing_rsi2": 119,
+   "mua_giu": 9,
+   "orb": 27,
+   "donchian": 291,
+   "qua_dem": 7,
+   "dau_thang": 158,
+   "vwap_keo": 118,
+   "ibs": 102,
+   "khoang_trong": 1
+  },
+  "theo_ho_2_nua": {
+   "mua_gio_vao": 173,
+   "bat_day": 111,
+   "swing_rsi2": 103,
+   "mua_giu": 7,
+   "orb": 6,
+   "donchian": 162,
+   "qua_dem": 6,
+   "dau_thang": 95,
+   "vwap_keo": 34,
+   "ibs": 54
+  },
+  "tot_nhat_2_nua": {
+   "mua_gio_vao": {
+    "che_do": "none",
+    "tham_so": {
+     "gio_bar": 1,
+     "can_xanh": true,
+     "stop_atr": null,
+     "cho_ban": false,
+     "he_so_ban": 1.0
+    },
+    "lenh_nam": 120,
+    "L": {
+     "L": 8,
+     "cagr": 14.7,
+     "dd": 72.3,
+     "cagr_17_21": 14.3,
+     "cagr_22_26": 15.1,
+     "dd_17_21": 57.5,
+     "dd_22_26": 66.2
+    }
+   },
+   "bat_day": {
+    "che_do": "none",
+    "tham_so": {
+     "k_atr": 0.25,
+     "stop_atr": null,
+     "tp_ve_open": true
+    },
+    "lenh_nam": 121,
+    "L": {
+     "L": 5,
+     "cagr": 1.5,
+     "dd": 37.0,
+     "cagr_17_21": 2.8,
+     "cagr_22_26": 0.1,
+     "dd_17_21": 37.0,
+     "dd_22_26": 34.1
+    }
+   },
+   "swing_rsi2": {
+    "che_do": "none",
+    "tham_so": {
+     "nguong": 5,
+     "ra_rsi": 50
+    },
+    "lenh_nam": 6,
+    "L": {
+     "L": 5,
+     "cagr": 16.5,
+     "dd": 71.5,
+     "cagr_17_21": 0.3,
+     "cagr_22_26": 36.2,
+     "dd_17_21": 71.5,
+     "dd_22_26": 41.2
+    }
+   },
+   "mua_giu": {
+    "che_do": "none",
+    "tham_so": {},
+    "lenh_nam": 0,
+    "L": {
+     "L": 3,
+     "cagr": 12.0,
+     "dd": 76.5,
+     "cagr_17_21": 19.3,
+     "cagr_22_26": 4.8,
+     "dd_17_21": 76.5,
+     "dd_22_26": 70.8
+    }
+   },
+   "orb": {
+    "che_do": "sma100",
+    "tham_so": {
+     "m": 5,
+     "tp_r": 2,
+     "cho_ban": false,
+     "he_so_ban": 1.0,
+     "stop_kieu": "atr"
+    },
+    "lenh_nam": 172,
+    "L": {
+     "L": 1,
+     "cagr": 0.1,
+     "dd": 12.6,
+     "cagr_17_21": 0.3,
+     "cagr_22_26": 0.0,
+     "dd_17_21": 10.2,
+     "dd_22_26": 10.6
+    }
+   },
+   "donchian": {
+    "che_do": "none",
+    "tham_so": {
+     "n_vao": 55,
+     "n_ra": 20,
+     "cho_ban": false,
+     "he_so_ban": 0.5
+    },
+    "lenh_nam": 3,
+    "L": {
+     "L": 3,
+     "cagr": 6.0,
+     "dd": 47.7,
+     "cagr_17_21": 10.8,
+     "cagr_22_26": 1.2,
+     "dd_17_21": 31.0,
+     "dd_22_26": 41.3
+    }
+   },
+   "qua_dem": {
+    "che_do": "none",
+    "tham_so": {
+     "chi_thu": [
+      0
+     ]
+    },
+    "lenh_nam": 48,
+    "L": {
+     "L": 8,
+     "cagr": 24.9,
+     "dd": 73.6,
+     "cagr_17_21": 31.1,
+     "cagr_22_26": 18.8,
+     "dd_17_21": 73.6,
+     "dd_22_26": 47.7
+    }
+   },
+   "dau_thang": {
+    "che_do": "none",
+    "tham_so": {
+     "ngay_cuoi": 1,
+     "ngay_dau": 1
+    },
+    "lenh_nam": 11,
+    "L": {
+     "L": 10,
+     "cagr": 12.9,
+     "dd": 56.1,
+     "cagr_17_21": 12.2,
+     "cagr_22_26": 13.7,
+     "dd_17_21": 56.1,
+     "dd_22_26": 52.5
+    }
+   },
+   "vwap_keo": {
+    "che_do": "none",
+    "tham_so": {
+     "tu_bar": 6,
+     "lech_atr": 0.0,
+     "stop_atr": null,
+     "cho_ban": false
+    },
+    "lenh_nam": 193,
+    "L": {
+     "L": 2,
+     "cagr": 3.4,
+     "dd": 25.6,
+     "cagr_17_21": 6.6,
+     "cagr_22_26": 0.1,
+     "dd_17_21": 19.6,
+     "dd_22_26": 25.6
+    }
+   },
+   "ibs": {
+    "che_do": "none",
+    "tham_so": {
+     "nguong": 0.1,
+     "giu_ngay": 1
+    },
+    "lenh_nam": 23,
+    "L": {
+     "L": 8,
+     "cagr": 16.2,
+     "dd": 73.3,
+     "cagr_17_21": 11.3,
+     "cagr_22_26": 21.6,
+     "dd_17_21": 47.4,
+     "dd_22_26": 72.8
+    }
+   }
+  }
+ },
+ "dca_10236": {
+  "tong": 10236,
+  "dat": 2911,
+  "dat_2_nua": 1128,
+  "theo_ho": {
+   "dca": 1851,
+   "luoi_hai_chieu": 241,
+   "go_lenh": 819
+  },
+  "theo_ho_2_nua": {
+   "dca": 870,
+   "luoi_hai_chieu": 34,
+   "go_lenh": 224
+  },
+  "tot_nhat_2_nua": {
+   "dca": {
+    "che_do": "none",
+    "tham_so": {
+     "cho_ban": false,
+     "buoc": 0.25,
+     "nhan": 1.5,
+     "nmax": 8,
+     "tp": 0.25,
+     "sl": 0.0,
+     "lap": false,
+     "bar0": 6
+    },
+    "lenh_nam": 433,
+    "L": {
+     "L": 1,
+     "cagr": 9.4,
+     "dd": 75.0,
+     "cagr_17_21": 14.4,
+     "cagr_22_26": 4.4,
+     "dd_17_21": 67.7,
+     "dd_22_26": 75.0
+    }
+   },
+   "luoi_hai_chieu": {
+    "che_do": "none",
+    "tham_so": {
+     "che": 0,
+     "buoc": 0.75,
+     "nmax": 5,
+     "tp_b": 0.5
+    },
+    "lenh_nam": 193,
+    "L": {
+     "L": 1,
+     "cagr": 1.9,
+     "dd": 32.1,
+     "cagr_17_21": 3.3,
+     "cagr_22_26": 0.5,
+     "dd_17_21": 32.1,
+     "dd_22_26": 23.2
+    }
+   },
+   "go_lenh": {
+    "che_do": "none",
+    "tham_so": {
+     "vung": 0.25,
+     "tp": 0.1,
+     "nhan": 2.0,
+     "nmax": 3,
+     "bar0": 6
+    },
+    "lenh_nam": 351,
+    "L": {
+     "L": 5,
+     "cagr": 23.0,
+     "dd": 73.2,
+     "cagr_17_21": 1.6,
+     "cagr_22_26": 50.3,
+     "dd_17_21": 73.2,
+     "dd_22_26": 51.0
+    }
+   }
+  }
+ },
+ "wf_2020_2026": {
+  "dca_L1": {
+   "cagr": -100.0,
+   "dd": 100.0,
+   "dat": false,
+   "theo_nam": {
+    "2020": 474.2,
+    "2021": 20.1,
+    "2022": -24.0,
+    "2023": 13.6,
+    "2024": 82.5,
+    "2025": -1.7,
+    "2026": -98.1
+   },
+   "chon": [
+    [
+     2020,
+     "dca",
+     "none",
+     {
+      "cho_ban": false,
+      "buoc": 0.25,
+      "nhan": 2.0,
+      "nmax": 5,
+      "tp": 0.5,
+      "sl": 0.0,
+      "lap": false,
+      "bar0": 0
+     }
+    ],
+    [
+     2021,
+     "dca",
+     "none",
+     {
+      "cho_ban": false,
+      "buoc": 0.25,
+      "nhan": 2.0,
+      "nmax": 5,
+      "tp": 0.5,
+      "sl": 0.0,
+      "lap": false,
+      "bar0": 0
+     }
+    ],
+    [
+     2022,
+     "dca",
+     "none",
+     {
+      "cho_ban": false,
+      "buoc": 0.25,
+      "nhan": 1.5,
+      "nmax": 8,
+      "tp": 0.5,
+      "sl": 0.0,
+      "lap": true,
+      "bar0": 6
+     }
+    ],
+    [
+     2023,
+     "dca",
+     "slope200",
+     {
+      "cho_ban": false,
+      "buoc": 0.25,
+      "nhan": 1.5,
+      "nmax": 8,
+      "tp": 0.5,
+      "sl": 0.0,
+      "lap": true,
+      "bar0": 0
+     }
+    ],
+    [
+     2024,
+     "dca",
+     "sma200",
+     {
+      "cho_ban": false,
+      "buoc": 0.25,
+      "nhan": 1.5,
+      "nmax": 8,
+      "tp": 0.5,
+      "sl": 0.0,
+      "lap": true,
+      "bar0": 6
+     }
+    ],
+    [
+     2025,
+     "dca",
+     "sma200",
+     {
+      "cho_ban": false,
+      "buoc": 0.25,
+      "nhan": 1.5,
+      "nmax": 8,
+      "tp": 0.5,
+      "sl": 0.0,
+      "lap": true,
+      "bar0": 6
+     }
+    ],
+    [
+     2026,
+     "dca",
+     "sma50&slope200",
+     {
+      "cho_ban": true,
+      "buoc": 0.25,
+      "nhan": 2.0,
+      "nmax": 8,
+      "tp": 0.25,
+      "sl": 0.0,
+      "lap": false,
+      "bar0": 0
+     }
+    ]
+   ]
+  },
+  "dca_L2": {
+   "cagr": -100.0,
+   "dd": 100.0,
+   "dat": false,
+   "theo_nam": {
+    "2020": 810.6,
+    "2021": 111.7,
+    "2022": -55.8,
+    "2023": 18.9,
+    "2024": 205.3,
+    "2025": 119.8,
+    "2026": -0.8
+   },
+   "chon": [
+    [
+     2020,
+     "dca",
+     "none",
+     {
+      "cho_ban": false,
+      "buoc": 0.5,
+      "nhan": 2.0,
+      "nmax": 8,
+      "tp": 0.5,
+      "sl": 0.0,
+      "lap": true,
+      "bar0": 6
+     }
+    ],
+    [
+     2021,
+     "dca",
+     "none",
+     {
+      "cho_ban": false,
+      "buoc": 0.5,
+      "nhan": 2.0,
+      "nmax": 8,
+      "tp": 0.5,
+      "sl": 0.0,
+      "lap": true,
+      "bar0": 6
+     }
+    ],
+    [
+     2022,
+     "dca",
+     "none",
+     {
+      "cho_ban": false,
+      "buoc": 0.5,
+      "nhan": 2.0,
+      "nmax": 8,
+      "tp": 0.5,
+      "sl": 0.0,
+      "lap": true,
+      "bar0": 6
+     }
+    ],
+    [
+     2023,
+     "dca",
+     "slope200",
+     {
+      "cho_ban": false,
+      "buoc": 0.5,
+      "nhan": 2.0,
+      "nmax": 8,
+      "tp": 0.5,
+      "sl": 0.0,
+      "lap": true,
+      "bar0": 0
+     }
+    ],
+    [
+     2024,
+     "dca",
+     "sma200",
+     {
+      "cho_ban": false,
+      "buoc": 0.25,
+      "nhan": 1.5,
+      "nmax": 8,
+      "tp": 0.5,
+      "sl": 0.0,
+      "lap": true,
+      "bar0": 6
+     }
+    ],
+    [
+     2025,
+     "dca",
+     "sma200",
+     {
+      "cho_ban": false,
+      "buoc": 0.25,
+      "nhan": 2.0,
+      "nmax": 8,
+      "tp": 0.1,
+      "sl": 0.0,
+      "lap": false,
+      "bar0": 6
+     }
+    ],
+    [
+     2026,
+     "dca",
+     "slope200",
+     {
+      "cho_ban": true,
+      "buoc": 0.5,
+      "nhan": 2.0,
+      "nmax": 5,
+      "tp": 0.5,
+      "sl": 0.0,
+      "lap": true,
+      "bar0": 6
+     }
+    ]
+   ]
+  },
+  "dca_L3": {
+   "cagr": -100.0,
+   "dd": 100.0,
+   "dat": false,
+   "theo_nam": {
+    "2020": 1088.3,
+    "2021": 43.8,
+    "2022": -66.6,
+    "2023": 19.0,
+    "2024": -56.0,
+    "2025": 133.4,
+    "2026": -4.8
+   },
+   "chon": [
+    [
+     2020,
+     "dca",
+     "none",
+     {
+      "cho_ban": false,
+      "buoc": 0.5,
+      "nhan": 2.0,
+      "nmax": 5,
+      "tp": 0.5,
+      "sl": 0.0,
+      "lap": true,
+      "bar0": 6
+     }
+    ],
+    [
+     2021,
+     "dca",
+     "slope200",
+     {
+      "cho_ban": true,
+      "buoc": 0.25,
+      "nhan": 2.0,
+      "nmax": 3,
+      "tp": 0.5,
+      "sl": 0.0,
+      "lap": false,
+      "bar0": 6
+     }
+    ],
+    [
+     2022,
+     "dca",
+     "none",
+     {
+      "cho_ban": false,
+      "buoc": 0.5,
+      "nhan": 1.5,
+      "nmax": 8,
+      "tp": 0.5,
+      "sl": 0.0,
+      "lap": true,
+      "bar0": 6
+     }
+    ],
+    [
+     2023,
+     "dca",
+     "slope200",
+     {
+      "cho_ban": false,
+      "buoc": 0.5,
+      "nhan": 1.5,
+      "nmax": 8,
+      "tp": 0.5,
+      "sl": 0.0,
+      "lap": false,
+      "bar0": 0
+     }
+    ],
+    [
+     2024,
+     "dca",
+     "adx20",
+     {
+      "cho_ban": false,
+      "buoc": 0.25,
+      "nhan": 2.0,
+      "nmax": 8,
+      "tp": 0.25,
+      "sl": 0.0,
+      "lap": true,
+      "bar0": 6
+     }
+    ],
+    [
+     2025,
+     "dca",
+     "slope200",
+     {
+      "cho_ban": false,
+      "buoc": 0.5,
+      "nhan": 2.0,
+      "nmax": 5,
+      "tp": 0.5,
+      "sl": 0.0,
+      "lap": true,
+      "bar0": 6
+     }
+    ],
+    [
+     2026,
+     "dca",
+     "slope200",
+     {
+      "cho_ban": true,
+      "buoc": 0.5,
+      "nhan": 2.0,
+      "nmax": 5,
+      "tp": 0.5,
+      "sl": 0.0,
+      "lap": true,
+      "bar0": 6
+     }
+    ]
+   ]
+  },
+  "dca_L5": {
+   "cagr": -100.0,
+   "dd": 100.0,
+   "dat": false,
+   "theo_nam": {
+    "2020": -39.2,
+    "2021": 168.4,
+    "2022": -69.6,
+    "2023": 32.0,
+    "2024": -99.4,
+    "2025": -18.8,
+    "2026": -12.4
+   },
+   "chon": [
+    [
+     2020,
+     "dca",
+     "none",
+     {
+      "cho_ban": false,
+      "buoc": 0.5,
+      "nhan": 2.0,
+      "nmax": 3,
+      "tp": 0.25,
+      "sl": 1.0,
+      "lap": false,
+      "bar0": 6
+     }
+    ],
+    [
+     2021,
+     "dca",
+     "none",
+     {
+      "cho_ban": false,
+      "buoc": 0.5,
+      "nhan": 1.5,
+      "nmax": 8,
+      "tp": 0.5,
+      "sl": 0.0,
+      "lap": true,
+      "bar0": 6
+     }
+    ],
+    [
+     2022,
+     "dca",
+     "none",
+     {
+      "cho_ban": false,
+      "buoc": 0.75,
+      "nhan": 2.0,
+      "nmax": 5,
+      "tp": 0.5,
+      "sl": 0.0,
+      "lap": false,
+      "bar0": 0
+     }
+    ],
+    [
+     2023,
+     "dca",
+     "slope200",
+     {
+      "cho_ban": false,
+      "buoc": 0.5,
+      "nhan": 1.5,
+      "nmax": 8,
+      "tp": 0.5,
+      "sl": 0.0,
+      "lap": false,
+      "bar0": 0
+     }
+    ],
+    [
+     2024,
+     "dca",
+     "adx20",
+     {
+      "cho_ban": false,
+      "buoc": 0.25,
+      "nhan": 2.0,
+      "nmax": 8,
+      "tp": 0.25,
+      "sl": 0.0,
+      "lap": true,
+      "bar0": 6
+     }
+    ],
+    [
+     2025,
+     "dca",
+     "sma50&slope200",
+     {
+      "cho_ban": false,
+      "buoc": 0.5,
+      "nhan": 2.0,
+      "nmax": 5,
+      "tp": 0.5,
+      "sl": 0.0,
+      "lap": true,
+      "bar0": 6
+     }
+    ],
+    [
+     2026,
+     "dca",
+     "none",
+     {
+      "cho_ban": false,
+      "buoc": 0.75,
+      "nhan": 2.0,
+      "nmax": 5,
+      "tp": 0.5,
+      "sl": 0.0,
+      "lap": true,
+      "bar0": 0
+     }
+    ]
+   ]
+  },
+  "luoi_hai_chieu_L1": {
+   "cagr": 6.0,
+   "dd": 48.5,
+   "dat": true,
+   "theo_nam": {
+    "2020": 44.0,
+    "2021": 20.5,
+    "2022": -14.5,
+    "2023": 42.4,
+    "2024": 13.7,
+    "2025": -36.1,
+    "2026": -3.6
+   },
+   "chon": [
+    [
+     2020,
+     "luoi_hai_chieu",
+     "none",
+     {
+      "che": 1,
+      "buoc": 0.75,
+      "nmax": 10,
+      "tp_b": 2.0
+     }
+    ],
+    [
+     2021,
+     "luoi_hai_chieu",
+     "slope200",
+     {
+      "che": 2,
+      "buoc": 0.3,
+      "nmax": 10,
+      "tp_b": 2.0
+     }
+    ],
+    [
+     2022,
+     "luoi_hai_chieu",
+     "none",
+     {
+      "che": 1,
+      "buoc": 0.3,
+      "nmax": 10,
+      "tp_b": 2.0
+     }
+    ],
+    [
+     2023,
+     "luoi_hai_chieu",
+     "none",
+     {
+      "che": 1,
+      "buoc": 0.3,
+      "nmax": 10,
+      "tp_b": 2.0
+     }
+    ],
+    [
+     2024,
+     "luoi_hai_chieu",
+     "none",
+     {
+      "che": 1,
+      "buoc": 0.3,
+      "nmax": 10,
+      "tp_b": 2.0
+     }
+    ],
+    [
+     2025,
+     "luoi_hai_chieu",
+     "none",
+     {
+      "che": 1,
+      "buoc": 0.3,
+      "nmax": 10,
+      "tp_b": 2.0
+     }
+    ],
+    [
+     2026,
+     "luoi_hai_chieu",
+     "sma200",
+     {
+      "che": 2,
+      "buoc": 0.75,
+      "nmax": 10,
+      "tp_b": 0.5
+     }
+    ]
+   ]
+  },
+  "luoi_hai_chieu_L2": {
+   "cagr": 10.7,
+   "dd": 68.5,
+   "dat": true,
+   "theo_nam": {
+    "2020": 99.6,
+    "2021": 30.9,
+    "2022": -42.8,
+    "2023": 97.0,
+    "2024": 25.6,
+    "2025": -41.5,
+    "2026": -8.1
+   },
+   "chon": [
+    [
+     2020,
+     "luoi_hai_chieu",
+     "none",
+     {
+      "che": 1,
+      "buoc": 0.75,
+      "nmax": 10,
+      "tp_b": 2.0
+     }
+    ],
+    [
+     2021,
+     "luoi_hai_chieu",
+     "slope200",
+     {
+      "che": 2,
+      "buoc": 0.3,
+      "nmax": 10,
+      "tp_b": 2.0
+     }
+    ],
+    [
+     2022,
+     "luoi_hai_chieu",
+     "none",
+     {
+      "che": 1,
+      "buoc": 0.3,
+      "nmax": 10,
+      "tp_b": 2.0
+     }
+    ],
+    [
+     2023,
+     "luoi_hai_chieu",
+     "none",
+     {
+      "che": 1,
+      "buoc": 0.3,
+      "nmax": 10,
+      "tp_b": 2.0
+     }
+    ],
+    [
+     2024,
+     "luoi_hai_chieu",
+     "none",
+     {
+      "che": 1,
+      "buoc": 0.3,
+      "nmax": 10,
+      "tp_b": 2.0
+     }
+    ],
+    [
+     2025,
+     "luoi_hai_chieu",
+     "slope200",
+     {
+      "che": 2,
+      "buoc": 0.5,
+      "nmax": 10,
+      "tp_b": 2.0
+     }
+    ],
+    [
+     2026,
+     "luoi_hai_chieu",
+     "sma200",
+     {
+      "che": 2,
+      "buoc": 0.75,
+      "nmax": 10,
+      "tp_b": 0.5
+     }
+    ]
+   ]
+  },
+  "luoi_hai_chieu_L3": {
+   "cagr": -12.6,
+   "dd": 93.4,
+   "dat": false,
+   "theo_nam": {
+    "2020": 166.9,
+    "2021": 27.5,
+    "2022": -71.5,
+    "2023": 7.2,
+    "2024": 7.1,
+    "2025": -58.4,
+    "2026": -13.3
+   },
+   "chon": [
+    [
+     2020,
+     "luoi_hai_chieu",
+     "none",
+     {
+      "che": 1,
+      "buoc": 0.75,
+      "nmax": 10,
+      "tp_b": 2.0
+     }
+    ],
+    [
+     2021,
+     "luoi_hai_chieu",
+     "slope200",
+     {
+      "che": 2,
+      "buoc": 0.3,
+      "nmax": 10,
+      "tp_b": 2.0
+     }
+    ],
+    [
+     2022,
+     "luoi_hai_chieu",
+     "none",
+     {
+      "che": 1,
+      "buoc": 0.3,
+      "nmax": 10,
+      "tp_b": 2.0
+     }
+    ],
+    [
+     2023,
+     "luoi_hai_chieu",
+     "slope200",
+     {
+      "che": 2,
+      "buoc": 0.5,
+      "nmax": 10,
+      "tp_b": 2.0
+     }
+    ],
+    [
+     2024,
+     "luoi_hai_chieu",
+     "slope200",
+     {
+      "che": 2,
+      "buoc": 0.5,
+      "nmax": 3,
+      "tp_b": 2.0
+     }
+    ],
+    [
+     2025,
+     "luoi_hai_chieu",
+     "slope200",
+     {
+      "che": 2,
+      "buoc": 0.5,
+      "nmax": 10,
+      "tp_b": 2.0
+     }
+    ],
+    [
+     2026,
+     "luoi_hai_chieu",
+     "sma200",
+     {
+      "che": 2,
+      "buoc": 0.75,
+      "nmax": 10,
+      "tp_b": 0.5
+     }
+    ]
+   ]
+  },
+  "luoi_hai_chieu_L5": {
+   "cagr": -6.9,
+   "dd": 93.9,
+   "dat": false,
+   "theo_nam": {
+    "2020": 309.2,
+    "2021": -3.8,
+    "2022": -56.8,
+    "2023": 18.2,
+    "2024": 12.9,
+    "2025": -71.0,
+    "2026": -6.7
+   },
+   "chon": [
+    [
+     2020,
+     "luoi_hai_chieu",
+     "none",
+     {
+      "che": 1,
+      "buoc": 0.75,
+      "nmax": 5,
+      "tp_b": 2.0
+     }
+    ],
+    [
+     2021,
+     "luoi_hai_chieu",
+     "slope200",
+     {
+      "che": 2,
+      "buoc": 0.5,
+      "nmax": 5,
+      "tp_b": 1.0
+     }
+    ],
+    [
+     2022,
+     "luoi_hai_chieu",
+     "none",
+     {
+      "che": 1,
+      "buoc": 0.75,
+      "nmax": 5,
+      "tp_b": 1.0
+     }
+    ],
+    [
+     2023,
+     "luoi_hai_chieu",
+     "slope200",
+     {
+      "che": 2,
+      "buoc": 0.5,
+      "nmax": 5,
+      "tp_b": 2.0
+     }
+    ],
+    [
+     2024,
+     "luoi_hai_chieu",
+     "slope200",
+     {
+      "che": 2,
+      "buoc": 0.5,
+      "nmax": 2,
+      "tp_b": 2.0
+     }
+    ],
+    [
+     2025,
+     "luoi_hai_chieu",
+     "slope200",
+     {
+      "che": 2,
+      "buoc": 0.5,
+      "nmax": 5,
+      "tp_b": 2.0
+     }
+    ],
+    [
+     2026,
+     "luoi_hai_chieu",
+     "sma200",
+     {
+      "che": 2,
+      "buoc": 0.75,
+      "nmax": 5,
+      "tp_b": 0.5
+     }
+    ]
+   ]
+  },
+  "go_lenh_L1": {
+   "cagr": -100.0,
+   "dd": 100.0,
+   "dat": false,
+   "theo_nam": {
+    "2020": 81.2,
+    "2021": -111.3,
+    "2022": 215.2,
+    "2023": 58.0,
+    "2024": 36.6,
+    "2025": 34.7,
+    "2026": 130.6
+   },
+   "chon": [
+    [
+     2020,
+     "go_lenh",
+     "none",
+     {
+      "vung": 0.25,
+      "tp": 0.5,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 0
+     }
+    ],
+    [
+     2021,
+     "go_lenh",
+     "adx20",
+     {
+      "vung": 0.25,
+      "tp": 1.0,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 6
+     }
+    ],
+    [
+     2022,
+     "go_lenh",
+     "sma200",
+     {
+      "vung": 0.25,
+      "tp": 1.0,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 0
+     }
+    ],
+    [
+     2023,
+     "go_lenh",
+     "slope200",
+     {
+      "vung": 0.25,
+      "tp": 0.5,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 0
+     }
+    ],
+    [
+     2024,
+     "go_lenh",
+     "slope200",
+     {
+      "vung": 0.25,
+      "tp": 0.5,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 0
+     }
+    ],
+    [
+     2025,
+     "go_lenh",
+     "slope200",
+     {
+      "vung": 0.25,
+      "tp": 0.5,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 0
+     }
+    ],
+    [
+     2026,
+     "go_lenh",
+     "slope200",
+     {
+      "vung": 0.25,
+      "tp": 0.5,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 6
+     }
+    ]
+   ]
+  },
+  "go_lenh_L2": {
+   "cagr": -100.0,
+   "dd": 100.0,
+   "dat": false,
+   "theo_nam": {
+    "2020": 61.0,
+    "2021": 75.9,
+    "2022": 509.2,
+    "2023": 88.1,
+    "2024": -660.3,
+    "2025": 46.9,
+    "2026": 39.5
+   },
+   "chon": [
+    [
+     2020,
+     "go_lenh",
+     "adx20",
+     {
+      "vung": 0.25,
+      "tp": 1.0,
+      "nhan": 3.0,
+      "nmax": 4,
+      "bar0": 6
+     }
+    ],
+    [
+     2021,
+     "go_lenh",
+     "sma200",
+     {
+      "vung": 0.25,
+      "tp": 0.1,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 6
+     }
+    ],
+    [
+     2022,
+     "go_lenh",
+     "sma200",
+     {
+      "vung": 0.25,
+      "tp": 1.0,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 0
+     }
+    ],
+    [
+     2023,
+     "go_lenh",
+     "sma200",
+     {
+      "vung": 0.25,
+      "tp": 1.0,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 0
+     }
+    ],
+    [
+     2024,
+     "go_lenh",
+     "sma200",
+     {
+      "vung": 0.25,
+      "tp": 1.0,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 0
+     }
+    ],
+    [
+     2025,
+     "go_lenh",
+     "sma200",
+     {
+      "vung": 0.25,
+      "tp": 0.25,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 0
+     }
+    ],
+    [
+     2026,
+     "go_lenh",
+     "sma50&slope200",
+     {
+      "vung": 0.25,
+      "tp": 1.0,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 6
+     }
+    ]
+   ]
+  },
+  "go_lenh_L3": {
+   "cagr": -100.0,
+   "dd": 100.0,
+   "dat": false,
+   "theo_nam": {
+    "2020": -363.7,
+    "2021": 106.2,
+    "2022": 163.1,
+    "2023": -92.4,
+    "2024": 211.3,
+    "2025": -99.3,
+    "2026": -3.2
+   },
+   "chon": [
+    [
+     2020,
+     "go_lenh",
+     "none",
+     {
+      "vung": 0.5,
+      "tp": 0.25,
+      "nhan": 3.0,
+      "nmax": 5,
+      "bar0": 0
+     }
+    ],
+    [
+     2021,
+     "go_lenh",
+     "none",
+     {
+      "vung": 0.25,
+      "tp": 0.1,
+      "nhan": 3.0,
+      "nmax": 5,
+      "bar0": 0
+     }
+    ],
+    [
+     2022,
+     "go_lenh",
+     "sma200",
+     {
+      "vung": 0.5,
+      "tp": 0.25,
+      "nhan": 3.0,
+      "nmax": 5,
+      "bar0": 0
+     }
+    ],
+    [
+     2023,
+     "go_lenh",
+     "sma200",
+     {
+      "vung": 0.25,
+      "tp": 0.5,
+      "nhan": 3.0,
+      "nmax": 4,
+      "bar0": 6
+     }
+    ],
+    [
+     2024,
+     "go_lenh",
+     "adx20",
+     {
+      "vung": 0.25,
+      "tp": 0.25,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 6
+     }
+    ],
+    [
+     2025,
+     "go_lenh",
+     "adx20",
+     {
+      "vung": 0.25,
+      "tp": 0.5,
+      "nhan": 3.0,
+      "nmax": 5,
+      "bar0": 6
+     }
+    ],
+    [
+     2026,
+     "go_lenh",
+     "sma50&slope200",
+     {
+      "vung": 0.25,
+      "tp": 1.0,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 6
+     }
+    ]
+   ]
+  },
+  "go_lenh_L5": {
+   "cagr": -100.0,
+   "dd": 100.0,
+   "dat": false,
+   "theo_nam": {
+    "2020": -60.2,
+    "2021": 5.9,
+    "2022": 1000.4,
+    "2023": 35.8,
+    "2024": -310.9,
+    "2025": -525.6,
+    "2026": -107.4
+   },
+   "chon": [
+    [
+     2020,
+     "go_lenh",
+     "none",
+     {
+      "vung": 0.5,
+      "tp": 0.1,
+      "nhan": 3.0,
+      "nmax": 5,
+      "bar0": 0
+     }
+    ],
+    [
+     2021,
+     "go_lenh",
+     "sma200",
+     {
+      "vung": 0.25,
+      "tp": 0.1,
+      "nhan": 2.0,
+      "nmax": 7,
+      "bar0": 6
+     }
+    ],
+    [
+     2022,
+     "go_lenh",
+     "sma200",
+     {
+      "vung": 0.25,
+      "tp": 0.25,
+      "nhan": 2.0,
+      "nmax": 7,
+      "bar0": 0
+     }
+    ],
+    [
+     2023,
+     "go_lenh",
+     "sma200",
+     {
+      "vung": 0.25,
+      "tp": 0.25,
+      "nhan": 2.0,
+      "nmax": 7,
+      "bar0": 0
+     }
+    ],
+    [
+     2024,
+     "go_lenh",
+     "sma200",
+     {
+      "vung": 0.25,
+      "tp": 0.1,
+      "nhan": 3.0,
+      "nmax": 5,
+      "bar0": 0
+     }
+    ],
+    [
+     2025,
+     "go_lenh",
+     "adx20",
+     {
+      "vung": 0.25,
+      "tp": 0.5,
+      "nhan": 3.0,
+      "nmax": 5,
+      "bar0": 6
+     }
+    ],
+    [
+     2026,
+     "go_lenh",
+     "adx20",
+     {
+      "vung": 0.25,
+      "tp": 0.1,
+      "nhan": 3.0,
+      "nmax": 5,
+      "bar0": 6
+     }
+    ]
+   ]
+  },
+  "tat_ca_L1": {
+   "cagr": 76.1,
+   "dd": 61.8,
+   "dat": true,
+   "theo_nam": {
+    "2020": 81.2,
+    "2021": 20.1,
+    "2022": 215.2,
+    "2023": 58.0,
+    "2024": 36.6,
+    "2025": 34.7,
+    "2026": 130.6
+   },
+   "chon": [
+    [
+     2020,
+     "go_lenh",
+     "none",
+     {
+      "vung": 0.25,
+      "tp": 0.5,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 0
+     }
+    ],
+    [
+     2021,
+     "dca",
+     "none",
+     {
+      "cho_ban": false,
+      "buoc": 0.25,
+      "nhan": 2.0,
+      "nmax": 5,
+      "tp": 0.5,
+      "sl": 0.0,
+      "lap": false,
+      "bar0": 0
+     }
+    ],
+    [
+     2022,
+     "go_lenh",
+     "sma200",
+     {
+      "vung": 0.25,
+      "tp": 1.0,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 0
+     }
+    ],
+    [
+     2023,
+     "go_lenh",
+     "slope200",
+     {
+      "vung": 0.25,
+      "tp": 0.5,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 0
+     }
+    ],
+    [
+     2024,
+     "go_lenh",
+     "slope200",
+     {
+      "vung": 0.25,
+      "tp": 0.5,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 0
+     }
+    ],
+    [
+     2025,
+     "go_lenh",
+     "slope200",
+     {
+      "vung": 0.25,
+      "tp": 0.5,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 0
+     }
+    ],
+    [
+     2026,
+     "go_lenh",
+     "slope200",
+     {
+      "vung": 0.25,
+      "tp": 0.5,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 6
+     }
+    ]
+   ]
+  },
+  "tat_ca_L2": {
+   "cagr": -100.0,
+   "dd": 100.0,
+   "dat": false,
+   "theo_nam": {
+    "2020": 61.0,
+    "2021": 111.7,
+    "2022": 509.2,
+    "2023": 88.1,
+    "2024": -660.3,
+    "2025": 46.9,
+    "2026": 39.5
+   },
+   "chon": [
+    [
+     2020,
+     "go_lenh",
+     "adx20",
+     {
+      "vung": 0.25,
+      "tp": 1.0,
+      "nhan": 3.0,
+      "nmax": 4,
+      "bar0": 6
+     }
+    ],
+    [
+     2021,
+     "dca",
+     "none",
+     {
+      "cho_ban": false,
+      "buoc": 0.5,
+      "nhan": 2.0,
+      "nmax": 8,
+      "tp": 0.5,
+      "sl": 0.0,
+      "lap": true,
+      "bar0": 6
+     }
+    ],
+    [
+     2022,
+     "go_lenh",
+     "sma200",
+     {
+      "vung": 0.25,
+      "tp": 1.0,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 0
+     }
+    ],
+    [
+     2023,
+     "go_lenh",
+     "sma200",
+     {
+      "vung": 0.25,
+      "tp": 1.0,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 0
+     }
+    ],
+    [
+     2024,
+     "go_lenh",
+     "sma200",
+     {
+      "vung": 0.25,
+      "tp": 1.0,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 0
+     }
+    ],
+    [
+     2025,
+     "go_lenh",
+     "sma200",
+     {
+      "vung": 0.25,
+      "tp": 0.25,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 0
+     }
+    ],
+    [
+     2026,
+     "go_lenh",
+     "sma50&slope200",
+     {
+      "vung": 0.25,
+      "tp": 1.0,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 6
+     }
+    ]
+   ]
+  },
+  "tat_ca_L3": {
+   "cagr": -100.0,
+   "dd": 100.0,
+   "dat": false,
+   "theo_nam": {
+    "2020": -363.7,
+    "2021": 27.5,
+    "2022": 163.1,
+    "2023": -92.4,
+    "2024": 211.3,
+    "2025": -99.3,
+    "2026": -3.2
+   },
+   "chon": [
+    [
+     2020,
+     "go_lenh",
+     "none",
+     {
+      "vung": 0.5,
+      "tp": 0.25,
+      "nhan": 3.0,
+      "nmax": 5,
+      "bar0": 0
+     }
+    ],
+    [
+     2021,
+     "luoi_hai_chieu",
+     "slope200",
+     {
+      "che": 2,
+      "buoc": 0.3,
+      "nmax": 10,
+      "tp_b": 2.0
+     }
+    ],
+    [
+     2022,
+     "go_lenh",
+     "sma200",
+     {
+      "vung": 0.5,
+      "tp": 0.25,
+      "nhan": 3.0,
+      "nmax": 5,
+      "bar0": 0
+     }
+    ],
+    [
+     2023,
+     "go_lenh",
+     "sma200",
+     {
+      "vung": 0.25,
+      "tp": 0.5,
+      "nhan": 3.0,
+      "nmax": 4,
+      "bar0": 6
+     }
+    ],
+    [
+     2024,
+     "go_lenh",
+     "adx20",
+     {
+      "vung": 0.25,
+      "tp": 0.25,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 6
+     }
+    ],
+    [
+     2025,
+     "go_lenh",
+     "adx20",
+     {
+      "vung": 0.25,
+      "tp": 0.5,
+      "nhan": 3.0,
+      "nmax": 5,
+      "bar0": 6
+     }
+    ],
+    [
+     2026,
+     "go_lenh",
+     "sma50&slope200",
+     {
+      "vung": 0.25,
+      "tp": 1.0,
+      "nhan": 3.0,
+      "nmax": 7,
+      "bar0": 6
+     }
+    ]
+   ]
+  },
+  "tat_ca_L5": {
+   "cagr": -100.0,
+   "dd": 100.0,
+   "dat": false,
+   "theo_nam": {
+    "2020": -60.2,
+    "2021": 168.4,
+    "2022": 1000.4,
+    "2023": 35.8,
+    "2024": -310.9,
+    "2025": -525.6,
+    "2026": -107.4
+   },
+   "chon": [
+    [
+     2020,
+     "go_lenh",
+     "none",
+     {
+      "vung": 0.5,
+      "tp": 0.1,
+      "nhan": 3.0,
+      "nmax": 5,
+      "bar0": 0
+     }
+    ],
+    [
+     2021,
+     "dca",
+     "none",
+     {
+      "cho_ban": false,
+      "buoc": 0.5,
+      "nhan": 1.5,
+      "nmax": 8,
+      "tp": 0.5,
+      "sl": 0.0,
+      "lap": true,
+      "bar0": 6
+     }
+    ],
+    [
+     2022,
+     "go_lenh",
+     "sma200",
+     {
+      "vung": 0.25,
+      "tp": 0.25,
+      "nhan": 2.0,
+      "nmax": 7,
+      "bar0": 0
+     }
+    ],
+    [
+     2023,
+     "go_lenh",
+     "sma200",
+     {
+      "vung": 0.25,
+      "tp": 0.25,
+      "nhan": 2.0,
+      "nmax": 7,
+      "bar0": 0
+     }
+    ],
+    [
+     2024,
+     "go_lenh",
+     "sma200",
+     {
+      "vung": 0.25,
+      "tp": 0.1,
+      "nhan": 3.0,
+      "nmax": 5,
+      "bar0": 0
+     }
+    ],
+    [
+     2025,
+     "go_lenh",
+     "adx20",
+     {
+      "vung": 0.25,
+      "tp": 0.5,
+      "nhan": 3.0,
+      "nmax": 5,
+      "bar0": 6
+     }
+    ],
+    [
+     2026,
+     "go_lenh",
+     "adx20",
+     {
+      "vung": 0.25,
+      "tp": 0.1,
+      "nhan": 3.0,
+      "nmax": 5,
+      "bar0": 6
+     }
+    ]
+   ]
+  }
+ }
+}
