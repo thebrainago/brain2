@@ -1,4 +1,6 @@
 > **Phiên mới: đọc `TRI_NHO/00_DOC_TRUOC.md` trước.**
+>
+> **Bàn giao 27/11/2026 (SP500 + vàng, Fxaurum, máy nhà):** [`ban_giao/BAN_GIAO_SP500_VANG_2026-11-27.md`](ban_giao/BAN_GIAO_SP500_VANG_2026-11-27.md)
 
 # THE BRAIN
 
