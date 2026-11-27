@@ -1,0 +1,1224 @@
+{
+  "nguon": "XM Global MT5 (C:\\Program Files\\XM Global MT5), tài khoản demo 345930355, trade_mode=0, chỉ đọc history_deals_get/history_orders_get.",
+  "exness_cent": "Không tìm thấy E:\\exness_cent, không có process terminal Exness, không có origin Exness trong MetaQuotes. Không khởi động terminal.",
+  "thoi_gian": {
+    "deal_dau": "2026-07-29 16:27:13+07:00",
+    "deal_cuoi": "2026-11-27 22:04:46+07:00",
+    "n_deal": 2870,
+    "n_deal_giao_dich": 2815,
+    "n_order": 2817,
+    "n_pos_mo": 46
+  },
+  "sl_tp": {
+    "order_sl_gt0": 8,
+    "order_tp_gt0": 9,
+    "order_tong": 2817,
+    "ty_le_sl": 0.284,
+    "sl_comment": {
+      "grokmgr": 8
+    },
+    "deal_reason": {
+      "mobile": 2786,
+      "expert": 23,
+      "SL": 3,
+      "TP": 2,
+      "client": 1
+    },
+    "ket_luan": "Gần như không đặt SL trên lệnh tay (magic=0). 8 lệnh có SL đều comment grokmgr (bot)."
+  },
+  "magic": {
+    "0": 2788,
+    "251125": 25,
+    "26099003": 2
+  },
+  "nap_rut": [
+    {
+      "t_vn_str": "2026-07-29 16:27:13+07:00",
+      "profit": 25000.0,
+      "comment": "Deposit for: 345930355"
+    },
+    {
+      "t_vn_str": "2026-11-12 11:19:52+07:00",
+      "profit": -23999.79,
+      "comment": "SetCustomBalance"
+    },
+    {
+      "t_vn_str": "2026-11-20 10:42:09+07:00",
+      "profit": 500.01,
+      "comment": "SetCustomBalance"
+    },
+    {
+      "t_vn_str": "2026-11-20 10:42:40+07:00",
+      "profit": 1000.0,
+      "comment": "SetCustomBalance"
+    },
+    {
+      "t_vn_str": "2026-11-20 12:42:23+07:00",
+      "profit": 6869.1,
+      "comment": "SetCustomBalance"
+    },
+    {
+      "t_vn_str": "2026-11-20 21:53:46+07:00",
+      "profit": 14885.0,
+      "comment": "SetCustomBalance"
+    },
+    {
+      "t_vn_str": "2026-11-21 00:19:34+07:00",
+      "profit": 67285.7,
+      "comment": "SetCustomBalance"
+    },
+    {
+      "t_vn_str": "2026-11-23 10:37:50+07:00",
+      "profit": -116415.68,
+      "comment": "SetCustomBalance"
+    },
+    {
+      "t_vn_str": "2026-11-25 22:31:49+07:00",
+      "profit": 19244.16,
+      "comment": "SetCustomBalance"
+    },
+    {
+      "t_vn_str": "2026-11-25 23:00:07+07:00",
+      "profit": 66883.44,
+      "comment": "SetCustomBalance"
+    },
+    {
+      "t_vn_str": "2026-11-25 23:15:56+07:00",
+      "profit": 900000.0,
+      "comment": "SetCustomBalance"
+    }
+  ],
+  "nap_rut_tong": 961251.94,
+  "theo_symbol": [
+    {
+      "symbol": "AUDCAD#",
+      "n_pos": 1,
+      "n_dong": 1,
+      "n_mo": 0,
+      "vol_tong": 0.01,
+      "pnl": -0.21,
+      "wr": 0.0,
+      "pf": 0.0,
+      "hold_med": 0.0,
+      "lot_med": 0.01,
+      "magic0_pct": 0.0
+    },
+    {
+      "symbol": "BTCUSD#",
+      "n_pos": 6,
+      "n_dong": 6,
+      "n_mo": 0,
+      "vol_tong": 0.06,
+      "pnl": 6.33,
+      "wr": 100.0,
+      "pf": 6330000000.0,
+      "hold_med": 20.37,
+      "lot_med": 0.01,
+      "magic0_pct": 100.0
+    },
+    {
+      "symbol": "GOLD.i#",
+      "n_pos": 866,
+      "n_dong": 866,
+      "n_mo": 0,
+      "vol_tong": 271.61,
+      "pnl": 60702.65,
+      "wr": 90.5,
+      "pf": 2.95,
+      "hold_med": 20.53,
+      "lot_med": 0.1,
+      "magic0_pct": 99.8
+    },
+    {
+      "symbol": "US100Cash#",
+      "n_pos": 326,
+      "n_dong": 326,
+      "n_mo": 0,
+      "vol_tong": 171.9,
+      "pnl": 8084.65,
+      "wr": 82.2,
+      "pf": 4.48,
+      "hold_med": 7.56,
+      "lot_med": 0.1,
+      "magic0_pct": 98.8
+    },
+    {
+      "symbol": "US500Cash#",
+      "n_pos": 228,
+      "n_dong": 182,
+      "n_mo": 46,
+      "vol_tong": 48.1,
+      "pnl": -113.01,
+      "wr": 64.8,
+      "pf": 0.69,
+      "hold_med": 54.89,
+      "lot_med": 0.1,
+      "magic0_pct": 98.7
+    }
+  ],
+  "hold": [
+    {
+      "symbol": "AUDCAD#",
+      "bucket": "<5p",
+      "n": 1,
+      "pnl": -0.21,
+      "wr": 0.0
+    },
+    {
+      "symbol": "AUDCAD#",
+      "bucket": "5-30p",
+      "n": 0,
+      "pnl": 0.0,
+      "wr": null
+    },
+    {
+      "symbol": "AUDCAD#",
+      "bucket": "30p-4h",
+      "n": 0,
+      "pnl": 0.0,
+      "wr": null
+    },
+    {
+      "symbol": "AUDCAD#",
+      "bucket": "4h-1d",
+      "n": 0,
+      "pnl": 0.0,
+      "wr": null
+    },
+    {
+      "symbol": "AUDCAD#",
+      "bucket": ">1d",
+      "n": 0,
+      "pnl": 0.0,
+      "wr": null
+    },
+    {
+      "symbol": "BTCUSD#",
+      "bucket": "<5p",
+      "n": 0,
+      "pnl": 0.0,
+      "wr": null
+    },
+    {
+      "symbol": "BTCUSD#",
+      "bucket": "5-30p",
+      "n": 3,
+      "pnl": 6.02,
+      "wr": 100.0
+    },
+    {
+      "symbol": "BTCUSD#",
+      "bucket": "30p-4h",
+      "n": 3,
+      "pnl": 0.31,
+      "wr": 100.0
+    },
+    {
+      "symbol": "BTCUSD#",
+      "bucket": "4h-1d",
+      "n": 0,
+      "pnl": 0.0,
+      "wr": null
+    },
+    {
+      "symbol": "BTCUSD#",
+      "bucket": ">1d",
+      "n": 0,
+      "pnl": 0.0,
+      "wr": null
+    },
+    {
+      "symbol": "GOLD.i#",
+      "bucket": "<5p",
+      "n": 309,
+      "pnl": 40950.54,
+      "wr": 97.4
+    },
+    {
+      "symbol": "GOLD.i#",
+      "bucket": "5-30p",
+      "n": 165,
+      "pnl": 11393.77,
+      "wr": 95.8
+    },
+    {
+      "symbol": "GOLD.i#",
+      "bucket": "30p-4h",
+      "n": 272,
+      "pnl": -14929.93,
+      "wr": 80.5
+    },
+    {
+      "symbol": "GOLD.i#",
+      "bucket": "4h-1d",
+      "n": 24,
+      "pnl": 1785.81,
+      "wr": 100.0
+    },
+    {
+      "symbol": "GOLD.i#",
+      "bucket": ">1d",
+      "n": 96,
+      "pnl": 21502.46,
+      "wr": 85.4
+    },
+    {
+      "symbol": "US100Cash#",
+      "bucket": "<5p",
+      "n": 151,
+      "pnl": 3462.0,
+      "wr": 98.0
+    },
+    {
+      "symbol": "US100Cash#",
+      "bucket": "5-30p",
+      "n": 36,
+      "pnl": 5242.23,
+      "wr": 97.2
+    },
+    {
+      "symbol": "US100Cash#",
+      "bucket": "30p-4h",
+      "n": 115,
+      "pnl": 1512.2,
+      "wr": 73.9
+    },
+    {
+      "symbol": "US100Cash#",
+      "bucket": "4h-1d",
+      "n": 10,
+      "pnl": -448.83,
+      "wr": 0.0
+    },
+    {
+      "symbol": "US100Cash#",
+      "bucket": ">1d",
+      "n": 14,
+      "pnl": -1682.95,
+      "wr": 0.0
+    },
+    {
+      "symbol": "US500Cash#",
+      "bucket": "<5p",
+      "n": 56,
+      "pnl": 49.17,
+      "wr": 96.4
+    },
+    {
+      "symbol": "US500Cash#",
+      "bucket": "5-30p",
+      "n": 18,
+      "pnl": 28.61,
+      "wr": 100.0
+    },
+    {
+      "symbol": "US500Cash#",
+      "bucket": "30p-4h",
+      "n": 75,
+      "pnl": 41.43,
+      "wr": 46.7
+    },
+    {
+      "symbol": "US500Cash#",
+      "bucket": "4h-1d",
+      "n": 23,
+      "pnl": -69.1,
+      "wr": 47.8
+    },
+    {
+      "symbol": "US500Cash#",
+      "bucket": ">1d",
+      "n": 10,
+      "pnl": -163.12,
+      "wr": 0.0
+    }
+  ],
+  "lot": {
+    "AUDCAD#": {
+      "n": 1,
+      "med": 0.01,
+      "p25": 0.01,
+      "p75": 0.01,
+      "mean": 0.01,
+      "min": 0.01,
+      "max": 0.01
+    },
+    "BTCUSD#": {
+      "n": 6,
+      "med": 0.01,
+      "p25": 0.01,
+      "p75": 0.01,
+      "mean": 0.01,
+      "min": 0.01,
+      "max": 0.01
+    },
+    "GOLD.i#": {
+      "n": 866,
+      "med": 0.1,
+      "p25": 0.1,
+      "p75": 1.0,
+      "mean": 0.3136,
+      "min": 0.01,
+      "max": 1.0
+    },
+    "US100Cash#": {
+      "n": 326,
+      "med": 0.1,
+      "p25": 0.1,
+      "p75": 1.0,
+      "mean": 0.5273,
+      "min": 0.1,
+      "max": 1.2
+    },
+    "US500Cash#": {
+      "n": 228,
+      "med": 0.1,
+      "p25": 0.1,
+      "p75": 0.1,
+      "mean": 0.211,
+      "min": 0.1,
+      "max": 2.7
+    }
+  },
+  "hold_phut": {
+    "AUDCAD#": {
+      "n": 1,
+      "med": 0.0037,
+      "p25": 0.0037,
+      "p75": 0.0037,
+      "mean": 0.0037,
+      "min": 0.0037,
+      "max": 0.0037
+    },
+    "BTCUSD#": {
+      "n": 6,
+      "med": 20.3701,
+      "p25": 9.3279,
+      "p75": 31.4193,
+      "mean": 20.3743,
+      "min": 9.3239,
+      "max": 31.4322
+    },
+    "GOLD.i#": {
+      "n": 866,
+      "med": 20.5293,
+      "p25": 2.5021,
+      "p75": 76.2804,
+      "mean": 425.3938,
+      "min": 0.1539,
+      "max": 8707.1391
+    },
+    "US100Cash#": {
+      "n": 326,
+      "med": 7.5603,
+      "p25": 1.588,
+      "p75": 33.6914,
+      "mean": 110.6023,
+      "min": 0.2739,
+      "max": 1868.3741
+    },
+    "US500Cash#": {
+      "n": 182,
+      "med": 54.8918,
+      "p25": 3.7057,
+      "p75": 219.383,
+      "mean": 230.1932,
+      "min": 0.2936,
+      "max": 1808.9903
+    }
+  },
+  "pnl_lenh": {
+    "AUDCAD#": {
+      "n": 1,
+      "med": -0.21,
+      "p25": -0.21,
+      "p75": -0.21,
+      "mean": -0.21,
+      "min": -0.21,
+      "max": -0.21
+    },
+    "BTCUSD#": {
+      "n": 6,
+      "med": 1.065,
+      "p25": 0.1,
+      "p75": 2.0075,
+      "mean": 1.055,
+      "min": 0.09,
+      "max": 2.01
+    },
+    "GOLD.i#": {
+      "n": 866,
+      "med": 40.75,
+      "p25": 9.5675,
+      "p75": 128.275,
+      "mean": 70.0954,
+      "min": -1868.0,
+      "max": 670.0
+    },
+    "US100Cash#": {
+      "n": 326,
+      "med": 4.985,
+      "p25": 1.295,
+      "p75": 45.05,
+      "mean": 24.7995,
+      "min": -139.91,
+      "max": 180.18
+    },
+    "US500Cash#": {
+      "n": 182,
+      "med": 0.385,
+      "p25": -0.3975,
+      "p75": 1.4575,
+      "mean": -0.6209,
+      "min": -17.57,
+      "max": 41.66
+    }
+  },
+  "burst_vao": {
+    "n_cum": 187,
+    "n_trung_vi": {
+      "AUDCAD#": {
+        "n": 1,
+        "med": 1.0,
+        "p25": 1.0,
+        "p75": 1.0,
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "BTCUSD#": {
+        "n": 2,
+        "med": 3.0,
+        "p25": 3.0,
+        "p75": 3.0,
+        "mean": 3.0,
+        "min": 3.0,
+        "max": 3.0
+      },
+      "GOLD.i#": {
+        "n": 121,
+        "med": 4.0,
+        "p25": 2.0,
+        "p75": 10.0,
+        "mean": 7.157,
+        "min": 1.0,
+        "max": 34.0
+      },
+      "US100Cash#": {
+        "n": 35,
+        "med": 5.0,
+        "p25": 3.0,
+        "p75": 12.0,
+        "mean": 9.3143,
+        "min": 1.0,
+        "max": 33.0
+      },
+      "US500Cash#": {
+        "n": 28,
+        "med": 5.5,
+        "p25": 2.75,
+        "p75": 13.25,
+        "mean": 8.1429,
+        "min": 1.0,
+        "max": 26.0
+      }
+    },
+    "ty_le_cum_ge3": 72.7,
+    "mau": [
+      {
+        "symbol": "GOLD.i#",
+        "side": "sell",
+        "n": 34,
+        "vol": 3.4000000000000004,
+        "dt_s": 5.646,
+        "t0": "2026-11-25 22:58:56.871000+07:00",
+        "px": 3471.435
+      },
+      {
+        "symbol": "US100Cash#",
+        "side": "sell",
+        "n": 33,
+        "vol": 3.3000000000000003,
+        "dt_s": 5.701,
+        "t0": "2026-11-25 22:59:05.071000+07:00",
+        "px": 25352.4
+      },
+      {
+        "symbol": "GOLD.i#",
+        "side": "sell",
+        "n": 31,
+        "vol": 31.0,
+        "dt_s": 6.494,
+        "t0": "2026-11-25 23:34:38.133000+07:00",
+        "px": 3465.05
+      },
+      {
+        "symbol": "US100Cash#",
+        "side": "buy",
+        "n": 31,
+        "vol": 31.0,
+        "dt_s": 6.269,
+        "t0": "2026-11-25 23:49:15.600000+07:00",
+        "px": 25101.72
+      },
+      {
+        "symbol": "GOLD.i#",
+        "side": "buy",
+        "n": 27,
+        "vol": 27.0,
+        "dt_s": 7.85,
+        "t0": "2026-11-25 23:57:12.968000+07:00",
+        "px": 3461.92
+      },
+      {
+        "symbol": "US500Cash#",
+        "side": "buy",
+        "n": 26,
+        "vol": 2.6000000000000005,
+        "dt_s": 5.355,
+        "t0": "2026-11-27 18:40:39.764000+07:00",
+        "px": 7323.5599999999995
+      },
+      {
+        "symbol": "GOLD.i#",
+        "side": "sell",
+        "n": 26,
+        "vol": 2.6000000000000005,
+        "dt_s": 4.087,
+        "t0": "2026-11-21 02:21:13.490000+07:00",
+        "px": 3525.3999999999996
+      },
+      {
+        "symbol": "US100Cash#",
+        "side": "sell",
+        "n": 25,
+        "vol": 2.5000000000000004,
+        "dt_s": 4.055,
+        "t0": "2026-11-25 23:33:06.439000+07:00",
+        "px": 25252.39
+      }
+    ]
+  },
+  "dca": {
+    "n": 124,
+    "gap": {
+      "GOLD.i#": {
+        "n": 81,
+        "med": 5.47,
+        "p25": 0.99,
+        "p75": 13.92,
+        "mean": 12.893,
+        "min": 0.09,
+        "max": 147.41
+      },
+      "US100Cash#": {
+        "n": 25,
+        "med": 35.37,
+        "p25": 5.88,
+        "p75": 130.13,
+        "mean": 89.8316,
+        "min": 0.87,
+        "max": 437.15
+      },
+      "US500Cash#": {
+        "n": 18,
+        "med": 8.32,
+        "p25": 3.655,
+        "p75": 16.4625,
+        "mean": 15.895,
+        "min": 0.38,
+        "max": 98.38
+      }
+    },
+    "dt_min": {
+      "GOLD.i#": {
+        "n": 81,
+        "med": 14.501,
+        "p25": 1.22,
+        "p75": 53.489,
+        "mean": 167.6362,
+        "min": 0.039,
+        "max": 5305.827
+      },
+      "US100Cash#": {
+        "n": 25,
+        "med": 7.713,
+        "p25": 0.998,
+        "p75": 38.765,
+        "mean": 74.5701,
+        "min": 0.063,
+        "max": 1011.921
+      },
+      "US500Cash#": {
+        "n": 18,
+        "med": 38.245,
+        "p25": 10.7233,
+        "p75": 136.8042,
+        "mean": 142.0603,
+        "min": 0.08,
+        "max": 1012.064
+      }
+    },
+    "he_so": {
+      "GOLD.i#": {
+        "n": 81,
+        "med": 1.0,
+        "p25": 1.0,
+        "p75": 1.0,
+        "mean": 1.8222,
+        "min": 0.1,
+        "max": 10.0
+      },
+      "US100Cash#": {
+        "n": 25,
+        "med": 1.0,
+        "p25": 1.0,
+        "p75": 1.0,
+        "mean": 2.1,
+        "min": 0.5,
+        "max": 10.0
+      },
+      "US500Cash#": {
+        "n": 18,
+        "med": 1.0,
+        "p25": 1.0,
+        "p75": 1.0,
+        "mean": 1.4907,
+        "min": 0.833,
+        "max": 10.0
+      }
+    },
+    "vol": {
+      "GOLD.i#": {
+        "n": 81,
+        "med": 0.1,
+        "p25": 0.1,
+        "p75": 0.1,
+        "mean": 0.2368,
+        "min": 0.01,
+        "max": 1.0
+      },
+      "US100Cash#": {
+        "n": 25,
+        "med": 0.1,
+        "p25": 0.1,
+        "p75": 1.0,
+        "mean": 0.464,
+        "min": 0.1,
+        "max": 1.0
+      },
+      "US500Cash#": {
+        "n": 18,
+        "med": 0.1,
+        "p25": 0.1,
+        "p75": 0.1,
+        "mean": 0.25,
+        "min": 0.1,
+        "max": 1.0
+      }
+    },
+    "n_truoc_max": {
+      "GOLD.i#": 77,
+      "US100Cash#": 79,
+      "US500Cash#": 57
+    }
+  },
+  "hedge": {
+    "n": 890,
+    "gap": {
+      "GOLD.i#": {
+        "n": 577,
+        "med": 21.3738,
+        "p25": 13.5414,
+        "p75": 31.6332,
+        "mean": 25.671,
+        "min": 1.28,
+        "max": 171.58
+      },
+      "US100Cash#": {
+        "n": 215,
+        "med": 68.2,
+        "p25": 43.1264,
+        "p75": 166.4235,
+        "mean": 110.7324,
+        "min": 0.57,
+        "max": 825.8608
+      },
+      "US500Cash#": {
+        "n": 98,
+        "med": 80.0044,
+        "p25": 10.8844,
+        "p75": 96.0044,
+        "mean": 56.1582,
+        "min": 0.6476,
+        "max": 96.2644
+      }
+    },
+    "age_min": {
+      "GOLD.i#": {
+        "n": 577,
+        "med": 49.462,
+        "p25": 15.727,
+        "p75": 348.952,
+        "mean": 200.811,
+        "min": 3.92,
+        "max": 6957.941
+      },
+      "US100Cash#": {
+        "n": 215,
+        "med": 109.275,
+        "p25": 87.6195,
+        "p75": 143.6425,
+        "mean": 400.9048,
+        "min": 5.011,
+        "max": 1689.15
+      },
+      "US500Cash#": {
+        "n": 98,
+        "med": 1015.3265,
+        "p25": 142.067,
+        "p75": 1234.8635,
+        "mean": 816.1539,
+        "min": 9.657,
+        "max": 1438.914
+      }
+    },
+    "vol": {
+      "GOLD.i#": {
+        "n": 577,
+        "med": 0.1,
+        "p25": 0.1,
+        "p75": 0.1,
+        "mean": 0.2641,
+        "min": 0.01,
+        "max": 1.0
+      },
+      "US100Cash#": {
+        "n": 215,
+        "med": 0.1,
+        "p25": 0.1,
+        "p75": 1.0,
+        "mean": 0.4716,
+        "min": 0.1,
+        "max": 1.2
+      },
+      "US500Cash#": {
+        "n": 98,
+        "med": 0.1,
+        "p25": 0.1,
+        "p75": 0.1,
+        "mean": 0.1469,
+        "min": 0.1,
+        "max": 2.7
+      }
+    },
+    "n_opp": {
+      "GOLD.i#": {
+        "n": 577,
+        "med": 16.0,
+        "p25": 12.0,
+        "p75": 43.0,
+        "mean": 30.2236,
+        "min": 1.0,
+        "max": 77.0
+      },
+      "US100Cash#": {
+        "n": 215,
+        "med": 41.0,
+        "p25": 35.0,
+        "p75": 58.0,
+        "mean": 45.1814,
+        "min": 1.0,
+        "max": 74.0
+      },
+      "US500Cash#": {
+        "n": 98,
+        "med": 9.0,
+        "p25": 9.0,
+        "p75": 9.0,
+        "mean": 9.8469,
+        "min": 1.0,
+        "max": 22.0
+      }
+    }
+  },
+  "dong_ro": {
+    "n_cum": 117,
+    "pnl": {
+      "AUDCAD#": {
+        "n": 1,
+        "med": -0.21,
+        "p25": -0.21,
+        "p75": -0.21,
+        "mean": -0.21,
+        "min": -0.21,
+        "max": -0.21
+      },
+      "BTCUSD#": {
+        "n": 2,
+        "med": 3.165,
+        "p25": 1.7375,
+        "p75": 4.5925,
+        "mean": 3.165,
+        "min": 0.31,
+        "max": 6.02
+      },
+      "GOLD.i#": {
+        "n": 71,
+        "med": 89.7,
+        "p25": 16.09,
+        "p75": 689.35,
+        "mean": 854.9669,
+        "min": -27454.04,
+        "max": 17294.4
+      },
+      "US100Cash#": {
+        "n": 21,
+        "med": 25.68,
+        "p25": 7.1,
+        "p75": 224.1,
+        "mean": 384.9833,
+        "min": -2033.82,
+        "max": 5337.68
+      },
+      "US500Cash#": {
+        "n": 22,
+        "med": 7.07,
+        "p25": -11.085,
+        "p75": 16.45,
+        "mean": -5.1368,
+        "min": -287.37,
+        "max": 48.39
+      }
+    },
+    "n_lenh": {
+      "AUDCAD#": {
+        "n": 1,
+        "med": 1.0,
+        "p25": 1.0,
+        "p75": 1.0,
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "BTCUSD#": {
+        "n": 2,
+        "med": 3.0,
+        "p25": 3.0,
+        "p75": 3.0,
+        "mean": 3.0,
+        "min": 3.0,
+        "max": 3.0
+      },
+      "GOLD.i#": {
+        "n": 71,
+        "med": 5.0,
+        "p25": 2.0,
+        "p75": 16.5,
+        "mean": 12.2394,
+        "min": 1.0,
+        "max": 76.0
+      },
+      "US100Cash#": {
+        "n": 21,
+        "med": 8.0,
+        "p25": 1.0,
+        "p75": 23.0,
+        "mean": 15.5714,
+        "min": 1.0,
+        "max": 58.0
+      },
+      "US500Cash#": {
+        "n": 22,
+        "med": 3.0,
+        "p25": 1.0,
+        "p75": 11.75,
+        "mean": 8.4091,
+        "min": 1.0,
+        "max": 57.0
+      }
+    },
+    "ty_le_cum_lai": 86.3,
+    "cum_ge5_lai": 56,
+    "cum_ge5_lo": 6
+  },
+  "tang_toi_da": {
+    "AUDCAD#": {
+      "buy": 1,
+      "sell": 0,
+      "ca_hai": 1
+    },
+    "BTCUSD#": {
+      "buy": 3,
+      "sell": 3,
+      "ca_hai": 3
+    },
+    "GOLD.i#": {
+      "buy": 86,
+      "sell": 58,
+      "ca_hai": 110
+    },
+    "US100Cash#": {
+      "buy": 106,
+      "sell": 58,
+      "ca_hai": 133
+    },
+    "US500Cash#": {
+      "buy": 65,
+      "sell": 15,
+      "ca_hai": 65
+    }
+  },
+  "von": {
+    "eq_cuoi_realized": 1029934.83,
+    "eq_dinh_realized": 1059097.48,
+    "maxdd_realized_gom_nap": 116415.68,
+    "pnl_giao_dich_thuan": 68680.41,
+    "maxdd_chi_giao_dich": 29775.23,
+    "ghi": "DD realized trên deal không gồm lỗ thả nổi (lịch sử từng ghi worst open vàng khoảng −52,4k). Tài khoản bị SetCustomBalance nhiều lần (nạp/reset demo)."
+  },
+  "mo_hien_tai": [
+    {
+      "symbol": "US500Cash#",
+      "side": "buy",
+      "n": 37,
+      "vol": 3.7,
+      "pnl": -59.83,
+      "sl": 0.0,
+      "tp": 0.0,
+      "px": 7323.5
+    },
+    {
+      "symbol": "US500Cash#",
+      "side": "sell",
+      "n": 9,
+      "vol": 0.9,
+      "pnl": -68.19,
+      "sl": 0.0,
+      "tp": 0.0,
+      "px": 7227.47
+    }
+  ],
+  "mo_sl_tp": {
+    "sl_gt0": 0,
+    "tp_gt0": 0,
+    "pnl": -128.02
+  },
+  "gio_vao": [
+    {
+      "symbol": "AUDCAD#",
+      "gio": 0,
+      "n": 1
+    },
+    {
+      "symbol": "BTCUSD#",
+      "gio": 16,
+      "n": 3
+    },
+    {
+      "symbol": "BTCUSD#",
+      "gio": 20,
+      "n": 3
+    },
+    {
+      "symbol": "GOLD.i#",
+      "gio": 0,
+      "n": 58
+    },
+    {
+      "symbol": "GOLD.i#",
+      "gio": 1,
+      "n": 30
+    },
+    {
+      "symbol": "GOLD.i#",
+      "gio": 2,
+      "n": 30
+    },
+    {
+      "symbol": "GOLD.i#",
+      "gio": 3,
+      "n": 8
+    },
+    {
+      "symbol": "GOLD.i#",
+      "gio": 4,
+      "n": 6
+    },
+    {
+      "symbol": "GOLD.i#",
+      "gio": 9,
+      "n": 2
+    },
+    {
+      "symbol": "GOLD.i#",
+      "gio": 10,
+      "n": 22
+    },
+    {
+      "symbol": "GOLD.i#",
+      "gio": 11,
+      "n": 17
+    },
+    {
+      "symbol": "GOLD.i#",
+      "gio": 12,
+      "n": 7
+    },
+    {
+      "symbol": "GOLD.i#",
+      "gio": 13,
+      "n": 3
+    },
+    {
+      "symbol": "GOLD.i#",
+      "gio": 14,
+      "n": 6
+    },
+    {
+      "symbol": "GOLD.i#",
+      "gio": 15,
+      "n": 6
+    },
+    {
+      "symbol": "GOLD.i#",
+      "gio": 16,
+      "n": 58
+    },
+    {
+      "symbol": "GOLD.i#",
+      "gio": 17,
+      "n": 84
+    },
+    {
+      "symbol": "GOLD.i#",
+      "gio": 18,
+      "n": 11
+    },
+    {
+      "symbol": "GOLD.i#",
+      "gio": 19,
+      "n": 31
+    },
+    {
+      "symbol": "GOLD.i#",
+      "gio": 20,
+      "n": 19
+    },
+    {
+      "symbol": "GOLD.i#",
+      "gio": 21,
+      "n": 10
+    },
+    {
+      "symbol": "GOLD.i#",
+      "gio": 22,
+      "n": 185
+    },
+    {
+      "symbol": "GOLD.i#",
+      "gio": 23,
+      "n": 273
+    },
+    {
+      "symbol": "US100Cash#",
+      "gio": 0,
+      "n": 1
+    },
+    {
+      "symbol": "US100Cash#",
+      "gio": 13,
+      "n": 3
+    },
+    {
+      "symbol": "US100Cash#",
+      "gio": 15,
+      "n": 4
+    },
+    {
+      "symbol": "US100Cash#",
+      "gio": 16,
+      "n": 8
+    },
+    {
+      "symbol": "US100Cash#",
+      "gio": 17,
+      "n": 8
+    },
+    {
+      "symbol": "US100Cash#",
+      "gio": 18,
+      "n": 4
+    },
+    {
+      "symbol": "US100Cash#",
+      "gio": 20,
+      "n": 5
+    },
+    {
+      "symbol": "US100Cash#",
+      "gio": 21,
+      "n": 2
+    },
+    {
+      "symbol": "US100Cash#",
+      "gio": 22,
+      "n": 140
+    },
+    {
+      "symbol": "US100Cash#",
+      "gio": 23,
+      "n": 151
+    },
+    {
+      "symbol": "US500Cash#",
+      "gio": 12,
+      "n": 7
+    },
+    {
+      "symbol": "US500Cash#",
+      "gio": 13,
+      "n": 5
+    },
+    {
+      "symbol": "US500Cash#",
+      "gio": 14,
+      "n": 1
+    },
+    {
+      "symbol": "US500Cash#",
+      "gio": 15,
+      "n": 22
+    },
+    {
+      "symbol": "US500Cash#",
+      "gio": 16,
+      "n": 3
+    },
+    {
+      "symbol": "US500Cash#",
+      "gio": 17,
+      "n": 10
+    },
+    {
+      "symbol": "US500Cash#",
+      "gio": 18,
+      "n": 33
+    },
+    {
+      "symbol": "US500Cash#",
+      "gio": 20,
+      "n": 7
+    },
+    {
+      "symbol": "US500Cash#",
+      "gio": 22,
+      "n": 117
+    },
+    {
+      "symbol": "US500Cash#",
+      "gio": 23,
+      "n": 23
+    }
+  ]
+}

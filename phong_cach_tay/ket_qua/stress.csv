@@ -1,0 +1,45 @@
+ten,net,maxdd,dd_pct,maxfl,minml,minml100,n_ro,maxlay,maxlots,blown,stopout100,nth,nhalt,dat,scenario,cfg,sym,scale,n_nen
+tay_HYB_AG|gap-10% tai day von,-7559.61,13586.24,135.86,-10812.71,-5904.1,-590.4,363,5,0.2,True,True,5,0,False,gap-10% tai day von,tay_HYB_AG,XAU,,
+tay_xac_nhan|gap-10% tai day von,-7541.4,13568.02,135.68,-10812.71,-5872.3,-587.2,352,5,0.2,True,True,5,0,False,gap-10% tai day von,tay_xac_nhan,XAU,,
+tay_HYB_AG|gap-20% tai day von,-14615.93,19939.14,199.39,-17165.62,-19137.7,-1913.8,363,5,0.2,True,True,5,0,False,gap-20% tai day von,tay_HYB_AG,XAU,,
+tay_xac_nhan|gap-20% tai day von,-14597.72,19920.93,199.21,-17165.62,-19101.9,-1910.2,352,5,0.2,True,True,5,0,False,gap-20% tai day von,tay_xac_nhan,XAU,,
+tay_HYB_AG|grind-20%/60ngay,4776.8,2637.36,26.37,-3158.72,3323.7,332.4,1148,5,0.2,False,False,8,0,True,grind-20%/60ngay,tay_HYB_AG,XAU,,
+tay_xac_nhan|grind-20%/60ngay,2183.81,3356.24,33.56,-3158.72,3323.7,332.4,1093,5,0.2,False,False,8,0,True,grind-20%/60ngay,tay_xac_nhan,XAU,,
+tay_HYB_AG|grind-35%/120ngay,2798.51,6679.73,66.8,-6866.28,3294.3,329.4,741,5,0.2,False,False,9,0,True,grind-35%/120ngay,tay_HYB_AG,XAU,,
+tay_xac_nhan|grind-35%/120ngay,2660.49,6679.73,66.8,-6866.28,3294.3,329.4,713,5,0.2,False,False,9,0,True,grind-35%/120ngay,tay_xac_nhan,XAU,,
+tay_HYB_AG|Q4-2018,1408.2,1716.7,17.17,-1567.54,5570.9,557.1,371,5,0.2,False,False,0,0,True,Q4-2018,tay_HYB_AG,XAU,3.336,10072.0
+tay_xac_nhan|Q4-2018,1408.2,1716.7,17.17,-1567.54,5570.9,557.1,371,5,0.2,False,False,0,0,True,Q4-2018,tay_xac_nhan,XAU,3.336,10072.0
+tay_HYB_AG|Covid 02-04/2020,-301.82,6078.19,60.78,-6210.75,5209.9,521.0,482,4,0.15,False,False,2,0,False,Covid 02-04/2020,tay_HYB_AG,XAU,2.54,11264.0
+tay_xac_nhan|Covid 02-04/2020,-301.82,6078.19,60.78,-6210.75,5209.9,521.0,482,4,0.15,False,False,2,0,False,Covid 02-04/2020,tay_xac_nhan,XAU,2.54,11264.0
+tay_HYB_AG|2022 H1,-4955.13,6288.33,62.88,-3030.89,3384.4,338.4,283,7,0.33,False,False,6,0,False,2022 H1,tay_HYB_AG,XAU,2.208,14012.0
+tay_xac_nhan|2022 H1,-4955.13,6288.33,62.88,-3030.89,3384.4,338.4,283,7,0.33,False,False,6,0,False,2022 H1,tay_xac_nhan,XAU,2.208,14012.0
+tay_HYB_AG|2022 08-10,1873.05,1310.45,13.1,-1202.72,6038.5,603.8,204,6,0.26,False,False,2,0,True,2022 08-10,tay_HYB_AG,XAU,2.238,8155.0
+tay_xac_nhan|2022 08-10,1873.05,1310.45,13.1,-1202.72,6038.5,603.8,204,6,0.26,False,False,2,0,True,2022 08-10,tay_xac_nhan,XAU,2.238,8155.0
+tay_HYB_AG|08-10/2023,-3880.3,5967.24,59.67,-5777.99,2739.2,273.9,181,5,0.2,False,False,3,0,False,08-10/2023,tay_HYB_AG,XAU,2.047,9332.0
+tay_xac_nhan|08-10/2023,-3880.3,5967.24,59.67,-5777.99,2739.2,273.9,181,5,0.2,False,False,3,0,False,08-10/2023,tay_xac_nhan,XAU,2.047,9332.0
+tay_HYB_AG|07-08/2024,1103.83,867.81,8.68,-909.11,11637.4,1163.7,153,4,0.15,False,False,0,0,True,07-08/2024,tay_HYB_AG,XAU,1.691,5326.0
+tay_xac_nhan|07-08/2024,1103.83,867.81,8.68,-909.11,11637.4,1163.7,153,4,0.15,False,False,0,0,True,07-08/2024,tay_xac_nhan,XAU,1.691,5326.0
+tay_HYB_AG|02-04/2025,3886.1,1318.35,13.18,-1488.55,8176.7,817.7,244,6,0.26,False,False,0,0,True,02-04/2025,tay_HYB_AG,XAU,1.383,9614.0
+tay_xac_nhan|02-04/2025,3886.1,1318.35,13.18,-1488.55,8176.7,817.7,244,6,0.26,False,False,0,0,True,02-04/2025,tay_xac_nhan,XAU,1.383,9614.0
+tay_HYB_AG|gap-10% tai day von,77.98,874.95,8.75,-559.54,17044.1,1704.4,845,7,3.3,False,False,5,0,True,gap-10% tai day von,tay_HYB_AG,US500,,
+tay_xac_nhan|gap-10% tai day von,77.98,874.95,8.75,-559.54,17044.1,1704.4,845,7,3.3,False,False,5,0,True,gap-10% tai day von,tay_xac_nhan,US500,,
+tay_HYB_AG|gap-20% tai day von,334.54,874.95,8.75,-740.31,17858.2,1785.8,800,7,3.3,False,False,5,0,True,gap-20% tai day von,tay_HYB_AG,US500,,
+tay_xac_nhan|gap-20% tai day von,334.54,874.95,8.75,-740.31,17858.2,1785.8,800,7,3.3,False,False,5,0,True,gap-20% tai day von,tay_xac_nhan,US500,,
+tay_HYB_AG|grind-20%/60ngay,-1319.42,1824.47,18.24,-1454.43,19349.6,1935.0,177,6,2.6,False,False,10,0,False,grind-20%/60ngay,tay_HYB_AG,US500,,
+tay_xac_nhan|grind-20%/60ngay,-1319.42,1824.47,18.24,-1454.43,19349.6,1935.0,177,6,2.6,False,False,10,0,False,grind-20%/60ngay,tay_xac_nhan,US500,,
+tay_HYB_AG|grind-35%/120ngay,-7470.47,8245.72,82.46,-7354.53,3157.5,315.8,184,9,5.0,False,False,10,0,False,grind-35%/120ngay,tay_HYB_AG,US500,,
+tay_xac_nhan|grind-35%/120ngay,-7470.47,8245.72,82.46,-7354.53,3157.5,315.8,184,9,5.0,False,False,10,0,False,grind-35%/120ngay,tay_xac_nhan,US500,,
+tay_HYB_AG|Q4-2018,640.45,361.32,3.61,-396.31,21300.5,2130.1,328,5,2.0,False,False,3,0,True,Q4-2018,tay_HYB_AG,US500,2.393,9856.0
+tay_xac_nhan|Q4-2018,640.45,361.32,3.61,-396.31,21300.5,2130.1,328,5,2.0,False,False,3,0,True,Q4-2018,tay_xac_nhan,US500,2.393,9856.0
+tay_HYB_AG|Covid 02-04/2020,-352.67,1476.42,14.76,-1333.71,33485.7,3348.6,324,6,2.6,False,False,2,0,False,Covid 02-04/2020,tay_HYB_AG,US500,2.113,10743.0
+tay_xac_nhan|Covid 02-04/2020,-352.67,1476.42,14.76,-1333.71,33485.7,3348.6,324,6,2.6,False,False,2,0,False,Covid 02-04/2020,tay_xac_nhan,US500,2.113,10743.0
+tay_HYB_AG|2022 H1,-609.76,1179.45,11.79,-1141.18,31106.4,3110.6,233,5,2.0,False,False,5,0,False,2022 H1,tay_HYB_AG,US500,1.464,13544.0
+tay_xac_nhan|2022 H1,-609.76,1179.45,11.79,-1141.18,31106.4,3110.6,233,5,2.0,False,False,5,0,False,2022 H1,tay_xac_nhan,US500,1.464,13544.0
+tay_HYB_AG|2022 08-10,513.42,683.44,6.83,-732.94,19356.1,1935.6,201,5,2.0,False,False,3,0,True,2022 08-10,tay_HYB_AG,US500,1.662,7882.0
+tay_xac_nhan|2022 08-10,513.42,683.44,6.83,-732.94,19356.1,1935.6,201,5,2.0,False,False,3,0,True,2022 08-10,tay_xac_nhan,US500,1.662,7882.0
+tay_HYB_AG|08-10/2023,89.61,335.1,3.35,-261.94,15717.8,1571.8,181,6,2.6,False,False,4,0,True,08-10/2023,tay_HYB_AG,US500,1.537,9027.0
+tay_xac_nhan|08-10/2023,89.61,335.1,3.35,-261.94,15717.8,1571.8,181,6,2.6,False,False,4,0,True,08-10/2023,tay_xac_nhan,US500,1.537,9027.0
+tay_HYB_AG|07-08/2024,-145.67,349.87,3.5,-350.69,28270.0,2827.0,131,5,2.0,False,False,2,0,False,07-08/2024,tay_HYB_AG,US500,1.255,5144.0
+tay_xac_nhan|07-08/2024,-145.67,349.87,3.5,-350.69,28270.0,2827.0,131,5,2.0,False,False,2,0,False,07-08/2024,tay_xac_nhan,US500,1.255,5144.0
+tay_HYB_AG|02-04/2025,848.06,385.11,3.85,-539.33,24768.4,2476.8,357,5,2.0,False,False,2,0,True,02-04/2025,tay_HYB_AG,US500,1.144,9277.0
+tay_xac_nhan|02-04/2025,848.06,385.11,3.85,-539.33,24768.4,2476.8,357,5,2.0,False,False,2,0,True,02-04/2025,tay_xac_nhan,US500,1.144,9277.0

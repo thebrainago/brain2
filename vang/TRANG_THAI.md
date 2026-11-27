@@ -62,10 +62,13 @@ Stress 11 kịch bản (baseline): sống 10/11 (không cháy và DD<80%). **Ch�
 
 **Kết luận ngắn:** cổng HYB+AG baseline vừa ĐẠT trên Jun–Nov nhưng IS lỗ, spread ×2 không ĐẠT, DSR 0, cháy 2022 H1 — chưa đủ để tin. Cộng tín hiệu data vào điểm S làm xấu đi trên cửa sổ này.
 
-## Việc tiếp (phần 2 — phong cách tay, t348u)
+## Part 2 — phong cách tay (t348u, 27/11/2026 ~20:30 UTC+7)
 
-1. Đọc transcript XAUUSD Scalp Bot; xuất lịch sử lệnh XM chính + Exness cent (chỉ đọc, không đặt/sửa lệnh, không tắt terminal).
-2. Đưa phong cách tay thành máy quy tắc, tài khoản cent; backtest XAU và SP500 theo 7 bước.
-3. Code dùng chung: `phong_cach_tay/`. Tick `aggTrades` để chạy lại footprint khi xuất xong (đang kéo, PID 15808).
-4. Không đụng g3, p3/p5/p6, không tắt terminal XM/Exness. RAM trống ≥ 6 GB.
+Đã xong: đọc transcript XAUUSD Scalp Bot (agent `526b1021-…`); xuất chỉ-đọc XM Global MT5 (demo 345930355, 2870 deal, không SL tay); **không** tìm thấy Exness cent `E:\exness_cent` (không khởi động). Máy quy tắc + kiểm 7 bước XAU và US500 nằm ở `phong_cach_tay/`. Báo cáo: `phong_cach_tay/bao_cao/BAO_CAO_7_BUOC.md`, `QUY_TAC.md`, và bản sao `vang/bao_cao/PHONG_CACH_TAY.md` / `sp500/bao_cao/PHONG_CACH_TAY.md`.
+
+- XAU `tay_HYB_AG`: −2.240,13 USD, DD 72,33%, không đạt (OOS +1.830 nhưng IS −4.071). Sống 9/11 stress (cháy gap 10%/20%). Xác nhận Fxaurum làm xấu (−5.735).
+- US500 `tay_HYB_AG`: −450,88 USD, DD 8,75%, không đạt. Sống 10/11 (trượt grind −35%/120 ngày, DD 82,5%).
+- Vốn 10.000 USD = 1.000.000 USC. Không đặt lệnh thật.
+
+Còn: xuất tick GCZ6 (aggTrades) nếu còn chạy thì để nguyên, không tắt; không đụng g3, p3/p5/p6, không tắt terminal XM.
 
