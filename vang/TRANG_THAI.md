@@ -78,3 +78,9 @@ Máy gần phong cách tay hơn (cụm lot cố định, TP 4 USD, DCA 5,47, hed
 - Vàng: +98.412 USD nhưng DD 453,86% — không đạt. Stress 0/11.
 - US500: +1.712,59, DD 2,54%, spread ×2 đạt, sống 11/11 — đạt trên cửa sổ đo.
 - Cạnh <5 phút +40.951 chủ yếu là 25/11 lot 1,00. Lot ≤0,10 <5 phút: +5.260, TP 4,00. S≥1 chỉ có ở 14,6% lệnh lãi nhanh.
+
+## tay_v2 + lọc P1 (27/11/2026 ~20:45 UTC+7)
+
+Dùng `phong_cach_tay/tin_hieu_data.py` (không sửa). Báo cáo `phong_cach_tay/bao_cao/BAO_CAO_V2_P1.md`.
+- Vàng: lệnh lãi nhanh không trùng 4 luật ĐẠT (0%). Lệnh thua ngược delta15 50%. Máy cụm + lọc P1 cháy hoặc DD >80%.
+- US500: lọc P1 đều đạt trên Jun–Nov; union +657,83 / DD 1,77%; `sig_ES` mặc định +375,64 / DD 0,57%.

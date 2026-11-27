@@ -123,3 +123,7 @@ Không cấu hình nào của máy phong cách tay **đạt** tiêu chí lãi r�
 ---
 
 Cập nhật tay_v2: xem `phong_cach_tay/bao_cao/BAO_CAO_V2.md` (US500 đạt 7 bước +1.712,59 / DD 2,54%; vàng +98.412 nhưng DD 453,86%, không đạt).
+
+---
+
+Cập nhật P1 lọc tay_v2: `phong_cach_tay/bao_cao/BAO_CAO_V2_P1.md`. Vàng: cụm lãi nhanh không trùng 4 luật ĐẠT; lệnh thua hay ngược delta15 (50%). Lọc P1 trên vàng cháy hoặc DD >80%. US500: mọi lọc P1 đạt (ví dụ union +657,83 / DD 1,77%; sig_ES mặc định +375,64 / DD 0,57%).

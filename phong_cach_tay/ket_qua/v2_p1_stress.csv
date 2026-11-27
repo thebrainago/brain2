@@ -1,0 +1,89 @@
+ten,net,maxdd,dd_pct,maxfl,n_en,n_tp,n_dca,n_hd,n_bk,n_ro,max_tix,maxlots,blown,dat,scenario,cfg,sym,scale,n_nen
+tay_v2|gap-10% tai day von,95909.49,39481.37,394.81,-41836.53,2240,5863,2170,839,2106,2240,30,3.0,False,False,gap-10% tai day von,tay_v2,XAU,,
+p1_union4|gap-10% tai day von,-10198.92,11762.13,117.62,-12908.6,32,48,33,2,28,32,20,2.0,True,False,gap-10% tai day von,p1_union4,XAU,,
+tay_v2_xac_nhan_p1|gap-10% tai day von,-10058.53,11178.93,111.79,-12325.4,15,44,28,2,11,15,20,2.0,True,False,gap-10% tai day von,tay_v2_xac_nhan_p1,XAU,,
+tay_v2_chan_big_nguoc|gap-10% tai day von,97918.63,39481.37,394.81,-41836.53,2318,5654,2151,787,2185,2318,30,3.0,False,False,gap-10% tai day von,tay_v2_chan_big_nguoc,XAU,,
+tay_v2|gap-20% tai day von,83433.68,55425.14,554.25,-56901.15,1721,5695,1910,862,1611,1721,30,3.0,False,False,gap-20% tai day von,tay_v2,XAU,,
+p1_union4|gap-20% tai day von,-10370.16,20101.92,201.02,-21126.6,195,512,219,56,170,195,30,3.0,True,False,gap-20% tai day von,p1_union4,XAU,,
+tay_v2_xac_nhan_p1|gap-20% tai day von,20791.89,3213.16,32.13,-8555.7,413,1070,434,139,385,413,30,3.0,False,True,gap-20% tai day von,tay_v2_xac_nhan_p1,XAU,,
+tay_v2_chan_big_nguoc|gap-20% tai day von,87616.19,55425.14,554.25,-56901.15,1789,5803,1951,877,1672,1789,30,3.0,False,False,gap-20% tai day von,tay_v2_chan_big_nguoc,XAU,,
+tay_v2|grind-20%/60ngay,-10157.92,42699.82,427.0,-39281.73,524,2541,742,406,476,524,30,3.0,True,False,grind-20%/60ngay,tay_v2,XAU,,
+p1_union4|grind-20%/60ngay,-10091.85,12555.06,125.55,-13747.4,42,110,58,5,32,42,23,2.3,True,False,grind-20%/60ngay,p1_union4,XAU,,
+tay_v2_xac_nhan_p1|grind-20%/60ngay,18839.06,5497.27,54.97,-8555.7,357,1067,420,140,329,357,30,3.0,False,True,grind-20%/60ngay,tay_v2_xac_nhan_p1,XAU,,
+tay_v2_chan_big_nguoc|grind-20%/60ngay,-10157.92,42699.82,427.0,-39281.73,524,2541,742,406,476,524,30,3.0,True,False,grind-20%/60ngay,tay_v2_chan_big_nguoc,XAU,,
+tay_v2|grind-35%/120ngay,-10000.94,42375.94,423.76,-39796.14,526,2483,736,392,478,526,30,3.0,True,False,grind-35%/120ngay,tay_v2,XAU,,
+p1_union4|grind-35%/120ngay,-10620.86,15612.76,156.13,-16801.27,85,168,89,5,67,85,23,2.3,True,False,grind-35%/120ngay,p1_union4,XAU,,
+tay_v2_xac_nhan_p1|grind-35%/120ngay,16791.35,5092.94,50.93,-6227.16,366,1000,384,139,345,366,27,2.7,False,True,grind-35%/120ngay,tay_v2_xac_nhan_p1,XAU,,
+tay_v2_chan_big_nguoc|grind-35%/120ngay,-10000.94,42375.94,423.76,-39796.14,526,2483,736,392,478,526,30,3.0,True,False,grind-35%/120ngay,tay_v2_chan_big_nguoc,XAU,,
+tay_v2|Q4-2018,-10021.77,19384.72,193.85,-20249.12,305,570,259,67,285,305,30,3.0,True,False,Q4-2018,tay_v2,XAU,3.337,30162.0
+tay_v2_chan_big_nguoc|Q4-2018,-10021.77,19384.72,193.85,-20249.12,305,570,259,67,285,305,30,3.0,True,False,Q4-2018,tay_v2_chan_big_nguoc,XAU,3.337,30162.0
+p1_union4|Q4-2018,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,Q4-2018,p1_union4,XAU,3.337,30162.0
+tay_v2_xac_nhan_p1|Q4-2018,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,Q4-2018,tay_v2_xac_nhan_p1,XAU,3.337,30162.0
+tay_v2|Covid 02-04/2020,-10032.59,20566.77,205.67,-25344.08,142,1222,380,186,118,142,30,3.0,True,False,Covid 02-04/2020,tay_v2,XAU,2.541,33792.0
+tay_v2_chan_big_nguoc|Covid 02-04/2020,-10032.59,20566.77,205.67,-25344.08,142,1222,380,186,118,142,30,3.0,True,False,Covid 02-04/2020,tay_v2_chan_big_nguoc,XAU,2.541,33792.0
+p1_union4|Covid 02-04/2020,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,Covid 02-04/2020,p1_union4,XAU,2.541,33792.0
+tay_v2_xac_nhan_p1|Covid 02-04/2020,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,Covid 02-04/2020,tay_v2_xac_nhan_p1,XAU,2.541,33792.0
+tay_v2|2022 H1,-11505.91,50124.16,501.24,-46440.0,563,2386,863,310,487,563,30,3.0,True,False,2022 H1,tay_v2,XAU,2.208,42036.0
+tay_v2_chan_big_nguoc|2022 H1,-11505.91,50124.16,501.24,-46440.0,563,2386,863,310,487,563,30,3.0,True,False,2022 H1,tay_v2_chan_big_nguoc,XAU,2.208,42036.0
+p1_union4|2022 H1,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,2022 H1,p1_union4,XAU,2.208,42036.0
+tay_v2_xac_nhan_p1|2022 H1,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,2022 H1,tay_v2_xac_nhan_p1,XAU,2.208,42036.0
+tay_v2|2022 08-10,-10085.71,14086.9,140.87,-15610.75,86,362,122,55,78,86,26,2.6,True,False,2022 08-10,tay_v2,XAU,2.238,24464.0
+tay_v2_chan_big_nguoc|2022 08-10,-10085.71,14086.9,140.87,-15610.75,86,362,122,55,78,86,26,2.6,True,False,2022 08-10,tay_v2_chan_big_nguoc,XAU,2.238,24464.0
+p1_union4|2022 08-10,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,2022 08-10,p1_union4,XAU,2.238,24464.0
+tay_v2_xac_nhan_p1|2022 08-10,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,2022 08-10,tay_v2_xac_nhan_p1,XAU,2.238,24464.0
+tay_v2|08-10/2023,32324.38,21461.64,214.62,-22636.38,880,3088,1035,460,825,880,30,3.0,False,False,08-10/2023,tay_v2,XAU,2.047,27991.0
+tay_v2_chan_big_nguoc|08-10/2023,32324.38,21461.64,214.62,-22636.38,880,3088,1035,460,825,880,30,3.0,False,False,08-10/2023,tay_v2_chan_big_nguoc,XAU,2.047,27991.0
+p1_union4|08-10/2023,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,08-10/2023,p1_union4,XAU,2.047,27991.0
+tay_v2_xac_nhan_p1|08-10/2023,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,08-10/2023,tay_v2_xac_nhan_p1,XAU,2.047,27991.0
+tay_v2|07-08/2024,-10003.37,11035.98,110.36,-12587.01,15,226,64,38,13,15,30,3.0,True,False,07-08/2024,tay_v2,XAU,1.692,15978.0
+tay_v2_chan_big_nguoc|07-08/2024,-10003.37,11035.98,110.36,-12587.01,15,226,64,38,13,15,30,3.0,True,False,07-08/2024,tay_v2_chan_big_nguoc,XAU,1.692,15978.0
+p1_union4|07-08/2024,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,07-08/2024,p1_union4,XAU,1.692,15978.0
+tay_v2_xac_nhan_p1|07-08/2024,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,07-08/2024,tay_v2_xac_nhan_p1,XAU,1.692,15978.0
+tay_v2|02-04/2025,-10055.56,48058.46,480.58,-49337.16,546,2309,928,279,458,546,30,3.0,True,False,02-04/2025,tay_v2,XAU,1.383,28840.0
+tay_v2_chan_big_nguoc|02-04/2025,-10055.56,48058.46,480.58,-49337.16,546,2309,928,279,458,546,30,3.0,True,False,02-04/2025,tay_v2_chan_big_nguoc,XAU,1.383,28840.0
+p1_union4|02-04/2025,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,02-04/2025,p1_union4,XAU,1.383,28840.0
+tay_v2_xac_nhan_p1|02-04/2025,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,02-04/2025,tay_v2_xac_nhan_p1,XAU,1.383,28840.0
+tay_v2|gap-10% tai day von,902.65,1651.32,16.51,-1858.98,1510,7659,2679,1056,1454,1510,30,3.0,False,True,gap-10% tai day von,tay_v2,US500,,
+p1_union_es|gap-10% tai day von,539.99,165.02,1.65,-248.96,592,1579,767,143,543,592,30,3.0,False,True,gap-10% tai day von,p1_union_es,US500,,
+tay_v2_xac_nhan_p1|gap-10% tai day von,277.04,226.52,2.27,-279.54,303,1309,477,165,280,303,30,3.0,False,True,gap-10% tai day von,tay_v2_xac_nhan_p1,US500,,
+tay_v2_chan_big_nguoc|gap-10% tai day von,899.93,1651.32,16.51,-1858.98,1498,7641,2667,1055,1444,1498,30,3.0,False,True,gap-10% tai day von,tay_v2_chan_big_nguoc,US500,,
+tay_v2|gap-20% tai day von,750.17,3138.99,31.39,-3328.55,1576,7043,2134,1026,1533,1576,30,3.0,False,True,gap-20% tai day von,tay_v2,US500,,
+p1_union_es|gap-20% tai day von,450.82,163.39,1.63,-207.88,560,1135,624,91,525,560,30,3.0,False,True,gap-20% tai day von,p1_union_es,US500,,
+tay_v2_xac_nhan_p1|gap-20% tai day von,215.47,231.78,2.32,-250.01,275,1122,417,143,256,275,30,3.0,False,True,gap-20% tai day von,tay_v2_xac_nhan_p1,US500,,
+tay_v2_chan_big_nguoc|gap-20% tai day von,742.23,3138.99,31.39,-3328.55,1573,7031,2125,1026,1531,1573,30,3.0,False,True,gap-20% tai day von,tay_v2_chan_big_nguoc,US500,,
+tay_v2|grind-20%/60ngay,856.08,245.11,2.45,-367.65,1560,7029,2506,983,1508,1560,30,3.0,False,True,grind-20%/60ngay,tay_v2,US500,,
+p1_union_es|grind-20%/60ngay,450.82,163.39,1.63,-207.88,560,1135,624,91,525,560,30,3.0,False,True,grind-20%/60ngay,p1_union_es,US500,,
+tay_v2_xac_nhan_p1|grind-20%/60ngay,215.47,231.78,2.32,-250.01,275,1122,417,143,256,275,30,3.0,False,True,grind-20%/60ngay,tay_v2_xac_nhan_p1,US500,,
+tay_v2_chan_big_nguoc|grind-20%/60ngay,848.14,245.11,2.45,-367.65,1557,7017,2497,983,1506,1557,30,3.0,False,True,grind-20%/60ngay,tay_v2_chan_big_nguoc,US500,,
+tay_v2|grind-35%/120ngay,818.21,235.91,2.36,-367.83,1672,8714,2659,1333,1633,1672,30,3.0,False,True,grind-35%/120ngay,tay_v2,US500,,
+p1_union_es|grind-35%/120ngay,301.49,168.15,1.68,-228.61,464,1957,515,310,447,464,30,3.0,False,True,grind-35%/120ngay,p1_union_es,US500,,
+tay_v2_xac_nhan_p1|grind-35%/120ngay,122.38,177.68,1.78,-228.61,219,1797,391,308,212,219,30,3.0,False,True,grind-35%/120ngay,tay_v2_xac_nhan_p1,US500,,
+tay_v2_chan_big_nguoc|grind-35%/120ngay,810.75,235.91,2.36,-367.83,1667,8703,2640,1335,1629,1667,30,3.0,False,True,grind-35%/120ngay,tay_v2_chan_big_nguoc,US500,,
+tay_v2|Q4-2018,949.94,903.61,9.04,-925.79,632,5640,1729,723,490,632,30,3.0,False,True,Q4-2018,tay_v2,US500,2.393,29375.0
+tay_v2_chan_big_nguoc|Q4-2018,949.94,903.61,9.04,-925.79,632,5640,1729,723,490,632,30,3.0,False,True,Q4-2018,tay_v2_chan_big_nguoc,US500,2.393,29375.0
+p1_union_es|Q4-2018,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,Q4-2018,p1_union_es,US500,2.393,29375.0
+tay_v2_xac_nhan_p1|Q4-2018,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,Q4-2018,tay_v2_xac_nhan_p1,US500,2.393,29375.0
+tay_v2|Covid 02-04/2020,4273.27,830.46,8.3,-1178.51,1457,14161,4941,1554,957,1457,30,3.0,False,True,Covid 02-04/2020,tay_v2,US500,2.112,32192.0
+tay_v2_chan_big_nguoc|Covid 02-04/2020,4273.27,830.46,8.3,-1178.51,1457,14161,4941,1554,957,1457,30,3.0,False,True,Covid 02-04/2020,tay_v2_chan_big_nguoc,US500,2.112,32192.0
+p1_union_es|Covid 02-04/2020,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,Covid 02-04/2020,p1_union_es,US500,2.112,32192.0
+tay_v2_xac_nhan_p1|Covid 02-04/2020,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,Covid 02-04/2020,tay_v2_xac_nhan_p1,US500,2.112,32192.0
+tay_v2|2022 H1,3168.82,527.77,5.28,-646.7,1678,14385,4991,1585,1165,1678,30,3.0,False,True,2022 H1,tay_v2,US500,1.463,40632.0
+tay_v2_chan_big_nguoc|2022 H1,3168.82,527.77,5.28,-646.7,1678,14385,4991,1585,1165,1678,30,3.0,False,True,2022 H1,tay_v2_chan_big_nguoc,US500,1.463,40632.0
+p1_union_es|2022 H1,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,2022 H1,p1_union_es,US500,1.463,40632.0
+tay_v2_xac_nhan_p1|2022 H1,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,2022 H1,tay_v2_xac_nhan_p1,US500,1.463,40632.0
+tay_v2|2022 08-10,-343.18,1196.55,11.97,-1193.8,44,818,280,112,34,44,30,3.0,False,False,2022 08-10,tay_v2,US500,1.662,23641.0
+tay_v2_chan_big_nguoc|2022 08-10,-343.18,1196.55,11.97,-1193.8,44,818,280,112,34,44,30,3.0,False,False,2022 08-10,tay_v2_chan_big_nguoc,US500,1.662,23641.0
+p1_union_es|2022 08-10,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,2022 08-10,p1_union_es,US500,1.662,23641.0
+tay_v2_xac_nhan_p1|2022 08-10,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,2022 08-10,tay_v2_xac_nhan_p1,US500,1.662,23641.0
+tay_v2|08-10/2023,861.26,236.18,2.36,-352.34,788,3817,1538,420,688,788,30,3.0,False,True,08-10/2023,tay_v2,US500,1.537,27069.0
+tay_v2_chan_big_nguoc|08-10/2023,861.26,236.18,2.36,-352.34,788,3817,1538,420,688,788,30,3.0,False,True,08-10/2023,tay_v2_chan_big_nguoc,US500,1.537,27069.0
+p1_union_es|08-10/2023,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,08-10/2023,p1_union_es,US500,1.537,27069.0
+tay_v2_xac_nhan_p1|08-10/2023,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,08-10/2023,tay_v2_xac_nhan_p1,US500,1.537,27069.0
+tay_v2|07-08/2024,833.53,322.97,3.23,-512.19,514,3313,1189,363,402,514,30,3.0,False,True,07-08/2024,tay_v2,US500,1.255,15421.0
+tay_v2_chan_big_nguoc|07-08/2024,833.53,322.97,3.23,-512.19,514,3313,1189,363,402,514,30,3.0,False,True,07-08/2024,tay_v2_chan_big_nguoc,US500,1.255,15421.0
+p1_union_es|07-08/2024,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,07-08/2024,p1_union_es,US500,1.255,15421.0
+tay_v2_xac_nhan_p1|07-08/2024,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,07-08/2024,tay_v2_xac_nhan_p1,US500,1.255,15421.0
+tay_v2|02-04/2025,624.22,1008.54,10.09,-1304.36,548,5967,1781,771,389,548,30,3.0,False,True,02-04/2025,tay_v2,US500,1.144,27825.0
+tay_v2_chan_big_nguoc|02-04/2025,624.22,1008.54,10.09,-1304.36,548,5967,1781,771,389,548,30,3.0,False,True,02-04/2025,tay_v2_chan_big_nguoc,US500,1.144,27825.0
+p1_union_es|02-04/2025,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,02-04/2025,p1_union_es,US500,1.144,27825.0
+tay_v2_xac_nhan_p1|02-04/2025,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0.0,False,False,02-04/2025,tay_v2_xac_nhan_p1,US500,1.144,27825.0

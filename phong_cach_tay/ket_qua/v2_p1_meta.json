@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "XAU": {
+      "n": 176632,
+      "t0": "2026-06-01 05:00:00",
+      "t1": "2026-11-26 19:04:00",
+      "is_bars": 120056,
+      "oos_bars": 56176,
+      "n_sig": {
+        "tay_v2": 58303,
+        "p1_sig_GC_mac_dinh": 5996,
+        "p1_union4": 9699,
+        "p1_big30_d15": 7306,
+        "p1_d15_vahfade": 2547,
+        "p1_big30_vwap": 1117,
+        "p1_big30_poc_win": 652,
+        "p1_uu_tien": 37288,
+        "tay_v2_xac_nhan_p1": 1617,
+        "tay_v2_chan_big_nguoc": 55466
+      }
+    },
+    "US500": {
+      "n": 176531,
+      "t0": "2026-06-01 05:00:00",
+      "t1": "2026-11-26 19:04:00",
+      "is_bars": 119922,
+      "oos_bars": 56209,
+      "n_sig": {
+        "tay_v2": 61398,
+        "p1_sig_ES_mac_dinh": 561,
+        "p1_vah_pha": 2943,
+        "p1_cvd_d15": 2175,
+        "p1_uu_tien": 13106,
+        "tay_v2_xac_nhan_p1": 1348,
+        "tay_v2_chan_big_nguoc": 59625,
+        "p1_union_es": 4779
+      }
+    }
+  },
+  "generator": "/workspace/brain2/phong_cach_tay/tin_hieu_data.py"
+}
