@@ -214,3 +214,7 @@ Thứ tự ưu tiên rút ra (đưa vào điểm vào/điểm vùng của HYB+AG
 - **Stress:** 11 kịch bản stress không có orderflow, nên điểm giữ trung tính và kết quả bằng baseline.
 - **Bước 7 (shadow log):** chưa chạy, vì cần thời gian thật về phía trước.
 - **Kết luận B:** chưa có biến thể orderflow nào vượt baseline HYB+AG một cách vững. Ứng viên tiếp theo là luật ưu tiên ở mục (d) (big30 > delta15 > mức), dùng làm cổng DCA, chưa đo trong động cơ.
+
+
+## Vòng sau (21:00 27/11)
+Luật ưu tiên đã thử trong HYB+AG cho cả hai mã (7 bước), và thử làm lệnh/cụm giữ ngắn: xem `UU_TIEN_HYB_SCALP.md`. Tóm tắt: chưa đạt; dưới 5′ thì âm sau phí.

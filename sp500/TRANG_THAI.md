@@ -39,3 +39,4 @@
 - Đối chiếu MT5–Python trên cùng dữ liệu XM: `ma/doi_chieu_xm.py`, `ket_qua/doi_chieu_xm_mt5.json`.
 - Lưới DCA/lưới/gỡ lệnh 10.236 biến thể: `ma/luoi_dca.py`, `ket_qua/loc_lai_tieu_chi_moi.json`. EA `ea/SP500_Dca.mq5`. Chuỗi tick `C:\Users\DUNG\sp500_2711\chuoi7\` (chờ slot trống).
 - 21:00 27/11: PHẦN 1 cho XAU + SP500 xong vòng đầu: `P1_QUY_TAC_DATA.md` (bảng xếp hạng quy tắc, luật ưu tiên khi bất đồng). HYB+AG chạy lại khớp (+1.501,90 / maxDD 575,97 / 11/11). Cắm orderflow ESZ6 vào S/vp: chưa vượt baseline (59 phiên).
+- 21:00 27/11: luật ưu tiên (big30>delta15>mức) trong HYB+AG: US500 mọi biến thể kém gốc (−71 đến −501); XAU chỉ cộng mua +309,5 nhưng p 0,09, DSR 0,36 → chưa đạt. Giữ 1–5′ âm sau phí cả 2 mã. Nhật ký bóng chạy trên máy nhà, PID 16676. Xem `UU_TIEN_HYB_SCALP.md`.
