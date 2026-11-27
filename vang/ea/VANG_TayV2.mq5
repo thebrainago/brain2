@@ -3,18 +3,19 @@
 //| Phong mach tay_v2 mac dinh vang (commit 59672872), khong delta15. |
 //| Cum L0*K, TP gia, DCA khe, hedge hfrac, flcap (chi dung DCA),     |
 //| dong ro lo tong X% equity luc mo, ADX+D1 EMA200 dung DCA,         |
-//| cooldown 240 nen M1. InpShortCap/InpMaxLc mac dinh 0 (tat) de khop |
-//| test 59672872; ung vien moi: short_cap 0.04, cooldown 20000.      |
-//| Khong dat lenh that. Chi Strategy Tester.                         |
+//| FlatOrphan=1 (khong lat hedge). Them: dca_mode, lc_period/pause,  |
+//| day/week_loss, eq_lot. Input moi mac dinh 0 = tat (hanh vi cu).   |
+//| MT5 p4 tick that 2025.09-2026.11: maxL=8+orphan VAN pha (~-9994). |
+//| Khong dat lenh that. Tester only.                                 |
 //+------------------------------------------------------------------+
 #property copyright "brain2 vang tay_v2"
-#property version   "1.00"
+#property version   "1.02"
 #property strict
 #include <Trade/Trade.mqh>
 
 input double InpL0         = 0.01;
 input int    InpK          = 4;
-input int    InpMaxL       = 20;
+input int    InpMaxL       = 8;
 input int    InpMaxH       = 10;
 input double InpTP         = 4.00;
 input double InpGap        = 5.47;
@@ -29,6 +30,13 @@ input int    InpSlopeBars  = 10;
 input int    InpCooldown   = 240;
 input int    InpMaxLc      = 0;      // 0=tat; sau N lan dong lo tong thi dung mo ro moi
 input double InpShortCap   = 0.0;    // 0=tat; tran tong lot chieu ngan (cum+DCA)
+input int    InpFlatOrphan = 1;      // 1=dong hedge mo coi khi het lenh chinh, khong lat ro
+input int    InpLcPeriod   = 0;      // 0=max_lc vinh vien; >0 dem max_lc trong N nen M1 roi pause
+input int    InpLcPause    = 0;      // 0=pause = lc_period; so nen dung sau khi dat max_lc trong cua so
+input double InpDayLoss    = 0.0;    // 0=tat; dung vao/DCA moi khi lo ngay >= X * equity dau ngay
+input double InpWeekLoss   = 0.0;    // 0=tat; tuong tu theo 5 ngay roll (VN)
+input int    InpEqLot      = 0;      // 0=tat; 1=giam K va maxL theo min(1, balance/von ban dau), khong tang
+input int    InpDcaMode    = 0;      // 0=ADX dung DCA nguoc; 1=DCA chi cung slope; 2=ca tin hieu chi cung slope
 input double InpD1OneWay   = 0.60;
 input int    InpBBLen      = 20;
 input long   InpMagic      = 2026112791;
@@ -45,6 +53,16 @@ int      g_atr15  = INVALID_HANDLE;
 
 int      g_cool_left = 0;
 int      g_n_lc      = 0;
+int      g_n_lc_win  = 0;
+int      g_lc_win_i0 = -1;
+int      g_bar_i     = 0;
+int      g_day_key   = 0;
+int      g_n_day     = 0;
+double   g_eq0       = 0;
+double   g_day_eq0   = 0;
+double   g_week_eq0  = 0;
+bool     g_day_stop  = false;
+bool     g_week_stop = false;
 bool     g_halt      = false;
 double   g_eq_open   = 0;
 double   g_eq_bar    = 0;
@@ -75,6 +93,10 @@ int OnInit()
       g_bb_sd==INVALID_HANDLE || g_atr15==INVALID_HANDLE)
       return INIT_FAILED;
    DatKieuKhop();
+   g_eq0 = AccountInfoDouble(ACCOUNT_BALANCE);
+   if(g_eq0<1) g_eq0=10000;
+   g_day_eq0 = g_eq0;
+   g_week_eq0 = g_eq0;
    return INIT_SUCCEEDED;
 }
 
@@ -434,22 +456,18 @@ bool MoLenh(const int hu, const double lot, const string cmt, const double tp_gi
    return (tk>0);
 }
 
-bool RegimeNguoc()
+int SlopeHienTai()
 {
-   if(InpADXTh<=0) return false;
-   double adx[];
-   ArraySetAsSeries(adx,true);
-   if(CopyBuffer(g_adx,0,1,1,adx)<1) return false;
-   if(adx[0]<InpADXTh) return false;
+   int slope=0;
    double e[];
    ArraySetAsSeries(e,true);
    int need=InpSlopeBars+2;
-   if(CopyBuffer(g_ema,0,1,need,e)<need) return false;
-   double slp=e[0]-e[InpSlopeBars];
-   int slope=0;
-   if(slp>0) slope=1;
-   else if(slp<0) slope=-1;
-   // D1 one-way: nen D1 da dong
+   if(CopyBuffer(g_ema,0,1,need,e)>=need)
+   {
+      double slp=e[0]-e[InpSlopeBars];
+      if(slp>0) slope=1;
+      else if(slp<0) slope=-1;
+   }
    double o=iOpen(_Symbol,PERIOD_D1,1);
    double h=iHigh(_Symbol,PERIOD_D1,1);
    double l=iLow(_Symbol,PERIOD_D1,1);
@@ -461,8 +479,103 @@ bool RegimeNguoc()
       if(MathAbs(ow)>=InpD1OneWay)
          slope = (ow>0 ? 1 : -1);
    }
+   return slope;
+}
+
+double AdxDong()
+{
+   double adx[];
+   ArraySetAsSeries(adx,true);
+   if(CopyBuffer(g_adx,0,1,1,adx)<1) return 0;
+   return adx[0];
+}
+
+bool RegimeNguoc()
+{
+   int slope=SlopeHienTai();
+   if(InpDcaMode>=1)
+   {
+      if(slope==0 || g_main_s==0) return true; // khong DCA khi khong ro slope
+      return (slope*g_main_s <= 0);
+   }
+   if(InpADXTh<=0) return false;
+   if(AdxDong()<InpADXTh) return false;
    if(slope==0 || g_main_s==0) return false;
    return (slope*g_main_s < 0);
+}
+
+void SauLossClose()
+{
+   g_n_lc++;
+   if(InpCooldown>g_cool_left) g_cool_left=InpCooldown;
+   if(InpMaxLc<=0) return;
+   if(InpLcPeriod>0)
+   {
+      if(g_lc_win_i0<0 || (g_bar_i-g_lc_win_i0)>=InpLcPeriod)
+      {
+         g_lc_win_i0=g_bar_i;
+         g_n_lc_win=0;
+      }
+      g_n_lc_win++;
+      if(g_n_lc_win>=InpMaxLc)
+      {
+         int pause=(InpLcPause>0 ? InpLcPause : InpLcPeriod);
+         if(pause>g_cool_left) g_cool_left=pause;
+         g_n_lc_win=0;
+         g_lc_win_i0=g_bar_i;
+      }
+   }
+   else if(g_n_lc>=InpMaxLc)
+      g_halt=true;
+}
+
+void CapNhatNgayTuan(const datetime t0)
+{
+   int key=DayKeyVN(t0);
+   double eq=AccountInfoDouble(ACCOUNT_EQUITY);
+   if(eq<1) eq=1;
+   if(g_day_key==0)
+   {
+      g_day_key=key;
+      g_day_eq0=eq;
+      g_week_eq0=eq;
+      g_n_day=0;
+   }
+   else if(key!=g_day_key)
+   {
+      g_day_key=key;
+      g_day_eq0=eq;
+      g_day_stop=false;
+      g_n_day++;
+      if(g_n_day>=5)
+      {
+         g_n_day=0;
+         g_week_eq0=eq;
+         g_week_stop=false;
+      }
+   }
+   if(InpDayLoss>0 && (eq-g_day_eq0) <= -InpDayLoss*g_day_eq0)
+      g_day_stop=true;
+   if(InpWeekLoss>0 && (eq-g_week_eq0) <= -InpWeekLoss*g_week_eq0)
+      g_week_stop=true;
+}
+
+double TyLeVon()
+{
+   if(InpEqLot<=0 || g_eq0<=0) return 1.0;
+   double sc=AccountInfoDouble(ACCOUNT_BALANCE)/g_eq0;
+   if(sc<0) sc=0;
+   if(sc>1) sc=1;
+   return sc;
+}
+
+int MaxLHienTai()
+{
+   int ml=InpMaxL;
+   if(InpEqLot<=0) return ml;
+   ml=(int)MathRound(InpMaxL*TyLeVon());
+   if(ml<1) ml=1;
+   return ml;
 }
 
 void XuLyGioRo()
@@ -474,10 +587,7 @@ void XuLyGioRo()
    if(InpLossClose>0 && tong <= -InpLossClose*g_eq_open)
    {
       DongHet();
-      g_n_lc++;
-      g_cool_left=InpCooldown;
-      if(InpMaxLc>0 && g_n_lc>=InpMaxLc)
-         g_halt=true;
+      SauLossClose();
       return;
    }
    // dong ro khi lai tong > 0
@@ -487,7 +597,12 @@ void XuLyGioRo()
       return;
    }
 
-   if(g_nm<=0) return;
+   if(g_nm<=0)
+   {
+      if(InpFlatOrphan!=0 && g_nh>0)
+         DongHet();
+      return;
+   }
 
    double bid=SymbolInfoDouble(_Symbol,SYMBOL_BID);
    double ask=SymbolInfoDouble(_Symbol,SYMBOL_ASK);
@@ -501,11 +616,13 @@ void XuLyGioRo()
       if((-fl) >= InpFlCap*eqref) cap_ok=false;
    }
    bool regime_ok = !RegimeNguoc();
+   if(g_day_stop || g_week_stop) regime_ok=false;
+   int maxL_i=MaxLHienTai();
 
-   if(cap_ok && regime_ok && InpGap>0 && g_nm<InpMaxL)
+   if(cap_ok && regime_ok && InpGap>0 && g_nm<maxL_i)
    {
       int guard=0;
-      while(g_nm<InpMaxL && guard<40)
+      while(g_nm<maxL_i && guard<40)
       {
          guard++;
          if(InpShortCap>0 && g_main_s<0 && (TongLotMain()+InpL0)>InpShortCap+1e-12)
@@ -563,23 +680,35 @@ void OnTick()
    if(spread_pts>InpMaxSpreadPts) return;
 
    DongBoVe();
+   if(InpFlatOrphan!=0 && g_nm==0 && g_nh>0)
+      DongHet();
    if(g_nm+g_nh>0)
       XuLyGioRo();
 
    datetime t0=iTime(_Symbol,PERIOD_M1,0);
    if(t0==0 || t0==g_bar) return;
    g_bar=t0;
+   g_bar_i++;
    g_eq_bar=AccountInfoDouble(ACCOUNT_EQUITY);
    if(g_cool_left>0) g_cool_left--;
+   CapNhatNgayTuan(t0);
 
    DongBoVe();
+   if(InpFlatOrphan!=0 && g_nm==0 && g_nh>0)
+      DongHet();
    if(g_nm+g_nh>0) return;
    if(g_halt) return;
    if(g_cool_left>0) return;
+   if(g_day_stop || g_week_stop) return;
    if(Bars(_Symbol,PERIOD_M1)<300) return;
 
    int sig=TinHieu();
    if(sig==0) return;
+   if(InpDcaMode>=2)
+   {
+      int slp=SlopeHienTai();
+      if(slp==0 || slp*sig<0) return;
+   }
 
    double ask=SymbolInfoDouble(_Symbol,SYMBOL_ASK);
    double bid=SymbolInfoDouble(_Symbol,SYMBOL_BID);
@@ -591,8 +720,15 @@ void OnTick()
    g_hedged=false;
    g_main_s=sig;
    g_open_bar=t0;
-   g_k_init=InpK;
-   int kk=InpK; if(kk<1) kk=1;
+   double sc=TyLeVon();
+   int kk=InpK;
+   if(InpEqLot>0)
+   {
+      kk=(int)MathRound(InpK*sc);
+      if(kk<1) kk=(sc>=0.25 ? 1 : 0);
+   }
+   if(kk<1) return;
+   g_k_init=kk;
    if(InpShortCap>0 && sig<0)
    {
       int capn = (InpL0>0 ? (int)MathFloor(InpShortCap/InpL0+1e-12) : 0);

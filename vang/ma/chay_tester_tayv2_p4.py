@@ -24,12 +24,15 @@ spec.loader.exec_module(m)
 OUT = m.OUT
 TU, DEN = "2025.09.01", "2026.11.27"
 P = {
-    "InpL0": 0.01, "InpK": 4, "InpMaxL": 20, "InpMaxH": 10,
+    "InpL0": 0.01, "InpK": 4, "InpMaxL": 8, "InpMaxH": 10,
     "InpTP": 4.00, "InpGap": 5.47, "InpHGap": 21.37, "InpHFrac": 1.0,
     "InpFlCap": 0.15, "InpLossClose": 0.30,
     "InpADXLen": 14, "InpADXTh": 30.0, "InpEMA200": 200, "InpSlopeBars": 10,
-    "InpCooldown": 240, "InpD1OneWay": 0.60, "InpBBLen": 20,
-    "InpMagic": 2026112791, "InpSlippage": 50, "InpMaxSpreadPts": 500,
+    "InpCooldown": 240, "InpMaxLc": 2, "InpShortCap": 0.04, "InpFlatOrphan": 1,
+    "InpLcPeriod": 6900, "InpLcPause": 6900,
+    "InpDayLoss": 0.15, "InpWeekLoss": 0.20, "InpEqLot": 1, "InpDcaMode": 2,
+    "InpD1OneWay": 0.60, "InpBBLen": 20,
+    "InpMagic": 2026112793, "InpSlippage": 50, "InpMaxSpreadPts": 500,
 }
 
 def cho_ram(toi_thieu=11.0, giay=300):
@@ -62,7 +65,7 @@ def main():
         m.log(loi)
         return 3
     m.log("bien dich ok VANG_TayV2.ex5")
-    ten = "vang_tayv2_th9_th11"
+    ten = "vang_tayv2_guard_th9_th11"
     r = m.chay_mot(ten, "VANG_TayV2.ex5", P, TU, DEN, 10000, khung="M1")
     if r.get("loi") == "bao_cao_rong":
         m.log("thu lai 1 lan sau 30s: %s" % ten)
@@ -70,7 +73,7 @@ def main():
         r = m.chay_mot(ten, "VANG_TayV2.ex5", P, TU, DEN, 10000, khung="M1")
     (OUT / "tong_hop_tayv2.json").write_text(
         json.dumps([r], ensure_ascii=False, indent=2, default=str), encoding="utf-8")
-    m.log("HOAN TAT TAYV2 %s" % r)
+    m.log("HOAN TAT TAYV2_GUARD %s" % r)
     return 0 if not r.get("loi") else 4
 
 if __name__ == "__main__":

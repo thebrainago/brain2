@@ -1,3 +1,5 @@
+Cập nhật walk-forward + MT5 cửa sổ đầy (27/11/2026 22:25 UTC+7): `phong_cach_tay/bao_cao/BAO_CAO_VANG_WF.md`. Python `flat_orphan=1` maxL=8 đạt +57.231,94 / DD 13,14% nhưng MT5 p4 tick thật **−9.993,99 / 99,94%**. Guard v1.02 MT5 **−8.941,37 / 90,47%**. Máy Python lệch từ tháng 9 (không nắm rổ bán 02/09–01/10). Chưa đạt tiêu chí trên tick thật. Không đặt lệnh thật.
+
 Cập nhật t349 sống 11 stress (21:31 UTC+7): `phong_cach_tay/bao_cao/BAO_CAO_VANG_11.md` — vàng mặc định L0=0,01 + delta15 + loss_close 30% + ADX 30: +15.930,00 USD, DD 31,08%, stress 11/11.
 
 Cập nhật chữa cháy vàng + US500 mặc định (20:50 UTC+7): `phong_cach_tay/bao_cao/BAO_CAO_VANG_AN_TOAN.md` — vàng L0=0,01 + lọc delta15: +14.032,99 USD, DD 34,24% (stress 8/11). US500 mặc định `p1_union_es`.

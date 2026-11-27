@@ -1,0 +1,13 @@
+ten,net,dd_pct,net_sprx2,dd_pct_sprx2,dat_full,dat_sprx2,wf_ok,wf_all,wf_dat,n_stress,n_st_all,worst_net,worst_dd,dat_15,dat_all
+goc,-10012.57,110.37,-10021.0,133.64,False,False,8,12,False,7,15,-10009.88,109.61,False,False
+orphan,36767.37,82.41,29499.35,81.5,False,False,12,12,True,10,15,804.16,82.05,False,False
+sc04_cd20000,2359.88,66.24,-5629.73,93.34,True,False,7,12,False,10,15,-15496.52,162.4,False,False
+sc04_cd20000_orphan,32279.3,73.34,25627.68,73.39,True,True,11,12,False,13,15,106.33,98.86,False,False
+orphan_day15,36767.37,82.41,29583.45,81.5,False,False,12,12,True,10,15,804.16,82.05,False,False
+orphan_day15_week30,36767.37,82.41,29583.45,81.5,False,False,12,12,True,10,15,804.16,83.26,False,False
+orphan_lc2w,36767.37,82.41,29499.35,81.5,False,False,12,12,True,10,15,804.16,82.05,False,False
+orphan_eqlot,36767.37,82.41,29499.35,81.5,False,False,12,12,True,10,15,804.16,82.05,False,False
+orphan_dca1,40141.0,82.41,32591.03,81.5,False,False,12,12,True,9,15,305.99,103.53,False,False
+kitchen_lite,23783.01,86.44,18995.59,89.12,False,False,11,12,False,9,15,465.7,110.05,False,False
+kitchen,23783.01,86.44,19019.07,89.12,False,False,11,12,False,9,15,465.7,110.05,False,False
+orphan_cd20000,33454.47,73.34,26109.48,73.39,True,True,11,12,False,14,15,804.16,80.19,False,False

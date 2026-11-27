@@ -1,0 +1,65 @@
+{
+  "ten": "vang_tayv2_guard_th9_th11",
+  "ea": "VANG_TayV2 1.02",
+  "net": -8941.37,
+  "pf": 0.44,
+  "lenh": 34421,
+  "dd": "10 049.77 (90.47%)",
+  "chat_luong": "100% real ticks",
+  "symbol_bc": "GOLD.i#",
+  "ky_bc": "M1 (2025.09.01 - 2026.11.27)",
+  "thang": "33804 (98.21%)",
+  "giay": 287,
+  "von": 10000,
+  "bat_dau_vn": "2026-11-27 22:18:59",
+  "ket_thuc_vn": "2026-11-27 22:23:51",
+  "pid_terminal": 12492,
+  "magic": 2026112793,
+  "inputs": {
+    "InpMaxL": 8,
+    "InpFlatOrphan": 1,
+    "InpShortCap": 0.04,
+    "InpDcaMode": 2,
+    "InpMaxLc": 2,
+    "InpLcPeriod": 6900,
+    "InpLcPause": 6900,
+    "InpDayLoss": 0.15,
+    "InpWeekLoss": 0.2,
+    "InpEqLot": 1,
+    "InpLossClose": 0.3
+  },
+  "dinh": {
+    "bal": 11135.61,
+    "t_athens": "2025.10.21 01:23:40"
+  },
+  "thang_cuoi": {
+    "2025.09": 10397.02,
+    "2025.10": 8013.52,
+    "2025.11": 8261.19,
+    "2025.12": 9273.42,
+    "2026.01": 5291.99,
+    "2026.02": 5436.04,
+    "2026.09": 1058.63
+  },
+  "lc_lon": [
+    {
+      "t": "2025.10.28 08:44:43",
+      "pnl": -3310.19,
+      "n": 8,
+      "ghi": "dong mua, after peak"
+    },
+    {
+      "t": "2026.01.29 17:28:05",
+      "pnl": -3093.39,
+      "n": 8
+    },
+    {
+      "t": "2026.01.30",
+      "pnl": -2245.49,
+      "n": 6
+    }
+  ],
+  "final": 1058.63,
+  "final_t": "2026.09.28 04:01:56",
+  "ghi": "dca_mode=2 tranh ro ban 01/10; van bi loss_close 30% chieu mua 28/10 va 29-30/01"
+}

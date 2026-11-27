@@ -27,8 +27,15 @@ MAXT = 128
 # 26 adx_th (0=tắt; ADX>=ngưỡng và slope ngược rổ thì dừng DCA mới)
 # 27 h_boost (0=tắt; khi drift ngược, hfrac *= 1+h_boost)
 # 28 cooldown (0=tắt; số nến không vào mới sau khi đóng lỗ tổng)
-# 29 max_lc (0=tắt; sau N lần đóng lỗ tổng thì không mở rổ mới đến hết cửa sổ)
+# 29 max_lc (0=tắt; số lần đóng lỗ tổng tối đa)
 # 30 short_cap (0=tắt; trần tổng lot chiều ngắn, gồm cụm vào và DCA)
+# 31 lc_period (0=max_lc vĩnh viễn; >0: đếm max_lc trong N nến rồi pause)
+# 32 lc_pause (0=pause = lc_period; số nến dừng sau khi đạt max_lc trong cửa sổ)
+# 33 day_loss (0=tắt; dừng vào/DCA mới khi lỗ ngày >= X * equity đầu ngày)
+# 34 week_loss (0=tắt; tương tự theo 5 ngày roll)
+# 35 eq_lot (0=tắt; 1=giảm K và maxL theo min(1, equity/EQ0), không tăng lot)
+# 36 dca_mode (0=ADX dừng DCA ngược; 1=DCA chỉ cùng slope; 2=cả vào lệnh chỉ cùng slope)
+# 37 flat_orphan (0=tắt; 1=đóng hedge còn lại khi hết lệnh chính, không lật rổ)
 
 
 def P_v2(sym="XAU", **kw):
@@ -38,14 +45,18 @@ def P_v2(sym="XAU", **kw):
                  swl=-83.83, sws=20.64, EQ0=10000.0, lev=1000.0, ddb=3000.0,
                  htp=4.00, allow_new=0.0, flcap=0.0, hfrac=0.0, dca_max_bars=0.0,
                  lot_decay=0.0, gap_atr=0.0, loss_close=0.0, max_age=0.0,
-                 adx_th=0.0, h_boost=0.0, cooldown=0.0, max_lc=0.0, short_cap=0.0)
+                 adx_th=0.0, h_boost=0.0, cooldown=0.0, max_lc=0.0, short_cap=0.0,
+                 lc_period=0.0, lc_pause=0.0, day_loss=0.0, week_loss=0.0,
+                 eq_lot=0.0, dca_mode=0.0, flat_orphan=0.0)
     else:
         d = dict(L0=0.10, K=5, tp=6.53, gap=8.32, hgap=80.0, hlot=0.10, hN=5,
                  maxL=20, maxH=10, basket_min=0.0, spr=0.65, pv=1.0,
                  swl=-1.24, sws=0.17, EQ0=10000.0, lev=1000.0, ddb=3000.0,
                  htp=6.53, allow_new=0.0, flcap=0.0, hfrac=0.0, dca_max_bars=0.0,
                  lot_decay=0.0, gap_atr=0.0, loss_close=0.0, max_age=0.0,
-                 adx_th=0.0, h_boost=0.0, cooldown=0.0, max_lc=0.0, short_cap=0.0)
+                 adx_th=0.0, h_boost=0.0, cooldown=0.0, max_lc=0.0, short_cap=0.0,
+                 lc_period=0.0, lc_pause=0.0, day_loss=0.0, week_loss=0.0,
+                 eq_lot=0.0, dca_mode=0.0, flat_orphan=0.0)
     d.update(kw)
     return np.array([
         d["L0"], d["K"], d["tp"], d["gap"], d["hgap"], d["hlot"], d["hN"],
@@ -55,6 +66,8 @@ def P_v2(sym="XAU", **kw):
         d["lot_decay"], d["gap_atr"], d["loss_close"], d["max_age"],
         d["adx_th"], d["h_boost"], d["cooldown"],
         d["max_lc"], d["short_cap"],
+        d["lc_period"], d["lc_pause"], d["day_loss"], d["week_loss"],
+        d["eq_lot"], d["dca_mode"], d["flat_orphan"],
     ], dtype=np.float64)
 
 
@@ -147,6 +160,13 @@ def _run(o, h, l, c, roll, sig, P, i0, i1, atr, slope, adx):
     cooldown = P[28] if len(P) > 28 else 0.0
     max_lc = P[29] if len(P) > 29 else 0.0
     short_cap = P[30] if len(P) > 30 else 0.0
+    lc_period = P[31] if len(P) > 31 else 0.0
+    lc_pause = P[32] if len(P) > 32 else 0.0
+    day_loss = P[33] if len(P) > 33 else 0.0
+    week_loss = P[34] if len(P) > 34 else 0.0
+    eq_lot = P[35] if len(P) > 35 else 0.0
+    dca_mode = P[36] if len(P) > 36 else 0.0
+    flat_orphan = P[37] if len(P) > 37 else 0.0
     step = 0.01
     if L0 >= 0.1:
         step = 0.01
@@ -185,6 +205,13 @@ def _run(o, h, l, c, roll, sig, P, i0, i1, atr, slope, adx):
     k_init = 0
     cool_until = -1
     n_lc = 0
+    n_lc_win = 0
+    lc_win_start = -1
+    day_eq0 = EQ0
+    week_eq0 = EQ0
+    n_day = 0
+    day_stop = False
+    week_stop = False
 
     hs = spr * 0.5
     i0 = max(i0, 1)
@@ -200,16 +227,42 @@ def _run(o, h, l, c, roll, sig, P, i0, i1, atr, slope, adx):
                     cash += swl * lots[k]
                 else:
                     cash += sws * lots[k]
+        if roll[i]:
+            fl0 = _float_pnl(px, lots, side, nt, o[i], pv) if nt > 0 else 0.0
+            day_eq0 = cash + fl0
+            if day_eq0 < 1.0:
+                day_eq0 = 1.0
+            day_stop = False
+            n_day += 1
+            if n_day >= 5:
+                n_day = 0
+                week_eq0 = day_eq0
+                week_stop = False
 
         if blown < 0:
             s = sig[i]
-            if s != 0 and nt == 0 and i >= cool_until:
+            if (s != 0 and nt == 0 and i >= cool_until
+                    and (not day_stop) and (not week_stop)):
+                if dca_mode >= 2.0 and slope[i] * s < 0:
+                    s = 0.0
                 fill = o[i] + s * hs
                 kk = int(K)
                 if kk < 1:
                     kk = 1
+                L0e = L0
+                if eq_lot > 0.0:
+                    sc = cash / EQ0 if EQ0 > 0 else 1.0
+                    if sc < 0.0:
+                        sc = 0.0
+                    if sc > 1.0:
+                        sc = 1.0
+                    kk = int(K * sc + 0.5)
+                    if kk < 1:
+                        kk = 1 if sc >= 0.25 else 0
+                if s == 0.0:
+                    kk = 0
                 if short_cap > 0.0 and s < 0:
-                    capn = int(short_cap / L0 + 1e-12) if L0 > 0 else 0
+                    capn = int(short_cap / L0e + 1e-12) if L0e > 0 else 0
                     if capn < 1:
                         kk = 0
                     elif kk > capn:
@@ -218,7 +271,7 @@ def _run(o, h, l, c, roll, sig, P, i0, i1, atr, slope, adx):
                     for _j in range(kk):
                         if nt >= MAXT:
                             break
-                        nt = _add(px, lots, side, hg, nt, fill, L0, s, 0.0)
+                        nt = _add(px, lots, side, hg, nt, fill, L0e, s, 0.0)
                     n_en += 1
                 if cur_open < 0:
                     cur_open = i
@@ -279,9 +332,22 @@ def _run(o, h, l, c, roll, sig, P, i0, i1, atr, slope, adx):
                 n_bk += 1
                 n_lc += 1
                 if cooldown > 0:
-                    cool_until = i + int(cooldown)
-                if max_lc > 0 and n_lc >= int(max_lc):
-                    cool_until = nbar + 1
+                    if i + int(cooldown) > cool_until:
+                        cool_until = i + int(cooldown)
+                if max_lc > 0:
+                    if lc_period > 0.0:
+                        if lc_win_start < 0 or (i - lc_win_start) >= int(lc_period):
+                            lc_win_start = i
+                            n_lc_win = 0
+                        n_lc_win += 1
+                        if n_lc_win >= int(max_lc):
+                            pause = int(lc_pause) if lc_pause > 0 else int(lc_period)
+                            if i + pause > cool_until:
+                                cool_until = i + pause
+                            n_lc_win = 0
+                            lc_win_start = i + pause
+                    elif n_lc >= int(max_lc):
+                        cool_until = nbar + 1
 
             hold_ok = True
             if dca_max_bars > 0 and cur_open >= 0 and (i - cur_open) >= int(dca_max_bars):
@@ -292,12 +358,29 @@ def _run(o, h, l, c, roll, sig, P, i0, i1, atr, slope, adx):
                 cap_ok = False
             # regime: dừng DCA khi xu hướng ngược rổ
             regime_ok = True
-            if adx_th > 0.0 and adx[i] >= adx_th and slope[i] * main_s < 0:
+            if dca_mode >= 1.0:
+                if slope[i] * main_s <= 0:
+                    regime_ok = False
+            elif adx_th > 0.0 and adx[i] >= adx_th and slope[i] * main_s < 0:
                 regime_ok = False
+            if day_stop or week_stop:
+                regime_ok = False
+
+            maxL_i = int(maxL)
+            if eq_lot > 0.0 and EQ0 > 0 and maxL_i > 0:
+                sc = cash / EQ0
+                if sc < 0.0:
+                    sc = 0.0
+                if sc > 1.0:
+                    sc = 1.0
+                ml = int(maxL * sc + 0.5)
+                if ml < 1:
+                    ml = 1
+                maxL_i = ml
 
             if (not hit_loss) and n_main > 0 and gap_i > 0 and hold_ok and cap_ok and regime_ok:
                 guard = 0
-                while n_main < int(maxL) and nt < MAXT and guard < 40:
+                while n_main < maxL_i and nt < MAXT and guard < 40:
                     guard += 1
                     nxt = last_main - main_s * gap_i
                     hit = (adv <= nxt) if main_s > 0 else (adv >= nxt)
@@ -379,9 +462,22 @@ def _run(o, h, l, c, roll, sig, P, i0, i1, atr, slope, adx):
                         added_adverse = True
                         n_lc += 1
                         if cooldown > 0:
-                            cool_until = i + int(cooldown)
-                        if max_lc > 0 and n_lc >= int(max_lc):
-                            cool_until = nbar + 1
+                            if i + int(cooldown) > cool_until:
+                                cool_until = i + int(cooldown)
+                        if max_lc > 0:
+                            if lc_period > 0.0:
+                                if lc_win_start < 0 or (i - lc_win_start) >= int(lc_period):
+                                    lc_win_start = i
+                                    n_lc_win = 0
+                                n_lc_win += 1
+                                if n_lc_win >= int(max_lc):
+                                    pause = int(lc_pause) if lc_pause > 0 else int(lc_period)
+                                    if i + pause > cool_until:
+                                        cool_until = i + pause
+                                    n_lc_win = 0
+                                    lc_win_start = i + pause
+                            elif n_lc >= int(max_lc):
+                                cool_until = nbar + 1
 
                 guard = 0
                 while (not hit_loss) and (not added_adverse) and nt > 0 and guard < MAXT + 5:
@@ -403,6 +499,20 @@ def _run(o, h, l, c, roll, sig, P, i0, i1, atr, slope, adx):
                             k += 1
                     if not closed_any:
                         break
+
+                # đóng hedge mồ côi, không lật rổ thành chiều ngược
+                if flat_orphan > 0.0 and (not hit_loss) and nt > 0:
+                    n_m2 = 0
+                    for k in range(nt):
+                        if hg[k] == 0:
+                            n_m2 += 1
+                    if n_m2 == 0:
+                        midf = c[i]
+                        close_pnl = _flatten(px, lots, side, nt, midf, hs, pv)
+                        cash += close_pnl
+                        cur_pnl += close_pnl
+                        nt = 0
+                        n_bk += 1
 
                 if (not hit_loss) and nt > 0:
                     mid = c[i]
@@ -428,9 +538,22 @@ def _run(o, h, l, c, roll, sig, P, i0, i1, atr, slope, adx):
                         if is_loss_flat:
                             n_lc += 1
                             if cooldown > 0:
-                                cool_until = i + int(cooldown)
-                            if max_lc > 0 and n_lc >= int(max_lc):
-                                cool_until = nbar + 1
+                                if i + int(cooldown) > cool_until:
+                                    cool_until = i + int(cooldown)
+                            if max_lc > 0:
+                                if lc_period > 0.0:
+                                    if lc_win_start < 0 or (i - lc_win_start) >= int(lc_period):
+                                        lc_win_start = i
+                                        n_lc_win = 0
+                                    n_lc_win += 1
+                                    if n_lc_win >= int(max_lc):
+                                        pause = int(lc_pause) if lc_pause > 0 else int(lc_period)
+                                        if i + pause > cool_until:
+                                            cool_until = i + pause
+                                        n_lc_win = 0
+                                        lc_win_start = i + pause
+                                elif n_lc >= int(max_lc):
+                                    cool_until = nbar + 1
 
         mid = c[i]
         fl = _float_pnl(px, lots, side, nt, mid, pv) if nt > 0 else 0.0
@@ -448,6 +571,10 @@ def _run(o, h, l, c, roll, sig, P, i0, i1, atr, slope, adx):
                 cash += fl
                 nt = 0
             eqi = cash
+        if day_loss > 0.0 and (eqi - day_eq0) <= -day_loss * day_eq0:
+            day_stop = True
+        if week_loss > 0.0 and (eqi - week_eq0) <= -week_loss * week_eq0:
+            week_stop = True
 
         if nt == 0 and cur_open >= 0:
             if nb < MAXB:

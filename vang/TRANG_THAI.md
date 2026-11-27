@@ -72,6 +72,17 @@ Stress 11 kịch bản (baseline): sống 10/11 (không cháy và DD<80%). **Ch�
 
 Còn: xuất tick GCZ6 (aggTrades) nếu còn chạy thì để nguyên, không tắt; không đụng g3, p3/p5/p6, không tắt terminal XM.
 
+## tay_v2 walk-forward + MT5 cửa sổ đầy (27/11/2026 22:25 UTC+7)
+
+Chi tiết `phong_cach_tay/bao_cao/BAO_CAO_VANG_WF.md`. Vốn 10.000 USD = 1.000.000 USC. Không đặt lệnh thật.
+
+- Bài học: Jun–Nov giấu sập; tối ưu lại 2025.09.01–2026.11.27, không delta15, walk-forward 3m/1m.
+- Python `flat_orphan=1` maxL=8: +57.231,94 / DD 13,14%, WF 12/12, 15/15, spr×2 +45.572,45 / 12,99%.
+- MT5 p4 cùng cấu hình (22:05:34–22:10:14, 278 giây, 100% real ticks, 20.625 lệnh): **−9.993,99 / DD 99,94%**. Rổ 8×T2_DCA bán nắm 02–05/09 đóng 01/10 10:52 Athens −3.002,40; chồng LC đến chết giữa tháng 1 (còn 8,20 ngày 19/01).
+- Python cùng cấu hình cuối 10/2025 còn 14.873 — **không phải proxy**. Mặc định 59672872 trên MT5 cũng đã còn 7.223 cuối tháng 9 (Python mặc định cuối 12 vẫn ~9.654).
+- EA v1.02 thêm dca_mode, lc_period/pause, day/week_loss, eq_lot (mặc định 0=tắt). Test guard (short_cap 0,04, dca_mode=2, max_lc=2/6900, day 15%, week 20%, eq_lot): 22:18:59–22:23:51, 287 giây, 34.421 lệnh, **−8.941,37 / DD 90,47%**, còn 1.058,63. Tránh được rổ bán 01/10; vẫn gãy vì LC 30% chiều mua 28/10 (−3.310) và 29–30/01 (−3.093 và −2.245).
+- Chưa cấu hình nào đạt lãi > 0 và DD < 80% trên MT5 tick thật cửa sổ đầy.
+
 ## tay_v2 (27/11/2026 ~20:37 UTC+7)
 
 Máy gần phong cách tay hơn (cụm lot cố định, TP 4 USD, DCA 5,47, hedge 21, đóng rổ khi lãi). Chi tiết `phong_cach_tay/bao_cao/BAO_CAO_V2.md`.

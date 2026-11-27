@@ -1,3 +1,5 @@
+Walk-forward + MT5 cửa sổ đầy (22:25 UTC+7 27/11/2026): `bao_cao/BAO_CAO_VANG_WF.md`. Ứng viên Python `flat_orphan=1` maxL=8: +57.231,94 / DD 13,14%, WF 12/12, stress 15/15 — **MT5 p4 tick thật cùng cửa sổ −9.993,99 / DD 99,94%** (cháy từ rổ bán DCA 01/10/2025, không đợi tháng 1). Bộ guard v1.02 (dca_mode=2, short_cap 0,04, max_lc 2/6900, day 15%, week 20%, eq_lot): MT5 −8.941,37 / DD 90,47%, còn 1.058,63. Chưa cấu hình nào đạt lãi>0 và DD<80% trên MT5. Không đặt lệnh thật.
+
 # phong_cach_tay — máy phong cách tay (dùng chung XAU và US500)
 
 Mã dùng chung cho Part 2: đọc phong cách giao dịch tay của Anh từ lịch sử XM (và transcript XAUUSD Scalp Bot), mã hóa thành máy quy tắc trên tài khoản **cent**, kiểm 7 bước trên vàng và SP500.
