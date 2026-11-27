@@ -73,3 +73,27 @@ Báo cáo HTML/JSON gốc trên máy nhà: `E:\brain2_tmp\vang\mt5\`.
 
 - Cửa sổ 2015–2026 và 2018–2026 bằng tick thật: chưa có tick.
 - EA hedge / gỡ lệnh / lưới M15: mới có số Python (mục báo cáo quét mở rộng), chưa xác nhận tick.
+
+---
+
+## 6. Hedge / gỡ lệnh / lưới nhân lot (đo 2026-11-27 19:46–19:55 UTC+7)
+
+Cửa sổ **2025.09.01–2026.10.12**, GOLD.i#, vốn 10.000 USD, khe **p4**, Model=4, **100% real ticks**. Hàng đợi biến thiên lưới truyền thống còn lại **đã dừng** sau bốn test này (đổi hướng theo t345u; không chạy cửa sổ 2025.10.01 cho các EA mới).
+
+| EA | Khung | Tham số chính | Lãi ròng USD | CAGR kép | DD vốn tối đa | Lệnh | Thắng | PF | ĐẠT mới? |
+|---|---|---|---:|---:|---:|---:|---:|---:|---|
+| VANG_HedgeEMA | H1 | EMA 55, đảo khi ngược 2 ATR, lot đảo 1,5×, TP 1,2 / SL 4 ATR, lot gốc 0,08 | **+13.051,52** | +111,98% | 45,09% | 467 | 70,02% | 1,13 | có |
+| VANG_HedgeEMA | M15 | Cùng họ, lot gốc 0,16 | **−10.004,64** | — (vỡ vốn) | 100,10% | 1.497 | 66,40% | 0,97 | không |
+| VANG_LuoiPhuc | H1 | Lưới b 1,5 / 4 chân / TP 1,2 / SL 5, lot 0,02, gỡ ×1,3 tối đa 2 bậc | **+2.511,40** | +22,33% | 26,93% | 819 | 74,36% | 1,08 | có |
+| VANG_LuoiPhuc | H1 | Lưới cùng bước, nhân lot trong rổ ×1,5, lot chân 0,03, không gỡ | **+2.837,23** | +25,19% | 47,62% | 823 | 74,36% | 1,05 | có |
+
+Cùng cửa sổ, mô phỏng Python nến (không swap):
+
+| Chiến lược | Python vốn cuối (lãi) | Python DD | Python lệnh / PF | Ghi chú lệch |
+|---|---:|---:|---|---|
+| Hedge H1 lot 0,08 | 68.840,6 (+58.840,6) | 11,74% | 469 / 2,53 | Số lệnh gần khớp (467 vs 469). Lãi Python gấp ~4,5 lần; DD tick cao hơn nhiều. |
+| Hedge M15 lot 0,16 | 180.874 (+170.874) | 6,10% | 1.652 / 1,98 | Python ĐẠT, MT5 **vỡ vốn**. Parquet M15 không phải giờ XM; không dùng số Python M15. |
+| Gỡ H1 lot 0,02 ×1,3 bậc 2 | 27.895,4 (+17.895,4) | 37,33% | 783 / 1,40 | Cả hai ĐẠT. Lãi Python gấp ~7 lần; DD tick *thấp hơn* (26,93% vs 37,33%). |
+| Lưới ×1,5 lot 0,03 | 26.049,3 (+16.049,3) | **94,80%** (không ĐẠT) | 804 / 1,20 | MT5 **ĐẠT** (DD 47,62%). Đây là trường hợp Python bi quan hơn tick về DD. |
+
+Các EA: `vang/ea/VANG_HedgeEMA.mq5`, `vang/ea/VANG_LuoiPhuc.mq5`. JSON: `ket_qua/mt5_p4/tong_hop_hedge_th9.json`. HTML: `E:\brain2_tmp\vang\mt5\`.

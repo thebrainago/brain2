@@ -130,7 +130,7 @@ def giet_cay(pr):
     except Exception as e:
         log("taskkill loi: %s" % e)
 
-def viet_ini_set(ten, ea_ex5, params, tu, den, von=10000):
+def viet_ini_set(ten, ea_ex5, params, tu, den, von=10000, khung="H1"):
     (SLOT / "MQL5" / "Profiles" / "Tester").mkdir(parents=True, exist_ok=True)
     setp = SLOT / "MQL5" / "Profiles" / "Tester" / (ten + ".set")
     setp.write_text("\n".join("%s=%s" % (k, v) for k, v in params.items()) + "\n", encoding="ascii")
@@ -139,7 +139,7 @@ def viet_ini_set(ten, ea_ex5, params, tu, den, von=10000):
         "Expert=VANG\\%s\n"
         "ExpertParameters=%s.set\n"
         "Symbol=%s\n"
-        "Period=H1\n"
+        "Period=%s\n"
         "Model=4\n"
         "ExecutionMode=0\n"
         "Optimization=0\n"
@@ -154,12 +154,12 @@ def viet_ini_set(ten, ea_ex5, params, tu, den, von=10000):
         "ReplaceReport=1\n"
         "ShutdownTerminal=1\n"
         "Visual=0\n"
-    ) % (ea_ex5, ten, MA, tu, den, von, ten)
+    ) % (ea_ex5, ten, MA, khung, tu, den, von, ten)
     inip = SLOT / (ten + ".ini")
     inip.write_text(ini, encoding="ascii")
     return inip
 
-def chay_mot(ten, ea_ex5, params, tu, den, von=10000):
+def chay_mot(ten, ea_ex5, params, tu, den, von=10000, khung="H1"):
     ram = ram_trong_gb()
     log("RAM trong %.2f GB truoc test %s" % (ram, ten))
     if ram < RAM_MIN_GB + 5:
@@ -169,14 +169,14 @@ def chay_mot(ten, ea_ex5, params, tu, den, von=10000):
         p = SLOT / (ten + duoi)
         if p.exists():
             p.unlink()
-    inip = viet_ini_set(ten, ea_ex5, params, tu, den, von)
+    inip = viet_ini_set(ten, ea_ex5, params, tu, den, von, khung=khung)
     t0 = time.time()
     pr = subprocess.Popen(
         [str(SLOT / "terminal64.exe"), "/portable", "/config:" + str(inip)],
         cwd=str(SLOT),
         creationflags=0x00000040,  # IDLE_PRIORITY_CLASS
     )
-    log("phong PID %d %s %s..%s" % (pr.pid, ten, tu, den))
+    log("phong PID %d %s %s %s..%s" % (pr.pid, ten, khung, tu, den))
     try:
         pr.wait(timeout=CHO_GIAY)
     except subprocess.TimeoutExpired:

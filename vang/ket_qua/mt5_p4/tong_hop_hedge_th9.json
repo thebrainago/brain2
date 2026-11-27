@@ -1,0 +1,62 @@
+[
+  {
+    "ten": "vang_hedge_h1_th9",
+    "khung": "H1",
+    "tu": "2025.09.01",
+    "den": "2026.10.12",
+    "net": 13051.52,
+    "cagr": 1.1198035183847166,
+    "dd_pct": 0.4509,
+    "lenh": 467,
+    "thang": "327 (70.02%)",
+    "pf": 1.13,
+    "chat_luong": "100% real ticks",
+    "giay": 146,
+    "dat_moi": true
+  },
+  {
+    "ten": "vang_hedge_m15_th9",
+    "khung": "M15",
+    "tu": "2025.09.01",
+    "den": "2026.10.12",
+    "net": -10004.64,
+    "cagr": null,
+    "dd_pct": 1.001,
+    "lenh": 1497,
+    "thang": "994 (66.40%)",
+    "pf": 0.97,
+    "chat_luong": "100% real ticks",
+    "giay": 118,
+    "dat_moi": false
+  },
+  {
+    "ten": "vang_phuc_h1_th9",
+    "khung": "H1",
+    "tu": "2025.09.01",
+    "den": "2026.10.12",
+    "net": 2511.4,
+    "cagr": 0.22331800473975338,
+    "dd_pct": 0.2693,
+    "lenh": 819,
+    "thang": "609 (74.36%)",
+    "pf": 1.08,
+    "chat_luong": "100% real ticks",
+    "giay": 128,
+    "dat_moi": true
+  },
+  {
+    "ten": "vang_luoi_x15_h1_th9",
+    "khung": "H1",
+    "tu": "2025.09.01",
+    "den": "2026.10.12",
+    "net": 2837.23,
+    "cagr": 0.25194172668101755,
+    "dd_pct": 0.4762,
+    "lenh": 823,
+    "thang": "612 (74.36%)",
+    "pf": 1.05,
+    "chat_luong": "100% real ticks",
+    "giay": 109,
+    "dat_moi": true
+  }
+]

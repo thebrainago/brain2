@@ -1,38 +1,44 @@
 # Trạng thái module vàng — để phiên sau chạy tiếp
 
-Cập nhật **2026-11-27 19:39 (giờ Việt Nam, UTC+7)**.
+Cập nhật **2026-11-27 19:57 (giờ Việt Nam, UTC+7)**.
 
-## Đã xong phiên này
+## Đổi hướng (t345u)
 
-- Tiêu chí mới (t344u): **lãi ròng > 0 và DD < 80%** (bỏ CAGR > 10%). Lọc lại 4.148 tổ hợp: **1.714 ĐẠT** (trước 287). CSV: `ket_qua/quet_4148_dat_tieu_chi_moi.csv`.
-- Mở rộng lưới / nhân lot / gỡ lệnh / hedge trên H1, H4, M15, M5: **624** tổ hợp, **273 ĐẠT** tiêu chí mới. M5: **0/156 ĐẠT**, hầu hết vỡ vốn (~−99%). Báo cáo: `bao_cao/QUET_TIN_HIEU.md` mục 8–9.
-- Biên dịch và chạy MT5 Strategy Tester **chỉ khe p4**, một test một lúc, tick thật. p3/p5/p6 là junction tới `E:\\brain2_grok\\shared_bases` — không dùng. Đã chép lịch sử nến và tick vào `E:\\mt5_tester\\p4\\Bases` và `p4\\tester\\bases` (không gắn junction).
-- Tick thật trên đĩa: **2025.08–2026.11**. Cửa sổ 2015/2018 chưa chạy được (không có tick; `FromDate=2025.08.01` bị `no history data` khi tester cố tải tick thiếu). Cửa sổ tick chạy thành công: **2025.09.01–2026.10.12** và **2025.10.01–2026.10.12**.
-- Số đo tick (vốn 10.000 USD, 100% real ticks), chi tiết `bao_cao/MT5_DOI_CHIEU.md`:
-  - Donchian 20+EMA 55, 2025.10.01–2026.10.12: **lãi −658,60**, CAGR −6,40%, DD 33,50%, 217 lệnh, PF 0,98 — **không ĐẠT**.
-  - Donchian cùng EA, 2025.09.01–2026.10.12: **lãi +1.137,39**, CAGR 10,18%, DD 33,07%, 239 lệnh, PF 1,03 — ĐẠT.
-  - Lưới EMA 55 lot 0,08, 2025.10.01–2026.10.12: **lãi +4.856,48**, CAGR 46,89%, DD 55,63%, 757 lệnh, PF 1,04 — ĐẠT.
-  - Lưới cùng EA, 2025.09.01–2026.10.12: **lãi +10.045,60**, CAGR 86,94%, DD 48,08%, 819 lệnh, PF 1,08 — ĐẠT.
-- Python cùng cửa sổ **lạc quan rõ** (lãi gấp ~5–10 lần, Donchian 12 tháng Python lãi / MT5 lỗ). Không dùng CAGR Python 2014–2026 làm quyết định.
-- EA: `vang/ea/VANG_DonchianEMA.mq5`, `vang/ea/VANG_LuoiEMA.mq5`. Runner: `vang/ma/chay_tester_p4.py` (chỉ p4). Báo cáo thô máy nhà: `E:\\brain2_tmp\\vang\\mt5\\`.
+**Không tiếp tục** lấy Donchian / EMA / lưới giá thuần làm gốc. Hai giai đoạn đúng:
 
-## Việc còn lại
+1. **A — Tín hiệu data** từ Fxaurum GCZ6 (tick, 1m, big trade, sweep/absorption/iceberg) và OptionsDb (khi tìm thấy): delta/footprint, cụm big trade, đảo sweep, vùng absorption, VWAP/profile, wall/GEX/max pain. Quy sang GOLD.i bằng basis từng lúc.
+2. **B — Gắn hệ xử lý lệnh** (nhồi / DCA / hedge khóa-gỡ / trailing / TP rổ) lấy từ thiết kế SP500 đêm 27/11.
 
-1. Chưa có tick 2015–2024: không xác nhận được cửa sổ dài trên Tester trừ khi tải tick đủ (tốn đĩa/mạng, dễ bị `downloading canceled` nếu mất kết nối). Nếu tải, chỉ lưu vào **p4\\Bases** và **p4\\tester\\bases**, không ghi shared_bases.
-2. Hedge / gỡ lệnh / lưới M15 mới có số Python, **chưa** viết EA và chưa chạy tick p4. Nên xác nhận trên 2025.09.01–2026.10.12 trước, vì Python đang phóng đại lãi.
-3. Order flow GCZ6 (ORB ± sweep) lần trước không ĐẠT — xem `bao_cao/ORDERFLOW.md`.
-4. Không đụng g3, g12, p5, p6, terminal `C:\\Program Files\\XM Global MT5`. p5 có thể đang chạy metatester (phiên khác). Giữ RAM trống ≥ 6 GB (thực tế runner chờ ≥ 11 GB trước mỗi test).
+Chi tiết: `bao_cao/HUONG_DI_DATA_VA_XU_LY_LENH.md`. `sp500/HE_XU_LY_LENH.md` **chưa có** trên git lúc 19:57; tạm dùng `sp500/ma/dca.py` và `sp500/ea/SP500_Dca.mq5`.
 
-## Lệnh resume nhanh
+## Số vừa đo (MT5 p4, tick thật, rồi dừng hàng đợi)
+
+Cửa sổ 2025.09.01–2026.10.12, vốn 10.000 USD, 100% real ticks. Tiêu chí: lãi ròng > 0 và DD < 80%. Chi tiết `bao_cao/MT5_DOI_CHIEU.md` mục 6.
+
+| EA | Khung | Lãi ròng | CAGR | DD | Lệnh | Thắng | PF | ĐẠT? |
+|---|---|---:|---:|---:|---:|---:|---:|---|
+| VANG_HedgeEMA (đảo 2 ATR ×1,5, lot 0,08) | H1 | **+13.051,52** | 111,98% | 45,09% | 467 | 70,02% | 1,13 | có |
+| VANG_HedgeEMA (cùng họ, lot 0,16) | M15 | **−10.004,64** | vỡ vốn | 100,10% | 1.497 | 66,40% | 0,97 | không |
+| VANG_LuoiPhuc (gỡ ×1,3, 2 bậc, lot 0,02) | H1 | **+2.511,40** | 22,33% | 26,93% | 819 | 74,36% | 1,08 | có |
+| VANG_LuoiPhuc (nhân lot rổ ×1,5, lot 0,03) | H1 | **+2.837,23** | 25,19% | 47,62% | 823 | 74,36% | 1,05 | có |
+
+Đã dừng hàng đợi (không chạy biến thiên lưới bước/chân/lot, không chạy cửa sổ 2025.10.01 cho EA mới). Python vẫn lệch: hedge H1 lãi gấp ~4,5 lần; hedge M15 Python lãi lớn trong khi tick vỡ vốn; lưới ×1,5 thì Python DD 94,8% (không ĐẠT) còn tick ĐẠT DD 47,62%.
+
+## Data Fxaurum đã có (kéo 19:03–19:04 UTC+7, 0 lỗi)
+
+1.648 nến 1h, 96.960 nến 1m, 191.044 sweep, 193.463 absorption, 6.422 iceberg, 82.175 big trades, gateway còn 6.144.531 tick GCZ6 (chưa xuất file). Basis trung vị +38,96 USD (827 giờ). ORB ± sweep lần trước **không ĐẠT** (PF 0,88 / 0,55). OptionsDb chưa tìm thấy ở tầng trên E:\\ / D:\\ / `C:\\Users\\DUNG`.
+
+## Việc phiên sau
+
+1. `git pull` — đọc `sp500/HE_XU_LY_LENH.md` khi worker SP500 đẩy lên.
+2. Giai đoạn A: xuất tick/aggTrades từ gateway (không `syncTicks`/`syncHistory`), dựng delta/footprint, cụm big trade, sweep đảo, absorption, VWAP; tìm OptionsDb; basis từng lúc sang GOLD.i.
+3. Giai đoạn B: nối tín hiệu data với engine xử lý lệnh, rồi mới test tick **p4**, một test một lúc.
+4. Không đụng g3, p3/p5/p6, terminal XM chính. RAM trống ≥ 6 GB.
+
+## Lệnh resume
 
 ```bash
-# box
 cd /workspace/brain2 && git pull origin main --ff-only
-PYTHONUTF8=1 python3 -m vang.ma.chay_quet_mo_rong
-```
-
-```bat
-REM máy nhà — chỉ p4, một test một lúc
-python -u C:\Users\DUNG\AppData\Local\Temp\chay_tester_p4.py
-type E:\brain2_tmp\vang\mt5\chay_tester.log
+# đọc sp500/HE_XU_LY_LENH.md nếu đã có
+ls vang/du_lieu/fxaurum/
 ```
