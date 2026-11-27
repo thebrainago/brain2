@@ -1,0 +1,23 @@
+ten,net,maxdd,dd_pct,maxfl,minml,minml100,n_ro,maxlay,maxlots,blown,stopout100,nth,nhalt,dat,scenario,cfg,scale,n_nen
+baseline_HYB_AG|gap-10% tai day von,4284.58,5723.09,57.23,-5124.73,976.6,195.3,941,5,0.28,False,False,6,0,True,gap-10% tai day von,baseline_HYB_AG,,
+data_S_plus|gap-10% tai day von,4097.83,5724.99,57.25,-5124.73,976.2,195.2,975,5,0.28,False,False,6,0,True,gap-10% tai day von,data_S_plus,,
+baseline_HYB_AG|gap-20% tai day von,13444.52,5723.09,57.23,-5124.73,976.6,195.3,874,5,0.28,False,False,6,0,True,gap-20% tai day von,baseline_HYB_AG,,
+data_S_plus|gap-20% tai day von,14217.28,5724.99,57.25,-5124.73,976.2,195.2,865,5,0.28,False,False,6,0,True,gap-20% tai day von,data_S_plus,,
+baseline_HYB_AG|grind-20%/60ngay,5831.44,2654.72,26.55,-2810.82,1240.5,248.1,1178,5,0.28,False,False,8,0,True,grind-20%/60ngay,baseline_HYB_AG,,
+data_S_plus|grind-20%/60ngay,2702.32,4009.13,40.09,-3635.87,1240.5,248.1,1123,5,0.28,False,False,8,0,True,grind-20%/60ngay,data_S_plus,,
+baseline_HYB_AG|grind-35%/120ngay,4737.91,2767.75,27.68,-2805.82,1224.0,244.8,1078,5,0.28,False,False,10,0,True,grind-35%/120ngay,baseline_HYB_AG,,
+data_S_plus|grind-35%/120ngay,1441.84,4119.29,41.19,-3901.42,1224.0,244.8,1078,5,0.28,False,False,11,0,True,grind-35%/120ngay,data_S_plus,,
+baseline_HYB_AG|Q4-2018,1845.79,2145.47,21.45,-2002.88,2033.4,406.7,386,5,0.28,False,False,0,0,True,Q4-2018,baseline_HYB_AG,3.336,10072.0
+data_S_plus|Q4-2018,1845.79,2145.47,21.45,-2002.88,2033.4,406.7,386,5,0.28,False,False,0,0,True,Q4-2018,data_S_plus,3.336,10072.0
+baseline_HYB_AG|Covid 02-04/2020,-1162.31,6757.7,67.58,-7284.76,1623.6,324.7,479,4,0.19,False,False,1,0,False,Covid 02-04/2020,baseline_HYB_AG,2.54,11264.0
+data_S_plus|Covid 02-04/2020,-1162.31,6757.7,67.58,-7284.76,1623.6,324.7,479,4,0.19,False,False,1,0,False,Covid 02-04/2020,data_S_plus,2.54,11264.0
+baseline_HYB_AG|2022 H1,-18154.0,22583.45,225.83,-11041.14,-3026.3,-605.3,191,6,0.39,True,True,8,0,False,2022 H1,baseline_HYB_AG,2.208,14012.0
+data_S_plus|2022 H1,-18154.0,22583.45,225.83,-11041.14,-3026.3,-605.3,191,6,0.39,True,True,8,0,False,2022 H1,data_S_plus,2.208,14012.0
+baseline_HYB_AG|2022 08-10,2228.15,1202.05,12.02,-1495.43,2379.2,475.8,223,4,0.19,False,False,2,0,True,2022 08-10,baseline_HYB_AG,2.238,8155.0
+data_S_plus|2022 08-10,2228.15,1202.05,12.02,-1495.43,2379.2,475.8,223,4,0.19,False,False,2,0,True,2022 08-10,data_S_plus,2.238,8155.0
+baseline_HYB_AG|08-10/2023,-1133.45,2929.76,29.3,-2420.23,1915.4,383.1,191,4,0.19,False,False,3,0,False,08-10/2023,baseline_HYB_AG,2.047,9332.0
+data_S_plus|08-10/2023,-1133.45,2929.76,29.3,-2420.23,1915.4,383.1,191,4,0.19,False,False,3,0,False,08-10/2023,data_S_plus,2.047,9332.0
+baseline_HYB_AG|07-08/2024,1329.44,980.69,9.81,-1027.69,4925.9,985.2,165,4,0.19,False,False,0,0,True,07-08/2024,baseline_HYB_AG,1.691,5326.0
+data_S_plus|07-08/2024,1329.44,980.69,9.81,-1027.69,4925.9,985.2,165,4,0.19,False,False,0,0,True,07-08/2024,data_S_plus,1.691,5326.0
+baseline_HYB_AG|02-04/2025,4421.33,1658.24,16.58,-1725.73,2770.3,554.1,247,6,0.39,False,False,0,0,True,02-04/2025,baseline_HYB_AG,1.383,9614.0
+data_S_plus|02-04/2025,4421.33,1658.24,16.58,-1725.73,2770.3,554.1,247,6,0.39,False,False,0,0,True,02-04/2025,data_S_plus,1.383,9614.0

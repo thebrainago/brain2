@@ -10,3 +10,6 @@ du_lieu/fxaurum/*.csv
 du_lieu/fxaurum/*.json
 du_lieu/fxaurum/*.log
 !du_lieu/fxaurum/meta_keo.json
+
+ket_qua/diem_data_m1.npz
+ket_qua/shadow_hyb_vang.csv
