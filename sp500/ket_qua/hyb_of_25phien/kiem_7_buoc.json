@@ -1,0 +1,53 @@
+{
+ "GOC": {
+  "net": 1501.9,
+  "maxdd": 575.97,
+  "maxfl": -908.82,
+  "IS": 687.91,
+  "OOS": 813.99,
+  "cs_OF": 789.89,
+  "nua1": -26.58,
+  "nua2": 816.48,
+  "net2x": 1461.06,
+  "maxdd2x": 861.55,
+  "nb": 931,
+  "blown": 0
+ },
+ "S_big_tru_H15": {
+  "net": 1599.51,
+  "maxdd": 520.47,
+  "maxfl": -908.82,
+  "IS": 727.73,
+  "OOS": 871.78,
+  "cs_OF": 887.5,
+  "nua1": 14.53,
+  "nua2": 872.98,
+  "net2x": 1558.69,
+  "maxdd2x": 763.33,
+  "nb": 931,
+  "blown": 0,
+  "delta_OF": 97.61,
+  "dc_tb": 18.68,
+  "dc_p95": 86.61,
+  "p_ngau_nhien": 0.02,
+  "dao_dau_delta_OF": -14.94,
+  "lg_n": 15,
+  "lg_d_OF_duong": 15,
+  "lg_d_net_duong": 15,
+  "lg_d_OF_trung_vi": 97.61,
+  "sr_ngay": 0.1364,
+  "sr_goc": 0.1277,
+  "dsr": 0.944,
+  "sr0": 0.0155,
+  "ngay_OF": 63,
+  "ngay_chenh_duong": 12,
+  "ngay_chenh_am": 9
+ },
+ "stress": {
+  "song": 11,
+  "te_nhat_net": -2719.17,
+  "te_nhat_fl": -4676.56,
+  "fl_pct_10k": 46.8,
+  "fl_pct_30k": 15.6
+ }
+}

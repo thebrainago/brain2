@@ -72,7 +72,7 @@
 - Các slot g3 và g12: tệp mới nhất đều của ngày 27/11 (boba_v3 lúc 19:07–19:29, SP500_WF_* lúc 19:10–19:25). `BRAIN_XuLiLenh` ở g3 có từ 04/11.
 - **Box:** được dựng lại sáng 27/11 lúc 07:40, nên mtime cũ đã mất.
 - Bot này không đọc được bản ghi của phiên chat khác.
-- **Kết luận:** không tìm được tài liệu riêng của phiên tối 26/11. Bản thiết kế xử lý lệnh có trong repo, và khớp với mô tả “hedge, nhồi lệnh, DCA, xử lý/gỡ lệnh”, là bộ ba dưới đây. Nếu Anh có bản ghi của phiên đó (đoạn chat, tệp), đưa vào `sp500/` để đối chiếu.
+- **Kết luận (cập nhật 20:40 27/11):** lần tìm đầu (ở trên) không quét `E:\backtests`, nên bỏ sót. Thiết kế phiên tối 26/11 do Anh đưa lại qua XAUUSD Scalp Bot. Toàn bộ kết quả nằm ở `E:\backtests\sp500_sys\` trên máy nhà (sweep_big, hybrid, antigrind; tệp ghi 26/11 19:49–23:41). Dữ liệu M1 dùng để dựng kịch bản s00 là `E:\backtests\rapid_hedge\US500Cash_M1.csv` (01/06 → 26/11/2026, 176.531 nến, giờ máy chủ XM; prep cộng 5h ra UTC+7). Đã chạy lại `sim_ag.run` cấu hình gốc HYB+AG 1,5x trên box: lãi +1.501,90 USD, maxDD 575,97, sống 11/11 stress, tệ nhất −2.719,17 — khớp đúng số của phiên 26/11. Ba bộ máy trong repo ở phụ lục dưới đây chỉ để tham khảo.
 
 ## 1. `ea_demo/BRAIN_XuLiLenh.mq5` (v1.10, 17/10 → 03/11/2026) — bộ máy rổ lệnh
 Mỗi chiều (mua/bán) có một rổ. Mỗi tick, rổ được xử lý theo thứ tự sau:
