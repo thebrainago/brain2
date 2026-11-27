@@ -72,3 +72,9 @@ Stress 11 kịch bản (baseline): sống 10/11 (không cháy và DD<80%). **Ch�
 
 Còn: xuất tick GCZ6 (aggTrades) nếu còn chạy thì để nguyên, không tắt; không đụng g3, p3/p5/p6, không tắt terminal XM.
 
+## tay_v2 (27/11/2026 ~20:37 UTC+7)
+
+Máy gần phong cách tay hơn (cụm lot cố định, TP 4 USD, DCA 5,47, hedge 21, đóng rổ khi lãi). Chi tiết `phong_cach_tay/bao_cao/BAO_CAO_V2.md`.
+- Vàng: +98.412 USD nhưng DD 453,86% — không đạt. Stress 0/11.
+- US500: +1.712,59, DD 2,54%, spread ×2 đạt, sống 11/11 — đạt trên cửa sổ đo.
+- Cạnh <5 phút +40.951 chủ yếu là 25/11 lot 1,00. Lot ≤0,10 <5 phút: +5.260, TP 4,00. S≥1 chỉ có ở 14,6% lệnh lãi nhanh.

@@ -119,3 +119,7 @@ Không cấu hình nào của máy phong cách tay **đạt** tiêu chí lãi r�
 - **US500 `tay_HYB_AG`:** −450,88 USD (−45.088 USC), max DD 874,95 (8,75%), lỗ thả nổi −559,54, không cháy. IS −175,70 / OOS −275,18. Spread ×2 −650,45. Sharpe −0,837, DSR 0,00. Sống 10/11 stress (trượt `grind-35%/120ngay`, DD 82,46%, lỗ −7.470). `tay_xac_nhan` trùng baseline vì chưa gắn data ES. Lân cận tốt nhất `lan_coef10` vẫn lỗ −282,30.
 - So sánh: cổng HYB+AG gốc trên vàng (coef 1,3, maxL 10, S thuần, giai đoạn B) từng +78,82 / DD 57,62% trên cùng M1 — máy tay (coef 1,15, maxL 15, lev 1:1000) khác tham số nên không tái lập số đó. US500 HYB+AG gốc từng +1.501,90 / maxDD 575,97 / sống 11/11; máy tay này không phải cùng cấu hình và **không** tái lập được số đó.
 - Trần 15 tầng không bị chạm (vàng max 5 tầng, US500 max 7–8). Máy thận trọng hơn lịch sử tay (tối đa 86–110 lệnh cùng lúc) — đó là chủ đích để cent không cháy, nhưng cũng không bắt được lãi kiểu đóng nhanh <5 phút của Anh.
+
+---
+
+Cập nhật tay_v2: xem `phong_cach_tay/bao_cao/BAO_CAO_V2.md` (US500 đạt 7 bước +1.712,59 / DD 2,54%; vàng +98.412 nhưng DD 453,86%, không đạt).

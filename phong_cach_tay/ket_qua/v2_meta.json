@@ -1,0 +1,26 @@
+{
+  "XAU": {
+    "n": 176632,
+    "t0": "2026-06-01 05:00:00",
+    "t1": "2026-11-26 19:04:00",
+    "is_bars": 120056,
+    "oos_bars": 56176,
+    "spr": 0.2,
+    "pv": 100.0,
+    "n_sig": 58303,
+    "scale_crash": 4000.0,
+    "kieu_nen_crash": "M5 parquet (trong nến thận trọng), không phải tick XM"
+  },
+  "US500": {
+    "n": 176531,
+    "t0": "2026-06-01 05:00:00",
+    "t1": "2026-11-26 19:04:00",
+    "is_bars": 119922,
+    "oos_bars": 56209,
+    "spr": 0.65,
+    "pv": 1.0,
+    "n_sig": 61398,
+    "scale_crash": 7000.0,
+    "kieu_nen_crash": "M5 parquet (trong nến thận trọng), không phải tick XM"
+  }
+}
