@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+du_lieu/*.csv
+du_lieu/*.jsonl
+ket_qua/lenh_*.csv
+ket_qua/quet_gop_khong_swap_2026-11-27_1859.csv
+ket_qua/quet_gop_khong_swap_2026-11-27_1902.csv
+
+du_lieu/fxaurum/*.csv
+du_lieu/fxaurum/*.json
+du_lieu/fxaurum/*.log
+!du_lieu/fxaurum/meta_keo.json

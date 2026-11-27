@@ -1,0 +1,74 @@
+{
+  "thu_muc": "/workspace/brain2/vang/du_lieu/fxaurum",
+  "co_file": [
+    "gcz6_1h.csv",
+    "gcz6_1m.csv",
+    "gcz6_bigtrades.csv",
+    "gcz6_flow.json",
+    "meta_keo.json"
+  ],
+  "basis": {
+    "n": 827,
+    "tu": "2026-08-20 08:00:00",
+    "den": "2026-10-12 15:00:00",
+    "basis_trung_vi": 38.960000000000036,
+    "basis_trung_binh": 39.945912938331496,
+    "basis_min": -57.05000000000018,
+    "basis_max": 101.73999999999978,
+    "basis_p10": 21.780000000000292,
+    "basis_p90": 59.64599999999991
+  },
+  "dem_flow": {
+    "sw": 191044,
+    "ab": 193463,
+    "ice": 6422,
+    "cs": 3394
+  },
+  "dem_big": 82175,
+  "ket_qua": [
+    {
+      "quan_tri": "atr_sl20_eod",
+      "von_cuoi": 5934.865748523646,
+      "cagr": -0.8541106648301138,
+      "dd": 0.5787332852276876,
+      "n_lenh": 261,
+      "thang": 85,
+      "winrate": 0.32567049808429116,
+      "pf": 0.8833325792171238,
+      "tong_pnl": -4065.13425147635,
+      "nam": 0.27104722792607805,
+      "tu": "2026-08-20 08:40:00",
+      "den": "2026-11-27 12:01:00",
+      "swap": false,
+      "von_dau": 10000.0,
+      "rui_ro": 0.02,
+      "dat": false,
+      "loi_nhuan_lai": -0.40651342514763533,
+      "vao": "orb_london_anh",
+      "loc": "london_khong_loc",
+      "khung": "M1_GC"
+    },
+    {
+      "quan_tri": "atr_sl20_eod",
+      "von_cuoi": 9084.328508959441,
+      "cagr": -0.29834144789030315,
+      "dd": 0.18976739071501128,
+      "n_lenh": 13,
+      "thang": 3,
+      "winrate": 0.23076923076923078,
+      "pf": 0.5530175954514919,
+      "tong_pnl": -915.6714910405572,
+      "nam": 0.27104722792607805,
+      "tu": "2026-08-20 08:40:00",
+      "den": "2026-11-27 12:01:00",
+      "swap": false,
+      "von_dau": 10000.0,
+      "rui_ro": 0.02,
+      "dat": false,
+      "loi_nhuan_lai": -0.09156714910405594,
+      "vao": "orb_london_anh",
+      "loc": "london_sweep_5n",
+      "khung": "M1_GC"
+    }
+  ]
+}

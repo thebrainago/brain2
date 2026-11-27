@@ -1,0 +1,47 @@
+{
+  "gateway": "ws://127.0.0.1:9001/",
+  "bat_dau_utc": "2026-08-20T00:00:00+00:00",
+  "ket_thuc_utc": "2026-11-27T16:00:00+00:00",
+  "keo_luc_utc": "2026-11-27T12:02:40.010169+00:00",
+  "loi": [],
+  "dem": {
+    "gcz6_1h": 1648,
+    "gcz6_1m": 96960,
+    "flow_sw": 191044,
+    "flow_ab": 193463,
+    "flow_ice": 6422,
+    "flow_cs": 3394,
+    "big": 82175
+  },
+  "ping": {
+    "id": 1,
+    "result": {}
+  },
+  "syncStatus": {
+    "id": 2,
+    "status": 200,
+    "result": {
+      "remaining": 0,
+      "total": 0,
+      "done": 0,
+      "pct": 0,
+      "running": false,
+      "current": ""
+    }
+  },
+  "tickInfo_GCZ6": {
+    "id": 3,
+    "status": 200,
+    "result": [
+      {
+        "symbol": "GCZ6",
+        "sessions": 51,
+        "ticks": 6144531,
+        "finalized": false,
+        "syncing": false,
+        "first": "20260820",
+        "last": "20261127"
+      }
+    ]
+  }
+}
