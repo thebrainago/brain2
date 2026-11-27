@@ -1,0 +1,52 @@
+# Hệ xử lý lệnh dùng cho SP500 (tóm tắt ngày 27/11/2026, giờ Việt Nam)
+
+## Đã tìm phiên “tối 26/11” ở đâu, tìm thấy gì
+- **Repo** (`git log --all`, 26/11 12:00 → 27/11 12:00): không có commit nào. Commit gần nhất trước đó là của các worker ngày 27/11.
+- **Máy nhà:** không có tệp `.md/.mq5/.mqh/.py/.json/.txt/.set/.ini/.ps1` nào sửa trong khoảng 26/11 17:00 → 27/11 07:00, xét trong `E:\brain2_grok` (sâu 6 cấp), Desktop và Documents. Thư mục `C:\Users\DUNG\.claude` không có `projects`, chỉ có backups/cache/downloads/sessions (ngày 02/10) và settings.json.
+- Các slot g3 và g12: tệp mới nhất đều của ngày 27/11 (boba_v3 lúc 19:07–19:29, SP500_WF_* lúc 19:10–19:25). `BRAIN_XuLiLenh` ở g3 có từ 04/11.
+- **Box:** được dựng lại sáng 27/11 lúc 07:40, nên mtime cũ đã mất.
+- Bot này không đọc được bản ghi của phiên chat khác.
+- **Kết luận:** không tìm được tài liệu riêng của phiên tối 26/11. Bản thiết kế xử lý lệnh có trong repo, và khớp với mô tả “hedge, nhồi lệnh, DCA, xử lý/gỡ lệnh”, là bộ ba dưới đây. Nếu Anh có bản ghi của phiên đó (đoạn chat, tệp), đưa vào `sp500/` để đối chiếu.
+
+## 1. `ea_demo/BRAIN_XuLiLenh.mq5` (v1.10, 17/10 → 03/11/2026) — bộ máy rổ lệnh
+Mỗi chiều (mua/bán) có một rổ. Mỗi tick, rổ được xử lý theo thứ tự sau:
+1. **Cắt lỗ tuỳ chọn** `InpCatLoPct`: tính trên rổ + hedge + lãi/lỗ đã chốt của hedge. Mặc định 0, tức không SL.
+2. **Giữ tối đa** `InpGiuToiDaNen`: đủ N nến thì đóng cả rổ.
+3. **Đang khoá (hedge):**
+   - **Gỡ:** khi tổng ≥ `InpGoTien` thì đóng hết.
+   - **Mở khoá:** khi giá hồi `InpMoKhoaATR/Pct` từ cực trị thì đóng lệnh khoá. Ghi lại mốc, chỉ khoá lại khi giá vượt mốc đó.
+   - Trong lúc khoá thì không nhồi và không TP.
+4. **TP rổ:** tính từ giá vốn bình quân ± `InpTPATR/Gia/Pct`.
+   - 4b. Gỡ sau khi đã mở khoá: rổ + phần đã chốt của lệnh khoá ≥ `InpGoTien`.
+5. **Trailing rổ:** bật khi giá vượt giá vốn + kích hoạt; giá trả lại một khoảng thì đóng.
+6. **Khoá (hedge):** rổ lỗ thả nổi ≥ `InpHedgeKhiLoPct` % số dư thì mở lệnh ngược chiều = tổng lot × `InpHedgeTiLe`. Tối đa `InpHedgeMaxLan` lần, và chỉ khi margin level ≥ `InpMarginMin`.
+7. **Nhồi:**
+   - `NHOI_NGHICH` (DCA): giá đi ngược một bước. Bước tính bằng ATR, giá hoặc %, có giãn bước `g^k`.
+   - `NHOI_THUAN` (nhồi thuận / pyramiding): giá đi đúng chiều một bước.
+   - Kiểu lot: đều, tuyến tính, hoặc nhân hệ số r. Tối đa `InpMaxTang` tầng.
+
+**Vào lệnh:** MRZ, RSI, Donchian, không tín hiệu (luôn có rổ), hoặc **`VAO_CSV`**. Với `VAO_CSV`, EA đọc lệnh vào từ CSV `thoi_gian,ma,chieu,gia,nguon[,lot]` theo giờ server, đặt trong `Common\Files`. Lệnh vượt `SYMBOL_VOLUME_MAX` được tách. EA xuất `_lenh_mt5.csv` và `_gia.csv` để đối chiếu với Python.
+
+**Bảo vệ:** giờ cấm (`InpGioCamTu/Den`), trần spread, margin tối thiểu. Có thêm các bộ lọc ADX, ATR percentile, NFP và file tin (mặc định tắt).
+
+## 2. Bản Python tương ứng: `nhan/tai_khoan.py`, hàm `chay_tk`
+Cùng logic như EA, chạy ở cấp tài khoản: lot thật, ký quỹ, stop-out, phí theo sàn. Thông số nằm trong `QuanLi`:
+- TP: `tp_pct/tp_gia`.
+- DCA: `dca_buoc_pct`, `dca_toi_da`, `dca_he_so_lot`, `dca_lot_tuyen_tinh`.
+- Trailing: `trail_kich_pct`, `trail_khoang_pct`.
+- Hedge: `hedge_khi_lo_pct`, `hedge_ti_le`, `mo_khoa_pct`, `hedge_max_lan`.
+- Gỡ: `go_tien`; gỡ chéo giữa các rổ: `go_cheo`, `go_nguong_diem`.
+- Khác: `cat_lo_pct`, `giu_toi_da_nen`, `margin_min_pct`, `gio_cam`.
+
+Đầu vào là danh sách `LenhVao(nguon, chi_so, gia, chieu, lot)`, tức một “dòng lệnh vào” từ bất kỳ nguồn tín hiệu nào. `nhan/ong_dan.xuat_csv_vao` ghi dòng lệnh này ra CSV cho EA `VAO_CSV`.
+
+## 3. Hai EA dịch ngược làm mẫu (bản nháp, chưa đo)
+- **`BRAIN_DN_RoDCAHedge`:** hai rổ BUY/SELL chạy độc lập cùng lúc (hedge), lot đều. Thêm lệnh khi giá đi ngược `BuocPip`; đóng rổ khi giá đạt giá TB ± `TPPip`. Không SL.
+- **`BRAIN_DN_LuoiHedgeTP`:** lưới hai chiều, mỗi mức có 1 BUY và 1 SELL với TP riêng. Đóng hết khi tổng thả nổi ≥ 0 và số lệnh ≥ `DongRoKhi`.
+
+## Cách ghép với tín hiệu dữ liệu (giai đoạn B)
+Tín hiệu orderflow ESZ6 (giai đoạn A) được đổi thành `LenhVao` trên trục nến M5 của US500Cash# XM.
+1. Chạy `tai_khoan.chay_tk` với lưới `QuanLi`, gồm: chỉ TP, DCA nghịch, nhồi thuận, DCA + hedge/gỡ, có hoặc không đóng cuối phiên.
+2. Xuất CSV, rồi chạy `BRAIN_XuLiLenh` ở chế độ `VAO_CSV` trên p6 (tick thật, vì XM có tick US500 từ 21/07/2025).
+
+Tiêu chí: lãi ròng > 0 và DD < 80 %.
