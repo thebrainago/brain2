@@ -147,3 +147,40 @@ Worker khác ghi tiến độ vào `sp500/TRANG_THAI.md` và `vang/TRANG_THAI.md
 7. Không tự bật lại routine canh gamma / vòng lặp nền trừ khi Anh yêu cầu rõ.
 
 Nhật ký vận hành máy nhà: `nhat_ky/van_hanh_may_nha.md`.
+
+---
+
+## Cập nhật tối 27/11/2026 (đến 23:15 giờ Việt Nam) — cho phiên bot mới đọc
+
+### Yêu cầu hiện hành của Anh
+- T1: test các bộ quy tắc vào lệnh theo công cụ data (big trade, delta, CVD, VWAP/VP, GEX) trên data Fxaurum; tìm tổ hợp và cách xử lý khi tín hiệu xung đột.
+- T2: tài khoản cent, phong cách tay của Anh: không SL, hedge, nhồi DCA, tỉa lệnh, chốt theo lãi/lỗ tổng; kết hợp entry data + truyền thống + chỉ báo. Mã: XAU và US500.
+- Tiêu chí: lãi > 0, DD < 80%; cho phép DCA/hedge/cao tần/gỡ lệnh.
+- **Mới (t350, 22:31):** chấp nhận GỒNG, không đóng lỗ tổng; nạp thêm vốn để gồng (giả định trần 30k = 10k + 20k nạp); trong lúc DD sâu thì vào lệnh nhỏ để tỉa rổ lỗ / tăng vốn chịu đựng.
+- Sàn cent: Anh CHƯA trả lời dùng sàn nào (đang giả định Exness Standard Cent 1:1000).
+- Không bao giờ đặt lệnh thật.
+
+### Kết quả đã đo
+**T1 — luật ưu tiên data (big30 > delta15 > mức giá)** — `sp500/UU_TIEN_HYB_SCALP.md` (890aa11c)
+- Gắn vào HYB+AG làm điểm vào hoặc chặn DCA: KHÔNG đạt (US500 lãi giảm từ +1.501,90 xuống ~+1.000, DD gần gấp đôi; XAU âm).
+- Giữ 1–5 phút: mọi tín hiệu âm sau phí; lợi thế chỉ ở 30–60 phút → dùng data làm bộ lọc chiều/ngữ cảnh.
+- Nhật ký bóng log-only `sp500/ma/bong_tin_hieu.py` đang chạy trên máy nhà PID 16676 (ra `C:\Users\DUNG\sp500_2711\bong\nhat_ky`). Dừng: `taskkill /PID 16676 /F`.
+
+**US500 — ĐẠT** — `sp500/LOC_NGU_CANH_DANH_MUC.md`, `sp500/STRESS_CHUNG_VON.md` (d1bb71e5, 2d445567)
+- tay_v2 US500 lọc `p1_union_es` (mặc định): +657,83 USD, DD 1,77%.
+- tay_v2 ×1,5 lot khi cùng chiều data / ×0,5 khi ngược: +920,39, DD 1,81%, DSR 0,993, 4/4 stress tổng hợp.
+- Danh mục lõi chung vốn 10k: HYB+AG US500 + tay_v2 ×1,5/×0,5 + lệnh phụ giữ 60′ = +3.119,31 USD, DD 4,59%, stress chung vốn thật 11/11 (DD tệ nhất 45,22%).
+
+**XAU — CHƯA ĐẠT trên MT5 tick thật**
+- Python Jun–Nov (59672872, loss_close 30%, ADX30) đẹp (+15.930, 11/11) nhưng MT5 tick thật 2025.09–2026.11 CHÁY (−9.994). Python cũng cháy cửa sổ đầy → cửa sổ Jun–Nov bị chọn lệch. `BAO_CAO_TAYV2_MT5.md`.
+- Bản tốt nhất Python cửa sổ đầy (flat_orphan, maxL8: +57.232, DD 13%) → MT5 vẫn cháy; Python KHÔNG phải proxy cho vàng. `BAO_CAO_VANG_WF.md` (0c6a64b6).
+- Nguyên nhân: đóng lỗ tổng 30% bị chạm liên tiếp trong các đợt chạy một chiều (09–10/2025, cuối 01/2026).
+- Stress phải gồm cả gap vàng TĂNG +10/+20%.
+- Đối chứng đã đạt trên MT5 trước đây: Hedge EMA55 H1 đảo 2 ATR ×1,5 = +13.051,52, DD 45,09%.
+
+### Đang chạy dở (việc tiếp theo)
+- Vàng MT5-first trên p4: chế độ loss_close=0 (gồng) + động cơ tỉa lệnh (lệnh nhỏ chốt nhanh, gom lãi đóng tầng lỗ nặng nhất), lọc chiều EMA55 H1 làm biến thể, mô phỏng mốc và số tiền nạp thêm; đạt nếu lãi>0 và DD tệ nhất < 80% của 30k. Script nháp: `vang/ma/chay_tia_p4.py`, `vang/ma/chay_opt_tayv2_p4.py`, `vang/ea/VANG_HedgeTay.mq5` (chưa commit).
+- Phân tích lịch sử tay Anh: vàng thắng chủ yếu giữ <5′; lỗ lớn nhất 25/11 lot 1,00 ôm 30′–4h; 50% lệnh thua vào ngược delta15.
+
+### Quy tắc an toàn
+Xem phần đầu file này và `may_nha/VAN_HANH_MAY_NHA.md`. Slot p3/p5/p6/g2/g3/g4 dùng chung Bases → chỉ 1 terminal mỗi lúc; vàng dùng p4, SP500 dùng p6. Không kill claude.exe, terminal XM chính; kill theo PID. Không đọc E:\api.txt.
