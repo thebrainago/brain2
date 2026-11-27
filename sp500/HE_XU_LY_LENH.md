@@ -1,4 +1,70 @@
-# Hệ xử lý lệnh dùng cho SP500 (tóm tắt ngày 27/11/2026, giờ Việt Nam)
+# Hệ xử lý lệnh dùng cho SP500 — KHUNG CHÍNH: HYB + AG (thiết kế phiên tối 26/11/2026)
+
+> Nguồn: Anh gửi lại qua XAUUSD Scalp Bot (parent chuyển, 27/11/2026 20:08 giờ Việt Nam). Kết quả đầy đủ nằm ở máy nhà, `E:\backtests\sp500_sys\` (sweep_big, hybrid, antigrind). Phần dưới chép lại đúng thông số được gửi. Chỉ áp dụng cho vàng và SP500.
+
+## Triết lý
+- Gỡ lệnh bằng hedge + nhồi (pyramiding), không dùng SL cứng.
+- Rổ có thể giữ nhiều ngày (95 giờ vẫn chấp nhận).
+- DD tới khoảng 80 % là chấp nhận được, tính cả tiền nạp thêm: vốn khoảng 10.000 USD, có thể nạp thêm tới 30.000 USD.
+
+## Hệ US500 HYB + AG 1,5x
+**Vào lệnh**
+- Mỗi lần vào: 3 lệnh × 0,1 lot.
+- Chỉ vào khi tổng điểm chỉ báo ≥ 1:
+  - +1 cho mỗi điều kiện: BB M15 dưới −2σ; nến M5 có râu từ chối; trong 2 giờ đầu phiên Mỹ; ATR thấp.
+  - −1 nếu giá dưới VWAP −2σ.
+
+**DCA (theo khoảng cách + vùng)**
+- Hệ số lot 1,3; tối đa 10 tầng.
+- Khoảng cách mỗi tầng là 3 ATR M15, sau đó dời về vùng mạnh nhất trong phạm vi ±1,5 ATR. Khoảng cách luôn giữ trong 1,5–4,8 ATR.
+- Điểm vùng: zigzag 0,5; fibo 1; volume profile ES 1,5; quyền chọn 1,5.
+
+**Chốt**
+- Mỗi tầng chốt một nửa khi lời +1 ATR M15.
+- Cả rổ thoát khi về hoà vốn.
+
+**Hedge-nhồi**
+- Mỗi đợt mở 5 lệnh ngược chiều, tổng = 1x rổ; tối đa 2x.
+- TP 0,8 ATR M5.
+- Không DCA khi đang có hedge ngược chiều mở.
+- Giá phá lại một mức đã phá rồi thì không tính là lần phá mới.
+
+**AG (anti-grind)**
+- Mở hedge 1,5x khi độ dốc EMA200 D1 < 0 và rổ đã ≥ 5 tầng hoặc đã mở > 5 ngày.
+- Đóng hedge khi giá lấy lại EMA200, hoặc khi rổ + hedge về hoà vốn.
+
+## Kết quả đã có (phiên 26/11, chưa đo lại ở đây)
+**US500, tháng 6 → tháng 11**
+- Lãi +1.502, maxDD 576.
+- Sống sót 11/11 kịch bản stress (7 sập mạnh, 2 giảm chậm, 2 gap). Kịch bản tệ nhất −2.719.
+- Không có AG thì mọi phiên bản đều cháy khi giá giảm chậm.
+
+**Sweep 230.400 cấu hình**
+- Vùng tốt: lot 0,5, hệ số 1,15, khoảng cách 3 ATR, AG 2x. Lãi +1.840 đến +1.995, vẫn có lãi khi spread gấp 2.
+- Lot ≥ 1,0 thua ở stress sâu.
+- DCA < 1,5 ATR hoặc hệ số ≥ 1,5 làm tăng khả năng cháy.
+- Hedge TP 0,3 ATR bị spread ăn hết.
+- Các bộ lọc VIX/EM/phanh DD không giúp gì.
+- DSR ≤ 0,15 và tương quan IS–OOS thấp, nên chưa có cấu hình nào thắng baseline.
+
+## Quy trình kiểm chuẩn cho mọi hệ mới
+1. Tách IS/OOS.
+2. Spread gấp 2.
+3. Chạy đủ 11 kịch bản stress.
+4. Độ ổn định với tham số lân cận.
+5. Xác suất cháy và lỗ thả nổi xấu nhất so với ngưỡng 80 % (tính cả tiền nạp thêm).
+6. Deflated Sharpe.
+7. Chạy bóng: chỉ ghi log, không đặt lệnh.
+
+**Luật:** bot không bao giờ đặt lệnh thật và không đổi luật đang chạy thật.
+
+## Việc của SP500 bây giờ
+- Giai đoạn A: dùng tín hiệu từ dữ liệu Fxaurum (delta/footprint, cụm big trade, hấp thụ dựng từ tick, VWAP/POC, mức quyền chọn) làm ứng viên cải thiện **điểm vào** và **điểm vùng** của HYB+AG.
+- Giai đoạn B: cắm các tín hiệu đó vào HYB+AG, so với baseline theo đủ 7 bước trên.
+
+---
+
+## Phụ lục: các bộ máy xử lý lệnh khác có trong repo (tóm tắt ngày 27/11/2026)
 
 ## Đã tìm phiên “tối 26/11” ở đâu, tìm thấy gì
 - **Repo** (`git log --all`, 26/11 12:00 → 27/11 12:00): không có commit nào. Commit gần nhất trước đó là của các worker ngày 27/11.
