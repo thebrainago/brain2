@@ -84,3 +84,13 @@ Máy gần phong cách tay hơn (cụm lot cố định, TP 4 USD, DCA 5,47, hed
 Dùng `phong_cach_tay/tin_hieu_data.py` (không sửa). Báo cáo `phong_cach_tay/bao_cao/BAO_CAO_V2_P1.md`.
 - Vàng: lệnh lãi nhanh không trùng 4 luật ĐẠT (0%). Lệnh thua ngược delta15 50%. Máy cụm + lọc P1 cháy hoặc DD >80%.
 - US500: lọc P1 đều đạt trên Jun–Nov; union +657,83 / DD 1,77%; `sig_ES` mặc định +375,64 / DD 0,57%.
+
+
+## Chữa cháy vàng tay_v2 (27/11/2026 20:50 UTC+7)
+
+Chi tiết `phong_cach_tay/bao_cao/BAO_CAO_VANG_AN_TOAN.md`. Vốn 10.000 USD = 1.000.000 USC. Không đặt lệnh thật.
+
+- Cụm lỗ Anh: 82 lệnh −31.117; 50% ngược delta15; 86,7% lỗ ở 30p–4h (gần như hết là 25/11 lot 1). Không cấm giờ tin (0 lỗ trong khung 19:15–20:45 và 01:00–02:15 VN).
+- Lưới 162 cấu hình (khóa DCA 30p): 36/166 đạt, chỉ L0=0,01. Tốt nhất trong lưới +9.731,71 / DD 71,45%, stress 5/11.
+- **Mặc định** (bỏ khóa 30p — khóa này làm DD xấu hơn): L0=0,01 K=4 maxL=20 flcap=0,15 hfrac=1 lọc delta15. **+14.032,99 USD (1.403.299 USC), DD 34,24%**, IS +10.425,50 / OOS +3.607,48, spread×2 +9.216,99 / DD 45,45%. Stress **8/11** (gãy grind −20%/−35% và Covid). Chưa sạch 7 bước.
+- US500 mặc định **`p1_union_es`**: +657,83, DD 1,77%, IS +148,21 / OOS +509,62 (ổn định hơn `uu_tien` dù lãi thấp hơn).

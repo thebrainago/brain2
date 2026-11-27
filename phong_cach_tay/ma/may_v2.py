@@ -14,7 +14,9 @@ MAXT = 128
 # P indices
 # 0 L0  1 K  2 tp  3 gap  4 hgap  5 hlot  6 hN  7 maxL  8 maxH
 # 9 basket_min  10 spr  11 pv  12 swl  13 sws  14 EQ0  15 lev  16 ddb
-# 17 htp  18 allow_new_while_open (0/1)
+# 17 htp  18 allow_new  19 flcap (tỷ lệ equity, 0=tắt; dừng DCA mới, không cắt SL)
+# 20 hfrac (0=dùng hN*hlot; >0 = hedge = hfrac * lot chính)
+# 21 dca_max_bars (0=tắt; hết số nến này thì không DCA thêm)
 
 
 def P_v2(sym="XAU", **kw):
@@ -22,17 +24,18 @@ def P_v2(sym="XAU", **kw):
         d = dict(L0=0.10, K=4, tp=4.00, gap=5.47, hgap=21.37, hlot=0.10, hN=5,
                  maxL=20, maxH=10, basket_min=0.0, spr=0.20, pv=100.0,
                  swl=-83.83, sws=20.64, EQ0=10000.0, lev=1000.0, ddb=3000.0,
-                 htp=4.00, allow_new=0.0)
+                 htp=4.00, allow_new=0.0, flcap=0.0, hfrac=0.0, dca_max_bars=0.0)
     else:
         d = dict(L0=0.10, K=5, tp=6.53, gap=8.32, hgap=80.0, hlot=0.10, hN=5,
                  maxL=20, maxH=10, basket_min=0.0, spr=0.65, pv=1.0,
                  swl=-1.24, sws=0.17, EQ0=10000.0, lev=1000.0, ddb=3000.0,
-                 htp=6.53, allow_new=0.0)
+                 htp=6.53, allow_new=0.0, flcap=0.0, hfrac=0.0, dca_max_bars=0.0)
     d.update(kw)
     return np.array([
         d["L0"], d["K"], d["tp"], d["gap"], d["hgap"], d["hlot"], d["hN"],
         d["maxL"], d["maxH"], d["basket_min"], d["spr"], d["pv"], d["swl"], d["sws"],
         d["EQ0"], d["lev"], d["ddb"], d["htp"], d["allow_new"],
+        d["flcap"], d["hfrac"], d["dca_max_bars"],
     ], dtype=np.float64)
 
 
@@ -71,7 +74,10 @@ def _float_pnl(px, lots, side, n, mid, pv):
 @njit(cache=True)
 def run(o, h, l, c, roll, sig, P, i0, i1):
     """sig: +1 mua, -1 bán, 0 đứng. Conservative intrabar."""
-    L0, K, tp, gap, hgap, hlot, hN, maxL, maxH, bmin, spr, pv, swl, sws, EQ0, lev, ddb, htp, allow_new = P
+    L0, K, tp, gap, hgap, hlot, hN, maxL, maxH, bmin, spr, pv, swl, sws, EQ0, lev, ddb, htp, allow_new = P[:19]
+    flcap = P[19] if len(P) > 19 else 0.0
+    hfrac = P[20] if len(P) > 20 else 0.0
+    dca_max_bars = P[21] if len(P) > 21 else 0.0
     nbar = len(c)
     px = np.empty(MAXT)
     lots = np.empty(MAXT)
@@ -172,8 +178,16 @@ def run(o, h, l, c, roll, sig, P, i0, i1):
             n_dca_before = n_dca
             n_hd_before = n_hd
             # DCA: step from last_main while adverse reaches next level
-            if n_main > 0 and gap > 0:
-                # count main tickets as layers
+            # Dừng DCA mới nếu quá thời gian / lỗ thả nổi chạm trần % equity (không cắt SL).
+            hold_ok = True
+            if dca_max_bars > 0 and cur_open >= 0 and (i - cur_open) >= int(dca_max_bars):
+                hold_ok = False
+            fl_adv = _float_pnl(px, lots, side, nt, adv, pv)
+            eq_ref = cash + _float_pnl(px, lots, side, nt, o[i], pv)
+            cap_ok = True
+            if flcap > 0 and fl_adv < 0 and (-fl_adv) >= flcap * max(eq_ref, 1.0):
+                cap_ok = False
+            if n_main > 0 and gap > 0 and hold_ok and cap_ok:
                 guard = 0
                 while n_main < int(maxL) and nt < MAXT and guard < 40:
                     guard += 1
@@ -181,13 +195,16 @@ def run(o, h, l, c, roll, sig, P, i0, i1):
                     hit = (adv <= nxt) if main_s > 0 else (adv >= nxt)
                     if not hit:
                         break
-                    fill = nxt + main_s * hs  # worse by half spread
-                    # margin check later via equity
+                    fill = nxt + main_s * hs
+                    extra = (adv - fill) * main_s * L0 * pv
+                    if flcap > 0 and (fl_adv + extra) < 0 and (-(fl_adv + extra)) >= flcap * max(eq_ref, 1.0):
+                        break
                     nt = _add(px, lots, side, hg, nt, fill, L0, main_s, 0.0)
                     last_main = fill
                     n_main += 1
                     v_main += L0
                     n_dca += 1
+                    fl_adv += extra
 
             # Hedge when adverse from last_main (or basket mid) >= hgap
             if n_main > 0 and hgap > 0 and n_h < int(maxH) and nt < MAXT:
@@ -203,20 +220,27 @@ def run(o, h, l, c, roll, sig, P, i0, i1):
                     far = (midm - adv) * main_s  # positive if adverse
                     if far >= hgap:
                         hsides = -main_s
-                        batch = int(hN)
-                        left = int(maxH) - n_h
-                        if batch > left:
-                            batch = left
-                        hfill = adv + hsides * hs
-                        # use level midm - main_s*hgap
                         lv = midm - main_s * hgap
                         hfill = lv + hsides * hs
                         ok = (adv <= lv) if main_s > 0 else (adv >= lv)
-                        if ok and batch > 0:
+                        if hfrac > 0:
+                            htot = hfrac * vm
+                            lot_h = L0 if L0 > 0 else hlot
+                            if lot_h <= 0:
+                                lot_h = 0.01
+                            batch = int(max(1, round(htot / lot_h)))
+                            h_each = htot / batch
+                        else:
+                            batch = int(hN)
+                            h_each = hlot
+                        left = int(maxH) - n_h
+                        if batch > left:
+                            batch = left
+                        if ok and batch > 0 and h_each > 0:
                             for _b in range(batch):
                                 if nt >= MAXT:
                                     break
-                                nt = _add(px, lots, side, hg, nt, hfill, hlot, hsides, 1.0)
+                                nt = _add(px, lots, side, hg, nt, hfill, h_each, hsides, 1.0)
                                 n_h += 1
                             n_hd += 1
 

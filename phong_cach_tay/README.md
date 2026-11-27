@@ -12,5 +12,10 @@ Không đặt / sửa / đóng lệnh thật. Không đóng terminal MT5.
 - `ma/chay_kiem_7_buoc.py` — IS/OOS, spread ×2, 11 stress, lân cận, cháy vs 80%, DSR, nhật ký bóng.
 - `bao_cao/` — báo cáo tiếng Việt.
 - `ket_qua/` — CSV/JSON số đo.
+- `ma/may_v2.py` — máy tay_v2 (cụm, TP giá, DCA cố định, hedge, đóng rổ; flcap / hfrac / dca_max_bars).
+- `ma/chay_v2.py`, `chay_v2_p1.py`, `chay_vang_an_toan.py` — 7 bước, lọc P1, chữa cháy vàng.
+- `tin_hieu_data.py` — sinh tín hiệu Part 1 (**không sửa**).
 
 Động cơ mô phỏng: `vang/ma/may_hyb.py`. Báo cáo cũng được sao vào `vang/bao_cao/PHONG_CACH_TAY.md` và `sp500/bao_cao/PHONG_CACH_TAY.md`.
+
+Chữa cháy vàng (20:50 UTC+7): `bao_cao/BAO_CAO_VANG_AN_TOAN.md`. Mặc định vàng L0=0,01 K=4 hfrac=1 lọc delta15: +14.032,99 USD, DD 34,24% trên Jun–Nov (stress 8/11). US500 mặc định `p1_union_es`.

@@ -1,3 +1,5 @@
+Cập nhật chữa cháy vàng + US500 mặc định (20:50 UTC+7): `phong_cach_tay/bao_cao/BAO_CAO_VANG_AN_TOAN.md` — vàng L0=0,01 + lọc delta15: +14.032,99 USD, DD 34,24% (stress 8/11). US500 mặc định `p1_union_es`.
+
 Xem báo cáo chung (cả XAU và US500) ở `phong_cach_tay/bao_cao/BAO_CAO_7_BUOC.md` và mã dùng chung `phong_cach_tay/`.
 
 # Máy phong cách tay — kiểm 7 bước (XAU và US500)

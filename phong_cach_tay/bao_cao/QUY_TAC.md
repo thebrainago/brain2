@@ -25,3 +25,16 @@ Thời điểm deal: 29/07/2026 16:27 → 27/11/2026 22:04 (giờ Việt Nam, UT
 6. Hedge cụm 5 lệnh ngược = 1× rổ (tối đa 2×), TP 0,8 ATR M5; không DCA khi hedge đang mở.
 7. AG 1,5× khi EMA200 D1 dốc âm và rổ ≥5 tầng hoặc >5 ngày; đóng khi EMA200 lấy lại hoặc hòa.
 8. Tài khoản cent, vốn 10.000 USD (1.000.000 USC), đòn bẩy 1:1000 như demo. Không giao dịch thật.
+
+
+## Luật tránh / chữa cháy vàng (tay_v2, 27/11/2026 20:50 UTC+7)
+
+Đo từ cụm lỗ lịch sử + quét máy. Chi tiết số: `BAO_CAO_VANG_AN_TOAN.md`.
+
+1. Vào cụm chỉ khi **cùng chiều hoặc trung tính với delta 15′** — không bao giờ ngược. (50% lệnh lỗ của Anh ngược delta15; lệnh thắng cùng chiều 33,8% / ngược 18,1%.)
+2. Lot vàng mặc định **0,01 × K=4**, trần tầng 20 (lưới 0,03–0,05 không đạt DD <80%).
+3. Hedge **1×** khối chính (`hfrac=1`), khe 21,37 — khe 15 hoặc 28 gãy OOS.
+4. Trần lỗ thả nổi `flcap=0,15` equity: chỉ ngừng DCA mới, không cắt SL. Ở lot 0,01 gần như không kích; để làm lan can.
+5. **Không** khóa dừng DCA sau 30 phút trên cấu hình mặc định (trên máy nhỏ, khóa này tăng DD 34% → 71%). Không cấm giờ tin hay giờ 22–23 VN.
+6. Cấu hình mặc định vàng (vốn 10.000 USD = 1.000.000 USC): L0=0,01 K=4 maxL=20 TP=4 gap=5,47 hgap=21,37 flcap=0,15 hfrac=1 dca_max_bars=0 + lọc delta15. Jun–Nov: **+14.032,99 USD (1.403.299 USC), DD 34,24%**, IS +10.425,50 / OOS +3.607,48, spread×2 đạt; stress 8/11 — chưa đủ 11 cửa sổ.
+7. US500 mặc định: lọc **`p1_union_es`** (ổn định OOS, DD 1,77%) chứ không phải `p1_uu_tien` (OOS cao hơn nhưng IS yếu, DD 2,54% như máy không lọc).
