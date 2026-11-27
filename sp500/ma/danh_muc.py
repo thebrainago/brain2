@@ -11,9 +11,9 @@ OUT=f'{REPO}/sp500/ket_qua/danh_muc'; os.makedirs(OUT,exist_ok=True); ENG='/work
 rng=np.random.default_rng(9); EQ0=10000.0; LOG=[]
 def ghi(*a):
     s=' '.join(str(x) for x in a); print(s,flush=True); LOG.append(s)
-def nap(src,ten,thay,extra=None):
+def nap(src,ten,thay,extra=None,rev='HEAD'):
     # doc ban da commit (HEAD) de khong vuong ban dang sua cua worker khac
-    import subprocess; s=subprocess.run(['git','-C',REPO,'show','HEAD:'+os.path.relpath(src,REPO)],capture_output=True,text=True,check=True).stdout
+    import subprocess; s=subprocess.run(['git','-C',REPO,'show',rev+':'+os.path.relpath(src,REPO)],capture_output=True,text=True,check=True).stdout
     for a,b in thay:
         assert s.count(a)>=1,(ten,a); s=s.replace(a,b)
     if extra: s=re.sub(r"_sys\.path\.insert\(0, str\(_P\(__file__\).*\n",f"_sys.path.insert(0,'{extra}')\n",s)
@@ -28,8 +28,8 @@ EG=nap(f'{REPO}/vang/ma/may_hyb.py','dm_hyb_gc',THAY_HYB,f'{REPO}/vang/nguon_hyb
 THAY_TAY=[("def run(o, h, l, c, roll, sig, P, i0, i1):","def run(o, h, l, c, roll, sig, C, P, i0, i1):"),
           ("nt = _add(px, lots, side, hg, nt, fill, L0, s, 0.0)","nt = _add(px, lots, side, hg, nt, fill, L0 * (P[22] if C[i] == s else (P[23] if C[i] == -s else 1.0)), s, 0.0)"),
           ("nt = _add(px, lots, side, hg, nt, fill, L0, main_s, 0.0)","nt = _add(px, lots, side, hg, nt, fill, L0 * (P[22] if C[i] == main_s else (P[23] if C[i] == -main_s else 1.0)), main_s, 0.0)")]
-ET=nap(f'{REPO}/phong_cach_tay/ma/may_v2.py','dm_tay',THAY_TAY)
-def Ptay(P,mA=1.0,mO=1.0): return np.r_[P,[mA,mO]].astype(np.float64)
+ET=nap(f'{REPO}/phong_cach_tay/ma/may_v2.py','dm_tay',THAY_TAY,rev='5f393920')  # ban may_v2 da dung cho p1_union_es (truoc 59672872)
+def Ptay(P,mA=1.0,mO=1.0): return np.r_[P[:22],[mA,mO]].astype(np.float64)   # P_v2 moi (59672872) dai 29 -> cat ve 22 cua engine 5f393920
 # ================= du lieu =================
 sys.path.insert(0,'/workspace/sp500_sys/big/sweep_big'); import sweep_big as B; B.init()
 s0=dict(B.SC[0]); mt=s0['meta']; i0E,i1E,bpdE,iOE=int(mt[0]),int(mt[1]),int(mt[2]),int(mt[4])
