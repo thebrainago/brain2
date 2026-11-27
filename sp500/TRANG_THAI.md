@@ -38,3 +38,4 @@
 - Model 1 (M1) mỗi test 2 năm ăn ~20 GB RAM (26 → 5,3 GB) nên đã bỏ; DD thả nổi theo từng 2 năm tính lại bằng nến M5 XM: `ket_qua/ibs_dd_noi_m5_xm.json`.
 - Đối chiếu MT5–Python trên cùng dữ liệu XM: `ma/doi_chieu_xm.py`, `ket_qua/doi_chieu_xm_mt5.json`.
 - Lưới DCA/lưới/gỡ lệnh 10.236 biến thể: `ma/luoi_dca.py`, `ket_qua/loc_lai_tieu_chi_moi.json`. EA `ea/SP500_Dca.mq5`. Chuỗi tick `C:\Users\DUNG\sp500_2711\chuoi7\` (chờ slot trống).
+- 21:00 27/11: PHẦN 1 cho XAU + SP500 xong vòng đầu: `P1_QUY_TAC_DATA.md` (bảng xếp hạng quy tắc, luật ưu tiên khi bất đồng). HYB+AG chạy lại khớp (+1.501,90 / maxDD 575,97 / 11/11). Cắm orderflow ESZ6 vào S/vp: chưa vượt baseline (59 phiên).

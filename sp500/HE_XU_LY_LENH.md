@@ -61,6 +61,7 @@
 ## Việc của SP500 bây giờ
 - Giai đoạn A: dùng tín hiệu từ dữ liệu Fxaurum (delta/footprint, cụm big trade, hấp thụ dựng từ tick, VWAP/POC, mức quyền chọn) làm ứng viên cải thiện **điểm vào** và **điểm vùng** của HYB+AG.
 - Giai đoạn B: cắm các tín hiệu đó vào HYB+AG, so với baseline theo đủ 7 bước trên.
+- Kết quả đo Phần 1 (XAU + SP500) và giai đoạn B: xem `sp500/P1_QUY_TAC_DATA.md`. Baseline chạy lại khớp đúng; chưa biến thể orderflow nào vượt baseline một cách vững.
 
 ---
 

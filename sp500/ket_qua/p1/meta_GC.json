@@ -1,0 +1,35 @@
+{
+ "ma": "GC",
+ "phien": 71,
+ "tu": "20260820",
+ "den": "20261126",
+ "phi_vong_tron": 0.30000000000000004,
+ "nguong": {
+  "b30": 199.0,
+  "d15": 227.0
+ },
+ "trong_so_diem": {
+  "big30_theo": 0.0,
+  "delta15_theo": 0.0,
+  "cvd_phan_ky": 0.0,
+  "hap_thu": 0.0,
+  "vwap2sd_fade": 0.38999999999999996,
+  "vwap_cat_theo": 0.0,
+  "vah_val_fade": 0.0,
+  "poc_cham_bat": 0.0,
+  "oi_cum_cham_bat": 0.0,
+  "gamma_am_theo_nen_manh": 0.0,
+  "flow_sw_theo": 0.0,
+  "flow_ab_theo": 0.0,
+  "flow_ice_theo": 0.0,
+  "flow_cs_theo": 0.0
+ },
+ "basis_trung_vi": 25.829999999999927,
+ "phut": 96102,
+ "ngay_wall": [
+  "2026-11-20",
+  "2026-11-23",
+  "2026-11-24",
+  "2026-11-25"
+ ]
+}
