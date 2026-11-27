@@ -1,0 +1,3 @@
+ten,net,maxdd,dd_pct,maxfl,n_en,n_tp,n_dca,n_hd,n_bk,n_ro,max_tix,maxlots,blown,dat,is_net,oos_net,is_dd,oos_dd,net_sprx2,dd_sprx2,dat_sprx2,sharpe,dsr,loss_close,cooldown,max_age,adx_th,h_boost,gap_atr,lot_decay,sig,stress_song,stress_worst
+lc30_adx30_hb0.0,15930.0,3107.91,31.08,-3256.3,3297,8567,2562,922,3072,3297,30,0.3,False,True,10997.76,4932.25,3107.91,1971.55,9181.92,4499.93,True,3.669,1.0,0.3,240,0,30,0.0,0.0,0.0,d15,11,-1877.8
+lc40_adx30_hb0.0,15930.0,3107.91,31.08,-3256.3,3297,8567,2562,922,3072,3297,30,0.3,False,True,10997.76,4932.25,3107.91,1971.55,10540.08,4544.51,True,3.669,1.0,0.4,240,0,30,0.0,0.0,0.0,d15,11,-1664.47

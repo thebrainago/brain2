@@ -94,3 +94,13 @@ Chi tiết `phong_cach_tay/bao_cao/BAO_CAO_VANG_AN_TOAN.md`. Vốn 10.000 USD = 
 - Lưới 162 cấu hình (khóa DCA 30p): 36/166 đạt, chỉ L0=0,01. Tốt nhất trong lưới +9.731,71 / DD 71,45%, stress 5/11.
 - **Mặc định** (bỏ khóa 30p — khóa này làm DD xấu hơn): L0=0,01 K=4 maxL=20 flcap=0,15 hfrac=1 lọc delta15. **+14.032,99 USD (1.403.299 USC), DD 34,24%**, IS +10.425,50 / OOS +3.607,48, spread×2 +9.216,99 / DD 45,45%. Stress **8/11** (gãy grind −20%/−35% và Covid). Chưa sạch 7 bước.
 - US500 mặc định **`p1_union_es`**: +657,83, DD 1,77%, IS +148,21 / OOS +509,62 (ổn định hơn `uu_tien` dù lãi thấp hơn).
+
+
+## Tối ưu vàng sống 11 stress (t349, 27/11/2026 21:31 UTC+7)
+
+Chi tiết `phong_cach_tay/bao_cao/BAO_CAO_VANG_11.md`. Vốn 10.000 USD = 1.000.000 USC. Không đặt lệnh thật.
+
+- Mốc trước: +14.032,99 / DD 34,24% / stress 8/11.
+- **Mặc định mới:** L0=0,01 K=4 maxL=20 hfrac=1 lọc delta15, đóng lỗ tổng 30% equity lúc mở rổ, dừng DCA khi ADX≥30 ngược slope D1/EMA, cooldown 240. **+15.930,00 USD (1.593.000 USC), DD 31,08%**, IS +10.997,76 / OOS +4.932,25, spread×2 +9.181,92 / DD 45,00%, lỗ thả nổi tệ nhất −3.256,30 USD. **Stress 11/11** (tệ nhất Q4-2018 −1.877,80, DD 33,24%).
+- Cùng Jun–Nov: loss_close 35–40% (spread×2 +10.540,08, cũng 11/11). ADX=0 chỉ 9/11; tuổi rổ 1 ngày DD Jun–Nov 17,51% nhưng gãy gap −20% (10/11). Lọc vào S2/BB/RSI không đủ 11/11.
+- Lân cận vỡ: L0=0,02 (DD 108%), K=3, lot decay 0,7, hgap 15 (7/11).

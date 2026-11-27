@@ -36,5 +36,6 @@ Thời điểm deal: 29/07/2026 16:27 → 27/11/2026 22:04 (giờ Việt Nam, UT
 3. Hedge **1×** khối chính (`hfrac=1`), khe 21,37 — khe 15 hoặc 28 gãy OOS.
 4. Trần lỗ thả nổi `flcap=0,15` equity: chỉ ngừng DCA mới, không cắt SL. Ở lot 0,01 gần như không kích; để làm lan can.
 5. **Không** khóa dừng DCA sau 30 phút trên cấu hình mặc định (trên máy nhỏ, khóa này tăng DD 34% → 71%). Không cấm giờ tin hay giờ 22–23 VN.
-6. Cấu hình mặc định vàng (vốn 10.000 USD = 1.000.000 USC): L0=0,01 K=4 maxL=20 TP=4 gap=5,47 hgap=21,37 flcap=0,15 hfrac=1 dca_max_bars=0 + lọc delta15. Jun–Nov: **+14.032,99 USD (1.403.299 USC), DD 34,24%**, IS +10.425,50 / OOS +3.607,48, spread×2 đạt; stress 8/11 — chưa đủ 11 cửa sổ.
+6. Cấu hình mặc định vàng (t349, 27/11/2026 21:31 UTC+7): L0=0,01 K=4 maxL=20 TP=4 gap=5,47 hgap=21,37 flcap=0,15 hfrac=1 dca_max_bars=0 **loss_close=0,30** (đóng cả rổ khi lỗ tổng ≥30% equity lúc mở), **adx_th=30** (dừng DCA khi ADX≥30 và slope D1/EMA ngược rổ), cooldown=240, lọc delta15. Jun–Nov: **+15.930,00 USD (1.593.000 USC), DD 31,08%**, IS +10.997,76 / OOS +4.932,25, spread×2 +9.181,92 / DD 45,00%, lỗ thả nổi tệ nhất −3.256,30 USD (−325.630 USC). **Stress 11/11.** Cùng đường Jun–Nov với loss_close 35–40% (spread×2 +10.540,08).
 7. US500 mặc định: lọc **`p1_union_es`** (ổn định OOS, DD 1,77%) chứ không phải `p1_uu_tien` (OOS cao hơn nhưng IS yếu, DD 2,54% như máy không lọc).
+8. Chi tiết 11 stress và lân cận: `BAO_CAO_VANG_11.md`.

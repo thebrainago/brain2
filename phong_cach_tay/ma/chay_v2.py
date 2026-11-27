@@ -211,8 +211,8 @@ def ngu_canh(d, sl, ss, bonus, rej_dn):
                       S_cung_nhanh=rate(g[g.nhanh & g.lai], "S_cung") if (g.nhanh & g.lai).any() else None)
 
 
-def go(o, h, l, c, roll, sig, P, i0, i1):
-    return run_v2(o, h, l, c, roll, sig, P, i0, i1)
+def go(o, h, l, c, roll, sig, P, i0, i1, atr=None, slope=None, adx=None):
+    return run_v2(o, h, l, c, roll, sig, P, i0, i1, atr=atr, slope=slope, adx=adx)
 
 
 def is_oos_row(row, res, eq, i0, i_oos, P):
