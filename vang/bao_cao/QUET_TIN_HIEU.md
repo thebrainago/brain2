@@ -164,3 +164,70 @@ ORB London 14:00–20:00 VN trên nến 1 phút GC, 20/08–27/11/2026 (0,271 n�
 - Chưa chạy xác nhận MetaTrader 5 tick thật trên khe p3/p4 (khe đã đăng nhập XMGlobal-MT5 10; lúc kiểm 19:01 UTC+7 RAM trống 26,44 GB, đủ để mở tester).
 - Chưa ghép GEX/wall (thiếu lịch sử tường đủ dài). Lọc order flow cần thử lại với ngưỡng khối lượng (số sweep thô rất lớn).
 
+---
+
+## 8. Lọc lại 4.148 tổ hợp theo tiêu chí mới (t344u)
+
+Tiêu chí mới: **lãi ròng > 0** và **DD tối đa < 80%**. Bỏ điều kiện CAGR kép > 10% (và không dùng ngưỡng ≥ 20 lệnh để quyết định ĐẠT, nhưng vẫn ghi số lệnh).
+
+Đo trên file `ket_qua/quet_gop_toan_bo_khong_swap.csv`, không swap, vốn đầu 10.000 USD.
+
+| | Số tổ hợp |
+|---|---:|
+| Tổng đã quét | 4.148 |
+| ĐẠT cũ (CAGR > 10% và DD < 80% và ≥ 20 lệnh) | 287 |
+| ĐẠT mới (lãi ròng > 0 và DD < 80%) | **1.714** |
+| Mới ĐẠT, trước không ĐẠT | 1.427 |
+| ĐẠT cũ nhưng không ĐẠT mới | 0 |
+
+Theo khung (ĐẠT mới / tổng): D1 458/694, H4 816/1.501, H1 433/1.501, M15 3/226, M5 4/226.
+
+Theo họ: nến 1.682/4.064; lưới 32/84.
+
+Trong 1.714 ĐẠT mới: 1.590 có ≥ 20 lệnh; 287 có CAGR > 10% (trùng tập ĐẠT cũ, trừ 4 tổ hợp ĐẠT cũ? — 287 CAGR>10% trong tập mới; 283 vừa CAGR>10% vừa ≥ 20 lệnh).
+
+Mua giữ không đòn bẩy D1 2010–2026 (CAGR 8,15%, DD 44,69%, lãi 272%) **ĐẠT tiêu chí mới**, trước đây không ĐẠT vì CAGR < 10%. Ba trong bốn dòng M5/M15 ĐẠT mới của lần quét 4.148 là mua giữ hoặc RSI rất ít lệnh (lãi 2–15%).
+
+CSV: `ket_qua/quet_4148_loc_lai_tieu_chi_moi.csv` (cột `dat_moi`), `ket_qua/quet_4148_dat_tieu_chi_moi.csv` (chỉ dòng ĐẠT mới).
+
+**Cảnh báo từ MT5 tick (xem `bao_cao/MT5_DOI_CHIEU.md`)**: trên cửa sổ 2025.10.01–2026.10.12, Donchian 20 + EMA 55 + SL 2 / TP 4 ATR mà Python cho lãi +8.201,7 USD lại **lỗ 658,60 USD** khi chạy tick thật (PF 0,98). Không lấy thứ hạng CAGR Python cả mẫu 2014–2026 làm quyết định trước khi có tick.
+
+## 9. Mở rộng lưới / nhân lot / gỡ lệnh / hedge (Python, 2026-11-27 19:26 UTC+7)
+
+Quét thêm **624** tổ hợp (`ket_qua/quet_mo_rong_luoi_hedge_phuc_hoi.csv`): lưới với bước/chân/TP/SL/hệ số lot (1,0–2,0), lưới + gỡ lệnh (nhân lot sau rổ lỗ, tối đa 2–4 bậc), hedge đảo chiều (lot đảo 1,0–2,0 khi ngược 1,5–3 ATR). Khung H1, H4, M15, M5. Tiêu chí ĐẠT: lãi ròng > 0 và DD < 80%.
+
+Quy lot lần này: rủi ro khoảng 2% vốn đầu trên **cả rổ tối đa** (kể cả hệ số nhân), nên lot mỗi chân nhỏ hơn lần quét 84 lưới cũ (lần cũ tính 2% trên một lot).
+
+| Khung | Họ | ĐẠT mới | Tổng |
+|---|---|---:|---:|
+| H1 | lưới | 45 | 78 |
+| H1 | gỡ lệnh | 21 | 36 |
+| H1 | hedge | 40 | 42 |
+| H4 | lưới | 47 | 78 |
+| H4 | gỡ lệnh | 22 | 36 |
+| H4 | hedge | 38 | 42 |
+| M15 | lưới | 19 | 78 |
+| M15 | gỡ lệnh | 11 | 36 |
+| M15 | hedge | 30 | 42 |
+| M5 | lưới / gỡ / hedge | **0** | 156 |
+| **Cộng** |  | **273** | **624** |
+
+**M5 (parquet 2017-01-02–2026-10-09, 683.261 nến):** cả 156 tổ hợp **vỡ vốn hoặc lỗ ~99%** (trung vị lợi nhuận −99,3%, DD 99,0–100%). Cột spread parquet = 0 nên mô phỏng dùng fallback 20 điểm/chiều cho khung M5. Đây là số đo, không phải “thiếu dữ liệu”.
+
+**M15:** cột spread parquet cũng = 0; mô phỏng dùng fallback 16 điểm. Mốc giờ parquet **không** phải máy chủ XM. Số dưới đây **chưa** chạy MT5 tick.
+
+Hàng đầu Python ĐẠT mới (không swap):
+
+| Khung | Họ | Lọc | Quản trị | Vốn cuối | CAGR kép | DD | Lệnh | PF | Lot chân |
+|---|---|---|---|---:|---:|---:|---:|---:|---:|
+| M15 | hedge | ema_trend_55 | hedge_h2.0_tp1.2_sl4.0_x1.5 | 395.681,6 | 45,75% | 5,09% | 14.660 | 1,76 | 0,16 |
+| M15 | hedge | ema_trend_55 | hedge_h1.5_tp1.0_sl4.0_x1.5 | 343.637,0 | 43,66% | 6,23% | 13.781 | 1,74 | 0,16 |
+| M15 | lưới | ema_trend_55 | luoi_b2.0_c4_tp1.5_sl6.0 | 102.326,9 | 26,90% | 13,96% | 16.776 | 1,30 | 0,04 |
+| M15 | gỡ lệnh | ema_trend_55 | phuc_b1.5_c4_tp1.2_sl5.0_x1.0_g1.3_bac2 | 65.922,2 | 21,31% | 41,00% | 23.969 | 1,20 | 0,02 |
+| H1 | hedge | ema_trend_55 | hedge_h2.0_tp1.2_sl4.0_x1.5 | 166.477,4 | 24,63% | 3,61% | 5.144 | 2,08 | 0,08 |
+| H1 | hedge | ema_trend_200 | hedge_h2.0_tp1.2_sl4.0_x1.5 | 158.035,4 | 24,12% | 4,96% | 5.123 | 2,02 | 0,08 |
+| H1 | gỡ lệnh | ema_trend_55 | phuc_b1.5_c4_tp1.2_sl5.0_x1.0_g2.0_bac3 | 57.546,0 | 14,68% | 20,37% | 8.293 | 1,38 | 0,01 |
+
+Hàng M15/H1 hedge có DD rất thấp trên mô hình nến. **Chưa xác nhận tick**. Đối chiếu Donchian/lưới ở mục 8 cho thấy Python có thể phóng đại lãi nhiều lần; không dùng các hàng hedge này để giao dịch trước khi có test p4 tick (nên bắt đầu bằng cửa sổ 2025.09.01–2026.10.12).
+
+Lưới H1 đã xác nhận tick: xem `bao_cao/MT5_DOI_CHIEU.md` (lot 0,08, cùng bộ tham số `b1.5_c4_tp1.2_sl5.0`, lọc EMA 55).

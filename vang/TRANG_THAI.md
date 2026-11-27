@@ -1,39 +1,38 @@
 # Trạng thái module vàng — để phiên sau chạy tiếp
 
-Cập nhật **2026-11-27 19:15 (giờ Việt Nam, UTC+7)**.
+Cập nhật **2026-11-27 19:39 (giờ Việt Nam, UTC+7)**.
 
-## Đã xong
+## Đã xong phiên này
 
-- Tạo thư mục `vang/` (mã, cấu hình, báo cáo tiếng Việt có dấu), **không đụng** `sp500/`.
-- Quét 4148 tổ hợp trên D1, H4, H1, M15, M5. Số ĐẠT (CAGR kép > 10%, DD < 80%, ≥ 20 lệnh): **287** (D1: 0, H4: 93, H1: 192, M15: 1 chỉ mua-giữ, M5: 1 chỉ mua-giữ).
-- Báo cáo: `bao_cao/QUET_TIN_HIEU.md`, `bao_cao/GIAI_DOAN.md`. CSV: `ket_qua/quet_*_khong_swap.csv`, `ket_qua/quet_gop_toan_bo_khong_swap.csv`, `ket_qua/quet_top_co_swap_2026-11-27_1900.csv`, `ket_qua/pnl_theo_nam.csv`.
-- Tín hiệu fractal: đã sửa lỗi nhìn trước (bản đầu trên D1 không dùng).
-- Máy nhà 19:01 UTC+7: RAM trống **26,44 GB / 31,91 GB**, CPU 27%, C còn 3,2 GB, D 15,8 GB, E 56,2 GB. Cổng Fxaurum 9001 **mở**. Khe `E:\mt5_tester\p3` và `p4` **có** terminal và đã đăng nhập `XMGlobal-MT5 10`. `p1` không tồn tại; `p6` có (dành cho worker SP500 — không dùng).
-- Đã chép `keo_fxaurum.py` và `kiem_may_nha.py` vào `E:\brain2_tmp\vang\`. Đã kéo xong GCZ6 lúc 19:04 UTC+7 (1.648 nến 1h, 96.960 nến 1m, 191.044 sweep, 193.463 absorption, 6.422 iceberg, 82.175 big trades, 0 lỗi). File thô: `E:\\brain2_tmp\\vang\\fxaurum\\` và `vang/du_lieu/fxaurum/` (không commit file lớn). **Không** gọi `syncTicks`/`syncHistory`.
+- Tiêu chí mới (t344u): **lãi ròng > 0 và DD < 80%** (bỏ CAGR > 10%). Lọc lại 4.148 tổ hợp: **1.714 ĐẠT** (trước 287). CSV: `ket_qua/quet_4148_dat_tieu_chi_moi.csv`.
+- Mở rộng lưới / nhân lot / gỡ lệnh / hedge trên H1, H4, M15, M5: **624** tổ hợp, **273 ĐẠT** tiêu chí mới. M5: **0/156 ĐẠT**, hầu hết vỡ vốn (~−99%). Báo cáo: `bao_cao/QUET_TIN_HIEU.md` mục 8–9.
+- Biên dịch và chạy MT5 Strategy Tester **chỉ khe p4**, một test một lúc, tick thật. p3/p5/p6 là junction tới `E:\\brain2_grok\\shared_bases` — không dùng. Đã chép lịch sử nến và tick vào `E:\\mt5_tester\\p4\\Bases` và `p4\\tester\\bases` (không gắn junction).
+- Tick thật trên đĩa: **2025.08–2026.11**. Cửa sổ 2015/2018 chưa chạy được (không có tick; `FromDate=2025.08.01` bị `no history data` khi tester cố tải tick thiếu). Cửa sổ tick chạy thành công: **2025.09.01–2026.10.12** và **2025.10.01–2026.10.12**.
+- Số đo tick (vốn 10.000 USD, 100% real ticks), chi tiết `bao_cao/MT5_DOI_CHIEU.md`:
+  - Donchian 20+EMA 55, 2025.10.01–2026.10.12: **lãi −658,60**, CAGR −6,40%, DD 33,50%, 217 lệnh, PF 0,98 — **không ĐẠT**.
+  - Donchian cùng EA, 2025.09.01–2026.10.12: **lãi +1.137,39**, CAGR 10,18%, DD 33,07%, 239 lệnh, PF 1,03 — ĐẠT.
+  - Lưới EMA 55 lot 0,08, 2025.10.01–2026.10.12: **lãi +4.856,48**, CAGR 46,89%, DD 55,63%, 757 lệnh, PF 1,04 — ĐẠT.
+  - Lưới cùng EA, 2025.09.01–2026.10.12: **lãi +10.045,60**, CAGR 86,94%, DD 48,08%, 819 lệnh, PF 1,08 — ĐẠT.
+- Python cùng cửa sổ **lạc quan rõ** (lãi gấp ~5–10 lần, Donchian 12 tháng Python lãi / MT5 lỗ). Không dùng CAGR Python 2014–2026 làm quyết định.
+- EA: `vang/ea/VANG_DonchianEMA.mq5`, `vang/ea/VANG_LuoiEMA.mq5`. Runner: `vang/ma/chay_tester_p4.py` (chỉ p4). Báo cáo thô máy nhà: `E:\\brain2_tmp\\vang\\mt5\\`.
 
-## Tổ hợp đáng xem lại (số đo, không swap, H1 2014-01-02 → 2026-10-12)
+## Việc còn lại
 
-1. `donchian_20` + `ema_trend_55` + `atr_sl20_tp40`: CAGR kép 83,35%, DD 23,87%, 2526 lệnh, thắng 42,00%, PF 1,26. Có swap: 79,20% / 27,05%. CAGR 2018–2026 trên đường vốn liên tục: **17,79%**; 2022–2026: **20,35%**.
-2. `donchian_20` + không lọc + cùng quản trị: 83,12% / 25,29%, 2561 lệnh. Có swap: 78,78% / 28,47%.
-3. Lưới H1 `ema_trend_55` bước 1,5 ATR, 4 chân, TP 1,2 / SL 5: 24,12% / 19,72%, 8293 lần đóng (mô phỏng nến H1, có thể lạc quan).
-
-Chi tiết và họ không ĐẠT: xem `bao_cao/QUET_TIN_HIEU.md`. CAGR cả mẫu H1 bị kéo mạnh bởi năm 2015–2017; đọc mục tách giai đoạn trước khi kết luận.
-
-## Việc còn lại (làm tiếp khi resume)
-
-1. Order flow lần đầu (ORB London ± lọc sweep 5 phút trên GC 1m, 20/08–27/11/2026) **không ĐẠT** (PF 0,88 và 0,55, lợi nhuận −40,65% và −9,16%). Lần sau: lọc theo ngưỡng khối lượng sweep/absorption/iceberg, phá IB kiểu set C, quy đổi giá CFD bằng basis vừa đo (trung vị GCZ6−GOLD.i = +38,96 USD trên 827 giờ, giảm dần theo tuần — tính lại mỗi lần). Xem `bao_cao/ORDERFLOW.md`.
-2. **Xác nhận MT5 tick thật** trên **chỉ p3 và p4** (không p1/p6, không `--song-song`, không đụng terminal `C:\\Program Files\\XM Global MT5`). Giữ RAM trống ≥ 6 GB (đủ điều kiện lúc 19:01). Viết EA/.set cho top Donchian H1, so với số Python.
-3. Không đổi cấu hình nguồn điện, không taskkill theo tên, không đụng file chưa commit trong `E:\\brain2_grok`.
+1. Chưa có tick 2015–2024: không xác nhận được cửa sổ dài trên Tester trừ khi tải tick đủ (tốn đĩa/mạng, dễ bị `downloading canceled` nếu mất kết nối). Nếu tải, chỉ lưu vào **p4\\Bases** và **p4\\tester\\bases**, không ghi shared_bases.
+2. Hedge / gỡ lệnh / lưới M15 mới có số Python, **chưa** viết EA và chưa chạy tick p4. Nên xác nhận trên 2025.09.01–2026.10.12 trước, vì Python đang phóng đại lãi.
+3. Order flow GCZ6 (ORB ± sweep) lần trước không ĐẠT — xem `bao_cao/ORDERFLOW.md`.
+4. Không đụng g3, g12, p5, p6, terminal `C:\\Program Files\\XM Global MT5`. p5 có thể đang chạy metatester (phiên khác). Giữ RAM trống ≥ 6 GB (thực tế runner chờ ≥ 11 GB trước mỗi test).
 
 ## Lệnh resume nhanh
 
 ```bash
 # box
 cd /workspace/brain2 && git pull origin main --ff-only
-PYTHONUTF8=1 python3 -m vang.ma.orderflow
+PYTHONUTF8=1 python3 -m vang.ma.chay_quet_mo_rong
 ```
 
 ```bat
-REM máy nhà — xem kéo data đã xong chưa
-type E:\brain2_tmp\vang\fxaurum\keo.log
+REM máy nhà — chỉ p4, một test một lúc
+python -u C:\Users\DUNG\AppData\Local\Temp\chay_tester_p4.py
+type E:\brain2_tmp\vang\mt5\chay_tester.log
 ```

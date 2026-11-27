@@ -302,9 +302,9 @@ def _luoi(
     atr, huong_loc,
     buoc_atr, max_chan, tp_atr_tb, sl_tong_atr,
     von_dau, lot_nen, tinh_swap, khung_nho,
+    he_so_lot,
 ):
-    """Lưới/DCA: luôn theo bộ lọc hướng (1 long-only, -1 short-only, 2 cả hai — chọn chiều theo nến đóng so EMA đã nhúng sẵn vào huong_loc).
-    lot_nen là lot mỗi chân, cố định theo vốn đầu (không compound từng chân)."""
+    """Lưới/DCA: theo bộ lọc hướng. he_so_lot=1 chân đều; >1 nhân lot kiểu martingale (chân k lot = lot_nen * he_so_lot**k)."""
     n = len(close)
     von = von_dau
     dinh = von_dau
@@ -411,7 +411,7 @@ def _luoi(
             if nguoc:
                 g = open_[i] + hu * ph
                 gia[nchan] = g
-                lots[nchan] = lot_nen
+                lots[nchan] = lot_nen * (he_so_lot ** nchan)
                 nchan += 1
 
     if nchan > 0:
@@ -438,7 +438,8 @@ def _luoi(
 
 
 def mo_phong_luoi(df, loc, buoc_atr=1.0, max_chan=5, tp_atr_tb=1.0, sl_tong_atr=4.0,
-                  von_dau=VON_DAU, tinh_swap=False, khung="H1"):
+                  von_dau=VON_DAU, tinh_swap=False, khung="H1", he_so_lot=1.0,
+                  rui_ro_gio=0.02):
     from .tin_hieu import atr as tinh_atr
     o = df["open"].to_numpy(np.float64)
     h = df["high"].to_numpy(np.float64)
@@ -447,23 +448,33 @@ def mo_phong_luoi(df, loc, buoc_atr=1.0, max_chan=5, tp_atr_tb=1.0, sl_tong_atr=
     sp = df["spread"].to_numpy(np.float64)
     gio = df["gio"].to_numpy(np.int32)
     a = tinh_atr(h, l, c, 14)
-    # lot mỗi chân: rủi ro 2% vốn đầu / (sl_tong * atr trung vị)
     atr_med = float(np.nanmedian(a))
     rui_1lot = max(sl_tong_atr * atr_med * 100.0, 1.0)
-    lot_nen = max(0.01, min(50.0, np.floor((von_dau * 0.02 / rui_1lot) / 0.01) * 0.01))
+    # quy lot để cả rổ (tổng lot tối đa nếu đầy chân) ~ rui_ro_gio vốn khi chạm SL tổng
+    hs = float(he_so_lot)
+    mc = int(max_chan)
+    if hs <= 1.0000001:
+        tong_he = float(mc)
+    else:
+        tong_he = (hs ** mc - 1.0) / (hs - 1.0)
+    lot_nen = max(0.01, min(50.0, np.floor((von_dau * rui_ro_gio / (rui_1lot * tong_he)) / 0.01) * 0.01))
     von, dd, n_lenh, n_thang, tong, tt, tth = _luoi(
         o, h, l, c, sp, gio, a, loc.astype(np.int8),
         float(buoc_atr), int(max_chan), float(tp_atr_tb), float(sl_tong_atr),
         float(von_dau), float(lot_nen), 1 if tinh_swap else 0,
         1 if khung.upper() in {"M1", "M5"} else 0,
+        float(hs),
     )
     t0, t1 = df["time"].iloc[0], df["time"].iloc[-1]
     nam = pd_to_years(t0, t1)
     cagr = (von / von_dau) ** (1.0 / nam) - 1.0 if von > 0 and nam > 0 else -1.0
     wr = (n_thang / n_lenh) if n_lenh else 0.0
     pf = (tt / abs(tth)) if tth < 0 else (99.0 if tt > 0 else 0.0)
+    tag = f"luoi_b{buoc_atr}_c{max_chan}_tp{tp_atr_tb}_sl{sl_tong_atr}"
+    if abs(hs - 1.0) > 1e-9:
+        tag += f"_x{hs}"
     return {
-        "quan_tri": f"luoi_b{buoc_atr}_c{max_chan}_tp{tp_atr_tb}_sl{sl_tong_atr}",
+        "quan_tri": tag,
         "von_cuoi": float(von),
         "cagr": float(cagr),
         "dd": float(dd),
@@ -477,8 +488,10 @@ def mo_phong_luoi(df, loc, buoc_atr=1.0, max_chan=5, tp_atr_tb=1.0, sl_tong_atr=
         "den": str(t1),
         "swap": bool(tinh_swap),
         "von_dau": float(von_dau),
-        "rui_ro": 0.02,
+        "rui_ro": float(rui_ro_gio),
         "dat": bool(cagr > 0.10 and dd < 0.80 and n_lenh >= 20 and von > 0),
+        "dat_moi": bool(von > von_dau and dd < 0.80),
         "loi_nhuan_lai": float(von / von_dau - 1.0) if von_dau else 0.0,
         "lot_chan": float(lot_nen),
+        "he_so_lot": float(hs),
     }
