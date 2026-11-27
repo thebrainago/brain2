@@ -1,0 +1,173 @@
+{
+ "5": {
+  "cagr": 0.1,
+  "dd": 93.7,
+  "theo_nam": {
+   "2020": -47.0,
+   "2021": 4.9,
+   "2022": -33.7,
+   "2023": 11.4,
+   "2024": 32.6,
+   "2025": 40.1,
+   "2026": 31.5
+  },
+  "chon": [
+   [
+    "2020",
+    "mua_giu",
+    "none",
+    "{}"
+   ],
+   [
+    "2021",
+    "bat_day",
+    "slope200",
+    "{'k_atr': 0.5, 'stop_atr': None, 'tp_ve_open': True}"
+   ],
+   [
+    "2022",
+    "swing_rsi2",
+    "sma200",
+    "{'nguong': 20, 'ra_rsi': 50}"
+   ],
+   [
+    "2023",
+    "swing_rsi2",
+    "sma50",
+    "{'nguong': 10, 'ra_rsi': 70}"
+   ],
+   [
+    "2024",
+    "swing_rsi2",
+    "sma50",
+    "{'nguong': 20, 'ra_rsi': 70}"
+   ],
+   [
+    "2025",
+    "swing_rsi2",
+    "none",
+    "{'nguong': 10, 'ra_rsi': 50}"
+   ],
+   [
+    "2026",
+    "mua_giu",
+    "none",
+    "{}"
+   ]
+  ]
+ },
+ "10": {
+  "cagr": -22.3,
+  "dd": 97.8,
+  "theo_nam": {
+   "2020": -31.2,
+   "2021": 7.3,
+   "2022": -63.3,
+   "2023": 17.7,
+   "2024": 51.9,
+   "2025": -59.8,
+   "2026": -7.0
+  },
+  "chon": [
+   [
+    "2020",
+    "mua_gio_vao",
+    "sma200",
+    "{'gio_bar': 1, 'can_xanh': True, 'stop_atr': 2.0, 'cho_ban': False, 'he_so_ban': 1.0}"
+   ],
+   [
+    "2021",
+    "bat_day",
+    "slope200",
+    "{'k_atr': 0.5, 'stop_atr': None, 'tp_ve_open': True}"
+   ],
+   [
+    "2022",
+    "swing_rsi2",
+    "sma200",
+    "{'nguong': 20, 'ra_rsi': 50}"
+   ],
+   [
+    "2023",
+    "swing_rsi2",
+    "sma50",
+    "{'nguong': 10, 'ra_rsi': 70}"
+   ],
+   [
+    "2024",
+    "swing_rsi2",
+    "sma50",
+    "{'nguong': 20, 'ra_rsi': 50}"
+   ],
+   [
+    "2025",
+    "swing_rsi2",
+    "none",
+    "{'nguong': 5, 'ra_rsi': 70}"
+   ],
+   [
+    "2026",
+    "swing_rsi2",
+    "adx20",
+    "{'nguong': 30, 'ra_rsi': 70}"
+   ]
+  ]
+ },
+ "15": {
+  "cagr": -100.0,
+  "dd": 100.0,
+  "theo_nam": {
+   "2020": -50.3,
+   "2021": 65.8,
+   "2022": -59.1,
+   "2023": 20.8,
+   "2024": 50.0,
+   "2025": -91.9,
+   "2026": -13.9
+  },
+  "chon": [
+   [
+    "2020",
+    "mua_gio_vao",
+    "sma200",
+    "{'gio_bar': 1, 'can_xanh': True, 'stop_atr': 2.0, 'cho_ban': False, 'he_so_ban': 1.0}"
+   ],
+   [
+    "2021",
+    "bat_day",
+    "none",
+    "{'k_atr': 0.75, 'stop_atr': None, 'tp_ve_open': False}"
+   ],
+   [
+    "2022",
+    "mua_gio_vao",
+    "sma200",
+    "{'gio_bar': 6, 'can_xanh': True, 'stop_atr': None, 'cho_ban': False, 'he_so_ban': 1.0}"
+   ],
+   [
+    "2023",
+    "bat_day",
+    "none",
+    "{'k_atr': 0.75, 'stop_atr': None, 'tp_ve_open': True}"
+   ],
+   [
+    "2024",
+    "swing_rsi2",
+    "sma50",
+    "{'nguong': 20, 'ra_rsi': 50}"
+   ],
+   [
+    "2025",
+    "swing_rsi2",
+    "none",
+    "{'nguong': 5, 'ra_rsi': 70}"
+   ],
+   [
+    "2026",
+    "swing_rsi2",
+    "adx20",
+    "{'nguong': 30, 'ra_rsi': 70}"
+   ]
+  ]
+ }
+}

@@ -1,0 +1,28 @@
+=== CHIEN DICH: US500CASH ===
+kho co che truoc: 4049
+-- LUONG 1: SEEKER san theo muc tieu --
+  github             lay ve  229  moi  221  (21s)
+  lean_algo          lay ve   40  moi    3  (21s)
+  tradingview_pine   lay ve    0  moi    0  (25s)
+  mql5_code          lay ve  117  moi  117  (30s)
+  blog               lay ve   27  moi   27  (34s)
+  arxiv              lay ve    0  moi    0  (34s)
+  openalex           lay ve    0  moi    0  (34s)
+  stackexchange      lay ve    1  moi    1  (36s)
+  hackernews         lay ve    0  moi    0  (36s)
+  quantconnect       lay ve    0  moi    0  (36s)
+  crossref           lay ve    0  moi    0  (36s)
+  fxblue             lay ve 2576  moi 2576  (38s)
+  etoro              lay ve   50  moi   50  (38s)
+  semantic           lay ve    0  moi    0  (38s)
+   -> 2995 tai lieu moi tu 14 nguon (38.4s)
+-- LUONG 2a: doc toan van + boc co che --
+  doc toan van: {'doc_duoc': 40, 'that_bai': 0, 'ky_tu_luot_nay': 1615733, 'artifact_moi': 40, 'artifact_da_co': 0, 'artifact_loi': 0, 'cong_cu_moi': 1, 'thanh_phan_moi': 1, 'hoan_lai_loi_tam_thoi': 0, 'tam_thoi_loai': {}, 'canh_bao': '', 'thu_vien_ban_doc': 40, 'thu_vien_ky_tu': 1615733, 'thu_vien_trang_a4': 404}
+  boc co che  : {'da_boc': 0, 'khang_dinh': 0, 'co_che_nhan': [], 'co_che_tu_choi': [], 'ngu_phap_thieu': []}
+kho co che sau: 4049  (+0)
+
+=== TONG KET ===
+tai lieu moi : 2995
+nguon chay   : 14
+co che       : 4049 -> 4049 (+0)
+nguon bo qua vi loi: []
