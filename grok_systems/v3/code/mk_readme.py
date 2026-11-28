@@ -4,6 +4,7 @@ V='/workspace/bt_3m/v3'
 J=json.load(open(f'{V}/r4/joint5.json'))
 now=datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
 r6=open(f'{V}/results/r6/ROUND6_NOTES.md').read() if os.path.exists(f'{V}/results/r6/ROUND6_NOTES.md') else '_(vòng 6 đang chạy — xem STATUS.md)_'
+r7=open(f'{V}/results/r6/ROUND7_NOTES.md').read() if os.path.exists(f'{V}/results/r6/ROUND7_NOTES.md') else ''
 cov=open(f'{V}/COVERAGE.md').read() if os.path.exists(f'{V}/COVERAGE.md') else ''
 def jrow(k,lab=None):
     r=J.get(k); 
@@ -176,12 +177,17 @@ python ../r4/joint5.py         # DD gộp từ deals MT5
 python newsig5.py; python batnew5.py XAU; python sc6.py   # vòng 6b: cặp đồng pha + scalp
 python opt7.py                 # greedy + tối ưu lot 3 kịch bản (A/B robust) → results/r6/opt7.json
 python ../r4/joint7.py         # DD gộp MT5 cho các kịch bản opt7 + bậc ×lot → r4/joint7.json
+python opt8.py                 # kịch bản vốn 100k + chỉ XAU / chỉ US500 (50k và 100k) → results/r6/opt8.json
+python ../r4/joint8.py         # DD gộp MT5, cap tuỳ vốn, cắt lot nếu DD>19.5% → r4/joint8.json
 python cov.py                  # COVERAGE.md
 ```
 Cần bảng đặc trưng `v3/tbl/<asset>.parquet` (dựng bằng `prep_v3.py` + `feat_v3.py` từ dữ liệu Rithmic 1m — dữ liệu thô KHÔNG có trong git). Engine: `bt.py` (wrapper) → `engine2.py` (numba; P[27..29] = stop giá, stop USD, kill ngày; `fl` = 1 flat / 2 hedge-lock).
 
 ## 11. Vòng 6 (đã xong — ALL DONE)
 {r6}
+
+## 12. Vốn 100k / tách vàng & SP500 (vòng 7)
+{r7}
 
 {cov}
 """

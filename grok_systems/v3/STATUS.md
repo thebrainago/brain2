@@ -1,4 +1,4 @@
-ALL DONE (round 6 complete: search space covered, final scenarios opt7/joint7 MT5-verified)
+ALL DONE (round 7: 100k joint + Gold-only / SP500-only at 100k and 50k, MT5 joint verified, docs+git)
 Round 5 finished: SUMMARY_V3.md section 19 written; synced to E:\GrokWork\bt_v3. No jobs running (box and PC MT5 queues all finished).
 Key results: weekend hedge-lock W (EA BRAIN_XuLiLenh_r5) keeps 91-96% net, removes weekend-gap DD; MT5 joint DD: NEW4 +24.1k/8.4%, PortD-G30 +74.9k/15.1%, PortD-G40 +85.4k/17.7%, PortE(G30+g3,g5,u12,u13) +101.3k/13.2%; g4 dropped. New systems g3,g5,u12,u13 MT5-verified.
 Files: results/r5/*, r4/joint5.json, code/{engine2,r5lib,p5,opt5,pd5,pf5,pf5b,stress5,g5,pol5,newsig2,newsig3,batnew2,batnew3,mk_v5*}.py, r5ea/BRAIN_XuLiLenh_r5.mq5.
@@ -17,3 +17,5 @@ Next (optional round 6): forward-demo plan at half lots; more new-signal familie
 - 14:27 batnew5: pass XAU gp1 pw_break+emapull, gp2 sw_fade+dz_fade, gp3 dz_fade+imb30z; US500 up1 sw1.8+sw1.5, up2 dz_mom+rnd50, up3 sw1.5+vclimax_fade3. scalp pairs xs8 pd+pw break, xs9 g3_60mom+big3mom, xs10 swfade+big3mom (fixed SL/TP, A-picked). MT5 q_p4v7/q_p6v7 launched (PC PIDs 3412, 20964). opt7 (extended universe) running.
 - 15:05 MT5 v7 done (100% real ticks): gp1 .06 +9,237/8.5% (rerun; first run 0 trades glitch), gp2 .06 +7,479/11.4%, gp3 .05 +5,677/10.6%, up1 2.0 +4,245/7.4%, up2 2.0 +2,921/6.4%, up3 1.0 +1,604/8.9%, xs8 .3 +10,437/6.1%, xs9 .3 +11,815/11.0%, xs10 .3 +10,140/6.9%. All match Python. Running joint7.
 - 15:07 joint7 done; docs updated; ALL DONE
+- 15:14 start opt8: recompute scenarios at 100k joint; Gold-only and US500-only at 100k and 50k; W on; reuse U6.pkl + MT5 deals (linear).
+- 15:31 opt8/joint8 done. Joint 100k: Safe +96,123/3.7%, Bal +161,631/6.8%, Agg +304,204/11.0% (×1.7 +517,672/18.7%). Gold-only 100k Agg trimmed to +208,221/19.3%. US500-only 100k Agg +167,946/18.8%. Docs updated.

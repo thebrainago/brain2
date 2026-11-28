@@ -471,3 +471,20 @@ Xem đầy đủ `results/r6/ROUND6_NOTES.md` mục "Vòng 6b". Tóm tắt MT5 (
 | Mạnh tay ×1.7 | +202,932 | 18.8% |
 | Đánh tay 10 scalp | +20,143 (×5 +100,717 / 16.5%) | 3.3% |
 Hệ mới: gp1–gp3 (XAU basket), up1–up3 (US500 basket), xs8–xs10 (XAU scalp); chỉ xs10 vào danh mục greedy. Không gian tìm kiếm đã phủ hết (COVERAGE.md).
+
+## 22. Vòng 7 — vốn 100k, danh mục chỉ Vàng / chỉ SP500
+Xem đầy đủ lot và caveat ở `results/r6/ROUND7_NOTES.md` và mục 12 của `README_SCENARIOS.md`. W bật, DD = equity MT5 gộp (scale deals có sẵn). Tất cả 6/6 tháng dương. Lot bước vàng 0.01, chỉ số 0.1.
+
+| Sách | Kịch bản | Vốn | MT5 net | DD | Gap-5% | sx2 |
+|---|---|---|---|---|---|---|
+| Chung 2 tài sản | An toàn | 100k | +96,123 | 3.7% | 28.4% | 5.0% |
+| Chung 2 tài sản | Cân bằng | 100k | +161,631 | 6.8% | 48.3% | 8.4% |
+| Chung 2 tài sản | Mạnh tay | 100k | +304,204 | 11.0% | 98.8% | 16.9% |
+| Chung 2 tài sản | Mạnh tay ×1.7 | 100k | +517,672 | 18.7% | ~168% | ~29% |
+| Chung 2 tài sản | Đánh tay 10 scalp | 100k | +72,846 (×5: +364,231) | 3.6% (×5: 18.0%) | 29% | 4.3% |
+| Chỉ Vàng | An toàn / Cân bằng / Mạnh tay* | 100k | +74,963 / +126,015 / +208,221 | 6.9% / 11.7% / 19.3% | 29% / 49% / 82% | 7.9 / 13.7 / 20.9 |
+| Chỉ Vàng | An toàn / Cân bằng / Mạnh tay* | 50k | +36,069 / +61,656 / +106,622 | 5.5% / 11.0% / 19.3% | 28% / 48% / 84% | 7.8 / 12.9 / 21.6 |
+| Chỉ SP500 | An toàn / Cân bằng / Mạnh tay | 100k | +49,551 / +81,769 / +167,946 | 5.5% / 9.4% / 18.8% | 30% / 50% / 100% | 7.7 / 12.6 / 24.4 |
+| Chỉ SP500 | An toàn / Cân bằng / Mạnh tay | 50k | +24,776 / +40,645 / +83,900 | 5.5% / 9.3% / 18.8% | 30% / 49% / 100% | 7.7 / 12.5 / 24.4 |
+
+\* Mạnh tay chỉ-vàng: lot đã cắt (100k ×0.906, 50k ×0.938) vì DD MT5 gốc 21.4%/20.7% vượt 20%. Không chạy lại tester. Khuyến nghị: Cân bằng hoặc Mạnh tay ×1.0, demo nửa lot trước.

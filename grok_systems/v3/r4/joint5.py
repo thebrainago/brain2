@@ -9,11 +9,12 @@ def eq(nm):
     w,c,b=M.recon(f'deals/{nm}.csv',a); d=pd.DataFrame({'ew':w,'ec':c}); d.to_parquet(f); EQ[nm]=d; return d
 CAP={'x':30000.,'u':10000.}
 def isx(nm): return any(f'_{k}_' in nm for k in ('x1','x4','g1','g2','g3','g4','g5','g7','xs1','xs2','xs3','xs4','xs5','xs6','xs7','xs8','xs9','xs10','gp1','gp2','gp3'))
-def joint(names,scale=None,lab=''):
+def joint(names,scale=None,lab='',cap=None):
     scale=scale or {}; dfs=[(eq(n),scale.get(n,1.0)) for n in names]; idx=dfs[0][0].index
     for d,_ in dfs[1:]: idx=idx.union(d.index)
     ec=sum(s*d.ec.reindex(idx).ffill().fillna(0) for d,s in dfs); ew=sum(s*d.ew.reindex(idx).ffill().fillna(0) for d,s in dfs)
-    cap=30000*any(isx(n) for n in names)+10000*any(not isx(n) for n in names)
+    if cap is None:
+        cap=30000*any(isx(n) for n in names)+10000*any(not isx(n) for n in names)
     pk=np.maximum.accumulate(ec.values); ddv=pk-ew.values; dd=float(ddv.max()); i=int(ddv.argmax())
     mon=ec.groupby(idx.strftime('%Y-%m')).last(); mn=mon.diff(); mn.iloc[0]=mon.iloc[0]; iA=idx.searchsorted(pd.Timestamp('2026-08-20',tz='UTC'))
     comp=sum(s*float(np.max(np.maximum.accumulate(d.ec.values)-d.ew.values)) for d,s in dfs)
