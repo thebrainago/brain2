@@ -15,4 +15,4 @@ Còn lại:
 2) Khi p6 rảnh: chạy pc_tools/dl_m1_idx.py, rồi screen/basket/placebo/battery, xếp theo DD USD tại min lot.
 3) Chép README + reports vào E:\GrokWork\bt_fx; đẩy git grok/scenarios-v3; dòng đầu ALL DONE chỉ khi xong (1) và đã chép ổ E.
 
-Git hiện vẫn ba1769b cho đến khi có commit mới. Không đụng main.
+Git: 81f6370 trên grok/scenarios-v3 (không đụng main). E:\GrokWork\bt_fx chưa gồm bản README/MT5 này.

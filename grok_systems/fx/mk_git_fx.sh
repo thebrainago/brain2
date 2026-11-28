@@ -11,6 +11,8 @@ cp $F/results/*.log $D/results/ 2>/dev/null || true
 cp $F/mt5/*.csv $F/mt5/*.json $D/mt5/ 2>/dev/null || true
 cp $F/ea/*.mq5 $D/ea/ 2>/dev/null || true
 cp $F/mk_git_fx.sh $F/mk_sync_fx.sh $D/ 2>/dev/null || true
+cp $F/mt5/reports/*.htm $D/mt5/reports/ 2>/dev/null || true
+cp $F/pc_tools/*.py $D/pc_tools/ 2>/dev/null || true
 mkdir -p $D/pdf
 cp $F/pdf/*.pdf $F/pdf/*.py $D/pdf/ 2>/dev/null || true
 
