@@ -1,5 +1,7 @@
 BOX DONE - PC PENDING - 2026-11-28 20:37 (UTC+7 / Asia/Saigon)
 
+Git: b633e70 (docs/portfolio) + aee7f4b (force-add PDF) on grok/scenarios-v3 (never main).
+
 Box work this turn (t170u, no machine tools): GER40 z15 Asia Python battery already complete and passes; official-book portfolio (US30 + GER40) written to results/port_official.json; Vietnamese PDF 2 pages at pdf/TomTat_NghienCuu_FX_2026-11-28.pdf; README_FX updated.
 
 GER40 z15 Á @ 1 lot (Python): OOS +1,687 / DD 545; placebo 100%; spr×2 OOS +1,231; spr×3 OOS +414; delay/noswap/detrend/reverse/long/short all OOS positive. Gap 5% DD 7,267–7,875. Verdict: PIN PYTHON ĐẠT, chưa đưa vào sổ (chờ MT5; phiên Á thanh khoản mỏng).
