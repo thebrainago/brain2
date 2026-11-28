@@ -6,6 +6,7 @@ now=datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
 r6=open(f'{V}/results/r6/ROUND6_NOTES.md').read() if os.path.exists(f'{V}/results/r6/ROUND6_NOTES.md') else '_(vòng 6 đang chạy — xem STATUS.md)_'
 r7=open(f'{V}/results/r6/ROUND7_NOTES.md').read() if os.path.exists(f'{V}/results/r6/ROUND7_NOTES.md') else ''
 r8=open(f'{V}/results/r6/ROUND8_NOTES.md').read() if os.path.exists(f'{V}/results/r6/ROUND8_NOTES.md') else ''
+r9=open(f'{V}/results/r6/ROUND9_NOTES.md').read() if os.path.exists(f'{V}/results/r6/ROUND9_NOTES.md') else ''
 cov=open(f'{V}/COVERAGE.md').read() if os.path.exists(f'{V}/COVERAGE.md') else ''
 def jrow(k,lab=None):
     r=J.get(k); 
@@ -17,7 +18,7 @@ Cập nhật: {now} (Asia/Saigon). Tác giả: Grok Bot (executor XSD-16). Tài 
 **Không có secret trong tài liệu/code này. Mọi số là BACKTEST (Python bảo thủ hoặc MT5 100% real ticks), KHÔNG phải kết quả live.** Thiếu số → ghi `KHÔNG CÓ`.
 
 ## 0. Tóm tắt 1 phút
-- **VỐN THỰC TẾ CỦA NGƯỜI DÙNG = 10k cent = 100 USD** (tài khoản cent), không phải 30k/40k/100k USD. Bảng chính cho vốn này nằm ở **mục 13** (Exness Standard Cent; XM Micro không phù hợp). Các mục 1–12 là vốn tham chiếu 100k/50k/30k+10k, giữ để so sánh.
+- **VỐN THỰC TẾ = hai tài khoản cent 100 USD tách riêng** (một chỉ vàng, một chỉ SP500). Lot tối thiểu dùng trong tính toán: vàng **0,10**, US500 **0,14**. Bảng chính ở **mục 14**. Mục 13 (min 0,01) đã lỗi thời với min lot thực tế. Các mục 1–12 là vốn tham chiếu 100k/50k, giữ để so sánh.
 - Dữ liệu: Rithmic/Fxaurum futures order-flow (GC = vàng COMEX, ES = S&P mini) 1 phút, 01/06–26/11/2026 → tín hiệu; khớp lệnh trên giá CFD XM (GOLD.i#, US500Cash) M1 bid + spread XM thật. KHÔNG có NQ/SI/CL, KHÔNG có lịch sử GEX/Gamma flip/Walls/MBO.
 - Kiểm định: A/B OOS (A = 01/06–19/08, B = 20/08–26/11), placebo (đảo dấu ngẫu nhiên 20 lần), detrend/reverse drift, spread×2/×3 + slippage, trễ vào lệnh 2 nến (delay2), chỉ long/chỉ short, MT5 100% real ticks (EA BRAIN_XuLiLenh, chế độ đọc CSV điểm vào).
 - Hai kiểu hệ: **basket** (giỏ DCA không SL, chốt tổng TP theo giá) và **scalp** (1 lệnh, SL/TP/hold cố định).
@@ -158,7 +159,8 @@ Scalp: `InpNhoi=0, InpMaxTang=1, InpTPGia=TP giá, InpGiuToiDaNen=hold, InpCatLo
 | Đường dẫn (trong repo `grok_systems/v3/`) | Nội dung |
 |---|---|
 | `README_SCENARIOS.md` | tài liệu này |
-| `pdf/TomTat_KichBan_v2_100USD_cent_2026-11-28.pdf` | PDF v2: phần 100 USD cent + phụ lục vốn 100k |
+| `pdf/TomTat_KichBan_v3_minlot01_2026-11-28.pdf` | PDF v3: hai TK 100 USD, min lot 0,10/0,14 |
+| `pdf/TomTat_KichBan_v2_100USD_cent_2026-11-28.pdf` | PDF v2: min lot 0,01 (đã lỗi thời với min 0,10/0,14) |
 | `pdf/TomTat_KichBan_Vang_SP500_2026-11-28.pdf` | PDF v1 vốn 100k (6 trang) |
 | `SUMMARY_V3.md` | nhật ký đầy đủ các vòng 1–6 (bảng số) |
 | `COVERAGE.md` | danh sách họ tín hiệu đã/chưa thử |
@@ -196,6 +198,10 @@ Cần bảng đặc trưng `v3/tbl/<asset>.parquet` (dựng bằng `prep_v3.py` 
 ## 13. Vốn 100 USD = 10.000 cent (vòng 8)
 Mục con 8.x bên dưới = 13.x.
 {r8}
+
+## 14. Hai tài khoản 100 USD, min lot 0,10 / 0,14 (vòng 9)
+Mục con 9.x bên dưới = 14.x.
+{r9}
 
 {cov}
 """
