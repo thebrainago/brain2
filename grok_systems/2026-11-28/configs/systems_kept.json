@@ -1,0 +1,525 @@
+{
+  "title": "Hệ thống đã lọc — SP500 & Vàng — 2026-11-28",
+  "timezone": "Asia/Saigon (UTC+7)",
+  "window_v2_mt5": {
+    "from": "2026-08-20",
+    "to": "2026-11-27",
+    "model": "MT5 Strategy Tester, mọi tick thật, History Quality 100%",
+    "leverage": "1:500"
+  },
+  "window_python": {
+    "from": "2026-08-20",
+    "to": "2026-11-26 12:04 UTC",
+    "engine": "Python conservative M1 (adverse-first, no DCA+close same bar, XM spread + 0.5x slip, XM swap)"
+  },
+  "window_long": {
+    "from": "2025-07-21 or 2025-09-01",
+    "to": "2026-11-27"
+  },
+  "notes": [
+    "Các bộ v2 được chọn trên chính cửa sổ 3 tháng (in-sample). Cần forward-test trên demo XM và Exness Raw.",
+    "Tín hiệu v2 cần tick hợp đồng tương lai Fxaurum sống; chỉ riêng MT5 không tự tạo tín hiệu này.",
+    "EA BRAIN_XuLiLenh dùng cho kiểm chứng CSV không có prune.",
+    "Nguồn HedgeTay không có trong repo; chỉ lưu thông số và kết quả đã test.",
+    "Ghép Python US500 v2_c1 + XAU v2_c1 trên vốn 20k: +6.577,87 USD, DD 9,29%, tương quan 0,12."
+  ],
+  "kept": [
+    {
+      "name": "US500_v2_c1",
+      "asset": "US500 (US500Cash#)",
+      "status": "forward-test candidate",
+      "priority": 1,
+      "signal_rule": "Bắt ngược lệch sweep 15 phút (sw_fade), z > 1,8; ADX > 20; hai chiều; giờ London/NY.",
+      "management": {
+        "L0": 2.0,
+        "mult": 1.0,
+        "gap": 60,
+        "gstep": 1.4,
+        "maxN": 3,
+        "TP_basket": 6,
+        "trim": 0,
+        "prune": 1.5,
+        "hedge": "0.5× khi lệch ~90 giá (lỗ ~2,4% số dư); cũng test bản không hedge",
+        "compounding": false
+      },
+      "capital": 10000,
+      "mt5": {
+        "nohedge": {
+          "net": 1738.22,
+          "dd_pct": 3.77,
+          "dd_usd": 382.94,
+          "trades": 141,
+          "pf": 3.4,
+          "pass": true
+        },
+        "hedge": {
+          "net": 1591.44,
+          "dd_pct": 3.74,
+          "dd_usd": 378.96,
+          "trades": 159,
+          "pf": 2.9,
+          "pass": true
+        }
+      },
+      "python": {
+        "net": 1677.64,
+        "dd_pct": 3.86,
+        "orders": 141,
+        "spread_x3": 557.03,
+        "mirror_net": 1594.06,
+        "mirror_dd": 3.96,
+        "gap20_dd_pct_peak": "66%/63%"
+      }
+    },
+    {
+      "name": "US500_v2_c3",
+      "asset": "US500 (US500Cash#)",
+      "status": "forward-test candidate",
+      "priority": 2,
+      "signal_rule": "Cùng tín hiệu sw_fade z > 1,8, ADX > 20, hai chiều, London/NY.",
+      "management": {
+        "L0": 1.0,
+        "mult": 1.0,
+        "gap": 45,
+        "gstep": 1.4,
+        "maxN": 3,
+        "TP_basket": 6,
+        "trim": 0,
+        "prune": 1.2,
+        "hedge": "0.5× khi lệch ~180 giá (lỗ ~3,87%); trên MT5 hedge không kích hoạt, kết quả trùng bản không hedge",
+        "compounding": false
+      },
+      "capital": 10000,
+      "mt5": {
+        "net": 923.05,
+        "dd_pct": 1.76,
+        "dd_usd": 176.54,
+        "trades": 151,
+        "pf": 4.33,
+        "pass": true
+      },
+      "python": {
+        "net": 899.91,
+        "dd_pct": 1.79,
+        "orders": 152,
+        "spread_x3": 169.85,
+        "mirror_net": 875.9,
+        "mirror_dd": 1.83
+      }
+    },
+    {
+      "name": "US500_v2_c2",
+      "asset": "US500 (US500Cash#)",
+      "status": "forward-test candidate (chưa kiểm chứng MT5 tick-real)",
+      "priority": 3,
+      "signal_rule": "Cùng tín hiệu sw_fade z > 1,8, ADX > 20, hai chiều, London/NY.",
+      "management": {
+        "L0": 1.0,
+        "mult": 1.0,
+        "gap": 45,
+        "gstep": 1.4,
+        "maxN": 3,
+        "TP_basket": 6,
+        "trim": 0,
+        "prune": 1.5,
+        "hedge": "0.75× @ 180 giá",
+        "compounding": true
+      },
+      "capital": 10000,
+      "mt5": null,
+      "python": {
+        "net": 936.12,
+        "dd_pct": 1.88,
+        "orders": 152,
+        "spread_x3": 157.26,
+        "mirror_net": 910.3,
+        "mirror_dd": 1.88
+      }
+    },
+    {
+      "name": "US500_c1",
+      "asset": "US500 (US500Cash#)",
+      "status": "forward-test candidate (bản v1; v2_c1 là bản cải thiện)",
+      "priority": 4,
+      "signal_rule": "Bắt ngược lệch sweep 15 phút, z > 2,0; ADX > 20; hai chiều; London/NY.",
+      "management": {
+        "L0": 1.0,
+        "mult": 1.0,
+        "gap": 45,
+        "gstep": 1.4,
+        "maxN": 3,
+        "TP_basket": 6,
+        "prune": 1.5,
+        "hedge": "0.5× @ 112,5 giá",
+        "compounding": true
+      },
+      "capital": 10000,
+      "mt5": {
+        "net": 861.49,
+        "dd_pct": 1.76,
+        "trades": 142,
+        "pf": 5.69,
+        "hedge_same_as_nohedge": true,
+        "pass": true
+      },
+      "python": {
+        "net": 874.33,
+        "dd_pct": 1.79,
+        "orders": 143,
+        "mirror_net": 868.29,
+        "mirror_dd": 1.83,
+        "spread_x3": -340.42,
+        "note": "Python không chịu được spread×3; đây là lý do v2 nới z xuống 1,8 và tăng gap/lot."
+      }
+    },
+    {
+      "name": "US500_c2",
+      "asset": "US500 (US500Cash#)",
+      "status": "forward-test candidate (nhỏ, bảo thủ)",
+      "priority": 5,
+      "signal_rule": "VWAP momentum (vwap_mom k=1), chỉ bán, London/NY, không lọc ADX.",
+      "management": {
+        "L0": 0.3,
+        "mult": 2.0,
+        "gap": 45,
+        "gstep": 1.4,
+        "maxN": 3,
+        "TP_basket": 6,
+        "prune": 0,
+        "hedge": "1.0× @ 112,5 (trên MT5 không kích hoạt)",
+        "compounding": true
+      },
+      "capital": 10000,
+      "mt5": {
+        "net": 188.48,
+        "dd_pct": 0.45,
+        "trades": 90,
+        "pf": 3.93,
+        "pass": true
+      },
+      "python": {
+        "net": 190.27,
+        "dd_pct": 0.48,
+        "mirror_net": 189.0,
+        "mirror_dd": 2.58
+      }
+    },
+    {
+      "name": "US500_c5",
+      "asset": "US500 (US500Cash#)",
+      "status": "giữ có điều kiện — lãi cao nhưng cháy nếu gap ±20%",
+      "priority": 6,
+      "signal_rule": "Cùng sw_fade z > 2,0, ADX > 20, hai chiều, London/NY (khác c1 ở quản lý lệnh).",
+      "management": {
+        "L0": 1.0,
+        "mult": 2.0,
+        "gap": 6,
+        "gstep": 1.0,
+        "maxN": 3,
+        "TP_basket": 6,
+        "prune": 1.5,
+        "hedge": "không",
+        "compounding": false
+      },
+      "capital": 10000,
+      "mt5": {
+        "net": 2596.67,
+        "dd_pct": 10.43,
+        "trades": 248,
+        "pf": 18.21,
+        "pass": true
+      },
+      "python": {
+        "net": 2716.23,
+        "dd_pct": 11.07,
+        "orders": 260,
+        "mirror_net": 2776.3,
+        "note": "Không qua bài gap ±20%."
+      }
+    },
+    {
+      "name": "x_long_dca_L050_lin",
+      "asset": "US500 (US500Cash#)",
+      "status": "forward-test candidate (dài hạn, chỉ mua)",
+      "priority": 7,
+      "signal_rule": "Không dùng order-flow. Chỉ mua, nhồi DCA theo khung H1, lot 0,5 tăng tuyến tính.",
+      "management": {
+        "L0": 0.5,
+        "style": "DCA long-only, lot tăng tuyến tính",
+        "timeframe": "H1",
+        "period": "2025.07.21–2026.11.27"
+      },
+      "capital": 10000,
+      "mt5": {
+        "net": 8320.6,
+        "dd_pct": 28.57,
+        "dd_usd": 6352.29,
+        "trades": 1044,
+        "pf": 1.93,
+        "pass": true
+      },
+      "python": null
+    },
+    {
+      "name": "s_tayv2_h1_L050",
+      "asset": "US500 (US500Cash#)",
+      "status": "forward-test candidate (dài hạn)",
+      "priority": 8,
+      "signal_rule": "Hệ tay_v2 trên US500, L0 0,50, hedge 1× (không dùng tick Fxaurum).",
+      "management": {
+        "L0": 0.5,
+        "hedge": "1×",
+        "timeframe": "M1",
+        "period": "2025.07.21–2026.11.27"
+      },
+      "capital": 10000,
+      "mt5": {
+        "net": 2395.68,
+        "dd_pct": 26.38,
+        "dd_usd": 3084.51,
+        "trades": 8223,
+        "pf": 4.33,
+        "pass": true
+      },
+      "python": null
+    },
+    {
+      "name": "s_tayv2_h1_L030",
+      "asset": "US500 (US500Cash#)",
+      "status": "forward-test candidate (dài hạn, lot nhỏ hơn)",
+      "priority": 9,
+      "signal_rule": "Hệ tay_v2 trên US500, L0 0,30, hedge 1×.",
+      "management": {
+        "L0": 0.3,
+        "hedge": "1×",
+        "timeframe": "M1",
+        "period": "2025.07.21–2026.11.27"
+      },
+      "capital": 10000,
+      "mt5": {
+        "net": 1442.45,
+        "dd_pct": 16.82,
+        "dd_usd": 1853.65,
+        "trades": 8198,
+        "pf": 4.37,
+        "pass": true
+      },
+      "python": null
+    },
+    {
+      "name": "XAU_v2_c1",
+      "asset": "Vàng (GOLD.i#)",
+      "status": "forward-test candidate",
+      "priority": 1,
+      "signal_rule": "Bắt ngược VWAP khi |độ lệch| > 3 ATR (vwap_rev k=2), ADX > 20, hai chiều, mọi khung giờ.",
+      "management": {
+        "L0": 0.03,
+        "mult": 1.0,
+        "gap": 6,
+        "gstep": 1.4,
+        "maxN": 4,
+        "TP_basket": 3,
+        "trim": 0,
+        "prune": 0,
+        "hedge": "không"
+      },
+      "capital_variants": [
+        10000,
+        30000
+      ],
+      "mt5": {
+        "cap_30000": {
+          "net": 4924.44,
+          "dd_pct": 6.24,
+          "dd_usd": 2089.2,
+          "trades": 542,
+          "pf": 5.52,
+          "pass": true
+        },
+        "cap_10000": {
+          "net": 4924.44,
+          "dd_pct": 15.47,
+          "dd_usd": 2089.2,
+          "trades": 542,
+          "pf": 5.52,
+          "pass": true
+        }
+      },
+      "python": {
+        "net": 4900.23,
+        "dd_pct": 6.91,
+        "orders": 563,
+        "mirror_net": 4555.5,
+        "mirror_dd": 7.12,
+        "note": "DD Python tính trên vốn 30k. Qua bài đảo chiều +21%."
+      }
+    },
+    {
+      "name": "XAU_v2_c3",
+      "asset": "Vàng (GOLD.i#)",
+      "status": "forward-test candidate (DD thấp, bền hơn)",
+      "priority": 2,
+      "signal_rule": "Bắt ngược lệch sweep 15 phút (sw_fade), z > 1,8; ADX > 20; hai chiều; London/NY.",
+      "management": {
+        "L0": 0.03,
+        "mult": 1.3,
+        "gap": 6,
+        "gstep": 1.4,
+        "maxN": 4,
+        "TP_basket": 3,
+        "trim": 0,
+        "prune": 1.5,
+        "hedge": "0.5× @ ~18 giá (0,36% trên 30k / 1,08% trên 10k)",
+        "note": "EA kiểm chứng không có prune; Python không prune +2.804 (DD cao hơn)."
+      },
+      "capital_variants": [
+        10000,
+        30000
+      ],
+      "mt5": {
+        "cap_30000": {
+          "net": 2580.6,
+          "dd_pct": 2.23,
+          "dd_usd": 713.33,
+          "trades": 351,
+          "pf": 2.9,
+          "pass": true
+        },
+        "cap_10000": {
+          "net": 2593.2,
+          "dd_pct": 6.02,
+          "dd_usd": 720.35,
+          "trades": 347,
+          "pf": 2.97,
+          "pass": true
+        }
+      },
+      "python": {
+        "net": 3160.06,
+        "dd_pct": 2.21,
+        "orders": 339,
+        "noprune_net": 2803.88,
+        "mirror_net": 3211.17,
+        "mirror_dd": 2.21
+      }
+    },
+    {
+      "name": "HedgeEMA_H1_L024_30k",
+      "asset": "Vàng (GOLD.i#)",
+      "status": "forward-test candidate (dài hạn, DD cao)",
+      "priority": 3,
+      "signal_rule": "Dựa vào đường EMA khung H1, không dùng order-flow Fxaurum. Lot 0,24 trên vốn 30k.",
+      "management": {
+        "L0": 0.24,
+        "timeframe": "H1",
+        "period": "2025.09.01–2026.11.27",
+        "expert": "HedgeEMA"
+      },
+      "capital": 30000,
+      "mt5": {
+        "net": 40250.28,
+        "dd_pct": 45.09,
+        "trades": 525,
+        "pf": 1.12,
+        "pass": true
+      },
+      "python": null
+    },
+    {
+      "name": "HedgeTay_lc10_L012_tay002",
+      "asset": "Vàng (GOLD.i#)",
+      "status": "forward-test candidate (dài hạn, cân bằng trên vốn 10k)",
+      "priority": 4,
+      "signal_rule": "Hệ HedgeTay lc10, lot gốc 0,12, tay L0 0,02. Không dùng order-flow. Nguồn EA không có trong repo.",
+      "management": {
+        "lot_goc": 0.12,
+        "tay_L0": 0.02,
+        "lc": 10,
+        "timeframe": "M1",
+        "period": "2025.09.01–2026.11.27"
+      },
+      "capital": 10000,
+      "mt5": {
+        "net": 21155.46,
+        "dd_pct": 58.84,
+        "trades": 12046,
+        "pf": 1.12,
+        "pass": true
+      },
+      "python": null
+    },
+    {
+      "name": "HedgeTay_gong_L008",
+      "asset": "Vàng (GOLD.i#)",
+      "status": "forward-test candidate (dài hạn, an toàn nhất trong nhóm HedgeTay)",
+      "priority": 5,
+      "signal_rule": "Hệ HedgeTay gồng lỗ (không đóng lỗ tổng), lot gốc 0,08. Nguồn EA không có trong repo.",
+      "management": {
+        "lot_goc": 0.08,
+        "style": "gồng lỗ, không đóng lỗ tổng",
+        "timeframe": "M1",
+        "period": "2025.09.01–2026.11.27"
+      },
+      "capital_variants": [
+        10000,
+        30000
+      ],
+      "mt5": {
+        "cap_10000": {
+          "net": 10013.99,
+          "dd_pct": 22.03,
+          "trades": 31380,
+          "pf": 1.08,
+          "pass": true
+        },
+        "cap_30000": {
+          "net": 10013.99,
+          "dd_pct": 12.15,
+          "trades": 31380,
+          "pf": 1.08,
+          "pass": true,
+          "note": "Cùng giao dịch, khác mẫu số DD (10k+20k nạp)."
+        }
+      },
+      "python": null
+    }
+  ],
+  "rejected_short": [
+    {
+      "name": "XAU v1 c1–c5",
+      "reason": "Mọi bộ vàng v1 chỉ ăn nhịp giảm 21% (20/08–27/11); đảo chiều gương lỗ nặng hoặc cháy. Không dùng."
+    },
+    {
+      "name": "XAU_v2_c2",
+      "reason": "VWAP k=1, phụ thuộc prune (không prune lỗ 2.373); Exness Standard ×2 cháy. Không đưa vào forward-test."
+    },
+    {
+      "name": "US500_c3",
+      "reason": "sw_mom chỉ bán; test gương lỗ −171, DD 14,4%."
+    },
+    {
+      "name": "US500_c4",
+      "reason": "Placebo chỉ 15th percentile — không vượt nhóm ngẫu nhiên."
+    },
+    {
+      "name": "SP500_Dca (s_dcaA, s_goB)",
+      "reason": "Mọi bản lỗ hoặc cháy (DD 15–100%)."
+    },
+    {
+      "name": "HedgeEMA lot ≥ 0,16 trên vốn 10k",
+      "reason": "DD vượt 80% (L016 80,74%, L020 95,91%). Chỉ giữ bản 0,24 trên 30k."
+    },
+    {
+      "name": "TayV2 tỉa trên vàng (g_tia_*)",
+      "reason": "Lỗ nặng hoặc cháy (K2 −19.886 DD 71%; K4 −29.526 DD 98,6%)."
+    },
+    {
+      "name": "Lọc vĩ mô / IBS (quét 3 tháng)",
+      "reason": "Lọc vĩ mô làm kết quả kém đi; IBS yếu nhất trong nhóm tín hiệu."
+    },
+    {
+      "name": "Engine Python cũ (biased)",
+      "reason": "Cho nhồi rồi chốt trong cùng nến — lạc quan, đã loại. Lưu tại _biased_old_engine, không dùng."
+    }
+  ]
+}

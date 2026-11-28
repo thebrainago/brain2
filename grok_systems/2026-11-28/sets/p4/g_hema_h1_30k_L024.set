@@ -1,0 +1,9 @@
+InpEMA=55
+InpATR=14
+InpHedgeATR=2.0
+InpTP_ATR=1.2
+InpSL_ATR=4.0
+InpHeSoHedge=1.5
+InpLotGoc=0.24
+InpMagic=2026112703
+InpSlippage=50
