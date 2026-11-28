@@ -18,6 +18,10 @@ def build_sig(D,asset,prog,raw_cache):
         import newsig4 as NS4
         if 'newsp4' not in raw_cache: raw_cache['newsp4']=NS4.specs4(D)
         s=raw_cache['newsp4'][prog['a']]; s=S.filters(D,s,prog.get('adx','none'),prog.get('sess','all'),asset); return np.where(D.fut_ok.values,s,0).astype(np.int64)
+    if prog['kind']=='new5':
+        import newsig5 as NS5
+        if 'newsp5' not in raw_cache: raw_cache['newsp5']=NS5.specs5(D,asset)
+        s=raw_cache['newsp5'][prog['a']]; s=S.filters(D,s,prog.get('adx','none'),prog.get('sess','all'),asset); return np.where(D.fut_ok.values,s,0).astype(np.int64)
     specs=SC.G['specs']
     def raw(n):
         if n not in raw_cache: raw_cache[n]=np.asarray(specs[n](D),dtype=np.int8)

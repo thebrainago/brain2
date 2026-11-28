@@ -65,6 +65,12 @@ Cột "MT5" = 100% real ticks 01/06–27/11/2026 ở lot ghi chú. Python = engi
 | xs5 | `basis_rev` (newsig2) | basis futures−CFD lệch → hồi | gt20, ny | SCALP SL 8 / TP 6 / 90 | 0.3 | +7,019 / 3.8% (175) | vòng 6 |
 | xs6 | `g3_60z_mom3.0` (newsig4) | cá mập 60m |z|>3 → thuận | none, ny | SCALP SL 10 / TP 13 / 90 | 0.3 | +10,130 / 7.7% (95) | mẫu nhỏ |
 | xs7 | `day_ext_fail` (newsig2) | phá đỉnh/đáy ngày thất bại → fade | gt20, ny | SCALP SL 8 / TP 18 / 30 | 0.3 | +5,875 / 4.6% (89) | mẫu nhỏ |
+| gp1 | pair `pw_break_flow`+`emapull` | | none, all | 8/4/4 | 0.06 | +9,237 / 8.5% | vòng 6b, tập con x1/g2 |
+| gp2 | pair `sw_fade_15_1.8`+`dz_fade_15_2.0` | | gt20, all | 8/4/4 | 0.06 | +7,479 / 11.4% | vòng 6b |
+| gp3 | pair `dz_fade_15_2.0`+`imb30z_fade2.0` | | gt20, all | 8/4/4 | 0.05 | +5,677 / 10.6% | vòng 6b |
+| xs8 | pair `pd_break_flow`+`pw_break_flow` | phá đỉnh/đáy ngày+tuần cùng lúc → thuận | gt20, ny | SCALP SL 10 / TP 18 / 90 | 0.3 | +10,437 / 6.1% (86) | vòng 6b, mẫu nhỏ |
+| xs9 | pair `g3_60z_mom3.0`+`big3_mom_60_2.0` | cá mập 60m 2 thước đo → thuận | none, ny | SCALP SL 10 / TP 18 / 90 | 0.3 | +11,815 / 11.0% (129) | chồng lấn xs6/xs2 |
+| xs10 | pair `sw_fade_15_1.8`+`big3_mom_60_2.0` | sweep fade + cá mập | gt20, all | SCALP SL 10 / TP 18 / 30 | 0.3 | +10,140 / 6.9% (120) | vào danh mục greedy |
 Đã loại: x5 (cặp sw+vwapatr), g4 `basis_mom` (MT5 DD 16.5%, làm DD gộp 26%), g6 `sw30z_fade` (tương quan 0.77 với x1), XAU v2_c1 VWAP-fade (fail OOS).
 ### 4.2 SP500 US500 (vốn 10k)
 | Mã | Tín hiệu | Ý nghĩa | Lọc | Mgmt (gap/maxN/btp, điểm) | Lot | MT5 net / DD | Ghi chú |
@@ -82,6 +88,9 @@ Cột "MT5" = 100% real ticks 01/06–27/11/2026 ở lot ghi chú. Python = engi
 | u17 | `vclimax_mom_2` | volume climax (vr15>2) → thuận | none, ny | 60/4/8 | 2.0 | +3,030 / 9.8% | |
 | u18 | `fz30z_fade2.0` | lợi suất futures 30m |z|>2 → fade | none, all | 60/4/8 | 1.5 | +1,879 / 12.4% | |
 | u19 | `g2_60z_mom2.0` | lệnh lớn ngưỡng 2 60m → thuận | none, all | 60/4/8 | 1.5 | +2,473 / 9.7% | |
+| up1 | pair `sw_fade_15_1.8`+`sw_fade_15_1.5` | | none, all | 60/4/8 | 2.0 | +4,245 / 7.4% | vòng 6b, tập con u1/u7 |
+| up2 | pair `dz_mom_5_1.5`+`rnd_break_50` | | none, ny | 60/4/8 | 2.0 | +2,921 / 6.4% | vòng 6b |
+| up3 | pair `sw_fade_15_1.5`+`vclimax_fade_3` | | none, ldny | 60/4/8 | 1.0 | +1,604 / 8.9% | vòng 6b |
 Cũng pass vòng 3 nhưng không dùng trong danh mục khuyến nghị: u3 (sw_fade ∧ absorb, NY), u5 (u1 + hedge), u8 `stk_fade_15_2` (chỉ short), u9 `imb_mom_15_1.5`. Loại: u14 `g3_15z_fade3.0` (DD 24%).
 
 ## 5. Danh mục / KỊCH BẢN (vốn 40k, W bật cho mọi basket; DD = DD gộp equity MT5 ghép theo timestamp)
@@ -95,14 +104,14 @@ Cũng pass vòng 3 nhưng không dùng trong danh mục khuyến nghị: u3 (sw_
 {jrow('G30+g3,g5,u12,u13 x0.5','PortD-G30 + (g3,g5,u12,u13)×0.5')}
 - **PortD-G30 lot:** x1 .04, x4 .03, g1 .04, g2 .03, xs1 .6, xs2 .95, u1 1.0, u2 .3, u6 1.0, u7 1.6, u10 1.8, u11 .4 (gap-5% Python 29%).
 - **PortD-G40 lot:** x1 .06, x4 .04, g1 .06, g2 .04, xs1 .58, xs2 1.0, u1 1.1, u2 .3, u6 1.0, u7 3.1, u10 1.6, u11 .6 (gap-5% 38.5%).
-### KỊCH BẢN CHỐT (vòng 6 — xem mục 11 để có đủ lot & số; thay thế khuyến nghị vòng 5)
+### KỊCH BẢN CHỐT CUỐI (vòng 6b, opt7 — lot đầy đủ ở mục 11)
 | Kịch bản | Hệ | MT5 net 6 tháng | DD gộp MT5 | Gap-5% (Python) |
 |---|---|---|---|---|
-| **An toàn** | 13 hệ greedy, lot nhỏ | +33,686 | 3.6% | 27% |
-| **Cân bằng** | 15 hệ greedy | +59,154 | 5.7% | 48% |
-| **Mạnh tay** | 15 hệ greedy | +127,792 | 12.7% | 98% |
-| Mạnh tay ×1.4 | như trên ×1.4 | +177,154 | 17.1% | ~137% |
-| **Đánh tay** | 7 scalp vàng xs1–xs7 (SL/TP rõ) | +21,526 (×2.5: +53,770) | 3.8% (×2.5: 9.6%) | 29% |
+| **An toàn** | 14 hệ greedy | +36,064 | 3.7% | 27% |
+| **Cân bằng** | 15 hệ greedy | +63,102 | 6.3% | 48% |
+| **Mạnh tay** | 15 hệ greedy | +119,372 | 11.0% | 98% |
+| Mạnh tay ×1.4 / ×1.7 | nhân lot | +167,120 / +202,932 | 15.5% / 18.8% | ~137% / ~167% |
+| **Đánh tay** | 10 scalp vàng xs1–xs10 | +20,143 (×3: +60,430; ×5: +100,717) | 3.3% (×3: 9.9%; ×5: 16.5%) | 28% |
 Ghi chú: số PortE vòng 5 đã sửa (DD 14.9%, không phải 13.2%). Gap-5% vòng 5 của danh mục có scalp bị đánh giá thấp (vòng 5 coi scalp miễn nhiễm gap).
 
 ## 6. Stress (Python, % vốn; xem `results/r5/stress5.json`)
@@ -164,10 +173,14 @@ python pf5.py                  # đánh giá danh mục: net, DD, spread×2, gap
 python stress5.py              # stress spread/slip
 python mk_v5.py                # tạo CSV điểm vào + queue MT5 (sau đó chạy E:\\GrokWork\\mt5_runs\\runq.py q.json trên máy Windows)
 python ../r4/joint5.py         # DD gộp từ deals MT5
+python newsig5.py; python batnew5.py XAU; python sc6.py   # vòng 6b: cặp đồng pha + scalp
+python opt7.py                 # greedy + tối ưu lot 3 kịch bản (A/B robust) → results/r6/opt7.json
+python ../r4/joint7.py         # DD gộp MT5 cho các kịch bản opt7 + bậc ×lot → r4/joint7.json
+python cov.py                  # COVERAGE.md
 ```
 Cần bảng đặc trưng `v3/tbl/<asset>.parquet` (dựng bằng `prep_v3.py` + `feat_v3.py` từ dữ liệu Rithmic 1m — dữ liệu thô KHÔNG có trong git). Engine: `bt.py` (wrapper) → `engine2.py` (numba; P[27..29] = stop giá, stop USD, kill ngày; `fl` = 1 flat / 2 hedge-lock).
 
-## 11. Vòng 6 (đang/đã chạy)
+## 11. Vòng 6 (đã xong — ALL DONE)
 {r6}
 
 {cov}

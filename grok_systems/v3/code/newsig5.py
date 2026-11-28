@@ -3,10 +3,11 @@ import sys,os,itertools,time,numpy as np,pandas as pd,multiprocessing as mp
 sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
 import newsig as N, newsig2 as N2, newsig3 as N3, newsig4 as N4, bt, sig_v3 as S, combo as CB
 ASSET=N.ASSET; cool=N.cool
-POOL={'XAU':['v3:sw_fade_15_1.8','v3:dz_fade_15_2.0','n1:pd_break_flow','n1:lnor_break_trend','n2:pw_break_flow','n3:ad15z_fade2.0','n4:imb30z_fade2.0','n4:g1_30z_fade2.0','n3:imb15z_fade3.0','n2:basis_rev','n4:g3_60z_mom3.0','n2:day_ext_fail','v3:big3_mom_60_2.0','v3:emapull'],
-      'US500':['v3:sw_fade_15_1.8','v3:absorb_fade_5_1.5_1.0','v3:dz_mom_5_1.5','v3:sw_fade_15_1.5','n1:orbd_mom','n1:asia_fail','n2:rnd_break_50','n3:imb15z_mom2.0','n4:fz5z_fade2.0','n4:vclimax_fade_3','n4:vclimax_mom_2','n4:fz30z_fade2.0','n4:g2_60z_mom2.0','v3:emapull']}[ASSET]
-def specs5(D):
-    v3=dict(S.specs(ASSET)); raw={}
+POOLS={'XAU':['v3:sw_fade_15_1.8','v3:dz_fade_15_2.0','n1:pd_break_flow','n1:lnor_break_trend','n2:pw_break_flow','n3:ad15z_fade2.0','n4:imb30z_fade2.0','n4:g1_30z_fade2.0','n3:imb15z_fade3.0','n2:basis_rev','n4:g3_60z_mom3.0','n2:day_ext_fail','v3:big3_mom_60_2.0','v3:emapull'],
+      'US500':['v3:sw_fade_15_1.8','v3:absorb_fade_5_1.5_1.0','v3:dz_mom_5_1.5','v3:sw_fade_15_1.5','n1:orbd_mom','n1:asia_fail','n2:rnd_break_50','n3:imb15z_mom2.0','n4:fz5z_fade2.0','n4:vclimax_fade_3','n4:vclimax_mom_2','n4:fz30z_fade2.0','n4:g2_60z_mom2.0','v3:emapull']}
+POOL=POOLS[ASSET]
+def specs5(D,asset=None):
+    asset=asset or ASSET; pool=POOLS[asset]; v3=dict(S.specs(asset)); raw={}
     def get(k):
         if k in raw: return raw[k]
         p,n=k.split(':')
@@ -18,7 +19,7 @@ def specs5(D):
     out={}
     out['emapull_fade']=-cool(np.asarray(v3['emapull'](D),dtype=np.int64)); out['pb_flow_fade']=-get('n2:pb_flow'); out['vwap_trend_pb_fade']=-get('n4:vwap_trend_pb')
     for k in (1,2,3): out[f'ibs_mom_{k}']=-np.asarray(S.fam_ibs(D,k),dtype=np.int64)
-    for a,b in itertools.combinations(POOL,2):
+    for a,b in itertools.combinations(pool,2):
         out[f'pair:{a}+{b}']=CB.combine(get(a).astype(np.int8),get(b).astype(np.int8),30).astype(np.int64)
     return {k:np.nan_to_num(v).astype(np.int64) for k,v in out.items()}
 G={}

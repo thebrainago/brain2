@@ -460,3 +460,14 @@ Lưu ý đa kiểm định: 912 cấu hình/asset đã quét; bộ battery + A/B
 - xs6, xs7 chỉ ~90 lệnh/6 tháng.
 - Python DD của scalp chỉ tính lúc đóng lệnh (lạc quan); MT5 DD đã bao gồm thả nổi.
 - Gap 5% đột ngột trong phiên vẫn là rủi ro lớn nhất; W chỉ xử lý gap cuối tuần/lễ.
+
+## 21. Vòng 6b — cặp đồng pha + KỊCH BẢN CHỐT CUỐI (ALL DONE)
+Xem đầy đủ `results/r6/ROUND6_NOTES.md` mục "Vòng 6b". Tóm tắt MT5 (100% real ticks, DD equity gộp):
+| Kịch bản | Net 6T | DD |
+|---|---|---|
+| An toàn | +36,064 | 3.7% |
+| Cân bằng | +63,102 | 6.3% |
+| Mạnh tay | +119,372 | 11.0% |
+| Mạnh tay ×1.7 | +202,932 | 18.8% |
+| Đánh tay 10 scalp | +20,143 (×5 +100,717 / 16.5%) | 3.3% |
+Hệ mới: gp1–gp3 (XAU basket), up1–up3 (US500 basket), xs8–xs10 (XAU scalp); chỉ xs10 vào danh mục greedy. Không gian tìm kiếm đã phủ hết (COVERAGE.md).

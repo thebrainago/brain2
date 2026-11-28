@@ -53,3 +53,12 @@ S['u17']=('US500','b',dict(kind='new4',a='vclimax_mom_2',adx='none',sess='ny'),_
 S['u18']=('US500','b',dict(kind='new4',a='fz30z_fade2.0',adx='none',sess='all'),_mu)
 S['u19']=('US500','b',dict(kind='new4',a='g2_60z_mom2.0',adx='none',sess='all'),_mu)
 REF.update({'g7':0.06,'u15':2.0,'u16':2.0,'u17':2.0,'u18':2.0,'u19':2.0})
+
+# Round 6b confluence-pair baskets (newsig5)
+S['gp1']=('XAU','b',dict(kind='new5',a='pair:n2:pw_break_flow+v3:emapull',adx='none',sess='all'),_mx2)
+S['gp2']=('XAU','b',dict(kind='new5',a='pair:v3:sw_fade_15_1.8+v3:dz_fade_15_2.0',adx='gt20',sess='all'),_mx2)
+S['gp3']=('XAU','b',dict(kind='new5',a='pair:v3:dz_fade_15_2.0+n4:imb30z_fade2.0',adx='gt20',sess='all'),_mx2)
+S['up1']=('US500','b',dict(kind='new5',a='pair:v3:sw_fade_15_1.8+v3:sw_fade_15_1.5',adx='none',sess='all'),_mu)
+S['up2']=('US500','b',dict(kind='new5',a='pair:v3:dz_mom_5_1.5+n2:rnd_break_50',adx='none',sess='ny'),_mu)
+S['up3']=('US500','b',dict(kind='new5',a='pair:v3:sw_fade_15_1.5+n4:vclimax_fade_3',adx='none',sess='ldny'),_mu)
+REF.update({'gp1':0.06,'gp2':0.06,'gp3':0.06,'up1':2.0,'up2':2.0,'up3':1.5})

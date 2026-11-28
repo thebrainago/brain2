@@ -53,3 +53,39 @@
 - xs6, xs7 chỉ ~90 lệnh/6 tháng.
 - Python DD của scalp chỉ tính lúc đóng lệnh (lạc quan); MT5 DD đã bao gồm thả nổi.
 - Gap 5% đột ngột trong phiên vẫn là rủi ro lớn nhất; W chỉ xử lý gap cuối tuần/lễ.
+## Vòng 6b (newsig5: inverse/pullback/IBS + 91 cặp đồng pha `pair:A+B` trong 30 bar) — HOÀN TẤT
+### Hệ mới pass battery + MT5 (100% real ticks, khớp Python)
+| Mã | Tín hiệu | Lọc | Kiểu / mgmt | Lot test | MT5 net / DD (lệnh) | Python |
+|---|---|---|---|---|---|---|
+| gp1 | pair `pw_break_flow` + `emapull` | none, all (XAU) | basket 8/4/4 | 0.06 | +9,237 / 8.5% (402) | 9,288 / 10.3% |
+| gp2 | pair `sw_fade_15_1.8` + `dz_fade_15_2.0` | gt20, all | basket | 0.06 | +7,479 / 11.4% (354) | 7,463 / 14.6% |
+| gp3 | pair `dz_fade_15_2.0` + `imb30z_fade2.0` | gt20, all | basket | 0.05 | +5,677 / 10.6% (361) | 5,102 / 12.7% |
+| up1 | pair `sw_fade_15_1.8` + `sw_fade_15_1.5` | none, all (US500) | basket 60/4/8 | 2.0 | +4,245 / 7.4% (278) | 4,386 / 8.5% |
+| up2 | pair `dz_mom_5_1.5` + `rnd_break_50` | none, ny | basket | 2.0 | +2,921 / 6.4% (202) | 2,998 / 7.8% |
+| up3 | pair `sw_fade_15_1.5` + `vclimax_fade_3` | none, ldny | basket | 1.0 | +1,604 / 8.9% (193) | 1,861 / 10.6% |
+| xs8 | pair `pd_break_flow` + `pw_break_flow` | gt20, ny (XAU) | SCALP SL10 TP18 H90 | 0.3 | +10,437 / 6.1% (86) | 9,894 |
+| xs9 | pair `g3_60z_mom3.0` + `big3_mom_60_2.0` | none, ny | SCALP SL10 TP18 H90 | 0.3 | +11,815 / 11.0% (129) | 13,224 (chồng lấn xs6/xs2) |
+| xs10 | pair `sw_fade_15_1.8` + `big3_mom_60_2.0` | gt20, all | SCALP SL10 TP18 H30 | 0.3 | +10,140 / 6.9% (120) | 10,123 (tB 3.09) |
+Ghi chú: gp*/up* là TẬP CON của hệ cha (x1/g2/g7, u1/u7/u6/u12/u16) → greedy không chọn (trùng tín hiệu). Chỉ xs10 vào danh mục greedy (đứng thứ 2). Cặp scalp tốt nhất `big3_mom+emapull` = chính xs2 → xác nhận lại xs2. EA scalp: InpCatLoPct = 10×lot×100/30000×100 (vd lot 0.3 → 1.0%).
+
+### KỊCH BẢN CHỐT CUỐI (opt7, universe 36 hệ, lot robust = trung bình lot tối ưu trên A và trên B; DD = equity MT5 gộp)
+| Kịch bản | MT5 net 6T | DD MT5 | A / B | tháng+ | Nửa lot | Gap-5% Py | spread×2 DD Py |
+|---|---|---|---|---|---|---|---|
+| **An toàn** (14 hệ) | +36,064 | 3.7% | 16.8k / 19.3k | 6/6 | +18.0k / 1.9% | 27% | 5.1% |
+| **Cân bằng** (15 hệ) | +63,102 | 6.3% | 29.2k / 33.9k | 6/6 | +31.6k / 3.2% | 48% | 7.7% |
+| **Mạnh tay** (15 hệ) | +119,372 | 11.0% | 54.5k / 64.9k | 6/6 | +59.7k / 5.5% | 98% | 17.2% |
+| Mạnh tay ×1.4 | +167,120 | 15.5% | 76.3k / 90.9k | 6/6 | | ~137% | ~24% |
+| Mạnh tay ×1.7 (trần DD<20%) | +202,932 | 18.8% | 92.6k / 110.3k | 6/6 | | ~167% | ~29% |
+| ALL-36 mạnh tay | +139,341 | 17.1% | 59.4k / 79.9k | 6/6 | +69.7k / 8.5% | 95% | 24.7% |
+| **Đánh tay** 10 scalp xs1–xs10 | +20,143 | 3.3% | 9.4k / 10.8k | 6/6 | | 28% | 3.9% |
+| Đánh tay ×3 | +60,430 | 9.9% | | 6/6 | | ~83% | |
+| Đánh tay ×5 | +100,717 | 16.5% | | 6/6 | | ~139% | |
+So với vòng 6a: An toàn +7%, Cân bằng +7% (DD ~bằng), Mạnh tay: lợi nhuận/DD 10.9 (6a: 10.1); ×1.7 = +202.9k/18.8% vs 6a ×1.5 +189.8k/19.0%. Đánh tay ×5 +100.7k/16.5% vs 6a ×4 +86.1k/15.4%.
+**Lot (robust):**
+- An toàn: g2 .02, xs10 .09, x1 .02, xs6 .12, xs4 .06, u15 .6, xs2 .09, xs7 .09, u12 2.6, xs3 .05, xs1 .08, u13 1.2, xs5 .09, g5 .01
+- Cân bằng: g2 .03, xs10 .16, x1 .03, xs6 .20, xs4 .10, u15 .9, xs2 .12, xs7 .15, u12 3.2, xs3 .13, xs1 .15, g7 .01, u13 2.1, xs5 .16, g5 .02
+- Mạnh tay: g2 .08, xs10 .31, x1 .05, xs6 .39, xs4 .20, u15 1.7, xs2 .32, xs7 .38, u12 3.1, xs3 .26, xs1 .34, g7 .02, u13 3.1, xs5 .32, g5 .02 (×1.4 / ×1.7: nhân tất cả, làm tròn bước lot)
+- Đánh tay: xs1 .08, xs2 .06, xs3 .04, xs4 .04, xs5 .07, xs6 .05, xs7 .11, xs8 .08, xs9 .04, xs10 .06 (×3 / ×5)
+**CẢNH BÁO:** các bậc ×1.4/×1.7/×5 chỉ thoả DD<20% trên lịch sử; gap 5% trong phiên ≈137–167% vốn và spread×2 DD ~24–29% → chỉ dùng sau forward demo, khuyến nghị thực tế: Cân bằng hoặc Mạnh tay ×1.0.
+### Độ phủ không gian tìm kiếm: XONG
+Mọi họ tín hiệu × {fade, momentum} × {basket, scalp} đã chạy (xem COVERAGE.md, ~39.6k cfg basket + ~340k cfg scalp). Ngoại lệ: gap qua đêm/cuối tuần (3–15 sự kiện → không đủ mẫu), NQ/SI/CL/GEX/MBO (KHÔNG CÓ dữ liệu).

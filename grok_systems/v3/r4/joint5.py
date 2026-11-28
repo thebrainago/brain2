@@ -5,10 +5,10 @@ def eq(nm):
     if nm in EQ: return EQ[nm]
     f=f'eq_{nm}.parquet'
     if os.path.exists(f): EQ[nm]=pd.read_parquet(f); return EQ[nm]
-    a='XAU' if any(f'_{k}_' in nm for k in ('x1','x4','g1','g2','g3','g4','g5','g7','xs1','xs2','xs3','xs4','xs5','xs6','xs7')) else 'US500'
+    a='XAU' if any(f'_{k}_' in nm for k in ('x1','x4','g1','g2','g3','g4','g5','g7','xs1','xs2','xs3','xs4','xs5','xs6','xs7','xs8','xs9','xs10','gp1','gp2','gp3')) else 'US500'
     w,c,b=M.recon(f'deals/{nm}.csv',a); d=pd.DataFrame({'ew':w,'ec':c}); d.to_parquet(f); EQ[nm]=d; return d
 CAP={'x':30000.,'u':10000.}
-def isx(nm): return any(f'_{k}_' in nm for k in ('x1','x4','g1','g2','g3','g4','g5','g7','xs1','xs2','xs3','xs4','xs5','xs6','xs7'))
+def isx(nm): return any(f'_{k}_' in nm for k in ('x1','x4','g1','g2','g3','g4','g5','g7','xs1','xs2','xs3','xs4','xs5','xs6','xs7','xs8','xs9','xs10','gp1','gp2','gp3'))
 def joint(names,scale=None,lab=''):
     scale=scale or {}; dfs=[(eq(n),scale.get(n,1.0)) for n in names]; idx=dfs[0][0].index
     for d,_ in dfs[1:]: idx=idx.union(d.index)

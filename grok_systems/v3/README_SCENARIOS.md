@@ -1,5 +1,5 @@
 # README_SCENARIOS — Hệ thống & kịch bản Vàng (XAU) / SP500 (US500) — bản bàn giao (handoff)
-Cập nhật: 2026-11-28 14:13 (Asia/Saigon). Tác giả: Grok Bot (executor XSD-16). Tài liệu tự-đủ (self-contained) cho Grok khác / phát triển sau.
+Cập nhật: 2026-11-28 15:07 (Asia/Saigon). Tác giả: Grok Bot (executor XSD-16). Tài liệu tự-đủ (self-contained) cho Grok khác / phát triển sau.
 **Không có secret trong tài liệu/code này. Mọi số là BACKTEST (Python bảo thủ hoặc MT5 100% real ticks), KHÔNG phải kết quả live.** Thiếu số → ghi `KHÔNG CÓ`.
 
 ## 0. Tóm tắt 1 phút
@@ -53,6 +53,12 @@ Cột "MT5" = 100% real ticks 01/06–27/11/2026 ở lot ghi chú. Python = engi
 | xs5 | `basis_rev` (newsig2) | basis futures−CFD lệch → hồi | gt20, ny | SCALP SL 8 / TP 6 / 90 | 0.3 | +7,019 / 3.8% (175) | vòng 6 |
 | xs6 | `g3_60z_mom3.0` (newsig4) | cá mập 60m |z|>3 → thuận | none, ny | SCALP SL 10 / TP 13 / 90 | 0.3 | +10,130 / 7.7% (95) | mẫu nhỏ |
 | xs7 | `day_ext_fail` (newsig2) | phá đỉnh/đáy ngày thất bại → fade | gt20, ny | SCALP SL 8 / TP 18 / 30 | 0.3 | +5,875 / 4.6% (89) | mẫu nhỏ |
+| gp1 | pair `pw_break_flow`+`emapull` | | none, all | 8/4/4 | 0.06 | +9,237 / 8.5% | vòng 6b, tập con x1/g2 |
+| gp2 | pair `sw_fade_15_1.8`+`dz_fade_15_2.0` | | gt20, all | 8/4/4 | 0.06 | +7,479 / 11.4% | vòng 6b |
+| gp3 | pair `dz_fade_15_2.0`+`imb30z_fade2.0` | | gt20, all | 8/4/4 | 0.05 | +5,677 / 10.6% | vòng 6b |
+| xs8 | pair `pd_break_flow`+`pw_break_flow` | phá đỉnh/đáy ngày+tuần cùng lúc → thuận | gt20, ny | SCALP SL 10 / TP 18 / 90 | 0.3 | +10,437 / 6.1% (86) | vòng 6b, mẫu nhỏ |
+| xs9 | pair `g3_60z_mom3.0`+`big3_mom_60_2.0` | cá mập 60m 2 thước đo → thuận | none, ny | SCALP SL 10 / TP 18 / 90 | 0.3 | +11,815 / 11.0% (129) | chồng lấn xs6/xs2 |
+| xs10 | pair `sw_fade_15_1.8`+`big3_mom_60_2.0` | sweep fade + cá mập | gt20, all | SCALP SL 10 / TP 18 / 30 | 0.3 | +10,140 / 6.9% (120) | vào danh mục greedy |
 Đã loại: x5 (cặp sw+vwapatr), g4 `basis_mom` (MT5 DD 16.5%, làm DD gộp 26%), g6 `sw30z_fade` (tương quan 0.77 với x1), XAU v2_c1 VWAP-fade (fail OOS).
 ### 4.2 SP500 US500 (vốn 10k)
 | Mã | Tín hiệu | Ý nghĩa | Lọc | Mgmt (gap/maxN/btp, điểm) | Lot | MT5 net / DD | Ghi chú |
@@ -70,6 +76,9 @@ Cột "MT5" = 100% real ticks 01/06–27/11/2026 ở lot ghi chú. Python = engi
 | u17 | `vclimax_mom_2` | volume climax (vr15>2) → thuận | none, ny | 60/4/8 | 2.0 | +3,030 / 9.8% | |
 | u18 | `fz30z_fade2.0` | lợi suất futures 30m |z|>2 → fade | none, all | 60/4/8 | 1.5 | +1,879 / 12.4% | |
 | u19 | `g2_60z_mom2.0` | lệnh lớn ngưỡng 2 60m → thuận | none, all | 60/4/8 | 1.5 | +2,473 / 9.7% | |
+| up1 | pair `sw_fade_15_1.8`+`sw_fade_15_1.5` | | none, all | 60/4/8 | 2.0 | +4,245 / 7.4% | vòng 6b, tập con u1/u7 |
+| up2 | pair `dz_mom_5_1.5`+`rnd_break_50` | | none, ny | 60/4/8 | 2.0 | +2,921 / 6.4% | vòng 6b |
+| up3 | pair `sw_fade_15_1.5`+`vclimax_fade_3` | | none, ldny | 60/4/8 | 1.0 | +1,604 / 8.9% | vòng 6b |
 Cũng pass vòng 3 nhưng không dùng trong danh mục khuyến nghị: u3 (sw_fade ∧ absorb, NY), u5 (u1 + hedge), u8 `stk_fade_15_2` (chỉ short), u9 `imb_mom_15_1.5`. Loại: u14 `g3_15z_fade3.0` (DD 24%).
 
 ## 5. Danh mục / KỊCH BẢN (vốn 40k, W bật cho mọi basket; DD = DD gộp equity MT5 ghép theo timestamp)
@@ -83,14 +92,14 @@ Cũng pass vòng 3 nhưng không dùng trong danh mục khuyến nghị: u3 (sw_
 | PortD-G30 + (g3,g5,u12,u13)×0.5 | +88,121 | 14.4% | 38,619 / 49,503 | 6/6 | +44,061 / 7.2% |
 - **PortD-G30 lot:** x1 .04, x4 .03, g1 .04, g2 .03, xs1 .6, xs2 .95, u1 1.0, u2 .3, u6 1.0, u7 1.6, u10 1.8, u11 .4 (gap-5% Python 29%).
 - **PortD-G40 lot:** x1 .06, x4 .04, g1 .06, g2 .04, xs1 .58, xs2 1.0, u1 1.1, u2 .3, u6 1.0, u7 3.1, u10 1.6, u11 .6 (gap-5% 38.5%).
-### KỊCH BẢN CHỐT (vòng 6 — xem mục 11 để có đủ lot & số; thay thế khuyến nghị vòng 5)
+### KỊCH BẢN CHỐT CUỐI (vòng 6b, opt7 — lot đầy đủ ở mục 11)
 | Kịch bản | Hệ | MT5 net 6 tháng | DD gộp MT5 | Gap-5% (Python) |
 |---|---|---|---|---|
-| **An toàn** | 13 hệ greedy, lot nhỏ | +33,686 | 3.6% | 27% |
-| **Cân bằng** | 15 hệ greedy | +59,154 | 5.7% | 48% |
-| **Mạnh tay** | 15 hệ greedy | +127,792 | 12.7% | 98% |
-| Mạnh tay ×1.4 | như trên ×1.4 | +177,154 | 17.1% | ~137% |
-| **Đánh tay** | 7 scalp vàng xs1–xs7 (SL/TP rõ) | +21,526 (×2.5: +53,770) | 3.8% (×2.5: 9.6%) | 29% |
+| **An toàn** | 14 hệ greedy | +36,064 | 3.7% | 27% |
+| **Cân bằng** | 15 hệ greedy | +63,102 | 6.3% | 48% |
+| **Mạnh tay** | 15 hệ greedy | +119,372 | 11.0% | 98% |
+| Mạnh tay ×1.4 / ×1.7 | nhân lot | +167,120 / +202,932 | 15.5% / 18.8% | ~137% / ~167% |
+| **Đánh tay** | 10 scalp vàng xs1–xs10 | +20,143 (×3: +60,430; ×5: +100,717) | 3.3% (×3: 9.9%; ×5: 16.5%) | 28% |
 Ghi chú: số PortE vòng 5 đã sửa (DD 14.9%, không phải 13.2%). Gap-5% vòng 5 của danh mục có scalp bị đánh giá thấp (vòng 5 coi scalp miễn nhiễm gap).
 
 ## 6. Stress (Python, % vốn; xem `results/r5/stress5.json`)
@@ -152,10 +161,14 @@ python pf5.py                  # đánh giá danh mục: net, DD, spread×2, gap
 python stress5.py              # stress spread/slip
 python mk_v5.py                # tạo CSV điểm vào + queue MT5 (sau đó chạy E:\GrokWork\mt5_runs\runq.py q.json trên máy Windows)
 python ../r4/joint5.py         # DD gộp từ deals MT5
+python newsig5.py; python batnew5.py XAU; python sc6.py   # vòng 6b: cặp đồng pha + scalp
+python opt7.py                 # greedy + tối ưu lot 3 kịch bản (A/B robust) → results/r6/opt7.json
+python ../r4/joint7.py         # DD gộp MT5 cho các kịch bản opt7 + bậc ×lot → r4/joint7.json
+python cov.py                  # COVERAGE.md
 ```
 Cần bảng đặc trưng `v3/tbl/<asset>.parquet` (dựng bằng `prep_v3.py` + `feat_v3.py` từ dữ liệu Rithmic 1m — dữ liệu thô KHÔNG có trong git). Engine: `bt.py` (wrapper) → `engine2.py` (numba; P[27..29] = stop giá, stop USD, kill ngày; `fl` = 1 flat / 2 hedge-lock).
 
-## 11. Vòng 6 (đang/đã chạy)
+## 11. Vòng 6 (đã xong — ALL DONE)
 ### 20.1 Phủ họ tín hiệu (coverage) — xem `COVERAGE.md`
 - Vòng 6 thêm `newsig4` (93 spec/asset: naked POC, VA 80%, gap fill/go, NR-day, gap cuối tuần, mốc giờ cố định (London fix, NY close…), range-expansion, volume climax, cá mập tại cực trị, z-window 5/30/60 cho g1/g2/g3/imb/ar/fz/ad, VWAP trend pullback, NY IB, CVD lead) và `scalp2` (lưới SL/TP×hold 40 ô cho TẤT CẢ họ basket newsig1–4, 948 tổ hợp/asset), `newsig5` (đảo chiều pullback/IBS + 91 cặp đồng pha/asset).
 - Tổng đã chạy: ~36k cấu hình basket + ~300k cấu hình scalp (2 tài sản). Ô duy nhất chưa thử được: gap qua đêm/cuối tuần (chỉ 8–15 sự kiện/6 tháng → không đủ mẫu), NQ/SI/CL lead-lag, GEX/flip/walls (KHÔNG CÓ dữ liệu).
@@ -211,12 +224,50 @@ Cần bảng đặc trưng `v3/tbl/<asset>.parquet` (dựng bằng `prep_v3.py` 
 - xs6, xs7 chỉ ~90 lệnh/6 tháng.
 - Python DD của scalp chỉ tính lúc đóng lệnh (lạc quan); MT5 DD đã bao gồm thả nổi.
 - Gap 5% đột ngột trong phiên vẫn là rủi ro lớn nhất; W chỉ xử lý gap cuối tuần/lễ.
+## Vòng 6b (newsig5: inverse/pullback/IBS + 91 cặp đồng pha `pair:A+B` trong 30 bar) — HOÀN TẤT
+### Hệ mới pass battery + MT5 (100% real ticks, khớp Python)
+| Mã | Tín hiệu | Lọc | Kiểu / mgmt | Lot test | MT5 net / DD (lệnh) | Python |
+|---|---|---|---|---|---|---|
+| gp1 | pair `pw_break_flow` + `emapull` | none, all (XAU) | basket 8/4/4 | 0.06 | +9,237 / 8.5% (402) | 9,288 / 10.3% |
+| gp2 | pair `sw_fade_15_1.8` + `dz_fade_15_2.0` | gt20, all | basket | 0.06 | +7,479 / 11.4% (354) | 7,463 / 14.6% |
+| gp3 | pair `dz_fade_15_2.0` + `imb30z_fade2.0` | gt20, all | basket | 0.05 | +5,677 / 10.6% (361) | 5,102 / 12.7% |
+| up1 | pair `sw_fade_15_1.8` + `sw_fade_15_1.5` | none, all (US500) | basket 60/4/8 | 2.0 | +4,245 / 7.4% (278) | 4,386 / 8.5% |
+| up2 | pair `dz_mom_5_1.5` + `rnd_break_50` | none, ny | basket | 2.0 | +2,921 / 6.4% (202) | 2,998 / 7.8% |
+| up3 | pair `sw_fade_15_1.5` + `vclimax_fade_3` | none, ldny | basket | 1.0 | +1,604 / 8.9% (193) | 1,861 / 10.6% |
+| xs8 | pair `pd_break_flow` + `pw_break_flow` | gt20, ny (XAU) | SCALP SL10 TP18 H90 | 0.3 | +10,437 / 6.1% (86) | 9,894 |
+| xs9 | pair `g3_60z_mom3.0` + `big3_mom_60_2.0` | none, ny | SCALP SL10 TP18 H90 | 0.3 | +11,815 / 11.0% (129) | 13,224 (chồng lấn xs6/xs2) |
+| xs10 | pair `sw_fade_15_1.8` + `big3_mom_60_2.0` | gt20, all | SCALP SL10 TP18 H30 | 0.3 | +10,140 / 6.9% (120) | 10,123 (tB 3.09) |
+Ghi chú: gp*/up* là TẬP CON của hệ cha (x1/g2/g7, u1/u7/u6/u12/u16) → greedy không chọn (trùng tín hiệu). Chỉ xs10 vào danh mục greedy (đứng thứ 2). Cặp scalp tốt nhất `big3_mom+emapull` = chính xs2 → xác nhận lại xs2. EA scalp: InpCatLoPct = 10×lot×100/30000×100 (vd lot 0.3 → 1.0%).
+
+### KỊCH BẢN CHỐT CUỐI (opt7, universe 36 hệ, lot robust = trung bình lot tối ưu trên A và trên B; DD = equity MT5 gộp)
+| Kịch bản | MT5 net 6T | DD MT5 | A / B | tháng+ | Nửa lot | Gap-5% Py | spread×2 DD Py |
+|---|---|---|---|---|---|---|---|
+| **An toàn** (14 hệ) | +36,064 | 3.7% | 16.8k / 19.3k | 6/6 | +18.0k / 1.9% | 27% | 5.1% |
+| **Cân bằng** (15 hệ) | +63,102 | 6.3% | 29.2k / 33.9k | 6/6 | +31.6k / 3.2% | 48% | 7.7% |
+| **Mạnh tay** (15 hệ) | +119,372 | 11.0% | 54.5k / 64.9k | 6/6 | +59.7k / 5.5% | 98% | 17.2% |
+| Mạnh tay ×1.4 | +167,120 | 15.5% | 76.3k / 90.9k | 6/6 | | ~137% | ~24% |
+| Mạnh tay ×1.7 (trần DD<20%) | +202,932 | 18.8% | 92.6k / 110.3k | 6/6 | | ~167% | ~29% |
+| ALL-36 mạnh tay | +139,341 | 17.1% | 59.4k / 79.9k | 6/6 | +69.7k / 8.5% | 95% | 24.7% |
+| **Đánh tay** 10 scalp xs1–xs10 | +20,143 | 3.3% | 9.4k / 10.8k | 6/6 | | 28% | 3.9% |
+| Đánh tay ×3 | +60,430 | 9.9% | | 6/6 | | ~83% | |
+| Đánh tay ×5 | +100,717 | 16.5% | | 6/6 | | ~139% | |
+So với vòng 6a: An toàn +7%, Cân bằng +7% (DD ~bằng), Mạnh tay: lợi nhuận/DD 10.9 (6a: 10.1); ×1.7 = +202.9k/18.8% vs 6a ×1.5 +189.8k/19.0%. Đánh tay ×5 +100.7k/16.5% vs 6a ×4 +86.1k/15.4%.
+**Lot (robust):**
+- An toàn: g2 .02, xs10 .09, x1 .02, xs6 .12, xs4 .06, u15 .6, xs2 .09, xs7 .09, u12 2.6, xs3 .05, xs1 .08, u13 1.2, xs5 .09, g5 .01
+- Cân bằng: g2 .03, xs10 .16, x1 .03, xs6 .20, xs4 .10, u15 .9, xs2 .12, xs7 .15, u12 3.2, xs3 .13, xs1 .15, g7 .01, u13 2.1, xs5 .16, g5 .02
+- Mạnh tay: g2 .08, xs10 .31, x1 .05, xs6 .39, xs4 .20, u15 1.7, xs2 .32, xs7 .38, u12 3.1, xs3 .26, xs1 .34, g7 .02, u13 3.1, xs5 .32, g5 .02 (×1.4 / ×1.7: nhân tất cả, làm tròn bước lot)
+- Đánh tay: xs1 .08, xs2 .06, xs3 .04, xs4 .04, xs5 .07, xs6 .05, xs7 .11, xs8 .08, xs9 .04, xs10 .06 (×3 / ×5)
+**CẢNH BÁO:** các bậc ×1.4/×1.7/×5 chỉ thoả DD<20% trên lịch sử; gap 5% trong phiên ≈137–167% vốn và spread×2 DD ~24–29% → chỉ dùng sau forward demo, khuyến nghị thực tế: Cân bằng hoặc Mạnh tay ×1.0.
+### Độ phủ không gian tìm kiếm: XONG
+Mọi họ tín hiệu × {fade, momentum} × {basket, scalp} đã chạy (xem COVERAGE.md, ~39.6k cfg basket + ~340k cfg scalp). Ngoại lệ: gap qua đêm/cuối tuần (3–15 sự kiện → không đủ mẫu), NQ/SI/CL/GEX/MBO (KHÔNG CÓ dữ liệu).
+
 
 ## COVERAGE — họ tín hiệu × {fade, momentum} × {basket, scalp SL/TP}
 (số cấu hình đã chạy / số cấu hình dương cả A và B; "CHƯA" = chưa thử; cập nhật tự động bởi `code/cov.py`)
 
 | Họ (family) | Fade·basket | Mom·basket | Fade·scalp | Mom·scalp |
 |---|---|---|---|---|
+| Confluence pairs (đồng pha, 2 tín hiệu trong 30 bar) | 2457 cfg / 1795 A&B+ | 627 cfg / 485 A&B+ | 31064 cfg / 3728 A&B+ | 7987 cfg / 1284 A&B+ |
 | Sweep (sw z) | 1096 cfg / 854 A&B+ | 1096 cfg / 507 A&B+ | 12114 cfg / 1157 A&B+ | 6057 cfg / 79 A&B+ |
 | Delta z (dz) | 2560 cfg / 1617 A&B+ | 2048 cfg / 1391 A&B+ | 16614 cfg / 1060 A&B+ | 14146 cfg / 675 A&B+ |
 | Big prints / whale (g1–g3) | 2916 cfg / 1509 A&B+ | 2916 cfg / 1791 A&B+ | 27375 cfg / 1321 A&B+ | 26835 cfg / 3443 A&B+ |
@@ -232,12 +283,13 @@ Cần bảng đặc trưng `v3/tbl/<asset>.parquet` (dựng bằng `prep_v3.py` 
 | Futures return / basis | 252 cfg / 118 A&B+ | 252 cfg / 87 A&B+ | 3360 cfg / 197 A&B+ | 3360 cfg / 41 A&B+ |
 | Time-of-day anchors / news | 141 cfg / 51 A&B+ | 141 cfg / 113 A&B+ | 1640 cfg / 114 A&B+ | 1640 cfg / 251 A&B+ |
 | Volatility regime: squeeze/expansion/climax | 177 cfg / 84 A&B+ | 177 cfg / 83 A&B+ | 2360 cfg / 184 A&B+ | 2360 cfg / 17 A&B+ |
-| Trend pullback (EMA/VWAP) | CHƯA | 167 cfg / 95 A&B+ | CHƯA | 4815 cfg / 712 A&B+ |
+| Trend pullback (EMA/VWAP) | 75 cfg / 34 A&B+ | 167 cfg / 95 A&B+ | 960 cfg / 0 A&B+ | 4815 cfg / 712 A&B+ |
 | Gaps (overnight / weekend) | CHƯA | CHƯA | CHƯA | CHƯA |
-| IBS (prior-day close position) | 120 cfg / 109 A&B+ | CHƯA | 944 cfg / 42 A&B+ | CHƯA |
+| IBS (prior-day close position) | 120 cfg / 109 A&B+ | 81 cfg / 72 A&B+ | 944 cfg / 42 A&B+ | 840 cfg / 123 A&B+ |
 | 60-bar high/low break/sweep | 36 cfg / 12 A&B+ | 36 cfg / 15 A&B+ | 480 cfg / 0 A&B+ | 480 cfg / 0 A&B+ |
 | Placebo (control) | 512 cfg / 272 A&B+ | CHƯA | 2560 cfg / 50 A&B+ | CHƯA |
 | Other | CHƯA | CHƯA | CHƯA | CHƯA |
 
+Gap qua đêm/cuối tuần: chỉ 3–15 sự kiện/6 tháng/asset → dưới ngưỡng 30 tín hiệu, KHÔNG đủ mẫu để kiểm (đã thử ở newsig4, bị loại vì mẫu). Placebo = nhóm đối chứng (không phải họ tín hiệu).
 Không thể thử (thiếu dữ liệu): lead-lag NQ/SI/CL (KHÔNG CÓ dữ liệu), GEX / gamma flip / call-put walls (KHÔNG CÓ lịch sử), MBO/queue position (KHÔNG CÓ).
-Tổng cấu hình đã chạy: basket 36,381, scalp 298,845 (gồm cả 2 tài sản).
+Tổng cấu hình đã chạy: basket 39,621, scalp 339,696 (gồm cả 2 tài sản).
