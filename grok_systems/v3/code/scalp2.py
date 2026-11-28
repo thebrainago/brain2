@@ -5,10 +5,11 @@ import newsig as N, scalp as SC, sig_v3 as S, bt
 ASSET=N.ASSET; G={}
 def init():
     SC.init(ASSET); D=SC.G['D']
-    import newsig2 as N2, newsig3 as N3, newsig4 as N4
+    import newsig2 as N2, newsig3 as N3, newsig4 as N4, newsig5 as N5
     sp={}
-    for pre,f in (('n1',N.specs),('n2',N2.specs2),('n3',N3.specs3),('n4',N4.specs4)):
+    for pre,f in (('n1',N.specs),('n2',N2.specs2),('n3',N3.specs3),('n4',N4.specs4),('n5',N5.specs5)):
         for k,v in f(D).items(): sp[f'{pre}:{k}']=v
+    if os.environ.get('ONLY'): sp={k:v for k,v in sp.items() if k.startswith(os.environ['ONLY'])}
     G['sp']=sp
 def job(a):
     if 'sp' not in G: init()
@@ -33,4 +34,4 @@ def job(a):
 if __name__=='__main__':
     init(); jobs=list(itertools.product(G['sp'].keys(),('none','gt20'),('all','ldny','ny'))); t0=time.time(); print(ASSET,len(jobs),flush=True)
     with mp.Pool(int(os.environ.get('NP','2'))) as P: res=P.map(job,jobs,chunksize=2)
-    R=pd.DataFrame([r for rr in res for r in rr]); R.to_parquet(f'/workspace/bt_3m/v3/results/r6/scalp2_{ASSET}.parquet'); print('done',len(R),round(time.time()-t0),flush=True)
+    R=pd.DataFrame([r for rr in res for r in rr]); R.to_parquet(f'/workspace/bt_3m/v3/results/r6/scalp2{os.environ.get('TAG','')}_{ASSET}.parquet'); print('done',len(R),round(time.time()-t0),flush=True)

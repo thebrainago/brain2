@@ -43,3 +43,13 @@ def run2(name,D,fl,sprmul=1.0,slip=0.5,mo=None,hsk=0.0,hs_pct=0.0,dl_pct=0.0,max
     out=E2.run(A['o'],A['h'],A['l'],A['c'],spr,A['atr'],np.ascontiguousarray(sg,dtype=np.int64),A['roll'],A['dow'],fl,v)
     ec,ew,nl,dep,st=out; ex=dep-P['EQ0']
     return dict(ec=(ec-ex-P['EQ0'])*s,ew=(ew-ex-P['EQ0'])*s,nl=nl*s,st=st,s=s,cap=cap)
+
+# Round 6 basket finalists (newsig4)
+_m0u=dict(L0=1.0,mult=1.0,gap=60,gstep=1.4,maxN=3,btp=6,trim=0,prune=0,hedge=0,cd=30)
+S['g7']=('XAU','b',dict(kind='new4',a='imb30z_fade2.0',adx='gt20',sess='all'),_mx2)
+S['u15']=('US500','b',dict(kind='new4',a='fz5z_fade2.0',adx='none',sess='ny'),_m0u)
+S['u16']=('US500','b',dict(kind='new4',a='vclimax_fade_3',adx='none',sess='ldny'),_mu)
+S['u17']=('US500','b',dict(kind='new4',a='vclimax_mom_2',adx='none',sess='ny'),_mu)
+S['u18']=('US500','b',dict(kind='new4',a='fz30z_fade2.0',adx='none',sess='all'),_mu)
+S['u19']=('US500','b',dict(kind='new4',a='g2_60z_mom2.0',adx='none',sess='all'),_mu)
+REF.update({'g7':0.06,'u15':2.0,'u16':2.0,'u17':2.0,'u18':2.0,'u19':2.0})

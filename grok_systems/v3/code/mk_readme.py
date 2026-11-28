@@ -59,6 +59,12 @@ Cột "MT5" = 100% real ticks 01/06–27/11/2026 ở lot ghi chú. Python = engi
 | g5 | `ad15z_fade2.0` (newsig3) | absorption-delta 15m |z|>2 → fade | none, ny | 8/4/4 | 0.04 | +7,751 / 10.0% | delay2 −3,262: cần vào nhanh |
 | xs1 | `xlead_fadeself_5_2.5` ∧ `big2_mom_30_2.5` (trong 30 bar) | vàng chạy trước khi ES đứng yên, ngược với lệnh lớn → fade | gt20, all | SCALP TP 8 USD, SL ≈ 8 USD (EA: InpCatLoPct ≈ 1.6%×lot/0.6), hold 90 | 0.57–0.6 | +13,584 / 5.6% (0.57); +14,769 / 5.0% (0.6) | ~116 lệnh |
 | xs2 | `big3_mom_60_2.0` ∧ `emapull` (30 bar) | cá mập 60m một chiều + hồi về EMA, phiên NY → thuận | none, ny | SCALP TP 13, SL ≈ 8, hold 90 | 0.6–1.0 | +36,199 / 16.3% (1.0); +34,889 / 15.5% (0.95); +17,474 / 13.5% (0.6) | ~115 lệnh |
+| g7 | `imb30z_fade2.0` (newsig4) | imbalance 30m |z|>2 → fade | gt20, all | 8/4/4 | 0.04 | +7,544 / 8.9% | vòng 6, battery đầy đủ dương |
+| xs3 | `g1_30z_fade2.0` (newsig4) | lệnh lớn ngưỡng 1 30m |z|>2 → fade | gt20, all | SCALP SL 13 / TP 8 / hold 90 | 0.3 | **+21,046 / 6.8%** (481 lệnh) | vòng 6, cfg chọn trên A |
+| xs4 | `imb15z_fade3.0` (newsig3) | imbalance 15m |z|>3 → fade | gt20, all | SCALP SL 8 / TP 10 / 90 | 0.3 | +9,735 / 7.9% (270) | vòng 6 |
+| xs5 | `basis_rev` (newsig2) | basis futures−CFD lệch → hồi | gt20, ny | SCALP SL 8 / TP 6 / 90 | 0.3 | +7,019 / 3.8% (175) | vòng 6 |
+| xs6 | `g3_60z_mom3.0` (newsig4) | cá mập 60m |z|>3 → thuận | none, ny | SCALP SL 10 / TP 13 / 90 | 0.3 | +10,130 / 7.7% (95) | mẫu nhỏ |
+| xs7 | `day_ext_fail` (newsig2) | phá đỉnh/đáy ngày thất bại → fade | gt20, ny | SCALP SL 8 / TP 18 / 30 | 0.3 | +5,875 / 4.6% (89) | mẫu nhỏ |
 Đã loại: x5 (cặp sw+vwapatr), g4 `basis_mom` (MT5 DD 16.5%, làm DD gộp 26%), g6 `sw30z_fade` (tương quan 0.77 với x1), XAU v2_c1 VWAP-fade (fail OOS).
 ### 4.2 SP500 US500 (vốn 10k)
 | Mã | Tín hiệu | Ý nghĩa | Lọc | Mgmt (gap/maxN/btp, điểm) | Lot | MT5 net / DD | Ghi chú |
@@ -71,6 +77,11 @@ Cột "MT5" = 100% real ticks 01/06–27/11/2026 ở lot ghi chú. Python = engi
 | u11 | `asia_fail` | quét range phiên Á rồi đóng lại trong range → fade | gt20, ldny | 60/4/8 | 0.4–2.0 | W +2,043 / 14.7% (2.0) | 2.5 → DD 18.4% |
 | u12 | `rnd_break_50` (newsig2) | phá mốc tròn 50 điểm + flow | none, ny | 60/4/8 | 3.0 | +5,051 / 11.4% | |
 | u13 | `imb15z_mom2.0` (newsig3) | imbalance 15m |z|>2 → thuận | gt20, all | 60/3/6 | 3.0 | +5,604 / 8.2% | tương quan 0.45 với u1 |
+| u15 | `fz5z_fade2.0` (newsig4) | lợi suất futures 5m |z|>2 → fade | none, ny | 60/3/6 | 1.5 | +2,649 / 11.9% | tương quan 0.87 với u2 |
+| u16 | `vclimax_fade_3` | volume climax (vr15>3) tại đỉnh/đáy 60 bar → fade | none, ldny | 60/4/8 | 1.0 | +1,818 / 8.7% | |
+| u17 | `vclimax_mom_2` | volume climax (vr15>2) → thuận | none, ny | 60/4/8 | 2.0 | +3,030 / 9.8% | |
+| u18 | `fz30z_fade2.0` | lợi suất futures 30m |z|>2 → fade | none, all | 60/4/8 | 1.5 | +1,879 / 12.4% | |
+| u19 | `g2_60z_mom2.0` | lệnh lớn ngưỡng 2 60m → thuận | none, all | 60/4/8 | 1.5 | +2,473 / 9.7% | |
 Cũng pass vòng 3 nhưng không dùng trong danh mục khuyến nghị: u3 (sw_fade ∧ absorb, NY), u5 (u1 + hedge), u8 `stk_fade_15_2` (chỉ short), u9 `imb_mom_15_1.5`. Loại: u14 `g3_15z_fade3.0` (DD 24%).
 
 ## 5. Danh mục / KỊCH BẢN (vốn 40k, W bật cho mọi basket; DD = DD gộp equity MT5 ghép theo timestamp)
@@ -84,13 +95,15 @@ Cũng pass vòng 3 nhưng không dùng trong danh mục khuyến nghị: u3 (sw_
 {jrow('G30+g3,g5,u12,u13 x0.5','PortD-G30 + (g3,g5,u12,u13)×0.5')}
 - **PortD-G30 lot:** x1 .04, x4 .03, g1 .04, g2 .03, xs1 .6, xs2 .95, u1 1.0, u2 .3, u6 1.0, u7 1.6, u10 1.8, u11 .4 (gap-5% Python 29%).
 - **PortD-G40 lot:** x1 .06, x4 .04, g1 .06, g2 .04, xs1 .58, xs2 1.0, u1 1.1, u2 .3, u6 1.0, u7 3.1, u10 1.6, u11 .6 (gap-5% 38.5%).
-### Ba kịch bản đề xuất (hiện tại — sẽ cập nhật sau vòng 6)
-| Kịch bản | Chọn | Lý do |
-|---|---|---|
-| **An toàn (conservative)** | PortE ×0.5 (hoặc PortD-G30 ×0.5) | DD MT5 6.6%, gap-5% Python 26% |
-| **Cân bằng (balanced)** | PortD-G30 full | DD 15.1%, spread×2 18.7%, gap-5% 29% |
-| **Mạnh tay (aggressive)** | PortE full | +101.3k, DD 13.2% nhưng gap-5% 52% |
-| **Đánh tay (manual)** | xs1 + xs2 scalp (SL/TP rõ), lot 0.1–0.3 cho tài khoản 30k | chỉ ~115 lệnh/hệ/6 tháng; vào lệnh ở open nến M1 kế tiếp |
+### KỊCH BẢN CHỐT (vòng 6 — xem mục 11 để có đủ lot & số; thay thế khuyến nghị vòng 5)
+| Kịch bản | Hệ | MT5 net 6 tháng | DD gộp MT5 | Gap-5% (Python) |
+|---|---|---|---|---|
+| **An toàn** | 13 hệ greedy, lot nhỏ | +33,686 | 3.6% | 27% |
+| **Cân bằng** | 15 hệ greedy | +59,154 | 5.7% | 48% |
+| **Mạnh tay** | 15 hệ greedy | +127,792 | 12.7% | 98% |
+| Mạnh tay ×1.4 | như trên ×1.4 | +177,154 | 17.1% | ~137% |
+| **Đánh tay** | 7 scalp vàng xs1–xs7 (SL/TP rõ) | +21,526 (×2.5: +53,770) | 3.8% (×2.5: 9.6%) | 29% |
+Ghi chú: số PortE vòng 5 đã sửa (DD 14.9%, không phải 13.2%). Gap-5% vòng 5 của danh mục có scalp bị đánh giá thấp (vòng 5 coi scalp miễn nhiễm gap).
 
 ## 6. Stress (Python, % vốn; xem `results/r5/stress5.json`)
 | Danh mục | gốc | spread×2+slip1 | spread×3+slip1 | spread×2+slip2 |
@@ -101,6 +114,7 @@ Cũng pass vòng 3 nhưng không dùng trong danh mục khuyến nghị: u3 (sw_
 | PortD-G30 + W | 67,120 / 17.0% | 18.7% | 23.2% | 18.7% |
 | PortD-G40 + W | 78,695 / 16.2% | 18.0% | 24.1% | 24.0% |
 | PortE + W (Python) | 94,997 / 16.1% | 22.4% | KHÔNG CÓ | KHÔNG CÓ |
+| Vòng 6 An toàn / Cân bằng / Mạnh tay (Python, spread×2+slip1 DD) | 32,301 / 3.3% · 56,742 / 5.5% · 123,132 / 12.1% | 4.8% · 8.1% · 17.1% | KHÔNG CÓ | KHÔNG CÓ |
 Gap 5% đột ngột trong phiên (mọi hệ cùng hướng xấu nhất): PortD-G30 29%, PortD-G40 38.5%, PortE 52%, PortE×0.5 26%. Stop cứng/kill lỗ ngày không giảm gap (gap xuyên stop) và tốn 20–40% net → không bật mặc định.
 
 ## 7. EA MT5 `BRAIN_XuLiLenh_r5` (nguồn: `ea/BRAIN_XuLiLenh_r5.mq5`, UTF-16LE)
@@ -118,7 +132,7 @@ Chế độ CSV điểm vào: `InpVao=4`, `InpCsvChung=true`, `InpFileCsv=brain2
 | InpHedgeKhiLoPct | 0 | 0 | hedge theo % lỗ (chỉ x2) |
 | **InpTuanKhoaGio** | 21 | 0 | **W**: giờ server Thứ Sáu bắt đầu khoá hedge (0 = tắt) |
 | **InpNghiLe** | "2026.07.03,2026.09.07,2026.11.26" | – | ngày lễ (dấu phẩy; `;` là comment trong .set) — cập nhật lịch lễ tương lai |
-Mặc định trong mã nguồn: W TẮT. Hedge W gắn comment `XL_WB`/`XL_WS`.
+Scalp: `InpNhoi=0, InpMaxTang=1, InpTPGia=TP giá, InpGiuToiDaNen=hold, InpCatLoPct = SL_giá × lot × 100 / vốn × 100` (vàng; vd xs3 lot 0.3, SL 13 → 13×0.3×100/30000×100 = 1.3%). Bảng SL/TP từng scalp ở mục 4.1. Mặc định trong mã nguồn: W TẮT. Hedge W gắn comment `XL_WB`/`XL_WS`.
 
 ## 8. Cảnh báo / caveats
 1. 6 tháng dữ liệu, một nhịp vàng giảm sau 20/08; multiple testing ~900–2,000 cấu hình/asset → cần forward demo (XM/Exness) nửa lot ≥4–8 tuần trước khi tăng lot.
