@@ -14,7 +14,7 @@ def dd(ec,ew): pk=np.maximum.accumulate(ec); return float(np.max(pk-ew))
 cap=100000.
 print('proxy book (v5_G30, 12 sys): net %.0f dd %.0f (%.1f%% of 100k)'%(bec.iloc[-1]-bec.iloc[0],dd(bec.values,bew.values),dd(bec.values,bew.values)/cap*100))
 out=[]
-for cfg in (('NZDJPY#','L_ibs_240','ldn',1.0,2.0,3),('EURAUD#','L_z240_50_2.0','ny',2.0,1.0,3)):
+for cfg in (("NZDJPY#","L_ibs_240","ldn",1.0,2.0,3),("EURAUD#","L_z240_50_2.0","ny",2.0,1.0,3),("GER40Cash#","z15_30_3.0","asia",1.0,1.0,5),("GER40Cash#","z5_30_2.5","asia",0.5,0.5,5),("US30Cash#","L_z240_20_2.5","ny",1.0,4.0,5),("US100Cash#","L_rsi2_1440","all",1.0,2.0,3),("OILCash#","L_rsi2_1440","all",2.0,1.0,3)):
     e=curve(*cfg,1.0); e=e[e.index>=idx[0]]; e=e.reindex(idx,method='ffill').fillna(0); e=e-e.iloc[0]
     dday=lambda s: s.groupby(s.index.floor('1D')).last().diff().dropna()
     cb=dday(bec).corr(dday(e.ec)); fxdd=dd(e.ec.values,e.ew.values)

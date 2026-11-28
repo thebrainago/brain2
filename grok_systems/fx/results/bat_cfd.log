@@ -1,0 +1,61 @@
+GER40Cash# z15_30_3.0 asia net 8852 dd 1988 nb 93 | IS 7165/1988 OOS 1687/545 | mpos 16/18
+  spr2 net 8522 dd 2101 nb 92
+  spr3 net 7335 dd 2188 nb 91
+  noswap net 8853 dd 1987 nb 93
+  delay2 net 9028 dd 1988 nb 94
+  detr net 8304 dd 1995 nb 93
+  rev net 8224 dd 2003 nb 93
+  long net 5496 dd 1988 nb 55
+  short net 3768 dd 1172 nb 40
+  placebo pct 100 med 4578 max 8508 gap5 up/dn 7267/7875
+GER40Cash# z5_30_2.5 asia net 21155 dd 3572 nb 463 | IS 14644/3572 OOS 6512/2591 | mpos 18/18
+  spr2 net 10535 dd 7214 nb 423
+  spr3 net -1297 dd 9744 nb 387
+  noswap net 21159 dd 3572 nb 463
+  delay2 net 13981 dd 8037 nb 458
+  detr net 14164 dd 5476 nb 456
+  rev net 11490 dd 5530 nb 451
+  long net 13301 dd 3572 nb 283
+  short net 12621 dd 4711 nb 291
+  placebo pct 100 med 5286 max 14864 gap5 up/dn 9269/9429
+US100Cash# L_rsi2_1440 all net 7033 dd 1258 nb 34 | IS 5271/1258 OOS 1762/603 | mpos 16/18
+  spr2 net 5835 dd 1515 nb 34
+  spr3 net 5536 dd 1727 nb 34
+  noswap net 7033 dd 1258 nb 34
+  delay2 net 5767 dd 1615 nb 34
+  detr net 7043 dd 1194 nb 34
+  rev net 6922 dd 1131 nb 34
+  long net 2846 dd 1097 nb 13
+  short net 4187 dd 1258 nb 21
+  placebo pct 95 med 2024 max 7286 gap5 up/dn 5574/4991
+US30Cash# L_z240_20_2.5 ny net 14391 dd 2317 nb 26 | IS 7338/2317 OOS 7053/2286 | mpos 14/18
+  spr2 net 14686 dd 2431 nb 26
+  spr3 net 14350 dd 2497 nb 26
+  noswap net 14394 dd 2317 nb 26
+  delay2 net 14247 dd 2297 nb 26
+  detr net 14424 dd 2160 nb 26
+  rev net 13630 dd 2241 nb 26
+  long net 4829 dd 1961 nb 9
+  short net 9562 dd 2317 nb 17
+  placebo pct 100 med 8968 max 12152 gap5 up/dn 14549/12477
+OILCash# L_rsi2_1440 all net 1464 dd 236 nb 37 | IS 696/136 OOS 768/236 | mpos 17/18
+  spr2 net 1254 dd 533 nb 37
+  spr3 net 1256 dd 638 nb 37
+  noswap net 1464 dd 236 nb 37
+  delay2 net 1355 dd 350 nb 37
+  detr net 1461 dd 239 nb 37
+  rev net 1461 dd 241 nb 37
+  long net 629 dd 236 nb 14
+  short net 835 dd 198 nb 23
+  placebo pct 85 med 795 max 1809 gap5 up/dn 1078/980
+US30Cash# rsi2t_15_10 asia net 31599 dd 9180 nb 301 | IS 18867/5151 OOS 12732/9180 | mpos 15/18
+  spr2 net 28463 dd 9366 nb 292
+  spr3 net 20287 dd 12375 nb 282
+  noswap net 31612 dd 9180 nb 301
+  delay2 net 30340 dd 9417 nb 301
+  detr net 31592 dd 9123 nb 300
+  rev net 24544 dd 9065 nb 295
+  long net 9871 dd 7294 nb 185
+  short net 16492 dd 8988 nb 151
+  placebo pct 92 med 22238 max 40246 gap5 up/dn 22597/16673
+BAT_DONE
