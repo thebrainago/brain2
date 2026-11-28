@@ -65,22 +65,27 @@ Pin trên cấu hình đại diện (đã chạy `fx_battery.py`):
 
 **US100 (NAS100) — không đề xuất.** Pin sống (placebo 95%, spread ×2 giữ +1.762), nhưng (i) đây là NAS100 — anh đã tắt cảnh báo, (ii) tương quan sổ +0,26, (iii) cả họ CFD thật không hơn placebo, (iv) 34 giỏ. Chỉ ghi nhận nghiên cứu, không bật tín hiệu.
 
-**US30 — ứng viên giấy tốt nhất trong nhóm OIL/US100/US30.** OOS +7.053 / DD 2.286, placebo 100%, spread ×3 vẫn +7.189, DD sổ gộp không tăng (6,0%). Nhưng chỉ 26 giỏ / 14 thắng, US30 cùng họ chỉ số với SP500 (dù tương quan ngày của tín hiệu này đo được −0,04), chưa có tick MT5. **Chưa đưa vào sổ.**
+**US30 — pin Python đạt, ứng viên giấy mạnh; chưa đưa vào sổ (chờ MT5).** OOS +7.053 / DD 2.286, placebo 100%, spread ×3 vẫn +7.189, trễ/swap/khử xu hướng/hai chiều đều dương. Chỉ 26 giỏ / 14 thắng. Cùng họ chỉ số với SP500, nhưng tương quan ngày với sổ Cân bằng đo được thấp (ghép 100k +0,05; chỉ SP500 −0,07).
 
-**GER40 (ngoài ba mã trên, để đủ bức tranh):** pin đầy đủ nhất (placebo 100%, spread ×3 còn dương, hai chiều dương). Lưu ý: chọn từ lưới lớn, phiên Á thanh khoản mỏng, điền lệnh thật có thể kém. Biến thể z5_30_2.5 Á lãi OOS lớn hơn (+6.512 / DD 2.591) nhưng **hỏng spread ×3** (cả kỳ −1.297). Chưa tick MT5. **Chưa đưa vào sổ.**
+**GER40 z15 Á — pin Python đạt (đủ bộ như US30/NZDJPY); chưa đưa vào sổ (chờ MT5).** Placebo 100%; spread ×2 OOS +1.231 / DD 1.378; spread ×3 OOS còn +414 / DD 1.404; trễ 2 nến OOS +1.205; bỏ swap không đổi; khử/đảo xu hướng OOS +1.218 / +1.157; chỉ mua +1.352, chỉ bán +512. Gap 5% đẩy DD cả kỳ lên 7.267–7.875 (khoảng 4× DD cả kỳ 1.988). Lưu ý: chọn từ lưới lớn, phiên Á thanh khoản mỏng, điền lệnh thật có thể kém. Biến thể z5_30_2.5 Á lãi OOS lớn hơn (+6.512 / DD 2.591) nhưng **hỏng spread ×3** (cả kỳ −1.297) — không dùng.
 
-## 5. Tác động sổ 100k và tài khoản 100 USD cent (OOS 6 tháng, sổ proxy v5_G30: +74.942, DD 6,0%)
-Lot chỉnh để DD riêng của hệ = 5% của 100k (cent: DD riêng ≈ 5 USD).
-| Thêm vào sổ | Corr ngày | Lot 5% | Lãi thêm 6T | DD sổ gộp | Cent 100 USD (6T) |
+## 5. Tác động sổ 100k Cân bằng, sổ chỉ SP500, và tài khoản 100 USD cent
+**Toàn bộ mục này là Python (chờ MT5).** Sổ gốc = kịch bản Cân bằng đã chốt, vốn 100k, số **MT5 100% tick**: ghép Vàng+SP500 +161.631 / DD 6,8%; chỉ SP500 +81.769 / DD 9,4%. Đường vốn sổ được dựng lại từ equity từng hệ MT5 (khớp đúng net/DD chính thức). US30/GER40 ghép bằng equity Python ngoài mẫu, lot để DD riêng của hệ thêm = 5% của 100k (5.000 USD). Số liệu chi tiết: `results/port_official.json`.
+
+| Thêm vào | Sổ | Corr ngày | Lot 5% | Lãi thêm 6T | DD sổ gộp |
 |---|---|---|---|---|---|
-| NZDJPY | +0,20 | 2,44 | +7.312 | 6,9% | +7,3 USD |
-| EURAUD (đã loại) | −0,14 | 2,81 | +6.418 | 7,2% | +6,4 |
-| GER40 z15 Á | +0,01 | 9,17 | +15.470 | 7,0% | +15,5 |
-| US30 z240 NY | −0,04 | 2,19 | +15.427 | 6,0% | +15,4 |
-| US100 RSI2 (NAS100) | +0,26 | 8,30 | +14.619 | 6,3% | +14,6 |
-| OIL RSI2 | −0,04 | 21,2 | +16.299 | 5,6% | +16,3 |
+| US30 | Ghép 100k Cân bằng | +0,05 | 2,19 | +15.427 | 6,8% → **6,2%** |
+| GER40 | Ghép 100k Cân bằng | +0,01 | 9,17 | +15.470 | 6,8% → 6,8% |
+| Cả hai (mỗi hệ lot 5%) | Ghép 100k Cân bằng | — | 2,19 + 9,17 | +30.897 | 6,8% → **6,3%** |
+| US30 | Chỉ SP500 Cân bằng | −0,07 | 2,19 | +15.427 | 9,4% → 9,4% |
+| GER40 | Chỉ SP500 Cân bằng | +0,02 | 9,17 | +15.470 | 9,4% → 10,0% |
+| Cả hai (mỗi hệ lot 5%) | Chỉ SP500 Cân bằng | — | 2,19 + 9,17 | +30.897 | 9,4% → 10,9% |
 
-Lãi cent ~7–16 USD / 6 tháng, nhỏ so với hệ vàng/SP500 hiện có. **Không đề xuất thêm vào sổ hay mở lệnh.**
+Tài khoản **100 USD cent (sách SP500)**: DD riêng ≈ 5 USD → khoảng 0,0022 lot chuẩn US30 hoặc 0,0092 lot chuẩn GER40, lãi ước lượng **+15 USD / 6 tháng** mỗi hệ. **Cỡ hợp đồng Exness US30c / GER40c: KHÔNG CÓ.** File `symbols_xm.csv` là XM Ultra Low: 1 lot US30Cash# và GER40Cash# ≈ 1 USD/điểm (`tick_value` 0,01 / `tick_size` 0,01), lot tối thiểu 0,10 — lớn hơn lot 5 USD ở trên. Số cent chỉ là phép quy đổi theo lot chuẩn XM, không phải lệnh Exness.
+
+(Tham chiếu cũ, sổ proxy Python v5_G30 +74.942 / DD 6,0%: NZDJPY corr +0,20, lot 2,44, +7.312, DD 6,9%, cent +7,3 — không khuyến nghị vì pin spread ×2 thất bại.)
+
+**Không đề xuất thêm vào sổ hay mở lệnh khi chưa có MT5.**
 
 ## 6. Order-flow futures CME → CFD (thăm dò, ~9 tuần)
 90 phép thử (6A→AUDUSD, 6E→EURUSD, 6B→GBPUSD, 6C→USDCAD, SI→Silver; delta/imbalance/lệnh lớn 5/15/60 phút).
@@ -95,13 +100,14 @@ Python kỳ vọng OOS @ 1 lot (cửa sổ 2026.06.01–11.27): NZDJPY +3.000 / 
 - **Kết quả MT5 net / DD / số lệnh (NZDJPY, US30, GER40): KHÔNG CÓ.** Lần đọc này không lấy được file trên ổ E: (Read/CopyToBox chỉ vào được `C:\Users\DUNG\…`, không có bản sao báo cáo trên C:). Chưa so sánh được với kỳ vọng Python.
 
 ## 8. Việc còn dang dở / lưu ý
-- Cần một lệnh máy nhà (hoặc quyền đọc ổ E:) để mở `runq_p6.log` / `reports\fx_*.htm` rồi điền mục 7. Tick 2026-06..11 đã có trên p6; nếu hàng đợi 18:58 đã xong thì chỉ cần đọc báo cáo, không cần chạy lại. Nếu chưa có báo cáo thì chạy `E:\GrokWork\mt5_runs\runq.py E:\GrokWork\mt5_runs\q_p6_fx2.json` (không đụng terminal XM chính).
-- Bản nghiên cứu (không gồm M1 thô) đã đẩy git `grok/scenarios-v3` và có bản staging `C:\Users\DUNG\v3work\out\sync_fx.tgz` / `C:\Users\DUNG\v3work\out\bt_fx\` nếu chép được. Thư mục đích `E:\GrokWork\bt_fx` có thể còn chưa giải nén nếu CopyFromBox bị chặn ổ E:.
+- **MT5 vẫn KHÔNG CÓ số.** Khi app Grok Bot trên máy nhà online: tắt đúng PID p6 treo nếu còn (8884 / runq 11396 — xác nhận path `E:\mt5_tester\p6`, không đụng XM chính 13548), đọc `runq_p6.log` / `reports\fx_*.htm`, chạy lại `q_p6_fx2.json` nếu chưa có báo cáo. Tick 2026-06..11 đã có trên p6.
+- PDF tóm tắt (2 trang): `pdf/TomTat_NghienCuu_FX_2026-11-28.pdf`.
+- Bản nghiên cứu đã có trên git `grok/scenarios-v3` và (từ ~19:55) trên `E:\GrokWork\bt_fx` (53 file lúc đó; bản PDF/README mới cần chép lại khi máy nhà thông). Staging: `C:\Users\DUNG\v3work\out\bt_fx\`.
 - Có thể mở rộng thêm USDJPY/GBPJPY/EURGBP rồi `code/run_batch.sh`.
 - Bảo mật: lần trước một lệnh trên máy nhà in nhầm biến môi trường (có AIBOX_API_KEY, SO_SANH_*). Không chép lại giá trị; anh nên đổi các key đó.
 
 ## 9. Chạy lại / cấu trúc
 - `code/fxlib.py`, `fxsig.py`, `fx_screen.py`, `fx_basket.py` (`PLACEBO=0` placebo, `PLACEBO=-2` gương), `fx_select.py` / `fx_summary.py`, `fx_battery.py`, `fx_port.py`, `fx_of.py`, `fx_mt5prep.py`, `fx_mkq.py`, `engine2x.py`.
-- Kết quả: `results/summary.json`, `of_ic.csv`, `bat_*.json`, `port_fx.json`. M1 thô không đẩy git (nằm `E:\GrokWork\bt_fx\m1`).
+- Kết quả: `results/summary.json`, `of_ic.csv`, `bat_*.json`, `port_fx.json`, `port_official.json`; PDF `pdf/TomTat_NghienCuu_FX_2026-11-28.pdf`. M1 thô không đẩy git (nằm `E:\GrokWork\bt_fx\m1`).
 - EA: `ea/BRAIN_XuLiLenh_fx.mq5` = r5 + `InpTuanDong` (flatten thứ Sáu).
 - Hàng đợi MT5: `mt5/q_p6_fx2.json`.

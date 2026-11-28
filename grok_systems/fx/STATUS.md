@@ -1,10 +1,17 @@
-BOX DONE - PC PENDING - 2026-11-28 19:36 (UTC+7 / Asia/Saigon)
+BOX DONE - PC PENDING - 2026-11-28 20:37 (UTC+7 / Asia/Saigon)
 
-Box + git: research, README_FX, battery/port, EA, first push 16c216c, and a follow-up commit on grok/scenarios-v3 (never main).
-MT5 vs Python: KHÔNG CÓ readable MT5 net/DD/trades for NZDJPY, US30, or GER40. Reports live only under E:\GrokWork\mt5_runs (runq_p6.log, results_p6.jsonl, reports\fx_*.htm) and E:\mt5_tester\p6. Read and CopyToBox refuse E: paths; no copies exist under C:\Users\DUNG (the allowed root). Queue q_p6_fx2.json was started 18:58 after InpTF=16385 and real ticks were downloaded (GER40 53.8 MB, US30 71.3 MB, NZDJPY 61.0 MB). Python OOS @ 1 lot still: NZDJPY +3000/DD 2088; US30 +7053/DD 2286; GER40 +1687/DD 545.
+Box work this turn (t170u, no machine tools): GER40 z15 Asia Python battery already complete and passes; official-book portfolio (US30 + GER40) written to results/port_official.json; Vietnamese PDF 2 pages at pdf/TomTat_NghienCuu_FX_2026-11-28.pdf; README_FX updated.
 
-Remaining PC steps (need a working Shell or E: read access; do not kill 13548):
-1) Read E:\GrokWork\mt5_runs\runq_p6.log and results_p6.jsonl plus reports\fx_ger40_z15_asia.htm, fx_us30_z240_ny.htm, fx_nzdjpy_ibs240_ldn.htm (copy them to C:\Users\DUNG\v3work\out\ if needed).
-2) If the 18:58 runq (last known PIDs 11396 / 8884 / 8532) already finished, compare those reports to the Python numbers above. If no report, rerun E:\GrokWork\mt5_runs\runq.py E:\GrokWork\mt5_runs\q_p6_fx2.json on slot p6 only.
-3) Finish sync into E:\GrokWork\bt_fx\ (CopyFromBox may be refused on E:). Staging: C:\Users\DUNG\v3work\out\sync_fx.tgz and, if written, C:\Users\DUNG\v3work\out\bt_fx\.
-4) Fill README_FX section 7 with MT5 numbers, set this file's first line to ALL DONE, push a further commit to grok/scenarios-v3 only.
+GER40 z15 Á @ 1 lot (Python): OOS +1,687 / DD 545; placebo 100%; spr×2 OOS +1,231; spr×3 OOS +414; delay/noswap/detrend/reverse/long/short all OOS positive. Gap 5% DD 7,267–7,875. Verdict: PIN PYTHON ĐẠT, chưa đưa vào sổ (chờ MT5; phiên Á thanh khoản mỏng).
+
+Portfolio (Python add-on on official MT5 Cân bằng books; lot so add-on DD = 5% of 100k):
+- 100k joint +161,631 / 6.8%: +US30 corr +0.05 lot 2.19 add +15,427 joint DD 6.2%; +GER40 corr +0.01 lot 9.17 add +15,470 joint DD 6.8%; both +30,897 joint DD 6.3%.
+- SP500-only +81,769 / 9.4%: +US30 corr −0.07 add +15,427 joint DD 9.4%; +GER40 corr +0.02 add +15,470 joint DD 10.0%; both +30,897 joint DD 10.9%.
+- 100 USD cent (SP500 book): ~+15 USD / 6m per system at 5 USD sleeve DD. Exness US30c/GER40c contract size: KHÔNG CÓ (assumption: scale in XM standard lots; XM 1 lot ≈ 1 USD/pt, min 0.10).
+
+MT5 net/DD/trades NZDJPY, US30, GER40: still KHÔNG CÓ. Home PC Grok Bot was offline this turn. E:\GrokWork\bt_fx was synced earlier (19:55, 53 files) but does not yet include this PDF/README revision.
+
+Remaining PC steps when the app is connected:
+1) Confirm/kill hung p6 PIDs 8884 and 11396 only if they are still our tester/runq. Never 13548, claude, Sierra.
+2) Rerun q_p6_fx2.json (p6, 100% real ticks, 2026.06.01–11.27), compare to Python, update README §7.
+3) Copy new PDF + README + port_official.json to E:\GrokWork\bt_fx; STATUS first line ALL DONE; another push if needed.

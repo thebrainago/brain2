@@ -11,6 +11,9 @@ cp $F/results/*.log $D/results/ 2>/dev/null || true
 cp $F/mt5/*.csv $F/mt5/*.json $D/mt5/ 2>/dev/null || true
 cp $F/ea/*.mq5 $D/ea/ 2>/dev/null || true
 cp $F/mk_git_fx.sh $F/mk_sync_fx.sh $D/ 2>/dev/null || true
+mkdir -p $D/pdf
+cp $F/pdf/*.pdf $F/pdf/*.py $D/pdf/ 2>/dev/null || true
+
 if grep -rIlE "(api[_-]?key|token|password|secret)\s*[:=]\s*['\"][A-Za-z0-9_\-]{12,}" $D; then echo "SECRET-LIKE STRING FOUND, abort"; exit 3; fi
 git add grok_systems/fx; git -c user.name="Grok Bot" -c user.email="grokbot@users.noreply.github.com" commit -q -m "${1:-grok_systems/fx: FX / other assets research}" || echo "nothing to commit"
 git push -q -u origin grok/scenarios-v3 2>&1 | tail -2; git log --oneline -1
