@@ -88,13 +88,15 @@ Lãi cent ~7–16 USD / 6 tháng, nhỏ so với hệ vàng/SP500 hiện có. **
 - Lãi gộp fade z>2 ≈ 0,2–1,5 pip FX / ≈0,032 USD Silver — **dưới spread**. 26/90 phép |t|>2: có tín hiệu thống kê nhưng nhỏ hơn chi phí.
 
 ## 7. MT5 100% tick thật
-Python kỳ vọng OOS @ 1 lot: NZDJPY +3.000 / DD 2.088 (22 lệnh vào); GER40 z15 +1.687 / DD 545 (21 lệnh); US30 +7.053 / DD 2.286 (9 lệnh). EA `BRAIN_XuLiLenh_fx` (flatten thứ Sáu, `InpTuanDong=true`), `InpTF=16385` (PERIOD_H1), CSV `InpVao=4`.
-- Lần p4 / p6 đầu: 0 lệnh. Nguyên nhân 1: `InpTF=60` không phải PERIOD_H1 (ATR lỗi 4805, OnInit fail) — đã sửa `fx_mkq.py` → 16385.
-- Lần p6 sau khi sửa TF: tester dừng “no history data”. Cả ba mã chỉ có stub tick 202611.tkc ~2 KB; không giống US500/GOLD (đủ file .tkc 18 tháng). Đang tải tick qua terminal p6 rồi chạy lại `q_p6_fx2.json`.
-- Kết quả net/DD/số lệnh MT5 lúc này: **KHÔNG CÓ**.
+Python kỳ vọng OOS @ 1 lot (cửa sổ 2026.06.01–11.27): NZDJPY +3.000 / DD 2.088 (22 lệnh vào); GER40 z15 +1.687 / DD 545 (21 lệnh); US30 +7.053 / DD 2.286 (9 lệnh). EA `BRAIN_XuLiLenh_fx` (flatten thứ Sáu, `InpTuanDong=true`), `InpTF=16385` (PERIOD_H1), CSV `InpVao=4`. Hàng đợi `mt5/q_p6_fx2.json` trên slot p6.
+- Lần p4 / p6 đầu: 0 lệnh vì `InpTF=60` không phải PERIOD_H1 (ATR lỗi 4805, OnInit fail). Đã sửa `fx_mkq.py` → 16385.
+- Lần p6 sau khi sửa TF: tester dừng “no history data” (chỉ có stub tick 202611.tkc ~2 KB). Đã tải tick thật 2026-06..11 vào p6: GER40 53,8 MB, US30 71,3 MB, NZDJPY 61,0 MB.
+- Lần sau đó (18:58, Asia/Saigon): chạy lại `runq.py` + `q_p6_fx2.json` (PID lúc khởi động: runq 11396, p6 terminal 8884, metatester 8532). Báo cáo ghi ở `E:\GrokWork\mt5_runs\runq_p6.log`, `results_p6.jsonl`, `reports\fx_*.htm`.
+- **Kết quả MT5 net / DD / số lệnh (NZDJPY, US30, GER40): KHÔNG CÓ.** Lần đọc này không lấy được file trên ổ E: (Read/CopyToBox chỉ vào được `C:\Users\DUNG\…`, không có bản sao báo cáo trên C:). Chưa so sánh được với kỳ vọng Python.
 
 ## 8. Việc còn dang dở / lưu ý
-- Chưa xác nhận tick MT5 (mục 7). Khi có file .tkc đủ tháng 2026-06..11, chạy `E:\GrokWork\mt5_runs\runq.py` + `q_p6_fx2.json` (slot p6, không đụng terminal XM chính).
+- Cần một lệnh máy nhà (hoặc quyền đọc ổ E:) để mở `runq_p6.log` / `reports\fx_*.htm` rồi điền mục 7. Tick 2026-06..11 đã có trên p6; nếu hàng đợi 18:58 đã xong thì chỉ cần đọc báo cáo, không cần chạy lại. Nếu chưa có báo cáo thì chạy `E:\GrokWork\mt5_runs\runq.py E:\GrokWork\mt5_runs\q_p6_fx2.json` (không đụng terminal XM chính).
+- Bản nghiên cứu (không gồm M1 thô) đã đẩy git `grok/scenarios-v3` và có bản staging `C:\Users\DUNG\v3work\out\sync_fx.tgz` / `C:\Users\DUNG\v3work\out\bt_fx\` nếu chép được. Thư mục đích `E:\GrokWork\bt_fx` có thể còn chưa giải nén nếu CopyFromBox bị chặn ổ E:.
 - Có thể mở rộng thêm USDJPY/GBPJPY/EURGBP rồi `code/run_batch.sh`.
 - Bảo mật: lần trước một lệnh trên máy nhà in nhầm biến môi trường (có AIBOX_API_KEY, SO_SANH_*). Không chép lại giá trị; anh nên đổi các key đó.
 
