@@ -1,0 +1,415 @@
+{
+ "JOINT_100k_GREEDY_conservative_robust": {
+  "n": 15,
+  "exness0.01": [
+   "xs10",
+   "xs6",
+   "xs4",
+   "u15",
+   "xs2",
+   "xs7",
+   "u12",
+   "xs3",
+   "xs1",
+   "u13",
+   "xs5"
+  ],
+  "xm_micro_mt4_0.01": [
+   "xs10",
+   "xs6",
+   "xs4",
+   "u15",
+   "xs2",
+   "xs7",
+   "u12",
+   "xs3",
+   "xs1",
+   "u13",
+   "xs5"
+  ],
+  "xm_micro_mt5_0.1": [
+   "u15",
+   "u12",
+   "u13"
+  ],
+  "us500_min0.14": [
+   "xs10",
+   "xs6",
+   "xs4",
+   "u15",
+   "xs2",
+   "xs7",
+   "u12",
+   "xs3",
+   "xs1",
+   "u13",
+   "xs5"
+  ]
+ },
+ "JOINT_100k_GREEDY_balanced_robust": {
+  "n": 15,
+  "exness0.01": [
+   "xs10",
+   "xs6",
+   "xs4",
+   "u15",
+   "xs2",
+   "xs7",
+   "u12",
+   "xs3",
+   "xs1",
+   "u13",
+   "xs5"
+  ],
+  "xm_micro_mt4_0.01": [
+   "xs10",
+   "xs6",
+   "xs4",
+   "u15",
+   "xs2",
+   "xs7",
+   "u12",
+   "xs3",
+   "xs1",
+   "u13",
+   "xs5"
+  ],
+  "xm_micro_mt5_0.1": [
+   "u15",
+   "u12",
+   "u13"
+  ],
+  "us500_min0.14": [
+   "xs10",
+   "xs6",
+   "xs4",
+   "u15",
+   "xs2",
+   "xs7",
+   "u12",
+   "xs3",
+   "xs1",
+   "u13",
+   "xs5"
+  ]
+ },
+ "JOINT_100k_GREEDY_aggressive_robust": {
+  "n": 15,
+  "exness0.01": [
+   "g2",
+   "xs10",
+   "x1",
+   "xs6",
+   "xs4",
+   "u15",
+   "xs2",
+   "xs7",
+   "u12",
+   "xs3",
+   "xs1",
+   "u13",
+   "xs5"
+  ],
+  "xm_micro_mt4_0.01": [
+   "g2",
+   "xs10",
+   "x1",
+   "xs6",
+   "xs4",
+   "u15",
+   "xs2",
+   "xs7",
+   "u12",
+   "xs3",
+   "xs1",
+   "u13",
+   "xs5"
+  ],
+  "xm_micro_mt5_0.1": [
+   "u15",
+   "u12",
+   "u13"
+  ],
+  "us500_min0.14": [
+   "g2",
+   "xs10",
+   "x1",
+   "xs6",
+   "xs4",
+   "u15",
+   "xs2",
+   "xs7",
+   "u12",
+   "xs3",
+   "xs1",
+   "u13",
+   "xs5"
+  ]
+ },
+ "JOINT_100k_MANUAL_conservative_robust": {
+  "n": 10,
+  "exness0.01": [
+   "xs1",
+   "xs2",
+   "xs3",
+   "xs4",
+   "xs5",
+   "xs6",
+   "xs7",
+   "xs8",
+   "xs9",
+   "xs10"
+  ],
+  "xm_micro_mt4_0.01": [
+   "xs1",
+   "xs2",
+   "xs3",
+   "xs4",
+   "xs5",
+   "xs6",
+   "xs7",
+   "xs8",
+   "xs9",
+   "xs10"
+  ],
+  "xm_micro_mt5_0.1": [],
+  "us500_min0.14": [
+   "xs1",
+   "xs2",
+   "xs3",
+   "xs4",
+   "xs5",
+   "xs6",
+   "xs7",
+   "xs8",
+   "xs9",
+   "xs10"
+  ]
+ },
+ "XAU_100k_GREEDY_conservative_robust": {
+  "n": 8,
+  "exness0.01": [
+   "g2",
+   "xs10",
+   "xs6",
+   "xs4",
+   "xs7",
+   "xs2"
+  ],
+  "xm_micro_mt4_0.01": [
+   "g2",
+   "xs10",
+   "xs6",
+   "xs4",
+   "xs7",
+   "xs2"
+  ],
+  "xm_micro_mt5_0.1": [],
+  "us500_min0.14": [
+   "g2",
+   "xs10",
+   "xs6",
+   "xs4",
+   "xs7",
+   "xs2"
+  ]
+ },
+ "XAU_100k_GREEDY_balanced_robust": {
+  "n": 8,
+  "exness0.01": [
+   "g2",
+   "xs10",
+   "xs6",
+   "xs4",
+   "xs7",
+   "xs2"
+  ],
+  "xm_micro_mt4_0.01": [
+   "g2",
+   "xs10",
+   "xs6",
+   "xs4",
+   "xs7",
+   "xs2"
+  ],
+  "xm_micro_mt5_0.1": [],
+  "us500_min0.14": [
+   "g2",
+   "xs10",
+   "xs6",
+   "xs4",
+   "xs7",
+   "xs2"
+  ]
+ },
+ "XAU_100k_GREEDY_aggressive_robust": {
+  "n": 8,
+  "exness0.01": [
+   "g2",
+   "xs10",
+   "x1",
+   "xs6",
+   "xs4",
+   "xs7",
+   "xs2",
+   "gp2"
+  ],
+  "xm_micro_mt4_0.01": [
+   "g2",
+   "xs10",
+   "x1",
+   "xs6",
+   "xs4",
+   "xs7",
+   "xs2",
+   "gp2"
+  ],
+  "xm_micro_mt5_0.1": [
+   "xs10",
+   "xs7"
+  ],
+  "us500_min0.14": [
+   "g2",
+   "xs10",
+   "x1",
+   "xs6",
+   "xs4",
+   "xs7",
+   "xs2",
+   "gp2"
+  ]
+ },
+ "XAU_100k_MANUAL_conservative_robust": {
+  "n": 10,
+  "exness0.01": [
+   "xs1",
+   "xs2",
+   "xs3",
+   "xs4",
+   "xs5",
+   "xs6",
+   "xs7",
+   "xs8",
+   "xs9",
+   "xs10"
+  ],
+  "xm_micro_mt4_0.01": [
+   "xs1",
+   "xs2",
+   "xs3",
+   "xs4",
+   "xs5",
+   "xs6",
+   "xs7",
+   "xs8",
+   "xs9",
+   "xs10"
+  ],
+  "xm_micro_mt5_0.1": [],
+  "us500_min0.14": [
+   "xs1",
+   "xs2",
+   "xs3",
+   "xs4",
+   "xs5",
+   "xs6",
+   "xs7",
+   "xs8",
+   "xs9",
+   "xs10"
+  ]
+ },
+ "US500_100k_GREEDY_conservative_robust": {
+  "n": 5,
+  "exness0.01": [
+   "u13",
+   "u12",
+   "u2",
+   "up1",
+   "up2"
+  ],
+  "xm_micro_mt4_0.01": [
+   "u13",
+   "u12",
+   "u2",
+   "up1",
+   "up2"
+  ],
+  "xm_micro_mt5_0.1": [
+   "u13",
+   "u12",
+   "u2",
+   "up1",
+   "up2"
+  ],
+  "us500_min0.14": [
+   "u13",
+   "u12",
+   "u2",
+   "up1",
+   "up2"
+  ]
+ },
+ "US500_100k_GREEDY_balanced_robust": {
+  "n": 5,
+  "exness0.01": [
+   "u13",
+   "u12",
+   "u2",
+   "up1",
+   "up2"
+  ],
+  "xm_micro_mt4_0.01": [
+   "u13",
+   "u12",
+   "u2",
+   "up1",
+   "up2"
+  ],
+  "xm_micro_mt5_0.1": [
+   "u13",
+   "u12",
+   "u2",
+   "up1",
+   "up2"
+  ],
+  "us500_min0.14": [
+   "u13",
+   "u12",
+   "u2",
+   "up1",
+   "up2"
+  ]
+ },
+ "US500_100k_GREEDY_aggressive_robust": {
+  "n": 5,
+  "exness0.01": [
+   "u13",
+   "u12",
+   "u2",
+   "up1",
+   "up2"
+  ],
+  "xm_micro_mt4_0.01": [
+   "u13",
+   "u12",
+   "u2",
+   "up1",
+   "up2"
+  ],
+  "xm_micro_mt5_0.1": [
+   "u13",
+   "u12",
+   "u2",
+   "up1",
+   "up2"
+  ],
+  "us500_min0.14": [
+   "u13",
+   "u12",
+   "u2",
+   "up1",
+   "up2"
+  ]
+ }
+}
