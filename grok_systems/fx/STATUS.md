@@ -1,19 +1,18 @@
-BOX DONE - PC PENDING - 2026-11-28 20:37 (UTC+7 / Asia/Saigon)
+BOX DONE - PC PENDING - 2026-11-28 22:00 (UTC+7 / Asia/Saigon)
 
-Git: b633e70 (docs/portfolio) + aee7f4b (force-add PDF) on grok/scenarios-v3 (never main).
+MT5 (p6, 100% real ticks, 2026.06.01–11.27) — số @ 1 lot và quy 100 USD (XM min lot 0,10). Exness cent: KHÔNG CÓ.
 
-Box work this turn (t170u, no machine tools): GER40 z15 Asia Python battery already complete and passes; official-book portfolio (US30 + GER40) written to results/port_official.json; Vietnamese PDF 2 pages at pdf/TomTat_NghienCuu_FX_2026-11-28.pdf; README_FX updated.
+- US30 L_z240 NY: MT5 +9.085 / DD 2.455 (8 giỏ, 7W1L, PF 17,02). Python +7.053 / 2.286 — khớp (lãi +29%, DD +7%). Lỗ giỏ lớn nhất −567, ngày tệ nhất 30/10/2026 −567. Tại min lot 0,10: lãi +909 / DD 245 / lỗ giỏ −57. DD 245 > vốn 100 USD → quá đắt, không thêm vào sổ.
+- GER40 z15 Á: MT5 +983 / DD 1.110 (21 giỏ, 19W2L, PF 2,07). Python +1.687 / 545 — không khớp (lãi 58%, DD ×2,0). Lỗ giỏ lớn nhất −684, ngày tệ nhất cùng 30/10/2026 −684. Tại min lot 0,10: +98 / DD 111 / lỗ giỏ −68. Quá đắt + MT5 yếu hơn → không thêm vào sổ.
+- NZDJPY IBS London: MT5 KHÔNG CÓ. Tester 21988/7672 bắt đầu 21:16:30; runq_fx 1528 chết vì tasklist timeout; fx_watch 22160 không hỏi được PID. Python đã trượt spread ×2. Không thêm.
 
-GER40 z15 Á @ 1 lot (Python): OOS +1,687 / DD 545; placebo 100%; spr×2 OOS +1,231; spr×3 OOS +414; delay/noswap/detrend/reverse/long/short all OOS positive. Gap 5% DD 7,267–7,875. Verdict: PIN PYTHON ĐẠT, chưa đưa vào sổ (chờ MT5; phiên Á thanh khoản mỏng).
+PID: đã tắt đúng 11396 (runq), 19628 (p6 terminal), 19588 (p6 metatester). Không đụng 13548 / claude / Sierra.
 
-Portfolio (Python add-on on official MT5 Cân bằng books; lot so add-on DD = 5% of 100k):
-- 100k joint +161,631 / 6.8%: +US30 corr +0.05 lot 2.19 add +15,427 joint DD 6.2%; +GER40 corr +0.01 lot 9.17 add +15,470 joint DD 6.8%; both +30,897 joint DD 6.3%.
-- SP500-only +81,769 / 9.4%: +US30 corr −0.07 add +15,427 joint DD 9.4%; +GER40 corr +0.02 add +15,470 joint DD 10.0%; both +30,897 joint DD 10.9%.
-- 100 USD cent (SP500 book): ~+15 USD / 6m per system at 5 USD sleeve DD. Exness US30c/GER40c contract size: KHÔNG CÓ (assumption: scale in XM standard lots; XM 1 lot ≈ 1 USD/pt, min 0.10).
+Chỉ số khác (t173u, bước đầu, chưa tải M1 mới vì p6 bận tester): tại min lot, 1 ATR H1 ≈ JP225 0,22 USD (rẻ nhất, nhưng 0 pass thật / 4 pass giả), UK100 3,10 (0 pass), GER40 7,09, US100 10,61, US30 10,71. Ứng viên rẻ chưa có M1: CHN50 (min 0,01), GerMid50 (min 0,01), AUS200, Taiwan, CA60, HK50. Exness cent tất cả: KHÔNG CÓ.
 
-MT5 net/DD/trades NZDJPY, US30, GER40: still KHÔNG CÓ. Home PC Grok Bot was offline this turn. E:\GrokWork\bt_fx was synced earlier (19:55, 53 files) but does not yet include this PDF/README revision.
+Còn lại:
+1) Thu báo cáo NZDJPY (htm) từ E:\mt5_tester\p6 hoặc E:\GrokWork\mt5_runs\reports sang C:\Users\DUNG\v3work\out\mt5\reports, parse, điền §7.
+2) Khi p6 rảnh: chạy pc_tools/dl_m1_idx.py, rồi screen/basket/placebo/battery, xếp theo DD USD tại min lot.
+3) Chép README + reports vào E:\GrokWork\bt_fx; đẩy git grok/scenarios-v3; dòng đầu ALL DONE chỉ khi xong (1) và đã chép ổ E.
 
-Remaining PC steps when the app is connected:
-1) Confirm/kill hung p6 PIDs 8884 and 11396 only if they are still our tester/runq. Never 13548, claude, Sierra.
-2) Rerun q_p6_fx2.json (p6, 100% real ticks, 2026.06.01–11.27), compare to Python, update README §7.
-3) Copy new PDF + README + port_official.json to E:\GrokWork\bt_fx; STATUS first line ALL DONE; another push if needed.
+Git hiện vẫn ba1769b cho đến khi có commit mới. Không đụng main.

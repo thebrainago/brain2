@@ -85,7 +85,7 @@ Tài khoản **100 USD cent (sách SP500)**: DD riêng ≈ 5 USD → khoảng 0,
 
 (Tham chiếu cũ, sổ proxy Python v5_G30 +74.942 / DD 6,0%: NZDJPY corr +0,20, lot 2,44, +7.312, DD 6,9%, cent +7,3 — không khuyến nghị vì pin spread ×2 thất bại.)
 
-**Không đề xuất thêm vào sổ hay mở lệnh khi chưa có MT5.**
+**Đã có MT5 cho US30 (khớp) và GER40 (yếu hơn Python). Cả hai đều quá đắt ở lot tối thiểu XM trên vốn 100 USD — không thêm vào sổ.** Số 100k ở bảng trên chỉ là tham chiếu cũ.
 
 ## 6. Order-flow futures CME → CFD (thăm dò, ~9 tuần)
 90 phép thử (6A→AUDUSD, 6E→EURUSD, 6B→GBPUSD, 6C→USDCAD, SI→Silver; delta/imbalance/lệnh lớn 5/15/60 phút).
@@ -93,21 +93,60 @@ Tài khoản **100 USD cent (sách SP500)**: DD riêng ≈ 5 USD → khoảng 0,
 - Lãi gộp fade z>2 ≈ 0,2–1,5 pip FX / ≈0,032 USD Silver — **dưới spread**. 26/90 phép |t|>2: có tín hiệu thống kê nhưng nhỏ hơn chi phí.
 
 ## 7. MT5 100% tick thật
-Python kỳ vọng OOS @ 1 lot (cửa sổ 2026.06.01–11.27): NZDJPY +3.000 / DD 2.088 (22 lệnh vào); GER40 z15 +1.687 / DD 545 (21 lệnh); US30 +7.053 / DD 2.286 (9 lệnh). EA `BRAIN_XuLiLenh_fx` (flatten thứ Sáu, `InpTuanDong=true`), `InpTF=16385` (PERIOD_H1), CSV `InpVao=4`. Hàng đợi `mt5/q_p6_fx2.json` trên slot p6.
-- Lần p4 / p6 đầu: 0 lệnh vì `InpTF=60` không phải PERIOD_H1 (ATR lỗi 4805, OnInit fail). Đã sửa `fx_mkq.py` → 16385.
-- Lần p6 sau khi sửa TF: tester dừng “no history data” (chỉ có stub tick 202611.tkc ~2 KB). Đã tải tick thật 2026-06..11 vào p6: GER40 53,8 MB, US30 71,3 MB, NZDJPY 61,0 MB.
-- Lần sau đó (18:58, Asia/Saigon): chạy lại `runq.py` + `q_p6_fx2.json` (PID lúc khởi động: runq 11396, p6 terminal 8884, metatester 8532). Báo cáo ghi ở `E:\GrokWork\mt5_runs\runq_p6.log`, `results_p6.jsonl`, `reports\fx_*.htm`.
-- **Kết quả MT5 net / DD / số lệnh (NZDJPY, US30, GER40): KHÔNG CÓ.** Lần đọc này không lấy được file trên ổ E: (Read/CopyToBox chỉ vào được `C:\Users\DUNG\…`, không có bản sao báo cáo trên C:). Chưa so sánh được với kỳ vọng Python.
+Cửa sổ OOS 2026.06.01–11.27, EA `BRAIN_XuLiLenh_fx`, flatten thứ Sáu 21:00, `InpTF=16385`, CSV `InpVao=4`, slot p6, 100% tick thật. **Số dưới đây ưu tiên vốn thật 100 USD (10k cent).** Lot tối thiểu XM Ultra Low = 0,10. Cỡ hợp đồng Exness cent: **KHÔNG CÓ**.
 
-## 8. Việc còn dang dở / lưu ý
-- **MT5 vẫn KHÔNG CÓ số.** Khi app Grok Bot trên máy nhà online: tắt đúng PID p6 treo nếu còn (8884 / runq 11396 — xác nhận path `E:\mt5_tester\p6`, không đụng XM chính 13548), đọc `runq_p6.log` / `reports\fx_*.htm`, chạy lại `q_p6_fx2.json` nếu chưa có báo cáo. Tick 2026-06..11 đã có trên p6.
-- PDF tóm tắt (2 trang): `pdf/TomTat_NghienCuu_FX_2026-11-28.pdf`.
-- Bản nghiên cứu đã có trên git `grok/scenarios-v3` và (từ ~19:55) trên `E:\GrokWork\bt_fx` (53 file lúc đó; bản PDF/README mới cần chép lại khi máy nhà thông). Staging: `C:\Users\DUNG\v3work\out\bt_fx\`.
-- Có thể mở rộng thêm USDJPY/GBPJPY/EURGBP rồi `code/run_batch.sh`.
+Lần chạy thành công: GER40 xong lúc ~19:58 (3635 giây, chạy từ 18:58); US30 21:09:40–21:16:29 (408 giây). PID an toàn: đã tắt đúng runq cũ 11396, p6 terminal 19628 và metatester 19588; **không đụng** XM chính 13548, claude, Sierra. `runq_fx` (PID 1528) chết lúc ~21:18 vì `tasklist` timeout khi đang theo dõi NZDJPY; tester NZDJPY (terminal 21988, agent 7672, bắt đầu 21:16:30) lúc đó vẫn chạy. Báo cáo NZDJPY: **KHÔNG CÓ** (chưa thu được file).
+
+### 7.1. So sánh MT5 vs Python @ 1 lot
+
+| Hệ | Python net / DD | MT5 net / DD | Lệnh / giỏ MT5 | PF | Tick | Lỗ giỏ lớn nhất | Ngày tệ nhất | Khớp? |
+|---|---|---|---|---|---|---|---|---|
+| US30 L_z240 NY | +7.053 / 2.286 | **+9.085 / 2.455** | 24 lệnh, 8 giỏ (7W 1L) | 17,02 | 100% real | **−567** (30/10 18:01–21:00) | **30/10/2026 −567** | Có: cùng dấu, lãi +29%, DD +7% |
+| GER40 z15 Á | +1.687 / 545 | **+983 / 1.110** | 37 lệnh, 21 giỏ (19W 2L) | 2,07 | 100% real | **−684** (30/10 03:16–21:00, 3 chân, flatten) | **30/10/2026 −684** | Không: lãi chỉ còn 58%, DD gấp 2,0 lần |
+| NZDJPY IBS London | +3.000 / 2.088 | **KHÔNG CÓ** | — | — | — | KHÔNG CÓ | KHÔNG CÓ | Chưa có số MT5. Python đã trượt spread ×2. |
+
+Cả US30 và GER40 đều lỗ nặng cùng một ngày 30/10/2026 (flatten thứ Sáu) — nếu chạy chung, rủi ro cộng dồn.
+
+### 7.2. Quy ra tài khoản 100 USD (XM min lot 0,10)
+
+| Hệ | Min lot 0,10: lãi 6T / DD / lỗ giỏ lớn nhất | Lot để DD ≈ 5 USD | Kết luận 100 USD |
+|---|---|---|---|
+| US30 | **+909 / DD 245 / −57** | 0,0020 lot → khoảng +18,5 USD / 6T | **Quá đắt.** DD min lot 245 USD > vốn 100 USD. Lot 5 USD nhỏ hơn min 0,10. Không thêm vào sổ. |
+| GER40 | **+98 / DD 111 / −68** | 0,0045 lot → khoảng +4,4 USD / 6T | **Quá đắt**, và MT5 yếu hơn Python. DD min lot 111 USD > vốn 100 USD. Không thêm vào sổ. |
+| NZDJPY | KHÔNG CÓ | — | Không thêm (pin spread ×2 đã trượt; thiếu MT5). |
+
+## 8. Chỉ số khác vs 100 USD (t173u, bước đầu)
+GER/US30/US100 đắt vì min lot 0,10 × khoảng 1 USD/điểm, ATR giờ ~65–107 điểm → một nhịp ATR min lot đã ~7–11 USD. Đã có M1 sẵn: UK100, JP225 (và GER40/US30/US100). Các mã khác chưa tải M1 (p6 đang/đã chạy tester NZDJPY — chưa xuất được).
+
+Chi phí 1 nhịp ATR H1 ngoài mẫu tại **lot tối thiểu XM** (tỷ giá từ M1: EURUSD 1,093; GBPUSD 1,309; AUDUSD 0,664; USDJPY 159,6 qua EURJPY/EURUSD):
+
+| Mã XM | Min lot | USD/điểm tại min | ATR H1 | $ / ATR tại min | Đã có M1? | Sàng giỏ (lọc IS calmar≥3, OOS calmar≥1) |
+|---|---|---|---|---|---|---|
+| JP225Cash# | 0,10 | 0,00063 | 347 | **0,22** | Có | Thực 0 pass; placebo 4 pass — không có edge bền |
+| UK100Cash# | 0,10 | 0,131 | 24 | **3,10** | Có | Thực 0 pass; placebo 0 — chưa có hệ đạt lọc |
+| GER40Cash# | 0,10 | 0,109 | 65 | 7,09 | Có | Xem §7 — quá đắt ở min lot |
+| US100Cash# | 0,10 | 0,100 | 106 | 10,61 | Có | Đã loại / NAS100 đang tắt cảnh báo |
+| US30Cash# | 0,10 | 0,100 | 107 | 10,71 | Có | Xem §7 — quá đắt ở min lot |
+| CHN50Cash# | 0,01 | 0,010 | KHÔNG CÓ M1 | — | Chưa | Ứng viên rẻ (min lot nhỏ). Exness cent: KHÔNG CÓ |
+| GerMid50Cash# | 0,01 | 0,011 | KHÔNG CÓ M1 | — | Chưa | Ứng viên rẻ. Exness: KHÔNG CÓ |
+| TaiwanCash# | 0,05 | 0,050 | KHÔNG CÓ M1 | — | Chưa | Trung bình. Exness: KHÔNG CÓ |
+| AUS200Cash# | 0,10 | 0,066 | KHÔNG CÓ M1 | — | Chưa | Có thể rẻ hơn UK100. Exness: KHÔNG CÓ |
+| CA60Cash# | 0,10 | 0,070 | KHÔNG CÓ M1 | — | Chưa | Exness: KHÔNG CÓ |
+| EU50 / FRA40 / Spain / IT40 / NETH25 | 0,10 | 0,109 | KHÔNG CÓ M1 | — | Chưa | Cùng thang EUR với GER40. Exness: KHÔNG CÓ |
+| SWI20Cash# | 0,10 | 0,120 | KHÔNG CÓ M1 | — | Chưa | Exness: KHÔNG CÓ |
+| HK50Cash# / ChinaHCash# | 0,10 | KHÔNG CÓ (thiếu USDHKD) | KHÔNG CÓ M1 | — | Chưa | Có thể rẻ nếu 1 lot = 1 HKD/điểm. Exness: KHÔNG CÓ |
+
+Kết luận tạm: trên vốn 100 USD, US30 / US100 / GER40 **không khả thi ở lot tối thiểu XM**. UK100 rẻ hơn nhưng chưa có hệ đạt lọc. JP225 rất rẻ nhưng tín hiệu không hơn bản giả. Cần tải M1 rồi chạy cùng pipeline cho CHN50, GerMid50, AUS200, EU50, FRA40, Spain, HK50, IT40, CA60, Taiwan khi p6 rảnh.
+
+## 9. Việc còn dang dở / lưu ý
+- **NZDJPY MT5: KHÔNG CÓ số.** Tester p6 21988/7672 đã chạy từ 21:16:30; `runq_fx` chết vì tasklist timeout; bộ theo dõi `fx_watch.py` (22160) không hỏi được PID (`tasklist` timeout). Cần thu `fx_nzdjpy_ibs240_ldn.htm` từ `E:\mt5_tester\p6` hoặc `E:\GrokWork\mt5_runs\reports` sang `C:\Users\DUNG\v3work\out\mt5\reports\`, đối chiếu Python, rồi mới ALL DONE.
+- Tải M1 các chỉ số còn thiếu (p6, MaxBars đã 1.000.000), chạy screen/basket/placebo/battery, xếp theo DD USD tại min lot. Script sẵn: `pc_tools/dl_m1_idx.py`.
+- Chép README/PDF/`port_official`/báo cáo MT5 mới vào `E:\GrokWork\bt_fx` khi shell máy nhà thông (CopyFromBox không ghi được ổ E).
+- PDF tóm tắt cũ (2 trang, chưa có số MT5): `pdf/TomTat_NghienCuu_FX_2026-11-28.pdf` — cần bản cập nhật sau khi có NZDJPY.
 - Bảo mật: lần trước một lệnh trên máy nhà in nhầm biến môi trường (có AIBOX_API_KEY, SO_SANH_*). Không chép lại giá trị; anh nên đổi các key đó.
 
-## 9. Chạy lại / cấu trúc
+## 10. Chạy lại / cấu trúc
 - `code/fxlib.py`, `fxsig.py`, `fx_screen.py`, `fx_basket.py` (`PLACEBO=0` placebo, `PLACEBO=-2` gương), `fx_select.py` / `fx_summary.py`, `fx_battery.py`, `fx_port.py`, `fx_of.py`, `fx_mt5prep.py`, `fx_mkq.py`, `engine2x.py`.
-- Kết quả: `results/summary.json`, `of_ic.csv`, `bat_*.json`, `port_fx.json`, `port_official.json`; PDF `pdf/TomTat_NghienCuu_FX_2026-11-28.pdf`. M1 thô không đẩy git (nằm `E:\GrokWork\bt_fx\m1`).
+- Kết quả: `results/summary.json`, `of_ic.csv`, `bat_*.json`, `port_fx.json`, `port_official.json`, `idx_cost.json`, `mt5/reports/`; PDF `pdf/TomTat_NghienCuu_FX_2026-11-28.pdf`. M1 thô không đẩy git (nằm `E:\GrokWork\bt_fx\m1`).
 - EA: `ea/BRAIN_XuLiLenh_fx.mq5` = r5 + `InpTuanDong` (flatten thứ Sáu).
 - Hàng đợi MT5: `mt5/q_p6_fx2.json`.

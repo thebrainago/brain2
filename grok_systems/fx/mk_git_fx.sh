@@ -3,7 +3,7 @@
 set -e
 F=/workspace/bt_3m/fx; R=/workspace/brain2_scen; D=$R/grok_systems/fx
 cd $R; git checkout -q grok/scenarios-v3
-rm -rf $D; mkdir -p $D/code $D/results $D/mt5 $D/ea
+rm -rf $D; mkdir -p $D/code $D/results $D/mt5 $D/ea $D/mt5/reports $D/pc_tools
 cp $F/README_FX.md $F/STATUS.md $D/
 cp $F/code/*.py $F/code/*.sh $D/code/; cp /workspace/bt_3m/code/engine2.py $D/code/ 2>/dev/null || true
 for f in $F/results/*.json $F/results/*.csv $F/results/*.md; do [ -f $f ] && [ $(stat -c%s $f) -lt 4000000 ] && cp $f $D/results/; done 2>/dev/null || true

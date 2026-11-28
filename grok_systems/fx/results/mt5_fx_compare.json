@@ -1,0 +1,74 @@
+{
+  "as_of": "2026-11-28 21:59 Asia/Saigon",
+  "capital_usd": 100,
+  "xm_min_lot": 0.1,
+  "exness_cent_contract": "KHONG CO",
+  "python_1lot": {
+    "US30": {
+      "net": 7053,
+      "dd": 2286
+    },
+    "GER40": {
+      "net": 1687,
+      "dd": 545
+    },
+    "NZDJPY": {
+      "net": 3000,
+      "dd": 2088
+    }
+  },
+  "mt5": {
+    "US30": {
+      "net": 9085.16,
+      "dd": 2454.68,
+      "dd_pct": 2.4,
+      "trades": 24,
+      "baskets": 8,
+      "wins": 7,
+      "losses": 1,
+      "pf": 17.02,
+      "quality": "100% real ticks",
+      "max_basket_loss": -566.97,
+      "worst_day": {
+        "date": "2026.10.30",
+        "pnl": -566.97
+      },
+      "secs": 408,
+      "match": "yes_net+29pct_dd+7pct"
+    },
+    "GER40": {
+      "net": 983.29,
+      "dd": 1110.34,
+      "dd_pct": 1.09,
+      "trades": 37,
+      "baskets": 21,
+      "wins": 19,
+      "losses": 2,
+      "pf": 2.07,
+      "quality": "100% real ticks",
+      "max_basket_loss": -683.73,
+      "worst_day": {
+        "date": "2026.10.30",
+        "pnl": -683.73
+      },
+      "secs": 3635,
+      "match": "no_net_58pct_dd_x2"
+    },
+    "NZDJPY": null
+  },
+  "usd100_at_minlot_0_10": {
+    "US30": {
+      "net": 908.52,
+      "dd": 245.47,
+      "max_basket_loss": -56.7,
+      "verdict": "too_expensive"
+    },
+    "GER40": {
+      "net": 98.33,
+      "dd": 111.03,
+      "max_basket_loss": -68.37,
+      "verdict": "too_expensive_and_mt5_weaker"
+    },
+    "NZDJPY": null
+  }
+}
