@@ -19,3 +19,4 @@ Next (optional round 6): forward-demo plan at half lots; more new-signal familie
 - 15:07 joint7 done; docs updated; ALL DONE
 - 15:14 start opt8: recompute scenarios at 100k joint; Gold-only and US500-only at 100k and 50k; W on; reuse U6.pkl + MT5 deals (linear).
 - 15:31 opt8/joint8 done. Joint 100k: Safe +96,123/3.7%, Bal +161,631/6.8%, Agg +304,204/11.0% (×1.7 +517,672/18.7%). Gold-only 100k Agg trimmed to +208,221/19.3%. US500-only 100k Agg +167,946/18.8%. Docs updated.
+- 15:49 PDF tóm tắt 6 trang: /workspace/bt_3m/v3/pdf/TomTat_KichBan_Vang_SP500_2026-11-28.pdf (cũng trên E: và git).

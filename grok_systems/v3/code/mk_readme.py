@@ -156,6 +156,7 @@ Scalp: `InpNhoi=0, InpMaxTang=1, InpTPGia=TP giá, InpGiuToiDaNen=hold, InpCatLo
 | Đường dẫn (trong repo `grok_systems/v3/`) | Nội dung |
 |---|---|
 | `README_SCENARIOS.md` | tài liệu này |
+| `pdf/TomTat_KichBan_Vang_SP500_2026-11-28.pdf` | bản PDF tóm tắt 6 trang (kịch bản 100k, chỉ vàng, chỉ SP500) |
 | `SUMMARY_V3.md` | nhật ký đầy đủ các vòng 1–6 (bảng số) |
 | `COVERAGE.md` | danh sách họ tín hiệu đã/chưa thử |
 | `code/` | toàn bộ code Python (engine, tín hiệu, battery, tối ưu, MT5 job builders) |
